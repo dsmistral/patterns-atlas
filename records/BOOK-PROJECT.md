@@ -64,9 +64,9 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 
 | Session | Date | Unit | Verdict |
 |---|---|---|---|
-| S01 | 2026-10-27 | Bootstrap: records, P-index seed (24 entries), chapter map, index.html + stylesheet authored; repo push **pending** — the GitHub integration token cannot create repos (403); the user creates `patterns-atlas` manually, then the bootstrap commit (README, records, book/, session mirror) is pushed and S01 closes | open |
+| S01 | 2026-10-27 | Bootstrap: records, P-index seed (24 entries), chapter map, index.html + stylesheet authored; repo `patterns-atlas` created by user (integration token cannot create repos); bootstrap commit `40809fb088` pushed and fetch-back verified; session mirror deleted | **closed** |
 
-**Standing to-do:** (1) user creates repo `dsmistral/patterns-atlas`; (2) push bootstrap commit (all files staged and authored); (3) S02 = canon audit (Polya / Engel / Zeitz coverage vs the P-index) + author P01. **User gate:** approval of this plan is the gate before pattern-page authoring begins.
+**Standing to-do:** S02 = canon audit (Polya / Engel / Zeitz coverage vs the P-index) + author P01 (`p01-pin-down-the-problem.html`). **User gate:** approval of the plan was given implicitly by the repo creation; P-IDs lock at S02 start.
 
 ## Working Protocol
 
