@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Patterns Atlas — A Problem-Solver's Field Guide</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a></p>
+<h1>A Problem-Solver's Field Guide</h1>
+<p class="tagline">The load-bearing moves of mathematics, one move per page — written for school leavers.</p>
+</header>
+
+<nav class="toc">
+<ul>
+<li><a href="#about">What this book is</a></li>
+<li><a href="#how">How to read it</a></li>
+<li><a href="#spine">The spine (tier 1)</a></li>
+<li><a href="#tier2">Climbing higher (tier 2)</a></li>
+<li><a href="#multi">Multi-pattern problems</a></li>
+<li><a href="#evidence">Why these patterns</a></li>
+</ul>
+</nav>
+
+<section id="about">
+<h2>What this book is</h2>
+<p>This is not a textbook. There are no chapters on "quadratics" or "integration". Instead, this book teaches the <em>moves</em> — the reusable patterns of mathematical problem-solving — because moves, not topics, are what transfer to problems you have never seen before.</p>
+<p>Each pattern gets one page: you meet a problem first, watch the move work, learn when to reach for it, learn when it fails, and then practice diagnosing it yourself on graded exercises. Some problems need several moves at once; those live on separate pages of their own.</p>
+<p><strong>Who it is for:</strong> anyone who has finished class-12 mathematics. No proof-training or olympiad background is assumed. Where the book climbs above school math, it says so and builds a ladder.</p>
+</section>
+
+<section id="how">
+<h2>How to read it</h2>
+<p><strong>The ladder path (default):</strong> read the spine pages in order, P01 → P17. Each page opens by recalling the pages before it.</p>
+<p><strong>The repair path:</strong> stuck on a problem? Jump to the diagnosis guide (planned): answer three questions — what kind of claim is it, what shape does the problem have, what tools do you have — and get pattern candidates.</p>
+<p><strong>The dip-in path:</strong> every page is self-contained enough to read alone; prerequisites are linked at the top.</p>
+</section>
+
+<section id="spine">
+<h2>The spine (tier 1)</h2>
+<p>Seventeen load-bearing patterns, in learning order. Status: <span class="st planned">planned</span> · <span class="st drafting">drafting</span> · <span class="st reviewed">reviewed</span> · <span class="st published">published</span></p>
+<table>
+<thead><tr><th>ID</th><th>Pattern</th><th>One-line</th><th>Builds on</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>P01</td><td><a href="p01-pin-down-the-problem.html">Pin down the problem</a></td><td>Say precisely what you are asked, before you try to answer it.</td><td>—</td><td class="st planned">planned</td></tr>
+<tr><td>P02</td><td><a href="p02-small-cases.html">Experiment with small cases</a></td><td>Compute a table; patterns hide in the first few rows.</td><td>P01</td><td class="st planned">planned</td></tr>
+<tr><td>P03</td><td><a href="p03-special-cases.html">Stress-test with special cases</a></td><td>Check the extremes, the symmetric, the degenerate.</td><td>P02</td><td class="st planned">planned</td></tr>
+<tr><td>P04</td><td><a href="p04-complete-the-square.html">Complete the square</a></td><td>Rebalance an equation into a perfect square.</td><td>P01</td><td class="st planned">planned</td></tr>
+<tr><td>P05</td><td><a href="p05-canonical-form.html">Reduce to canonical form</a></td><td>Normalize the object; prove it once; translate back.</td><td>P04</td><td class="st planned">planned</td></tr>
+<tr><td>P06</td><td><a href="p06-compose-identity.html">Compose with identity</a></td><td>Combine two facts through an identity that preserves the property.</td><td>P05</td><td class="st planned">planned</td></tr>
+<tr><td>P07</td><td><a href="p07-auxiliary-construction.html">Build an auxiliary object</a></td><td>Invent the extra line, function, or number the problem forgot to give you.</td><td>P01–P03</td><td class="st planned">planned</td></tr>
+<tr><td>P08</td><td><a href="p08-symmetry.html">Divide by symmetry</a></td><td>Do one representative case; multiply by the orbit.</td><td>P05</td><td class="st planned">planned</td></tr>
+<tr><td>P09</td><td><a href="p09-invariant.html">Find the invariant</a></td><td>What does the process NOT change? That is the lever.</td><td>P03</td><td class="st planned">planned</td></tr>
+<tr><td>P10</td><td><a href="p10-pigeonhole.html">Force a collision</a></td><td>More objects than boxes ⇒ two objects share a box. Aim for it.</td><td>P09</td><td class="st planned">planned</td></tr>
+<tr><td>P11</td><td><a href="p11-contradiction.html">Prove by contradiction</a></td><td>Assume the opposite, run the machine, watch it break.</td><td>P01</td><td class="st planned">planned</td></tr>
+<tr><td>P12</td><td><a href="p12-obstruction.html">Name the obstruction</a></td><td>Impossible? Find the number that refuses to change — and say why.</td><td>P09, P11</td><td class="st planned">planned</td></tr>
+<tr><td>P13</td><td><a href="p13-descent.html">Infinite descent</a></td><td>A smallest counterexample that begets a smaller one cannot exist.</td><td>P11</td><td class="st planned">planned</td></tr>
+<tr><td>P14</td><td><a href="p14-diagonal.html">The diagonal argument</a></td><td>Build the one object the enumeration missed.</td><td>P10, P11</td><td class="st planned">planned</td></tr>
+<tr><td>P15</td><td><a href="p15-squeeze.html">Squeeze it</a></td><td>Trap the answer between two things you can compute.</td><td>P02</td><td class="st planned">planned</td></tr>
+<tr><td>P16</td><td><a href="p16-isomorphism.html">Same problem, different clothes</a></td><td>Relabel the problem so it becomes one you have already solved.</td><td>P05</td><td class="st planned">planned</td></tr>
+<tr><td>P17</td><td><a href="p17-duality.html">Flip to the dual</a></td><td>Solve the mirrored problem instead; translate the answer back.</td><td>P16</td><td class="st planned">planned</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="tier2">
+<h2>Climbing higher (tier 2)</h2>
+<p>Gentle university-ward extensions — each builds an explicit ladder from school math.</p>
+<table>
+<thead><tr><th>ID</th><th>Pattern</th><th>One-line</th><th>Builds on</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>P18</td><td>Lift to a higher dimension</td><td>A 2D problem may be a shadow of an easy 3D one.</td><td>P07, P16</td><td class="st planned">planned</td></tr>
+<tr><td>P19</td><td>Count the outcomes</td><td>Show something exists by proving a random pick finds it.</td><td>P10</td><td class="st planned">planned</td></tr>
+<tr><td>P20</td><td>Polynomial identity power</td><td>Agree at enough points, agree everywhere.</td><td>P05</td><td class="st planned">planned</td></tr>
+<tr><td>P21</td><td>Catch the limit point</td><td>Infinitely many attempts in a bounded room must crowd.</td><td>P15</td><td class="st planned">planned</td></tr>
+<tr><td>P22</td><td>Iterate to a fixed point</td><td>Repeat a contraction; it can only settle at the answer.</td><td>P15</td><td class="st planned">planned</td></tr>
+<tr><td>P23</td><td>Interpolate and continue</td><td>Hold on to a formula that works on integers; carry it across.</td><td>P05</td><td class="st planned">planned</td></tr>
+<tr><td>P24</td><td>Split into waves</td><td>Complicated signals are sums of simple ones.</td><td>P15</td><td class="st planned">planned</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="multi">
+<h2>Multi-pattern problems</h2>
+<p>Separate pages for problems that need several moves at once — the real test of pattern fluency.</p>
+<table>
+<thead><tr><th>ID</th><th>Problem</th><th>Moves</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>M01</td><td><a href="m01-root-two-irrational.html">√2 is irrational</a></td><td>P05 + P11 + P13</td><td class="st planned">planned</td></tr>
+<tr><td>M02</td><td><a href="m02-two-squares.html">Sums of two squares</a></td><td>P06 + P13</td><td class="st planned">planned</td></tr>
+<tr><td>M03</td><td><a href="m03-picks-theorem.html">Pick's theorem</a></td><td>P02 + P09</td><td class="st planned">planned</td></tr>
+<tr><td>M04</td><td><a href="m04-ramsey-3-3.html">Six people at a party (R(3,3) = 6)</a></td><td>P08 + P10</td><td class="st planned">planned</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="evidence">
+<h2>Why these patterns</h2>
+<p>The selection is not taste. It comes from measuring a large machine-readable knowledge graph of mathematical techniques (15,941 nodes, 26,614 edges), where each technique records the theorems it helped prove: the spine patterns are the most-reused techniques of school-accessible mathematics, ranked by how many distinct theorems they participate in — e.g. reduce-to-canonical-form fires in 430 chains, compose-with-identity in 354, squeeze in 343. The evidence number for every pattern is printed on its page, honestly — including where the graph data is noisy.</p>
+</section>
+
+<footer>
+<p><em>The Patterns Atlas</em> — manuscript in progress. Status legend: planned → drafting → reviewed → published. This index grows with the book; nothing published is ever rewritten.</p>
+</footer>
+</body>
+</html>
