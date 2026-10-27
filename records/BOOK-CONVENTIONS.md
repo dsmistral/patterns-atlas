@@ -2,9 +2,15 @@
 
 ## Audience floor
 
-- Class-12 pass-out. Every term beyond the CBSE/ISC-12 syllabus is defined at first use in an on-ramp box ("New word: …").
-- No syllabus ceiling on reach (user policy, 2026-10-27), but every beyond-syllabus idea arrives with an honest ladder: concrete artifact first, definition after.
+- **Class-12 is the entry level, not the ceiling** (user, 2026-10-27): "One does not remain class 12 level when they keep learning." The reader starts at the spine and teaches themselves upward through the tiers.
+- Every term beyond what earlier pages have built is defined at first use in an on-ramp box ("New word: …"). At tiers 3–5 the prerequisite ladder stays *inside the book* — a page may lean on earlier tier-3/4 pages, never on outside knowledge silently.
+- No reach ceiling. Every beyond-syllabus idea arrives with an honest ladder: concrete artifact first, definition after.
 - Tone: first-person plural, respect without condescension — the reader is capable; they just haven't seen these moves yet.
+
+## Page types
+
+- **Lesson pages** (tiers 1–4): the full 9-block pattern page template below.
+- **Orientation pages** (tier 5, research frontier): shorter, honest pages — what the tool is for, one showcase result *labeled as a sketch* naming exactly what is missing, the prerequisite ladder inside this book (linked P-IDs), what it changed, and pointers. Orientation pages never pretend a research field is self-contained in one page; they orient a self-teacher who has climbed this far.
 
 ## Page format (masters)
 
