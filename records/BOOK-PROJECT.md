@@ -127,6 +127,7 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 |---|---|---|---|
 | S01 | 2026-10-27 | Bootstrap: records, P-index seed (24 entries), chapter map, index.html + stylesheet authored; repo `patterns-atlas` created by user (integration token cannot create repos); bootstrap commit `40809fb088` pushed and fetch-back verified; session mirror deleted | **closed** |
 | S01b | 2026-10-27 | Charter extension (user): full-registry coverage — P-index extended P25–P65 (65 patterns, tiers 1–5); class-12 redefined as entry level, not ceiling; deferrals replaced by coverage policy; conventions gained lesson/orientation page types; index.html extended (revision R1) and records synced to repo | **closed** |
+| S01c | 2026-10-27 | Repo agent-portability (user request: continue the work with Gemini): added `AGENTS.md` (agent entry point) + `GEMINI.md` pointer; added `records/WORKING-PROTOCOL.md` (repo-canonical restatement of the operating rules); ported `records/DISCOVERY-ENGINE-ANALYSIS.md` + `records/MCFEE-STYLE-STUDY.md` (evidence base + style fingerprint, previously environment-only); README extended. Any AI agent with repo write access can now continue from the repo alone | **closed** |
 
 **Standing to-do:** S02 = canon audit (Polya / Engel / Zeitz coverage vs the P-index; append canon additions P66+) + author P01 (`p01-pin-down-the-problem.html`). **User gate:** plan approved (repo creation + charter extension); P-IDs lock at S02 start.
 
@@ -139,5 +140,6 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 - Published pages are never rewritten: fixes extend (revision section at page foot + session log).
 - P-index: append/demote only; P-IDs and slugs immutable.
 - Publishing (repo visibility, GitHub Pages) is a user gate.
+- Agent portability (S01c): the repo is self-contained for continuing agents — `AGENTS.md` is the entry point; `records/WORKING-PROTOCOL.md` restates this protocol in repo-only terms; the discovery-engine analysis and the McFee style study are mirrored into `records/` so agents without access to the authoring environment (e.g., Gemini) can work from the repo alone.
 
 **Standing source links** — discovery-engine (pattern sources): https://github.com/ansumandas441/mathematical-discovery-engine (toolbox: `10_toolbox.md`; techniques prose: `09_discovery_techniques.md`; graph: `knowledge_graph.json`). Canon to cross-check: Polya, *How to Solve It*; Engel, *Problem-Solving Strategies*; Zeitz, *The Art and Craft of Problem Solving*.
