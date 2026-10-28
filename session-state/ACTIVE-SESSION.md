@@ -1,15 +1,21 @@
-# ACTIVE SESSION — S08 (author P05)
+# ACTIVE SESSION — S08 (Patterns Atlas)
 
-Unit: author pattern page P05 `book/p05-canonical-form.html` (9-block template). Prereq P04 (published); bridge gate satisfied — B01–B02 published. Mandated worked application: reduce mod n to a canonical representative, linking B01–B02 (binding) — carried in Example 2 with the three demands checked against B01's division algorithm and B02's Box B02.A.
+**Unit:** Author P05 `p05-canonical-form.html` (spine resumes after the bridge; gate satisfied — B01–B02 published; mandated application: reduce mod n to a canonical representative, linking B01–B02).
 
-Completed:
-- [x] Session design + S08 row IN PROGRESS; pages P04/B01/B02 fetched and re-validated after a platform retry (byte-identical).
-- [x] Page authored (34,036 B): encounter = surd sum √50−√18+√8 = 4√2 (exact square check 32) and 2026⁷⁷−2026 divisibility (NOT divisible; 2026 ≡ 3, 3⁷⁷ ≡ 5 mod 7, remainder 2; 255 digits); Boxes P05/P05.A (three demands: legality, class-preservation, uniqueness)/P05.B (catalogue: surds, fractions, residues, parabolas); exemplars: surd system with uniqueness debt named (Euclid's lemma → B03–B04), THE MANDATE mod n, parabola translation classification with invariant a; fails: quotient-forgetting, unlicensed division, canonical ≠ simpler, expensive canonical forms (graph isomorphism), P04's cross-term debt reduced to a named deferral (boundedness |B|<2 PROVED via (|x|−|y|)², degenerate |B|=2 lines, unbounded |B|>2 witnessed by Pell family, induction → P66, rotation → B05–B08); exercises 1–5 (√147+√75−√27 = 9√3; mod-13 census x²≡3 → {4,9}, x²≡7 impossible; 2026/4782 = 1013/2391 with Euclid's lemma honesty; ◆ √(7+4√3) = 2+√3 with sign-pinning; ◐ conic family).
-- [x] Fresh battery: probe ok; piece 1 RUN 2 (run 1 vacuous uniqueness check — replaced by all-representations enumeration: 499 n, exactly one each); piece 2 RUN 2 (run 1 cycle off-by-one — track and page were right); piece 3 clean first run (gcd chain 11 steps, 1013/797 prime, 2391=3·797, uniqueness grid 784 pairs 0 violations, vertex-form sweep 891 samples 0 bad, translation match 61 points 0 bad, (t,s) searches 0 matches); piece 4 RUN 2 (run 1 recorded unreduced rational representations — deduped: exactly one value 2+√3; inequality 3969 checks 0 violations, degenerate lines exact, Pell recurrence identity 0 mismatches, 5 witnesses → 10 exact curve points unbounded).
-- [x] Adversarial verifier (fresh engine, zero shared code, subtraction-based remainders, no % operator): run 1 scored 12/14 — V8/V11 inverted boolean rows (same class as B02's verifier run 1), caught by the machine-counted verdict line; run 2: 14/14 caught, 2/2 positive controls, PASS.
-- [x] Lab authored + verified against transcripts (all values match); output file with honest run history header.
-- [x] Hygiene gates: 0 forbidden formats, 0 raw $-TeX; all 20 hrefs canonical against index enumeration; style audit vs 13-move fingerprint passed.
-- [x] Index edited: P05 status planned → published; R10 revision entry appended.
-- [x] PUSH IN FLIGHT: book/p05-canonical-form.html, book/labs/p05-lab.js, book/labs/p05-lab-output.txt, book/index.html (R10).
+**Status: CLOSING.** All steps checked:
 
-Next: fetch-back byte-diff all four files; records close (S08 row → closed; standing to-do → B12 before P06); KNOWLEDGE.md status; push records + closing mirror; delete mirror; close report.
+- [x] Session opened; mirror pushed (commit `d9ea39e2`).
+- [x] Page authored (9-block template; onramp aside; Boxes P05 / P05.A / P05.B; three exemplars incl. the mandated mod-n application; five failure modes incl. P04's cross-term debt paid honestly — boundedness proved for |B| < 2, Pell witnesses for |B| > 2, rotation deferred to B05–B08, induction deferred to P66; Exercises 1–5; graph footer with 430-chain cross-chain evidence and honesty notes).
+- [x] Fresh verification battery: 4 pieces + pre-flight probe, deterministic, no recursion, no BigInt in the value path, pieces <= 4 KB.
+- [x] Honest run history: piece 1 run 1 vacuous uniqueness check -> run 2 all-representations enumeration (499 n, zero exceptions); piece 2 run 1 cycle-index off-by-one -> run 2 clean (track and page were right: 5); piece 4 run 1 unreduced rational representations -> run 2 gcd-reduced (exactly one rational value); piece 3 clean single run.
+- [x] Adversarial review: fresh verifier engine, zero shared code (subtraction-based remainders, no % operator, difference-based gcd, direct translation search). Run 1: 12/14 (V8, V11 inverted boolean rows — caught by the machine-counted verdict line); run 2: 14/14 must-fail injections caught, 2/2 positive controls. PASS.
+- [x] Style audit vs the 13-move fingerprint passed; hygiene grep 0 forbidden formats.
+- [x] Platform retry mid-session: scratch wiped; standing files re-fetched byte-identical; battery transcripts regenerated deterministically.
+- [x] Lab `book/labs/p05-lab.js` (9,643 B) + recorded output `book/labs/p05-lab-output.txt` (6,134 B) with honest run history.
+- [x] Index extended (R10; P05 published; revision-log entry with full receipts).
+- [x] Artifacts pushed at commit `60f9a907` (page 34,036 B + lab + output + index + mirror checkpoint).
+- [x] Fetch-back byte-diff verified: all four repo files identical to local masters (34,036 / 9,643 / 6,134 / 32,712 B; md5 match on the three recorded; markers verified: box-p05, box-p05a, box-p05b present; no r1 id; index R10 entry + P05 published row).
+- [x] Records closed: S08 row CLOSED with full verdict + receipts; standing to-do advanced to S09 = bridge B12 `b12-brahmagupta-fibonacci.html` (before P06; P06 mandate: Brahmagupta–Fibonacci identity via |z1z2|^2 = |z1|^2 |z2|^2, link B12); P-index P05 row -> published; KNOWLEDGE.md status updated.
+- [x] Records + this closing mirror pushed in one commit.
+
+**Remaining:** delete this mirror (session-state/ACTIVE-SESSION.md) and deliver the honest close report. Session closes with this push.
