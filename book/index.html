@@ -19,6 +19,7 @@
 <li><a href="#how">How to read it</a></li>
 <li><a href="#spine">The spine (tier 1)</a></li>
 <li><a href="#tier2">First climbs (tier 2)</a></li>
+<li><a href="#canon">Canon additions (tier 2)</a></li>
 <li><a href="#tier3">The university core (tier 3)</a></li>
 <li><a href="#tier4">The graduate shelf (tier 4)</a></li>
 <li><a href="#tier5">The research frontier (tier 5)</a></li>
@@ -48,7 +49,7 @@
 <table>
 <thead><tr><th>ID</th><th>Pattern</th><th>One-line</th><th>Builds on</th><th>Status</th></tr></thead>
 <tbody>
-<tr><td>P01</td><td><a href="p01-pin-down-the-problem.html">Pin down the problem</a></td><td>Say precisely what you are asked, before you try to answer it.</td><td>—</td><td class="st planned">planned</td></tr>
+<tr><td>P01</td><td><a href="p01-pin-down-the-problem.html">Pin down the problem</a></td><td>Say precisely what you are asked, before you try to answer it.</td><td>—</td><td class="st published">published</td></tr>
 <tr><td>P02</td><td><a href="p02-small-cases.html">Experiment with small cases</a></td><td>Compute a table; patterns hide in the first few rows.</td><td>P01</td><td class="st planned">planned</td></tr>
 <tr><td>P03</td><td><a href="p03-special-cases.html">Stress-test with special cases</a></td><td>Check the extremes, the symmetric, the degenerate.</td><td>P02</td><td class="st planned">planned</td></tr>
 <tr><td>P04</td><td><a href="p04-complete-the-square.html">Complete the square</a></td><td>Rebalance an equation into a perfect square.</td><td>P01</td><td class="st planned">planned</td></tr>
@@ -83,6 +84,28 @@
 <tr><td>P23</td><td><a href="p23-interpolate.html">Interpolate and continue</a></td><td>Hold on to a formula that works on integers; carry it across.</td><td>P05</td><td class="st planned">planned</td></tr>
 <tr><td>P24</td><td><a href="p24-waves.html">Split into waves</a></td><td>Complicated signals are sums of simple ones.</td><td>P15</td><td class="st planned">planned</td></tr>
 <tr><td>P25</td><td><a href="p25-machine-cases.html">Check every case by machine</a></td><td>If the possibilities are finite, let the computer count them all.</td><td>P03</td><td class="st planned">planned</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="canon">
+<h2>Canon additions (tier 2)</h2>
+<p>Patterns owned by the problem-solving canon — Pólya, Engel, Zeitz — that the registry graph missed. Appended in the S02 canon audit (2026-10-28); evidence and receipts in <code>records/CANON-AUDIT.md</code>.</p>
+<table>
+<thead><tr><th>ID</th><th>Pattern</th><th>One-line</th><th>Builds on</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>P66</td><td><a href="p66-induction.html">Prove by induction</a></td><td>Base case plus one honest step: the ladder carries every rung.</td><td>P02</td><td class="st planned">planned</td></tr>
+<tr><td>P67</td><td><a href="p67-contrapositive.html">Prove the contrapositive</a></td><td>"If A then B" is exactly "not B, then not A". Prove the twin.</td><td>P11</td><td class="st planned">planned</td></tr>
+<tr><td>P68</td><td><a href="p68-wlog.html">Without loss of generality</a></td><td>One case, honestly argued, speaks for its whole orbit.</td><td>P08</td><td class="st planned">planned</td></tr>
+<tr><td>P69</td><td><a href="p69-telescoping.html">Telescoping</a></td><td>Write the sum so the middle terms cancel themselves.</td><td>P02</td><td class="st planned">planned</td></tr>
+<tr><td>P70</td><td><a href="p70-double-counting.html">Double counting</a></td><td>Count the same set two ways; the two answers must agree.</td><td>P02</td><td class="st planned">planned</td></tr>
+<tr><td>P71</td><td><a href="p71-extremal-principle.html">The extremal principle</a></td><td>Take the largest or smallest one — it knows something.</td><td>P03</td><td class="st planned">planned</td></tr>
+<tr><td>P72</td><td><a href="p72-monovariants.html">Monovariants</a></td><td>Find the quantity that only moves one way; the end is near.</td><td>P09</td><td class="st planned">planned</td></tr>
+<tr><td>P73</td><td><a href="p73-generating-functions.html">Generating functions</a></td><td>Wear the sequence as a polynomial; algebra counts for you.</td><td>P05, P06</td><td class="st planned">planned</td></tr>
+<tr><td>P74</td><td><a href="p74-strengthen-the-claim.html">Strengthen the claim</a></td><td>Prove more than asked: a stronger ladder is easier to climb.</td><td>P66</td><td class="st planned">planned</td></tr>
+<tr><td>P75</td><td><a href="p75-coloring-arguments.html">Coloring arguments</a></td><td>Paint the board; color mismatches prove impossibilities.</td><td>P09</td><td class="st planned">planned</td></tr>
+<tr><td>P76</td><td><a href="p76-inclusion-exclusion.html">Inclusion–exclusion</a></td><td>Add, subtract the overlaps, add back the overlaps of overlaps…</td><td>P70</td><td class="st planned">planned</td></tr>
+<tr><td>P77</td><td><a href="p77-work-backwards.html">Work backwards</a></td><td>Start from the answer's doorstep and walk home.</td><td>P01</td><td class="st planned">planned</td></tr>
 </tbody>
 </table>
 </section>
@@ -178,7 +201,7 @@
 
 <footer>
 <p><em>The Patterns Atlas</em> — manuscript in progress. Status legend: planned → drafting → reviewed → published. This index grows with the book; published pages are never rewritten, only extended with logged revisions.</p>
-<p class="revision"><strong>Revision log</strong> — R1 (2026-10-27): charter extended per the owner's direction — full registry coverage; tiers 3–5 added (P26–P65); class-12 restated as the entry level, not the ceiling; tier-5 defined as orientation pages; tier-2 table extended by P25; "about", "how to read", and "evidence" updated accordingly.</p>
+<p class="revision"><strong>Revision log</strong> — R1 (2026-10-27): charter extended per the owner's direction — full registry coverage; tiers 3–5 added (P26–P65); class-12 restated as the entry level, not the ceiling; tier-5 defined as orientation pages; tier-2 table extended by P25; "about", "how to read", and "evidence" updated accordingly. R2 (2026-10-28, session S02): canon audit complete — canon additions P66–P77 appended (new section, slugs enumerated below); P01 published (page + labs). Receipts: records/CANON-AUDIT.md; session log records/BOOK-PROJECT.md.</p>
 </footer>
 </body>
 </html>
