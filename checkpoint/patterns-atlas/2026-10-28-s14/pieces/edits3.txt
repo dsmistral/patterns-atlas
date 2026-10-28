@@ -1,0 +1,30 @@
+109	Write x² − 8x + 3 in vertex form	Write \(x^2 - 8x + 3\) in vertex form
+110	Half of −8 is −4, and the corner is (−4)².	Half of \(-8\) is \(-4\), and the corner is \((-4)^2\).
+111	Add and subtract 16: x² − 8x + 3 = (x − 4)² − 16 + 3 = (x − 4)² − 13.	Add and subtract 16: \(x^2 - 8x + 3 = (x - 4)^2 - 16 + 3 = (x - 4)^2 - 13\).
+111	equality exactly at x = 4 — proved,	equality exactly at \(x = 4\) — proved,
+111	zero mismatches over x = −30…30, and the integer-grid minimum is −13 at x = 4.	zero mismatches over \(x = -30\ldots 30\), and the integer-grid minimum is −13 at \(x = 4\).
+114	Write 2x² + 12x + 7 in vertex form a(x − h)² + k, and state	Write \(2x^2 + 12x + 7\) in vertex form \(a(x - h)^2 + k\), and state
+115	Factor 2 out of the first two terms only: 2(x² + 6x) + 7 — now complete	Factor 2 out of the first two terms only: \(2(x^2 + 6x) + 7\) — now complete
+116	<p>2(x² + 6x) + 7 = 2((x + 3)² − 9) + 7 = 2(x + 3)² − 11. Minimum −11 at x = −3.	<p>\(2(x^2 + 6x) + 7 = 2((x + 3)^2 - 9) + 7 = 2(x + 3)^2 - 11\). Minimum −11 at \(x = -3\).
+116	the <em>whole</em> expression is 12x only when read through the factor 2: the corner inside the parentheses is half of 6, not half of 12. Paying the corner before factoring a out is the classic slip	the <em>whole</em> expression is \(12x\) only when read through the factor 2: the corner inside the parentheses is half of \(6\), not half of \(12\). Paying the corner before factoring \(a\) out is the classic slip
+116	the identity 2x² + 12x + 7 = 2(x + 3)² − 11 holds with zero mismatches over x = −30…30, and the grid minimum is −11 at x = −3 (and not −9 at x = −2, which	the identity \(2x^2 + 12x + 7 = 2(x + 3)^2 - 11\) holds with zero mismatches over \(x = -30\ldots 30\), and the grid minimum is −11 at \(x = -3\) (and not −9 at \(x = -2\), which
+119	Compute ∫ dx ⁄ (x² + 4x + 13). Name	Compute \(\int dx/(x^2 + 4x + 13)\). Name
+120	<p>x² + 4x + 13 = (x + 2)² + 9 — a sum	<p>\(x^2 + 4x + 13 = (x + 2)^2 + 9\) — a sum
+120	applies: ∫ du ⁄ (u² + a²) = (1 ⁄ a) arctan(u ⁄ a) + C.	applies: \(\int du/(u^2 + a^2) = (1/a)\arctan(u/a) + C\).
+121	<p>With u = x + 2 and a = 3: ∫ dx ⁄ ((x + 2)² + 9) = (1 ⁄ 3) arctan((x + 2) ⁄ 3) + C.	<p>With \(u = x + 2\) and \(a = 3\): \(\int dx/((x + 2)^2 + 9) = (1/3)\arctan((x + 2)/3) + C\).
+121	grid point from −12 to 12, with largest error 5.2 × 10⁻¹¹ — numerical-differentiation	grid point from \(-12\) to \(12\), with largest error \(5.2 \times 10^{-11}\) — numerical-differentiation
+121	Simpson's rule on ∫ from −6 to 4 agrees with the antiderivative to 7.2 × 10⁻¹⁴.	Simpson's rule on \(\int\) from \(-6\) to \(4\) agrees with the antiderivative to \(7.2 \times 10^{-14}\).
+124	solutions of x² + 14x = y² + 6y + 1 — by the route	solutions of \(x^2 + 14x = y^2 + 6y + 1\) — by the route
+126	<p>(x + 7)² − 49 = (y + 3)² − 8, so (x + 7)² − (y + 3)² = 41, so (x − y + 4)(x + y + 10) = 41.	<p>\((x + 7)^2 - 49 = (y + 3)^2 - 8\), so \((x + 7)^2 - (y + 3)^2 = 41\), so \((x - y + 4)(x + y + 10) = 41\).
+126	a scan of [−40, 40]² that there are no others	a scan of \([-40, 40]^2\) that there are no others
+129	Prove that x⁴ − 4x² + 4 is never negative for any real x —	Prove that \(x^4 - 4x^2 + 4\) is never negative for any real \(x\) —
+130	not a quadratic in x — but Box	not a quadratic in \(x\) — but Box
+130	the diagnosis: with u = x², the expression is u² − 4u + 4, quadratic in u. Complete the corner: (u − 2)², so x⁴ − 4x² + 4 = (x² − 2)², a square,	the diagnosis: with \(u = x^2\), the expression is \(u^2 - 4u + 4\), quadratic in \(u\). Complete the corner: \((u - 2)^2\), so \(x^4 - 4x^2 + 4 = (x^2 - 2)^2\), a square,
+130	no negative values anywhere in [−40, 40].	no negative values anywhere in \([-40, 40]\).
+130	the minimum shown is 1 (at x = ±1), but the true minimum 0 is attained at x = ±√2 — outside the grid.	the minimum shown is 1 (at \(x = \pm 1\)), but the true minimum 0 is attained at \(x = \pm\sqrt{2}\) — outside the grid.
+130	proofs (the square argument) see all of ℝ at once.	proofs (the square argument) see all of \(\mathbb{R}\) at once.
+133	Complete the square on x² + bx + c and study the leftover c − b² ⁄ 4.	Complete the square on \(x^2 + bx + c\) and study the leftover \(c - b^2/4\).
+133	roots the equation x² + bx + c = 0 has?	roots the equation \(x^2 + bx + c = 0\) has?
+133	leftover and the discriminant b² − 4c — then explain	leftover and the discriminant \(b^2 - 4c\) — then explain
+139	reversible steps: the ± on the square root).	reversible steps: the \(\pm\) on the square root).
+140	zero mismatches, zero negatives).</p>	zero mismatches, zero negatives). Formatting pass (R1) lab: <code>labs/p04-format-pass.js</code> with recorded output <code>labs/p04-format-pass-output.txt</code> — every numeric claim on this page re-verified against the R0 receipts, plus TeX and SVG sanity checks.</p>

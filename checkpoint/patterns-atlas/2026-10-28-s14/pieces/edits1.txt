@@ -1,0 +1,20 @@
+16	<strong>a(x − h)² + k</strong>	<strong>\(a(x - h)^2 + k\)</strong>
+26	is x² + 10x + 41 ever equal to zero, for any real x?	is \(x^2 + 10x + 41\) ever equal to zero, for any real \(x\)?
+26	solve <em>x² + 10x = 39</em>.	solve <em>\(x^2 + 10x = 39\)</em>.
+26	(39 = 3 × 13, and x² + 10x − 39 = (x + 13)(x − 3))	(\(39 = 3 \times 13\), and \(x^2 + 10x - 39 = (x + 13)(x - 3)\))
+27	Take the square x² and the ten roots as two 5-by-x rectangles	Take the square \(x^2\) and the ten roots as two 5-by-\(x\) rectangles
+27	the missing corner is 5 × 5 = 25.	the missing corner is \(5 \times 5 = 25\).
+28	<p style="text-align: center">x² + 10x + 25 = 39 + 25, &nbsp;so&nbsp; (x + 5)² = 64,</p>	<p class="eq">\[x^2 + 10x + 25 = 39 + 25, \quad\text{so}\quad (x + 5)^2 = 64,\]</p>
+29	at sight: x + 5 = 8, so x = 3.	at sight: \(x + 5 = 8\), so \(x = 3\).
+29	the second sign, x + 5 = −8, so x = −13	the second sign, \(x + 5 = -8\), so \(x = -13\)
+29	the lab checks both: 9 + 30 = 39 and 169 − 130 = 39.	the lab checks both: \(9 + 30 = 39\) and \(169 - 130 = 39\).
+31	<p style="text-align: center">x² + 10x + 41 = (x² + 10x + 25) + 41 − 25 = (x + 5)² + 16.</p>	<p class="eq">\[x^2 + 10x + 41 = (x^2 + 10x + 25) + 41 - 25 = (x + 5)^2 + 16.\]</p>
+32	it equals 16 exactly at x = −5.	it equals 16 exactly at \(x = -5\).
+32	(the values dip to 16 at x = −5 and climb on both sides)	(the values dip to 16 at \(x = -5\) and climb on both sides)
+42	For x² + bx + c, the corner is (b ⁄ 2)² and the leftover is c − b² ⁄ 4:	For \(x^2 + bx + c\), the corner is \((b/2)^2\) and the leftover is \(c - b^2/4\):
+44	<strong>Equation</strong> x² + bx = d: add (b ⁄ 2)² to	<strong>Equation</strong> \(x^2 + bx = d\): add \((b/2)^2\) to
+44	applied to the ±).	applied to the \(\pm\)).
+45	<strong>Expression</strong> x² + bx + c: add and subtract (b ⁄ 2)²: you get (x + b ⁄ 2)² + (c − b² ⁄ 4).	<strong>Expression</strong> \(x^2 + bx + c\): add and subtract \((b/2)^2\): you get \((x + b/2)^2 + (c - b^2/4)\).
+46	<strong>Leading coefficient</strong> a ≠ 1: factor a out of the first two terms first (Example 1 does this at full scale), or divide the equation by a.	<strong>Leading coefficient</strong> \(a \ne 1\): factor \(a\) out of the first two terms first (Example 1 does this at full scale), or divide the equation by \(a\).
+47	disappears: 4(x² + bx + c) = (2x + b)² + 4c − b². No halves	disappears: \(4(x^2 + bx + c) = (2x + b)^2 + 4c - b^2\). No halves
+51	(Exercise 5 squares x² itself)	(Exercise 5 squares \(x^2\) itself)
