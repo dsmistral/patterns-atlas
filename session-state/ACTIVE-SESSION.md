@@ -1,11 +1,13 @@
 # ACTIVE SESSION — S16 (formatting retrofit pass B01)
 
-Session S16, opened 2026-10-28. Unit: formatting retrofit pass B01 under the S10 charter — target `book/b01-remainders.html`, R0 → R1 (math → TeX, standard MathJax block, SVG figures, revision-log R1, fresh formatting-verifier lab; same gates as S11–S15).
+Session S16, 2026-10-28. Unit complete locally; TWO-GATED PUSH IN FLIGHT.
 
-## State (updated every completed step)
-- R0 master fetched fresh from main: 17,015 B, 108 lines, md5 7de84e420bd69c96320de29a4a89f41c (local scratch, not durable).
-- Standard MathJax block source: repo P05 R1 lines 8–9, md5 120928f52c10a789eef3606219254605.
-- Next step: author R1 page (TeX conversion + 3 SVG figures: 47-sweets boxes; the legal-window number line for b = 5; the powers-of-7 units-digit cycle), assemble, gates (tag-stripped diff, byte gate), fresh lab b01-format-pass.js (10 pieces), two-gated push + fetch-back (records via split-read — 60 KB in-sandbox read cap), records ALWAYS-SYNC, KNOWLEDGE.md update, mirror delete.
+## State (all byte-verified locally)
+- R1 page b01-r1.html: 29,336 B, 196 lines, md5 111ec1fa12ad5472a534437b (gates green: 91/91 inline = 90 content + 1 config, display 2/2 = 1 content + config, zero $$, 7 sections, 3 figures/SVGs/figcaptions, 6 fig-id literals, eq-class 1, text-align 0, mojibake 0, placeholder 0, MathJax block md5 120928f52c10a789eef3606219254605).
+- Lab b01-format-pass.js: 22,191 B, 350 lines, md5 63ba9fb36c4689a48b8d1fbf39ae3399 (10 pieces; run 1: P10b parse defect fixed; run 2 clean; run 3 = final bytes, ALL PIECES PASS).
+- Output b01-format-pass-output.txt: 7,422 B, 119 lines, md5 fd90b3933c1b29619c85a38ebac635f0.
+- Records records-new.txt: 73,340 B, 231 lines (S16 row CLOSED + standing to-do advanced to S17 = pass B02).
+- Next: push these 4 files to main (records split-read, 5 chunks), fetch-back byte-diff each, sync knowledge copy, update KNOWLEDGE.md, delete this mirror, close report.
 
 ## Crash-resume
-- If this file exists past close, read records/BOOK-PROJECT.md session log row S16 for state; local scratch holds working artifacts (not durable); repo is master of record.
+- If this mirror persists, first check whether the artifact push landed: fetch book/b01-remainders.html and compare md5 111ec1fa12ad5472a61a5817a534437b. The repo is master of record.
