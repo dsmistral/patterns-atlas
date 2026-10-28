@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>P01 — Pin down the problem · The Patterns Atlas</title>
 <link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -28,12 +30,12 @@
 <p>Let us do what we should have done before answering anything: pin the problem down. Write down exactly what was said.</p>
 <ul>
 <li>Let the ball cost <strong>b</strong> rupees.</li>
-<li>“The bat costs ₹100 <em>more than the ball</em>” pins to: bat = <strong>b + 100</strong>. (Not: bat = 100. That is a different sentence.)</li>
-<li>“Together ₹110” pins to: <strong>b + (b + 100) = 110</strong>.</li>
+<li>“The bat costs ₹100 <em>more than the ball</em>” pins to: <strong>\(\text{bat} = b + 100\)</strong>. (Not: bat = 100. That is a different sentence.)</li>
+<li>“Together ₹110” pins to: <strong>\(b + (b + 100) = 110\)</strong>.</li>
 </ul>
-<p>Now the problem is finished with us: 2b = 10, so <strong>b = 5</strong>. The ball costs ₹5, the bat ₹105. Check: 105 − 5 = 100 ✓, and 5 + 105 = 110 ✓.</p>
+<p>Now the problem is finished with us: \(2b = 10\), so <strong>\(b = 5\)</strong>. The ball costs ₹5, the bat ₹105. Check: \(105 - 5 = 100\) ✓, and \(5 + 105 = 110\) ✓.</p>
 <p>Notice where the intuitive answer came from. “₹10” is the correct answer to a nearby but different problem — “the bat costs ₹100, what does the ball cost?” Our intuition solved that one, and handed us its answer. The arithmetic was never the difficulty; the difficulty was which problem we were solving.</p>
-<aside class="aside"><strong>Verify it, don't trust it.</strong> We machine-checked the pinned statement and the intuitive one: with b = 5, bat − ball = 100 and the total is 110; with b = 10, the bat would have to be ₹110 to cost ₹100 more, making the total ₹120 — not ₹110. Recorded in this page's lab (<a href="#graphfooter">block 9</a>). Small checks like this are cheap; we will run them throughout the book.</aside>
+<aside class="aside"><strong>Verify it, don't trust it.</strong> We machine-checked the pinned statement and the intuitive one: with \(b = 5\), bat − ball = 100 and the total is 110; with \(b = 10\), the bat would have to be ₹110 to cost ₹100 more, making the total ₹120 — not ₹110. Recorded in this page's lab (<a href="#graphfooter">block 9</a>). Small checks like this are cheap; we will run them throughout the book.</aside>
 </section>
 
 <section id="name">
@@ -74,32 +76,130 @@
 <p>Three worked examples, one per domain. In each, watch the pinning do real work — not ceremony.</p>
 
 <h3>Example 1 (numbers) — “the sum of two odd numbers is even”</h3>
-<p>Pin it down (checklist, in order): <em>odd</em> means an integer of the form 2k + 1 for some whole k; <em>even</em> means 2m for some whole m. The givens: two such numbers, call them 2k + 1 and 2j + 1. The target: prove-for-all — the sum is even, for every choice.</p>
-<p>Now the “proof” is one line of arithmetic: (2k + 1) + (2j + 1) = 2k + 2j + 2 = 2(k + j + 1). Even. Notice what happened: once the terms are pinned, the proof <em>is</em> the pinning — there is no further idea to find. This is the mark of a well-pinned problem: it becomes easy to see what remains to be done. <span class="pid">Moves used: P01.</span></p>
+<p>Pin it down (checklist, in order): <em>odd</em> means an integer of the form \(2k + 1\) for some whole k; <em>even</em> means \(2m\) for some whole m. The givens: two such numbers, call them \(2k + 1\) and \(2j + 1\). The target: prove-for-all — the sum is even, for every choice.</p>
+<p>Now the “proof” is one line of arithmetic:</p>
+<p class="eq">\[(2k + 1) + (2j + 1) = 2k + 2j + 2 = 2(k + j + 1).\]</p>
+<p>Even. Notice what happened: once the terms are pinned, the proof <em>is</em> the pinning — there is no further idea to find. This is the mark of a well-pinned problem: it becomes easy to see what remains to be done. <span class="pid">Moves used: P01.</span></p>
 
 <h3>Example 2 (counting, geometry) — diagonals of a 12-sided polygon</h3>
 <p>“How many diagonals does a convex polygon with 12 sides have?”</p>
 <p>Pinned: a <strong>diagonal</strong> is the segment joining two vertices that are <em>not</em> adjacent (adjacent pairs are the sides, and sides are not diagonals). So: count the pairs of vertices, subtract the pairs that are sides:</p>
 <ul>
-<li>pairs of vertices: 12 × 11 ⁄ 2 = 66,</li>
+<li>pairs of vertices: \(12 \times 11/2 = 66\),</li>
 <li>minus the 12 sides,</li>
 <li>= <strong>54 diagonals</strong>.</li>
 </ul>
-<p>Notice what the pinning bought: the moment “diagonal” became “vertex pair, not adjacent”, the count turned into arithmetic — nothing else was needed. Getting the definition wrong (say, counting intersection <em>points</em> inside, or including sides) yields a different number for a different problem. The same pinning, with n in place of 12, gives the general count n(n − 3)/2.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Fig P01.1 — a convex 12-sided polygon with its 12 sides drawn bold and its 54 diagonals drawn thin">
+<line x1="110.00" y1="10.00" x2="196.60" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="210.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="196.60" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="160.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="110.00" y2="210.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="60.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="23.40" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="210.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="196.60" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="160.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="110.00" y2="210.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="60.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="23.40" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="23.40" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="196.60" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="160.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="110.00" y2="210.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="60.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="23.40" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="60.00" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="210.00" y1="110.00" x2="160.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="210.00" y1="110.00" x2="110.00" y2="210.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="210.00" y1="110.00" x2="60.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="210.00" y1="110.00" x2="23.40" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="210.00" y1="110.00" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="210.00" y1="110.00" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="210.00" y1="110.00" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="160.00" x2="110.00" y2="210.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="160.00" x2="60.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="160.00" x2="23.40" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="160.00" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="160.00" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="196.60" y1="160.00" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="196.60" x2="60.00" y2="196.60" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="196.60" x2="23.40" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="196.60" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="196.60" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="160.00" y1="196.60" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="210.00" x2="23.40" y2="160.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="210.00" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="210.00" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="210.00" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="60.00" y1="196.60" x2="10.00" y2="110.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="60.00" y1="196.60" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="60.00" y1="196.60" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="23.40" y1="160.00" x2="23.40" y2="60.00" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="23.40" y1="160.00" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="10.00" y1="110.00" x2="60.00" y2="23.40" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="110.00" y1="10.00" x2="160.00" y2="23.40" stroke="#33373f" stroke-width="2.6"/>
+<line x1="110.00" y1="10.00" x2="60.00" y2="23.40" stroke="#33373f" stroke-width="2.6"/>
+<line x1="160.00" y1="23.40" x2="196.60" y2="60.00" stroke="#33373f" stroke-width="2.6"/>
+<line x1="196.60" y1="60.00" x2="210.00" y2="110.00" stroke="#33373f" stroke-width="2.6"/>
+<line x1="210.00" y1="110.00" x2="196.60" y2="160.00" stroke="#33373f" stroke-width="2.6"/>
+<line x1="196.60" y1="160.00" x2="160.00" y2="196.60" stroke="#33373f" stroke-width="2.6"/>
+<line x1="160.00" y1="196.60" x2="110.00" y2="210.00" stroke="#33373f" stroke-width="2.6"/>
+<line x1="110.00" y1="210.00" x2="60.00" y2="196.60" stroke="#33373f" stroke-width="2.6"/>
+<line x1="60.00" y1="196.60" x2="23.40" y2="160.00" stroke="#33373f" stroke-width="2.6"/>
+<line x1="23.40" y1="160.00" x2="10.00" y2="110.00" stroke="#33373f" stroke-width="2.6"/>
+<line x1="10.00" y1="110.00" x2="23.40" y2="60.00" stroke="#33373f" stroke-width="2.6"/>
+<line x1="23.40" y1="60.00" x2="60.00" y2="23.40" stroke="#33373f" stroke-width="2.6"/>
+<circle cx="110.00" cy="10.00" r="2.6" fill="#33373f"/>
+<circle cx="160.00" cy="23.40" r="2.6" fill="#33373f"/>
+<circle cx="196.60" cy="60.00" r="2.6" fill="#33373f"/>
+<circle cx="210.00" cy="110.00" r="2.6" fill="#33373f"/>
+<circle cx="196.60" cy="160.00" r="2.6" fill="#33373f"/>
+<circle cx="160.00" cy="196.60" r="2.6" fill="#33373f"/>
+<circle cx="110.00" cy="210.00" r="2.6" fill="#33373f"/>
+<circle cx="60.00" cy="196.60" r="2.6" fill="#33373f"/>
+<circle cx="23.40" cy="160.00" r="2.6" fill="#33373f"/>
+<circle cx="10.00" cy="110.00" r="2.6" fill="#33373f"/>
+<circle cx="23.40" cy="60.00" r="2.6" fill="#33373f"/>
+<circle cx="60.00" cy="23.40" r="2.6" fill="#33373f"/>
+</svg>
+<figcaption><strong>Fig P01.1.</strong> The 12-gon pinned as vertex pairs: the 12 bold edges are the sides (not diagonals); every other vertex pair is a diagonal — \(66 - 12 = 54\) of them, drawn thin. Coordinates machine-generated (regular 12-gon, every vertex verified on-circle) and checked in this pass's lab.</figcaption>
+</figure>
+<p>Notice what the pinning bought: the moment “diagonal” became “vertex pair, not adjacent”, the count turned into arithmetic — nothing else was needed. Getting the definition wrong (say, counting intersection <em>points</em> inside, or including sides) yields a different number for a different problem. The same pinning, with \(n\) in place of 12, gives the general count \(n(n - 3)/2\).</p>
 <figure>
 <pre>n  :  3   4   5   6   7   8   9  10  11  12
 d  :  0   2   5   9  14  20  27  35  44  54</pre>
-<figcaption>The first few values of the diagonal count d = n(n − 3)/2, machine-verified. The small-case table here is the move of <strong>P02 · Experiment with small cases</strong>, one page ahead — we let it peek, as a detector only: it can catch a wrong formula, though it cannot by itself prove this one. (This book's pages are being published in ladder order; the pages ahead are on the way.)</figcaption>
+<figcaption>The first few values of the diagonal count \(d = n(n - 3)/2\), machine-verified. The small-case table here is the move of <strong>P02 · Experiment with small cases</strong>, one page ahead — we let it peek, as a detector only: it can catch a wrong formula, though it cannot by itself prove this one. (This book's pages are being published in ladder order; the pages ahead are on the way.)</figcaption>
 </figure>
 <p><span class="pid">Moves used: P01 — with P02 allowed a brief cameo as a checking device.</span></p>
 
 <h3>Example 3 (calculus) — a growing circle</h3>
 <p>“The radius of a circle increases at 2 cm per second. At the instant the radius is 5 cm, how fast is the area growing?”</p>
-<p>Pinned, the target is a precise object: the rate of change of area with respect to <em>time</em> — that is, dA/dt, in cm²/s. (Not dA/dr: the problem's clock runs in seconds; units are the tell.) The given: dr/dt = 2 cm/s; A = πr²; at the instant of interest, r = 5 cm. Chain rule, once:</p>
-<p style="text-align:center">dA/dt = 2πr · (dr/dt) = 2π · 5 · 2 = <strong>20π ≈ 62.83 cm²/s</strong>.</p>
-<p>“How fast is the area growing” never becomes computable until it is pinned as dA/dt with units. In related-rates problems, the pinning <em>is</em> most of the work — which is why examiners say students lose these problems in the first line, not the last.</p>
+<p>Pinned, the target is a precise object: the rate of change of area with respect to <em>time</em> — that is, \(dA/dt\), in cm²/s. (Not \(dA/dr\): the problem's clock runs in seconds; units are the tell.) The given: \(dr/dt = 2\) cm/s; \(A = \pi r^2\); at the instant of interest, \(r = 5\) cm. Chain rule, once:</p>
+<p class="eq">\[dA/dt = 2\pi r \cdot (dr/dt) = 2\pi \cdot 5 \cdot 2 = 20\pi \approx 62.83\ \text{cm}^2/\text{s}.\]</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="Fig P01.2 — a circle of radius r and, dashed, the same circle one small time step later; the area growth is the ring between them">
+<circle cx="80" cy="80" r="66" fill="none" stroke="#8a94a3" stroke-width="1.4" stroke-dasharray="5 4"/>
+<circle cx="80" cy="80" r="60" fill="#dce8f7" stroke="#3574d4" stroke-width="1.8"/>
+<line x1="80" y1="80" x2="140" y2="80" stroke="#3574d4" stroke-width="1.6"/>
+<circle cx="140" cy="80" r="2.4" fill="#3574d4"/>
+<text x="110" y="73" font-size="13" text-anchor="middle" fill="#23579c">r = 5 cm</text>
+<line x1="143" y1="80" x2="138" y2="80" stroke="#c25b4a" stroke-width="1.8"/>
+<polygon points="143,80 137,76.5 137,83.5" fill="#c25b4a"/>
+<text x="200" y="106" font-size="13" text-anchor="middle" fill="#a4442f">dr/dt = 2 cm/s</text>
+</svg>
+<figcaption><strong>Fig P01.2.</strong> The growing circle pinned: radius \(r = 5\) cm advancing at \(dr/dt = 2\) cm/s; the dashed circle is one small time step later. The area grows into the ring between the two circles — \(dA/dt\) is that ring's rate. Ring radii machine-checked in this pass's lab.</figcaption>
+</figure>
+<p>“How fast is the area growing” never becomes computable until it is pinned as \(dA/dt\) with units. In related-rates problems, the pinning <em>is</em> most of the work — which is why examiners say students lose these problems in the first line, not the last.</p>
 <p><span class="pid">Moves used: P01.</span> (The chain rule itself is assumed at the class-12 entry level; the page builds no calculus beyond it.)</p>
-<aside class="aside"><strong>Units as intuition.</strong> “cm² per second” — area units, flowing in time. If your pinned target does not carry sensible units, that is a mis-pinning you can see from outside, before any computation. We machine-checked this one by simulating the growing circle over a tiny time step: the time-stepped rate matches 20π to four decimal places (62.8319 vs 62.8319).</aside>
+<aside class="aside"><strong>Units as intuition.</strong> “cm² per second” — area units, flowing in time. If your pinned target does not carry sensible units, that is a mis-pinning you can see from outside, before any computation. We machine-checked this one by simulating the growing circle over a tiny time step: the time-stepped rate matches \(20\pi\) to four decimal places (62.8319 vs 62.8319).</aside>
 </section>
 
 <section id="fails">
@@ -109,7 +209,7 @@ d  :  0   2   5   9  14  20  27  35  44  54</pre>
 <li><strong>Pinned ≠ solved.</strong> The checklist produces a precise statement, not a proof. P01 tells you what must be shown — never how. If a problem resists after a clean pinning, the pinning has still helped: it shows the resistance is real, not verbal.</li>
 <li><strong>Over-pinning.</strong> Wrapping a one-step insight in heavy notation can bury it. If the pinned statement is longer than the problem, you may be solving bureaucracy. Mitigation: pin as lightly as the claim needs. Price: occasionally re-pin when a lighter statement turns out too thin. Default: full checklist the first time you meet a problem type; a one-line pinning once the type is familiar.</li>
 <li><strong>Mis-pinning.</strong> The bat-and-ball failure had this shape: an intuition quietly substitutes a nearby, easier problem and answers that. The checklist's cure is blunt: write the givens <em>as relationships</em> (“bat = ball + 100”), because prose hides substitutions that equations cannot.</li>
-<li><strong>Underspecified statements.</strong> Sometimes the sentence genuinely does not determine one problem. Joseph Bertrand's classic (<em>Calcul des probabilités</em>, 1889) asks: a chord of a circle is chosen “at random”; what is the probability it is longer than the side of the inscribed equilateral triangle? Three honest pinnings of “at random” give three different answers: 1/3 (random endpoints), 1/2 (random midpoint along a radius), 1/4 (random midpoint anywhere in the disc). We simulated all three by machine (see Exercise 6): the simulation lands on 0.3365, 0.5015, 0.2508 with 100,000 trials each — three honest pinnings, three different problems.</li>
+<li><strong>Underspecified statements.</strong> Sometimes the sentence genuinely does not determine one problem. Joseph Bertrand's classic (<em>Calcul des probabilités</em>, 1889) asks: a chord of a circle is chosen “at random”; what is the probability it is longer than the side of the inscribed equilateral triangle? Three honest pinnings of “at random” give three different answers: \(1/3\) (random endpoints), \(1/2\) (random midpoint along a radius), \(1/4\) (random midpoint anywhere in the disc). We simulated all three by machine (see Exercise 6): the simulation lands on 0.3365, 0.5015, 0.2508 with 100,000 trials each — three honest pinnings, three different problems.</li>
 </ul>
 <aside class="aside warn"><strong>Scope note.</strong> P01 makes the choice of interpretation visible; it cannot make the choice for you. When a problem is underspecified, the mathematician's move is to <em>choose a definition and say so</em> — the source technique behind this page is called <em>axiomatize from instances</em>: when a concept is vague, pin it by writing the precise rule that your examples obey. That is not a confession of weakness; it is how “number”, “function”, and “continuity” themselves got their definitions.</aside>
 </section>
@@ -130,53 +230,76 @@ d  :  0   2   5   9  14  20  27  35  44  54</pre>
 <aside class="aside"><strong>History, lightly.</strong> Pinning down before proceeding is ancient habit: Euclid's <em>Elements</em> opens by defining its terms — “a point is that which has no part” — before stating a single theorem. The move became a discipline at the turn of the last century, when David Hilbert's <em>Grundlagen der Geometrie</em> (1899) pinned down the axioms of geometry itself. And for problem-solvers it became a named phase in George Pólya's <em>How to Solve It</em> (1945), whose first of four phases is, precisely, <em>understand the problem</em>. The registry behind this book tracks the same move in its modern, computational form, under the technique id <strong>axiomatizeFromInstances</strong>. None of this history is load-bearing — it is seasoning — but it says something reassuring: the first move in the book is the oldest one in mathematics.</aside>
 </section>
 
+
 <section id="exercises">
 <h2>8 · Exercises</h2>
 <p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◆ diagnose · ◐ explore. Hints and worked answers are collapsible; the ◆ exercise has no hint — the diagnosis <em>is</em> the exercise.</p>
 
 <h3>Exercise 1 ●○○</h3>
 <p>Three consecutive integers sum to 48. Which integers?</p>
-<details><summary>Hint</summary><p>Pin the unknowns first: name the middle integer m. What are the other two, in terms of m?</p></details>
-<details><summary>Worked answer</summary><p>Pinned: the integers are m − 1, m, m + 1, and (m − 1) + m + (m + 1) = 48. So 3m = 48, m = 16: the integers are <strong>15, 16, 17</strong> (check: 15 + 16 + 17 = 48 ✓). Notice how pinning by the middle one makes the equation symmetric — a preview of P08.</p></details>
+<details><summary>Hint</summary><p>Pin the unknowns first: name the middle integer \(m\). What are the other two, in terms of \(m\)?</p></details>
+<details><summary>Worked answer</summary><p>Pinned: the integers are \(m - 1\), \(m\), \(m + 1\), and \((m - 1) + m + (m + 1) = 48\). So \(3m = 48\), \(m = 16\): the integers are <strong>15, 16, 17</strong> (check: 15 + 16 + 17 = 48 ✓). Notice how pinning by the middle one makes the equation symmetric — a preview of P08.</p></details>
 
 <h3>Exercise 2 ●○○</h3>
 <p>A shopkeeper marks a jacket 20% above cost, then sells it at a 20% discount. Did the shopkeeper gain or lose, and by what percentage?</p>
 <details><summary>Hint</summary><p>Pin “20% of what?” — the markup and the discount are percentages of <em>different</em> bases.</p></details>
-<details><summary>Worked answer</summary><p>Pinned: cost c, marked price 1.2c, selling price 0.8 × 1.2c = 0.96c. Sold at 96% of cost: a <strong>4% loss</strong>. The tempting answer “no change” pins the discount to the cost as well — a different problem. Exact-fraction check (machine-verified): 4⁄5 × 6⁄5 = 24⁄25 = 0.96.</p></details>
+<details><summary>Worked answer</summary><p>Pinned: cost \(c\), marked price \(1.2c\), selling price \(0.8 \times 1.2c = 0.96c\). Sold at 96% of cost: a <strong>4% loss</strong>. The tempting answer “no change” pins the discount to the cost as well — a different problem. Exact-fraction check (machine-verified): \(4/5 \times 6/5 = 24/25 = 0.96\).</p></details>
 
 <h3>Exercise 3 ●●○</h3>
 <p>A car travels from A to B at 60 km/h and returns along the same road at 40 km/h. What is its average speed for the whole trip?</p>
 <details><summary>Hint</summary><p>Pin the phrase “average speed” (Box P01.A, item 3) — it is a rate of <em>total distance over total time</em>. The answer is not the average of two numbers.</p></details>
-<details><summary>Worked answer</summary><p>Pinned: average speed = total distance ÷ total time. Take a concrete leg (the answer cannot depend on it): 120 km each way. Times: 120⁄60 = 2 h out, 120⁄40 = 3 h back; total 240 km in 5 h → <strong>48 km/h</strong>. The 50 km/h answer averages two speeds over <em>equal weights in time</em> — but the slow leg took more time, so it must weigh more. Machine check with the concrete numbers: 240 ÷ (2 + 3) = 48.</p></details>
+<details><summary>Worked answer</summary><p>Pinned: average speed = total distance ÷ total time. Take a concrete leg (the answer cannot depend on it): 120 km each way. Times: \(120/60 = 2\) h out, \(120/40 = 3\) h back; total 240 km in 5 h → <strong>48 km/h</strong>. The 50 km/h answer averages two speeds over <em>equal weights in time</em> — but the slow leg took more time, so it must weigh more. Machine check with the concrete numbers: \(240 \div (2 + 3) = 48\).</p></details>
 
 <h3>Exercise 4 ●●●</h3>
 <p>How many zero digits does 100! (100 factorial) end with?</p>
-<details><summary>Hint</summary><p>Pin “ends with k zeros”: 10<sup>k</sup> divides 100!. And pin 10 as a product: 2 × 5.</p></details>
-<details><summary>Worked answer</summary><p>Pinned: the count is the largest k with 10<sup>k</sup> dividing 100!, i.e. min(v₂, v₅) — the exponents of 2 and 5 in its factorization. Counting fives in 1, 2, …, 100: multiples of 5 contribute 20, and each multiple of 25 carries a second five, contributing 4 more; 20 + 4 = 24. Twos are plentiful (97 of them). So the answer is <strong>24</strong>. Two independent machine checks agree: counting factors gives v₅ = 24, v₂ = 97; and computing 100! exactly (158 digits, beginning 9.33262… × 10<sup>157</sup>) and reading off its trailing zeros also gives 24. Detectors, using the same pinning: 10! ends in 2 zeros, 25! in 6 — these small cases can expose a wrong formula, though only the argument proves this one.</p></details>
+<details><summary>Hint</summary><p>Pin “ends with k zeros”: \(10^k\) divides 100!. And pin 10 as a product: 2 × 5.</p></details>
+<details><summary>Worked answer</summary><p>Pinned: the count is the largest \(k\) with \(10^k\) dividing 100!, i.e. \(\min(v_2, v_5)\) — the exponents of 2 and 5 in its factorization. Counting fives in 1, 2, …, 100: multiples of 5 contribute 20, and each multiple of 25 carries a second five, contributing 4 more; 20 + 4 = 24. Twos are plentiful (97 of them). So the answer is <strong>24</strong>. Two independent machine checks agree: counting factors gives \(v_5 = 24\), \(v_2 = 97\); and computing 100! exactly (158 digits, beginning \(9.33262\ldots \times 10^{157}\)) and reading off its trailing zeros also gives 24. Detectors, using the same pinning: \(10!\) ends in 2 zeros, \(25!\) in 6 — these small cases can expose a wrong formula, though only the argument proves this one.</p></details>
 
 <h3>Exercise 5 ◆ Diagnose the pinning</h3>
 <p>Each item below is a proposed pinning. No hint: decide which pinnings are honest and which fail, and say why. (All three are machine-verified in the lab.)</p>
 <ol>
-<li>To show “n² + n + 41 is prime for every whole number n”, it suffices to check n = 1, 2, 3, and observe the values are prime.</li>
-<li>To show “the sum of two odd numbers is even”, pin “odd” as: of the form 2k + 1 for some whole number k.</li>
+<li>To show “\(n^2 + n + 41\) is prime for every whole number \(n\)”, it suffices to check \(n = 1, 2, 3\), and observe the values are prime.</li>
+<li>To show “the sum of two odd numbers is even”, pin “odd” as: of the form \(2k + 1\) for some whole number \(k\).</li>
 <li>To count the diagonals of a 12-sided polygon, pin “diagonal” as: a pair of vertices that are not adjacent.</li>
 </ol>
 <details><summary>Worked answer</summary>
-<p>(1) <strong>Fails</strong> — claim type mismatch (Box P01.B: prove-for-all is destroyed by one counterexample, and completed by nothing less than a universal argument). Any number of checked instances leaves the claim open. This polynomial is a famous trap: it is prime for every whole number n from 0 to 39 — forty consecutive primes (machine-verified) — and at n = 40 it reads 40² + 40 + 41 = 1681 = 41 × 41, composite. Instances are detectors, never proofs of for-all claims; P03 will build this into a full move.</p>
-<p>(2) <strong>Honest.</strong> The definition is what the proof needs, and it is faithful to the word: instances (… −3, −1, 1, 3, …) all fit 2k + 1 with k whole.</p>
+<p>(1) <strong>Fails</strong> — claim type mismatch (Box P01.B: prove-for-all is destroyed by one counterexample, and completed by nothing less than a universal argument). Any number of checked instances leaves the claim open. This polynomial is a famous trap: it is prime for every whole number \(n\) from 0 to 39 — forty consecutive primes (machine-verified) — and at \(n = 40\) it reads \(40^2 + 40 + 41 = 1681 = 41 \times 41\), composite. Instances are detectors, never proofs of for-all claims; P03 will build this into a full move.</p>
+<p>(2) <strong>Honest.</strong> The definition is what the proof needs, and it is faithful to the word: instances (… −3, −1, 1, 3, …) all fit \(2k + 1\) with \(k\) whole.</p>
 <p>(3) <strong>Honest</strong> — the same pinning as Example 2, and it makes the count mechanical: 66 pairs minus 12 sides = 54.</p></details>
 
 <h3>Exercise 6 ◐ Bertrand's three problems</h3>
 <p>“A chord of a circle is chosen at random. What is the probability it is longer than the side of the inscribed equilateral triangle?” We pinned three different meanings of “at random”: (i) both endpoints chosen uniformly on the circle; (ii) the chord's midpoint chosen uniformly along a radius, in a uniformly random direction; (iii) the midpoint chosen uniformly over the whole disc. Explore: (a) compute the three probabilities by geometry (no simulation needed — each is one line once pinned); (b) verify against the recorded lab simulation (100,000 trials each: 0.3365, 0.5015, 0.2508); (c) hardest and most interesting: if you physically threw broomsticks at a circle drawn on the floor, which pinning would model <em>your</em> experiment? There is no single right answer — that is the lesson. A vague phrase is not one problem; pinning it is a choice, and the choice is yours to make and to state.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 228" role="img" aria-label="Fig P01.3 — Bertrand paradox: the same question under three pinnings of at-random, one panel each">
+<circle cx="110" cy="110" r="90" fill="none" stroke="#8a94a3" stroke-width="1.5"/>
+<polygon points="110.00,20.00 32.06,155.00 187.94,155.00" fill="none" stroke="#d9c48f" stroke-width="1.3"/>
+<circle cx="330" cy="110" r="90" fill="none" stroke="#8a94a3" stroke-width="1.5"/>
+<polygon points="330.00,20.00 252.06,155.00 407.94,155.00" fill="none" stroke="#d9c48f" stroke-width="1.3"/>
+<circle cx="550" cy="110" r="90" fill="none" stroke="#8a94a3" stroke-width="1.5"/>
+<polygon points="550.00,20.00 472.06,155.00 627.94,155.00" fill="none" stroke="#d9c48f" stroke-width="1.3"/>
+<line x1="187.94" y1="65.00" x2="25.43" y2="79.22" stroke="#c25b4a" stroke-width="2.4"/>
+<circle cx="187.94" cy="65.00" r="3" fill="#33373f"/>
+<circle cx="25.43" cy="79.22" r="3" fill="#33373f"/>
+<line x1="330" y1="110" x2="420" y2="110" stroke="#d9c48f" stroke-width="1.3" stroke-dasharray="4 3"/>
+<circle cx="375.00" cy="110" r="3" fill="#c25b4a"/>
+<line x1="375.00" y1="32.06" x2="375.00" y2="187.94" stroke="#c25b4a" stroke-width="2.4"/>
+<line x1="570.44" y1="22.35" x2="460.13" y2="114.91" stroke="#c25b4a" stroke-width="2.4"/>
+<circle cx="515.29" cy="68.63" r="3" fill="#33373f"/>
+<text x="110" y="216" font-size="12.5" text-anchor="middle" fill="#555f6e">(i) both endpoints random on the circle</text>
+<text x="330" y="216" font-size="12.5" text-anchor="middle" fill="#555f6e">(ii) midpoint random along a radius</text>
+<text x="550" y="216" font-size="12.5" text-anchor="middle" fill="#555f6e">(iii) midpoint random in the disc</text>
+</svg>
+<figcaption><strong>Fig P01.3.</strong> The same question under the three pinnings, one panel each — the triangle (side \(= \sqrt{3}\,R\)) is drawn in every panel for comparison. (i) A sample chord with both endpoints on the circle: at the sampled angle its length \(2R\sin 65^\circ\) exceeds the triangle's side, the typical case under this pinning (probability \(1/3\), simulation 0.3365). (ii) The midpoint sampled at exactly half the radius: the chord's length equals the triangle's side — the \(1/2\) boundary witness of this pinning (midpoints inside half-radius give longer chords, probability \(1/2\), simulation 0.5015). (iii) A midpoint deeper in the disc, at \(0.6R\): a shorter chord — and deeper midpoints dominate the disc's area (probability \(1/4\), simulation 0.2508). All panel coordinates machine-generated and checked in this pass's lab.</figcaption>
+</figure>
 </section>
-
 <section id="graphfooter" class="graphfooter">
 <h2>9 · Graph evidence &amp; revision log</h2>
 <p><strong>Graph evidence.</strong> Source technique: <code>axiomatizeFromInstances</code>. Participation: <strong>423 chains</strong> in the measured knowledge graph (15,941 nodes, 26,614 edges; snapshot dated 2026-10-27). That number counts how often the technique appears in recorded theorem-proving chains — evidence of reuse, not of correctness. Honest note: the graph is a working corpus, not a curated syllabus; its counts say which moves are <em>popular</em>, and the book quotes them as such.</p>
 <p><strong>Related patterns.</strong> P02 (experiment with small cases — the detector this page borrowed), P03 (stress-test with special cases — the counterexample discipline this page met in Exercise 5), P05 (reduce to canonical form — pinning's big sibling), P07 (build an auxiliary object), P11 (prove by contradiction), P66 (prove by induction).</p>
-<p><strong>Labs.</strong> <code>labs/p01-lab.js</code> with recorded output <code>labs/p01-lab-output.txt</code>: bat-and-ball check, odd+odd exhaustive witnesses (100 pairs, 0 failures), consecutive integers, jacket fractions, average speed, diagonal formula verified for all n = 3…200, related-rates time-step, 100! by two independent routes, n² + n + 41 primality sweep, Bertrand simulation (deterministic PRNG, seed 123456789, N = 100,000 per method).</p>
+<p><strong>Labs.</strong> <code>labs/p01-lab.js</code> with recorded output <code>labs/p01-lab-output.txt</code>: bat-and-ball check, odd+odd exhaustive witnesses (100 pairs, 0 failures), consecutive integers, jacket fractions, average speed, diagonal formula verified for all n = 3…200, related-rates time-step, 100! by two independent routes, n² + n + 41 primality sweep, Bertrand simulation (deterministic PRNG, seed 123456789, N = 100,000 per method). Formatting pass (R2) lab: <code>labs/p01-format-pass.js</code> with recorded output <code>labs/p01-format-pass-output.txt</code> — every numeric claim on this page re-verified against the R0/R1 receipts, TeX sanity, and SVG coordinate checks.</p>
 <p><strong>Revision log.</strong> R0 (2026-10-28, session S02): page published. Fresh verification battery executed in-session; style audit against the presentation fingerprint passed; adversarial review passed (fresh verifier engine, independent constants, must-fail injection rows — verdict recorded in the session log). Honest run history: two defects were caught and corrected before install — a dA/dr rate mislabelled as dA/dt in the lab harness (caught by the pre-flight probe), and this page's first draft mis-stating the prime range of n² + n + 41 as n = 0…40 (the true verified range is n = 0…39; first composite n = 40, since 40² + 40 + 41 = 41²; caught in the pre-review self-check and corrected with a fresh sweep). The full run history is recorded with the lab. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
 <p><strong>R1 (2026-10-28, session S07b — adoption pass).</strong> An external draft of this page was reviewed for adoption (~4,000 machine checks; the draft's mathematics verified correct throughout). Adopted on merit, each item re-verified by a fresh battery before install: the ghost-root worked example (√(x + 2) = x), Box P01.C (the reversible squaring law — 3,625 grid checks, 0 mismatches), the quantifier-spine boundedness material (Specification A vs B; a 100,000-term sweep and a nine-ceiling machine game), and Exercises 7–10 (solution {3}; the a² − 1 three-case split; the phantom minimum 9 − 4√2; the c-phase diagram, 999 grid checks, 0 mismatches). Rejected with receipts: wholesale replacement of the published page (governance — published pages are extended, never rewritten), the draft's raw LaTeX-in-prose fragments and its fabricated revision-log line (format gate; this page's real lab is <code>labs/p01-lab.js</code>, published in R0), an 1861 Weierstrass anecdote (not verifiable as stated), and three exercises kept out for compactness (a logarithm domain-wall drill, a two-negative-roots parameter range, and a left-inverse group exercise — candidates for a future R2). Two wrong pattern IDs in the draft were repaired rather than adopted: its “P66 contraposition” is this book's P67, and its “P75 work backwards” is P77. New lab: <code>labs/p01-extension-r1.js</code> with recorded output <code>labs/p01-extension-r1-output.txt</code>. Honest run history: piece 1 re-run once (a label said “25/13” where the count is 25/25 — no math affected); piece 3 re-run after a lost dispatch (clean); piece 4 re-run once — its two defects were defects in the <em>checks</em>, not the page (a pair-count that included sides, and a related-rates check at the wrong radius), and the standing master audited CLEAN; adversarial review by a fresh verifier engine caught 13/13 must-fail injections. Receipts in the session log (<code>records/BOOK-PROJECT.md</code>).</p>
+<p><strong>R2 (2026-10-28, session S11 — formatting retrofit pass).</strong> Under the S10 formatting charter (<code>records/BOOK-CONVENTIONS.md</code>), the page's mathematics was converted to TeX rendered by MathJax (inline \(…\), display \[…\]), with the standard MathJax block added to the page head. The text content is unchanged: a tag-stripped diff against the R1 master shows math-notation differences only. Three figures were added — Fig P01.1 (the 12-gon as 66 vertex pairs: 12 sides bold, 54 diagonals thin), Fig P01.2 (the growing circle of Example 3), Fig P01.3 (Bertrand's three pinnings, one panel each, for Exercise 6) — all coordinates machine-generated and verified in this pass's lab against the numbers already recorded in R0/R1. Per-pass gates as run: numeric re-verification of every page claim against the recorded receipts (0 mismatches in the final runs); TeX sanity (balanced delimiters; the banned display delimiter absent); SVG sanity (viewBox present, no external references, every element inside its viewBox). Honest run history: one page defect was caught and corrected before install — Fig P01.2's first draft carried a stray caption text placed at y = 208, outside its 160-unit viewBox (invisible on render); it was removed, the figcaption carrying that content. The format lab itself re-ran three of its six pieces (4a, 4b, 6) after tolerance defects in its own checks — wrong radicands, mis-set expected regimes, tolerances tighter than coordinate rounding — defects in the checks, never in the page; full histories are recorded in the lab output. No mathematical content was added, removed, or altered.</p>
 </section>
 
 <section id="r1-extension">
@@ -185,51 +308,51 @@ d  :  0   2   5   9  14  20  27  35  44  54</pre>
 
 <h3>Ghost roots — when a legal step opens a side door</h3>
 <p>Solve, by routine school algebra, the innocent-looking</p>
-<p style="text-align:center">√(x + 2) = x.</p>
-<p>Autopilot squares both sides: x + 2 = x², so x² − x − 2 = 0, so (x − 2)(x + 1) = 0 — candidates x = 2 and x = −1. Now check both against the original equation, as the checklist demands: at x = 2, √4 = 2 ✓; at x = −1, √1 = 1 ≠ −1. One of the two “answers” is an impostor.</p>
-<p>Where did it come from? The symbol √ means the <em>non-negative</em> root, so the original statement silently requires x ≥ 0 — a wall the squared equation does not carry. Squaring is a <em>legal</em> step, but a one-way door: it erases the sign that separated −1 from +1, and the impostor x = −1 walks in. In fact −1 is an honest solution of the mirror equation −√(x + 2) = x — the door we opened let that equation's answer in too (machine-checked in the lab).</p>
+<p class="eq">\[\sqrt{x + 2} = x.\]</p>
+<p>Autopilot squares both sides: \(x + 2 = x^2\), so \(x^2 - x - 2 = 0\), so \((x - 2)(x + 1) = 0\) — candidates \(x = 2\) and \(x = -1\). Now check both against the original equation, as the checklist demands: at \(x = 2\), \(\sqrt{4} = 2\) ✓; at \(x = -1\), \(\sqrt{1} = 1 \ne -1\). One of the two “answers” is an impostor.</p>
+<p>Where did it come from? The symbol √ means the <em>non-negative</em> root, so the original statement silently requires \(x \ge 0\) — a wall the squared equation does not carry. Squaring is a <em>legal</em> step, but a one-way door: it erases the sign that separated −1 from +1, and the impostor \(x = -1\) walks in. In fact −1 is an honest solution of the mirror equation \(-\sqrt{x + 2} = x\) — the door we opened let that equation's answer in too (machine-checked in the lab).</p>
 <p><span class="pid">Moves used: P01 — with a first taste of P78 · Reversible steps (planned).</span></p>
 
 <div class="pattern-box" id="box-p01c">
-<p><strong>Box P01.C — the reversible squaring law.</strong> For real quantities A and B:</p>
-<p style="text-align:center">√A = B &nbsp;⇔&nbsp; (A = B² <em>and</em> B ≥ 0).</p>
-<p class="words">Or, in words: a square root equals a number exactly when the square matches <em>and</em> the root's sign wall is respected — and no separate “A ≥ 0” check is needed, because A = B² already forces A ≥ 0.</p>
-<p><strong>Scope.</strong> Squaring without the sign wall is a one-way door: it solves √A = B <em>and</em> its mirror −√A = B in one stroke, so impostors can arrive. Mitigation, price, default: when squaring hands you a finite list of candidates, square freely and check every candidate back — cheap, and always safe. When the answer is a range of parameters or an inequality, do not square-and-hope: carry the side condition B ≥ 0 through the work, at the price of one extra inequality in flight. The full one-way/two-way discipline is the subject of <strong>P78 · Reversible steps</strong> (<a href="p78-reversible-steps.html">planned</a>); re-attacking the survivors with nasty concrete values is <strong>P03 · Stress-test with special cases</strong> (<a href="p03-special-cases.html">planned</a>).</p>
+<p><strong>Box P01.C — the reversible squaring law.</strong> For real quantities \(A\) and \(B\):</p>
+<p class="eq">\[\sqrt{A} = B \iff (A = B^2 \text{ and } B \ge 0).\]</p>
+<p class="words">Or, in words: a square root equals a number exactly when the square matches <em>and</em> the root's sign wall is respected — and no separate “\(A \ge 0\)” check is needed, because \(A = B^2\) already forces \(A \ge 0\).</p>
+<p><strong>Scope.</strong> Squaring without the sign wall is a one-way door: it solves \(\sqrt{A} = B\) <em>and</em> its mirror \(-\sqrt{A} = B\) in one stroke, so impostors can arrive. Mitigation, price, default: when squaring hands you a finite list of candidates, square freely and check every candidate back — cheap, and always safe. When the answer is a range of parameters or an inequality, do not square-and-hope: carry the side condition \(B \ge 0\) through the work, at the price of one extra inequality in flight. The full one-way/two-way discipline is the subject of <strong>P78 · Reversible steps</strong> (<a href="p78-reversible-steps.html">planned</a>); re-attacking the survivors with nasty concrete values is <strong>P03 · Stress-test with special cases</strong> (<a href="p03-special-cases.html">planned</a>).</p>
 </div>
 
 <h3>The quantifier spine — who picks, and when</h3>
-<aside class="onramp"><strong>New word: quantifier.</strong> A quantifier is the part of a statement that says who chooses a value, and in what order. “For every” (∀) hands the choice to an adversary; “there exists” (∃) leaves the choice to you, the builder — but only <em>after</em> everything chosen before it is on the table. Read “for every n, there exists M” as a two-player game and the order of the phrases becomes the whole content.</aside>
-<p>What does it mean for a sequence x₁, x₂, x₃, … to be <strong>bounded</strong>? Two candidate pinnings, identical except for word order:</p>
+<aside class="onramp"><strong>New word: quantifier.</strong> A quantifier is the part of a statement that says who chooses a value, and in what order. “For every” (∀) hands the choice to an adversary; “there exists” (∃) leaves the choice to you, the builder — but only <em>after</em> everything chosen before it is on the table. Read “for every \(n\), there exists \(M\)” as a two-player game and the order of the phrases becomes the whole content.</aside>
+<p>What does it mean for a sequence \(x_1, x_2, x_3, \ldots\) to be <strong>bounded</strong>? Two candidate pinnings, identical except for word order:</p>
 <ul>
-<li><strong>Specification A.</strong> For every n, there exists M with |xₙ| ≤ M.</li>
-<li><strong>Specification B.</strong> There exists M such that, for every n, |xₙ| ≤ M.</li>
+<li><strong>Specification A.</strong> For every \(n\), there exists \(M\) with \(|x_n| \le M\).</li>
+<li><strong>Specification B.</strong> There exists \(M\) such that, for every \(n\), \(|x_n| \le M\).</li>
 </ul>
-<p>In A, the ceiling M is chosen <em>after</em> n — it may depend on n. In B, M is locked in <em>before</em> any n arrives: one ceiling for all time. Test both pinnings on two sequences: aₙ = (−1)ⁿ, which flickers −1, +1, −1, +1, …, and bₙ = n, which climbs 1, 2, 3, ….</p>
-<p>Under A, even bₙ = n passes: whatever n the adversary names, the builder answers M = n + 1 (the lab played 1,000 rounds; the builder won 1,000). But A then says only that each single term is a finite number — true of every sequence that exists, and not what anyone means by “bounded”. Under B, aₙ passes with the single fixed ceiling M = 1 (100,000 terms machine-checked, none escaping), while every integer ceiling for bₙ is broken by the concrete counter-move n = ⌊M⌋ + 1 (nine ceilings tested, nine broken). Specification B is the honest pinning of “bounded” — two words changed order, and the meaning changed completely. This is the pinning checklist's quiet fourth item in action: before solving, know <em>who picks what, and when</em>.</p>
+<p>In A, the ceiling \(M\) is chosen <em>after</em> \(n\) — it may depend on \(n\). In B, \(M\) is locked in <em>before</em> any \(n\) arrives: one ceiling for all time. Test both pinnings on two sequences: \(a_n = (-1)^n\), which flickers −1, +1, −1, +1, …, and \(b_n = n\), which climbs 1, 2, 3, ….</p>
+<p>Under A, even \(b_n = n\) passes: whatever \(n\) the adversary names, the builder answers \(M = n + 1\) (the lab played 1,000 rounds; the builder won 1,000). But A then says only that each single term is a finite number — true of every sequence that exists, and not what anyone means by “bounded”. Under B, \(a_n\) passes with the single fixed ceiling \(M = 1\) (100,000 terms machine-checked, none escaping), while every integer ceiling for \(b_n\) is broken by the concrete counter-move \(n = \lfloor M \rfloor + 1\) (nine ceilings tested, nine broken). Specification B is the honest pinning of “bounded” — two words changed order, and the meaning changed completely. This is the pinning checklist's quiet fourth item in action: before solving, know <em>who picks what, and when</em>.</p>
 <p><span class="pid">Moves used: P01.</span></p>
 
 <h3>Exercise 7 ●○○</h3>
-<p>Find all real solutions of √(2x + 3) = x, pinning the domain wall before you square.</p>
-<details><summary>Hint</summary><p>Box P01.C: squaring is honest only together with the wall x ≥ 0. What candidates does the quadratic hand you, and what does the wall remove?</p></details>
-<details><summary>Worked answer</summary><p>Pinned first: the left side is a principal root, so any solution obeys x ≥ 0. Squaring with the wall: 2x + 3 = x² and x ≥ 0, i.e. x² − 2x − 3 = 0, candidates 3 and −1. The wall keeps <strong>x = 3</strong> (check: √9 = 3 ✓) and rejects −1, at which √1 = 1 ≠ −1 — the same impostor shape as the ghost root above. Machine-verified: the extension lab finds exactly {3}.</p></details>
+<p>Find all real solutions of \(\sqrt{2x + 3} = x\), pinning the domain wall before you square.</p>
+<details><summary>Hint</summary><p>Box P01.C: squaring is honest only together with the wall \(x \ge 0\). What candidates does the quadratic hand you, and what does the wall remove?</p></details>
+<details><summary>Worked answer</summary><p>Pinned first: the left side is a principal root, so any solution obeys \(x \ge 0\). Squaring with the wall: \(2x + 3 = x^2\) and \(x \ge 0\), i.e. \(x^2 - 2x - 3 = 0\), candidates 3 and −1. The wall keeps <strong>\(x = 3\)</strong> (check: \(\sqrt{9} = 3\) ✓) and rejects −1, at which \(\sqrt{1} = 1 \ne -1\) — the same impostor shape as the ghost root above. Machine-verified: the extension lab finds exactly \(\{3\}\).</p></details>
 
 <h3>Exercise 8 ●●○</h3>
-<p>For each real parameter a, solve (a² − 1)x = a − 1. An autopilot divides by a² − 1 and reports x = 1⁄(a + 1). For which a is that honest — and what really happens at the other values?</p>
-<details><summary>Hint</summary><p>Dividing by D is reversible exactly when D ≠ 0. Which two values of a make the divisor a disguised zero? Substitute each into the <em>un-divided</em> equation.</p></details>
-<details><summary>Worked answer</summary><p>Pinned: division by a² − 1 is an equivalence only when a ≠ 1 and a ≠ −1; those two values demand their own cases.</p>
+<p>For each real parameter \(a\), solve \((a^2 - 1)x = a - 1\). An autopilot divides by \(a^2 - 1\) and reports \(x = 1/(a + 1)\). For which \(a\) is that honest — and what really happens at the other values?</p>
+<details><summary>Hint</summary><p>Dividing by \(D\) is reversible exactly when \(D \ne 0\). Which two values of \(a\) make the divisor a disguised zero? Substitute each into the <em>un-divided</em> equation.</p></details>
+<details><summary>Worked answer</summary><p>Pinned: division by \(a^2 - 1\) is an equivalence only when \(a \ne 1\) and \(a \ne -1\); those two values demand their own cases.</p>
 <ul>
-<li><strong>a ≠ ±1:</strong> x = (a − 1)⁄(a² − 1) = <strong>1⁄(a + 1)</strong> — the unique solution, and the autopilot's formula is honest here.</li>
-<li><strong>a = 1:</strong> the equation reads 0 · x = 0 — true for <em>every</em> real x. At this value the autopilot's formula did not merely err; it discarded infinitely many solutions for one.</li>
-<li><strong>a = −1:</strong> the equation reads 0 · x = −2 — true for <em>no</em> x. The solution set is empty.</li>
+<li><strong>\(a \ne \pm 1\):</strong> \(x = (a - 1)/(a^2 - 1)\) = <strong>\(1/(a + 1)\)</strong> — the unique solution, and the autopilot's formula is honest here.</li>
+<li><strong>\(a = 1\):</strong> the equation reads \(0 \cdot x = 0\) — true for <em>every</em> real \(x\). At this value the autopilot's formula did not merely err; it discarded infinitely many solutions for one.</li>
+<li><strong>\(a = -1\):</strong> the equation reads \(0 \cdot x = -2\) — true for <em>no</em> \(x\). The solution set is empty.</li>
 </ul>
-<p>Machine-verified: the lab sweeps a from −40 to 40 (159 generic checks, 0 failures), confirms the all-reals case at a = 1, and the empty case at a = −1.</p></details>
+<p>Machine-verified: the lab sweeps \(a\) from −40 to 40 (159 generic checks, 0 failures), confirms the all-reals case at \(a = 1\), and the empty case at \(a = -1\).</p></details>
 
 <h3>Exercise 9 ◆ Diagnose the impossible minimum</h3>
-<p>No hint — the diagnosis <em>is</em> the exercise. A student is asked for the minimum value of f(θ) = (sin θ + cos θ)² + 4(sin θ + cos θ) + 7 over all real θ. They substitute u = sin θ + cos θ, complete the square to (u + 2)² + 3, set u = −2, and report a minimum of 3. Explain precisely why the value 3 is impossible, name the pinning that was skipped, and give the true minimum.</p>
-<details><summary>Worked answer</summary><p>The skipped pinning is the <em>arena of u</em>. Squaring u gives u² = 1 + sin 2θ, so 0 ≤ u² ≤ 2 and u lives in [−√2, √2]. But −2 &lt; −√2: the point u = −2 is outside the arena — no real θ produces it, so the reported minimum is attained nowhere. On the legal arena, u + 2 ≥ 2 − √2 &gt; 0, so (u + 2)² + 3 increases with u, and the minimum sits at the left edge u = −√2 (reached at θ = −3π⁄4): f = 2 − 4√2 + 7 = <strong>9 − 4√2 ≈ 3.3431</strong>. Since 3 &lt; 9 − 4√2, the student's value lies strictly <em>below</em> the true minimum — impossible, and visibly so the moment the arena is written down. Machine-checked: a 100,000-point dense scan bottoms out at 3.343146 (matching 9 − 4√2 to six places, at θ = −2.356194 = −3π⁄4), and the arena scan gives max|sin θ + cos θ| = √2 — never 2.</p></details>
+<p>No hint — the diagnosis <em>is</em> the exercise. A student is asked for the minimum value of \(f(\theta) = (\sin\theta + \cos\theta)^2 + 4(\sin\theta + \cos\theta) + 7\) over all real \(\theta\). They substitute \(u = \sin\theta + \cos\theta\), complete the square to \((u + 2)^2 + 3\), set \(u = -2\), and report a minimum of 3. Explain precisely why the value 3 is impossible, name the pinning that was skipped, and give the true minimum.</p>
+<details><summary>Worked answer</summary><p>The skipped pinning is the <em>arena of \(u\)</em>. Squaring \(u\) gives \(u^2 = 1 + \sin 2\theta\), so \(0 \le u^2 \le 2\) and \(u\) lives in \([-\sqrt{2}, \sqrt{2}]\). But \(-2 &lt; -\sqrt{2}\): the point \(u = -2\) is outside the arena — no real \(\theta\) produces it, so the reported minimum is attained nowhere. On the legal arena, \(u + 2 \ge 2 - \sqrt{2} &gt; 0\), so \((u + 2)^2 + 3\) increases with \(u\), and the minimum sits at the left edge \(u = -\sqrt{2}\) (reached at \(\theta = -3\pi/4\)): \(f = 2 - 4\sqrt{2} + 7 =\) <strong>\(9 - 4\sqrt{2} \approx 3.3431\)</strong>. Since \(3 &lt; 9 - 4\sqrt{2}\), the student's value lies strictly <em>below</em> the true minimum — impossible, and visibly so the moment the arena is written down. Machine-checked: a 100,000-point dense scan bottoms out at 3.343146 (matching \(9 - 4\sqrt{2}\) to six places, at \(\theta = -2.356194 = -3\pi/4\)), and the arena scan gives \(\max|\sin\theta + \cos\theta| = \sqrt{2}\) — never 2.</p></details>
 
 <h3>Exercise 10 ◐ The ghost-root phase transition</h3>
-<p>Replace the 2 in the ghost-root equation by a parameter: √(x + c) = x. Map how many real solutions exist as c runs from −∞ to +∞, using Box P01.C as your only tool. What you should find: a boundary value of c below which there are no solutions at all; a two-solution window where the quadratic's <em>both</em> candidates survive — zero ghost roots, the opposite of the story that opened this section (check the witness c = −2⁄9, whose candidates 1⁄3 and 2⁄3 both pass); and the familiar one-real-plus-one-ghost regime once c is positive (check c = 2). Confirm your diagram numerically — the recorded lab swept 999 grid values of c and found the claimed count in every regime; your job is to explain <em>why</em> the boundaries fall where they do.</p>
+<p>Replace the 2 in the ghost-root equation by a parameter: \(\sqrt{x + c} = x\). Map how many real solutions exist as \(c\) runs from −∞ to +∞, using Box P01.C as your only tool. What you should find: a boundary value of \(c\) below which there are no solutions at all; a two-solution window where the quadratic's <em>both</em> candidates survive — zero ghost roots, the opposite of the story that opened this section (check the witness \(c = -2/9\), whose candidates \(1/3\) and \(2/3\) both pass); and the familiar one-real-plus-one-ghost regime once \(c\) is positive (check \(c = 2\)). Confirm your diagram numerically — the recorded lab swept 999 grid values of \(c\) and found the claimed count in every regime; your job is to explain <em>why</em> the boundaries fall where they do.</p>
 </section>
 
 <footer>
