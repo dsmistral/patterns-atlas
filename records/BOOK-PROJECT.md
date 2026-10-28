@@ -104,13 +104,33 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 | P64 | Virtual classes from obstruction theory | virtualClassFromObstructionTheory | P53, P54 | planned |
 | P65 | Floer homology from holomorphic strips | floerHomologyFromHolomorphicStrips | P43, P33 | planned |
 
-**Coverage policy (user, 2026-10-27):** every technique in the registry gets a page; nothing is deferred by difficulty — only ordered by it (tier assignment is provisional and revisable at authoring; P-IDs are not). Tier-5 pages are **orientation pages** (see conventions): what the tool is for, one showcase result honestly labeled as a sketch, the prerequisite ladder inside this book, and what it changed. The graph's non-curated technique layer (1,223 techniques) is a **candidate pool, not a syllabus**: candidates enter the P-index by recurrence evidence (participation) or canon status, appended under the immutable-ID rule. **Canon additions pending S02 audit** (from Polya/Engel/Zeitz, appended as P66+ with tier placement in the chapter map): induction, contraposition, WLOG, telescoping, double counting, extremal principle, monovariants, generating functions, strengthening the claim.
+### Tier 2 — canon additions (S02 audit, 2026-10-28; all placed tier 2, provisional)
+
+| P-ID | Pattern | Source (canon) | Prereqs | Status |
+|---|---|---|---|---|
+| P66 | Prove by induction | Engel ch8; Polya "induction" | P02 | planned |
+| P67 | Prove the contrapositive | proof canon (sibling of P11) | P11 | planned |
+| P68 | Without loss of generality | proof canon (sibling of P08) | P08 | planned |
+| P69 | Telescoping | Engel ch8/9 | P02 | planned |
+| P70 | Double counting | Engel ch5 | P02 | planned |
+| P71 | The extremal principle | Engel ch3; Zeitz §3.2 | P03 | planned |
+| P72 | Monovariants | Engel ch1 (monotone bounded quantity) | P09 | planned |
+| P73 | Generating functions | Engel ch5; Zeitz ch4 | P05, P06 | planned |
+| P74 | Strengthen the claim (induction loading) | induction canon; Tricki | P66 | planned |
+| P75 | Coloring arguments | Engel ch2 | P09 | planned |
+| P76 | Inclusion–exclusion | Zeitz §6.3 | P70 | planned |
+| P77 | Work backwards | Polya "working backward"; Engel ch14 | P01 | planned |
+
+Full mapping, receipts, and honest notes in `canon-audit.md` (mirrored to repo `records/CANON-AUDIT.md`). Slugs enumerated by `book/index.html` (revision R2).
+
+**Coverage policy (user, 2026-10-27):** every technique in the registry gets a page; nothing is deferred by difficulty — only ordered by it (tier assignment is provisional and revisable at authoring; P-IDs are not). Tier-5 pages are **orientation pages** (see conventions): what the tool is for, one showcase result honestly labeled as a sketch, the prerequisite ladder inside this book, and what it changed. The graph's non-curated technique layer (1,223 techniques) is a **candidate pool, not a syllabus**: candidates enter the P-index by recurrence evidence (participation) or canon status, appended under the immutable-ID rule. **Canon additions: appended S02 (2026-10-28) as P66–P77** (Polya / Engel / Zeitz audit; see `canon-audit.md`); domain chapters of the canon are deliberately not patterns and receive no P-IDs.
 
 ## Chapter Map (units; one per working session)
 
 - `book/index.html` — central organization page. **Skeleton published S01, extended S01b (R1).**
 - Pattern pages tier 1: `p01-pin-down-the-problem.html` … `p17-flip-to-the-dual.html` — all planned.
 - Pattern pages tier 2: `p18…p25` — planned, later.
+- Pattern pages canon additions (S02): `p66-induction.html` … `p77-work-backwards.html` — planned; slugs enumerated by `book/index.html` (R2).
 - Pattern pages tiers 3–5: `p26…p65` (tier 5 = orientation pages) — planned, sequenced after the spine.
 - **Page slugs are canonically enumerated by the hrefs in `book/index.html`** (the index is the durable page map; do not invent slugs outside it).
 - Multi-pattern problem pages (separate HTMLs per user structure):
@@ -128,8 +148,9 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 | S01 | 2026-10-27 | Bootstrap: records, P-index seed (24 entries), chapter map, index.html + stylesheet authored; repo `patterns-atlas` created by user (integration token cannot create repos); bootstrap commit `40809fb088` pushed and fetch-back verified; session mirror deleted | **closed** |
 | S01b | 2026-10-27 | Charter extension (user): full-registry coverage — P-index extended P25–P65 (65 patterns, tiers 1–5); class-12 redefined as entry level, not ceiling; deferrals replaced by coverage policy; conventions gained lesson/orientation page types; index.html extended (revision R1) and records synced to repo | **closed** |
 | S01c | 2026-10-27 | Repo agent-portability (user request: continue the work with Gemini): added `AGENTS.md` (agent entry point) + `GEMINI.md` pointer; added `records/WORKING-PROTOCOL.md` (repo-canonical restatement of the operating rules); ported `records/DISCOVERY-ENGINE-ANALYSIS.md` + `records/MCFEE-STYLE-STUDY.md` (evidence base + style fingerprint, previously environment-only); README extended. Any AI agent with repo write access can now continue from the repo alone | **closed** |
+| S02 | 2026-10-28 | Canon audit (fresh-verified Polya/Engel/Zeitz inventories, receipts in `records/CANON-AUDIT.md`; canon additions appended P66–P77) + authored P01 `p01-pin-down-the-problem.html` (9-block template; labs `book/labs/p01-lab.js` + recorded output, deterministic LCG; adversarial review by a fresh verifier engine — independent constants, 8 must-fail injections, all caught; style audit vs the 13-move fingerprint passed; honest run history: 2 defects caught pre-review — dA/dr-vs-dA/dt lab mislabel, Euler-polynomial range mis-stated as n≤40 — both corrected with fresh runs); index.html extended (R2: canon-addition table + P01 status published); records ALWAYS-SYNC; two-gated pushes + fetch-back verified | **closed** |
 
-**Standing to-do:** S02 = canon audit (Polya / Engel / Zeitz coverage vs the P-index; append canon additions P66+) + author P01 (`p01-pin-down-the-problem.html`). **User gate:** plan approved (repo creation + charter extension); P-IDs lock at S02 start.
+**Standing to-do:** S03 = author P02 (`p02-small-cases.html`) per the ladder; then P03. **User gate:** plan approved (repo creation + charter extension); P-IDs locked since S02 start; publishing (repo visibility, GitHub Pages) remains a user gate.
 
 ## Working Protocol
 
