@@ -43,7 +43,7 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 | P21 | Catch the limit point (nested intervals, EVT) | t_compactness_argument | 274 | P15 | planned |
 | P22 | Iterate to a fixed point (Babylonian √) | t_contraction_fixed_point | 78 | P15 | planned |
 | P23 | Interpolate and continue | t_interpolate_and_continue | 106 | P05 | planned |
-| P24 | Split into waves | t_frequency_decomposition | 45 | P15 | planned |
+| P24 | Split into waves | t_frequency_decomposition | 45 | P05, P15, P16 | planned |
 
 ### Tier 2 — first climbs (one addition)
 
@@ -54,13 +54,13 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 | P-ID | Pattern | Source | Chains | Prereqs | Status |
 |---|---|---|---|---|---|
 | P26 | Model it with an equation (physics → PDE) | physicsToPDE | — | P15 | planned |
-| P27 | Complex analysis for integer problems | complexAnalysisToIntegers | deg 108 | P16 | planned |
+| P27 | Complex analysis for integer problems | complexAnalysisToIntegers | deg 108 | P06, P16, P24, P73 | planned |
 | P28 | Conformal mapping | t_conformal_mapping_technique | deg 96 | P27 | planned |
 | P29 | Energy methods | t_energy_method_for_pde | deg 124 | P09, P26 | planned |
-| P30 | Localize at a prime | t_localization_at_prime | deg 121 | P05 | planned |
-| P31 | The universal property argument | t_universal_property_argument | deg 120 | P01, P16 | planned |
+| P30 | Localize at a prime | t_localization_at_prime | deg 121 | P05, P09, P13 | planned |
+| P31 | The universal property argument | t_universal_property_argument | deg 120 | P01, P05, P16 | planned |
 | P32 | Ideal arithmetic | t_ideal_arithmetic | deg 93 | P30 | planned |
-| P33 | The sheaf cohomology bridge | t_sheaf_cohomology_bridge | deg 119 | P31, P12 | planned |
+| P33 | The sheaf cohomology bridge | t_sheaf_cohomology_bridge | deg 119 | P12, P31, P69 | planned |
 | P34 | Arithmetize the syntax (Gödel numbering) | arithmetizeSyntax | — | P14 | planned |
 
 ### Tier 4 — the graduate shelf (P35–P45)
@@ -68,8 +68,8 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 | P-ID | Pattern | Source | Chains | Prereqs | Status |
 |---|---|---|---|---|---|
 | P35 | Build two worlds (force independence) | forceIndependence | — | P01, P34 | planned |
-| P36 | Count with characters | characterDecompositionCount / t_character_methods | deg 87/132 | P08, P05 | planned |
-| P37 | Itô calculus (differentiating randomness) | t_it_calculus | deg 102 | P15, P26 | planned |
+| P36 | Count with characters | characterDecompositionCount / t_character_methods | deg 87/132 | P05, P08, P24 | planned |
+| P37 | Itô calculus (differentiating randomness) | t_it_calculus | deg 102 | P15, P19, P26 | planned |
 | P38 | Major and minor arcs | majorMinorArcDecomposition | — | P27, P15 | planned |
 | P39 | The optimized sieve | sieveByOptimizedQuadratic | — | P30, P10 | planned |
 | P40 | Tropicalize | tropicalize | — | P27, P16 | planned |
@@ -120,8 +120,26 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 | P75 | Coloring arguments | Engel ch2 | P09 | planned |
 | P76 | Inclusion–exclusion | Zeitz §6.3 | P70 | planned |
 | P77 | Work backwards | Polya "working backward"; Engel ch14 | P01 | planned |
+| P78 | Make every step reversible (the iff-chain) | proof canon (iff-method, Lehman–Leighton–Meyer MCS); external ladder benchmark (S02b) | P03 | planned |
 
-Full mapping, receipts, and honest notes in `canon-audit.md` (mirrored to repo `records/CANON-AUDIT.md`). Slugs enumerated by `book/index.html` (revision R2).
+Full mapping, receipts, and honest notes in `canon-audit.md` (mirrored to repo `records/CANON-AUDIT.md`). Slugs enumerated by `book/index.html` (revisions R2–R3).
+
+## Bridge mandates (binding, S02b 2026-10-28 — see `ladder-benchmark.md` for receipts)
+
+The syllabus benchmark against five fast-track programs (ISI/CMI, MTTS, Cambridge IA, Math 55, PROMYS/Ross) validated the trunks and exposed five cliff jumps. Fixes are **mandated exemplars inside already-planned pages** (the missing concept arrives on a page the reader has earned) plus tightened prerequisite links (applied above). A page cannot pass its authoring gates without its mandates worked and machine-verified:
+
+| Page | Mandated exemplar (binding) |
+|---|---|
+| P05 | Remainder mod n as canonical representative of a congruence class (equivalence relations on-ramp) |
+| P06 | Brahmagupta–Fibonacci identity via ∣z₁z₂∣² = ∣z₁∣²∣z₂∣² |
+| P09 | A modular-arithmetic invariant (e.g. digit sums mod 9) |
+| P13 | Euclid's division algorithm and Bézout's identity ax + by = gcd(a,b) via descent |
+| P16 | 2×2 change-of-basis / eigenbasis diagonalization A = PDP⁻¹ as isomorphism exemplar |
+| P19 | Build on the CBSE-12 probability floor (random variables, distributions, mean/variance) explicitly |
+| P33 | Kirchhoff loop obstruction on a 3-cycle (vertex potentials vs edge sums) before continuous open covers |
+| P69 | Telescoping framed around the discrete derivative Δf(k) = f(k+1) − f(k) (coboundary seed) |
+
+Mandates may be added but never silently removed; removals are logged with the owner's assent.
 
 **Coverage policy (user, 2026-10-27):** every technique in the registry gets a page; nothing is deferred by difficulty — only ordered by it (tier assignment is provisional and revisable at authoring; P-IDs are not). Tier-5 pages are **orientation pages** (see conventions): what the tool is for, one showcase result honestly labeled as a sketch, the prerequisite ladder inside this book, and what it changed. The graph's non-curated technique layer (1,223 techniques) is a **candidate pool, not a syllabus**: candidates enter the P-index by recurrence evidence (participation) or canon status, appended under the immutable-ID rule. **Canon additions: appended S02 (2026-10-28) as P66–P77** (Polya / Engel / Zeitz audit; see `canon-audit.md`); domain chapters of the canon are deliberately not patterns and receive no P-IDs.
 
@@ -149,6 +167,7 @@ Full mapping, receipts, and honest notes in `canon-audit.md` (mirrored to repo `
 | S01b | 2026-10-27 | Charter extension (user): full-registry coverage — P-index extended P25–P65 (65 patterns, tiers 1–5); class-12 redefined as entry level, not ceiling; deferrals replaced by coverage policy; conventions gained lesson/orientation page types; index.html extended (revision R1) and records synced to repo | **closed** |
 | S01c | 2026-10-27 | Repo agent-portability (user request: continue the work with Gemini): added `AGENTS.md` (agent entry point) + `GEMINI.md` pointer; added `records/WORKING-PROTOCOL.md` (repo-canonical restatement of the operating rules); ported `records/DISCOVERY-ENGINE-ANALYSIS.md` + `records/MCFEE-STYLE-STUDY.md` (evidence base + style fingerprint, previously environment-only); README extended. Any AI agent with repo write access can now continue from the repo alone | **closed** |
 | S02 | 2026-10-28 | Canon audit (fresh-verified Polya/Engel/Zeitz inventories, receipts in `records/CANON-AUDIT.md`; canon additions appended P66–P77) + authored P01 `p01-pin-down-the-problem.html` (9-block template; labs `book/labs/p01-lab.js` + recorded output, deterministic LCG; adversarial review by a fresh verifier engine — independent constants, 8 must-fail injections, all caught; style audit vs the 13-move fingerprint passed; honest run history: 2 defects caught pre-review — dA/dr-vs-dA/dt lab mislabel, Euler-polynomial range mis-stated as n≤40 — both corrected with fresh runs); index.html extended (R2: canon-addition table + P01 status published); records ALWAYS-SYNC; two-gated pushes + fetch-back verified | **closed** |
+| S02b | 2026-10-28 | Ladder benchmark adoption (owner-supplied external stress-test vs ISI/CMI, MTTS, Cambridge IA, Math 55, PROMYS/Ross): all load-bearing claims fresh-verified (CBSE-12 floor, program contents, canon status of the reversibility move); three trunks validated; five cliff jumps adopted as **binding bridge mandates** (P05, P06, P09, P13, P16, P19, P33, P69) + 7 prereq updates (P24, P27, P30, P31, P33, P36, P37); reversibility move adopted as **P78** (external review's "P75" reconciled — our P75 is Coloring arguments); **owner override of immutability clauses recorded — decision: keep P-IDs stable anyway** (no renumbering gain, published P01 cites them); index.html R3; records ALWAYS-SYNC (`records/LADDER-BENCHMARK.md` added); two-gated pushes + fetch-back verified | **closed** |
 
 **Standing to-do:** S03 = author P02 (`p02-small-cases.html`) per the ladder; then P03. **User gate:** plan approved (repo creation + charter extension); P-IDs locked since S02 start; publishing (repo visibility, GitHub Pages) remains a user gate.
 

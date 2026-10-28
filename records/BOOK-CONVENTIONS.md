@@ -37,6 +37,7 @@ Problem statement → diagnosis walkthrough (three-key) → at least two solutio
 
 ## Verification (binding)
 
+- **Bridge-mandates gate (S02b, 2026-10-28).** Every pattern page session first checks the **Bridge mandates** table in the project record (`book-project.md`; receipts in `ladder-benchmark.md`). A page carrying a mandate cannot pass its session gates unless the mandated exemplar is present in the page, worked honestly, and machine-verified in that page's lab. Mandates may be added but never silently removed; removals are logged with the owner's assent.
 - Every numeric claim in every worked example and exercise answer is machine-verified by executed code; scripts + recorded outputs live in `book/labs/`; nothing is asserted as "should run".
 - Where a mapping is verified (identity, bijection, formula), test it exhaustively over all small inputs, not spot checks; small-case tests are detectors, not proofs — the page says so.
 - Counterexamples used in "when it fails" are verified by running them.
