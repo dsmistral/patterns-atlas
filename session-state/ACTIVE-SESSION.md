@@ -5,10 +5,10 @@
 **Opened:** 2026-10-28 (UTC).
 
 ## State
-- R0 master fetched fresh and verified byte-identical locally: 21,014 B, 121 lines + trailing newline, repo blob 6157f56c.
-- Records base = post-S16 state (commit bfb11f87 records verified; session log S16 CLOSED).
-- Style study and retrofit charter re-read at open (standing instruction).
-- Next: TeX conversion, MathJax head block, SVG figures, R1 revision entry, fresh format-pass lab, records S17 row, two-gated push.
+- R1 page assembled and gated: 35,450 B, 266 lines, md5 e5b04e1b25d2d0b9757d844b413355a3 (TeX 183/183 inline + 3/3 display, 3 SVG figures; stripped-diff clean, 21 hunks, zero prose drift).
+- Fresh format-pass lab complete: book/labs/b02-format-pass.js (27,141 B, 11 pieces) + book/labs/b02-format-pass-output.txt (8,075 B) — run 3 on the final bytes ALL PIECES PASS; two verifier-side P2f expectation defects caught and fixed (runs 1-2), zero page-side defects.
+- Records S17 row spliced (232 lines, 79,464 B); standing to-do advanced to S18 = pass B12.
+- Artifacts complete — 4-file push in flight: page + lab + output + records/BOOK-PROJECT.md.
 
 ## Next step
-Author the R1 page (TeX + figures), then the fresh verifier battery.
+Fetch-back byte-diff verification of the 4 files, ALWAYS-SYNC knowledge copy, KNOWLEDGE.md update, mirror delete, honest close report.
