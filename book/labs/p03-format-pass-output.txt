@@ -1,0 +1,138 @@
+p03-format-pass-output.txt — recorded output of labs/p03-format-pass.js (P03 formatting retrofit pass R1, session S13).
+Fresh verifier engine, zero shared code with the R0 lab. Every numeric claim on book/p03-special-cases.html
+re-verified against the R0 receipts; TeX and SVG sanity included. Honest notes: P1 run 1 aborted on a
+file-reader result-shape mismatch before any check ran (no output; the clean re-run is recorded below);
+P1's run-1 coordinate-bounds pass used an attribute-key regex that skipped digit-bearing names
+(x1/y1/x2/y2 — hence the 10/30 coord counts), so the bounds check was re-run corrected as P1b, which
+supersedes the run-1 counts; P9 run 1 used a naive absence check for the fixed caption wording that
+tripped over the R1 entry's own quotation of it (reported false) — the corrected re-run is recorded,
+and every other P9 line was identical between runs; P1..P8 executed against the pre-fill page
+(run-history placeholder present, expected 1) and P9 is the post-fill re-check on the final page.
+Character counts are JS string lengths; wc -c counts UTF-8 bytes — the deltas are multi-byte characters
+(em dashes etc.). All mathematical pieces ran clean on run 1; no numeric check ever failed.
+
+P1: page/TeX/SVG structural sanity
+page bytes=33900 (expect 34246)
+inline-open \( = 156 (expect 156)
+inline-close \) = 156 (expect 156)
+display-open \[ = 2 (expect 2)
+display-close \] = 2 (expect 2)
+dollar-pairs $$ = 0 (expect 0)
+sections = 9 (expect 9), figures = 3 (expect 3), figcaptions = 3 (expect 3)
+svg = 2 (expect 2), eq = 1 (expect 1), </html> = 1 (expect 1)
+placeholder count = 1 (expect 1)
+config line byte-exact = true
+inline delimiters alternate correctly = true, dangling open = false
+fig1: viewBox = 470x228, href/xlink refs = 0 (expect 0)
+fig1: 10 xy-coords checked, all within viewBox bounds (+/-0.05) = true, worst excursion = 0.000
+fig2: viewBox = 440x195, href/xlink refs = 0 (expect 0)
+fig2: 30 xy-coords checked, all within viewBox bounds (+/-0.05) = true, worst excursion = 0.000
+
+P1b: SVG coordinate bounds (digit keys included)
+fig1: viewBox 470x228, 34 xy-coords, in bounds (+/-0.05) = true, worst excursion = 0.000
+fig2: viewBox 440x195, 70 xy-coords, in bounds (+/-0.05) = true, worst excursion = 0.000
+
+P2: Fig P03.1 geometry + region counts (grid-signature)
+panel(i): worst |endpoint-dist - 90| = 0.0020 (tol 0.05, rounding)
+panel(ii): worst |endpoint-dist - 90| = 0.0041 (tol 0.05)
+panel(i): worst distance of center (110,110) from the 3 lines = 0.0000 (concurrent; tol 0.02)
+panel(ii): crossing 1 at (338.54, 97.54), dist from center = 16.93 (inside circle: true)
+panel(ii): crossing 2 at (344.69, 120.48), dist from center = 11.75 (inside circle: true)
+panel(ii): crossing 3 at (316.23, 105.66), dist from center = 34.05 (inside circle: true)
+panel(ii): min pairwise crossing separation = 23.75px (distinct crossings, no concurrency)
+panel(i): distinct grid signatures = 6 (expect 6); samples inside = 101588, min samples per region = 16931
+panel(ii): distinct grid signatures = 7 (expect 7); samples inside = 101588, min samples per region = 1124
+
+P3: cut counts and handshake boundary vs R0 receipts
+concurrent 2n, n=1..8: 2,4,6,8,10,12,14,16 (expect 2,4,6,8,10,12,14,16)
+general position (n^2+n+2)/2, n=1..8: 2,4,7,11,16,22,29,37 (expect 2,4,7,11,16,22,29,37)
+agreement of 2n and (n^2+n+2)/2 over n=1..20: n=1,2 (expect exactly 1,2)
+handshake n(n-1)/2 boundary: n=0 -> 0, n=1 -> 0, n=2 -> 1 (expect 0,0,1)
+handshake fed n=-2 -> 3 (expect 3, the meaningless value the page records)
+
+P4: Mersenne claims vs R0 receipts
+2^n-1, n=1..12: 1,3,7,15,31,63,127,255,511,1023,2047,4095 (expect 1,3,7,15,31,63,127,255,511,1023,2047,4095)
+divisor rule 2^d-1 | 2^n-1 for every proper divisor d of n in {4,6,8,9,10,12}: true [(2|4:true) (2|6:true) (3|6:true) (2|8:true) (4|8:true) (3|9:true) (2|10:true) (5|10:true) (2|12:true) (3|12:true) (4|12:true) (6|12:true)]
+kill n=4: 15 = 3 x 5 = 15 (expect 15)
+kill n=11: 2047 = 23 x 89 = 2047 (expect 2047)
+p=2: 2^p-1 = 3 PRIME
+p=3: 2^p-1 = 7 PRIME
+p=5: 2^p-1 = 31 PRIME
+p=7: 2^p-1 = 127 PRIME
+p=11: 2^p-1 = 2047 = 23 x 89
+p=13: 2^p-1 = 8191 PRIME
+p=17: 2^p-1 = 131071 PRIME
+p=19: 2^p-1 = 524287 PRIME
+p=23: 2^p-1 = 8388607 = 47 x 178481
+product check: 47 x 178481 = 8388607 (expect 8388607)
+floor(sqrt(8388607)) = 2896 (expect 2896; 2896^2=8386816 <= 8388607 < 2897^2=8392609)
+floor(sqrt(524287)) = 724 (expect 724; 724^2=524176 <= 524287 < 725^2=525625)
+
+P5: Sophie Germain + average-speed claims vs R0 receipts
+SG identity mismatches n=1..50: 0 (expect 0)
+n^4+4 at n=1..4: 5,20,85,260 (expect 5,20,85,260)
+at n=2 the factors read: 2 x 10 = 20 (page says 2 x 10 = 20)
+first factor as (n-1)^2+1 at n=1: 1 (expect 1, the degenerate point)
+avg(30,60) = 40 (expect 40, match = true)
+avg(30,30) = 30 (expect 30, match = true)
+avg(30,90) = 45 (expect 45, match = true)
+avg(50,50) = 50 (expect 50, match = true)
+avg(40,60) = 48 (expect 48, match = true)
+avg(30,3000) = 59.405941 (page: 59.41)
+avg(30,300000) = 59.994001 (page: 59.994)
+simulation 2d/(d/30+d/60) at d=60: 40 km/h (expect 40)
+simulation 2d/(d/30+d/60) at d=120: 40 km/h (expect 40)
+simulation 2d/(d/30+d/60) at d=300: 40 km/h (expect 40)
+curve at b=60: avg(30,60) = 40 (caption: passes through (60, 40) — exact = true)
+the tempting wrong answer: (30+60)/2 = 45, true average 40 (45 never was)
+v(b)=60b/(30+b) strictly increasing over b=1..300000 sampled: true
+v(b) < 60 = 2a for every sampled b (algebraically: 60(30+b)-60b = 1800 > 0 always): true (caption: creeps towards asymptote without ever reaching it)
+
+P6: lineage identities (Lander-Parkin, Cole) vs R0 receipts
+27^5=14348907, 84^5=4182119424, 110^5=16105100000, 133^5=41615795893
+Lander-Parkin LHS sum = 61917364224, RHS 144^5 = 61917364224, equal = true (expect 61917364224, equal)
+mod 1000003: LHS=178473, RHS=178473, agree=true
+mod 99991: LHS=37285, RHS=37285, agree=true
+Cole product 193707721 x 761838257287 = 147573952589676412927
+2^67 - 1 (limb doubling) = 147573952589676412927
+Cole identity: product == 2^67-1 = true, both = 147573952589676412927 = true
+mod 1000003: product=805489, 2^67-1=805489, agree=true
+mod 99991: product=90867, 2^67-1=90867, agree=true
+
+P7: n^2+n+41 kills and Goldbach detector vs R0 receipts
+n=40: 1600+40+41 = 1681 = 41^2 = 1681 (expect 1681, match = true)
+n=41: 1681+41+41 = 1763 = 41 x 43 = 1763 (expect 1763, match = true)
+1681 composite (41^2) = true, 1763 composite (41 x 43) = true
+Goldbach evens 4..1000: failures = 0 (expect 0, detector only)
+boundary spot-checks: 4 = 2+2 = 4, 6 = 3+3 = 6, 1000 = 3+997 = 1000 (997 prime = true)
+
+P8: Fig P03.2 drawn-curve verification
+polyline points checked = 61 (expect 61), all within 0.05 of 60b/(30+b) = true, worst deviation = 0.0076
+curve spans b=0.00 to 3000.00 (expect 0 to 3000), step = 50.03 (expect 50)
+mark 1 at (53.7, 90) -> b=30.00, v=30.000, label "30", v matches avg = true (avg(30) = 30.0000)
+  label "30" present in SVG = true
+mark 2 at (57.4, 66.67) -> b=60.00, v=39.999, label "40", v matches avg = true (avg(60) = 40.0000)
+  label "40" present in SVG = true
+mark 3 at (420, 21.38) -> b=3000.00, v=59.409, label "59.41", v matches avg = true (avg(3000) = 59.4059)
+  label "59.41" present in SVG = true
+x-ticks at b = 0.0, 1000.0, 2000.0, 3000.0 (expect 0, 1000, 2000, 3000)
+y-ticks at v = 0.0, 30.0, 60.0 (expect 0, 30, 60)
+dashed asymptote at y=20 -> v=60 = 2a with a=30 = true, present = true, labeled "60 = 2a" = true
+
+P9: post-fill re-check of the final page
+chars=34656 (wc -c bytes = 35006)
+inline-open = 157, inline-close = 157 (expect 157/157: 155 body pairs + 1 config + 1 new pair in the R1 run history)
+display-open = 2, display-close = 2 (expect 2/2)
+dollar-pairs = 0 (expect 0)
+placeholder remaining = 0 (expect 0)
+sections = 9, figures = 3, figcaptions = 3, svg = 2, eq = 1, </html> = 1
+inline delimiters alternate correctly = true, dangling = false
+R1 entry present = true, honest run history filled = true
+caption fix present = true, false claim absent outside the R1 quotation = true
+
+All checks passed. Zero mismatches anywhere the page claims one; both figure region counts (6 concurrent,
+7 general position) reproduced by grid-signature counting; the Fig P03.2 curve, ticks, marks and asymptote
+reproduced from the file geometry; Lander-Parkin and Cole verified exactly (base-1e6 limb arithmetic plus
+modular cross-routes); the tag-stripped diff gate (run in-session against the R0 master) shows only
+math-notation conversions, the two figure insertions, the labs-line extension, and the R1 entry. One caption
+defect was caught and fixed before the lab ran (see the R1 run history).
