@@ -124,22 +124,44 @@ Entry: `P-ID | pattern name | source technique id | graph evidence | tier | prer
 
 Full mapping, receipts, and honest notes in `canon-audit.md` (mirrored to repo `records/CANON-AUDIT.md`). Slugs enumerated by `book/index.html` (revisions R2–R3).
 
-## Bridge mandates (binding, S02b 2026-10-28 — see `ladder-benchmark.md` for receipts)
+## Bridge mandates and the Bridge Track (binding; S02b 2026-10-28, restructured S02c per owner directive — receipts in `ladder-benchmark.md`)
 
-The syllabus benchmark against five fast-track programs (ISI/CMI, MTTS, Cambridge IA, Math 55, PROMYS/Ross) validated the trunks and exposed five cliff jumps. Fixes are **mandated exemplars inside already-planned pages** (the missing concept arrives on a page the reader has earned) plus tightened prerequisite links (applied above). A page cannot pass its authoring gates without its mandates worked and machine-verified:
+The syllabus benchmark against five fast-track programs (ISI/CMI, MTTS, Cambridge IA, Math 55, PROMYS/Ross) validated the trunks and exposed five cliff jumps. **Owner directive (2026-10-28):** the mandated concepts are vast topics; humans learn in slow simple chunks; no compression — each concept gets adequate treatment, broken into multiple parts each with its own HTML page where necessary. The original mechanism (mandated exemplars squeezed into spine pages) is therefore restructured: **the concepts are taught in the Bridge Track — dedicated concept pages (B-index), one idea per page, sequenced before the pages that use them** — and the consumer pages carry compact, machine-verified worked applications that link to their bridge pages.
 
-| Page | Mandated exemplar (binding) |
+### Bridge Track (B-index)
+
+Entry: `B-ID | page | group | consumers | status`. B-IDs immutable once assigned, same discipline as the P-index; slugs `bNN-slug.html`.
+
+| Group | B-ID | Page (slug) | Consumers | Status |
+|---|---|---|---|---|
+| A · Modular arithmetic | B01 | Remainders and the division algorithm (`b01-remainders.html`) | P05, P09 | planned |
+| A · Modular arithmetic | B02 | Same remainder, new arithmetic — congruence classes (`b02-congruence-classes.html`) | P05, P09 | planned |
+| A · Modular arithmetic | B03 | The Euclidean algorithm (`b03-euclidean-algorithm.html`) | P13 | planned |
+| A · Modular arithmetic | B04 | Bézout's identity via descent (`b04-bezout.html`) | P13 | planned |
+| B · Coordinates and the eigen-idea | B05 | Coordinates are a measuring scheme — basis (`b05-coordinates-basis.html`) | P16 | planned |
+| B · Coordinates and the eigen-idea | B06 | Change of basis: same vector, different numbers (`b06-change-of-basis.html`) | P16 | planned |
+| B · Coordinates and the eigen-idea | B07 | Directions a matrix leaves alone — eigenvectors (`b07-eigenvectors.html`) | P16 | planned |
+| B · Coordinates and the eigen-idea | B08 | Diagonalization: decoupling by relabelling (`b08-diagonalization.html`) | P16 | planned |
+| C · Graphs, potentials, telescoping | B09 | Graphs and numbers on them (`b09-graphs-and-numbers.html`) | P33 | planned |
+| C · Graphs, potentials, telescoping | B10 | Potential differences and the loop obstruction (`b10-loop-obstruction.html`) | P33 | planned |
+| C · Graphs, potentials, telescoping | B11 | The discrete derivative and telescoping (`b11-discrete-derivative.html`) | P69 | planned |
+| D · Norms that multiply | B12 | The Brahmagupta–Fibonacci identity (`b12-brahmagupta-fibonacci.html`) | P06 | planned |
+| E · Probability floor | — | No bridge pages: CBSE-12 covers random variables, distributions, mean/variance | P19 (on-ramp note only) | — |
+
+### Consumer-side mandates (binding, revised S02c)
+
+| Page | Mandated worked application (compact, machine-verified, linking its bridge pages) |
 |---|---|
-| P05 | Remainder mod n as canonical representative of a congruence class (equivalence relations on-ramp) |
-| P06 | Brahmagupta–Fibonacci identity via ∣z₁z₂∣² = ∣z₁∣²∣z₂∣² |
-| P09 | A modular-arithmetic invariant (e.g. digit sums mod 9) |
-| P13 | Euclid's division algorithm and Bézout's identity ax + by = gcd(a,b) via descent |
-| P16 | 2×2 change-of-basis / eigenbasis diagonalization A = PDP⁻¹ as isomorphism exemplar |
-| P19 | Build on the CBSE-12 probability floor (random variables, distributions, mean/variance) explicitly |
-| P33 | Kirchhoff loop obstruction on a 3-cycle (vertex potentials vs edge sums) before continuous open covers |
-| P69 | Telescoping framed around the discrete derivative Δf(k) = f(k+1) − f(k) (coboundary seed) |
+| P05 | Reduce mod n to a canonical representative; link B01–B02 |
+| P06 | Brahmagupta–Fibonacci identity via ∣z₁z₂∣² = ∣z₁∣²∣z₂∣²; link B12 |
+| P09 | A modular-arithmetic invariant (e.g. digit sums mod 9); link B02 |
+| P13 | Euclid's division algorithm and Bézout's identity ax + by = gcd(a,b) via descent; link B03–B04 |
+| P16 | 2×2 change-of-basis / eigenbasis diagonalization A = PDP⁻¹ as isomorphism exemplar; link B05–B08 |
+| P19 | Build on the CBSE-12 probability floor (random variables, distributions, mean/variance) explicitly; no bridge pages |
+| P33 | Kirchhoff loop obstruction on a 3-cycle (vertex potentials vs edge sums) before continuous open covers; link B09–B10 |
+| P69 | Telescoping framed around the discrete derivative Δf(k) = f(k+1) − f(k); link B11 |
 
-Mandates may be added but never silently removed; removals are logged with the owner's assent.
+**Binding gate (two clauses):** (1) a consumer page cannot be authored until its bridge sequence is published — B01–B02 before P05, B12 before P06, B03–B04 before P13, B05–B08 before P16, B11 before P69, B09–B10 before P33; (2) the page carries its mandated worked application, machine-verified in that page's lab, linking to its bridge pages. **Spine learning order with bridges interleaved:** P01, P02, P03, P04, B01, B02, P05, B12, P06, P07, P08, P09, P10, P11, P12, B03, B04, P13, P14, P15, B05, B06, B07, B08, P16, P17 — each bridge lands right before the page that needs it. Mandates may be added but never silently removed; removals are logged with the owner's assent.
 
 **Coverage policy (user, 2026-10-27):** every technique in the registry gets a page; nothing is deferred by difficulty — only ordered by it (tier assignment is provisional and revisable at authoring; P-IDs are not). Tier-5 pages are **orientation pages** (see conventions): what the tool is for, one showcase result honestly labeled as a sketch, the prerequisite ladder inside this book, and what it changed. The graph's non-curated technique layer (1,223 techniques) is a **candidate pool, not a syllabus**: candidates enter the P-index by recurrence evidence (participation) or canon status, appended under the immutable-ID rule. **Canon additions: appended S02 (2026-10-28) as P66–P77** (Polya / Engel / Zeitz audit; see `canon-audit.md`); domain chapters of the canon are deliberately not patterns and receive no P-IDs.
 
@@ -149,6 +171,7 @@ Mandates may be added but never silently removed; removals are logged with the o
 - Pattern pages tier 1: `p01-pin-down-the-problem.html` … `p17-flip-to-the-dual.html` — all planned.
 - Pattern pages tier 2: `p18…p25` — planned, later.
 - Pattern pages canon additions (S02): `p66-induction.html` … `p77-work-backwards.html` — planned; slugs enumerated by `book/index.html` (R2).
+- Bridge track (S02c): `book/b01-remainders.html` … `book/b12-brahmagupta-fibonacci.html` — planned; one concept per page, multi-part sequences where the topic is vast; authored before their consumer pages (interleave order in the Bridge Track section). Slugs enumerated by `book/index.html` (R4).
 - Pattern pages tiers 3–5: `p26…p65` (tier 5 = orientation pages) — planned, sequenced after the spine.
 - **Page slugs are canonically enumerated by the hrefs in `book/index.html`** (the index is the durable page map; do not invent slugs outside it).
 - Multi-pattern problem pages (separate HTMLs per user structure):
@@ -168,8 +191,9 @@ Mandates may be added but never silently removed; removals are logged with the o
 | S01c | 2026-10-27 | Repo agent-portability (user request: continue the work with Gemini): added `AGENTS.md` (agent entry point) + `GEMINI.md` pointer; added `records/WORKING-PROTOCOL.md` (repo-canonical restatement of the operating rules); ported `records/DISCOVERY-ENGINE-ANALYSIS.md` + `records/MCFEE-STYLE-STUDY.md` (evidence base + style fingerprint, previously environment-only); README extended. Any AI agent with repo write access can now continue from the repo alone | **closed** |
 | S02 | 2026-10-28 | Canon audit (fresh-verified Polya/Engel/Zeitz inventories, receipts in `records/CANON-AUDIT.md`; canon additions appended P66–P77) + authored P01 `p01-pin-down-the-problem.html` (9-block template; labs `book/labs/p01-lab.js` + recorded output, deterministic LCG; adversarial review by a fresh verifier engine — independent constants, 8 must-fail injections, all caught; style audit vs the 13-move fingerprint passed; honest run history: 2 defects caught pre-review — dA/dr-vs-dA/dt lab mislabel, Euler-polynomial range mis-stated as n≤40 — both corrected with fresh runs); index.html extended (R2: canon-addition table + P01 status published); records ALWAYS-SYNC; two-gated pushes + fetch-back verified | **closed** |
 | S02b | 2026-10-28 | Ladder benchmark adoption (owner-supplied external stress-test vs ISI/CMI, MTTS, Cambridge IA, Math 55, PROMYS/Ross): all load-bearing claims fresh-verified (CBSE-12 floor, program contents, canon status of the reversibility move); three trunks validated; five cliff jumps adopted as **binding bridge mandates** (P05, P06, P09, P13, P16, P19, P33, P69) + 7 prereq updates (P24, P27, P30, P31, P33, P36, P37); reversibility move adopted as **P78** (external review's "P75" reconciled — our P75 is Coloring arguments); **owner override of immutability clauses recorded — decision: keep P-IDs stable anyway** (no renumbering gain, published P01 cites them); index.html R3; records ALWAYS-SYNC (`records/LADDER-BENCHMARK.md` added); two-gated pushes + fetch-back verified | **closed** |
+| S02c | 2026-10-28 | Bridge-track restructuring (owner directive: vast topics are not compressed; slow simple chunks; each part its own HTML): bridge-mandate mechanism revised from in-page exemplars to the **Bridge Track** — 12 dedicated concept pages B01–B12 in four groups (A modular arithmetic, B coordinates and the eigen-idea, C graphs/potentials/telescoping, D norms that multiply; E probability floor needs no pages), one idea per page, sequenced before their consumer pages (binding gate: bridges published first + compact linked application on the page; spine interleave order recorded); conventions gained the bridge page type + 7-block concept-page template + slow-chunks rule; index.html R4 (bridge-track section, consumer prereq cells note their bridges); records ALWAYS-SYNC; two-gated pushes + fetch-back verified | **closed** |
 
-**Standing to-do:** S03 = author P02 (`p02-small-cases.html`) per the ladder; then P03. **User gate:** plan approved (repo creation + charter extension); P-IDs locked since S02 start; publishing (repo visibility, GitHub Pages) remains a user gate.
+**Standing to-do:** S03 = author P02 (`p02-small-cases.html`) per the ladder; then P03, P04; then the first bridge sequence B01–B02 before P05; B12 before P06; B03–B04 before P13; B05–B08 before P16; B09–B11 before P69/P33. Bridge-page sessions: one bridge page per session by default; adjacent parts of the same sequence may share a session when the second part directly extends the first. **User gate:** plan approved (repo creation + charter extension); P-IDs locked since S02 start; publishing (repo visibility, GitHub Pages) remains a user gate.
 
 ## Working Protocol
 
