@@ -1,24 +1,21 @@
 # ACTIVE SESSION — S04 (Patterns Atlas)
 
-Opened: 2026-10-28. Unit: author P03 `p03-special-cases.html` (per standing to-do).
+Updated: 2026-10-28, pre-push checkpoint. Unit: author P03 — battery + page + gates done.
 
-## State
-- Records current as of S03 close (P02 published, index R5, 2/78 pages).
-- Session row S04 marked IN PROGRESS in book-project.md (local).
-- Style study re-read this session (standing instruction satisfied in-chat).
+## State — battery complete, page authored, gates passed
+- Fresh battery (5 pieces + fresh adversarial verifier, 11/11 must-fail injections caught);
+  honest run history: piece-3 hardcoded factor print; piece-4 base-1e9 limb precision overflow
+  (products > 2^53, Cole product off by 1) fixed with base-1e5 limbs; verifier run 1 had two
+  malformed injection rows, caught by its own verdict line.
+- Style audit vs the 13-move fingerprint passed.
+- Artifacts (local, byte gates by wc -c):
+  - book/p03-special-cases.html — 27256 B, md5 863ba4ecc3694323fa6051fbb8b5e9a1
+  - book/labs/p03-lab.js — 10209 B, md5 3aacfb791a360d408f27669a27808927
+  - book/labs/p03-lab-output.txt — 5177 B, md5 8bfb6b463b3ec17389c1e2df63399be2
 
-## Plan (next steps)
-1. Fresh battery (split pieces, no recursion, no BigInt, pre-flight probe):
-   concurrent cuts -> 2n regions vs general position (n^2+n+2)/2;
-   Mersenne 2^n-1 table + kills (15=3*5, 2047=23*89) + prime-exponent residue (8191 prime);
-   n^4+4 Sophie Germain factorization check; average-speed extreme-case repair;
-   lineage: Lander-Parkin 27^5+84^5+110^5+133^5=144^5, Cole 2^67-1 via limbs, n^2+n+41 at n=40,
-   Goldbach evens <= 1000 detector.
-2. Fresh adversarial verifier (independent constants, must-fail injections).
-3. Author book/p03-special-cases.html (9-block template) + labs/p03-lab.js + recorded output.
-4. Index R6: P03 status -> published, revision-log line.
-5. Records ALWAYS-SYNC (S04 row closed, P-index P03 published, standing to-do -> S05 = P04),
-   two-gated pushes, fetch-back verify, close report, delete this mirror.
-
-## Durable artifacts so far
-- none yet (all local/scratch).
+## Next steps
+1. Push the three book files (this commit).
+2. Index R6: P03 status cell -> published; revision-log R6 line; push + fetch-back verify.
+3. Records ALWAYS-SYNC: book-project.md (P03 published; S04 row closed; standing to-do
+   -> S05 = author P04), KNOWLEDGE.md status; push records/BOOK-PROJECT.md mirror.
+4. Fetch-back byte-diff all pushed files; delete this mirror; close report.

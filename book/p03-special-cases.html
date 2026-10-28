@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P03 · Stress-test with special cases · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P03 · the third move of the spine</p>
+<h1>Stress-test with special cases</h1>
+<p class="tagline">Before you believe a claim — or prove it — attack it yourself: boundary, degenerate, symmetric, dangerous, extreme.</p>
+</header>
+
+<aside class="onramp"><strong>New word: counterexample.</strong> A <em>counterexample</em> is a single case that makes a claim false. "Every swan is white" dies the moment one black swan is found — and no number of white swans brings it back. In mathematics the rule is absolute: one counterexample destroys a for-all claim (Box P01.B on <a href="p01-pin-down-the-problem.html">P01</a>); only a proof establishes one. This page is about how to go hunting for the black swan on purpose.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p><a href="p02-small-cases.html">P02</a> gave you the conjecture factory: compute small cases honestly, read the table, conjecture out loud. Box P02.A ended with two uncomfortable instructions — test the conjecture on fresh cases, and label it a conjecture, not a truth. You watched the reason: Moser's table doubled five times and then produced 31.</p>
+<p>Here is the tension this page resolves. "Test it on fresh cases" is good advice but a bad recipe — fresh cases chosen <em>how</em>? A table of friendly cases (n = 3, 4, 5, 6 — ordinary, well-behaved) is exactly where patterns lie longest. The good news: there is a disciplined way to choose cases, and it is the same instinct a good lawyer uses on a witness — don't ask the easy questions; ask the ones designed to break the story. P02 built the conjecture; this page is the prosecutor's cross-examination.</p>
+</section>
+
+<section id="encounter">
+<h2>2 · Meet the problem</h2>
+<p>A friend has read P02 and come back excited: "The pancake numbers! n cuts give (n² + n + 2) ⁄ 2 pieces." Your job: try to break it. It survives your first checks — n = 1 gives 2 pieces ✓, n = 2 gives 4 ✓. So far, so good.</p>
+<p>Now pick the case a prosecutor would pick. The formula's story is "each new cut crosses all the old ones." What kind of cut <em>fails to cross</em>? The special configuration: cuts that all pass through one common point.</p>
+<p>Draw it. Three cuts, all through one point:</p>
+<figure>
+<pre>n        :  1   2   3   4   5
+concurrent:  2   4   6   8  10
+formula  :  2   4   7  11  16</pre>
+<figcaption>Pieces from n cuts all through one common point, against the pancake formula. The first two rows agree — and then the stories split: three concurrent cuts make 6 pieces, not 7.</figcaption>
+</figure>
+<p>The conjecture — as your friend stated it — is dead at n = 3, killed by one drawing that took thirty seconds. But look at what actually died. Not the formula: the formula was true all along (P02's lab verified it for every n up to 100). What died was the <em>missing hypothesis</em>. The formula needs the cuts in <em>general position</em> (P02's aside on Moser's problem defined this: no three chords through one point; here, no cut through another cut's crossing point). The concurrent drawing is the case the hypothesis excludes — and the lab confirms the wreckage: concurrent cuts give exactly 2n pieces for every n tested (n = 1…20), while the general-position formula gives (n² + n + 2) ⁄ 2, and the two agree only at n = 1 and n = 2.</p>
+<p>Two lessons in one kill. First: special configurations break sloppy claims fast — your friend's claim had survived two checks and died at the third. Second, and more valuable: the wreckage tells you <em>exactly what to repair</em>. The repaired claim — "in general position, n cuts give (n² + n + 2) ⁄ 2 pieces" — is the theorem, and the special case wrote its hypothesis for it. That is what this move is for. It has a name.</p>
+</section>
+
+<section id="name">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p03">
+<p><strong>Pattern P03 — Stress-test with special cases.</strong> Before believing a conjecture (yours or someone else's), or before spending effort proving it, deliberately attack it with the cases most likely to break it: the boundary cases, the degenerate configurations, the symmetric ones, the dangerous values, and the extremes. Treat every kill as information: read the wreckage, repair precisely, and re-state the claim with what you learned.</p>
+<p class="words">Or, in words: don't ask the claim its friendly questions. Ask it the ones it hopes you won't — the smallest, the strangest, the most extreme — and if it breaks, the broken piece tells you what the honest version needed all along.</p>
+</div>
+<div class="pattern-box" id="box-p03a">
+<p><strong>Box P03.A — the adversarial case menu.</strong> Six questions to ask any claim with a parameter n or an object with configurations:</p>
+<ol>
+<li><strong>Boundary.</strong> n = 0, n = 1 — the smallest live cases. Cheap, and they catch off-by-one errors instantly.</li>
+<li><strong>Degenerate.</strong> The configurations where the object collapses: all points coincident, all cuts through one point, an empty collection. Claims are most fragile exactly where their story has nothing to grip.</li>
+<li><strong>Symmetric.</strong> The most symmetric configuration — equal sides, all values the same. Symmetry is where hidden assumptions surface (and where P08 will later do constructive work).</li>
+<li><strong>Dangerous values.</strong> Substitute the constants that appear in the formula. For n² + n + 41, the dangerous n is 41 (and 40); for anything with a factor (n − k), the dangerous n is k. The formula usually betrays its own weak spots.</li>
+<li><strong>Extremes.</strong> Very large n, or very lopsided inputs. A quick growth check: does the claim's answer even behave at the right speed?</li>
+<li><strong>Just past the tested range.</strong> The first case nobody has checked. Patterns that live in small tables die at the edge of them — Moser died at n = 6, exactly one step past the comfortable drawing zone.</li>
+</ol>
+</div>
+<div class="pattern-box" id="box-p03b">
+<p><strong>Box P03.B — reading the wreckage.</strong> A kill is not the end of the investigation; it is the beginning of the honest version. Three standard repairs:</p>
+<ul>
+<li><strong>Missing hypothesis</strong> (the pancake): re-state the claim with the exclusion the kill revealed — "in general position", "with distinct points".</li>
+<li><strong>Wrong formula</strong> (Example 3 below): the special case shows the current formula's output is impossible; use the constraint it imposes to find the right one.</li>
+<li><strong>Domain boundary</strong> (Exercise 1): the formula computes but no longer means anything; state the domain out loud.</li>
+</ul>
+<p>And one warning, binding: <em>no ad-hoc patches.</em> A repair that merely excludes the one case you found — "true except when the three cuts are concurrent" — is curve-fitting, not mathematics. A patch earns its keep by excluding a <em>class</em> of failures (all degenerate crossings at once), and you should be able to say what the class is.</p>
+</div>
+<p><strong>When does P03 apply?</strong> Three-key diagnosis: the claim type is anything — this move polices all of them — but it is most urgent for <em>prove-for-all</em> claims fresh off the P02 table; the problem shape is a claim with a parameter or an object admitting degenerate configurations; the tools are a pencil and malice. Note the division of labour with P02: P02 asks "what is true here?" — the constructor's question. P03 asks "where would this break?" — the destroyer's question. Both are yours.</p>
+</section>
+
+<section id="exemplars">
+<h2>4 · The move at work</h2>
+<p>Three worked examples, one per domain. In each, the kill comes early and the repair is the real content.</p>
+
+<h3>Example 1 (numbers) — the Mersenne rollercoaster</h3>
+<p>P02's tables would suggest it, so let us oblige: compute 2ⁿ − 1 for small n and ask when it is prime. n = 2: 3, prime. n = 3: 7, prime. n = 5: 31, prime. n = 7: 127, prime. The conjecture "2ⁿ − 1 is prime when n is" — well, hold on. Apply Box P03.A item 4: what is the dangerous value? The composite exponents. n = 4: 2⁴ − 1 = 15 = 3 × 5. Dead in one move.</p>
+<p>Now read the wreckage (Box P03.B): why did n = 4 kill it? Because 4 = 2 × 2, and 2² − 1 = 3 divides 2⁴ − 1 (15 = 3 × 5, and the lab confirms: whenever n has a proper divisor d, 2<sup>d</sup> − 1 divides 2ⁿ − 1). So the repair writes itself: <em>2ⁿ − 1 can only be prime if n itself is prime.</em> That is a genuine theorem-shaped insight, extracted from one special case.</p>
+<p>But stay malicious: item 4 again — dangerous values for the repaired claim are the prime exponents. n = 11 is prime: 2¹¹ − 1 = 2047 = 23 × 89. The repair dies too — or rather, it was never a theorem, only a necessary condition, and the stress test just taught us the difference. The honest residue: 2ⁿ − 1 is prime for n = 2, 3, 5, 7, 13, 17, 19 (the lab primality-checks all of these) and composite for n = 11, 23 — and <em>no simple rule is known</em> for which primes survive. This is the move's deepest lesson in one example: special cases can kill and can repair, but they cannot certify. <span class="pid">Moves used: P01 (what "2ⁿ − 1" and "prime" mean, precisely), P02 (the table that suggested the conjecture), P03.</span></p>
+
+<h3>Example 2 (algebra) — n⁴ + 4, killed by its own first case</h3>
+<p>Compute n⁴ + 4 for n = 1: the answer is 5 — prime. A bold friend conjectures: "n⁴ + 4 is prime for every positive whole number n." One row of support, and n = 1 is a boundary case (Box P03.A, item 1) — the category where accidents live. Apply item 6, the next case: n = 2 gives 16 + 4 = 20 = 2 × 10. Dead — and this time the kill is instant because the conjecture was born from a degenerate case: at n = 1 the hidden factorization reads 1 × 5, and the factor of 1 masked it.</p>
+<p>Read the wreckage: n⁴ + 4 factors. Trying to repair, we look for a pattern in the deaths — 20 = 2 × 10, 85 = 5 × 17, 260 = 10 × 26 — and the algebra lands on the certificate:</p>
+<p style="text-align: center">n⁴ + 4 = (n² − 2n + 2)(n² + 2n + 2),</p>
+<p>which the lab verified for every n from 1 to 50, with zero mismatches. The degenerate case n = 1 was honest arithmetic but a lying witness: 5 is "prime" only because the first factor collapses to 1 there. Boundary cases detect off-by-one errors cheaply — and they also mislead, which is why the menu has six questions and not one. <span class="pid">Moves used: P01, P03 — the expansion algebra is class-12 work.</span></p>
+
+<h3>Example 3 (rates) — the average-speed trap</h3>
+<p>You drive from home to town at 30 km/h and return the same road at 60 km/h. A friend says: "average speed 45 km/h — the average of 30 and 60." Do not compute first; stress-test first. Item 5, extremes: suppose the return were not 60 km/h but absurdly fast — 3000 km/h. Then the whole trip is essentially just the outbound crawl: the average should be pushing <em>up towards 60</em> (twice the slow speed, since you cover double the distance in barely more than the outbound time) — the lab computes 59.41, and at a return of 300,000 km/h the average is 59.994. The "45" answer cannot survive that: no average of 30 and 60 should behave like this at the extremes. Item 3, symmetry: at equal speeds the average must equal the common speed — any candidate formula must at least pass a = b.</p>
+<p>The repair: average speed is total distance over total time — the definition your school books pinned (P01 would insist on it). With distances equal, the lab's simulation gives 2d ⁄ (d⁄30 + d⁄60) = 40 km/h, and the closed form 2ab ⁄ (a + b) passes both special cases: equal speeds give a, and the extreme gives 2a, exactly as the physics demands. The wrong answer 45 came from averaging the wrong thing (speeds instead of times). Two special cases, zero algebra, and the trap was dead before we computed anything. <span class="pid">Moves used: P01 (average speed = total distance ⁄ total time, pinned), P03.</span></p>
+</section>
+
+<section id="fails">
+<h2>5 · When the move fails (or seems to)</h2>
+<p>The prosecutor has limits, and stating them precisely is part of the move.</p>
+<ul>
+<li><strong>Passing is not proving.</strong> The star witness: Goldbach's claim that every even number above 2 is a sum of two primes. The lab checked every even number up to 1000 — no counterexample (a detector, and we say so). Mathematicians have checked astronomically far beyond that, for nearly three centuries, and no one has found a kill or a proof. Stress-testing can reduce risk to very small; it cannot reduce it to zero, and it certifies nothing. <em>Mitigation:</em> route surviving claims to a proof tool (P66). <em>Price:</em> proofs cost real work — the experiment was the cheap part. <em>Default:</em> stress-test first, prove second, and never confuse the two.</li>
+<li><strong>The overfitted patch.</strong> Box P03.B's warning bears repeating as a failure shape: the repair that excludes only the case you happened to find. "Primes except n = 40" is not mathematics; "primes only when n is prime" (Example 1) is, because it names a class. If you cannot say what class your patch excludes, you do not yet have a repair.</li>
+<li><strong>Malice has a budget.</strong> You cannot test everything, and some kills hide in ordinary-looking territory: Moser's table survived every adversarial reading P02 knew and died at n = 6 to plain honest computation, not to a clever configuration. The menu is a budget allocator, not a guarantee — when a claim will be tested only six times in its life, item 6 (just past the tested range) is where its lies live.</li>
+<li><strong>Special cases can lie in the other direction.</strong> Example 2's n = 1 was a false positive — a degenerate case that made a false conjecture look prime. Boundary cases are cheap detectors of off-by-one errors and equally cheap sources of accidents. Use them; do not trust them alone.</li>
+</ul>
+<aside class="aside warn"><strong>Scope note.</strong> Stress-testing is the cheapest quality control in mathematics: minutes of pencil work can save weeks of proving a false theorem, and when a proof later stalls, the first question a good supervisor asks is "did you check the extreme cases?" But its output is a verdict of <em>not-yet-dead</em>, never <em>true</em>. The certificate is a different job (P66), and the two are never substitutes.</aside>
+</section>
+
+<section id="next">
+<h2>6 · What to try next</h2>
+<ul>
+<li><strong>The claim survived your malice</strong> → <a href="p66-induction.html">P66 · Prove by induction</a> (planned): the for-all certificate when the claim has a natural next case. And if the induction step will not close, the counter-intuitive fix may be <a href="p74-strengthen-the-claim.html">P74 · Strengthen the claim</a> (planned) — sometimes proving <em>more</em> is easier, because a stronger claim gives the induction step more to work with.</li>
+<li><strong>The kill refused to die quietly</strong> → the quantity that would not change is often the discovery: <a href="p09-invariant.html">P09 · Find the invariant</a> (planned) turns "this configuration breaks it, that one doesn't" into a theorem about what is preserved.</li>
+<li><strong>Too many cases for the pencil</strong> → <a href="p25-machine-cases.html">P25 · Check every case by machine</a> (planned): this page's move handed to a computer, with the same honesty rules (a finite check is a detector, not a proof — unless the cases were all of them).</li>
+<li><strong>You want extremes to build, not break</strong> → <a href="p71-extremal-principle.html">P71 · The extremal principle</a> (planned) is the constructive sibling: choose the largest or smallest object and it often knows something the average ones do not.</li>
+<li><strong>Ahead on the spine</strong> — <a href="p04-complete-the-square.html">P04 · Complete the square</a> (planned) changes gear: from policing claims to a constructive algebraic move. P03 will be waiting for its outputs.</li>
+</ul>
+</section>
+
+<section id="lineage">
+<h2>7 · Lineage interlude</h2>
+<aside class="aside"><strong>History, lightly — and machine-checked.</strong> Pólya's <em>How to Solve It</em> (1945) closes its heuristic list with exactly this posture: "Could you check the result? … test by special cases." The move's greatest public kills are folklore-famous. Euler conjectured (1769) that at least n n-th powers are needed to sum to an n-th power; the claim stood for almost two centuries until a computer search found 27⁵ + 84⁵ + 110⁵ + 133⁵ = 144⁵ (Lander and Parkin, 1966) — our lab verifies the identity exactly: both sides are 61,917,364,224. And in the other direction, Mersenne's seventeenth-century list of exponents p for which 2<sup>p</sup> − 1 is prime contained 67 in error; Frank Cole famously spent a 1903 lecture multiplying out 193,707,721 × 761,838,257,287 on the blackboard, silently, to show it equals 2⁶⁷ − 1 (the story of the silent lecture is folklore; the arithmetic is not — our lab verifies it exactly, digit for digit: 147,573,952,589,676,412,927). None of this is load-bearing; it says that the professionals' blackboard, too, has a prosecutor's corner.</aside>
+</section>
+
+<section id="exercises">
+<h2>8 · Exercises</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◆ diagnose · ◐ explore. Hints and worked answers are collapsible; the ◆ exercise has no hint — the diagnosis <em>is</em> the exercise.</p>
+
+<h3>Exercise 1 ●○○</h3>
+<p>Stress-test the handshake formula n(n − 1) ⁄ 2 against n = 0, 1, 2 (Box P03.A, item 1). Then feed it n = −2. What exactly does the n = −2 experiment teach — and what repair does Box P03.B prescribe?</p>
+<details><summary>Hint</summary><p>Compute all four values, then ask of each: does the number still <em>mean</em> the thing the claim was about?</p></details>
+<details><summary>Worked answer</summary><p>n = 0: 0 handshakes ✓ (an empty party shakes no hands). n = 1: 0 ✓. n = 2: 1 ✓. The formula survives the boundary. But n = −2 gives (−2)(−3) ⁄ 2 = 3 — and "3 handshakes among −2 people" is gibberish. The lesson is not that the formula is wrong but that it has <em>outlived its domain</em>: it computes happily where the problem no longer exists. Box P03.B's third repair: state the domain — "for whole numbers n ≥ 0" (or n ≥ 2, if you pin a party as needing at least two people). The lab records the four computed values, including the meaningless 3.</p></details>
+
+<h3>Exercise 2 ●●○</h3>
+<p>Compute n⁴ + 4 at n = 1. Conjecture — quickly, and badly. Then apply Box P03.A item 6, watch the conjecture die, and perform the full repair: find the factorization, verify it at the killing case, and explain precisely why the n = 1 case lied.</p>
+<details><summary>Hint</summary><p>"Averages" are not the only thing that lies at degenerate points. What is the <em>smallest</em> value the first factor of the factorization can take, and where does it take it?</p></details>
+<details><summary>Worked answer</summary><p>n = 1 gives 5, prime — conjecture "n⁴ + 4 is prime." n = 2 gives 20 = 2 × 10: dead. The factorization is n⁴ + 4 = (n² − 2n + 2)(n² + 2n + 2); at n = 2 it reads 2 × 10 ✓; the lab verifies the identity for every n up to 50. Why n = 1 lied: the first factor is n² − 2n + 2 = (n − 1)² + 1, which equals 1 exactly at n = 1 — the degenerate point where the factorization forgets to factor. 5 was a genuine prime, and a genuinely misleading witness. Boundary cases: cheap, and treacherous.</p></details>
+
+<h3>Exercise 3 ●●●</h3>
+<p>A friend claims: "average of a and b — just (a + b) ⁄ 2; that's what average means." You have a 40 km/h round trip to argue about, but instead, kill the general claim first using only Box P03.A items 3 and 5, then find the correct round-trip average formula and verify it against the same special cases you used to kill the first one.</p>
+<details><summary>Hint</summary><p>Item 3: what must the answer be when a = b? Item 5: what happens as b grows without bound? Any candidate formula must pass both — and (a + b) ⁄ 2 fails one of them before any arithmetic begins.</p></details>
+<details><summary>Worked answer</summary><p>Item 3: at a = b the round trip is driven entirely at speed a, so the average must be a — (a + b) ⁄ 2 passes this one. Item 5: let the return speed b grow huge; the trip becomes the outbound crawl plus almost nothing, so the average must approach 2a — but (a + b) ⁄ 2 grows without bound. Dead, no computation needed. The repair is definitional: average speed = total distance ⁄ total time = 2ab ⁄ (a + b) for equal distances. Check: a = b gives a ✓; b → ∞ gives 2a ✓; the lab's simulation (a = 30, b = 60 over a real road) gives 40 km/h — which (30 + 60) ⁄ 2 = 45 never was. The general lesson: "average of speeds" and "average speed" are different claims, and P01's pinning (average <em>of what</em>?) was where this exercise was really won.</p></details>
+
+<h3>Exercise 4 ◆ Diagnose the kill</h3>
+<p>For each claim, name the single most lethal special case to check first, and say what you expect. No hint — the choice of weapon is the exercise.</p>
+<ol>
+<li>"n² + n + 41 is prime for every whole number n."</li>
+<li>"If n is prime, then 2ⁿ − 1 is prime."</li>
+<li>"Every even number greater than 2 is a sum of two primes."</li>
+</ol>
+<details><summary>Worked answer</summary><p>(1) Item 4, dangerous values: the constant 41 appears in the formula — check n = 41 (gives 41 × 43) or n = 40 (gives 41² = 1681). Both kills; the lab confirms both values. Expect the formula to betray its own constant.</p>
+<p>(2) Item 4 again, but the dangerous set is now the prime exponents: check the first few primes — 2, 3, 5, 7 all survive — and then n = 11: 2047 = 23 × 89. Dead. Expect the necessary-condition repair from Example 1 to be exactly that, and no more.</p>
+<p>(3) The trap: there is no lethal special case. Small evens pass (4 = 2 + 2, 6 = 3 + 3, …), boundary evens pass, and the lab verifies every even up to 1000. This claim's honest status is: unconquered by both malice and proof for nearly three centuries — a conjecture with massive experimental support. The diagnosis the exercise trains: recognizing when stress-testing has met a claim it cannot kill, and routing it onward (P66, if a proof ever comes; the lab's check is a detector, and it says so).</p></details>
+
+<h3>Exercise 5 ◐ Mersenne, past the edge</h3>
+<p>Extend Example 1's table: 2<sup>p</sup> − 1 for every prime p up to 23, primality-tested honestly (trial division; the lab prints the smallest factor when there is one). You will find the conjecture "p prime ⇒ 2<sup>p</sup> − 1 prime" die at 11, resurrect for 13, 17, 19, and die again at 23 (8388607 = 47 × 178481). Sit with: which kills were cheap, which were expensive, and what the pattern of survivals does <em>not</em> tell you. Then write your own rule for when you would stop trusting a surviving claim — and check it against P02's Moser story and this page's Goldbach story. No single answer is expected; the lab's table is the shared ground truth.</p>
+</section>
+
+<section id="graphfooter" class="graphfooter">
+<h2>9 · Graph evidence &amp; revision log</h2>
+<p><strong>Graph evidence.</strong> Source technique: <code>verifyOnSpecialCases</code> — one of the registry's 57 canonical toolbox techniques. Honest note, same family as P02's: it does not appear in the measured top-30 by chain participation. A technique that fires at the <em>verification</em> stage — after the proof chain is built, checking it against hostile inputs — is under-counted by a metric that counts appearances inside recorded chains. The canon gives it first-class status (Pólya's "test by special cases" is the closing move of <em>How to Solve It</em>'s heuristic list; Zeitz devotes early sections to trying small and extreme cases), and this book follows the canon.</p>
+<p><strong>Related patterns.</strong> P01 (pinning defines what a "case" even is), P02 (the conjecture factory this move polices), P25 (the machine version of this page), P66 and P74 (the certificate routes for survivors), P71 (the extremal principle — the constructive sibling), P09 (invariants discovered by what stress cannot kill), P78 (reversible chains, where every step must also survive the reverse case).</p>
+<p><strong>Labs.</strong> <code>labs/p03-lab.js</code> with recorded output <code>labs/p03-lab-output.txt</code>: concurrent cuts (2n, n = 1…20) vs the general-position formula — agreement exactly at n = 1, 2; handshake boundary values; the Mersenne table (n = 1…12) with the composite-exponent divisor rule, the kills 15 = 3 × 5 and 2047 = 23 × 89, and the prime-exponent census p ≤ 23 (8191, 131071, 524287 prime; 8388607 = 47 × 178481); the Sophie Germain factorization n⁴ + 4 = (n² − 2n + 2)(n² + 2n + 2), verified for n = 1…50; the average-speed simulations and extremes (2ab ⁄ (a + b); 59.41 at b = 3000; 59.994 at b = 300000); the lineage identities exactly — Lander–Parkin (both sides 61,917,364,224) and Cole (193,707,721 × 761,838,257,287 = 2⁶⁷ − 1 = 147,573,952,589,676,412,927, by exact limb arithmetic); n² + n + 41 at n = 40 (1681) and n = 41 (1763); Goldbach evens 4…1000 (zero failures, detector only).</p>
+<p><strong>Revision log.</strong> R0 (2026-10-28, session S04): page published. Fresh verification battery executed in-session; style audit against the presentation fingerprint passed; adversarial review passed (fresh verifier engine, zero shared code — sector accumulation, literal-factor tables, base-10⁴ limb multiplication as an independent Cole route — 11 must-fail injection rows, all caught). Honest run history, three defects caught and corrected before install: piece 3 run 1 printed hardcoded wrong factor literals (exhaustive checks unaffected); piece 4 run 1 used base-10⁹ limbs whose pairwise products (~1.6 × 10¹⁷) exceed the 2⁵³ exact-integer range of float64, producing a Cole product off by exactly 1 — run 2 uses base-10⁵ limbs and both routes agree; verifier run 1 carried two malformed injection rows (a true claim mislabelled, a boolean that evaluated true), caught by its own missed-verdict line and fixed — the discipline works on the verifier too. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
+</section>
+
+<footer>
+<p><em>The Patterns Atlas</em> — P03 · Stress-test with special cases. <a href="index.html">Return to the index</a>. Next page in the spine: <a href="p04-complete-the-square.html">P04 · Complete the square</a> (planned).</p>
+</footer>
+</body>
+</html>
