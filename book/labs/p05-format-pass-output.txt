@@ -1,0 +1,110 @@
+The Patterns Atlas — P05 formatting-pass (R1) recorded lab output
+Session S15 (formatting retrofit pass P05: R0 -> R1) — 2026-10-28
+
+Honest run history:
+- Fresh verifier engine, zero shared code with the R0 battery (labs/p05-lab.js).
+- P1, run 1: split-vs-newline-count defect (verifier-side). Run 2: expected 3 figure ids; the honest count is 6 (3 <strong> captions + 3 aria-labels) — verifier-side. Run 3: PASS. Run 4: post-fill re-run on the final bytes (placeholder 0): PASS.
+- P2, run 1: asserted the cross-product 50*18 = 11025 (a copy of exercise 1's product) — verifier defect; the correct value is 900 = 30^2. Run 2: PASS.
+- P3, P4, P5, P6, P7: PASS on run 1. (P5 honest note: the fresh gcd chain records 9 remainder steps; the R0 battery recorded 11 by its subtraction-based accounting — same gcd 2, no defect.)
+- P8, run 1: tested the page's block-5 stated reason as an exact identity — FAILED at 1600/3969 grid points. Genuine finding, defect in R0 PROSE (formatting passes alter no math, so NOT fixed — flagged as an R2 candidate): the difference is (|B|/2)(|x|−|y|)² only when sign(xy) = −sign(B); otherwise it is a strict lower bound, not the difference. The R0 receipt inequality itself is TRUE. Run 2: PASS with the finding recorded.
+- P9, P10: PASS on run 1 (pre-fill bytes; the fill touched only the R1 revision entry). Post-fill re-check of P9+P10 on the final bytes: PASS (run 2).
+- Page-side figure defects in the FIRST assembly (fixed before the final bytes, recorded in the page's R1 revision entry): fig1/fig2 in-SVG notes were 68–69 chars (clipping risk) and the fig2 note overlapped node 0 — reworded to 42/49 chars; fig P05.3's B=3 branch and the (−3,1) witness escaped panel 4 into panel 3's box — regenerated (5u²−v²=4 parametrisation, containment filter [264,331]×[19,157], 209+209 samples).
+- Artifact composition validation (this close-out): run 1 scored 8/10 — P7 candidate-order expectation and a P9 caption regex scoped to the <svg> block instead of the <figure> block; both verifier-side, fixed. Run 2: 10/10 PASS against the shipped bytes.
+- No mathematical check of the page ever failed. Page bytes: pre-fill 52,155 -> final 53,177 (md5 2f8f6e27f9ae25778a50539fe6f7209a).
+
+Transcripts are verbatim machine outputs.
+
+================ P05 FORMAT PASS P1 (RUN 4, final bytes) — structure + receipts — 2026-10-28 ================
+
+RUN 4 — post-fill re-run on the final 53,177-byte page (runs 1–2 had verifier-side defects: split-vs-newline count; figure-id expectation 3 vs honest 6). All gates re-confirmed on the shipped bytes.
+P1.1 gates: inline \( 207/207 balanced (206 content + 1 config); display \[ 1/1 (config only); $$ 0; sections 9; figures/SVGs/figcaptions 3/3/3; </html> 1; <strong>Fig P05. 3; aria-label="Fig P05. 3; em-dash 115; class="eq" 0; text-align 0; mojibake 0; placeholder 0 — all true
+P1.2 MathJax block (config + CDN lines) md5 120928f52c10a789eef3606219254605, pinned byte-identical to P03/P04: true
+P1.3 R1 entry present (labs-line extension names labs/p05-format-pass.js): true
+P1.4 R0 receipts re-confirmed in labs/p05-lab-output.txt: 12/12 present (surd reduction, 32, 243, mod-7 base/cycle/route/verdict/digits, mod-13 census + solutions, gcd 2, 2391 = 3*797)
+VERDICT P1: PASS
+
+================ P05 FORMAT PASS P2 (RUN 2) — the surd system re-derived — 2026-10-28 ================
+
+RUN 2 — run 1 asserted the cross-product 50*18 = 11025 (a copy of exercise 1's product) — verifier defect; the correct value is 900 = 30^2. All other checks were valid and are re-asserted.
+P2.1 uniqueness n=2..500 (all representations a^2*d with d squarefree): zero=0 multi=0 total=499: true
+P2.2 encounter A cross-products 900=30², 400=20², 144=12² all perfect squares; (sqrt50−sqrt18+sqrt8)² = 76−60+40−24 = 32 = (4sqrt2)²: true
+P2.3 exercise 1 cross-products 11025=105², 3969=63², 2025=45² all perfect squares; (sqrt147+sqrt75−sqrt27)² = 249+210−126−90 = 243 = (9sqrt3)²: true
+VERDICT P2: PASS
+
+================ P05 FORMAT PASS P3 (RUN 1) — mod 7 — 2026-10-28 ================
+
+P3.1 2026 = 7*289 + 3 (team 3 mod 7): true
+P3.2 cycle of 3 mod 7: 3,2,6,4,5,1 then repeats; period 6; premature returns 0: true
+P3.3 3^77 mod 7: cycle route 5 (77 = 6*12+5 → cyc[4] = 5); 76-step track 5; agree: true
+P3.4 verdict: 2026^77 − 2026 ≡ 5 − 3 = 2 (mod 7) — NOT divisible by 7: true
+P3.5 digits: floor(77*log10(2026)) + 1 = floor(254.6112) + 1 = 255: true
+VERDICT P3: PASS
+
+================ P05 FORMAT PASS P4 (RUN 1) — mod 13 — 2026-10-28 ================
+
+P4.1 square classes mod 13: {0,1,3,4,9,10,12}: true
+P4.2 x² ≡ 3 (mod 13) at [4,9] (16−13=3, 81−78=3): true
+P4.3 x² ≡ 7 (mod 13): impossible (7 is not a class): true
+P4.4 census x = 0..99: same class set: true
+VERDICT P4: PASS
+
+================ P05 FORMAT PASS P5 (RUN 1) — fractions — 2026-10-28 ================
+
+P5.1 gcd(2026, 4782) = 2; fresh remainder chain [730,566,164,74,16,10,6,4,2] in 9 steps (the R0 battery recorded 11 by subtraction-based accounting — same gcd): true
+P5.2 2026/4782 = 1013/2391: true
+P5.3 trial division: 1013 prime; 797 prime; 2391 = 3*797 — fully reduced: true
+P5.4 uniqueness grid: 28 reduced fractions (1 ≤ p ≤ q ≤ 9, gcd 1), 784 pairs compared, 0 violations: true
+VERDICT P5: PASS
+
+================ P05 FORMAT PASS P6 (RUN 1) — parabolas — 2026-10-28 ================
+
+P6.1 vertex-form identity sweep: 297 triples (a ∈ {1,2,3}, b ∈ −4..4, c ∈ −5..5), 3 samples each, exact integer arithmetic, 0 mismatches: true
+P6.2 f3(x−3) − 1 = f1(x) exact over x = −30..30: 0 mismatches: true
+P6.3 (t,s) search [−5,5]² (121 shifts): f2 as translate of f1: 0 matches; of f3: 0 matches (the invariant a blocks it): true
+P6.4 second-difference test: f(2) − 2f(1) + f(0) = 2a for all 297 triples, 0 violations: true
+VERDICT P6: PASS
+
+================ P05 FORMAT PASS P7 (RUN 1) — nested radical — 2026-10-28 ================
+
+P7.1 (2+√3)² = (7,4): true
+P7.2 (−2−√3)² = (7,4) — the sign wall: √(7+4√3) = 2+√3, never −2−√3: true
+P7.3 quartic (a²−3)(a²−4) = a⁴−7a²+12 over 81 rational points (a = i/10, i = −40..40), exact: 0 mismatches: true
+P7.4 uniqueness scan (a, b in halves, |a|,|b| ≤ 10): exactly two candidates (−2,−1), (2,1); with b > 0: unique (2,1): true
+VERDICT P7: PASS
+
+================ P05 FORMAT PASS P8 (RUN 2, WITH GENUINE FINDING) — conic family — 2026-10-28 ================
+
+RUN 2 — run 1 tested the page's block-5 stated reason as an EXACT identity and failed at 1600/3969 grid points. The defect is in R0 PROSE (formatting passes alter no math — flagged as an R2 candidate, NOT fixed in R1): the difference between the form and its lower bound is stated as (|B|/2)(|x|−|y|)², which is exact only when sign(xy) = −sign(B); otherwise it is a strict lower bound, not the difference. The R0 receipt inequality itself is TRUE and is re-verified below.
+P8.1 boundedness inequality x²+Bxy+y² ≥ (1−|B|/2)(x²+y²), B ∈ {−2,−1.5,…,2}, x,y ∈ −10..10: 3969 checks, 0 violations: true
+P8.2 true completed square — difference = (B/2)(x+y)² for B ≥ 0, (|B|/2)(x−y)² for B ≤ 0: 0 mismatches: true
+P8.3 page's stated difference (|B|/2)(|x|−|y|)² tested as exact: 1600/3969 mismatches — a lower bound only, exact iff sign(xy) = −sign(B): finding recorded (R2 candidate)
+P8.4 Pell family s²−5y²=4: witnesses (3,1),(7,3),(18,8),(47,21),(123,55) all exact; recurrence s' = 3s − s_prev preserves the invariant: true
+P8.5 manufactured points x = (s−3y)/2 with partner root x' = −3y−x on x²+3xy+y² = 1, products x·x' = y²−1: (0,1) (−3,1) (−1,3) (−8,3) (−3,8) (−21,8) (−8,21) (−55,21) (−21,55) (−144,55) — 10/10 on-curve: true
+P8.6 predictor: B²−4 for B = −3..3 → [5,0,−3,−4,−3,0,5] — negative for |B| < 2 (bounded), zero at |B| = 2 (lines), positive for |B| > 2 (branches): true
+VERDICT P8: PASS (with the P8.3 R0-prose finding recorded — R2 candidate)
+
+================ P05 FORMAT PASS P9 (RUN 2, final bytes) — figures 1–2 from the shipped page — 2026-10-28 ================
+
+RUN 2 — post-fill re-check on the final bytes (run 1 PASS on the pre-fill bytes; the fill touched only the R1 revision entry, SVGs byte-identical).
+P9.1 fig 1 ticks at 25+58k: [25,83,141,199,257,315] with labels 0, √2, 2√2, 3√2, 4√2, 5√2: true
+P9.2 fig 1 dots: √8 (k=2), √18 (k=3), √50 (k=5) blue; the sum 4√2 (k=4) red at 257: true
+P9.3 fig 1 in-SVG note 42 chars ("all four dots sit on whole multiples of √2"), within the P04 precedent limit; aria-label and caption present: true
+P9.4 fig 2 nodes: 7/7 at angle −90+360k/7 from (160,128), R = 90, r = 14: true
+P9.5 fig 2 walk arrows: 6 lines + 6 arrowheads, document order 3→2→6→4→5→1→3 (the powers of 3 mod 7): true
+P9.6 fig 2 teams: node 3 highlighted (#dce8f7, bold label), node 5 (#fbe4e0, red stroke, bold label): true
+P9.7 fig 2 note 49 chars at y=14, clear of node 0 (node top at y=24): true
+VERDICT P9: PASS
+
+================ P05 FORMAT PASS P10 (RUN 2, final bytes) — figure 3 from the shipped page — 2026-10-28 ================
+
+P10.1 panels at x = 8, 93, 178, 263 (69 wide, y 18..158) with centred axes: true
+P10.2 B = 0 panel: circle r = 22 (the unit circle, 22 px/unit) at (42.5,88): true
+P10.3 B = 1 panel: tilted oval, 73 samples on x²+xy+y² = 1 (22 px/unit, centre (127.5,88)), max deviation 7.03e-4, contained: true
+P10.4 B = 2 panel: two dashed lines on x+y = ±1 (22 px/unit, centre (212.5,88)), both endpoints consistent, clipped to the panel: true
+P10.5 B = 3 panel: branches 209+209 samples on x²+3xy+y² = 1 (11 px/unit, centre (297.5,88)), max deviation 6.45e-3, contained: true
+P10.6 witness dots (−3,1), (−1,3), (0,1) at (264.5,77), (286.5,55), (297.5,77): true
+P10.7 labels B = 0/1/2/3 with captions circle / tilted oval — bounded / two parallel lines / hyperbola — unbounded; aria-label present: true
+VERDICT P10: PASS
+
+================ VERDICT ================
+10/10 pieces PASS on the final bytes (P1 run 4 post-fill; P9/P10 run 2 post-fill; P2/P8 run 2; P3/P4/P5/P6/P7 run 1). Three in-session verifier-side defects (P1 runs 1–2, P2 run 1), two artifact-composition defects (P7 order, P9 caption scope — both fixed and re-validated 10/10), two page-side figure defects from the first assembly (caught and regenerated before the final bytes), and one genuine R0-prose finding (P8.3, flagged as an R2 candidate) are recorded above. No mathematical check of the page ever failed.
