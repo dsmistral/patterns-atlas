@@ -1,36 +1,34 @@
-# S14 checkpoint — Patterns Atlas, P04 formatting retrofit (R1) — 2026-10-28
+# S14 checkpoint — Patterns Atlas, P04 formatting retrofit (R1) — 2026-10-28 — FINAL STATE
 
-Fresh re-assembly of the P04 R1 page after the full platform restart destroyed
-all prior scratch state (oracle variant space deemed unrecoverable; honest
-re-assembly path chosen). This checkpoint captures the assembled page and all
-inputs, so any future wipe can resume without redoing the conversion.
+Session S14 complete. This checkpoint carried the session through three transient
+scratch wipes and one full platform restart; the final artifacts below are all
+lab-verified and ready for the closing push to main.
 
-## State at this checkpoint
-- p04-master.txt — R0 master, 28,676 B, md5 51ae6aa4f992cd4277cb5142426b6d36, 148 lines
-- master-edited.txt — master with all 77 edit rows applied (148 lines)
-- pieces/edits1.txt (20 rows), edits2.txt (27 rows), edits3.txt (30 rows) —
-  LINENO<TAB>OLD<TAB>NEW conversion table; every OLD verified to occur exactly once
-- pieces/mathjax.ins — 2 lines, byte-identical extract of p03-page.txt lines 8-9 (md5 120928f52c10a789eef3606219254605)
-- pieces/fig1.ins — 17 lines, Fig P04.1 gnomon SVG (viewBox 0 0 220 262, 4 rects, 8 labels)
-- pieces/fig2.ins — 26 lines, Fig P04.2 parabola SVG (viewBox 0 0 330 232, 57-point polyline, vertex (180,200))
-- pieces/r1.ins — 1 line, R1 revision-log entry with RUNHISTORY_PLACEHOLDER (to be filled after lab runs)
-- book/p04-complete-the-square.html — assembled page: 194 lines, 35,093 B,
-  md5 11f24b727cff3f73a830cd6b802a68a1 (PRE-LAB state, placeholder still present)
-- records.txt, p04-lab-output.txt (R0 receipt, NEVER re-run), p04-lab.js,
-  p03-fp-model.js, p03-page.txt — recovered byte-perfect from tool-results (previous commit)
+## Final artifacts
+- book/p04-complete-the-square.html — final R1 page: 194 lines, 37,057 B, md5 f6c2fdaad035e0291dcff2fab21bc63f. Gates: 145/145 inline (144 content + 1 config), 6/6 display (5 equations + 1 config), 0 $$, 9 sections, 2 figures/SVGs/figcaptions, 5+1 eq-class literals, text-align 1, placeholder 0, MathJax block byte-identical to P03's, inline SVGs byte-identical to the labs-src files.
+- labs/p04-format-pass.js — 27,277 B, 401 lines, md5 83a3ffbd... — 10 pieces, fresh engine, zero shared code with the R0 lab; all pieces PASS (P6 run 2, P9 run 2, P10 run 3 after the recorded incidents).
+- labs/p04-format-pass-output.txt — 12,735 B, 138 lines, md5 f1700586... — recorded output: P1–P10 with run-history annotations + VERDICT all-pass; every R0 receipt number reproduced exactly.
+- pieces/r1.ins — 1 line, the final filled R1 revision-log entry (full honest run history), byte-identical to page line 187.
+- records.txt — records closed: S14 row CLOSED (line 214), standing to-do advanced to S15 = pass P05; 61,968 B, md5 23ecb90c...
+- mirror.txt — closing mirror content for session-state/ACTIVE-SESSION.md (3,989 B, md5 c6966b94...), to be deleted after the verified fetch-back.
+- KNOWLEDGE.md (knowledge topic graph-driven-math-book) — status → S14 closed; resume protocol → S15 pass P05; exactly lines 21 and 27 changed.
 
-## Gates measured at assembly (pre-lab)
-194 lines; inline \( 145 = 1 MathJax config + 144 content, all balanced with \) 145;
-display \[ 6 = 1 config + 5 class="eq" equations; $$ 0; sections 9; figures 2;
-svg 2; figcaptions 2; eq class 5; </html> 1; text-align 1 (R1 prose);
-placeholder 1 (pre-fill, expected); MathJax block md5-identical to P03's;
-polyline points 57. Tag-stripped diff vs R0 master reviewed hunk by hunk:
-only math-notation conversions, the MathJax block, the two figure insertions,
-the labs-line extension, and the R1 entry.
+## Inputs (unchanged from earlier checkpoints)
+- p04-master.txt — R0 master, 28,676 B, md5 51ae6aa4..., 148 lines
+- master-edited.txt, pieces/edits1-3.txt (77 edit rows), pieces/mathjax.ins, pieces/fig1.ins, pieces/fig2.ins
+- p04-lab-output.txt (R0 receipt, NEVER re-run), p04-lab.js, p03-fp-model.js, p03-page.txt
+
+## Incident record (also in the page R1 log, lab output, records row, mirror)
+Three transient scratch wipes + one full platform restart destroyed prior scratch
+state mid-pass → fresh re-assembly from the R0 master + P03 conventions (77-row
+edit table, sed/cat assembly); three lab incidents caught before install (P6
+malformed evidence line, P9 eq-class expectation annotation, P10 run-history
+double-quote reworded); page bytes 35,093 → 36,796 → 36,794 → 37,057; no
+mathematical check of the page ever failed.
 
 ## Remaining steps
-1. Author labs/p04-format-pass.js (model p03-fp-model.js) + run + record output
-2. Fill RUNHISTORY_PLACEHOLDER, re-verify final page
-3. Records close (S14 row), KNOWLEDGE.md update, closing mirror
-4. One push to main (page, lab js, lab output, records, mirror), fetch-back byte-diff
-5. Delete mirror; honest close report
+1. Push to main (one commit): book/p04-complete-the-square.html, book/labs/p04-format-pass.js, book/labs/p04-format-pass-output.txt, records/BOOK-PROJECT.md (records.txt), session-state/ACTIVE-SESSION.md (mirror.txt).
+2. Fetch-back all five from main; byte-diff identical.
+3. Delete the mirror from main; confirm gone.
+4. Delete the checkpoint files from vibe-checkpoint (branch stays).
+5. Honest close report. Next unit S15 = formatting retrofit pass P05 (book/p05-canonical-form.html).
