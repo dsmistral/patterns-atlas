@@ -1,0 +1,138 @@
+p04-format-pass-output.txt — recorded output of labs/p04-format-pass.js (P04 formatting retrofit pass R1, session S14).
+Fresh verifier engine, zero shared code with the R0 lab. Every numeric claim on book/p04-complete-the-square.html
+re-verified against the R0 receipts (labs/p04-lab-output.txt); TeX and SVG sanity included. The page for this pass
+is a fresh re-assembly: a full platform restart destroyed the prior session's scratch state mid-pass, so the R1
+page was rebuilt programmatically from the R0 master (byte-verified, md5 51ae6aa4...) and the P03 conventions; all
+measurements below are the fresh assembly's own. Pieces run as recorded transcript pieces (<= 4KB each), no
+recursion, no BigInt in the value path, deterministic (no randomness used). Honest notes: pieces 1-5, 7, 8 ran clean
+on run 1; piece 6 run 1 carried a malformed evidence line (the Ex4 factor-pair route's y-formula read -16 instead
+of -6, so the route check reported false while the page's solutions were already confirmed by the scan route and
+the both-sides-392 checks in the same run) — fixed and re-run (run 2 recorded); piece 9 run 1's eq-class
+expectation read 5, but the honest count is 6 (five equations plus the R1 entry's own prose mention) — an
+expectation annotation defect, corrected and re-run (run 2 recorded, every other line identical); piece 10 run 1
+(against the first filled page, 36796 bytes) revealed that the run-history clause quoted the class attribute a
+second time (eq-class literal count 7) — the clause was reworded, run 2 checked the reworded page (36794 bytes),
+and after the R1 entry was amended to record this very incident, run 3 (recorded) checked the final page
+(37057 bytes). P1..P9 executed against the pre-fill page (run-history placeholder present, expected 1) and P10 is
+the post-fill re-check of the final page. Character counts are JS string lengths; wc -c counts UTF-8 bytes — the
+deltas are multi-byte characters (em dashes etc.). No mathematical check of the page ever failed.
+
+P1: al-Khwārizmī roots, positivity, doubled identity (vs R0 receipts 1a-1e)
+F1 x=3: x^2+10x = 39 (receipt 1a: 39, 39)
+F1 x=-13: x^2+10x = 39 (receipt 1a: 39, 39)
+F2 (x+5)^2 at x=3 -> 64 | at x=-13 -> 64 (receipt 1b: 64, 64)
+F2b page's own checks: 9+30 = 39 | 169-130 = 39 (page: 39, 39)
+F2c both signs of the root: 3 and -13 from (x+5)^2 = 64 (page's ± discipline, P78)
+F3 min x^2+10x+41 over integers -30..30: 16 at x=-5 (receipt 1c: 16 at -5)
+F3b grid values below 16 (page: always at least 16): 0 (expect 0)
+F4 doubled identity 4(x^2+bx+c)=(2x+b)^2+4c-b^2 over b,c in [-12,12], x in [-8,8]: checks=10625 mismatches=0 (receipt 1d: 10625, 0)
+F5 grid values below the vertex leftover: 0 (receipt 1e: 0)
+F5b the corner: 5 x 5 = 25 (page: 25); trial factorization 39 = 3 x 13 (page's encounter)
+
+P2: quadratic formula two routes + Vieta + Exercises 1-2 (vs R0 receipts 2a-2f)
+G1 cases: real=786 complex=370 (receipt 2a: 786, 370)
+G2 formula route vs vertex-form route: agreement=786 disagreements=0 (receipt 2a: 786, 0)
+G3 substitution failures=0 | Vieta sum/product failures=0 (receipt 2b: 0, 0)
+G4 perfect-square discriminants=229 | exact integer root-check failures=0 (receipt 2c: 229, 0)
+G5 Ex1 x^2-8x+3=(x-4)^2-13 mismatches over [-30,30]: 0 | Ex2 2x^2+12x+7=2(x+3)^2-11 mismatches: 0 (receipt 2d: 0, 0)
+G6 Ex1 min = -13 at x=4 (receipt 2e: -13 at 4) | Ex2 min = -11 at x=-3 (receipt 2e: -11 at -3)
+G6b the wrong corner's suggestion: Ex2 value at x=-2 = -9 (page: -9 at -2, above the true min -11 at -3)
+G7 half-of-the-middle checks: Ex1 half of -8 = -4, corner (-4)^2 = 16 (page hint: 16)
+
+P3: the circle exemplar x^2+y^2-6x+4y-12=0 (vs R0 receipts 3a-3f)
+H1 leftover sum 3^2 + 2^2 + 12 = 25 (receipt 3a: 25, radius 5, center (3,-2))
+H2 round-trip agreement over box x[-5,11], y[-8,4]: 221 disagreements: 0 (receipt 3b: 221, 0)
+H3 integer points on the curve: 12 -> (-2,-2) (-1,-5) (-1,1) (0,-6) (0,2) (3,-7) (3,3) (6,-6) (6,2) (7,-5) (7,1) (8,-2) (receipt 3c: 12)
+H4 parametric route, 240 samples: max |original eq| = 1.42e-14 (receipt 3d: 1.42e-14; page: 1.4e-14)
+H5 the near-miss (3,2): original = -9 (receipt 3e: -9) | true on-curve spot (3,-7): 0
+H5b exercise conic x^2-4x+y^2+6y=3: agreements=169 disagreements=0 | integer points: 4 -> (-2,-3) (2,-7) (2,1) (6,-3) (receipt 3f: 169, 0, 4 — radius 4 = 2^2 admits only the 4 axis points)
+
+P4: Diophantine exemplar + Exercise 4 + Babylonian doubled route (vs R0 receipts 4a-4h)
+I1 scan x^2+6x = y^2+4y over [-20,20]^2: 4 solutions -> (-6,-4) (-6,0) (0,-4) (0,0) (receipt 4a: 4)
+I2 factor-pair route (x-y+1)(x+y+5)=5: 4 solutions -> (-6,-4) (-6,0) (0,-4) (0,0) (receipt 4b: 4)
+I3 routes agree: true (receipt 4c: true)
+I4 Ex4 scan x^2+14x = y^2+6y+1 over [-40,40]^2: 4 -> (-28,-23) (-28,17) (14,-23) (14,17) (receipt 4d: 4 -> (-28,-23) (-28,17) (14,-23) (14,17))
+I5 all four Ex4 solutions give both sides = 392: true (receipt 4e: 392 = 392 each time)
+I6 Babylonian doubled route: (2x-7)^2 = 289 = 17^2 (receipt 4f: 289) — a perfect square, as the doubled route needs
+I7 tablet answer x=12, y=5: x-y = 7 | xy = 60 (receipt 4g: 7, 60)
+I8 modern second sign x=-5, y=-12: x-y = 7 | xy = 60 | (2*(-5)-7)^2 = 289 (receipts 4g/4h: 7, 60, 289)
+
+P5: integral exemplar + Exercise 5 quartic + cross-term positivity (vs R0 receipts 5a-5e)
+J1 completed denominator at x=0: (x+2)^2+9 -> 13 | x^2+4x+13 -> 13 (receipt 5a: 13, 13)
+J2 derivative round-trip (central diff), x=-12..12 step 0.5: max |err| = 5.21e-11 (receipt 5b: 5.21e-11; page: 5.2e-11)
+J3 Simpson(1200) on [-6,4]: 0.678147979 | antiderivative: 0.678147979 | diff = 7.19e-14 (receipt 5c: 0.678147979, 0.678147979, 7.19e-14; page: 7.2e-14)
+J4 Ex5 quartic x^4-4x^2+4=(x^2-2)^2 mismatches over [-30,30]: 0 | negatives: 0 | grid min: 1 at x=-1 (receipt 5d: 0, 0, 1 at -1; true min 0 at x=±sqrt(2), outside the grid)
+J5 cross-term x^2+4xy+5y^2=(x+2y)^2+y^2 mismatches over [-10,10]^2: 0 | negatives: 0 (receipt 5e: 0, 0 — a sum of two squares, never negative)
+
+P6: page-embedded numeric claims (gnomon areas, parabola values, factor pairs, leftover/discriminant) — RUN 2
+(RUN HISTORY: run 1's K6 evidence line used y = (e-d-16)/2 instead of the correct y = (e-d-6)/2 in the Ex4
+factor-pair route, so the route check reported false while the page's solutions were already confirmed by the
+scan route and the both-sides-392 checks in the same run; fixed here. All other lines identical between runs.)
+K1 gnomon area identity: 90^2 + 2*90*75 + 75^2 = 27225 = 165^2 = 27225 (page/R1 entry: 27,225)
+K2 parabola vertex: (-5+5)^2+16 = 16 (page: vertex (−5, 16), minimum 16)
+K3 parabola endpoints: at x=-13: 64+16 = 80 | at x=3: 64+16 = 80 (page/figure: 80 at both ends)
+K4 fine grid x in [-13,3] step 0.025: min = 16 at x=-5.00 (never dips below 16)
+K5 41 is prime: true | factor pairs of 41: (1,41) (41,1) (-1,-41) (-41,-1) (page Ex4)
+K6 Ex4 factor-pair route (x-y+4)(x+y+10)=41 yields 4 integer solutions: true (page: (14,17) (14,-23) (-28,-23) (-28,17))
+K7 Ex2 factor pairs (1,5) (5,1) (-1,-5) (-5,-1) all give integer solutions: true (page: (0,0) (0,-4) (-6,-4) (-6,0))
+K8 Example 1's leftover (monic b^2/4 - c): disc = 4*leftover exactly; positive -> two real roots, zero -> one, negative -> none; grid min = -leftover (b,c in [-4,4]): true (page's sign rule)
+K9 Exercise 6's leftover c - b^2/4: disc = -4*leftover (opposite sign, the relation part (b) asks for), over b,c in [-6,6]: true
+K9b registry cameo numbers: at b=10, c=41: corner (b/2)^2 = 25, Ex6-style leftover = 16 (page: 25 paid, 16 left)
+
+P7: Fig P04.1 gnomon geometry (labs-src/fig-p04-1.svg)
+M1 viewBox = 220x262 (expect 220x262) | href/xlink refs = 0 (expect 0)
+M2 rects parsed = 4 (expect 4): [[20,150,90,90],[110,150,75,90],[20,75,90,75],[110,75,75,75]] exact geometry = true
+M3 assembled square spans x 20..185 (side 165), y 75..240 (side 165) — both sides 165 = true
+M4 area identity: 90^2 + 2*90*75 + 75^2 = 27225 = 165^2 = 27225 (page/R1 entry: 27,225)
+M5 dashed missing corner present: true | corner rect 75x75 at (110,75): true
+M6 text labels = 8 (expect 8): [x², 5x, 5x, 25, x, 5, x, 5] matches expected multiset/order = true
+M7 24 xy-coords checked, in bounds (+/-0.05) = true, worst excursion = 0.000
+
+P8: Fig P04.2 vertex-form parabola (labs-src/fig-p04-2.svg)
+N1 viewBox = 330x232 (expect 330x232) | href/xlink refs = 0 (expect 0)
+N2 polyline points = 57 (expect 57)
+N3 X-coords follow 40+5k exactly (k=0..56) = true | plotted Y vs formula, worst deviation = 0.0050px at k=7 (2-decimal rounding, tol 0.005)
+N4 vertex point k=28 = (180,200) -> x = -5, y = 16 exactly: true
+N5 endpoints (40,30) -> (−13, 80) and (320,30) -> (3, 80): true (caption: climbs to 80 at both ends)
+N6 x-ticks at X=40/180/320 (labels −13, −5, 3) = true | y-ticks at Y=30/200 (labels 80, 16) = true
+N7 dashed minimum line y=200 x=24..320: true | vertex circle at (180,200): true
+N7b labels present: '(−5, 16)' = true, '(−13, 80)' = true, '(3, 80)' = true, curve label = true
+N8 54 xy-coords checked, in bounds (+/-0.05) = true, worst excursion = 0.000 (polyline points counted once via the 57-point check)
+
+P9: page/TeX structure sanity (pre-fill; O1-O6) — RUN 2
+(RUN HISTORY: run 1's O4 line expected eq class = 5, but the honest count is 6 — five equations plus the R1
+entry's own prose mention; an expectation annotation defect, corrected here. Every other line was identical.)
+O1 chars=34689 (wc -c bytes = 35093; JS length counts UTF-16 units — multi-byte chars differ) | lines=194 (expect 194)
+O2 inline-open \( = 145 (expect 145 = 144 content + 1 config), inline-close \) = 145 (expect 145)
+O2b display-open \[ = 6 (expect 6 = 5 eq + 1 config), display-close \] = 6 (expect 6), $$ = 0 (expect 0)
+O3 MathJax config line byte-exact = true
+O3b inline delimiters alternate correctly = true, dangling open = false
+O4 sections = 9 (expect 9), figures = 2 (expect 2), figcaptions = 2 (expect 2), svg = 2 (expect 2), eq class = 6 (expect 5 equations + 1 R1 prose mention = 6), </html> = 1 (expect 1)
+O4b text-align = 1 (expect 1, the R1 prose mention) | placeholder = 1 (expect 1 pre-fill)
+O5 inline SVG blocks byte-identical to labs-src files: fig1 = true, fig2 = true
+O6 labs-line extension present = true | R1 entry present = true | MathJax loader in head = true
+
+P10: post-fill re-check of the final page — RUN 3
+(RUN HISTORY: run 1, against the first filled page (36796 bytes), caught the run-history clause quoting the class
+attribute a second time (eq-class literal count 7); the clause was reworded and run 2 checked the reworded page
+(36794 bytes); the R1 entry was then amended to record this incident, and this run 3 checks the final page.)
+Q1 chars=36639 (wc -c bytes = 37057) | lines=194 (expect 194)
+Q2 inline-open = 145, inline-close = 145 (expect 145/145: 144 content + 1 config — the run history adds no TeX) | display = 6/6 (expect 6/6) | $$ = 0 (expect 0)
+Q3 placeholder remaining = 0 (expect 0)
+Q4 sections = 9, figures = 2, figcaptions = 2, svg = 2, eq class = 6 (6 = 5 equations + 1 prose mention), </html> = 1, text-align = 1 (1, the R1 prose mention)
+Q5 inline delimiters alternate correctly = true, dangling = false | config byte-exact = true
+Q6 R1 entry present = true, run history filled = true, rebuild disclosed = true, post-fill authoring fix recorded = true
+
+VERDICT — all checks passed. Every R0 receipt number reproduced exactly by the fresh engine (10,625-check doubled
+identity with zero mismatches; 786/370 real/complex cases with 229 perfect-square discriminants and zero route
+disagreements; the 221-point circle round trip with 12 lattice points and 1.42e-14 parametric deviation; the 169/4
+exercise conic; four Diophantine solutions by factor-pair route and full scan, both routes agreeing; Babylonian
+289 = 17^2 with both sign pairs exact; integral checks to 5.21e-11 and 7.19e-14). Both figures verified from their
+files: the gnomon's four rects exact, area identity 27,225 = 165^2, 8 labels, all coordinates in bounds; the
+parabola's 57 points on the formula with worst deviation 0.0050px (the 2-decimal rounding bound), vertex and
+endpoints exact, ticks, dashed minimum and labels present. Page gates green: 145/145 balanced inline (144 content
++ 1 config), 6/6 display, zero dollar-pairs, 9 sections, 2 figures, 5+1 eq-class literals, text-align 1 (R1
+prose), placeholder 0 post-fill, MathJax config byte-identical to P03's, inline SVGs byte-identical to the
+labs-src files. The tag-stripped diff gate (run in-session against the R0 master) shows only math-notation
+conversions, the MathJax block, the two figure insertions, the labs-line extension, and the R1 entry. Three
+lab/annotation incidents were caught and recorded before install; no mathematical check of the page ever failed.

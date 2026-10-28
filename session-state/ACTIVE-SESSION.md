@@ -1,13 +1,19 @@
-# ACTIVE SESSION — S14 (open)
+# ACTIVE SESSION — S14 (closing)
 
-**Unit:** formatting retrofit pass P04 (`book/p04-complete-the-square.html`), fourth pass under the S10 charter.
+**Unit:** formatting retrofit pass P04 (`book/p04-complete-the-square.html`), fourth pass under the S10 charter — COMPLETE.
 
-Plan (in order):
-1. R0 master fetched fresh (28,676 B, md5 51ae6aa4f992cd4277cb5142426b6d36, 148 lines); receipts fetched (`book/labs/p04-lab-output.txt`, 7,247 B; the drafting lab `book/labs/p04-lab.js` also fetched for claim cross-reference).
-2. Line-map the master; convert all math to TeX (inline \(…\), display \[…\]; never `$$`); standard MathJax block into the head (byte-identical to P01/P02/P03's 297-B block).
-3. Add SVG figures where they genuinely help, coordinates machine-checked (candidates: the al-Khwarizmi geometric completion — square plus two strips plus the missing corner; the parabola in vertex form with the vertex marked).
-4. Page revision-log R1 entry (P04's log has only R0) with honest run history; Labs line extended with the pass lab.
-5. Gates: byte gate; tag-stripped diff vs R0 master (math-notation/figure/revision-log only); fresh format-pass verifier lab re-checking every numeric claim against the R0 receipts; TeX + SVG sanity.
-6. Push page + lab files + records/BOOK-PROJECT.md + mirror; fetch-back byte-diff; records close; mirror deleted at close.
+Done (gates as run):
+1. R0 master fetched fresh (28,676 B, md5 51ae6aa4f992cd4277cb5142426b6d36, 148 lines); receipts fetched (`book/labs/p04-lab-output.txt`, 7,247 B — never re-run; the drafting lab `book/labs/p04-lab.js` for claim cross-reference).
+2. All page mathematics converted to TeX: 144 balanced inline content pairs (145 with the config line's pair), 5 display equations (6/6 with the config line's), zero `$$`; standard MathJax block in the head, byte-identical to P01–P03's (md5 120928f52c10a789eef3606219254605).
+3. Two SVG figures added, coordinates machine-checked: Fig P04.1 (the gnomon completion of the square — viewBox 220×262, four rects, dashed 75×75 missing corner, assembled side 165, area identity 27,225 = 165², 8 labels); Fig P04.2 (the vertex-form parabola y = (x+5)² + 16 — viewBox 330×232, 57-point polyline, worst deviation 0.0050 px at k = 7, vertex (−5, 16) exact, endpoints 80 at both x = −13 and x = 3, dashed minimum, labeled ticks and marks).
+4. Page revision-log R1 entry with honest run history (rebuild disclosure included); Labs line extended with the pass lab (R0 labs text kept verbatim).
+5. Gates: tag-stripped diff vs R0 master reviewed hunk by hunk — math-notation conversions, the MathJax block, the two figure insertions, the labs-line extension and the R1 entry only; structure preserved (9 sections, figures 0 → 2); byte gate 37,057 B, md5 f6c2fdaad035e0291dcff2fab21bc63f, 194 lines.
+6. Fresh format-pass verifier lab `book/labs/p04-format-pass.js` (27,277 B, 10 pieces, zero shared code with the R0 lab) + recorded output `book/labs/p04-format-pass-output.txt` (12,735 B), all checks PASS: every R0 receipt number reproduced exactly (doubled identity 10,625 checks / 0 mismatches; 786/370 quadratic census with 229 perfect-square discriminants; the circle's 221-point round trip with 12 lattice points and 1.42e−14 parametric deviation; the 169/4 exercise conic; four Diophantine solutions by both the factor-pair route and the full scan, both sides 392; Babylonian 289 = 17² with both sign pairs; integral checks to 5.21e−11 and 7.19e−14); both SVGs verified from the labs-src files; page TeX sanity green (145/145 inline, 6/6 display, 0 `$$`, 9 sections, 2 figures, 5+1 eq-class literals, text-align 1, placeholder 0 post-fill); post-fill re-check of the final page.
 
-This file is the opening checkpoint; it will be deleted once the session closes with a verified fetch-back.
+Honest defect log (all recorded in the page's R1 log and the lab output):
+- Three transient mid-call scratch wipes plus one full platform restart destroyed all prior scratch/backup state mid-pass; the oracle-variant search was abandoned as unrecoverable. The page was re-assembled fresh from the byte-verified R0 master plus the P03 conventions (77-row edit table, every OLD verified to occur exactly once; sed/cat assembly); every measurement was re-made on the fresh assembly, no gate waived. Mid-session safety: fixed pieces checkpointed to branch `vibe-checkpoint` under `checkpoint/patterns-atlas/2026-10-28-s14/`.
+- Three lab incidents caught before install: P6 run 1 malformed evidence line (Exercise 4 factor-pair route y-formula −16 instead of −6 — the page's solutions were already confirmed by the scan route and the both-sides-392 checks in the same run); P9 run 1 eq-class expectation annotation 5 vs the honest 6; P10 run 1 caught the R1 run-history clause double-quoting the class attribute → reworded to the eq-class mention, the entry amended to record the incident, run 3 against the final page. Page bytes went 35,093 (pre-fill) → 36,796 → 36,794 → 37,057 through these authoring fixes. No mathematical check of the page ever failed.
+
+Next unit: S15 = formatting retrofit pass P05 (`p05-canonical-form.html`), then S16 = pass B01; S17 = B02; S18 = B12; S19 = author P06.
+
+This mirror will be deleted once the fetch-back byte-diff is verified.
