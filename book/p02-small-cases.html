@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>P02 — Experiment with small cases · The Patterns Atlas</title>
 <link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -18,18 +20,30 @@
 <section id="bridge">
 <h2>1 · Before we begin</h2>
 <p><a href="p01-pin-down-the-problem.html">P01</a> gave you the pinning checklist and the four claim types (Box P01.B). Pinning tells you <em>what</em> must be shown. It deliberately says nothing about <em>what the answer looks like</em> — and for compute-type claims, that is the real difficulty: nobody tells you the formula before you have earned it.</p>
-<p>Here is the tension this page resolves. Staring at the general problem rarely produces formulas; they do not arrive by pure thought. The good news: if the problem has a whole-number size parameter n — cuts, people, sides, terms — then the smallest instances are computable by hand, cheaply, right now. The table of the first few cases is the fastest discovery engine you own. The bad news: tables lie. You watched it happen already — on P01, the polynomial n² + n + 41 produced forty primes in a row and then died at n = 40. So this page teaches two things at once: how to read a small-case table, and how much to trust what it says.</p>
+<p>Here is the tension this page resolves. Staring at the general problem rarely produces formulas; they do not arrive by pure thought. The good news: if the problem has a whole-number size parameter \(n\) — cuts, people, sides, terms — then the smallest instances are computable by hand, cheaply, right now. The table of the first few cases is the fastest discovery engine you own. The bad news: tables lie. You watched it happen already — on P01, the polynomial \(n^2 + n + 41\) produced forty primes in a row and then died at \(n = 40\). So this page teaches two things at once: how to read a small-case table, and how much to trust what it says.</p>
 </section>
 
 <section id="encounter">
 <h2>2 · Meet the problem</h2>
-<p>How many pieces can you cut a circular pancake into, using at most n straight cuts?</p>
+<p>How many pieces can you cut a circular pancake into, using at most \(n\) straight cuts?</p>
 <p>Do the small cases yourself, honestly, before reading on. Zero cuts: one piece. One cut: two. Two cuts, crossing: four. Three cuts — take a moment and draw it; the best you can do is <strong>seven</strong>, because the third cut can cross both earlier cuts, and each crossing turns one cutting segment into a fresh split.</p>
 <p>So the table begins:</p>
 <figure>
 <pre>n      :  0   1   2   3   4   5
 pieces :  1   2   4   7  11  16</pre>
-<figcaption>The pancake numbers for n = 0…5. The n = 4 row is 11 because the fourth cut crosses three earlier cuts, is split into four segments, and each segment splits one region. The n = 5 row is 16 for the same reason: five crossings, six segments, six new regions.</figcaption>
+<figcaption>The pancake numbers for \(n = 0\ldots 5\). The \(n = 4\) row is 11 because the fourth cut crosses three earlier cuts, is split into four segments, and each segment splits one region. The \(n = 5\) row is 16 for the same reason: five crossings, six segments, six new regions.</figcaption>
+</figure>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Fig P02.1 — a pancake circle cut by three straight cuts in general position, producing 7 regions">
+<circle cx="110" cy="110" r="100" fill="#dce8f7" stroke="#8a94a3" stroke-width="1.5"/>
+<line x1="11.52" y1="127.36" x2="196.60" y2="60.00" stroke="#3574d4" stroke-width="2.2"/>
+<text x="152" y="66" font-size="12" fill="#3574d4">cut 1</text>
+<line x1="127.36" y1="208.48" x2="75.80" y2="16.03" stroke="#c25b4a" stroke-width="2.2"/>
+<text x="138" y="138" font-size="12" fill="#c25b4a">cut 2</text>
+<line x1="191.92" y1="167.36" x2="16.03" y2="75.80" stroke="#3a8a3f" stroke-width="2.2"/>
+<text x="52" y="116" font-size="12" fill="#3a8a3f">cut 3</text>
+</svg>
+<figcaption><strong>Fig P02.1.</strong> The third cut of §2's pancake: three straight cuts in general position, each crossing both earlier cuts, give \(1 + 1 + 2 + 3 =\) 7 regions — the table's \(n = 3\) row, drawn. Region count machine-verified by grid-signature counting in this pass's lab.</figcaption>
 </figure>
 <p>Now stare at the <em>pieces</em> row. If a formula is hiding in there, it is not obvious — 1, 2, 4, 7, 11, 16 does not sing. The answers refuse to speak. So do the thing this page exists to teach: subtract each row from the next.</p>
 <figure>
@@ -37,69 +51,92 @@ pieces :  1   2   4   7  11  16</pre>
 differences :    +1  +2  +3  +4  +5</pre>
 <figcaption>The same table, read downwards. The differences are 1, 2, 3, 4, 5 — and the sixth difference is not a mystery: the sixth cut will cross five earlier cuts.</figcaption>
 </figure>
-<p>The table just talked. The differences are exactly 1, 2, 3, 4, 5, and there is a reason: cut number k crosses the k − 1 cuts before it, is chopped into k segments, and each segment adds one piece. So the n-th pancake number is 1 + (1 + 2 + ⋯ + n), which closes to <strong>(n² + n + 2) ⁄ 2</strong>. Check it against a case you have not used yet: n = 10 gives (100 + 10 + 2) ⁄ 2 = <strong>56</strong>. The lab confirmed the formula against the row-by-row construction for every n up to 100 — zero mismatches.</p>
+<p>The table just talked. The differences are exactly 1, 2, 3, 4, 5, and there is a reason: cut number \(k\) crosses the \(k - 1\) cuts before it, is chopped into \(k\) segments, and each segment adds one piece. So the \(n\)-th pancake number is \(1 + (1 + 2 + \cdots + n)\), which closes to <strong>\((n^2 + n + 2)/2\)</strong>. Check it against a case you have not used yet: \(n = 10\) gives \((100 + 10 + 2)/2 =\) <strong>56</strong>. The lab confirmed the formula against the row-by-row construction for every \(n\) up to 100 — zero mismatches.</p>
 <p>Notice what just happened. The formula was not produced by genius; it was produced by <em>arithmetic on small cases plus one honest look at why the differences behave</em>. That is a machine you can operate on purpose. It has a name, and it is the second move of the spine.</p>
 </section>
 
 <section id="name">
 <h2>3 · Name the move</h2>
 <div class="pattern-box" id="box-p02">
-<p><strong>Pattern P02 — Experiment with small cases.</strong> When a problem carries a whole-number size parameter n (or an object that comes in sizes 1, 2, 3, …), compute the smallest instances by hand, completely and honestly; read the table — its differences first — before guessing; state every guess as a conjecture and test it against fresh cases before believing it.</p>
+<p><strong>Pattern P02 — Experiment with small cases.</strong> When a problem carries a whole-number size parameter \(n\) (or an object that comes in sizes 1, 2, 3, …), compute the smallest instances by hand, completely and honestly; read the table — its differences first — before guessing; state every guess as a conjecture and test it against fresh cases before believing it.</p>
 <p class="words">Or, in words: don't stare at the tenth floor. Build the first three floors by hand and watch how each floor is added — the building's rule is in the adding.</p>
 </div>
 <div class="pattern-box" id="box-p02a">
 <p><strong>Box P02.A — the experimenter's protocol.</strong></p>
 <ol>
-<li><strong>Pin first.</strong> Be sure what "the answer for n" counts (P01's checklist) — a vague count makes a vague table.</li>
-<li><strong>Compute small cases honestly.</strong> n = 0, 1, 2, 3 — to the end, with the arithmetic shown. "It obviously continues" is a lie you tell yourself.</li>
+<li><strong>Pin first.</strong> Be sure what "the answer for \(n\)" counts (P01's checklist) — a vague count makes a vague table.</li>
+<li><strong>Compute small cases honestly.</strong> \(n = 0, 1, 2, 3\) — to the end, with the arithmetic shown. "It obviously continues" is a lie you tell yourself.</li>
 <li><strong>Tabulate with differences.</strong> Two columns minimum: the values, and the gaps between them (Box P02.B).</li>
-<li><strong>Conjecture out loud, in symbols.</strong> "The number of pieces is (n² + n + 2) ⁄ 2" — a sentence that can be true or false.</li>
-<li><strong>Test on fresh cases.</strong> A conjecture born from n ≤ 5 must face n = 10, or n = 100. If the fresh cases cost real work, choose informative ones, spread far apart.</li>
+<li><strong>Conjecture out loud, in symbols.</strong> "The number of pieces is \((n^2 + n + 2)/2\)" — a sentence that can be true or false.</li>
+<li><strong>Test on fresh cases.</strong> A conjecture born from \(n \le 5\) must face \(n = 10\), or \(n = 100\). If the fresh cases cost real work, choose informative ones, spread far apart.</li>
 <li><strong>Label it what it is.</strong> Verified for the tested cases only — a conjecture until a proof tool (P66) or a stress test (P03) says otherwise.</li>
 </ol>
 </div>
 <div class="pattern-box" id="box-p02b">
-<p><strong>Box P02.B — when the answers refuse to speak, subtract.</strong> The values themselves often hide their pattern; the <em>differences</em> between consecutive values expose it. If the differences don't speak either, subtract again: constant second differences are the signature of a quadratic formula in n (the pancake's n² term announces itself exactly this way). The algebra that makes differencing a real tool — sums that rebuild a quantity from its differences — arrives later as <a href="p69-telescoping.html">P69 · Telescoping</a> and its bridge page <a href="b11-discrete-derivative.html">B11 · the discrete derivative</a> (both planned). Until then, differencing is a reading device, and an honest one.</p>
+<p><strong>Box P02.B — when the answers refuse to speak, subtract.</strong> The values themselves often hide their pattern; the <em>differences</em> between consecutive values expose it. If the differences don't speak either, subtract again: constant second differences are the signature of a quadratic formula in \(n\) (the pancake's \(n^2\) term announces itself exactly this way). The algebra that makes differencing a real tool — sums that rebuild a quantity from its differences — arrives later as <a href="p69-telescoping.html">P69 · Telescoping</a> and its bridge page <a href="b11-discrete-derivative.html">B11 · the discrete derivative</a> (both planned). Until then, differencing is a reading device, and an honest one.</p>
 </div>
-<p><strong>When does P02 apply?</strong> Three-key diagnosis: the claim type is <em>compute</em> or <em>find a formula</em> (and, with the honesty rules of §5, a discovery aid for <em>prove-for-all</em> claims); the problem shape is a family indexed by a size n whose small members are computable by hand; the tools needed are arithmetic, a pencil, and the patience for six honest rows. Like P01, this move is available before you know any advanced mathematics — but unlike P01, it does real creative work: it is how formulas are found before anyone knows them.</p>
+<p><strong>When does P02 apply?</strong> Three-key diagnosis: the claim type is <em>compute</em> or <em>find a formula</em> (and, with the honesty rules of §5, a discovery aid for <em>prove-for-all</em> claims); the problem shape is a family indexed by a size \(n\) whose small members are computable by hand; the tools needed are arithmetic, a pencil, and the patience for six honest rows. Like P01, this move is available before you know any advanced mathematics — but unlike P01, it does real creative work: it is how formulas are found before anyone knows them.</p>
 </section>
 
 <section id="exemplars">
 <h2>4 · The move at work</h2>
 <p>Three worked examples, one per domain. In each, the table does the discovering.</p>
 
-<h3>Example 1 (numbers) — the sum of the first n odd numbers</h3>
+<h3>Example 1 (numbers) — the sum of the first \(n\) odd numbers</h3>
 <p>Add the odd numbers, cumulatively:</p>
 <figure>
 <pre>n        :  1   2   3   4   5
 sum      :  1   4   9  16  25</pre>
 <figcaption>1, then 1 + 3 = 4, then 1 + 3 + 5 = 9, and so on.</figcaption>
 </figure>
-<p>You know these numbers — 1, 4, 9, 16, 25 are squares. The conjecture practically proposes itself: the sum of the first n odd numbers is n². But a conjecture is not a reason, so we ask <em>why</em>, and the answer comes in the pattern of this very page:</p>
+<p>You know these numbers — 1, 4, 9, 16, 25 are squares. The conjecture practically proposes itself: the sum of the first \(n\) odd numbers is \(n^2\). But a conjecture is not a reason, so we ask <em>why</em>, and the answer comes in the pattern of this very page:</p>
 <ul>
-<li><strong>By differences (P02's own reading device):</strong> the difference between consecutive squares is n² − (n − 1)² = 2n − 1 — exactly the n-th odd number. The squares are what you get by <em>adding up</em> the odds, so adding the odds rebuilds the squares.</li>
-<li><strong>By picture:</strong> build a 1×1 square; add an L-shaped strip of 3 cells to get a 2×2 square; add an L-strip of 5 cells to get 3×3; each new L is the next odd number. The picture is a proof — it shows the mechanism for every n at once.</li>
+<li><strong>By differences (P02's own reading device):</strong> the difference between consecutive squares is \(n^2 - (n - 1)^2 = 2n - 1\) — exactly the \(n\)-th odd number. The squares are what you get by <em>adding up</em> the odds, so adding the odds rebuilds the squares.</li>
+<li><strong>By picture:</strong> build a \(1 \times 1\) square; add an L-shaped strip of 3 cells to get a \(2 \times 2\) square; add an L-strip of 5 cells to get \(3 \times 3\); each new L is the next odd number. The picture is a proof — it shows the mechanism for every \(n\) at once.</li>
 </ul>
-<p>The lab checked the conjecture exhaustively for every n up to 500 — zero mismatches (a detector, we remind you, not a proof; the picture is the proof). <span class="pid">Moves used: P01 (pin "odd" as 2k + 1, "n-th odd" as 2n − 1), P02.</span></p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 152" role="img" aria-label="Fig P02.2 — the L-strip picture: a 1x1 square, then an L of 3 cells grows it to 2x2, then an L of 5 cells grows it to 3x3">
+<rect x="20" y="20" width="34" height="34" fill="#3574d4" stroke="#eef2f8" stroke-width="1.6"/>
+<text x="37" y="80" font-size="13" text-anchor="middle" fill="#555f6e">1</text>
+<rect x="165" y="20" width="34" height="34" fill="#3574d4" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="199" y="20" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="165" y="54" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="199" y="54" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<text x="199" y="114" font-size="13" text-anchor="middle" fill="#555f6e">1 + 3 = 4</text>
+<rect x="310" y="20" width="34" height="34" fill="#3574d4" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="344" y="20" width="34" height="34" fill="#3574d4" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="310" y="54" width="34" height="34" fill="#3574d4" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="344" y="54" width="34" height="34" fill="#3574d4" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="310" y="88" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="344" y="88" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="378" y="88" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="378" y="20" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<rect x="378" y="54" width="34" height="34" fill="#c25b4a" stroke="#eef2f8" stroke-width="1.6"/>
+<text x="361" y="148" font-size="13" text-anchor="middle" fill="#555f6e">4 + 5 = 9</text>
+<text x="220" y="12" font-size="12" text-anchor="middle" fill="#8a94a3">blue = the square you had · red = the new L-strip (the next odd number)</text>
+</svg>
+<figcaption><strong>Fig P02.2.</strong> The picture behind Example 1: each square grows by an L-shaped strip — 1 cell, then 3, then 5, the odd numbers — and \(1 = 1^2\), \(1 + 3 = 2^2\), \(1 + 3 + 5 = 3^2\). Cell counts machine-verified: 1, 4, 9.</figcaption>
+</figure>
+<p>The lab checked the conjecture exhaustively for every \(n\) up to 500 — zero mismatches (a detector, we remind you, not a proof; the picture is the proof). <span class="pid">Moves used: P01 (pin "odd" as \(2k + 1\), "n-th odd" as \(2n - 1\)), P02.</span></p>
 
 <h3>Example 2 (counting) — handshakes</h3>
-<p>At a party of n people, everyone shakes everyone's hand exactly once. How many handshakes?</p>
+<p>At a party of \(n\) people, everyone shakes everyone's hand exactly once. How many handshakes?</p>
 <figure>
 <pre>n           :  2   3   4   5   6   7
 handshakes  :  1   3   6  10  15  21</pre>
 <figcaption>Draw the small parties as dots and joining lines; counting the lines gives the table. The differences are 2, 3, 4, 5, 6.</figcaption>
 </figure>
-<p>Differences say: the n-th person to arrive shakes n − 1 hands. Conjecture: n(n − 1) ⁄ 2, and a fresh case agrees — 12 people manage 12 × 11 ⁄ 2 = <strong>66</strong> handshakes. Then the second, independent route: each of the n people reports n − 1 handshakes, so the total count of reported hands is n(n − 1) — but each handshake has two hands in it, so divide by 2. Two different experiments, one answer (when that happens, something structural is going on — <a href="p70-double-counting.html">P70 · Double counting</a> will make it a move).</p>
+<p>Differences say: the \(n\)-th person to arrive shakes \(n - 1\) hands. Conjecture: \(n(n - 1)/2\), and a fresh case agrees — 12 people manage \(12 \times 11/2 =\) <strong>66</strong> handshakes. Then the second, independent route: each of the \(n\) people reports \(n - 1\) handshakes, so the total count of reported hands is \(n(n - 1)\) — but each handshake has two hands in it, so divide by 2. Two different experiments, one answer (when that happens, something structural is going on — <a href="p70-double-counting.html">P70 · Double counting</a> will make it a move).</p>
 <p>One honest aside: P01 counted 54 diagonals in a 12-sided polygon — which is 66 minus 12, the same "count all pairs, subtract the special ones" shape wearing different clothes. <a href="p16-isomorphism.html">P16</a> (planned) exists to harvest such kinships. <span class="pid">Moves used: P01, P02 — with a P70 cameo.</span></p>
 
 <h3>Example 3 (calculus) — a table of basic integrals</h3>
-<p>Compute ∫₀¹ xⁿ dx for n = 0, 1, 2, 3 — class-12 antiderivatives make this a one-liner each:</p>
+<p>Compute \(\int_0^1 x^n \, dx\) for \(n = 0, 1, 2, 3\) — class-12 antiderivatives make this a one-liner each:</p>
 <figure>
 <pre>n          :  0    1     2     3
 integral   :  1   1/2   1/3   1/4</pre>
-<figcaption>∫₀¹ 1 dx = 1; ∫₀¹ x dx = 1/2; ∫₀¹ x² dx = 1/3; ∫₀¹ x³ dx = 1/4.</figcaption>
+<figcaption>\(\int_0^1 1 \, dx = 1\); \(\int_0^1 x \, dx = 1/2\); \(\int_0^1 x^2 \, dx = 1/3\); \(\int_0^1 x^3 \, dx = 1/4\).</figcaption>
 </figure>
-<p>The conjecture is instant: the integral is 1 ⁄ (n + 1). And here we must be honest about what the experiment did and did not do. Class-12 already owns the power rule, which <em>certifies</em> the formula — the table was not needed for the proof. What the table trains is the reflex: <em>when you meet a new integral and no rule is known, compute the small cases and read them</em>. The lab cross-checked the table numerically (midpoint quadrature, two million steps) against 1/(n + 1) for n = 0…8 — agreement to five decimal places throughout, with the certificate coming from the antiderivative, not the quadrature. <span class="pid">Moves used: P01, P02.</span></p>
+<p>The conjecture is instant: the integral is \(1/(n + 1)\). And here we must be honest about what the experiment did and did not do. Class-12 already owns the power rule, which <em>certifies</em> the formula — the table was not needed for the proof. What the table trains is the reflex: <em>when you meet a new integral and no rule is known, compute the small cases and read them</em>. The lab cross-checked the table numerically (midpoint quadrature, two million steps) against \(1/(n + 1)\) for \(n = 0\ldots 8\) — agreement to five decimal places throughout, with the certificate coming from the antiderivative, not the quadrature. <span class="pid">Moves used: P01, P02.</span></p>
 </section>
 
 <section id="fails">
@@ -107,30 +144,75 @@ integral   :  1   1/2   1/3   1/4</pre>
 <p>This is the section to read twice. P02 is the most honest move in the book precisely because it can fail so beautifully.</p>
 
 <h3>The classic lie: Moser's circle problem</h3>
-<p>Put n points on a circle and join every pair by a chord. Into how many regions do the chords cut the circle's interior?</p>
+<p>Put \(n\) points on a circle and join every pair by a chord. Into how many regions do the chords cut the circle's interior?</p>
 <figure>
 <pre>n        :  1   2   3   4   5   6
 regions  :  1   2   4   8  16  31</pre>
-<figcaption>The regions for n = 1…6, with the points in general position (no three chords through one interior point). Draw the first five yourself — the doubling is real, five times in a row.</figcaption>
+<figcaption>The regions for \(n = 1\ldots 6\), with the points in general position (no three chords through one interior point). Draw the first five yourself — the doubling is real, five times in a row.</figcaption>
 </figure>
-<p>1, 2, 4, 8, 16 — every instinct in your body now says 32. The actual count at n = 6 is <strong>31</strong>. The lab computed it twice, by two independent routes (Euler's formula for the chord arrangement, and adding the chords one at a time, each chord with m crossings adding m + 1 regions), and both routes give 31, then 57, then 99. The true formula is C(n,2) + C(n,4) + 1. The doubling pattern held for five consecutive cases and then died — and note the deeper trap: even the <em>differences</em> doubled (1, 2, 4, 8, …) before producing a 15. Every reading device in Box P02.B would have lied to you here.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 228" role="img" aria-label="Fig P02.3 — Moser circle problem: five points give 16 regions, six points give 31">
+<circle cx="110" cy="110" r="90" fill="none" stroke="#8a94a3" stroke-width="1.5"/>
+<line x1="198.63" y1="125.63" x2="125.63" y2="198.63" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="198.63" y1="125.63" x2="30.53" y2="152.25" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="198.63" y1="125.63" x2="47.48" y2="45.26" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="198.63" y1="125.63" x2="155.00" y2="32.06" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="125.63" y1="198.63" x2="30.53" y2="152.25" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="125.63" y1="198.63" x2="47.48" y2="45.26" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="125.63" y1="198.63" x2="155.00" y2="32.06" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="30.53" y1="152.25" x2="47.48" y2="45.26" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="30.53" y1="152.25" x2="155.00" y2="32.06" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="47.48" y1="45.26" x2="155.00" y2="32.06" stroke="#b9b9b9" stroke-width="0.9"/>
+<circle cx="198.63" cy="125.63" r="2.6" fill="#33373f"/>
+<circle cx="125.63" cy="198.63" r="2.6" fill="#33373f"/>
+<circle cx="30.53" cy="152.25" r="2.6" fill="#33373f"/>
+<circle cx="47.48" cy="45.26" r="2.6" fill="#33373f"/>
+<circle cx="155.00" cy="32.06" r="2.6" fill="#33373f"/>
+<circle cx="350" cy="110" r="90" fill="none" stroke="#8a94a3" stroke-width="1.5"/>
+<line x1="439.66" y1="117.84" x2="393.63" y2="188.72" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="439.66" y1="117.84" x2="292.15" y2="178.94" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="439.66" y1="117.84" x2="260.88" y2="122.53" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="439.66" y1="117.84" x2="297.10" y2="37.19" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="439.66" y1="117.84" x2="396.35" y2="32.85" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="393.63" y1="188.72" x2="292.15" y2="178.94" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="393.63" y1="188.72" x2="260.88" y2="122.53" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="393.63" y1="188.72" x2="297.10" y2="37.19" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="393.63" y1="188.72" x2="396.35" y2="32.85" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="292.15" y1="178.94" x2="260.88" y2="122.53" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="292.15" y1="178.94" x2="297.10" y2="37.19" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="292.15" y1="178.94" x2="396.35" y2="32.85" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="260.88" y1="122.53" x2="297.10" y2="37.19" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="260.88" y1="122.53" x2="396.35" y2="32.85" stroke="#b9b9b9" stroke-width="0.9"/>
+<line x1="297.10" y1="37.19" x2="396.35" y2="32.85" stroke="#b9b9b9" stroke-width="0.9"/>
+<circle cx="439.66" cy="117.84" r="2.6" fill="#33373f"/>
+<circle cx="393.63" cy="188.72" r="2.6" fill="#33373f"/>
+<circle cx="292.15" cy="178.94" r="2.6" fill="#33373f"/>
+<circle cx="260.88" cy="122.53" r="2.6" fill="#33373f"/>
+<circle cx="297.10" cy="37.19" r="2.6" fill="#33373f"/>
+<circle cx="396.35" cy="32.85" r="2.6" fill="#33373f"/>
+<text x="110" y="216" font-size="12.5" text-anchor="middle" fill="#555f6e">(i) n = 5: 10 chords, 16 regions — the doubling's last honest witness</text>
+<text x="350" y="216" font-size="12.5" text-anchor="middle" fill="#555f6e">(ii) n = 6: 15 chords, 31 regions — one short of 32</text>
+</svg>
+<figcaption><strong>Fig P02.3.</strong> Moser's circle, drawn: (i) five points, 10 chords, 16 regions — the doubling pattern's fifth and last honest witness; (ii) six points, 15 chords, 31 regions — one short of 32. Both counts machine-verified in this pass's lab (grid-signature counting; general position checked — all interior crossings distinct).</figcaption>
+</figure>
+<p>1, 2, 4, 8, 16 — every instinct in your body now says 32. The actual count at \(n = 6\) is <strong>31</strong>. The lab computed it twice, by two independent routes (Euler's formula for the chord arrangement, and adding the chords one at a time, each chord with \(m\) crossings adding \(m + 1\) regions), and both routes give 31, then 57, then 99. The true formula is \(\binom{n}{2} + \binom{n}{4} + 1\). The doubling pattern held for five consecutive cases and then died — and note the deeper trap: even the <em>differences</em> doubled (1, 2, 4, 8, …) before producing a 15. Every reading device in Box P02.B would have lied to you here.</p>
 <aside class="onramp"><strong>New word: general position.</strong> The Moser counts assume no three chords pass through one interior point — "general position". If three chords do meet inside, three crossing points collapse into one and the region count drops. The general-position count is the maximum; experiments (like tables) always need their assumptions pinned — that is P01's job, not P02's.</aside>
 
 <h3>Failure shapes, honestly</h3>
 <ul>
-<li><strong>Patterns lie (Moser's disease).</strong> A pattern confirmed by k small cases can still die at k + 1 — P01's Exercise 5 watched n² + n + 41 produce forty primes and then fail at n = 40. <em>Mitigation:</em> never let a table certify a prove-for-all claim (Box P01.B: one counterexample destroys a for-all claim, and only a universal argument completes it). <em>Price:</em> the conjecture must wait for a proof, and proofs take work. <em>Default:</em> a table is a lease, not a deed — conjecture freely, believe nothing without the certificate.</li>
-<li><strong>Trivial first rows.</strong> n = 0 and n = 1 are often degenerate (one piece, one handshake). Compute them anyway — they cost seconds and catch off-by-one errors cheaply — but don't let them suggest the pattern; nothing interesting has happened yet at n = 1.</li>
-<li><strong>Expensive cases.</strong> When each case takes an hour (a 100-vertex construction, a slow simulation), the temptation is to stop at three cases. Moser's disease thrives on small tables. <em>Mitigation:</em> choose informative cases — spread out (n = 1, 2, 5, 10), not adjacent. <em>Default:</em> six honest cases when cheap; when expensive, quality replaces quantity (the full discipline is P03's).</li>
+<li><strong>Patterns lie (Moser's disease).</strong> A pattern confirmed by \(k\) small cases can still die at \(k + 1\) — P01's Exercise 5 watched \(n^2 + n + 41\) produce forty primes and then fail at \(n = 40\). <em>Mitigation:</em> never let a table certify a prove-for-all claim (Box P01.B: one counterexample destroys a for-all claim, and only a universal argument completes it). <em>Price:</em> the conjecture must wait for a proof, and proofs take work. <em>Default:</em> a table is a lease, not a deed — conjecture freely, believe nothing without the certificate.</li>
+<li><strong>Trivial first rows.</strong> \(n = 0\) and \(n = 1\) are often degenerate (one piece, one handshake). Compute them anyway — they cost seconds and catch off-by-one errors cheaply — but don't let them suggest the pattern; nothing interesting has happened yet at \(n = 1\).</li>
+<li><strong>Expensive cases.</strong> When each case takes an hour (a 100-vertex construction, a slow simulation), the temptation is to stop at three cases. Moser's disease thrives on small tables. <em>Mitigation:</em> choose informative cases — spread out (\(n = 1, 2, 5, 10\)), not adjacent. <em>Default:</em> six honest cases when cheap; when expensive, quality replaces quantity (the full discipline is P03's).</li>
 <li><strong>The table is right and the reading is wrong.</strong> Moser's table was honest — it was "doubling" that was the misread, an extrapolation the data never promised. The experimenter's humility cuts both ways: the data gets the benefit of the doubt, the reading does not.</li>
 </ul>
-<aside class="aside warn"><strong>Scope note.</strong> Experiment is a <em>discovery engine</em> and a <em>detector</em> — never a certificate. A small-case check can catch a wrong formula (it would have caught pancake errors instantly) and cannot prove a right one. The book is deliberate about this: every "verified for all n ≤ 500" in our labs is followed by "a detector, not a proof" for exactly this reason.</aside>
+<aside class="aside warn"><strong>Scope note.</strong> Experiment is a <em>discovery engine</em> and a <em>detector</em> — never a certificate. A small-case check can catch a wrong formula (it would have caught pancake errors instantly) and cannot prove a right one. The book is deliberate about this: every "verified for all \(n \le 500\)" in our labs is followed by "a detector, not a proof" for exactly this reason.</aside>
 </section>
 
 <section id="next">
 <h2>6 · What to try next</h2>
 <p>The experiment has produced a conjecture. Route it:</p>
 <ul>
-<li><strong>Conjecture in hand</strong> → <a href="p03-special-cases.html">P03 · Stress-test with special cases</a> (planned): attack your own conjecture with adversarial cases — n = 0, n = 1, a big jump, a symmetric choice. Mitigation for the lying-pattern risk; price: minutes; default: after every conjecture, before any proof attempt.</li>
+<li><strong>Conjecture in hand</strong> → <a href="p03-special-cases.html">P03 · Stress-test with special cases</a> (planned): attack your own conjecture with adversarial cases — \(n = 0\), \(n = 1\), a big jump, a symmetric choice. Mitigation for the lying-pattern risk; price: minutes; default: after every conjecture, before any proof attempt.</li>
 <li><strong>Conjecture survived stress-testing</strong> → <a href="p66-induction.html">P66 · Prove by induction</a> (planned): the for-all certificate, when the claim has a natural "next case". Price: the induction step is real work; the experiment was the cheap part.</li>
 <li><strong>The pattern lives in the differences</strong> → <a href="p69-telescoping.html">P69 · Telescoping</a> and <a href="b11-discrete-derivative.html">B11 · the discrete derivative</a> (planned): the machinery that turns "sum of differences rebuilds the values" from a reading device into a proof tool.</li>
 <li><strong>Two independent experiments agree</strong> → <a href="p70-double-counting.html">P70 · Double counting</a> (planned): the agreement itself is usually a theorem trying to get out.</li>
@@ -148,19 +230,19 @@ regions  :  1   2   4   8  16  31</pre>
 <p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◆ diagnose · ◐ explore. Hints and worked answers are collapsible; the ◆ exercise has no hint — the diagnosis <em>is</em> the exercise.</p>
 
 <h3>Exercise 1 ●○○</h3>
-<p>Use the pancake formula (n² + n + 2) ⁄ 2 to predict the number of pieces from 10 cuts, then say which cut is the first to add 11 pieces in one stroke — and how many pieces exist after 11 cuts.</p>
-<details><summary>Hint</summary><p>Follow Box P02.A: compute the fresh case from the formula, then read the differences table (the k-th cut adds k).</p></details>
-<details><summary>Worked answer</summary><p>For n = 10: (100 + 10 + 2) ⁄ 2 = <strong>56</strong>. The differences are 1, 2, 3, …, so the cut that adds 11 pieces is the <strong>eleventh</strong>, and after 11 cuts there are 56 + 11 = <strong>67</strong> pieces (the formula agrees: (121 + 11 + 2) ⁄ 2 = 67). Machine-checked in the lab, both by formula and by the running sum.</p></details>
+<p>Use the pancake formula \((n^2 + n + 2)/2\) to predict the number of pieces from 10 cuts, then say which cut is the first to add 11 pieces in one stroke — and how many pieces exist after 11 cuts.</p>
+<details><summary>Hint</summary><p>Follow Box P02.A: compute the fresh case from the formula, then read the differences table (the \(k\)-th cut adds \(k\)).</p></details>
+<details><summary>Worked answer</summary><p>For \(n = 10\): \((100 + 10 + 2)/2 =\) <strong>56</strong>. The differences are 1, 2, 3, …, so the cut that adds 11 pieces is the <strong>eleventh</strong>, and after 11 cuts there are \(56 + 11 =\) <strong>67</strong> pieces (the formula agrees: \((121 + 11 + 2)/2 = 67\)). Machine-checked in the lab, both by formula and by the running sum.</p></details>
 
 <h3>Exercise 2 ●●○</h3>
-<p>Add the cubes, cumulatively: 1³, then 1³ + 2³, then 1³ + 2³ + 3³, up to five terms. Compare your table with the handshake numbers 1, 3, 6, 10, 15 (Example 2). What do you notice? Conjecture, then test on n = 6.</p>
+<p>Add the cubes, cumulatively: \(1^3\), then \(1^3 + 2^3\), then \(1^3 + 2^3 + 3^3\), up to five terms. Compare your table with the handshake numbers 1, 3, 6, 10, 15 (Example 2). What do you notice? Conjecture, then test on \(n = 6\).</p>
 <details><summary>Hint</summary><p>Don't compare the cube-sums to each other — compare them to a table you already own.</p></details>
-<details><summary>Worked answer</summary><p>The cube-sums are 1, 9, 36, 100, 225 — and the handshake numbers squared are 1², 3², 6², 10², 15² = 1, 9, 36, 100, 225. The same numbers! Conjecture: 1³ + 2³ + ⋯ + n³ = (1 + 2 + ⋯ + n)². Fresh case: for n = 6, the sum is 441 and (21)² = 441 — it holds. The lab verified it for every n up to 200. We have <em>not</em> proved it: the honest status is a conjecture with 200 witnesses; the proof arrives with <a href="p66-induction.html">P66</a> (planned). This exercise is the whole page in miniature: two tables you own, compared, produce a theorem's shadow.</p></details>
+<details><summary>Worked answer</summary><p>The cube-sums are 1, 9, 36, 100, 225 — and the handshake numbers squared are \(1^2, 3^2, 6^2, 10^2, 15^2 =\) 1, 9, 36, 100, 225. The same numbers! Conjecture: \(1^3 + 2^3 + \cdots + n^3 = (1 + 2 + \cdots + n)^2\). Fresh case: for \(n = 6\), the sum is 441 and \((21)^2 = 441\) — it holds. The lab verified it for every \(n\) up to 200. We have <em>not</em> proved it: the honest status is a conjecture with 200 witnesses; the proof arrives with <a href="p66-induction.html">P66</a> (planned). This exercise is the whole page in miniature: two tables you own, compared, produce a theorem's shadow.</p></details>
 
 <h3>Exercise 3 ●●●</h3>
-<p>Build the table of digit counts of 2ⁿ for n = 1…12. Find the apparent pattern, then check it at n = 13 and n = 14. Finally: how many digits does 2¹⁰⁰ have?</p>
-<details><summary>Hint</summary><p>Digit counts, not the numbers themselves. And when the pattern you found breaks, do not despair — compute the two awkward cases by hand (2¹³ and 2¹⁴ are small) and look for the honest rule underneath.</p></details>
-<details><summary>Worked answer</summary><p>The digit counts are 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4 — a new digit every third n, or so it seems. But 2¹³ = 8192 (four digits) and 2¹⁴ = 16384 (<em>five</em> digits): the "every third n" reading is a small-case lie, exactly of Moser's kind. The honest rule uses class-12 logarithms: a positive whole number N has ⌊log₁₀ N⌋ + 1 digits (⌊x⌋ is the greatest integer ≤ x — the greatest-integer function [x] of school maths), and log₁₀ 2ⁿ = n log₁₀ 2 ≈ 0.30103 n, so the digit count of 2ⁿ is ⌊0.30103 n⌋ + 1. For n = 100: ⌊30.103⌋ + 1 = <strong>31 digits</strong>. The lab certified this by computing 2¹⁰⁰ exactly (1,267,650,600,228,229,401,496,703,205,376 — count them: 31) and checked the log formula against every 2ⁿ for n = 1…100, zero mismatches. Note what saved us from the small-table trap: testing the reading at cases it did not cover.</p></details>
+<p>Build the table of digit counts of \(2^n\) for \(n = 1\ldots 12\). Find the apparent pattern, then check it at \(n = 13\) and \(n = 14\). Finally: how many digits does \(2^{100}\) have?</p>
+<details><summary>Hint</summary><p>Digit counts, not the numbers themselves. And when the pattern you found breaks, do not despair — compute the two awkward cases by hand (\(2^{13}\) and \(2^{14}\) are small) and look for the honest rule underneath.</p></details>
+<details><summary>Worked answer</summary><p>The digit counts are 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4 — a new digit every third \(n\), or so it seems. But \(2^{13} = 8192\) (four digits) and \(2^{14} = 16384\) (<em>five</em> digits): the "every third \(n\)" reading is a small-case lie, exactly of Moser's kind. The honest rule uses class-12 logarithms: a positive whole number \(N\) has \(\lfloor \log_{10} N \rfloor + 1\) digits (\(\lfloor x \rfloor\) is the greatest integer \(\le x\) — the greatest-integer function \([x]\) of school maths), and \(\log_{10} 2^n = n \log_{10} 2 \approx 0.30103\,n\), so the digit count of \(2^n\) is \(\lfloor 0.30103\,n \rfloor + 1\). For \(n = 100\): \(\lfloor 30.103 \rfloor + 1 =\) <strong>31 digits</strong>. The lab certified this by computing \(2^{100}\) exactly (1,267,650,600,228,229,401,496,703,205,376 — count them: 31) and checked the log formula against every \(2^n\) for \(n = 1\ldots 100\), zero mismatches. Note what saved us from the small-table trap: testing the reading at cases it did not cover.</p></details>
 
 <h3>Exercise 4 ◆ Diagnose the move</h3>
 <p>For each problem below, decide whether P02 is the first move to reach for. If it is not, say what to reach for instead. No hint — the diagnosis is the exercise.</p>
@@ -170,19 +252,20 @@ regions  :  1   2   4   8  16  31</pre>
 <li>Must two people in any group of 13 share a birth month?</li>
 </ol>
 <details><summary>Worked answer</summary><p>(1) <strong>No.</strong> There is no size parameter to tabulate — the claim is a single prove-for-all statement. Pin it (P01); the move that proves it is <a href="p11-contradiction.html">P11 · Prove by contradiction</a> (planned). A table has nothing to compute here.</p>
-<p>(2) <strong>Yes.</strong> This is P02's home ground: differences are 4, 6, 8, 10, and the second difference is constant 2, so the terms follow n(n + 1); the 100th term is 100 × 101 = <strong>10100</strong> (the lab confirmed it two ways: by stepping the recurrence to the 100th term, and by the formula, agreeing exactly). Box P02.B is the tool; P66 turns the reading into a certificate.</p>
+<p>(2) <strong>Yes.</strong> This is P02's home ground: differences are 4, 6, 8, 10, and the second difference is constant 2, so the terms follow \(n(n + 1)\); the 100th term is \(100 \times 101 =\) <strong>10100</strong> (the lab confirmed it two ways: by stepping the recurrence to the 100th term, and by the formula, agreeing exactly). Box P02.B is the tool; P66 turns the reading into a certificate.</p>
 <p>(3) <strong>Partly — and the part matters.</strong> Experiment illuminates: 12 people <em>can</em> have 12 distinct months (the lab exhibits the witness: person i born in month i), so the boundary of the phenomenon is exactly 12 vs 13. But the certificate is not a table — it is <a href="p10-pigeonhole.html">P10 · Force a collision</a> (planned): 13 people into 12 months forces a repeat. The experiment found <em>where</em> the phenomenon starts; the pigeonhole proves <em>that</em> it must occur. Knowing which job is yours is the diagnosis.</p></details>
 
 <h3>Exercise 5 ◐ Moser, by hand</h3>
-<p>Draw six well-spread points on a circle, join every pair, and count the regions honestly — expect 31, and expect to enjoy it less at attempt three. Then explore: (a) find the repair formula C(n,2) + C(n,4) + 1 by the incremental route — each chord adds one region, and each crossing of two chords adds one more; count the crossings by noticing that every <em>four</em> points produce exactly one crossing; (b) check it against the lab's two machine routes (both printed in the lab output); (c) and the question to sit with, no single answer: what made the doubling lie so convincing — five honest witnesses, a clean story, or the pattern in the differences? Compare with n² + n + 41's forty true cases. Write down your personal rule for when to stop trusting a table; <a href="p03-special-cases.html">P03</a> (planned) will hand you a sharper one.</p>
+<p>Draw six well-spread points on a circle, join every pair, and count the regions honestly — expect 31, and expect to enjoy it less at attempt three. Then explore: (a) find the repair formula \(\binom{n}{2} + \binom{n}{4} + 1\) by the incremental route — each chord adds one region, and each crossing of two chords adds one more; count the crossings by noticing that every <em>four</em> points produce exactly one crossing; (b) check it against the lab's two machine routes (both printed in the lab output); (c) and the question to sit with, no single answer: what made the doubling lie so convincing — five honest witnesses, a clean story, or the pattern in the differences? Compare with \(n^2 + n + 41\)'s forty true cases. Write down your personal rule for when to stop trusting a table; <a href="p03-special-cases.html">P03</a> (planned) will hand you a sharper one.</p>
 </section>
 
 <section id="graphfooter" class="graphfooter">
 <h2>9 · Graph evidence &amp; revision log</h2>
 <p><strong>Graph evidence.</strong> Source technique: <code>spotPatternInTable</code> — one of the registry's 57 canonical toolbox techniques. Honest note: it does not appear in the measured top-30 by chain participation. We quote that as it is, with the reading it deserves: chain participation measures how often a technique appears inside recorded proof chains, and a move whose entire job happens <em>before</em> the chain begins — building the table that suggests the chain — is structurally under-counted by that metric. The canon (Pólya's simpler-analogous-problem heuristic) gives it first-class status, and this book follows the canon here.</p>
 <p><strong>Related patterns.</strong> P01 (upstream — the pinning that makes the table honest), P03 (downstream — the adversarial cases that stress the conjecture), P15 (squeeze bounds built from small cases), P66 (the certificate), P69 + B11 (the differencing machinery), P70 (when two experiments agree), P16 (the same count in different clothes).</p>
-<p><strong>Labs.</strong> <code>labs/p02-lab.js</code> with recorded output <code>labs/p02-lab-output.txt</code>: pancake recurrence vs closed form (n = 0…100, 0 mismatches) with the small table and differences; odd sums = squares exhaustive (n ≤ 500); handshakes brute-force pairs vs formula (n = 1…60); cube-sums vs triangular-squares (n ≤ 200); integral table by midpoint quadrature (n = 0…8, five-decimal agreement); Moser regions by two independent routes (n = 1…12, 0 mismatches; 1, 2, 4, 8, 16, 31, 57, 99) plus the doubling-lie row; 2¹⁰⁰ by base-10⁹ limb arrays (31 digits, full constant recorded) with the log detector over n = 1…100; squares-on-a-board brute placements vs Σk² (n = 1…12); exercise numbers (100th term 10100 by two routes; 12-month witness; cube-sum 441 = 21²; pancake n = 11 → 67; trailing zeros 10!→2, 15!→3, 20!→4, 25!→6).</p>
+<p><strong>Labs.</strong> <code>labs/p02-lab.js</code> with recorded output <code>labs/p02-lab-output.txt</code>: pancake recurrence vs closed form (n = 0…100, 0 mismatches) with the small table and differences; odd sums = squares exhaustive (n ≤ 500); handshakes brute-force pairs vs formula (n = 1…60); cube-sums vs triangular-squares (n ≤ 200); integral table by midpoint quadrature (n = 0…8, five-decimal agreement); Moser regions by two independent routes (n = 1…12, 0 mismatches; 1, 2, 4, 8, 16, 31, 57, 99) plus the doubling-lie row; 2¹⁰⁰ by base-10⁹ limb arrays (31 digits, full constant recorded) with the log detector over n = 1…100; squares-on-a-board brute placements vs Σk² (n = 1…12); exercise numbers (100th term 10100 by two routes; 12-month witness; cube-sum 441 = 21²; pancake n = 11 → 67; trailing zeros 10!→2, 15!→3, 20!→4, 25!→6) Formatting pass (R1) lab: <code>labs/p02-format-pass.js</code> with recorded output <code>labs/p02-format-pass-output.txt</code> — every numeric claim on this page re-verified against the R0 receipts, TeX sanity, and SVG coordinate checks.</p>
 <p><strong>Revision log.</strong> R0 (2026-10-28, session S03): page published. Fresh verification battery executed in-session; style audit against the presentation fingerprint passed; adversarial review passed (fresh verifier engine, zero shared code, independent constants — decimal-string doubling for 2¹⁰⁰, Simpson quadrature, 4-subset crossing scan — with 10 must-fail injection rows, all caught). Honest run history: three defective runs were caught and corrected before install, each by a disagreement discipline this page itself teaches — piece 1 run 1 (malformed sums print), piece 3 run 1 (route B omitted the polygon's side chords; the two-route mismatch against Euler's formula caught it), piece 5 run 1 (a recurrence step written 2(n−1) where the true step is 2n; the formula-vs-recurrence disagreement caught it, 10100 vs 9910). The clean runs are the recorded ones. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
+<p>R1 (2026-10-28, session S12): formatting retrofit pass under the S10 charter. Mathematics converted to MathJax TeX with balanced inline and display delimiters and zero dollar-sign delimiters; a MathJax loader block added to the head; three figures added with machine-checked geometry — Fig P02.1 (the n = 3 pancake, 7 regions by grid-signature counting), Fig P02.2 (the L-strip squares picture, cell counts 1, 4, 9), Fig P02.3 (Moser's circle, 16 and 31 regions, general position verified). Receipts: tag-stripped text diff against R0 shows only math-notation and figure additions; every numeric claim re-verified against the R0 lab output by a fresh verifier engine (labs/p02-format-pass.js, output recorded as labs/p02-format-pass-output.txt); SVG checks passed (viewBox present, no external references). Honest run history: five corrections before the recorded runs — initial drafts of the authored line chunks were reconstructed from session notes and diverged from the master's prose, caught and re-authored by line-by-line comparison against the master; two lines initially left verbatim (the pancake-table figcaption and an example heading) carried compound math and were converted for consistency; an interim expected-crossings constant in a scratch figure-generation probe was miscomputed, though the crossing counts themselves were correct and the recorded lab recomputed the binomials cleanly; a curly apostrophe in one Fig P02.3 label was caught in the diff-gate review and set straight; the digit-counts lab piece's first run returned empty output from a malformed line and was rerun clean. The clean runs are the recorded ones. No mathematical content was added, removed, or altered.</p>
 </section>
 
 <footer>

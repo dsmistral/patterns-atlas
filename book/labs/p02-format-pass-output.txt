@@ -1,0 +1,88 @@
+p02-format-pass-output.txt — recorded output of labs/p02-format-pass.js (P02 formatting retrofit pass R1, session S12).
+Fresh verifier engine, zero shared code with the R0 lab. Every numeric claim on book/p02-small-cases.html
+re-verified against the R0 receipts; TeX and SVG sanity included. Honest notes: piece 4 run 1 returned empty
+output from a malformed line (the clean rerun is recorded below); piece 9's recorded run executed before the
+R1 run-history clause was spliced in and reported the placeholder as present (1), as expected at that stage —
+piece 10 is the post-fill re-check on the final page. All other pieces ran clean on run 1.
+
+P1 pancake: recurrence (each k-th cut adds k) vs (n^2+n+2)/2, n=0..100 -> mismatches: 0
+P1 pancake table n=0..10: 1,2,4,7,11,16,22,29,37,46,56 matches page/figure values: true
+P1 (100+10+2)/2 = 56 (page: 56) ; pancake(10) = 56
+P1 pancake(11) = 67 (page: 67) ; 11th cut adds 11 (page: 11)
+P1 (121+11+2)/2 = 67 (page: 67)
+P1 differences n=1..5: 1,2,3,4,5 (page: 1, 2, 3, 4, 5)
+P1 pancake = C(n,2)+n+1, n=0..50 -> mismatches: 0
+
+P2 odd sums = n^2, n=1..500 -> mismatches: 0
+P2 page table 1,4,9,16,25 reproduced: 1,4,9,16,25 -> true
+P2 n^2-(n-1)^2 = 2n-1, n=1..500 -> mismatches: 0
+P2 handshakes brute pairs vs n(n-1)/2, n=1..60 -> mismatches: 0
+P2 handshake table n=2..7: 1,3,6,10,15,21 (page: 1, 3, 6, 10, 15, 21)
+P2 12x11/2 = 66 (page: 66)
+P2 cube-sums = (triangular)^2, n=1..200 -> mismatches: 0
+P2 cube-sum(6) = 441 ; 21^2 = 441 (page: 441 = 21^2)
+P2 cube-sum table 1..5: 1,9,36,100,225 (page: 1, 9, 36, 100, 225)
+
+P3 midpoint quadrature (2e6 steps) int_0^1 x^n dx, n=0..8:
+    0:1.00000  1:0.50000  2:0.33333  3:0.25000  4:0.20000  5:0.16667  6:0.14286  7:0.12500  8:0.11111
+    worst |quadrature - 1/(n+1)| = 8.483e-14 -> five-decimal agreement: true
+P3 exact table n=0..3: 1, 0.5, 0.3333, 0.25 (page: 1, 1/2, 1/3, 1/4)
+P3 Ex4 first five terms match n(n+1): true ; 100th term: formula 10100, recurrence-stepping 10100 (page: 10100)
+P3 Ex4 first differences: 4,6,8,10 ; second differences: 2,2,2 (page: 4, 6, 8, 10 / constant 2)
+P3 squares-on-grid brute vs Sum_k (n-k+1)^2, n=1..12 -> mismatches: 0
+P3 grid counts n=1..6: 1,5,14,30,55,91 (receipt: 1, 5, 14, 30, 55, 91)
+P3 8x8 board: 204 squares (receipt: 204)
+
+P4 2^n digit counts n=1..12: 1,1,1,2,2,2,3,3,3,4,4,4 (page: 1,1,1,2,2,2,3,3,3,4,4,4)
+P4 2^13 = 8192 -> 4 digits (page: 8192, four digits)
+P4 2^14 = 16384 -> 5 digits (page: 16384, five digits)
+P4 2^100 = 1267650600228229401496703205376 -> 31 digits (page constant matches: true, 31 digits: true)
+P4 floor(n log10 2)+1 vs digit count, n=1..100 -> mismatches: 0
+P4 floor(30.103)+1 = 31 (page: 31 digits) ; 100*log10(2) = 30.10300
+P4 trailing zeros: 10! -> 2, 15! -> 3, 20! -> 4, 25! -> 6 (receipt: 2, 3, 4, 6)
+P4 v5 <= v2 for 10,15,20,25: true
+P4 12-month witness (person i born in month i, i=1..12): true
+P4 13 into 12 forces repeat: true
+
+P5 Moser route A (incremental) n=1..8: 1,2,4,8,16,31,57,99 (page: 1, 2, 4, 8, 16, 31, 57, 99)
+P5 routes A and B (Euler) agree for all n=1..8: true
+P5 C(n,2)+C(n,4)+1 at n=6,7,8: 31,57,99 (page: 31, 57, 99)
+
+P6 panel (i) 5 points on-circle (|dist - 90| <= 0.02): true
+P6 panel (ii) 6 points on-circle (|dist - 90| <= 0.02): true
+P6 panel (i): 10 chords (page: 10), crossings 5 (C(5,4) = 5), min crossing separation 39.6px (general position: true)
+P6 panel (i) grid-signature region count (0.25px grid): 16 (page: 16)
+P6 panel (ii): 15 chords (page: 15), crossings 15 (C(6,4) = 15), min crossing separation 14.0px (general position: true)
+P6 panel (ii) grid-signature region count (0.25px grid): 31 (page: 31)
+
+P7 fig1 cut endpoints on-circle: worst |dist-100| = 0.0053px (<= 0.02: true)
+P7 fig1: 3 cut pairs, 3 crossings, all inside circle: 3/3
+P7 fig1 general position (distinct crossings): min separation 26.39px
+P7 fig1 grid-signature region count (0.25px grid): 7 (page/figure: 7; table n=3 row: 7)
+P7 fig2 cell groups: 1, 4, 9 -> squares 1, 4, 9 = 1^2, 2^2, 3^2 (labels: 1 = 1^2, 1 + 3 = 4, 4 + 5 = 9)
+
+P8 fig-p02-1.svg: viewBox=0 0 220 220, external href: false
+P8 fig-p02-1.svg: coordinates outside viewBox (tol 0.05px): 0, worst overshoot 0.000px
+P8 fig-p02-2.svg: viewBox=0 0 440 152, external href: false
+P8 fig-p02-2.svg: coordinates outside viewBox (tol 0.05px): 0, worst overshoot 0.000px
+P8 fig-p02-3.svg: viewBox=0 0 470 228, external href: false
+P8 fig-p02-3.svg: coordinates outside viewBox (tol 0.05px): 0, worst overshoot 0.000px
+P8 fig2 rect counts per square (from file): 1,4,9 (expected 1, 4, 9) -> true
+P8 fig2 blue vs red (new L-strip) split, square 2: 1 blue + 3 red; square 3: 4 blue + 5 red -> odd strips 1, 3, 5: true
+
+P9 fig2 per-square blue/red: sq1 1/0, sq2 1/3, sq3 4/5 (expected 1/0, 1/3, 4/5) -> true
+P9 page TeX (config line excluded): opens 121, closes 121, balanced: true
+P9 page display delimiters outside config: 0 and 0 (page has no display equations; expected 0/0)
+P9 page $$ occurrences: 0 (must be 0)
+P9 MathJax config line double-backslash pairs: 4 (must be 4 -> 8 backslashes total)
+P9 run-history placeholder present (to be filled after lab): 1
+P9 structure: sections 9 (master: 9), figures 9 (master: 6 + 3 added), svg 3
+
+P10 post-fill re-check of the final page (R1 clause in place):
+P10 TeX (config excluded): opens 121, closes 121, balanced: true
+P10 $$ occurrences: 0 ; run-history placeholder remaining: 0 (must be 0)
+P10 R1 entry present: true ; structure: sections 9, figures 9, svg 3
+
+All checks passed. Zero mismatches anywhere the page claims one; every figure count reproduced from
+the machine geometry; tag-stripped diff gate (run in-session against the R0 master) shows only
+math-notation conversions, the three figure insertions, the labs-line extension, and the R1 entry.
