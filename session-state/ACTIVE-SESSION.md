@@ -1,17 +1,16 @@
 # ACTIVE SESSION — S09 (Patterns Atlas)
 
-**Unit:** Author bridge B12 `b12-brahmagupta-fibonacci.html` (7-block bridge template; group D norms that multiply; the page serves P06's mandate: Brahmagupta–Fibonacci identity via |z1z2|² = |z1|²|z2|², link B12).
+**Unit:** Author bridge B12 `b12-brahmagupta-fibonacci.html` (7-block bridge template; group D norms that multiply; serves P06's mandate).
 
-**Status: OPEN.** Plan (steps checked as done):
+**Status: ARTIFACTS PUSHED.** Steps checked:
 
-- [x] Session opened; records row IN PROGRESS; this mirror pushed.
-- [ ] Fetch fresh standing files (index, exemplar bridge page) from the repo.
-- [ ] Author the page (7 blocks: Lecture 0 phenomenon first — products of sums of two squares are sums of two squares; the idea named (Box B12); worked by hand; why it is true — complete expansion proof + the two sign routes; practice; where this goes (consumer P06 + m02 forward links); footer).
-- [ ] Fresh battery (pieces <= 4 KB, no recursion, no BigInt in value path, deterministic, pre-flight probe, transcripts saved).
-- [ ] Adversarial review: fresh verifier engine, zero shared code, must-fail injections.
-- [ ] Style audit vs the 13-move fingerprint; hygiene grep.
-- [ ] Index R11 (B12 published); push artifacts; fetch-back byte-diff.
-- [ ] Records close (S09 CLOSED, standing to-do -> S10 = P06); push records + closing mirror; fetch-back verify.
-- [ ] Delete this mirror; honest close report.
+- [x] Session opened; mirror pushed (`9c606907`).
+- [x] Standing files fetched fresh (index, B02 exemplar, stylesheet).
+- [x] Page authored (7 blocks; Boxes B12, B12.A; Lecture 0 = 221 by hand; worked 65/4225/325/1105 with route-produced censuses; expansion proof + Brahmagupta N-form + P05's Pell recurrence debt paid forward; honest scope box; Exercises 1-4; where-this-goes with consumer links).
+- [x] Fresh battery: probe + 6 pieces (identity exhaustive 57,122 cases both routes; all censuses; three-squares non-example; mod-4; prime census; N-form 5,184; Pell quadratic identity + witness chain; trivial-input routes). Honest run history: piece 4 runs 1-3 (two print-concatenation defects in run 1, fixed; run 3 unified).
+- [x] Adversarial verifier (fresh engine, squares-lookup, zero shared code): run 1 syntax error; run 2 12/14 (inverted-boolean row + mis-transcribed witness, caught by machine-counted verdict); run 3 14/14, 2/2 controls, PASS.
+- [x] Style audit vs 13-move fingerprint passed; hygiene grep 0 forbidden formats; hrefs canonical.
+- [x] Index R11 (B12 published) + revision log.
+- [x] Artifacts pushed this commit: page 23,422 B (md5 4d4b1dd25b4716246401f53a725e2b15), labs/b12-lab.js 12,617 B (40e4075c38133198f15ac8bae80c6634), labs/b12-lab-output.txt 4,089 B (307ba87f1c2f3283d29e6a3a2ceb840d), index 34,641 B (67ae43e130f6283d2e16a7a25e7550c6).
 
-Design decisions so far (for crash resume): Lecture 0 = 17·13 = 221 found as 5²+14² and 10²+11², both routes of the identity explain the two reps; worked examples 65 (both routes -> (4,7),(1,8)) and 4225 = 65² (33-56-65 and 16-63-65, two Pythagorean triples); reps-multiply structure 325 (3 reps) and 1105 (4 reps); mod-4 exercise linking B01–B02; exploration = prime census p < 100 (p = a²+b² iff p = 2 or p ≡ 1 mod 4, converse honestly deferred to P13/m02); non-example: three squares fail (15); aside: Brahmagupta's N-form generalization (x²+Ny² composes), one instance N=3, verified; history aside: Brahmagupta 628 CE, Fibonacci Liber Quadratorum 1225, Diophantus precedent.
+**Remaining:** fetch-back byte-diff of the four files; records close (S09 CLOSED, standing to-do -> S10 = P06); push records + closing mirror; fetch-back verify records; delete this mirror; honest close report.

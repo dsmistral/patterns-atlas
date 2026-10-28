@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B12 · The Brahmagupta–Fibonacci identity · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B12 · bridge page, group D · before <a href="p06-compose-identity.html">P06</a></p>
+<h1>The Brahmagupta–Fibonacci identity</h1>
+<p class="tagline">Multiply two sums of two squares and the product is a sum of two squares again — usually in more than one way. Norms multiply.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern, and it opens the last bridge group — <em>norms that multiply</em>. You bring nothing but school squaring and adding; the small-case census habit will feel familiar from <a href="b01-remainders.html">B01</a> and <a href="b02-congruence-classes.html">B02</a>, and one worked aside will link back to a debt <a href="p05-canonical-form.html">P05</a> left you. Take a pencil; you will find two answers to one question before any formula appears.</aside>
+
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p>Two warm-up facts you can check in your head: 17 = 1² + 4², and 13 = 2² + 3². Both are <em>sums of two squares</em>. Now the pencil question: their product, 17 · 13 = <strong>221</strong> — is it a sum of two squares too?</p>
+<p><strong>Task one.</strong> Hunt: try 221 − 100 = 121 = 11². It lands: 221 = <strong>10² + 11²</strong>. Keep hunting, don't stop at the first hit: 221 − 25 = 196 = 14², so also 221 = <strong>5² + 14²</strong>. Two <em>different</em> answers — and that is stranger than one. The two factors had the property once each; the product seems to have it twice.</p>
+<p><strong>Task two.</strong> Same hunt on 65 = 5 · 13, with 5 = 1² + 2² and 13 = 2² + 3²: 65 = <strong>4² + 7²</strong> (= 16 + 49) and also <strong>1² + 8²</strong> (= 1 + 64). Again two.</p>
+<p>Notice what is begging to be noticed: the property "is a sum of two squares" <em>survives multiplication</em>, and the number of representations seems to multiply along with it — one rep each in the factors, two in the product. This page proves the survival, exactly, with a formula you could have found yourself by insisting that the two answers of 221 are not a coincidence. It is called the <em>Brahmagupta–Fibonacci identity</em>, and it is about fourteen centuries old.</p>
+</section>
+
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<div class="pattern-box" id="box-b12">
+<p><strong>Box B12 — the Brahmagupta–Fibonacci identity.</strong> For all whole numbers a, b, c, d:</p>
+<p style="text-align: center">(a² + b²)(c² + d²) = (ac − bd)² + (ad + bc)²</p>
+<p class="words">Or, in words: a product of two sums of two squares is itself a sum of two squares — and you can write the witness down directly from the four numbers you started with, by the recipe on the right: cross-multiply and subtract, cross-multiply and add.</p>
+</div>
+<p>Try it on Lecture 0's 221, with 17 = (a, b) = (1, 4) and 13 = (c, d) = (2, 3): (1·2 − 4·3)² + (1·3 + 4·2)² = (2 − 12)² + (3 + 8)² = (−10)² + 11² = 100 + 121 = <strong>221</strong>. One of your two answers, produced instantly. Where is the other? Flip one sign:</p>
+<div class="pattern-box" id="box-b12a">
+<p><strong>Box B12.A — the other route.</strong> The same identity with a sign swapped:</p>
+<p style="text-align: center">(a² + b²)(c² + d²) = (ac + bd)² + (ad − bc)²</p>
+<p class="words">In words: the subtraction and the addition in the recipe can trade places. For 221: (2 + 12)² + (3 − 8)² = 14² + (−5)² = 196 + 25 = <strong>221</strong> — your second answer. The two representations you hunted for by hand are the two <em>routes</em> of the same identity.</p>
+</div>
+<p><em>New word: norm.</em> Give the pair (a, b) its <em>norm</em>, written N(a, b) = a² + b² — think of it as "the size of the pair, squared". Then Box B12 says: N of the pair (ac − bd, ad + bc) equals N(a, b) · N(c, d). The recipe (ac − bd, ad + bc) is a <em>multiplication for pairs</em>, and the norm is not merely preserved by it — the norms literally <em>multiply</em>. That is this bridge group's name.</p>
+<p>Examples and non-examples:</p>
+<ul>
+<li><strong>Yes:</strong> (1, 2) ⊙ (2, 3) = (2 − 6, 3 + 4) = (−4, 7), N = 16 + 49 = 65 = 5 · 13. A negative coordinate is fine; the norm only ever sees squares.</li>
+<li><strong>Yes:</strong> the other route gives (2 + 6, 3 − 4) = (8, −1), N = 64 + 1 = 65. Both answers of Lecture 0's second task, one formula.</li>
+<li><strong>No:</strong> there is no such rule for <em>three</em> squares. 3 = 1 + 1 + 1 and 5 = 4 + 1 + 0 are sums of three squares, but the product 15 is not a sum of three squares at all (the lab checks this exhaustively: no triple a² + b² + c² with a, b, c ≤ 3 reaches 15). The phenomenon is a <em>special privilege of pairs</em> — which is exactly why it is worth a page.</li>
+</ul>
+<aside class="aside"><strong>You have met this multiplication before.</strong> If you expand (a + bi)(c + di) — class-11 complex multiplication — you get (ac − bd) + (ad + bc)i. The pair recipe of Box B12 is complex multiplication wearing integer clothes, and the norm N(a, b) is exactly ∣a + bi∣². So the identity says ∣z₁z₂∣² = ∣z₁∣² · ∣z₂∣². Hold that thought: it is the precise route <a href="p06-compose-identity.html">P06</a> will take through this bridge. (The proof below does not use i — the complex reading explains <em>why anyone would guess the formula</em>; the expansion proves it.)</aside>
+<p>The name is honest double credit: <strong>Brahmagupta</strong> (India, 628 CE, <em>Brāhmasphuṭasiddhānta</em>) stated the identity in a more general form we meet in section 4, and <strong>Fibonacci</strong> (<em>Liber Quadratorum</em>, 1225, "the book of squares") stated it in Europe while studying exactly this question — which numbers are sums of two squares. Diophantus had used special cases about a millennium before that. History as seasoning; the mathematics is proved below, not inherited.</p>
+</section>
+
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Three examples, simplest first, each carried to the end.</p>
+<h3>(a) 65, and a complete census</h3>
+<p>5 = 1² + 2², 13 = 2² + 3², so route 1 of the identity promises 65 = (1·2 − 2·3)² + (1·3 + 2·2)² = (−4)² + 7² = 16 + 49, and route 2 promises 65 = (2 + 6)² + (3 − 4)² = 8² + (−1)² = 64 + 1. Both check. Now the census question — small cases first, always (<a href="p02-small-cases.html">P02</a>): are there any OTHER representations? The lab scans every pair with 0 ≤ x ≤ y ≤ 8 and finds exactly two: (1, 8) and (4, 7). The formula produced both; there are no more. For a product of two one-representation primes, the two routes <em>are</em> the complete list.</p>
+<h3>(b) 4225 = 65², and four right triangles</h3>
+<p>4225 = 25 · 169 = (3² + 4²)(5² + 12²). Route 1: (15 − 48)² + (36 + 20)² = (−33)² + 56² = 1089 + 3136 = 4225. Route 2: (15 + 48)² + (36 − 20)² = 63² + 16² = 3969 + 256 = 4225. Now squint: 33² + 56² = 65² and 16² + 63² = 65² are both <em>Pythagorean</em> — the two routes of one product gave two right triangles with the same hypotenuse 65. The lab's full census of 4225 finds five representations with 0 ≤ x ≤ y: (0, 65), (16, 63), (25, 60), (33, 56), (39, 52) — four of them Pythagorean, four right triangles on hypotenuse 65. Where do the other three come from? Also from routes — the identity accepts <em>trivial</em> representations as inputs: 169 = 0² + 13² and 25 = 3² + 4², so route 1 of (0, 13) ⊙ (3, 4) = (0 − 52, 0 + 39) = (52, 39) ✓; 25 = 0² + 5² and 169 = 5² + 12², so route 1 of (0, 5) ⊙ (5, 12) = (−60, 25) ✓; and (0, 13) ⊙ (0, 5) = (−65, 0) ✓. Five census entries, five route outputs, all lab-verified.</p>
+<h3>(c) Representations multiply: 325 and 1105</h3>
+<p>325 = 5² · 13. The lab scans 0 ≤ x ≤ y ≤ 18 and finds exactly three representations: (1, 18), (6, 17), (10, 15) — 1 + 324, 36 + 289, 100 + 225, all equal to 325. One more prime factor, one more representation: 1105 = 5 · 13 · 17 has exactly four (scan 0..33): (4, 33), (9, 32), (12, 31), (23, 24). And the routes deliver them all. Take 65's two reps, (1, 8) and (4, 7), and compose with 17 = 1² + 4², i.e. (1, 4):</p>
+<ul>
+<li>(1, 8) ⊙ (1, 4): route 1 gives (1 − 32, 4 + 8) = (−31, 12) → (12, 31); route 2 gives (1 + 32, 4 − 8) = (33, −4) → (4, 33).</li>
+<li>(4, 7) ⊙ (1, 4): route 1 gives (4 − 28, 16 + 7) = (−24, 23) → (23, 24); route 2 gives (4 + 28, 16 − 7) = (32, 9) → (9, 32).</li>
+</ul>
+<p>Four routes, four representations, complete list. The pattern taking shape — representation counts that grow with the factorization, produced by composing pairwise — is the seed of a classical and beautiful theory (which numbers are sums of two squares, <a href="m02-two-squares.html">M02</a>, after P06 and P13). This page builds the engine; that page drives it.</p>
+</section>
+
+<section id="why">
+<h2>4 · Why it is true</h2>
+<p><strong>The proof is one honest expansion.</strong> Expand route 1:</p>
+<p style="text-align: center">(ac − bd)² + (ad + bc)² = a²c² − 2abcd + b²d² + a²d² + 2abcd + b²c²</p>
+<p>The cross terms −2abcd and +2abcd cancel; what remains is a²c² + a²d² + b²c² + b²d², which is exactly (a² + b²)(c² + d²). Route 2 is the same expansion with the signs of the cross terms swapped — they cancel the same way. That is the whole proof, and it is complete. The lab does not take even an expansion on faith: it tests both routes exhaustively over every 0 ≤ a, b, c, d ≤ 12 (28,561 cases) and every −6 ≤ a, b, c, d ≤ 6 (28,561 more), all four quadrants included — zero mismatches. A small-case check is a detector, not a proof; here the proof is above and the detector confirms nothing was misread.</p>
+<aside class="aside"><strong>Brahmagupta's one level up.</strong> Replace the 1 in "two squares" by any N and the same expansion still works:</p>
+<p style="text-align: center">(x² + Ny²)(z² + Nw²) = (xz − Nyw)² + N(xw + yz)²</p>
+<p>This is the form Brahmagupta actually wrote in 628 CE. The lab verifies it exhaustively for N = 1, 2, 3, 5 over 5,184 cases. One worked instance, N = 3: (1² + 3·1²)(2² + 3·1²) = 4 · 7 = 28, and (1·2 − 3·1·1)² + 3(1·1 + 1·2)² = (−1)² + 3·9 = 1 + 27 = 28. Keep this box in mind; it closes a debt two sentences after the next one.</aside>
+<p><strong>The debt: P05's Pell recurrence, explained.</strong> In its failure catalogue, <a href="p05-canonical-form.html">P05</a> studied the family s² − 5y² = 4 and verified — by machine — that the recurrence (s, y) → ((3s + 5y)/2, (s + 3y)/2) sends solutions to solutions: (3, 1) → (7, 3) → (18, 8) → (47, 21), the value 4 never budging. Verified, but unexplained. This page's idea explains it. Compose in Brahmagupta's form with N = 5 and the pair (3, 1): (s, y) ⊙ (3, 1) = (3s + 5y, s + 3y) — the recurrence's step, before halving. Composition multiplies the values (each = 4) by the value of (3, 1), which is 9 − 5 = 4: so the composed pair carries value 4 · 4 = 16; halving both coordinates divides the value by 4; result: 4 again. The lab checks the quadratic identity (3s + 5y)² − 5(s + 3y)² = 4(s² − 5y²) exhaustively over −5 ≤ s, y ≤ 5 and each witness step exactly: 3² − 5·1² = 4, 7² − 5·3² = 4, 18² − 5·8² = 4, 47² − 5·21² = 4. P05's recurrence is compose-with-(3,1), then halve. That is what "norms that multiply" buys: whole families of equations whose solutions compose without end.</p>
+<aside class="aside warn"><strong>Scope, honestly.</strong> What the identity does: it <em>builds</em> representations of a product from representations of its factors, in pairs of routes. What it does not do: (1) it does not tell you <em>which</em> numbers are sums of two squares in the first place — primes p ≡ 3 (mod 4) never are (Exercise 3 proves the easy obstruction; the converse for p ≡ 1 (mod 4) is Fermat's two-squares theorem, whose proof needs <a href="p13-descent.html">P13</a> — deferred to <a href="m02-two-squares.html">M02</a>, named, not hidden). (2) It does not say that <em>every</em> representation of a product must come from its routes on some factorization — that is also true, and its proof needs the same deferred machinery (unique factorization of these very pairs). Default meanwhile: use the identity forward (build reps of products); ask the reverse question only after P13.</aside>
+</section>
+
+<section id="practice">
+<h2>5 · Practice</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◐ open exploration. Hints and worked answers are collapsible. No ◆ exercise here — there is no pattern to diagnose on a concept page yet.</p>
+
+<h3>Exercise 1 ●○○</h3>
+<p>(a) Compute both routes of (1² + 2²)(2² + 3²) and verify each by direct squaring. (b) Compute both routes of (2² + 1²)(1² + 1²) — and say what surprised you about them.</p>
+<details><summary>Hint</summary><p>Box B12 and Box B12.A, straight in. For (b), write down the pair each route gives before squaring.</p></details>
+<details><summary>Worked answer</summary><p>(a) Route 1: (2 − 6)² + (3 + 4)² = 16 + 49 = 65 ✓. Route 2: (2 + 6)² + (3 − 4)² = 64 + 1 = 65 ✓. (b) 10 = (2·1 − 1·1)² + (2·1 + 1·1)² = 1 + 9, and route 2: (2 + 1)² + (2 − 1)² = 9 + 1 — the two routes gave the <em>same pair</em> {1, 3}, just written in the other order. Both routes are correct (10 = 1 + 9 either way); the coincidence happens because swapping the inner pair's coordinates and flipping a sign turns one route into the other here. Not luck-fearful: the lab confirms both routes land on norm 10 and the unordered pairs coincide. Lesson: count <em>unordered</em> representations (the (x, y)-vs-(y, x) convention of every census in section 3).</p></details>
+
+<h3>Exercise 2 ●●○</h3>
+<p>Verify that 1105 = 5 · 13 · 17 has exactly the four representations (4, 33), (9, 32), (12, 31), (23, 24) — then produce at least two of them yourself by routes, using 65's representations composed with (1, 4) for 17.</p>
+<details><summary>Hint</summary><p>Section 3(c) did (1, 8) ⊙ (1, 4) and (4, 7) ⊙ (1, 4). Do any two of the four route computations yourself, and check each claimed square: 16 + 1089, 81 + 1024, 144 + 961, 529 + 576.</p></details>
+<details><summary>Worked answer</summary><p>Each square check: 4² + 33² = 16 + 1089 = 1105 ✓, 9² + 32² = 81 + 1024 = 1105 ✓, 12² + 31² = 144 + 961 = 1105 ✓, 23² + 24² = 529 + 576 = 1105 ✓. Routes: (1, 8) ⊙ (1, 4) route 1 = (1 − 32, 4 + 8) = (−31, 12) → (12, 31); route 2 = (33, −4) → (4, 33). (4, 7) ⊙ (1, 4) route 1 = (−24, 23) → (23, 24); route 2 = (32, 9) → (9, 32). All four, by routes, matching the lab's exhaustive scan of 0 ≤ x ≤ y ≤ 33 (exactly four representations, none missed).</p></details>
+
+<h3>Exercise 3 ●●●</h3>
+<p>(a) Census the remainders that squares can leave on division by 4, and the remainders that sums of two squares can leave. (b) Conclude: no number ≡ 3 (mod 4) is a sum of two squares, and apply the conclusion to 2027 without any search. (c) Combine with Box B02.A to conclude: any product of sums of two squares is itself never ≡ 3 (mod 4).</p>
+<details><summary>Hint</summary><p>(a) Only four classes exist — B01/B02 style, the census is complete after four squares: 0², 1², 2², 3². (c) B02's product preservation: the leftover of a product is the product of leftovers' leftover.</p></details>
+<details><summary>Worked answer</summary><p>(a) Squares mod 4: 0² ≡ 0, 1² ≡ 1, 2² ≡ 4 ≡ 0, 3² ≡ 9 ≡ 1 — only {0, 1}. Sums of two of those: {0, 1, 2}. The class 3 is unreachable; by Box B02.A only classes matter, so the four-row census already covers <em>all</em> squares and sums thereof — the lab confirms the census and scans x = 0…45 for 2027 with zero hits. (b) 2027 = 4·506 + 3, so 2027 ≡ 3 (mod 4): not a sum of two squares, no hunt needed — the theorem saves the search. (c) A product of sums of two squares is a sum of two squares by Box B12, and sums of two squares never leave remainder 3 by (a) — the two theorems work as one machine: identity (this page) + class arithmetic (<a href="b02-congruence-classes.html">B02</a>). This one-two punch is exactly how the deep story of M02 begins.</p></details>
+
+<h3>Exercise 4 ◐</h3>
+<p>Census the primes under 100: which are sums of two squares? Guess the rule, check your guess against every prime in your census, and say precisely what remains unproved.</p>
+<details><summary>What you should find</summary><p>Sums of two squares: 2 = 1² + 1², 5 = 1² + 2², 13 = 2² + 3², 17 = 1² + 4², 29 = 2² + 5², 37 = 1² + 6², 41 = 4² + 5², 53 = 2² + 7², 61 = 5² + 6², 73 = 3² + 8², 89 = 5² + 8², 97 = 4² + 9² — and on the other side, every one of 3, 7, 11, 19, 23, 31, 43, 47, 59, 67, 71, 79, 83 refuses, and each of those is ≡ 3 (mod 4). The rule you should guess: a prime is a sum of two squares exactly when it is 2 or ≡ 1 (mod 4). Exercise 3 already proves the refusing half. What remains unproved — the deep half — is that every prime ≡ 1 (mod 4) <em>is</em> a sum of two squares: Fermat's two-squares theorem. Its proof needs infinite descent (<a href="p13-descent.html">P13</a>), and the full story is <a href="m02-two-squares.html">M02</a>'s to tell, later in the book. The lab runs the entire census (25 primes, each scanned, every witness listed) so you can check your table against it.</p></details>
+</section>
+
+<section id="where">
+<h2>6 · Where this goes</h2>
+<ul>
+<li><strong>Consumer — <a href="p06-compose-identity.html">P06 · Compose with identity</a> (planned):</strong> its mandated application is exactly this page's theorem, taken through the complex reading: ∣z₁z₂∣² = ∣z₁∣² · ∣z₂∣². The bridge gate is now satisfied — B12 is published, and P06 may be authored, citing Box B12 and Box B12.A as its license, with Brahmagupta's generalization as its ladder upward.</li>
+<li><strong>Forward — <a href="m02-two-squares.html">M02 · Sums of two squares</a> (planned):</strong> the theory this page seeds — which numbers are sums of two squares at all — builds on P06 plus P13. Your Exercise 4 conjecture is its opening line.</li>
+<li><strong>Backward — <a href="p05-canonical-form.html">P05 · Reduce to canonical form</a> (published):</strong> its Pell recurrence, machine-verified but unexplained at publication, is now explained in section 4: compose with (3, 1) in Brahmagupta's N = 5 form, then halve. A published page is never rewritten; this page pays the debt forward instead.</li>
+<li><strong>Backward — <a href="b02-congruence-classes.html">B02 · Congruence classes</a> (published):</strong> Exercise 3's obstruction is spoken in B02's language (classes, product preservation), and B01's division algorithm supplies the canonical representative 2027 ≡ 3.</li>
+<li><strong>Patterns named in passing:</strong> the census habit in Lecture 0 and Exercise 4 is <a href="p02-small-cases.html">P02</a> doing what it does best; the compose-and-build move this page hands to P06 is why that pattern is named "compose with identity". Both get their own pages; this one only borrows.</li>
+</ul>
+</section>
+
+<section id="graphfooter" class="graphfooter">
+<h2>7 · Footer</h2>
+<p><strong>B12</strong> · group D (norms that multiply) · sole page of its group — the bridge track's fourth and final active group (group E needs no pages: the CBSE-12 probability floor is already laid). Consumers: <a href="p06-compose-identity.html">P06</a> — the binding bridge gate is now satisfied: the bridge page is published, and the spine may resume at P06. This page teaches a concept, not a pattern; no P-ID is claimed.</p>
+<p><strong>Labs.</strong> <code>labs/b12-lab.js</code> with recorded output <code>labs/b12-lab-output.txt</code>: the identity and its sibling route tested exhaustively (57,122 cases including a full negative sweep, zero mismatches); the Lecture 0 and worked numbers (221's two representations both produced by the two routes; 65's complete census exactly (1, 8), (4, 7); 4225's five representations and its four Pythagorean triples; 325's exactly three and 1105's exactly four, all four produced by routes on 65 × 17); the three-squares non-example (15 unreachable, exhaustive a, b, c ≤ 3); the mod-4 census {0, 1} and sums {0, 1, 2}; 2027 ≡ 3 with a 45-square scan finding nothing; the prime census under 100 (twelve primes sums of two squares, all 2 or ≡ 1 mod 4; thirteen refusing, all ≡ 3 mod 4, 25 primes total each scanned); Brahmagupta's N-form exhaustive for N = 1, 2, 3, 5 (5,184 cases) with the N = 3 instance 28 = (−1)² + 3·9; the Pell composition identity (3s + 5y)² − 5(s + 3y)² = 4(s² − 5y²) exhaustive over −5…5 plus the witness chain (3, 1) → (7, 3) → (18, 8) → (47, 21) at value 4 exactly. Adversarial review by a fresh verifier engine — squares-lookup recomputation, subtraction remainders, zero shared code — 14 must-fail injection rows all caught in run 3, 2/2 positive controls.</p>
+<p><strong>Revision log.</strong> R0 (2026-10-28, session S09): page published. Fresh verification battery executed in-session (5 pieces + pre-flight probe, split ≤4 KB, no recursion, no BigInt in the value path, deterministic); style audit against the presentation fingerprint passed (recall bridge through the census habit; numbered citable boxes B12, B12.A; concrete parameters throughout; the complete expansion proof with Brahmagupta's generalization and the P05 Pell debt paid forward; honest scope box with named deferrals to P13/M02; history as seasoning with citations). Honest run history — four defective runs caught before install: (1) piece 4 run 1: two print-concatenation defects (the E1b evidence line lost to string-precedence, the N = 3 instance printed "127" instead of 28 — the math checks were clean, the transcript rows were not); run 2 clean. (2) Verifier run 1: syntax error before execution. (3) Verifier run 2: 12/14 — two injection rows mis-encoded (V1 carried the falsity test instead of the claim, an inverted boolean; V13 mis-transcribed its witness coordinates), caught by the machine-counted verdict line; the same defect class as the B02 and P05 verifier run 1s, now recurring across three sessions — the verdict-line guard has caught it all three times. (4) Verifier run 3: 14/14, PASS. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
+</section>
+
+<footer>
+<p><em>The Patterns Atlas</em> — B12 · The Brahmagupta–Fibonacci identity (bridge page, group D). <a href="index.html">Return to the index</a>. The bridge track's service to the spine continues: next, the spine resumes at <a href="p06-compose-identity.html">P06 · Compose with identity</a> (planned), whose mandated application links back to this page.</p>
+</footer>
+</body>
+</html>

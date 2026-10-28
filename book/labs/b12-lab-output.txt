@@ -1,0 +1,71 @@
+# B12 lab output — The Brahmagupta–Fibonacci identity (b12-brahmagupta-fibonacci.html)
+# Session S09, 2026-10-28. Battery: 6 pieces (0=probe) + adversarial verifier (fresh engine, zero shared code).
+# Honest run history: piece 4 run 1 had two print-concatenation defects (E1b evidence lost to string-precedence; N=3 instance printed '127' not 28) — math checks clean, transcript rows defective; run 2 fixed the rows but overwrote run 1's exhaustive counts; run 3 unified both cleanly. Verifier run 1: syntax error before execution. Run 2: 12/14 (V1 inverted boolean — carried the falsity test instead of the claim; V13 mis-transcribed witness coordinates), caught by the machine-counted verdict line. Run 3: 14/14, 2/2 controls, PASS.
+
+=== piece 0 — pre-flight probe ===
+probe: 17*13=221 route1=221 PASS
+=== piece 1 — identity exhaustive, both routes ===
+piece1: nonneg cases=28561 route1_mismatch=0 route2_mismatch=0 | neg sweep cases=28561 route1_mismatch=0 route2_mismatch=0 VERDICT PASS
+=== piece 2 — Lecture 0 + worked numbers + censuses ===
+lecture0: 17*13=221 | 5^2+14^2=221 10^2+11^2=221
+routes(1,4)x(2,3): r1=(-10,11) norm=221 r2=(14,-5) norm=221
+65: r1=(-4,7) norm=65 r2=(8,-1) norm=65
+4225: r1=(-33,56) norm=4225 r2=(63,16) norm=4225
+reps221(0..15)=(5,14),(10,11)
+reps65(0..8)=(1,8),(4,7)
+reps4225(0..65)=(0,65),(16,63),(25,60),(33,56),(39,52)
+reps325(0..18)=(1,18),(6,17),(10,15)
+reps1105(0..33)=(4,33),(9,32),(12,31),(23,24)
+reps50(0..7)=(1,7),(5,5)
+triplecheck: 16^2+63^2=4225 33^2+56^2=4225 25^2+60^2=4225 39^2+52^2=4225
+=== piece 3 — mod-4, three-squares non-example, prime census ===
+mod4: squares=[0,1] sums=[0,1,2] has3=false
+2027=4*506+3 remainder 3 | 221 mod 4 = 1
+threeSquaresPossible(0..27)=[0,1,2,3,4,5,6,8,9,10,11,12,13,14,17,18,19,22,27]
+15 in set: false | 3=1+1+1: true | 5=4+1+0: true
+primes<100 count=25
+sumOfTwoSquares=2(1,1)[p%4=2] 5(1,2)[p%4=1] 13(2,3)[p%4=1] 17(1,4)[p%4=1] 29(2,5)[p%4=1] 37(1,6)[p%4=1] 41(4,5)[p%4=1] 53(2,7)[p%4=1] 61(5,6)[p%4=1] 73(3,8)[p%4=1] 89(5,8)[p%4=1] 97(4,9)[p%4=1]
+NOT=3[p%4=3] 7[p%4=3] 11[p%4=3] 19[p%4=3] 23[p%4=3] 31[p%4=3] 43[p%4=3] 47[p%4=3] 59[p%4=3] 67[p%4=3] 71[p%4=3] 79[p%4=3] 83[p%4=3]
+VERDICT PASS
+=== piece 4 (run 3) — exercises, N-form, Pell ===
+E1a 65: r1=(-4,7) r2=(8,-1) norms 65 65
+E1b (2,1)x(1,1): r1=(1,3) r2=(3,1) norms 10 10 unorderedPairsEqual=true
+E2 1105: (1,8)x(1,4): r1=(-31,12)=1105 r2=(33,-4)=1105 | (4,7)x(1,4): r1=(-24,23)=1105 r2=(32,9)=1105
+E3 2027%4=3 rep=null
+Nform exhaustive N in {1,2,3,5}: cases=5184 mismatches=0
+NformInstance N=3: (1^2+3*1)(2^2+3*1)=28 route=28 equal=true
+pellQuad (3s+5y)^2-5(s+3y)^2=4(s^2-5y^2): cases=121 mismatches=0
+pellSteps: (3,1)->(14,6) half=(7,3) val=4 | (7,3)->(36,16) half=(18,8) val=4 | (18,8)->(94,42) half=(47,21) val=4
+pellValues: 3^2-5*1=4 7^2-5*9=4 18^2-5*64=4 47^2-5*441=4
+=== piece 5 — trivial-input routes (4225's other representations) ===
+(0,13)x(3,4) r1=(-52,39) norm=4225
+(0,5)x(5,12) r1=(-60,25) norm=4225
+(0,13)x(0,5) r1=(-65,0) norm=4225
+checks: 52^2+39^2=4225 60^2+25^2=4225 65^2=4225
+=== verifier A — independent recomputation ===
+VA reps221=["(5,14)","(10,11)"]
+VA reps65=["(1,8)","(4,7)"]
+VA reps4225=["(0,65)","(16,63)","(25,60)","(33,56)","(39,52)"]
+VA reps325=["(1,18)","(6,17)","(10,15)"]
+VA reps1105=["(4,33)","(9,32)","(12,31)","(23,24)"]
+VA identity grid cases=3136 fails=0
+VA squaresMod4=[0,1]
+VA 2027sub4=3
+=== verifier B (run 3) — injection rows ===
+V1 [must-fail] evaluates=false caught
+V2 [must-fail] evaluates=false caught
+V3 [must-fail] evaluates=false caught
+V4 [must-fail] evaluates=false caught
+V5 [must-fail] evaluates=false caught
+V6 [must-fail] evaluates=false caught
+V7 [must-fail] evaluates=false caught
+V8 [must-fail] evaluates=false caught
+V9 [must-fail] evaluates=false caught
+V10 [must-fail] evaluates=false caught
+V11 [must-fail] evaluates=false caught
+V12 [must-fail] evaluates=false caught
+V13 [must-fail] evaluates=false caught
+V14 [must-fail] evaluates=false caught
+P1 [control] evaluates=true caught
+P2 [control] evaluates=true caught
+VERIFIER RUN 3: caught=14/14 controls=2/2 PASS
