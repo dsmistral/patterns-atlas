@@ -18,6 +18,7 @@
 <li><a href="#about">What this book is</a></li>
 <li><a href="#how">How to read it</a></li>
 <li><a href="#spine">The spine (tier 1)</a></li>
+<li><a href="#bridge">The bridge track (concept pages)</a></li>
 <li><a href="#tier2">First climbs (tier 2)</a></li>
 <li><a href="#canon">Canon additions (tier 2)</a></li>
 <li><a href="#tier3">The university core (tier 3)</a></li>
@@ -37,9 +38,10 @@
 
 <section id="how">
 <h2>How to read it</h2>
-<p><strong>The ladder path (default):</strong> read the spine in order, P01 → P17, then keep climbing tier by tier. Each page opens by recalling the pages before it.</p>
+<p><strong>The ladder path (default):</strong> read the spine in order, P01 → P17, then keep climbing tier by tier. Bridge pages slot in where the ladder first needs them: B01–B02 before P05, B12 before P06, B03–B04 before P13, B05–B08 before P16. Each page opens by recalling the pages before it.</p>
 <p><strong>The repair path:</strong> stuck on a problem? Jump to the diagnosis guide (planned): answer three questions — what kind of claim is it, what shape does the problem have, what tools do you have — and get pattern candidates.</p>
 <p><strong>The dip-in path:</strong> every page is self-contained enough to read alone; prerequisites are linked at the top.</p>
+<p>Above school level, the ladder builds its own bridges: when a page needs a concept school never taught — modular arithmetic, change of basis, eigenvectors — the concept gets its own <em>bridge pages</em>, one idea per page, taught slow, in the order the patterns need them. No page ever silently assumes outside knowledge.</p>
 <p>Tier-5 pages are <em>orientation pages</em>: they tell you what a research tool is for, show one showcase result honestly labeled as a sketch, and map which of this book's pages you need first. No page ever silently assumes outside knowledge.</p>
 </section>
 
@@ -53,19 +55,42 @@
 <tr><td>P02</td><td><a href="p02-small-cases.html">Experiment with small cases</a></td><td>Compute a table; patterns hide in the first few rows.</td><td>P01</td><td class="st planned">planned</td></tr>
 <tr><td>P03</td><td><a href="p03-special-cases.html">Stress-test with special cases</a></td><td>Check the extremes, the symmetric, the degenerate.</td><td>P02</td><td class="st planned">planned</td></tr>
 <tr><td>P04</td><td><a href="p04-complete-the-square.html">Complete the square</a></td><td>Rebalance an equation into a perfect square.</td><td>P01</td><td class="st planned">planned</td></tr>
-<tr><td>P05</td><td><a href="p05-canonical-form.html">Reduce to canonical form</a></td><td>Normalize the object; prove it once; translate back.</td><td>P04</td><td class="st planned">planned</td></tr>
-<tr><td>P06</td><td><a href="p06-compose-identity.html">Compose with identity</a></td><td>Combine two facts through an identity that preserves the property.</td><td>P05</td><td class="st planned">planned</td></tr>
+<tr><td>P05</td><td><a href="p05-canonical-form.html">Reduce to canonical form</a></td><td>Normalize the object; prove it once; translate back.</td><td>P04, B01–B02</td><td class="st planned">planned</td></tr>
+<tr><td>P06</td><td><a href="p06-compose-identity.html">Compose with identity</a></td><td>Combine two facts through an identity that preserves the property.</td><td>P05, B12</td><td class="st planned">planned</td></tr>
 <tr><td>P07</td><td><a href="p07-auxiliary-construction.html">Build an auxiliary object</a></td><td>Invent the extra line, function, or number the problem forgot to give you.</td><td>P01–P03</td><td class="st planned">planned</td></tr>
 <tr><td>P08</td><td><a href="p08-symmetry.html">Divide by symmetry</a></td><td>Do one representative case; multiply by the orbit.</td><td>P05</td><td class="st planned">planned</td></tr>
-<tr><td>P09</td><td><a href="p09-invariant.html">Find the invariant</a></td><td>What does the process NOT change? That is the lever.</td><td>P03</td><td class="st planned">planned</td></tr>
+<tr><td>P09</td><td><a href="p09-invariant.html">Find the invariant</a></td><td>What does the process NOT change? That is the lever.</td><td>P03, B02</td><td class="st planned">planned</td></tr>
 <tr><td>P10</td><td><a href="p10-pigeonhole.html">Force a collision</a></td><td>More objects than boxes ⇒ two objects share a box. Aim for it.</td><td>P09</td><td class="st planned">planned</td></tr>
 <tr><td>P11</td><td><a href="p11-contradiction.html">Prove by contradiction</a></td><td>Assume the opposite, run the machine, watch it break.</td><td>P01</td><td class="st planned">planned</td></tr>
 <tr><td>P12</td><td><a href="p12-obstruction.html">Name the obstruction</a></td><td>Impossible? Find the number that refuses to change — and say why.</td><td>P09, P11</td><td class="st planned">planned</td></tr>
-<tr><td>P13</td><td><a href="p13-descent.html">Infinite descent</a></td><td>A smallest counterexample that begets a smaller one cannot exist.</td><td>P11</td><td class="st planned">planned</td></tr>
+<tr><td>P13</td><td><a href="p13-descent.html">Infinite descent</a></td><td>A smallest counterexample that begets a smaller one cannot exist.</td><td>P11, B03–B04</td><td class="st planned">planned</td></tr>
 <tr><td>P14</td><td><a href="p14-diagonal.html">The diagonal argument</a></td><td>Build the one object the enumeration missed.</td><td>P10, P11</td><td class="st planned">planned</td></tr>
 <tr><td>P15</td><td><a href="p15-squeeze.html">Squeeze it</a></td><td>Trap the answer between two things you can compute.</td><td>P02</td><td class="st planned">planned</td></tr>
-<tr><td>P16</td><td><a href="p16-isomorphism.html">Same problem, different clothes</a></td><td>Relabel the problem so it becomes one you have already solved.</td><td>P05</td><td class="st planned">planned</td></tr>
+<tr><td>P16</td><td><a href="p16-isomorphism.html">Same problem, different clothes</a></td><td>Relabel the problem so it becomes one you have already solved.</td><td>P05, B05–B08</td><td class="st planned">planned</td></tr>
 <tr><td>P17</td><td><a href="p17-duality.html">Flip to the dual</a></td><td>Solve the mirrored problem instead; translate the answer back.</td><td>P16</td><td class="st planned">planned</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="bridge">
+<h2>The bridge track (concept pages)</h2>
+<p>Some ideas the ladder needs — modular arithmetic, eigenvectors, and their kin — are simply not taught at school. They are vast topics, so they are never squeezed into a corner of another page: each gets its own pages, one idea per page, taught slow, arriving right before the pattern pages that need them.</p>
+<p>Status: <span class="st planned">planned</span> · <span class="st drafting">drafting</span> · <span class="st reviewed">reviewed</span> · <span class="st published">published</span></p>
+<table>
+<thead><tr><th>ID</th><th>Concept page</th><th>One-line</th><th>Serves</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>B01</td><td><a href="b01-remainders.html">Remainders and the division algorithm</a></td><td>Divide, and the leftover is the interesting part.</td><td>P05, P09</td><td class="st planned">planned</td></tr>
+<tr><td>B02</td><td><a href="b02-congruence-classes.html">Same remainder, new arithmetic</a></td><td>Numbers with equal remainders behave identically.</td><td>P05, P09</td><td class="st planned">planned</td></tr>
+<tr><td>B03</td><td><a href="b03-euclidean-algorithm.html">The Euclidean algorithm</a></td><td>Repeated division hunts down the greatest common divisor.</td><td>P13</td><td class="st planned">planned</td></tr>
+<tr><td>B04</td><td><a href="b04-bezout.html">Bézout's identity via descent</a></td><td>The gcd is reachable as a combination ax + by.</td><td>P13</td><td class="st planned">planned</td></tr>
+<tr><td>B05</td><td><a href="b05-coordinates-basis.html">Coordinates are a measuring scheme</a></td><td>A basis is a choice of units; coordinates are the readings.</td><td>P16</td><td class="st planned">planned</td></tr>
+<tr><td>B06</td><td><a href="b06-change-of-basis.html">Change of basis</a></td><td>Same vector, different numbers — and how to translate.</td><td>P16</td><td class="st planned">planned</td></tr>
+<tr><td>B07</td><td><a href="b07-eigenvectors.html">Directions a matrix leaves alone</a></td><td>Eigenvectors: the special directions a matrix only stretches.</td><td>P16</td><td class="st planned">planned</td></tr>
+<tr><td>B08</td><td><a href="b08-diagonalization.html">Diagonalization: decoupling by relabelling</a></td><td>Choose the right coordinates and the system falls apart into two easy ones.</td><td>P16</td><td class="st planned">planned</td></tr>
+<tr><td>B09</td><td><a href="b09-graphs-and-numbers.html">Graphs and numbers on them</a></td><td>Dots, lines, and arithmetic you can do on both.</td><td>P33</td><td class="st planned">planned</td></tr>
+<tr><td>B10</td><td><a href="b10-loop-obstruction.html">Potential differences and the loop obstruction</a></td><td>When do edge differences come from vertex numbers? Around a loop, they must agree.</td><td>P33</td><td class="st planned">planned</td></tr>
+<tr><td>B11</td><td><a href="b11-discrete-derivative.html">The discrete derivative and telescoping</a></td><td>Take differences, and sums collapse.</td><td>P69</td><td class="st planned">planned</td></tr>
+<tr><td>B12</td><td><a href="b12-brahmagupta-fibonacci.html">The Brahmagupta–Fibonacci identity</a></td><td>Norms multiply: (a²+b²)(c²+d²) is again a sum of two squares.</td><td>P06</td><td class="st planned">planned</td></tr>
 </tbody>
 </table>
 </section>
@@ -97,7 +122,7 @@
 <tr><td>P66</td><td><a href="p66-induction.html">Prove by induction</a></td><td>Base case plus one honest step: the ladder carries every rung.</td><td>P02</td><td class="st planned">planned</td></tr>
 <tr><td>P67</td><td><a href="p67-contrapositive.html">Prove the contrapositive</a></td><td>"If A then B" is exactly "not B, then not A". Prove the twin.</td><td>P11</td><td class="st planned">planned</td></tr>
 <tr><td>P68</td><td><a href="p68-wlog.html">Without loss of generality</a></td><td>One case, honestly argued, speaks for its whole orbit.</td><td>P08</td><td class="st planned">planned</td></tr>
-<tr><td>P69</td><td><a href="p69-telescoping.html">Telescoping</a></td><td>Write the sum so the middle terms cancel themselves.</td><td>P02</td><td class="st planned">planned</td></tr>
+<tr><td>P69</td><td><a href="p69-telescoping.html">Telescoping</a></td><td>Write the sum so the middle terms cancel themselves.</td><td>P02, B11</td><td class="st planned">planned</td></tr>
 <tr><td>P70</td><td><a href="p70-double-counting.html">Double counting</a></td><td>Count the same set two ways; the two answers must agree.</td><td>P02</td><td class="st planned">planned</td></tr>
 <tr><td>P71</td><td><a href="p71-extremal-principle.html">The extremal principle</a></td><td>Take the largest or smallest one — it knows something.</td><td>P03</td><td class="st planned">planned</td></tr>
 <tr><td>P72</td><td><a href="p72-monovariants.html">Monovariants</a></td><td>Find the quantity that only moves one way; the end is near.</td><td>P09</td><td class="st planned">planned</td></tr>
@@ -124,7 +149,7 @@
 <tr><td>P30</td><td><a href="p30-localize-at-prime.html">Localize at a prime</a></td><td>Work one prime at a time; reassemble the answers.</td><td>P05, P09, P13</td><td class="st planned">planned</td></tr>
 <tr><td>P31</td><td><a href="p31-universal-property.html">The universal property argument</a></td><td>Don't describe the object; describe its job.</td><td>P01, P05, P16</td><td class="st planned">planned</td></tr>
 <tr><td>P32</td><td><a href="p32-ideal-arithmetic.html">Ideal arithmetic</a></td><td>Factor whole families of numbers at once.</td><td>P30</td><td class="st planned">planned</td></tr>
-<tr><td>P33</td><td><a href="p33-sheaf-cohomology-bridge.html">The sheaf cohomology bridge</a></td><td>Local answers that fail to glue measure an obstruction.</td><td>P12, P31, P69</td><td class="st planned">planned</td></tr>
+<tr><td>P33</td><td><a href="p33-sheaf-cohomology-bridge.html">The sheaf cohomology bridge</a></td><td>Local answers that fail to glue measure an obstruction.</td><td>P12, P31, P69, B09–B10</td><td class="st planned">planned</td></tr>
 <tr><td>P34</td><td><a href="p34-arithmetize-syntax.html">Arithmetize the syntax</a></td><td>Give every statement a number; then arithmetic argues about language.</td><td>P14</td><td class="st planned">planned</td></tr>
 </tbody>
 </table>
@@ -202,7 +227,7 @@
 
 <footer>
 <p><em>The Patterns Atlas</em> — manuscript in progress. Status legend: planned → drafting → reviewed → published. This index grows with the book; published pages are never rewritten, only extended with logged revisions.</p>
-<p class="revision"><strong>Revision log</strong> — R1 (2026-10-27): charter extended per the owner's direction — full registry coverage; tiers 3–5 added (P26–P65); class-12 restated as the entry level, not the ceiling; tier-5 defined as orientation pages; tier-2 table extended by P25; "about", "how to read", and "evidence" updated accordingly. R2 (2026-10-28, session S02): canon audit complete — canon additions P66–P77 appended (new section, slugs enumerated below); P01 published (page + labs). Receipts: records/CANON-AUDIT.md; session log records/BOOK-PROJECT.md. R3 (2026-10-28, session S02b): ladder benchmark adopted — prerequisite links tightened (P24, P27, P30, P31, P33, P36, P37), P78 (reversible steps) appended, bridge mandates now binding at authoring. Receipts: records/LADDER-BENCHMARK.md.</p>
+<p class="revision"><strong>Revision log</strong> — R1 (2026-10-27): charter extended per the owner's direction — full registry coverage; tiers 3–5 added (P26–P65); class-12 restated as the entry level, not the ceiling; tier-5 defined as orientation pages; tier-2 table extended by P25; "about", "how to read", and "evidence" updated accordingly. R2 (2026-10-28, session S02): canon audit complete — canon additions P66–P77 appended (new section, slugs enumerated below); P01 published (page + labs). Receipts: records/CANON-AUDIT.md; session log records/BOOK-PROJECT.md. R3 (2026-10-28, session S02b): ladder benchmark adopted — prerequisite links tightened (P24, P27, P30, P31, P33, P36, P37), P78 (reversible steps) appended, bridge mandates now binding at authoring. Receipts: records/LADDER-BENCHMARK.md. R4 (2026-10-28, session S02c): bridge track added (owner directive — vast concepts are never compressed into another page's corner): 12 dedicated concept pages B01–B12 enumerated, slotted before their consumer pages; mandate mechanism restructured (bridge pages first, compact linked applications on the consumer pages). Receipts: records/LADDER-BENCHMARK.md (S02c addendum).</p>
 </footer>
 </body>
 </html>
