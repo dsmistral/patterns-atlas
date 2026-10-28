@@ -1,0 +1,97 @@
+P04 — Complete the square — recorded verification battery output
+Session S05, 2026-10-28. Run by the drafting engine (p04-lab.js, split pieces)
+plus a fresh adversarial verifier (zero shared code, independent constants,
+18 must-fail injection rows: 8 in piece VA, 10 in piece VB).
+Honest run history — three defective runs were caught and re-run before install:
+- Piece 3 run 1: print 3f mislabelled the radius-4 exercise lattice count
+  ("4 axis + 8 off-axis"); the scan count itself was correct (4) — a radius of
+  4 = 2^2 admits only the 4 axis points. Label fixed in run 2 (recorded).
+- Verifier piece VA run 1: two malformed evidence lines — the (x+5)^2 injection
+  evaluated at x=5 (printed 100) instead of at the root x=3 (should print 64),
+  and the 2x^2+12x+7 injection evaluated at +2 with a wrong product (printed 47)
+  instead of at -2 (true value -9). Both claims were still caught, but evidence
+  lines must name the right quantity — fixed in run 2 (recorded).
+- Verifier piece VB run 1: syntax error (unclosed parenthesis on the V8 line),
+  no rows executed — fixed in run 2 (recorded).
+Constraints honored: split pieces, no recursion, no BigInt in the value path,
+deterministic (no randomness used).
+==============================================================================
+P04 PIECE 1 (probe + al-Khwarizmi + the doubled identity) — 2026-10-28
+PROBE ok: true
+1a x=3: x^2+10x = 39 (want 39)
+1a x=-13: x^2+10x = 39 (want 39)
+1b completed: (x+5)^2 at x=3 -> 64 | at x=-13 -> 64 (both want 64)
+1c min of x^2+10x+41 over integers -30..30: 16 at x=-5 | predicted (x+5)^2+16 at x=-5: 16
+1d doubled identity over b,c in [-12,12], x in [-8,8]: checks=10625 mismatches=0
+1e grid values below the vertex leftover (want 0): 0
+P04 PIECE 2 (quadratic formula: two routes + Vieta + substitution) — 2026-10-28
+2a cases: real=786 complex=370 | route agreement=786 disagreements=0
+2b substitution failures=0 | Vieta sum/product failures=0
+2c perfect-square discriminants=229 | exact integer root-check failures=0
+2d x^2-8x+3 = (x-4)^2-13 mismatches over [-30,30]: 0 | 2x^2+12x+7 = 2(x+3)^2-11 mismatches: 0
+2e min x^2-8x+3 = -13 at x=4 | min 2x^2+12x+7 = -11 at x=-3
+2f even-b vertex-reachability exceptions (want 0): 0
+P04 PIECE 3 (the circle exemplar: x^2 + y^2 - 6x + 4y - 12 = 0) — RUN 2 — 2026-10-28
+RUN HISTORY: run 1 print 3f mislabelled the radius-4 lattice count ("4 axis + 8 off-axis");
+the scan count was correct (4); a radius of 4 = 2^2 admits only the 4 axis points. Label fixed here.
+3a leftover sum 3^2 + 2^2 + 12 = 25 (radius 5, center (3,-2))
+3b round-trip agreement over box x[-5,11], y[-8,4]: 221 disagreements: 0
+3c integer points on the curve: 12 -> (-2,-2) (-1,-5) (-1,1) (0,-6) (0,2) (3,-7) (3,3) (6,-6) (6,2) (7,-5) (7,1) (8,-2)
+3d parametric route (240 samples): max |original eq| on parametric circle = 1.42e-14
+3e (3,2) is NOT on the curve: original = -9 | (8,2): 16 | true on-curve spot (3,-7): 0
+3f exercise conic round-trip: agreements=169 disagreements=0 | integer points: 4 -> (-2,-3) (2,-7) (2,1) (6,-3) (radius 4 = 2^2: only the 4 axis points)
+P04 PIECE 4 (Diophantine exemplar + exercise + the Babylonian doubled route) — 2026-10-28
+4a scan x^2+6x = y^2+4y over [-20,20]^2: 4 solutions -> (-6,-4) (-6,0) (0,-4) (0,0)
+4b factor-pair route (x-y+1)(x+y+5)=5: 4 solutions -> (0,0) (0,-4) (-6,-4) (-6,0)
+4c routes agree: true
+4d exercise scan over [-40,40]^2: 4 -> (-28,-23) (-28,17) (14,-23) (14,17) | factor route: 4 | agree: true
+4e check (14,17): 392 = 392
+4e check (14,-23): 392 = 392
+4e check (-28,-23): 392 = 392
+4e check (-28,17): 392 = 392
+4f doubled: (2x-7)^2 = 289 | 17^2 = 289 (perfect square, as needed)
+4g x=12, y=5: x-y = 7 (want 7) | xy = 60 (want 60)
+4g x=-5, y=-12: x-y = 7 (want 7) | xy = 60 (want 60)
+4h (2*(-5)-7)^2 = 289 (want 289)
+P04 PIECE 5 (integral exemplar + exercise checks + cross-term positivity) — 2026-10-28
+5a completed denominator: (x+2)^2+9 at x=0 -> 13 | x^2+4x+13 at x=0 -> 13
+5b derivative round-trip, central diff, x=-12..12 step 0.5: max |err| = 5.21e-11
+5c int_{-6}^{4} dx/(x^2+4x+13): Simpson(1200) = 0.678147979 | antiderivative = 0.678147979 | diff = 7.19e-14
+5d x^4-4x^2+4 = (x^2-2)^2 mismatches over [-30,30]: 0 | negatives: 0 | integer-grid min: 1 at x=-1 (zero is attained at x=±sqrt(2), not at integers — the grid says so)
+5e x^2+4xy+5y^2 = (x+2y)^2+y^2 mismatches over [-10,10]^2: 0 | negatives: 0 | grid min: 0 (at x=y=0)
+P04 ADVERSARIAL VERIFIER (fresh engine, zero shared code, independent constants) — RUN 2 — 2026-10-28
+RUN HISTORY: run 1 carried two malformed evidence lines — the (x+5)^2 injection evaluated at x=5
+(printed 100) instead of at the root x=3 (should print 64 vs the claimed 65), and the 2x^2+12x+7
+injection evaluated at +2 with a wrong product (printed 47) instead of at -2 (true value -9).
+Both claims were still caught, but evidence lines must name the right quantity — fixed here.
+VA — Horner + zero-counting + circle-fit routes
+V1 Horner x^2+10x-39 at 3: 0 | at -13: 0
+  injection CAUGHT: claim root is -14 (Horner gives 17)
+  injection CAUGHT: claim the completed equation reads (x+5)^2 = 65 (at the root x=3 it is 64)
+V2 integer zeros of x^2-8x+3: [] (none: it never touches 0 at integers)
+  injection CAUGHT: claim min of x^2-8x+3 is -12 (grid says -13 at x=4)
+  injection CAUGHT: claim 2x^2+12x+7 is smallest at x=-2 (value there -9 > -11 = value at x=-3)
+  injection CAUGHT: claim discriminant is b^2+4ac (for x^2+10x-39 that gives -56 < 0, yet real roots exist)
+V3 own scan of the curve: 12 integer points
+V3 3-point fit: center = (3, -2), all 12 points at radius^2 = 25: true
+  injection CAUGHT: claim center (3, 2) (fit says (3, -2))
+  injection CAUGHT: claim radius 4 (fit says 5)
+  injection CAUGHT: claim 13 integer points lie on the curve (own scan: 12)
+VB — Diophantine + integral + Babylonian + substitution + cross-term routes — 2026-10-28
+RUN HISTORY: run 1 of this piece was a syntax error (unclosed parenthesis on the V8 line) — no rows executed.
+V4 (0,0) solves: true | (0,-4): true | (-6,0): true | (-6,-4): true
+  injection CAUGHT: claim (1,0) is a solution (it gives 7 vs 0)
+  injection CAUGHT: claim 5 integer solutions (own scan over [-25,25]^2: 4)
+  injection CAUGHT: claim completed form is (x+3)^2-(y+2)^2=4 (at (0,0) it is 5)
+V5 trapezoid(4000) vs closed form: |diff| at 0: 6.84e-9 | at 4: 9.75e-9
+  injection CAUGHT: claim antiderivative is (1/2)arctan((x+2)/3) (at 4 it overshoots by 0.125)
+  injection CAUGHT: claim antiderivative is (1/3)arctan(x/3) (at 4 it differs by 0.369)
+V6 (2*12-7)^2 = 289 | 17^2 = 289 | x=12,y=5: xy=60
+  injection CAUGHT: claim the doubled equation is (2x-7)^2 = 280 (it is 289)
+  injection CAUGHT: claim x=-5, y=-12 fails the conditions (xy = 60, x-y = 7)
+V7 x^4-4x^2+4 negatives over [-40,40]: 0
+  injection CAUGHT: claim x^4-4x^2+4 goes negative somewhere (grid finds none: it is (x^2-2)^2)
+V8 cross-term negatives over [-10,10]^2: 0 | (x+2y)^2+2y^2 mismatches: 420 (at (1,0): 1 vs 5 in the original)
+  injection CAUGHT: claim x^2+4xy+5y^2 takes negative values
+  injection CAUGHT: claim x^2+4xy+5y^2 = (x+2y)^2+2y^2 (mismatches: 420; the true completion is (x+2y)^2+y^2)
+VERDICT injections caught = 10, missed = 0 — ALL CAUGHT
