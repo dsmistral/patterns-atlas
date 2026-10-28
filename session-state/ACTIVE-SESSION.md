@@ -1,16 +1,16 @@
 # ACTIVE SESSION — S10 (Patterns Atlas)
 
-**Unit:** Formatting charter (owner directive 2026-10-28): TeX + SVG for proper symbol visualization, universal rule; step-by-step retrofit passes from the beginning.
+**Unit:** Formatting charter (owner directive 2026-10-28): TeX + SVG universal rule; retrofit passes from the beginning.
 
-**Owner decisions (asked and answered this session):** (1) Math rendering = MathJax 3 via CDN (richest rendering; needs internet; overturns the standing no-CDN clause — owner override recorded with receipt; offline degradation = raw TeX source shows, honestly noted). (2) Retrofit all published pages (P01-P05, B01, B02, B12) BEFORE the next new page; P06 resumes after.
+**Status: CLOSING.** All steps checked:
 
-**Plan (checked as done):**
+- [x] Feasibility probe recorded (vendored MathJax unobtainable: 2,108,580 B; web reader truncates ~32 KB; no es5/ in the MathJax repo; npm tarball binary).
+- [x] Owner decisions recorded: MathJax 3 via CDN (jsdelivr 3.2.2, integrity sha256 pinned from the jsdelivr registry API; no-CDN clause overturned by owner override; offline = raw TeX, honestly noted in the index reading note); retrofits-first sequence P01-P05, B01, B02, B12, then P06.
+- [x] Conventions amended (TeX universal rule; standard MathJax block defined exactly; SVG figures universal rule, machine-checked; hygiene updated; Formatting retrofit passes section with per-pass gates; governance exception recorded).
+- [x] Stylesheet extended (equation + mjx-container + figure SVG classes; 3,546 B).
+- [x] Index R12 (revision entry; reading note; index itself now carries the MathJax block; B12 one-liner moved to TeX).
+- [x] WORKING-PROTOCOL.md governance note added.
+- [x] Records closed: S10 row CLOSED; standing to-do -> S11 = retrofit pass P01 (sequence S12..S18 = P02..B12 passes; S19 = author P06); KNOWLEDGE.md updated; Medium line updated.
+- [x] This push: style.css + index + records (BOOK-CONVENTIONS, BOOK-PROJECT, WORKING-PROTOCOL) + closing mirror.
 
-- [x] Feasibility probe: vendored MathJax infeasible (2,108,580-byte tex-svg.js; web reader truncates ~32 KB; MathJax repo carries no es5/ build; npm tarball binary) — receipt recorded; CDN chosen by owner with that information.
-- [x] Mirror open pushed.
-- [ ] Conventions amended: TeX-in-masters universal rule, standard MathJax block (jsdelivr 3.2.2 with SRI sha256 1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII= from the jsdelivr registry API — the byte gate for the CDN artifact), SVG figure rule (inline, self-authored, numbered citable), hygiene gate updated, retrofit-pass protocol (owner directive licenses formatting body edits; content unchanged; per-pass gates), pass sequence P01->P02->P03->P04->P05->B01->B02->B12 then P06.
-- [ ] Stylesheet extended: display-equation + figure classes.
-- [ ] Index R12 (formatting charter revision entry + honest reading note about internet for math rendering).
-- [ ] Records: S10 CLOSED; standing to-do -> S11 = retrofit pass P01.
-- [ ] Push conventions + style.css + index + records + closing mirror; fetch-back verify.
-- [ ] Delete this mirror; honest close report.
+**Remaining:** fetch-back verify; delete this mirror; honest close report. No pages retrofitted yet — passes are sequenced, not run.

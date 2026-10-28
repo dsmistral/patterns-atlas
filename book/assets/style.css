@@ -1,4 +1,4 @@
-/* The Patterns Atlas — shared stylesheet (repo-vendored, no CDN) */
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): math is TeX rendered by the standard MathJax 3 CDN block pinned in BOOK-CONVENTIONS.md — the book's single external dependency; figures are inline SVG. */
 :root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
 * { box-sizing: border-box; }
 body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.55; }
@@ -31,3 +31,8 @@ figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-
 figcaption { font-size: .85rem; color: var(--soft); }
 .graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); margin-top: 2rem; }
 .pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); }
+/* formatting charter S10 (TeX + SVG, owner directive 2026-10-28) */
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; }
+figure.fig-tight { margin: 1.2rem auto; max-width: 34rem; }

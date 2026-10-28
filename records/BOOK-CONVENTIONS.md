@@ -16,10 +16,21 @@
 
 ## Page format (masters)
 
-- HTML masters, self-contained: no CDN, no external JS, offline-openable. One shared stylesheet only: `book/assets/style.css` (repo-vendored).
-- Math notation: Unicode + `<sub>`/`<sup>` and HTML entities (a², xⁿ, √2, ≥, ≠, ∞, ∑). No `$…$` TeX in masters, no MathJax CDN. Displayed equations stay simple enough for this notation.
+- HTML masters, self-contained **except for the single standard MathJax include** (formatting charter S10, owner directive 2026-10-28, which overturns the prior "no CDN, no external JS" clause — receipt in `BOOK-PROJECT.md` S10; honest degradation: without internet the raw TeX source shows in place of rendered math, and the page says so in the index's reading note). One shared stylesheet only: `book/assets/style.css` (repo-vendored).
+- **The standard MathJax block** (formatting charter S10; in `<head>` of every page, exactly this):
+  `<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['$','$']]},svg:{fontCache:'global'}};</script>`
+  `<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>`
+  (jsdelivr 3.2.2; the integrity hash is the artifact's sha256 from the jsdelivr registry API — the byte gate for the CDN dependency. No other external script, style, or image is ever allowed.)
+- **Math notation (universal rule, owner directive 2026-10-28):** all displayed equations and all substantive inline math are written in TeX — display `$…$`, inline `\(…\)`. Unicode symbols and `<sub>`/`<sup>` remain acceptable for single symbols in prose and inside table cells (keep the ∣-not-pipe rule there), but every formula a reader must read precisely is TeX.
+- **SVG figures (universal rule, owner directive 2026-10-28):** every page carries inline `<svg>` diagrams where visualization genuinely helps — geometric objects, number lines, transformations, graphs, cycles. Figures are self-authored inline SVG (no external images, no raster assets), numbered and citable (`Fig P05.1` style, cited from the prose), and machine-checked: the figure's coordinates are verified against the page's own recorded numbers (a figure is a lab artifact, not decoration).
 - File naming: `pNN-slug.html` (pattern pages), `mNN-slug.html` (multi-pattern pages), `bNN-slug.html` (bridge pages); lowercase-hyphen slugs, immutable once published.
-- Every page: standard header (book title → index link, P-ID + pattern name) and standard footer (revision section + graph-evidence block).
+- Every page: standard header (book title → index link, P-ID + pattern name) and standard footer (revision section + graph-evidence block), plus the standard MathJax block above.
+
+## Formatting retrofit passes (owner directive 2026-10-28; charter session S10)
+
+- **Licensed body edits.** The owner directive licenses *formatting* passes as body edits — an owner amendment to extend-never-rewrite, recorded with receipt. The license covers ONLY formatting: math → TeX, SVG figures, styling classes. Claims, numbers, proofs, exercises, boxes, links, and prose meaning are unchanged; each pass proves it by diffing the tag-stripped text content before vs. after (allowing only for the math-notation change) and by re-checking the page's numeric claims against its existing lab receipts.
+- **Sequence (owner decision 2026-10-28):** retrofit all published pages before the next new page — P01 → P02 → P03 → P04 → P05 → B01 → B02 → B12, then the spine resumes at P06. One page per pass session.
+- **Per-pass gates:** conversion complete (no unconverted display equations left; hygiene grep updated to the new rules), figures added where they genuinely help (machine-checked coordinates), the page's revision log gains the pass entry Rn, two-gated push + fetch-back, records ALWAYS-SYNC. A pass does not re-run the original proof battery (content unchanged) but DOES run a fresh formatting-verifier: re-extract every numeric claim from the converted page and re-verify against the recorded receipts, plus TeX sanity (balanced delimiters, no stray raw `$` in attributes) and SVG sanity (viewBox present, no external hrefs, coordinates matching the page's numbers).
 
 ## Pattern page template (9 blocks, in order)
 
@@ -61,6 +72,6 @@ Audit every finished page against the presentation fingerprint in the `science-b
 
 ## Governance
 
-- Extend-never-rewrite for published pages; fixes go to the page's revision section + the session log.
+- Extend-never-rewrite for published pages; fixes go to the page's revision section + the session log. **One licensed exception (owner directive 2026-10-28, receipt in `BOOK-PROJECT.md` S10): formatting retrofit passes may edit the body for math → TeX conversion, SVG figures, and styling classes only, under the per-pass gates of the Formatting retrofit passes section above.**
 - The index page grows ALWAYS-SYNC with every page publication (status table updated in the same session).
 - Publishing (repo visibility, GitHub Pages) is a user gate, not a unilateral decision.
