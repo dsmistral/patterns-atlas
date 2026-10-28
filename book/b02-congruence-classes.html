@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B02 · Same remainder, new arithmetic — congruence classes · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B02 · bridge page, group A · before <a href="p05-canonical-form.html">P05</a> and <a href="p09-invariant.html">P09</a></p>
+<h1>Same remainder, new arithmetic — congruence classes</h1>
+<p class="tagline">Numbers that share a leftover on division by n are interchangeable for every question about leftovers — and the small stand-ins can do the arithmetic for the originals.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern, and it directly extends <a href="b01-remainders.html">B01</a>, where every division acquired exactly one honest leftover. B01 ended with a promise to settle: a witnessed pattern (units digits of the powers of 7) that no table alone could certify. Settling it takes one new idea — that same-remainder numbers share arithmetic. Take a pencil; you will multiply before you read.</aside>
+
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p>B01's Exercise 4 ended on an honest debt. The units digits of the powers of 7 ran 7, 9, 3, 1, 7, 9, 3, 1 — witnessed twelve powers deep — but "the cycle never breaks" was left unproved: a table is a detector, not a certificate. Two pencil tasks, and the idea will be in your hand before it has a name.</p>
+<p><strong>Task one.</strong> 7⁵ = 16807 ends in 7. B01's digit-only shortcut said: take the previous digit 1, multiply by 7, keep the digit: 1 × 7 = 7. <em>Why is throwing away the "680" legal?</em> The 680 is 680 tens — and a stack of tens, times 7, can never disturb a units digit. Something about tens is quietly sharing the arithmetic.</p>
+<p><strong>Task two.</strong> What does 47 × 2026 leave on division by 7 — without doing the big multiplication? B01 computed the leftovers for you: 47 = 7 · 6 + 5 and 2026 = 7 · 289 + 3. Try multiplying the leftovers: 5 · 3 = 15, and 15 = 7 · 2 + 1, so the guess is <strong>1</strong>. Now the honest check, once, by real division: 47 × 2026 = 95,222 = 7 · 13603 + 1. It landed. The leftovers did the arithmetic for the originals — not by luck, as this page will prove.</p>
+<p>Notice what the two tasks share: in both, a number was <em>replaced by its leftover</em>, the computation was done with small stand-ins, and the result matched the full computation's leftover exactly. That replacement is legal because of one fact, which we now name.</p>
+</section>
+
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<div class="pattern-box" id="box-b02">
+<p><strong>Box B02 — congruence.</strong> For whole numbers a, b and a positive whole number n:</p>
+<p style="text-align: center">a ≡ b (mod n) &nbsp;means&nbsp; n divides a − b.</p>
+<p>Read "a is congruent to b modulo n". Equivalently: a and b leave <em>the same remainder</em> on division by n (rem(a, n) = rem(b, n)) — either test can serve as the definition, because each holds exactly when the other does. The shared-remainder numbers are collected into the <em>residue class</em> of a, written [a]: all numbers a + nk, for every whole number k.</p>
+<p class="words">Or, in words: for division by n, the whole numbers fall into n teams, and team membership is all that arithmetic of leftovers ever sees. [2] mod 7, inside 0–30, is 2, 9, 16, 23, 30 — step by 7 and you never leave the team. Two numbers from one team are interchangeable for every leftover question; two numbers from different teams never are.</p>
+</div>
+<p>Examples and non-examples, all division by 7 unless said otherwise:</p>
+<ul>
+<li><strong>Yes:</strong> 47 ≡ 5, since 47 − 5 = 42 = 7 · 6. B01's leftover 5 now carries a team of infinitely many numbers with it.</li>
+<li><strong>Yes:</strong> 2026 ≡ 3, since 2026 − 3 = 2023 = 7 · 289.</li>
+<li><strong>No:</strong> 47 ≡ 4 is false: 47 − 4 = 43 = 7 · 6 + 1, and 43 is not a multiple of 7 (the leftovers are 5 and 4 — different teams).</li>
+<li><strong>Yes, and negative:</strong> −47 ≡ 3 (mod 5), since −47 − 3 = −50 = 5 · (−10). The definition asks only whether n divides the difference; negative numbers take care of themselves.</li>
+</ul>
+<p><em>New word: equivalence relation.</em> Congruence behaves like equality in three specific ways — <em>reflexive</em> (a ≡ a always: a − a = 0 = n · 0), <em>symmetric</em> (if a ≡ b then b ≡ a: negate the difference), <em>transitive</em> (if a ≡ b and b ≡ c then a ≡ c: add the two differences, (a − b) + (b − c) = a − c). These three properties are exactly what makes the classes behave as clean, non-overlapping teams: the lab tests all three exhaustively (350,892 definition cases, 63,764 symmetric pairs, 4,794 transitive chains — zero failures) and confirms the classes partition the whole numbers (1,212 placements, every number in exactly one team).</p>
+<p>The triple-bar notation ≡ is Gauss's, from his <em>Disquisitiones Arithmeticae</em> (1801) — the book that made arithmetic of leftovers a field of its own. The notation is deliberately equality-shaped: congruence is a version of equality, one wearing the fixed uniform "mod n".</p>
+</section>
+
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Four examples, simplest first, each carried to the end. The engine under all of them is one rule, worth boxing before use.</p>
+<div class="pattern-box" id="box-b02a">
+<p><strong>Box B02.A — the working rule (reduce first).</strong> If a ≡ a′ and c ≡ c′ (mod n), then</p>
+<p style="text-align: center">a + c ≡ a′ + c′, &nbsp; a − c ≡ a′ − c′, &nbsp; a · c ≡ a′ · c′ (mod n).</p>
+<p>In words: team arithmetic is legal — replace each number by any teammate, or by its leftover (the smallest non-negative teammate), compute with the stand-ins, and the result lands in the correct team. Proof in section 4. The lab verifies the rule exhaustively: 565,068 witness-pair checks (sum, difference, product) and 78,732 reduce-first cases — zero failures.</p>
+</div>
+<h3>(a) The weekday walk, upgraded</h3>
+<p>B01 asked: 47 days from Wednesday? and answered by computing 47 = 7 · 6 + 5, then walking 5. Congruence says the same thing with the mechanism showing: whole weeks are multiples of 7, and 47 ≡ 5 (mod 7), so <em>adding 47 days lands on the same weekday as adding 5 days</em> — Wednesday + 5 = Monday. The quotient (6 weeks) was discarded — not because it is irrelevant, but because for a division-by-7 question it contributes exactly 0 to the difference. That is the general shape: quotients are invisible mod n; leftovers are everything.</p>
+<h3>(b) 47 × 2026, with the rule out loud</h3>
+<p>Reduce first: 47 ≡ 5 and 2026 ≡ 3 (mod 7). By Box B02.A (product), 47 · 2026 ≡ 5 · 3 = 15 ≡ 1 (mod 7). The full product needs never be formed — but we did form it once, as the honesty check: 95,222 = 7 · 13603 + 1. Leftover 1, both routes, agreement. What B01 did as a digit-only <em>trick</em> for units digits is now a <em>licensed move</em> for every modulus.</p>
+<h3>(c) 2¹⁰⁰ on division by 7 — cycles, found the honest way</h3>
+<p>What can the powers of 2 leave on division by 7? Compute small, before guessing anything (experimenting with small cases is a book-length move of its own, <a href="p02-small-cases.html">P02</a>): 2¹ → 2, 2² → 4, 2³ → 8 ≡ 1, 2⁴ ≡ 2, 2⁵ ≡ 4, 2⁶ ≡ 1. A cycle of length 3: 2, 4, 1 — and once a value repeats, the <em>class</em> arithmetic forces the whole future: from leftover 1, the next is 1 · 2 = 2, then 4, then 1, forever. So 2¹⁰⁰, being 100 = 3 · 33 + 1 steps in, leaves the cycle's first member: <strong>2</strong>. Second route, as a check: reduce first at every one of 100 steps (r → rem(2r, 7)) — the lab runs both routes, and both give 2.</p>
+<h3>(d) Which classes can squares leave? Division by 7, a complete census</h3>
+<p>Square each class member: 0² → 0, 1² → 1, 2² → 4, 3² → 9 ≡ 2, 4² ≡ 2, 5² ≡ 4, 6² ≡ 1. So x² lands only in {0, 1, 2, 4} — <em>no square leaves 3, 5, or 6 on division by 7</em>. This is not a sample: by Box B02.A only the class of x matters, so the seven-row table is a complete census of infinitely many squares. The lab confirms: residues {0, 1, 2, 4}, and a scan of x = 0…27 finds remainder 3 zero times in 28 cases.</p>
+<h3>(e) B01's Exercise 4, finished</h3>
+<p>Now the debt. Claim: the units digits of the powers of 7 cycle 7, 9, 3, 1 forever. Units digit is leftover on division by 10, so work mod 10. Suppose 7<sup>k</sup> ends in digit d — that is, 7<sup>k</sup> ≡ d (mod 10). Then 7<sup>k+1</sup> = 7<sup>k</sup> · 7 ≡ d · 7 (mod 10) by Box B02.A. Since the leftover of d · 7 on division by 10 is between 0 and 9, it <em>is</em> the next units digit: each next digit is forced by the previous digit alone. Starting from 7¹ = 7: 7 → 49 → 3 (from 63) → 1 (from 21) → 7 — the fourth step returns to the start, and since each step is a function of the one before, the loop can never break: 7, 9, 3, 1, forever. In particular 7¹⁰⁰ = 7^(4·25) must end in the same digit as 7⁴, namely 1 — the lab's 100-step track agrees. One formality is named and deferred, not hidden: writing "each step forced, starting from one start" as a proof for <em>all</em> k at once is the induction pattern, <a href="p66-induction.html">P66</a>, which the book teaches on its own page. The engine of the proof — Box B02.A — is already proved below.</p>
+</section>
+
+<section id="why">
+<h2>4 · Why it is true</h2>
+<p>Box B02.A is the load-bearing claim; it has two proofs, both complete and both short. Write the two given congruences as differences: a − a′ = nk and c − c′ = nm.</p>
+<p><strong>Sum and difference.</strong> (a + c) − (a′ + c′) = (a − a′) + (c − c′) = n(k + m) — a multiple of n, so a + c ≡ a′ + c′. The difference version subtracts instead of adds: n(k − m). Done.</p>
+<p><strong>Product.</strong> This is the one that needs a trick — redistribute before concluding:</p>
+<p style="text-align: center">a·c − a′·c′ = a(c − c′) + (a − a′)·c′ = a·(nm) + (nk)·c′ = n(am + kc′).</p>
+<p>The middle step is just expanding and cancelling (expand a·c − a·c′ + a·c′ − a′·c′ and watch a·c′ cancel); the last brackets out the shared factor n. So the product difference is a multiple of n, and a·c ≡ a′·c′. Done. This "add and subtract the same thing" move is a cousin of B01's uniqueness proof — small redistributions, exactly accounted, are the coin of this arithmetic.</p>
+<p><strong>The reduce-first rule</strong> is a corollary: a ≡ rem(a, n) and c ≡ rem(c, n) by the division algorithm's own form, so Box B02.A gives rem(a) + rem(c) ≡ a + c and rem(a) · rem(c) ≡ a · c (mod n). B01's uniqueness (one honest leftover per number) then guarantees "the" leftover of the small computation is "the" leftover of the big one — that is precisely why Lecture 0's product guess landed.</p>
+<aside class="aside warn"><strong>Scope, honestly.</strong> Team arithmetic licenses <em>addition, subtraction and multiplication</em> — and nothing else. Division is not preserved: 2 · 3 = 6 and 2 · 8 = 16, and 6 ≡ 16 (mod 10), so 2 · 3 ≡ 2 · 8 — yet 3 ≢ 8 (mod 10). Cancelling the 2 is illegal; the equation survives it, the conclusion does not. When division <em>is</em> legal — the precise condition involves the greatest common divisor — is B04's question, and B03 builds the tool for it. Default until then: reduce, add, subtract, multiply freely; never divide a congruence.</aside>
+</section>
+
+<section id="practice">
+<h2>5 · Practice</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◐ open exploration. Hints and worked answers are collapsible. No ◆ exercise here — there is no pattern to diagnose on a concept page yet.</p>
+
+<h3>Exercise 1 ●○○</h3>
+<p>Decide, with one subtraction each: (a) is 100 ≡ 30 (mod 7)? (b) is 2026 ≡ 3 (mod 7)? (c) is 47 ≡ 4 (mod 7)?</p>
+<details><summary>Hint</summary><p>Box B02's test: subtract, then ask whether the difference is a multiple of the modulus.</p></details>
+<details><summary>Worked answer</summary><p>(a) 100 − 30 = 70 = 7 · 10 — yes. (b) 2026 − 3 = 2023 = 7 · 289 — yes (B01's form of 2026 again). (c) 47 − 4 = 43 = 7 · 6 + 1 — not a multiple, so no: the leftovers are 5 and 4, different teams. All three machine-checked in the lab (piece 4).</p></details>
+
+<h3>Exercise 2 ●●○</h3>
+<p>Find every x in {0, 1, …, 12} with 5x ≡ 3 (mod 13), and prove your list is complete.</p>
+<details><summary>Hint</summary><p>There are only thirteen classes, and by Box B02.A only the class of x matters — so trying each class once is not a shortcut, it is a complete case scan.</p></details>
+<details><summary>Worked answer</summary><p>Work through the classes: 5 · 0 = 0, 5 · 1 = 5, 5 · 2 = 10, 5 · 3 = 15 ≡ 2, 5 · 4 = 20 ≡ 7, 5 · 5 = 25 ≡ 12, 5 · 6 = 30 ≡ 4, 5 · 7 = 35 ≡ 9, 5 · 8 = 40 ≡ 1, 5 · 9 = 45 ≡ 6, 5 · 10 = 50 ≡ 11, 5 · 11 = 55 ≡ 3 ✓, 5 · 12 = 60 ≡ 8. Exactly one solution: <strong>x = 11</strong>, since 55 = 13 · 4 + 3. Completeness is by exhaustion — all thirteen classes were checked, none skipped (the lab runs the same scan and counts one solution). Why "exactly one" is no accident — why some equations like this have exactly one solution while 2x ≡ 2 (mod 4) has two — is B04 territory.</p></details>
+
+<h3>Exercise 3 ●●●</h3>
+<p>Find the last two digits of 7¹⁰ without computing 7¹⁰, then verify against the full number.</p>
+<details><summary>Hint</summary><p>Last two digits are leftover on division by 100. Start like B01: what does 7⁴ = 2401 leave on division by 100?</p></details>
+<details><summary>Worked answer</summary><p>Mod 100: 7¹ ≡ 7, 7² ≡ 49, 7³ ≡ 343 ≡ 43, 7⁴ ≡ 43 · 7 = 301 ≡ 1 (indeed 2401 = 100 · 24 + 1). So 7¹⁰ = (7⁴)² · 7² ≡ 1² · 49 = 49 (mod 100): the last two digits are <strong>49</strong>. Verify: 7¹⁰ = 282,475,249 — ends in 49. Two routes in the lab: the ten-step reduce-first track [7, 49, 43, 1, 7, 49, 43, 1, 7, 49] and the shortcut; both land on 49. Notice the by-product: the mod-100 cycle of the powers of 7 has length 4 — the same shape as the units-digit cycle, one register up.</p></details>
+
+<h3>Exercise 4 ◐</h3>
+<p>Call a class a (mod n) <em>invertible</em> if some class y has a · y ≡ 1 (mod n). Census the invertible classes for n = 7, n = 10, n = 12. Then guess what invertibility has to do with n, and say what remains unproved.</p>
+<details><summary>What you should find</summary><p>Mod 7: every nonzero class is invertible — 1·1, 2·4, 3·5, 4·2, 5·3, 6·6 all ≡ 1 — and the reason is visible in B01-style tables: each nonzero row of the mod-7 multiplication table is a permutation of 1…6 (the lab checks all six rows). Mod 10: only {1, 3, 7, 9} — 3·7 ≡ 1 and 9·9 ≡ 1 — while 2, 4, 6, 8, 5 cannot reach 1 (an even class stays even). Mod 12: only {1, 5, 7, 11}, each self-inverse (5·5 = 25 ≡ 1, 7·7 = 49 ≡ 1, 11·11 = 121 ≡ 1); the witnesses against the rest are exact — 2·y runs through 0,2,4,6,8,10 twice; 3·y through 0,3,6,9; 4·y through 0,4,8 — 1 never appears. The guess: a class is invertible exactly when a and n share no common factor beyond 1. That guess is correct, and its proof — with the algorithm that finds the inverse — is the whole business of <a href="b03-euclidean-algorithm.html">B03</a> and <a href="b04-bezout.html">B04</a>; the lab verifies the census data, the conjecture itself is deferred, honestly.</p></details>
+</section>
+
+<section id="where">
+<h2>6 · Where this goes</h2>
+<ul>
+<li><strong>Consumer — <a href="p05-canonical-form.html">P05 · Reduce to canonical form</a> (planned):</strong> its mandated application is exactly this page's working rule — reduce a problem mod n to the canonical representative, the leftover in {0, …, n − 1}, and compute with the stand-in. Box B02.A is the license P05 cites; the residue classes are its canonical forms.</li>
+<li><strong>Consumer — <a href="p09-invariant.html">P09 · Find the invariant</a> (planned):</strong> its mandated application is a modular invariant — a number and its digit sum are congruent mod 9 (the lab's teaser: 47 ≡ 4+7 and 2026 ≡ 2+0+2+6, both because 10 ≡ 1 (mod 9) plus preservation). "Something the shuffling cannot change" is spoken in this page's language.</li>
+<li><strong>Next bridges — <a href="b03-euclidean-algorithm.html">B03 · The Euclidean algorithm</a> and <a href="b04-bezout.html">B04 · Bézout's identity</a> (planned):</strong> group A continues. B03 computes greatest common divisors by remainders-of-remainders; B04 uses them to say exactly when a class is invertible and when division of a congruence is legal — the two questions this page raised in its scope box and Exercise 4.</li>
+<li><strong>Patterns named in passing:</strong> the cycle-hunting in section 3(c) is <a href="p02-small-cases.html">P02</a> (experiment with small cases) doing what it does best; the "forced forever" formality in section 3(e) is <a href="p66-induction.html">P66</a> (prove by induction). Both get their own pages; this one only borrows.</li>
+</ul>
+</section>
+
+<section id="graphfooter" class="graphfooter">
+<h2>7 · Footer</h2>
+<p><strong>B02</strong> · group A (modular arithmetic) · second and final page of the bridge sequence B01–B02, directly extending <a href="b01-remainders.html">B01</a>. Consumers: <a href="p05-canonical-form.html">P05</a>, <a href="p09-invariant.html">P09</a> — the binding bridge gate is now satisfied: both bridge pages published, and the spine may resume at P05. This page teaches a concept, not a pattern; no P-ID is claimed.</p>
+<p><strong>Labs.</strong> <code>labs/b02-lab.js</code> with recorded output <code>labs/b02-lab-output.txt</code>: congruence-as-equivalence tested exhaustively — 350,892 definition-vs-remainders cases, 2,052 reflexive, 63,764 symmetric, 4,794 transitive chains, 1,212 class placements, zero failures, negative-dividend probes recorded; arithmetic preservation over 565,068 witness pairs and the reduce-first identity over 78,732 cases (sum, difference, product each), zero failures; the mod-7 tables; the page numbers by two routes (47·2026 = 95,222 ≡ 5·3 = 15 ≡ 1 mod 7; the weekday link; 2¹⁰⁰ mod 7 = 2 by cycle and by 100-step track; 7¹⁰⁰'s units digit 1; 7¹⁰ = 282,475,249 ending 49 by track and shortcut); the square census {0, 1, 2, 4} mod 7; the exercise verifications (congruence pairs, 5x ≡ 3 (mod 13) solved uniquely by x = 11 over all thirteen classes, invertible classes mod 7 = all nonzero with each nonzero table row a permutation of 1…6, mod 10 = {1, 3, 7, 9}, mod 12 = {1, 5, 7, 11} with exact non-invertible witnesses). Adversarial review by a fresh verifier engine — subtraction-based remainders, no % operator, zero shared code — 14 must-fail injection rows, all caught.</p>
+<p><strong>Revision log.</strong> R0 (2026-10-28, session S07): page published. Fresh verification battery executed in-session (4 pieces + pre-flight probe, split ≤4 KB, no recursion, no BigInt in the value path, deterministic); style audit against the presentation fingerprint passed (recall bridge to B01's unsettled Exercise 4; numbered citable boxes B02, B02.A; concrete parameters throughout; complete proofs for sum, difference and product preservation with the cancellation counterexample in an honest scope box; history as seasoning with citation). Honest run history — two defective runs caught before install, both by their own machine-counted lines: (1) piece 4 run 1's row check scanned c from 0, flagging all six rows malformed — the check meant c from 1; run 2 clean. (2) verifier run 1 scored 12/14: two injection rows carried inverted boolean logic, printing MISSED for true facts; repaired in run 2, 14/14. A platform retry mid-session wiped the scratch transcripts of the probe and pieces 1–2; both were re-run deterministically and regenerated byte-identical. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
+</section>
+
+<footer>
+<p><em>The Patterns Atlas</em> — B02 · Same remainder, new arithmetic — congruence classes (bridge page, group A). <a href="index.html">Return to the index</a>. The bridge sequence B01–B02 is complete: next, the spine resumes at <a href="p05-canonical-form.html">P05 · Reduce to canonical form</a> (planned), whose mandated application links back to both bridge pages.</p>
+</footer>
+</body>
+</html>

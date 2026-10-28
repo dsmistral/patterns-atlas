@@ -1,0 +1,95 @@
+B02 — Same remainder, new arithmetic — congruence classes — recorded verification battery output
+Session S07, 2026-10-28. Run by the drafting engine (b02-lab.js, split pieces)
+plus a fresh adversarial verifier (zero shared code, independent routes:
+subtraction-based remainders with no % operator anywhere, own scans and double
+loops; 14 must-fail injection rows).
+Honest run history — three incidents caught and resolved before install:
+- Piece 4 run 1: the P4.3 row check scanned c from 0, so every row trivially
+  contained a*0 = 0 and all six rows were flagged malformed (harness defect,
+  caught by its own count). Run 2 scans [1,6]: all six rows are permutations
+  of 1..6. Run 3 = run 2 complete plus P4.5 (2x = 2 (mod 4) has exactly two
+  solutions, cited by the page's Exercise 2), recorded below.
+- Verifier run 1: verdict 12/14 — two injection rows (the period-of-2^k row
+  and the symmetry row) carried inverted boolean logic: they negated the
+  CONFIRMATION instead of the claim, so two true facts printed MISSED.
+  Harness defect, not a math defect; the machine-counted verdict line caught
+  both rows. Repaired in run 2: 14/14, recorded below.
+- A platform retry mid-session wiped the scratch transcripts of the probe and
+  pieces 1-2; both pieces were re-run deterministically and regenerated
+  byte-identical outputs (all counts unchanged).
+Constraints honored: split pieces, no recursion, no BigInt in the value path,
+deterministic (no randomness used).
+==============================================================================
+B02 PIECE 1 (probe + congruence as an equivalence relation, exhaustive) — 2026-10-28
+PROBE rem(-47,5)=3 (expect 3); cong(47,5,7)=true (expect true)
+P1.1 definition-vs-remainders: cases=350892 mismatches=0
+P1.2 reflexive: cases=2052 failures=0
+P1.3 symmetric: congruent pairs=63764 failures=0
+P1.4 transitive: chains=4794 failures=0
+P1.5 partition: placements=1212 failures=0
+P1.6 negative probes mod 5: rem(-47,5)=3; rem(-46,5)=4; rem(-13,5)=2; rem(-1,5)=4; rem(-50,5)=0
+P1.7 class of 2 mod 7 inside [0,30]: 2, 9, 16, 23, 30
+
+B02 PIECE 2 (arithmetic preservation + the tables mod 7) — 2026-10-28
+P2.1 preservation (sum, diff, product): witness-pairs=565068 (x3 ops) failures=0
+P2.2 reduce-first identity: cases=78732 (x3 ops) failures=0
+P2.3 add mod 7: a=0[0123456] a=1[1234560] a=2[2345601] a=3[3456012] a=4[4560123] a=5[5601234] a=6[6012345] 
+P2.3 mul mod 7: a=0[0000000] a=1[0123456] a=2[0246135] a=3[0362514] a=4[0415263] a=5[0531642] a=6[0654321] 
+P2.4 spot: rem(3*5,7)=1 (expect 1 — 3 and 5 are mutual inverses mod 7; 15 = 7·2 + 1)
+P2.5 honest note: only +, -, x are guaranteed; division is NOT preserved in general (page counterexample: 2·8 ≡ 2·3 (mod 10) but 8 ≢ 3 — verified in piece 3)
+
+B02 PIECE 3 (the page numbers and exercises, two routes each) — 2026-10-28
+P3.1 47 mod 7 = 5 (47 = 7·6 + 5); 2026 mod 7 = 3 (2026 = 7·289 + 3, from B01)
+P3.1 47·2026 = 95222; direct route: rem(95222,7) = 1; quotient check: 7·13603 = 95221, +1 = 95222
+P3.1 class route: 5·3 = 15, rem(15,7) = 1; routes agree: true
+P3.2 weekday: 47 ≡ 5 (mod 7), so Wednesday + 47 days lands on the same weekday as Wednesday + 5 days = Monday (B01 verified Monday by two routes)
+P3.3 powers of 2 mod 7: k=1..6 -> [2,4,1,2,4,1] (period 3: 2,4,1)
+P3.3 2^100 mod 7: cycle route: 100 = 3·33 + 1 -> first element of cycle = 2; iterative reduce-first route (100 steps) = 2; agree: true
+P3.4 powers of 7 mod 10: k=1..5 -> [7,9,3,1,7] (period 4: 7,9,3,1 — B01's units digits)
+P3.4 7^100 mod 10: cycle route (100 = 4·25 -> 4th element) = 1; iterative route = 1; agree: true
+P3.5 7^10 = 282475249; last two digits directly: 49; iterative mod-100 route: [7,49,43,1,7,49,43,1,7,49] -> 49; agree: true
+P3.5 note 7^4 ≡ 1 (mod 100) — 2401 = 100·24 + 1, the mod-100 cycle is 7,49,43,1
+P3.6 5x ≡ 3 (mod 13): solutions in [0,12] = [11] — count 1; check: 5·11 = 55 = 13·4 + 3
+P3.7 squares mod 7 for x=0..6: [0,1,4,2,2,4,1] -> distinct residues {0,1,2,4}; 3 is absent; scan x=0..27: hits of remainder 3 = 0 (of 28 cases)
+P3.8 inverse pairs mod 10: 1·1≡1; 3·7≡1; 7·3≡1; 9·9≡1 -> invertible classes {1,3,7,9}
+P3.9 cancellation failure: 2·3=6 and 2·8=16, both ≡ 6 (mod 10), so 2·3 ≡ 2·8; but 3 ≢ 8 (mod 10): 3 ≠ 8. Dividing both sides by 2 is illegal here (gcd(2,10)=2) — B04 territory.
+P3.10 teaser: rem(47,9)=2 and digit-sum 4+7=11 ≡ 2 (mod 9); rem(2026,9)=1 and 2+0+2+6=10 ≡ 1 (mod 9) — the reason is 10 ≡ 1 (mod 9) plus preservation (P09 will build on this)
+
+B02 PIECE 4 (exercise verifications) — RUN 3 — 2026-10-28
+RUN HISTORY: run 1 P4.3 scanned c from 0 (all rows flagged — harness defect);
+run 2 repaired; run 3 = run 2 complete + P4.5 for the page Exercise 2.
+P4.1 (100,30) mod 7: rem(100,7)=2, rem(30,7)=2, 100-30=70=7·10 -> congruent: true
+P4.1 (2026,3) mod 7: 2026-3=2023=7·289 -> rem(2026,7)=3, rem(3,7)=3 -> congruent: true
+P4.1 (47,4) mod 7: 47-4=43=7·6+1 -> rem(43,7)=1 (not 0) -> NOT congruent (rem(47,7)=5 vs rem(4,7)=4)
+P4.2 invertible classes mod 7: {1,2,3,4,5,6} with pairs 1·1≡1; 2·4≡1; 3·5≡1; 4·2≡1; 5·3≡1; 6·6≡1
+P4.2 invertible classes mod 10: {1,3,7,9} with pairs 1·1≡1; 3·7≡1; 7·3≡1; 9·9≡1
+P4.2 invertible classes mod 12: {1,5,7,11} with pairs 1·1≡1; 5·5≡1; 7·7≡1; 11·11≡1
+P4.3 nonzero rows of mul table mod 7 (a,c in [1,6]): rows=6 malformed=0 (each row is a permutation of 1..6 — every nonzero class invertible)
+P4.4 rem(2·y,12) for y=0..11: [0,2,4,6,8,10,0,2,4,6,8,10] -> 1 absent: true
+P4.4 rem(3·y,12) for y=0..11: [0,3,6,9,0,3,6,9,0,3,6,9] -> 1 absent: true
+P4.4 rem(4·y,12) for y=0..11: [0,4,8,0,4,8,0,4,8,0,4,8] -> 1 absent: true
+P4.5 2x = 2 (mod 4): solutions in {0,1,2,3} = [1,3] — count 2 (check: 2·1=2, 2·3=6=4·1+2; while 2·0=0, 2·2=4=4·1+0)
+
+B02 ADVERSARIAL VERIFIER (fresh engine, zero shared code, subtraction remainders) — RUN 2 — 2026-10-28
+RUN HISTORY: run 1 verdict 12/14 — two injection rows (period of 2^k mod 7;
+symmetry at (-47,3) mod 5) carried inverted boolean logic and printed MISSED
+for true facts; repaired in this run (math unchanged).
+V1 remV(47,7)=5 remV(2026,7)=3 remV(47*2026,7)=1 remV(15,7)=1
+V2 2^100 mod 7 by 100-step subtraction engine = 2; 7^10 = 282475249, last two digits = 49; 7^100 mod 10 = 1
+V3 squares mod 7 = {0,1,2,4}; invertible classes mod 10 = {1,3,7,9}
+V4 reduce-first identity at the page's own numbers: remV(47+2026,7)=1 vs remV(remV(47,7)+remV(2026,7),7)=1
+CAUGHT  claimed rem(48,7)=5
+CAUGHT  claimed 2026 mod 7 = 4
+CAUGHT  claimed 47·2026 mod 7 = 2
+CAUGHT  claimed 2^100 ≡ 4 (mod 7)
+CAUGHT  claimed period of 2^k mod 7 is 2
+CAUGHT  claimed last two digits of 7^10 are 43
+CAUGHT  claimed units digit of 7^100 is 9
+CAUGHT  claimed x=8 solves 5x≡3 (mod 13)
+CAUGHT  claimed 3 is a square mod 7
+CAUGHT  claimed 2 is invertible mod 10
+CAUGHT  claimed 2·3≡2·8 (mod 10) forces 3≡8 (mod 10)
+CAUGHT  claimed reduce-first identity fails at a=47,c=2026,n=7
+CAUGHT  claimed symmetry fails at (-47,3) mod 5
+CAUGHT  claimed 30 is outside the class of 2 mod 7
+VERDICT: INJECTIONS CAUGHT 14/14
