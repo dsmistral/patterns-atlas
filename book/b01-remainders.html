@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>B01 · Remainders and the division algorithm · The Patterns Atlas</title>
 <link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -19,45 +21,130 @@
 <h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
 <p>Here is a box problem. You have <strong>47 sweets</strong> and boxes that hold exactly <strong>5</strong> each. Fill boxes. How many boxes, and how many sweets are left over?</p>
 <p>Do it with the pencil, not memory: 47, take away 5 — 42. Again — 37. Again — 32, 27, 22, 17, 12, 7, 2. Nine takes, 2 left, and 2 is too few to fill another box. So: 9 full boxes, 2 left over. Now the question that contains this whole page:</p>
-<p>Why is <em>9 boxes and 2 over</em> the right answer, and <em>8 boxes and 7 over</em> wrong? Both describe the same 47 sweets — count them: 8 × 5 + 7 = 47 checks out. The difference is that 7 is not a leftover <em>honestly earned</em>: seven sweets would fill another box. A true leftover must be <em>too small to matter</em> — smaller than the box size. That single instinct, demanded of every division in mathematics, is this page.</p>
+<p>Why is <em>9 boxes and 2 over</em> the right answer, and <em>8 boxes and 7 over</em> wrong? Both describe the same 47 sweets — count them: \(8 \times 5 + 7 = 47\) checks out. The difference is that 7 is not a leftover <em>honestly earned</em>: seven sweets would fill another box. A true leftover must be <em>too small to matter</em> — smaller than the box size. That single instinct, demanded of every division in mathematics, is this page.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 212" role="img" aria-label="Fig B01.1 — the 47 sweets in boxes of five: nine full boxes and two red leftover sweets">
+<rect x="34" y="22" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="164" y="22" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="34" y="56" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="164" y="56" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="34" y="90" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="164" y="90" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="34" y="124" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="164" y="124" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<rect x="34" y="158" width="128" height="24" rx="6" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<circle cx="46" cy="34" r="5" fill="#3574d4"/><circle cx="72" cy="34" r="5" fill="#3574d4"/><circle cx="98" cy="34" r="5" fill="#3574d4"/><circle cx="124" cy="34" r="5" fill="#3574d4"/><circle cx="150" cy="34" r="5" fill="#3574d4"/><circle cx="176" cy="34" r="5" fill="#3574d4"/><circle cx="202" cy="34" r="5" fill="#3574d4"/><circle cx="228" cy="34" r="5" fill="#3574d4"/><circle cx="254" cy="34" r="5" fill="#3574d4"/><circle cx="280" cy="34" r="5" fill="#3574d4"/>
+<circle cx="46" cy="68" r="5" fill="#3574d4"/><circle cx="72" cy="68" r="5" fill="#3574d4"/><circle cx="98" cy="68" r="5" fill="#3574d4"/><circle cx="124" cy="68" r="5" fill="#3574d4"/><circle cx="150" cy="68" r="5" fill="#3574d4"/><circle cx="176" cy="68" r="5" fill="#3574d4"/><circle cx="202" cy="68" r="5" fill="#3574d4"/><circle cx="228" cy="68" r="5" fill="#3574d4"/><circle cx="254" cy="68" r="5" fill="#3574d4"/><circle cx="280" cy="68" r="5" fill="#3574d4"/>
+<circle cx="46" cy="102" r="5" fill="#3574d4"/><circle cx="72" cy="102" r="5" fill="#3574d4"/><circle cx="98" cy="102" r="5" fill="#3574d4"/><circle cx="124" cy="102" r="5" fill="#3574d4"/><circle cx="150" cy="102" r="5" fill="#3574d4"/><circle cx="176" cy="102" r="5" fill="#3574d4"/><circle cx="202" cy="102" r="5" fill="#3574d4"/><circle cx="228" cy="102" r="5" fill="#3574d4"/><circle cx="254" cy="102" r="5" fill="#3574d4"/><circle cx="280" cy="102" r="5" fill="#3574d4"/>
+<circle cx="46" cy="136" r="5" fill="#3574d4"/><circle cx="72" cy="136" r="5" fill="#3574d4"/><circle cx="98" cy="136" r="5" fill="#3574d4"/><circle cx="124" cy="136" r="5" fill="#3574d4"/><circle cx="150" cy="136" r="5" fill="#3574d4"/><circle cx="176" cy="136" r="5" fill="#3574d4"/><circle cx="202" cy="136" r="5" fill="#3574d4"/><circle cx="228" cy="136" r="5" fill="#3574d4"/><circle cx="254" cy="136" r="5" fill="#3574d4"/><circle cx="280" cy="136" r="5" fill="#3574d4"/>
+<circle cx="46" cy="170" r="5" fill="#3574d4"/><circle cx="72" cy="170" r="5" fill="#3574d4"/><circle cx="98" cy="170" r="5" fill="#3574d4"/><circle cx="124" cy="170" r="5" fill="#3574d4"/><circle cx="150" cy="170" r="5" fill="#3574d4"/><circle cx="176" cy="170" r="5" fill="#c25b4a"/><circle cx="202" cy="170" r="5" fill="#c25b4a"/>
+<text x="170" y="200" font-size="11.5" text-anchor="middle" fill="#555f6e">nine full boxes — and 2 too few to fill another</text>
+</svg>
+<figcaption><strong>Fig B01.1.</strong> The box problem of Lecture 0, drawn: 47 sweets fill nine boxes of five exactly, and the two red sweets are the honest leftover \(47 = 5 \cdot 9 + 2\) — the same 2 that survives as the least element of the set \(S = \{47 - 5k \ge 0\}\) in section 4. Every dot position and every box count machine-verified in this pass's lab.</figcaption>
+</figure>
 </section>
 
 <section id="idea">
 <h2>2 · The idea, named</h2>
 <div class="pattern-box" id="box-b01">
-<p><strong>Box B01 — the division algorithm.</strong> For every whole number a and every positive whole number b, there is exactly one pair of whole numbers (q, r) with</p>
-<p style="text-align: center">a = b · q + r, &nbsp;&nbsp; 0 ≤ r &lt; b.</p>
-<p>The number q is the <em>quotient</em> (how many times b fits into a) and r is the <em>remainder</em> — the honest leftover, too small to fit b again. We write r = a mod b, read "a modulo b" or simply "the remainder of a on division by b".</p>
-<p class="words">Or, in words: dividing by b always leaves one leftover, and only one — and the leftover is always a number from the fixed shortlist 0, 1, …, b − 1. Not "some leftover": <em>the</em> leftover. Divisibility is the special case where the leftover is 0 — b divides a exactly when a mod b = 0.</p>
+<p><strong>Box B01 — the division algorithm.</strong> For every whole number a and every positive whole number b, there is exactly one pair of whole numbers \((q, r)\) with</p>
+<p class="eq">\[a = bq + r, \qquad 0 \le r &lt; b.\]</p>
+<p>The number q is the <em>quotient</em> (how many times b fits into a) and r is the <em>remainder</em> — the honest leftover, too small to fit b again. We write \(r = a \bmod b\), read "a modulo b" or simply "the remainder of a on division by b".</p>
+<p class="words">Or, in words: dividing by b always leaves one leftover, and only one — and the leftover is always a number from the fixed shortlist \(0, 1, \dots, b - 1\). Not "some leftover": <em>the</em> leftover. Divisibility is the special case where the leftover is 0 — b divides a exactly when \(a \bmod b = 0\).</p>
 </div>
 <p>Examples and non-examples, with the number 47 divided by 5:</p>
 <ul>
-<li><strong>Yes:</strong> 47 = 5 · 9 + 2. Here q = 9 and r = 2, and 0 ≤ 2 &lt; 5. This is the one legal form.</li>
-<li><strong>No:</strong> 47 = 5 · 8 + 7. The sum is right, but r = 7 ≥ b = 5 — seven sweets fill another box. Illegal as a division-algorithm form, even though it is true arithmetic.</li>
-<li><strong>No:</strong> 47 = 5 · 10 − 3. Negative leftovers are banned: r = −3 &lt; 0. True arithmetic, illegal form.</li>
+<li><strong>Yes:</strong> \(47 = 5 \cdot 9 + 2\). Here \(q = 9\) and \(r = 2\), and \(0 \le 2 &lt; 5\). This is the one legal form.</li>
+<li><strong>No:</strong> \(47 = 5 \cdot 8 + 7\). The sum is right, but \(r = 7 \ge b = 5\) — seven sweets fill another box. Illegal as a division-algorithm form, even though it is true arithmetic.</li>
+<li><strong>No:</strong> \(47 = 5 \cdot 10 - 3\). Negative leftovers are banned: \(r = -3 &lt; 0\). True arithmetic, illegal form.</li>
 </ul>
-<p>The point of the rules is <em>uniqueness</em>. Many decompositions a = bq + r exist as arithmetic; exactly one of them obeys 0 ≤ r &lt; b. That is why "the remainder" can be spoken of with the definite article, and why a remainder is worth computing at all: it is a <em>canonical</em> answer — the same for everyone who computes honestly, however they got there. (Euclid's arithmetic books already compute this way; the idea is at least twenty-three centuries old and has not needed repair since.)</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 110" role="img" aria-label="Fig B01.2 — the legal remainder window 0 to 5 on a number line, with the leftover 2 inside and the leftovers 7 and −3 outside">
+<rect x="120" y="30" width="120" height="28" fill="#dce8f7"/>
+<line x1="20" y1="44" x2="316" y2="44" stroke="#555f6e" stroke-width="1.5"/>
+<polygon points="316,39.5 326,44 316,48.5" fill="#555f6e"/>
+<line x1="24" y1="41" x2="24" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="48" y1="41" x2="48" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="72" y1="41" x2="72" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="96" y1="41" x2="96" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="120" y1="41" x2="120" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="144" y1="41" x2="144" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="168" y1="41" x2="168" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="192" y1="41" x2="192" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="216" y1="41" x2="216" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="240" y1="41" x2="240" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="264" y1="41" x2="264" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="288" y1="41" x2="288" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="312" y1="41" x2="312" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<line x1="336" y1="41" x2="336" y2="47" stroke="#555f6e" stroke-width="1.5"/>
+<text x="24" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">−4</text>
+<text x="48" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">−3</text>
+<text x="72" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">−2</text>
+<text x="96" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">−1</text>
+<text x="120" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">0</text>
+<text x="144" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">1</text>
+<text x="168" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">2</text>
+<text x="192" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">3</text>
+<text x="216" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">4</text>
+<text x="240" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">5</text>
+<text x="264" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">6</text>
+<text x="288" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">7</text>
+<text x="312" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">8</text>
+<text x="336" y="62" font-size="10.5" text-anchor="middle" fill="#555f6e">9</text>
+<circle cx="48" cy="44" r="4.5" fill="#c25b4a"/>
+<text x="48" y="24" font-size="11.5" text-anchor="middle" fill="#c25b4a">r = −3 ✗</text>
+<circle cx="168" cy="44" r="4.5" fill="#3574d4"/>
+<text x="168" y="24" font-size="11.5" text-anchor="middle" fill="#3574d4">r = 2 ✓</text>
+<circle cx="288" cy="44" r="4.5" fill="#c25b4a"/>
+<text x="288" y="24" font-size="11.5" text-anchor="middle" fill="#c25b4a">r = 7 ✗</text>
+<text x="170" y="96" font-size="11.5" text-anchor="middle" fill="#555f6e">the leftover must land in the window 0 ≤ r &lt; 5</text>
+</svg>
+<figcaption><strong>Fig B01.2.</strong> The three decompositions of 47 by 5, judged by the leftover: \(47 = 5 \cdot 9 + 2\) lands inside the legal window \(0 \le r &lt; 5\) (blue); \(47 = 5 \cdot 8 + 7\) overshoots it (\(r = 7 \ge b\), red); \(47 = 5 \cdot 10 - 3\) undershoots it (\(r = -3 &lt; 0\), red). Only the window earns the definite article. Tick and marker positions machine-verified in this pass's lab.</figcaption>
+</figure>
+<p>The point of the rules is <em>uniqueness</em>. Many decompositions \(a = bq + r\) exist as arithmetic; exactly one of them obeys \(0 \le r &lt; b\). That is why "the remainder" can be spoken of with the definite article, and why a remainder is worth computing at all: it is a <em>canonical</em> answer — the same for everyone who computes honestly, however they got there. (Euclid's arithmetic books already compute this way; the idea is at least twenty-three centuries old and has not needed repair since.)</p>
 </section>
 
 <section id="worked">
 <h2>3 · Worked by hand</h2>
 <p>Three examples, simplest first, each carried to the end.</p>
 <h3>(a) 47 by 5 — the subtraction you already did</h3>
-<p>Lecture 0's pencil work <em>was</em> the algorithm: repeatedly subtract b, count the subtractions (q = 9), and what survives is r = 2. Your class-5 long division is this same procedure with the subtraction batched — you subtract 9 fifties at once instead of one at a time, but the landing spot is identical: 47 = 5 · 9 + 2.</p>
+<p>Lecture 0's pencil work <em>was</em> the algorithm: repeatedly subtract b, count the subtractions (\(q = 9\)), and what survives is \(r = 2\). Your class-5 long division is this same procedure with the subtraction batched — you subtract 9 fifties at once instead of one at a time, but the landing spot is identical: \(47 = 5 \cdot 9 + 2\).</p>
 <h3>(b) 2026 on division by 7</h3>
-<p>Seven times 280 is 1960; 66 remain. Seven times 9 more is 63; 3 remain. So 2026 = 7 · 289 + 3 — quotient 289, remainder 3. Two checks: the arithmetic reconstructs (7 · 289 + 3 = 2026 ✓) and the leftover is honest (0 ≤ 3 &lt; 7 ✓). The lab runs this exact computation plus the failure next door: 7 · 288 + 3 = 2019, a different number — the quotient cannot be nudged without changing the sum.</p>
+<p>Seven times 280 is 1960; 66 remain. Seven times 9 more is 63; 3 remain. So \(2026 = 7 \cdot 289 + 3\) — quotient 289, remainder 3. Two checks: the arithmetic reconstructs (\(7 \cdot 289 + 3 = 2026\) ✓) and the leftover is honest (\(0 \le 3 &lt; 7\) ✓). The lab runs this exact computation plus the failure next door: \(7 \cdot 288 + 3 = 2019\), a different number — the quotient cannot be nudged without changing the sum.</p>
 <h3>(c) Weekdays — the remainder is the answer</h3>
-<p>Today is Wednesday. What weekday is it 47 days from now? Naively: list 47 days. With remainders: weeks are boxes of 7 days, so 47 = 7 · 6 + 5 — only the <em>leftover 5</em> matters, because whole weeks land on the same weekday. Five days after Wednesday: Thursday, Friday, Saturday, Sunday, <strong>Monday</strong>. The lab confirms it two ways: (3 + 47) mod 7 = 50 mod 7 = 1 = Monday, and a day-by-day walk of 47 single steps from Wednesday also lands on Monday. The quotient (6) told you nothing you needed; the remainder was the whole answer.</p>
+<p>Today is Wednesday. What weekday is it 47 days from now? Naively: list 47 days. With remainders: weeks are boxes of 7 days, so \(47 = 7 \cdot 6 + 5\) — only the <em>leftover 5</em> matters, because whole weeks land on the same weekday. Five days after Wednesday: Thursday, Friday, Saturday, Sunday, <strong>Monday</strong>. The lab confirms it two ways: \((3 + 47) \bmod 7 = 50 \bmod 7 = 1\) = Monday, and a day-by-day walk of 47 single steps from Wednesday also lands on Monday. The quotient (6) told you nothing you needed; the remainder was the whole answer.</p>
 <h3>(d) Units digits — remainders in base 10</h3>
-<p>A number's units digit is nothing but its remainder on division by 10: 7⁴ = 2401, and 2401 = 10 · 240 + 1. The digit <em>is</em> the leftover. And leftovers of products can be computed digit-only: (a · b) mod 10 = ((a mod 10) · (b mod 10)) mod 10 — the lab tests this identity over all 10,000 pairs in [0, 99]² with zero mismatches, and it is the engine under Exercise 4.</p>
+<p>A number's units digit is nothing but its remainder on division by 10: \(7^4 = 2401\), and \(2401 = 10 \cdot 240 + 1\). The digit <em>is</em> the leftover. And leftovers of products can be computed digit-only: \((a \cdot b) \bmod 10 = ((a \bmod 10) \cdot (b \bmod 10)) \bmod 10\) — the lab tests this identity over all 10,000 pairs in \([0, 99]^2\) with zero mismatches, and it is the engine under Exercise 4.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 208" role="img" aria-label="Fig B01.3 — the units digits of the powers of 7 cycling 7, 9, 3, 1">
+<line x1="213.84" y1="66.16" x2="213.84" y2="111.14" stroke="#8a94a6" stroke-width="1.6"/>
+<polygon points="213.84,118.14 209.04,111.14 218.64,111.14" fill="#8a94a6"/>
+<line x1="195.84" y1="135.84" x2="150.86" y2="135.84" stroke="#8a94a6" stroke-width="1.6"/>
+<polygon points="143.86,135.84 150.86,131.04 150.86,140.64" fill="#8a94a6"/>
+<line x1="126.16" y1="117.84" x2="126.16" y2="72.86" stroke="#8a94a6" stroke-width="1.6"/>
+<polygon points="126.16,65.86 121.36,72.86 130.96,72.86" fill="#8a94a6"/>
+<line x1="144.16" y1="48.16" x2="189.14" y2="48.16" stroke="#8a94a6" stroke-width="1.6"/>
+<polygon points="196.14,48.16 189.14,43.36 189.14,52.96" fill="#8a94a6"/>
+<circle cx="213.84" cy="48.16" r="16" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<text x="213.84" y="52.66" font-size="13" text-anchor="middle" fill="#3a4a5e" font-weight="400">7</text>
+<circle cx="213.84" cy="135.84" r="16" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<text x="213.84" y="140.34" font-size="13" text-anchor="middle" fill="#3a4a5e" font-weight="400">9</text>
+<circle cx="126.16" cy="135.84" r="16" fill="#eef3fa" stroke="#3574d4" stroke-width="1.5"/>
+<text x="126.16" y="140.34" font-size="13" text-anchor="middle" fill="#3a4a5e" font-weight="400">3</text>
+<circle cx="126.16" cy="48.16" r="16" fill="#fbe4e0" stroke="#c25b4a" stroke-width="2.5"/>
+<text x="126.16" y="52.66" font-size="13" text-anchor="middle" fill="#3a4a5e" font-weight="700">1</text>
+<text x="170" y="196" font-size="11.5" text-anchor="middle" fill="#555f6e">the units digits repeat with period 4</text>
+</svg>
+<figcaption><strong>Fig B01.3.</strong> The units digits of the powers of 7 run in a cycle of length 4: \(7 \to 9 \to 3 \to 1\), back to 7 — Exercise 4's table, drawn. Since \(100 = 4 \cdot 25\), the 100th step closes the cycle exactly on the last digit of the cycle (red node): 1. Node positions and every arrow machine-verified in this pass's lab.</figcaption>
+</figure>
 </section>
 
 <section id="why">
 <h2>4 · Why it is true</h2>
 <p>The claim has two parts — a leftover always exists, and it is unique — and both deserve real proofs. Both are short.</p>
-<p><strong>Existence (the well-ordering argument).</strong> Fix a and b, and consider the set S of all numbers you can reach by removing whole multiples of b from a without going negative: S = {a, a − b, a − 2b, a − 3b, …} ∩ {0, 1, 2, …}. S is not empty (a itself is in it, since a ≥ 0) and S is finite, so it has a <em>least</em> element — the smallest thing you can still reach. Call it r. Why is r the remainder? It is of the form a − bq for some count q, so a = bq + r. And r &lt; b: if r were ≥ b, then r − b would still be a reachable non-negative member of S, and smaller than r — contradicting that r was the least. So 0 ≤ r &lt; b, done. (For 47 and 5: S = {47, 42, 37, 32, 27, 22, 17, 12, 7, 2} and the least element is 2 — exactly Lecture 0's leftover. The lab enumerates S in full.) The "least element of a nonempty set of whole numbers exists" principle is doing the work; it will return as a full problem-solving pattern at <a href="p71-extremal-principle.html">P71</a>.</p>
-<p><strong>Uniqueness (the size argument).</strong> Suppose two legal forms exist: a = bq₁ + r₁ = bq₂ + r₂ with 0 ≤ r₁, r₂ &lt; b. Subtract: b(q₁ − q₂) = r₂ − r₁. The right side is strictly smaller than b in size — both remainders live in [0, b), so their difference is between −(b − 1) and b − 1. The left side is a multiple of b. The only multiple of b with size less than b is 0, so q₁ = q₂, and then r₁ = r₂. One form, always. (The lab tests uniqueness by brute force: over the full grid b ∈ [2, 13], a ∈ [0, 120], it counts how many q produce a legal remainder — exactly one, every time, 1,452 cases, zero violations.)</p>
-<aside class="aside warn"><strong>Scope, honestly.</strong> This page states and proves the division algorithm for whole numbers a ≥ 0 and b ≥ 1 — the range the consumer pages need. Dividing with a negative dividend also leaves a remainder (the lab probes −47 = 5 · (−10) + 3 and three friends), but the conventions there are a matter of taste that different books set differently; the book will pick its convention when it first needs one, not now.</aside>
+<p><strong>Existence (the well-ordering argument).</strong> Fix a and b, and consider the set S of all numbers you can reach by removing whole multiples of b from a without going negative: \(S = \{a, a - b, a - 2b, a - 3b, \dots\} \cap \{0, 1, 2, \dots\}\). S is not empty (a itself is in it, since \(a \ge 0\)) and S is finite, so it has a <em>least</em> element — the smallest thing you can still reach. Call it r. Why is r the remainder? It is of the form \(a - bq\) for some count q, so \(a = bq + r\). And \(r &lt; b\): if r were \(\ge b\), then \(r - b\) would still be a reachable non-negative member of S, and smaller than r — contradicting that r was the least. So \(0 \le r &lt; b\), done. (For 47 and 5: \(S = \{47, 42, 37, 32, 27, 22, 17, 12, 7, 2\}\) and the least element is 2 — exactly Lecture 0's leftover. The lab enumerates S in full.) The "least element of a nonempty set of whole numbers exists" principle is doing the work; it will return as a full problem-solving pattern at <a href="p71-extremal-principle.html">P71</a>.</p>
+<p><strong>Uniqueness (the size argument).</strong> Suppose two legal forms exist: \(a = bq_1 + r_1 = bq_2 + r_2\) with \(0 \le r_1, r_2 &lt; b\). Subtract: \(b(q_1 - q_2) = r_2 - r_1\). The right side is strictly smaller than b in size — both remainders live in \([0, b)\), so their difference is between \(-(b - 1)\) and \(b - 1\). The left side is a multiple of b. The only multiple of b with size less than b is 0, so \(q_1 = q_2\), and then \(r_1 = r_2\). One form, always. (The lab tests uniqueness by brute force: over the full grid \(b \in [2, 13]\), \(a \in [0, 120]\), it counts how many q produce a legal remainder — exactly one, every time, 1,452 cases, zero violations.)</p>
+<aside class="aside warn"><strong>Scope, honestly.</strong> This page states and proves the division algorithm for whole numbers \(a \ge 0\) and \(b \ge 1\) — the range the consumer pages need. Dividing with a negative dividend also leaves a remainder (the lab probes \(-47 = 5 \cdot (-10) + 3\) and three friends), but the conventions there are a matter of taste that different books set differently; the book will pick its convention when it first needs one, not now.</aside>
 </section>
 
 <section id="practice">
@@ -65,23 +152,23 @@
 <p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◐ open exploration. Hints and worked answers are collapsible.</p>
 
 <h3>Exercise 1 ●○○</h3>
-<p>Divide 2026 by 7: write the full division-algorithm form a = bq + r, and verify both requirements of Box B01.</p>
-<details><summary>Hint</summary><p>Batch the sevens: 7 · 280 = 1960, then handle the remaining 66.</p></details>
-<details><summary>Worked answer</summary><p>2026 = 7 · 289 + 3. Requirement 1 — the arithmetic reconstructs: 7 · 289 + 3 = 2023 + 3 = 2026. Requirement 2 — the leftover is honest: 0 ≤ 3 &lt; 7. (The lab records the neighbouring failure: 7 · 288 + 3 = 2019, so the quotient cannot be off by one and survive.)</p></details>
+<p>Divide 2026 by 7: write the full division-algorithm form \(a = bq + r\), and verify both requirements of Box B01.</p>
+<details><summary>Hint</summary><p>Batch the sevens: \(7 \cdot 280 = 1960\), then handle the remaining 66.</p></details>
+<details><summary>Worked answer</summary><p>\(2026 = 7 \cdot 289 + 3\). Requirement 1 — the arithmetic reconstructs: \(7 \cdot 289 + 3 = 2023 + 3 = 2026\). Requirement 2 — the leftover is honest: \(0 \le 3 &lt; 7\). (The lab records the neighbouring failure: \(7 \cdot 288 + 3 = 2019\), so the quotient cannot be off by one and survive.)</p></details>
 
 <h3>Exercise 2 ●●○</h3>
 <p>Today is Wednesday. (a) What weekday is it 47 days from now? (b) 2026 days from now? Do not list days; extract what matters.</p>
 <details><summary>Hint</summary><p>Weeks are boxes of 7. Compute each leftover, then walk the leftover.</p></details>
-<details><summary>Worked answer</summary><p>(a) 47 = 7 · 6 + 5: five days after Wednesday is Monday. (b) 2026 = 7 · 289 + 3 — the very form of Exercise 1 — so three days after Wednesday: Saturday. The quotient disappears both times; the remainder <em>is</em> the answer. (Both routes — the leftover walk and the day-by-day walk — are machine-checked in the lab.)</p></details>
+<details><summary>Worked answer</summary><p>(a) \(47 = 7 \cdot 6 + 5\): five days after Wednesday is Monday. (b) \(2026 = 7 \cdot 289 + 3\) — the very form of Exercise 1 — so three days after Wednesday: Saturday. The quotient disappears both times; the remainder <em>is</em> the answer. (Both routes — the leftover walk and the day-by-day walk — are machine-checked in the lab.)</p></details>
 
 <h3>Exercise 3 ●●●</h3>
-<p>A number n leaves remainder 3 on division by 7. Prove that n² leaves remainder 2 — two ways: by algebra, and by a small table. Then say which of the two is a proof, and what the other one is.</p>
-<details><summary>Hint</summary><p>Write n = 7k + 3, square it, and redistribute into a multiple of 7 plus a leftover. For the table, take several numbers of the form 7k + 3.</p></details>
-<details><summary>Worked answer</summary><p>Algebra: n = 7k + 3 gives n² = 49k² + 42k + 9 = 7(7k² + 6k + 1) + 2 — and 0 ≤ 2 &lt; 7, so the remainder is 2, for every k at once. Table: 3 → 9 → 2; 10 → 100 → 2; 171 → 29241 → 2; the lab carries this exhaustively over all thirty remainder-3 numbers in [0, 209] (zero failures) and the algebra exactly over k ∈ [0, 30]. Verdict, in the book's honesty language: the table is a <em>detector</em> (<a href="p02-small-cases.html">P02</a>), the algebra is the <em>proof</em> — the table can only ever witness finitely many cases, while the algebra covers every k in one stroke. One caution the table itself teaches: 172 also has a square ending in remainder 2 — but 172 = 7 · 24 + 4 is not a remainder-3 number; its square leaves 2 for a different reason (4² = 16 = 7 · 2 + 2). An observed leftover does not certify the hypothesis that produced it.</p></details>
+<p>A number n leaves remainder 3 on division by 7. Prove that \(n^2\) leaves remainder 2 — two ways: by algebra, and by a small table. Then say which of the two is a proof, and what the other one is.</p>
+<details><summary>Hint</summary><p>Write \(n = 7k + 3\), square it, and redistribute into a multiple of 7 plus a leftover. For the table, take several numbers of the form \(7k + 3\).</p></details>
+<details><summary>Worked answer</summary><p>Algebra: \(n = 7k + 3\) gives \(n^2 = 49k^2 + 42k + 9 = 7(7k^2 + 6k + 1) + 2\) — and \(0 \le 2 &lt; 7\), so the remainder is 2, for every k at once. Table: \(3 \to 9 \to 2\); \(10 \to 100 \to 2\); \(171 \to 29241 \to 2\); the lab carries this exhaustively over all thirty remainder-3 numbers in \([0, 209]\) (zero failures) and the algebra exactly over \(k \in [0, 30]\). Verdict, in the book's honesty language: the table is a <em>detector</em> (<a href="p02-small-cases.html">P02</a>), the algebra is the <em>proof</em> — the table can only ever witness finitely many cases, while the algebra covers every k in one stroke. One caution the table itself teaches: 172 also has a square ending in remainder 2 — but \(172 = 7 \cdot 24 + 4\) is not a remainder-3 number; its square leaves 2 for a different reason (\(4^2 = 16 = 7 \cdot 2 + 2\)). An observed leftover does not certify the hypothesis that produced it.</p></details>
 
 <h3>Exercise 4 ◐</h3>
-<p>Explore the units digits of the powers of 7: 7, 49, 343, 2401, 16807, … (a) Make the table of units digits for 7¹ through 7¹² and describe the pattern you see. (b) Predict the units digit of 7¹⁰⁰ and say how confident the table makes you. (c) Compute it honestly: tracking a single digit through 100 multiplications (the digit-only identity of section 3(d) makes this exact, not approximate — the lab runs the full 100 steps). (d) Say precisely what remains unproved: what would it take to know the pattern <em>never</em> breaks?</p>
-<details><summary>What you should find</summary><p>(a) The units digits run 7, 9, 3, 1, 7, 9, 3, 1, … — a repeating cycle of length 4 (machine-verified for the first twelve powers). (b) 100 = 4 · 25 exactly, so the cycle should close on the last digit of the cycle-start, 1. (c) The digit-only track agrees: units digit 1. (d) Still unproved: that the cycle <em>continues forever</em> — a table is a detector, not a certificate, and 12 witnessed powers are not infinitely many. Proving it cleanly needs arithmetic that treats same-remainders alike — which is exactly the next bridge, <a href="b02-congruence-classes.html">B02</a>.</p></details>
+<p>Explore the units digits of the powers of 7: 7, 49, 343, 2401, 16807, … (a) Make the table of units digits for \(7^1\) through \(7^{12}\) and describe the pattern you see. (b) Predict the units digit of \(7^{100}\) and say how confident the table makes you. (c) Compute it honestly: tracking a single digit through 100 multiplications (the digit-only identity of section 3(d) makes this exact, not approximate — the lab runs the full 100 steps). (d) Say precisely what remains unproved: what would it take to know the pattern <em>never</em> breaks?</p>
+<details><summary>What you should find</summary><p>(a) The units digits run 7, 9, 3, 1, 7, 9, 3, 1, … — a repeating cycle of length 4 (machine-verified for the first twelve powers). (b) \(100 = 4 \cdot 25\) exactly, so the cycle should close on the last digit of the cycle-start, 1. (c) The digit-only track agrees: units digit 1. (d) Still unproved: that the cycle <em>continues forever</em> — a table is a detector, not a certificate, and 12 witnessed powers are not infinitely many. Proving it cleanly needs arithmetic that treats same-remainders alike — which is exactly the next bridge, <a href="b02-congruence-classes.html">B02</a>.</p></details>
 </section>
 
 <section id="where">
@@ -97,8 +184,9 @@
 <section id="graphfooter" class="graphfooter">
 <h2>7 · Footer</h2>
 <p><strong>B01</strong> · group A (modular arithmetic) · first of the bridge sequence B01–B02 (B02 directly extends this page). Consumers: <a href="p05-canonical-form.html">P05</a>, <a href="p09-invariant.html">P09</a> (binding bridge gate: both are authored only after B01–B02 are published). This page teaches a concept, not a pattern; no P-ID is claimed.</p>
-<p><strong>Labs.</strong> <code>labs/b01-lab.js</code> with recorded output <code>labs/b01-lab-output.txt</code>: the division algorithm's existence and uniqueness tested exhaustively over b ∈ [2, 13], a ∈ [0, 120] (1,452 subtraction-route cases, zero failures; 1,452 uniqueness counts, zero violations); negative-dividend probes recorded for the scope note; the well-ordering demo set S = {47 − 5k ≥ 0} enumerated in full with least element 2; 2026 = 7 · 289 + 3 with its neighbouring failure; the weekday walk by both routes; 7⁴ = 2401 and the divisibility-as-zero-remainder checks (2401 mod 7, 2047 mod 23, 2047 mod 89); the square-remainder exercise by exhaustive and exact-algebra routes (zero failures both); the powers-of-7 units-digit cycle, the 100-step digit-only track to 7¹⁰⁰, and the digit-only product identity over all of [0, 99]² (zero mismatches).</p>
+<p><strong>Labs.</strong> <code>labs/b01-lab.js</code> with recorded output <code>labs/b01-lab-output.txt</code>: the division algorithm's existence and uniqueness tested exhaustively over b ∈ [2, 13], a ∈ [0, 120] (1,452 subtraction-route cases, zero failures; 1,452 uniqueness counts, zero violations); negative-dividend probes recorded for the scope note; the well-ordering demo set S = {47 − 5k ≥ 0} enumerated in full with least element 2; 2026 = 7 · 289 + 3 with its neighbouring failure; the weekday walk by both routes; 7⁴ = 2401 and the divisibility-as-zero-remainder checks (2401 mod 7, 2047 mod 23, 2047 mod 89); the square-remainder exercise by exhaustive and exact-algebra routes (zero failures both); the powers-of-7 units-digit cycle, the 100-step digit-only track to 7¹⁰⁰, and the digit-only product identity over all of [0, 99]² (zero mismatches). Formatting pass (R1) lab: <code>labs/b01-format-pass.js</code> with recorded output <code>labs/b01-format-pass-output.txt</code> — every numeric claim on this page re-verified against the R0 receipts, plus TeX and SVG sanity checks.</p>
 <p><strong>Revision log.</strong> R0 (2026-10-28, session S06): page published. Fresh verification battery executed in-session (3 pieces + pre-flight probe, split ≤4 KB, no recursion, no BigInt in the value path, deterministic); style audit against the presentation fingerprint passed (lecture-0 phenomenon before notation; numbered citable box; concrete parameters throughout; complete proofs for existence and uniqueness; honest scope box); adversarial review passed (fresh verifier engine, zero shared code — floor-based remainders, single-step weekday walk, digit-only power tracking, own scans and double loops — 12 must-fail injection rows, all caught). Honest run history, one defective run caught and corrected before install: piece 3 run 1 used n = 172 as a "remainder 3" spot value when 172 = 7 · 24 + 4 has remainder 4 (its square coincidentally also leaves 2, since 4² = 16 = 7 · 2 + 2) — replaced by n = 171 = 7 · 24 + 3 in run 2 (recorded), and the coincidence is now printed as an honesty note rather than smuggled in as evidence. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
+<p>R1 (2026-10-28, session S16): formatting retrofit pass under the S10 charter. Mathematics converted to MathJax TeX with balanced inline delimiters and zero dollar-sign delimiters; the box's centered form-line became the page's one display equation; the head gained the standard MathJax loader block. Three figures added with machine-checked geometry — Fig B01.1 (the 47 sweets of Lecture 0 in nine boxes of five, the two red leftovers the same 2 as the least element of the set \(S\)); Fig B01.2 (the legal window \(0 \le r &lt; 5\) on the number line for b = 5, with the leftover of \(47 = 5 \cdot 9 + 2\) inside it and the illegal leftovers 7 and −3 outside); Fig B01.3 (the units digits of the powers of 7 cycling \(7 \to 9 \to 3 \to 1\), closing on 1 since \(100 = 4 \cdot 25\)). Receipts: tag-stripped text diff against R0 shows only math-notation, figure and revision-log differences; every numeric claim re-verified against the R0 lab receipts by a fresh verifier engine (labs/b01-format-pass.js, output recorded as labs/b01-format-pass-output.txt); SVG checks passed (viewBox present, no external references, every coordinate parsed back from the shipped bytes). Run history: all three figures were planned with exact machine-computable coordinates and reviewed against the house limits before the lab ran; one verifier-side defect was caught during the lab and fixed — P10b run 1 compared the node-label text against the y-coordinate capture group instead of the label group, a parse defect in the check, never in the page — and the corrected battery re-ran 10/10 against the shipped bytes; no mathematical check of the page ever failed, and no mathematical content was added, removed, or altered.</p>
 </section>
 
 <footer>

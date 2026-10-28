@@ -1,0 +1,119 @@
+B01 — Remainders and the division algorithm — formatting pass R1 (session S16, 2026-10-28) — recorded verification battery output
+Fresh verifier engine: labs/b01-format-pass.js (10 pieces, zero shared code with
+the R0 lab b01-lab.js; independent routes: subtraction chains, floor-division
+negative-dividend probes, digit-only power tracking, single-step weekday walks,
+square-and-multiply mod 10, regex parses of the shipped SVG bytes).
+Constraints honored: split pieces (each <= 4 KB), no recursion, no BigInt in the
+value path, deterministic (no randomness used).
+Target: book/b01-remainders.html R1 — 29,336 B, 196 lines, md5 111ec1fa12ad5472a61a5817a534437b.
+Standard MathJax block verified byte-identical to the P01-P05 block (md5 120928f52c10a789eef3606219254605).
+==============================================================================
+HONEST RUN HISTORY — three runs, one verifier-side defect caught and fixed:
+- Run 1 (against the assembled R1 page): 10 pieces ran; P10b FAILED — the
+  node-label check compared the label text against the y-coordinate capture
+  group (lm[2]) instead of the label group (lm[3]). Every node position, label
+  position and the page itself were correct — a parse defect in the check,
+  never in the page. The other 9 pieces PASS.
+- Run 2 (after the fix, against the pre-fill page bytes): ALL PIECES PASS.
+- Run 3 (final, against the shipped final bytes, after the R1-entry
+  run-history amendment): ALL PIECES PASS — the transcript below is run 3.
+No mathematical check of the page ever failed, and no page-side figure defect
+occurred this pass: all three figures passed every geometry check on run 1.
+==============================================================================
+
+B01 FORMAT-PASS P1 — 2026-10-28
+P1a inline pairs: \( count=91 \) count=91 (expect 91 = 90 content + 1 config) — PASS
+P1b display pairs: \[ count=2 \] count=2 (expect 2 = 1 content equation + 1 config) — PASS
+P1c config-line share of delimiters: \(=1 \)=1 \[=1 \]=1 (each 1) — PASS
+P1d backslashes in config line: 8 (expect 8) — PASS
+P1e dollar-dollar delimiters: 0 (banned, expect 0) — PASS
+P1f body delimiter alternation (no nested or stray inline pairs)=true — PASS
+P1g the one display equation is the box form-line: true — PASS
+P1h sections=7 (expect 7) — PASS
+P1i figures=3 svgs=3 figcaptions=3 (expect 3/3/3) — PASS
+P1j figure-id literals: strong captions=3 aria-labels=3 (expect 3+3) — PASS
+P1k eq-class=1 (expect 1) text-align=0 (expect 0) — PASS
+P1l mojibake (U+FFFD) count: 0 — PASS
+P1m placeholder tokens: 0 — PASS
+P1n MathJax block byte-identical to the standard block: true — PASS
+P1o em-dash count recorded: 68
+
+B01 FORMAT-PASS P2 — 2026-10-28
+P2a subtraction route b in [2,13], a in [0,120]: checks=1452 failures=0 — PASS
+P2b uniqueness count over the same grid (exactly one legal q each): checks=1452 violations=0 — PASS
+P2c S = {47-5k >= 0} = [47, 42, 37, 32, 27, 22, 17, 12, 7, 2]; least element = 2 — PASS
+P2d 7*289+3 = 2026 | 7*288+3 = 2019 (a different number: true) — PASS
+P2e-1 47 = 5*9 + (2): sum=47 r-in-window=true legal=true
+P2e-2 47 = 5*8 + (7): sum=47 r-in-window=false legal=false
+P2e-3 47 = 5*10 + (-3): sum=47 r-in-window=false legal=false
+P2e the three 47-by-5 decompositions classified correctly=true — PASS
+
+B01 FORMAT-PASS P3 — 2026-10-28
+P3a (3+47) mod 7 = 1 = Monday — PASS
+P3b day-by-day walk of 47 single steps from Wednesday lands on Monday — PASS
+P3c (3+2026) mod 7 = 6 = Saturday; the 2026-step walk lands on Saturday — PASS
+P3d leftover routes: 47 = 7*6 + 5 -> (3+5) mod 7 = 1; 2026 = 7*289 + 3 -> (3+3) mod 7 = 6 — PASS
+
+B01 FORMAT-PASS P4 — 2026-10-28
+P4a 7^4 = 2401 — PASS
+P4b 2401 = 10*240 + 1; units digit = 2401 mod 10 = 1 — PASS
+P4c divisibility-as-zero-remainder: 2401 mod 7 = 0, 2047 mod 23 = 0, 2047 mod 89 = 0 — PASS
+P4d cross-check 23*89 = 2047 — PASS
+P4e digit-only product identity (a*b) mod 10 = ((a mod 10)*(b mod 10)) mod 10 over [0,99]^2: pairs=10000 mismatches=0 — PASS
+
+B01 FORMAT-PASS P5 — 2026-10-28
+P5a route A (exhaustive n in [0,209] with n mod 7 = 3): cases=30 failures=0 — PASS
+P5b route B (algebra (7k+3)^2 = 7(7k^2+6k+1)+2, exact) over k in [0,30]: checks=31 failures=0 — PASS
+P5c-1 n=3: n mod 7 = 3 | n^2 = 9 | n^2 mod 7 = 2 — PASS
+P5c-2 n=10: n mod 7 = 3 | n^2 = 100 | n^2 mod 7 = 2 — PASS
+P5c-3 n=171: n mod 7 = 3 | n^2 = 29241 | n^2 mod 7 = 2 — PASS
+P5d honesty note: 172 mod 7 = 4 (NOT a remainder-3 number) | 172^2 = 29584 | 172^2 mod 7 = 2 | 4^2 = 16 = 7*2+2 — PASS
+
+B01 FORMAT-PASS P6 — 2026-10-28
+P6a units digits of 7^1..7^12: 7, 9, 3, 1, 7, 9, 3, 1, 7, 9, 3, 1 (cycle 7,9,3,1 of length 4) — PASS
+P6b units digit of 7^100 by digit-only tracking (100 steps): 1 — PASS
+P6c units digit of 7^100 by square-and-multiply mod 10 (independent route): 1 — PASS
+P6d 100 = 4*25 exactly, so the cycle closes at position 0 -> 1: true — PASS
+
+B01 FORMAT-PASS P7 — 2026-10-28
+P7-1 a=-47, b=5: a = 5*(-10) + 3 | 0 <= r < b: true (R0 receipt: 5*(-10) + 3) — PASS
+P7-2 a=-13, b=5: a = 5*(-3) + 2 | 0 <= r < b: true (R0 receipt: 5*(-3) + 2) — PASS
+P7-3 a=-1, b=5: a = 5*(-1) + 4 | 0 <= r < b: true (R0 receipt: 5*(-1) + 4) — PASS
+P7-4 a=-2026, b=5: a = 5*(-406) + 4 | 0 <= r < b: true (R0 receipt: 5*(-406) + 4) — PASS
+P7 the four negative-dividend probes match the R0 receipts=true — PASS
+
+B01 FORMAT-PASS P8 — 2026-10-28
+P8a fig1 dots: 47 (expect 47) — PASS
+P8b blue=45 (expect 45) red=2 (expect 2) — PASS
+P8c every dot matches the grid formula (x=46+26k, y=34+34m, row 4 short) and stays in bounds=true — PASS
+P8d boxes: 9 (expect 9) — PASS
+P8e-1 box at x=34, y=22 contains 5 blue dots (expect 5)
+P8e-2 box at x=164, y=22 contains 5 blue dots (expect 5)
+P8e-3 box at x=34, y=56 contains 5 blue dots (expect 5)
+P8e-4 box at x=164, y=56 contains 5 blue dots (expect 5)
+P8e-5 box at x=34, y=90 contains 5 blue dots (expect 5)
+P8e-6 box at x=164, y=90 contains 5 blue dots (expect 5)
+P8e-7 box at x=34, y=124 contains 5 blue dots (expect 5)
+P8e-8 box at x=164, y=124 contains 5 blue dots (expect 5)
+P8e-9 box at x=34, y=158 contains 5 blue dots (expect 5)
+P8e every box holds exactly five blue dots=true — PASS
+P8f in-SVG note 47 chars (house limit 49) — PASS
+
+B01 FORMAT-PASS P9 — 2026-10-28
+P9a legal-window band rect x=120..240 (values 0..5 at 24 px/unit) present=true — PASS
+P9b ticks: 14 at x = 120+24v, v covering [-4,9] exactly, all linear=true — PASS
+P9c 14 tick labels match their values (Unicode minus for negatives)=true — PASS
+P9d markers: v=2 blue (in window), v=7 and v=-3 red (outside)=true — PASS
+P9e marker labels "r = −3 ✗", "r = 2 ✓", "r = 7 ✗"=true — PASS
+P9f number-line arrowhead present=true — PASS
+P9g in-SVG note 49 chars (house limit 49) — PASS
+
+B01 FORMAT-PASS P10 — 2026-10-28
+P10a four nodes at the square positions (center (170,92), R=62, 45-degree offsets)=true — PASS
+P10b node labels 7, 9, 3, 1 at their node centers=true — PASS
+P10c node "1" (the 7^100 landing) highlighted red=true — PASS
+P10d four arrows in document order 7->9, 9->3, 3->1, 1->7, tips within 2.5 px of the target node edge=true — PASS
+P10e in-SVG note 37 chars (house limit 49) — PASS
+P10f global SVG sanity: 3 svgs, all with viewBox, no hrefs, every coordinate (incl. polygon points) inside its viewBox=true — PASS
+
+VERDICT: FAIL lines = 0 — ALL PIECES PASS
