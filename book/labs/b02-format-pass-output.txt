@@ -1,0 +1,106 @@
+B02 format-pass lab output — The Patterns Atlas, session S17 (2026-10-28)
+Target: book/b02-congruence-classes.html R1 (35,450 bytes, 266 lines, md5 e5b04e1b25d2d0b9757d844b413355a3).
+Verifier: book/labs/b02-format-pass.js (27,141 bytes, 382 lines, md5 53c497ef123d2fa90582b70f60d77f54) — fresh engine, zero shared code with the R0 lab (labs/b02-lab.js): floor-division probes, scan-based inverse searches, digit-tracking power walks, regex parses of the shipped SVG bytes. No recursion, no BigInt in the value path, deterministic (no randomness).
+Standard MathJax block verified byte-identical to the P01-P05 block (md5 120928f52c10a789eef3606219254605).
+
+RUN HISTORY (honest):
+- Run 1: 1 FAIL (P2f) — verifier-side parse defect, page never at fault. The check expected http occurrences=1, but the page correctly carries 3 SVG xmlns namespace declarations (http://www.w3.org/2000/svg) plus the 1 jsdelivr CDN URL. Expectation fixed to 4.
+- Run 2: 1 FAIL (P2f again) — second verifier-side expectation defect. The check expected script tags=1, but the retrofit's standard MathJax block correctly contains two script tags (inline config + deferred CDN loader; the R0 page carried no MathJax block at all — the retrofit adds it). Expectation fixed to 2.
+- Run 3 (final bytes): ALL PIECES PASS — full transcript below.
+
+Zero page-side defects at any point: all three figures parsed clean from the shipped bytes on run 1 (number-line class of 2, powers-of-2 cycle 2->4->1, square-census map 0->0, 1->1, 2->4, 3->2, 4->2, 5->4, 6->1); no mathematical check ever failed; no new R0 prose defect surfaced in this pass (P05's block-5 lower-bound finding from S13 remains the only R2 candidate in the book).
+
+=== RUN 3 TRANSCRIPT (final bytes) ===
+
+B02 FORMAT-PASS P1 — 2026-10-28
+P1a inline pairs: \( count=183 \) count=183 (expect 183 = 182 content + 1 config) — PASS
+P1b display pairs: \[ count=3 \] count=3 (expect 3 = 2 content equations + 1 config) — PASS
+P1c config-line share of delimiters: \(=1 \)=1 \[=1 \]=1 (each 1) — PASS
+P1d backslashes in config line: 8 (expect 8) — PASS
+P1e dollar-dollar delimiters: 0 (banned, expect 0) — PASS
+P1f body delimiter alternation (inline and display, config line excluded) balanced=true — PASS
+P1g eq-class paragraphs: 3 (expect 3), text-align leftovers: 0 (expect 0) — PASS
+
+B02 FORMAT-PASS P2 — 2026-10-28
+P2a config line byte-identical to standard block line 1=true — PASS
+P2b defer line byte-identical to standard block line 2=true — PASS
+P2c title unchanged=true — PASS
+P2d sections=7 (expect 7), figures=3 svgs=3 figcaptions=3 (expect 3/3/3) — PASS
+P2e citable figure ids: strong=3 aria=3 (expect 3+3) — PASS
+P2f external references: http occurrences=4 = 3 SVG xmlns namespaces + 1 jsdelivr CDN; script tags=2 (expect 2: MathJax config + defer loader), link tags=1 (expect 1) — PASS
+P2g mojibake/placeholder scan clean=true — PASS
+P2h Labs line names the format-pass artifacts=true — PASS
+
+B02 FORMAT-PASS P3 — 2026-10-28
+P3a 7^5 = 16807 (expect 16807), units digit 7 (expect 7) — PASS
+P3b Lecture 0 receipts: 47 = 7*6 + 5: true; 2026 = 7*289 + 3: true; 15 = 7*2 + 1: true — PASS
+P3c 47*2026 = 95222 (expect 95222); 95222 = 7*13603 + 1: true — PASS
+P3d page carries the TeX thousands forms: 95{,}222 + 282{,}475{,}249=true — PASS
+P3e equivalence at the page numbers: 47≡5 (42=7*6): true; 2026≡3 (2023=7*289): true; 47≢4 (rem(43,7)=1): true — PASS
+P3f negative receipt: -47≡3 (mod 5) since -47-3=-50=5*(-10): true — PASS
+P3g class of 2 mod 7 inside [0,30] = [2, 9, 16, 23, 30] (expect 2, 9, 16, 23, 30); page list present=true — PASS
+P3h fresh transitive chain 47≡5, 5≡12 (mod 7) -> 47≡12: true — PASS
+P3i digit-sum teaser: 47≡4+7, 2026≡2+0+2+6, 10≡1 (mod 9): true — PASS
+
+B02 FORMAT-PASS P4 — 2026-10-28
+P4a fresh preservation grid (n in {3,7,10,13}, operands 0..20): premise cases=28972, conclusion failures=0 (expect 0) — PASS
+P4b reduce-first identity (n in {5,7,10}, a,c in [0,99]): cases=30000, failures=0 (expect 0) — PASS
+P4c page numbers: (5)(3)=15≡1 and 47*2026=95222≡1 (mod 7): true — PASS
+P4d weekday receipt: (3+47) mod 7 = (3+5) mod 7 = 1 = Monday: true — PASS
+
+B02 FORMAT-PASS P5 — 2026-10-28
+P5a powers of 2 mod 7, k=1..6 = [2, 4, 1, 2, 4, 1] (expect 2, 4, 1, 2, 4, 1) — PASS
+P5b 2^100 mod 7: cycle route (100=3*33+1 -> 2) = 2, 100-step track = 2 (expect 2, 2) — PASS
+P5c powers of 7 mod 10, k=1..5 = [7, 9, 3, 1, 7] (expect 7, 9, 3, 1, 7) — PASS
+P5d 7^100 mod 10: cycle route = 1, 100-step track = 1 (expect 1, 1) — PASS
+P5e 7^10 = 282475249 (expect 282475249), last two digits 49 (expect 49) — PASS
+P5f mod-100 track of 7^k, k=1..10 = [7, 49, 43, 1, 7, 49, 43, 1, 7, 49] (expect 7, 49, 43, 1, 7, 49, 43, 1, 7, 49) — PASS
+P5g 7^4 = 2401 = 100*24 + 1: true — PASS
+P5h cancellation counterexample: 2*3=6≡2*8=16 (mod 10) but 3≢8: true — PASS
+
+B02 FORMAT-PASS P6 — 2026-10-28
+P6a squares mod 7, x=0..6 = [0, 1, 4, 2, 2, 4, 1] (expect 0, 1, 4, 2, 2, 4, 1); distinct = [0, 1, 2, 4] (expect 0, 1, 2, 4) — PASS
+P6b scan x=0..27 for x²≡3 (mod 7): hits=0 (expect 0; 3 has no square root mod 7) — PASS
+P6c residues 3, 5, 6 absent from the square set: true — PASS
+P6d page carries the TeX set \{0, 1, 2, 4\}=true — PASS
+
+B02 FORMAT-PASS P7 — 2026-10-28
+P7a Ex1: 100-30=70≡0, 2026-3=2023≡0 (multiples of 7); 47-4=43=7*6+1 (not): true — PASS
+P7b Ex2: 5x≡3 (mod 13) solutions x in [0,12] = [11] (expect 11 only); witness 55=13*4+3: true — PASS
+P7c 2x≡2 (mod 4) solutions in [0,3] = [1, 3] (expect 1, 3 — both solve): — PASS
+P7d invertible mod 7 = [1, 2, 3, 4, 5, 6] (expect 1..6), partner pairs 1·1, 2·4, 3·5, 4·2, 5·3, 6·6 — PASS
+P7e invertible mod 10 = [1, 3, 7, 9] (expect 1, 3, 7, 9), mod 12 = [1, 5, 7, 11] (expect 1, 5, 7, 11) — PASS
+P7f rows 2y, 3y, 4y mod 12 never hit 1: true; 2y row = [0, 2, 4, 6, 8, 10, 0, 2, 4, 6, 8, 10] (expect 0,2,4,6,8,10,0,2,4,6,8,10) — PASS
+P7g digit-sum teaser receipts mod 9: 47≡11≡4+7, 2026≡10≡2+0+2+6: true — PASS
+
+B02 FORMAT-PASS P8 — 2026-10-28
+P8a figure count=3: true; fig 1 viewBox 340x110 (expect 340x110) — PASS
+P8b main number line from (20,44) to (320,44): true — PASS
+P8c ticks: 31 at x=20+10k, k=0..30 in order: true — PASS
+P8d labels: 7 at multiples of 5, text = value, x = 20+10·value: true — PASS
+P8e dots on the line: blue r=4.5 at x=[40, 110, 180, 250, 320] (expect the class 2,9,16,23,30 at 40,110,180,250,320), gray r=2 count=26 (expect 26): true — PASS
+P8f note text 38 chars (must be at most 49, no overflow into the 340-wide box): — PASS
+P8g figcaption cites Fig B02.1: true — PASS
+
+B02 FORMAT-PASS P9 — 2026-10-28
+P9a fig 2 viewBox 340x190 (expect 340x190) — PASS
+P9b nodes: 2 at (170,34) highlighted=true; 4 at (116.31,127) and 1 at (223.69,127) standard=true — PASS
+P9c labels: 2 (bold) at top node, 4 and 1 at the base nodes: true — PASS
+P9d arrows in document order 2->4, 4->1, 1->2; each starts on the source node edge (r=16±2.5) and its tip lands on the target node edge: true — PASS
+P9e note text 36 chars (at most 49): — PASS
+P9f figcaption cites Fig B02.2: true — PASS
+
+B02 FORMAT-PASS P10 — 2026-10-28
+P10a fig 3 viewBox 340x210 (expect 340x210) — PASS
+P10b left column: 7 solid nodes at cy=26+24k, k=0..6: true — PASS
+P10c right column: solid at k=[0,1,2,4] (expect 0,1,2,4), dashed ghosts at k=[3,5,6] (expect 3,5,6): — PASS
+P10d arrows from->to = 0->0, 1->1, 2->4, 3->2, 4->2, 5->4, 6->1 (expect 0->0, 1->1, 2->4, 3->2, 4->2, 5->4, 6->1; tips on the target edge, r=13±2.5): true — PASS
+P10e arrow map equals the square census x² mod 7 = [0, 1, 4, 2, 2, 4, 1]: true — PASS
+P10f note text 39 chars (at most 49): — PASS
+P10g figcaption cites Fig B02.3: true — PASS
+
+B02 FORMAT-PASS P11 — 2026-10-28
+P11a global SVG sanity: 3 svgs, each with a viewBox, all line/circle/polygon coordinates inside their own box, no hrefs: true — PASS
+P11b details blocks=7 summaries=7 (expect 7/7) — PASS
+
+VERDICT: FAIL lines = 0 — ALL PIECES PASS
