@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B01 · Remainders and the division algorithm · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B01 · bridge page, group A · before <a href="p05-canonical-form.html">P05</a> and <a href="p09-invariant.html">P09</a></p>
+<h1>Remainders and the division algorithm</h1>
+<p class="tagline">Every division leaves exactly one honest leftover — and that leftover, not the quotient, is the number that keeps order in what follows.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern. The spine pages <a href="p05-canonical-form.html">P05</a> (reduce to canonical form) and <a href="p09-invariant.html">P09</a> (find the invariant) both lean on remainders far harder than the class-12 syllabus ever advertises — so the book teaches the concept slowly, here, first. Take a pencil. You will compute before you read.</aside>
+
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p>Here is a box problem. You have <strong>47 sweets</strong> and boxes that hold exactly <strong>5</strong> each. Fill boxes. How many boxes, and how many sweets are left over?</p>
+<p>Do it with the pencil, not memory: 47, take away 5 — 42. Again — 37. Again — 32, 27, 22, 17, 12, 7, 2. Nine takes, 2 left, and 2 is too few to fill another box. So: 9 full boxes, 2 left over. Now the question that contains this whole page:</p>
+<p>Why is <em>9 boxes and 2 over</em> the right answer, and <em>8 boxes and 7 over</em> wrong? Both describe the same 47 sweets — count them: 8 × 5 + 7 = 47 checks out. The difference is that 7 is not a leftover <em>honestly earned</em>: seven sweets would fill another box. A true leftover must be <em>too small to matter</em> — smaller than the box size. That single instinct, demanded of every division in mathematics, is this page.</p>
+</section>
+
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<div class="pattern-box" id="box-b01">
+<p><strong>Box B01 — the division algorithm.</strong> For every whole number a and every positive whole number b, there is exactly one pair of whole numbers (q, r) with</p>
+<p style="text-align: center">a = b · q + r, &nbsp;&nbsp; 0 ≤ r &lt; b.</p>
+<p>The number q is the <em>quotient</em> (how many times b fits into a) and r is the <em>remainder</em> — the honest leftover, too small to fit b again. We write r = a mod b, read "a modulo b" or simply "the remainder of a on division by b".</p>
+<p class="words">Or, in words: dividing by b always leaves one leftover, and only one — and the leftover is always a number from the fixed shortlist 0, 1, …, b − 1. Not "some leftover": <em>the</em> leftover. Divisibility is the special case where the leftover is 0 — b divides a exactly when a mod b = 0.</p>
+</div>
+<p>Examples and non-examples, with the number 47 divided by 5:</p>
+<ul>
+<li><strong>Yes:</strong> 47 = 5 · 9 + 2. Here q = 9 and r = 2, and 0 ≤ 2 &lt; 5. This is the one legal form.</li>
+<li><strong>No:</strong> 47 = 5 · 8 + 7. The sum is right, but r = 7 ≥ b = 5 — seven sweets fill another box. Illegal as a division-algorithm form, even though it is true arithmetic.</li>
+<li><strong>No:</strong> 47 = 5 · 10 − 3. Negative leftovers are banned: r = −3 &lt; 0. True arithmetic, illegal form.</li>
+</ul>
+<p>The point of the rules is <em>uniqueness</em>. Many decompositions a = bq + r exist as arithmetic; exactly one of them obeys 0 ≤ r &lt; b. That is why "the remainder" can be spoken of with the definite article, and why a remainder is worth computing at all: it is a <em>canonical</em> answer — the same for everyone who computes honestly, however they got there. (Euclid's arithmetic books already compute this way; the idea is at least twenty-three centuries old and has not needed repair since.)</p>
+</section>
+
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Three examples, simplest first, each carried to the end.</p>
+<h3>(a) 47 by 5 — the subtraction you already did</h3>
+<p>Lecture 0's pencil work <em>was</em> the algorithm: repeatedly subtract b, count the subtractions (q = 9), and what survives is r = 2. Your class-5 long division is this same procedure with the subtraction batched — you subtract 9 fifties at once instead of one at a time, but the landing spot is identical: 47 = 5 · 9 + 2.</p>
+<h3>(b) 2026 on division by 7</h3>
+<p>Seven times 280 is 1960; 66 remain. Seven times 9 more is 63; 3 remain. So 2026 = 7 · 289 + 3 — quotient 289, remainder 3. Two checks: the arithmetic reconstructs (7 · 289 + 3 = 2026 ✓) and the leftover is honest (0 ≤ 3 &lt; 7 ✓). The lab runs this exact computation plus the failure next door: 7 · 288 + 3 = 2019, a different number — the quotient cannot be nudged without changing the sum.</p>
+<h3>(c) Weekdays — the remainder is the answer</h3>
+<p>Today is Wednesday. What weekday is it 47 days from now? Naively: list 47 days. With remainders: weeks are boxes of 7 days, so 47 = 7 · 6 + 5 — only the <em>leftover 5</em> matters, because whole weeks land on the same weekday. Five days after Wednesday: Thursday, Friday, Saturday, Sunday, <strong>Monday</strong>. The lab confirms it two ways: (3 + 47) mod 7 = 50 mod 7 = 1 = Monday, and a day-by-day walk of 47 single steps from Wednesday also lands on Monday. The quotient (6) told you nothing you needed; the remainder was the whole answer.</p>
+<h3>(d) Units digits — remainders in base 10</h3>
+<p>A number's units digit is nothing but its remainder on division by 10: 7⁴ = 2401, and 2401 = 10 · 240 + 1. The digit <em>is</em> the leftover. And leftovers of products can be computed digit-only: (a · b) mod 10 = ((a mod 10) · (b mod 10)) mod 10 — the lab tests this identity over all 10,000 pairs in [0, 99]² with zero mismatches, and it is the engine under Exercise 4.</p>
+</section>
+
+<section id="why">
+<h2>4 · Why it is true</h2>
+<p>The claim has two parts — a leftover always exists, and it is unique — and both deserve real proofs. Both are short.</p>
+<p><strong>Existence (the well-ordering argument).</strong> Fix a and b, and consider the set S of all numbers you can reach by removing whole multiples of b from a without going negative: S = {a, a − b, a − 2b, a − 3b, …} ∩ {0, 1, 2, …}. S is not empty (a itself is in it, since a ≥ 0) and S is finite, so it has a <em>least</em> element — the smallest thing you can still reach. Call it r. Why is r the remainder? It is of the form a − bq for some count q, so a = bq + r. And r &lt; b: if r were ≥ b, then r − b would still be a reachable non-negative member of S, and smaller than r — contradicting that r was the least. So 0 ≤ r &lt; b, done. (For 47 and 5: S = {47, 42, 37, 32, 27, 22, 17, 12, 7, 2} and the least element is 2 — exactly Lecture 0's leftover. The lab enumerates S in full.) The "least element of a nonempty set of whole numbers exists" principle is doing the work; it will return as a full problem-solving pattern at <a href="p71-extremal-principle.html">P71</a>.</p>
+<p><strong>Uniqueness (the size argument).</strong> Suppose two legal forms exist: a = bq₁ + r₁ = bq₂ + r₂ with 0 ≤ r₁, r₂ &lt; b. Subtract: b(q₁ − q₂) = r₂ − r₁. The right side is strictly smaller than b in size — both remainders live in [0, b), so their difference is between −(b − 1) and b − 1. The left side is a multiple of b. The only multiple of b with size less than b is 0, so q₁ = q₂, and then r₁ = r₂. One form, always. (The lab tests uniqueness by brute force: over the full grid b ∈ [2, 13], a ∈ [0, 120], it counts how many q produce a legal remainder — exactly one, every time, 1,452 cases, zero violations.)</p>
+<aside class="aside warn"><strong>Scope, honestly.</strong> This page states and proves the division algorithm for whole numbers a ≥ 0 and b ≥ 1 — the range the consumer pages need. Dividing with a negative dividend also leaves a remainder (the lab probes −47 = 5 · (−10) + 3 and three friends), but the conventions there are a matter of taste that different books set differently; the book will pick its convention when it first needs one, not now.</aside>
+</section>
+
+<section id="practice">
+<h2>5 · Practice</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◐ open exploration. Hints and worked answers are collapsible.</p>
+
+<h3>Exercise 1 ●○○</h3>
+<p>Divide 2026 by 7: write the full division-algorithm form a = bq + r, and verify both requirements of Box B01.</p>
+<details><summary>Hint</summary><p>Batch the sevens: 7 · 280 = 1960, then handle the remaining 66.</p></details>
+<details><summary>Worked answer</summary><p>2026 = 7 · 289 + 3. Requirement 1 — the arithmetic reconstructs: 7 · 289 + 3 = 2023 + 3 = 2026. Requirement 2 — the leftover is honest: 0 ≤ 3 &lt; 7. (The lab records the neighbouring failure: 7 · 288 + 3 = 2019, so the quotient cannot be off by one and survive.)</p></details>
+
+<h3>Exercise 2 ●●○</h3>
+<p>Today is Wednesday. (a) What weekday is it 47 days from now? (b) 2026 days from now? Do not list days; extract what matters.</p>
+<details><summary>Hint</summary><p>Weeks are boxes of 7. Compute each leftover, then walk the leftover.</p></details>
+<details><summary>Worked answer</summary><p>(a) 47 = 7 · 6 + 5: five days after Wednesday is Monday. (b) 2026 = 7 · 289 + 3 — the very form of Exercise 1 — so three days after Wednesday: Saturday. The quotient disappears both times; the remainder <em>is</em> the answer. (Both routes — the leftover walk and the day-by-day walk — are machine-checked in the lab.)</p></details>
+
+<h3>Exercise 3 ●●●</h3>
+<p>A number n leaves remainder 3 on division by 7. Prove that n² leaves remainder 2 — two ways: by algebra, and by a small table. Then say which of the two is a proof, and what the other one is.</p>
+<details><summary>Hint</summary><p>Write n = 7k + 3, square it, and redistribute into a multiple of 7 plus a leftover. For the table, take several numbers of the form 7k + 3.</p></details>
+<details><summary>Worked answer</summary><p>Algebra: n = 7k + 3 gives n² = 49k² + 42k + 9 = 7(7k² + 6k + 1) + 2 — and 0 ≤ 2 &lt; 7, so the remainder is 2, for every k at once. Table: 3 → 9 → 2; 10 → 100 → 2; 171 → 29241 → 2; the lab carries this exhaustively over all thirty remainder-3 numbers in [0, 209] (zero failures) and the algebra exactly over k ∈ [0, 30]. Verdict, in the book's honesty language: the table is a <em>detector</em> (<a href="p02-small-cases.html">P02</a>), the algebra is the <em>proof</em> — the table can only ever witness finitely many cases, while the algebra covers every k in one stroke. One caution the table itself teaches: 172 also has a square ending in remainder 2 — but 172 = 7 · 24 + 4 is not a remainder-3 number; its square leaves 2 for a different reason (4² = 16 = 7 · 2 + 2). An observed leftover does not certify the hypothesis that produced it.</p></details>
+
+<h3>Exercise 4 ◐</h3>
+<p>Explore the units digits of the powers of 7: 7, 49, 343, 2401, 16807, … (a) Make the table of units digits for 7¹ through 7¹² and describe the pattern you see. (b) Predict the units digit of 7¹⁰⁰ and say how confident the table makes you. (c) Compute it honestly: tracking a single digit through 100 multiplications (the digit-only identity of section 3(d) makes this exact, not approximate — the lab runs the full 100 steps). (d) Say precisely what remains unproved: what would it take to know the pattern <em>never</em> breaks?</p>
+<details><summary>What you should find</summary><p>(a) The units digits run 7, 9, 3, 1, 7, 9, 3, 1, … — a repeating cycle of length 4 (machine-verified for the first twelve powers). (b) 100 = 4 · 25 exactly, so the cycle should close on the last digit of the cycle-start, 1. (c) The digit-only track agrees: units digit 1. (d) Still unproved: that the cycle <em>continues forever</em> — a table is a detector, not a certificate, and 12 witnessed powers are not infinitely many. Proving it cleanly needs arithmetic that treats same-remainders alike — which is exactly the next bridge, <a href="b02-congruence-classes.html">B02</a>.</p></details>
+</section>
+
+<section id="where">
+<h2>6 · Where this goes</h2>
+<ul>
+<li><strong>Next bridge — <a href="b02-congruence-classes.html">B02 · Same remainder, new arithmetic</a>:</strong> this page's leftover is a number; B02 upgrades it to a viewpoint. Numbers with the same remainder on division by n will turn out to share <em>all</em> the arithmetic that matters — addition, multiplication, powers — which is what makes the digit-only shortcut of section 3(d) work, and what Exercise 4 needs to finish its proof.</li>
+<li><strong>Consumer — <a href="p05-canonical-form.html">P05 · Reduce to canonical form</a> (planned):</strong> its mandated application is exactly Box B01's gift: among all numbers with the same behaviour, the remainder is the <em>canonical representative</em> — reduce anything to its leftover and compare leftovers. This page is the "why is that legal" under the move.</li>
+<li><strong>Consumer — <a href="p09-invariant.html">P09 · Find the invariant</a> (planned):</strong> its mandated application is a modular invariant — a digit-sum rule that stays put mod 9 no matter how the digits are shuffled. Remainders are the currency invariants are paid in.</li>
+<li><strong>Later bridge — <a href="b03-euclidean-algorithm.html">B03 · The Euclidean algorithm</a> (planned):</strong> if remainders are this well behaved, the next question is: what is the remainder of a remainder? Euclid's answer computes greatest common divisors without factoring — the first great algorithm of mathematics.</li>
+</ul>
+</section>
+
+<section id="graphfooter" class="graphfooter">
+<h2>7 · Footer</h2>
+<p><strong>B01</strong> · group A (modular arithmetic) · first of the bridge sequence B01–B02 (B02 directly extends this page). Consumers: <a href="p05-canonical-form.html">P05</a>, <a href="p09-invariant.html">P09</a> (binding bridge gate: both are authored only after B01–B02 are published). This page teaches a concept, not a pattern; no P-ID is claimed.</p>
+<p><strong>Labs.</strong> <code>labs/b01-lab.js</code> with recorded output <code>labs/b01-lab-output.txt</code>: the division algorithm's existence and uniqueness tested exhaustively over b ∈ [2, 13], a ∈ [0, 120] (1,452 subtraction-route cases, zero failures; 1,452 uniqueness counts, zero violations); negative-dividend probes recorded for the scope note; the well-ordering demo set S = {47 − 5k ≥ 0} enumerated in full with least element 2; 2026 = 7 · 289 + 3 with its neighbouring failure; the weekday walk by both routes; 7⁴ = 2401 and the divisibility-as-zero-remainder checks (2401 mod 7, 2047 mod 23, 2047 mod 89); the square-remainder exercise by exhaustive and exact-algebra routes (zero failures both); the powers-of-7 units-digit cycle, the 100-step digit-only track to 7¹⁰⁰, and the digit-only product identity over all of [0, 99]² (zero mismatches).</p>
+<p><strong>Revision log.</strong> R0 (2026-10-28, session S06): page published. Fresh verification battery executed in-session (3 pieces + pre-flight probe, split ≤4 KB, no recursion, no BigInt in the value path, deterministic); style audit against the presentation fingerprint passed (lecture-0 phenomenon before notation; numbered citable box; concrete parameters throughout; complete proofs for existence and uniqueness; honest scope box); adversarial review passed (fresh verifier engine, zero shared code — floor-based remainders, single-step weekday walk, digit-only power tracking, own scans and double loops — 12 must-fail injection rows, all caught). Honest run history, one defective run caught and corrected before install: piece 3 run 1 used n = 172 as a "remainder 3" spot value when 172 = 7 · 24 + 4 has remainder 4 (its square coincidentally also leaves 2, since 4² = 16 = 7 · 2 + 2) — replaced by n = 171 = 7 · 24 + 3 in run 2 (recorded), and the coincidence is now printed as an honesty note rather than smuggled in as evidence. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
+</section>
+
+<footer>
+<p><em>The Patterns Atlas</em> — B01 · Remainders and the division algorithm (bridge page, group A). <a href="index.html">Return to the index</a>. Next: <a href="b02-congruence-classes.html">B02 · Same remainder, new arithmetic — congruence classes</a> (planned), directly extending this page; after the bridge, the spine resumes at <a href="p05-canonical-form.html">P05 · Reduce to canonical form</a> (planned).</p>
+</footer>
+</body>
+</html>

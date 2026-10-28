@@ -1,30 +1,21 @@
 # ACTIVE SESSION — S06 (B01 · Remainders and the division algorithm)
 
-Opened 2026-10-28. Unit: author bridge page B01 `book/b01-remainders.html`
-(group A · modular arithmetic; consumers P05, P09; 7-block bridge template).
-
-## State at open
-- Records read (book-project.md, book-conventions.md bridge template, mcfee-style-study.md re-read pre-draft).
-- Session row marked IN PROGRESS (local master + this mirror; records push at close).
-- P04 published last session; repo at commit 8f722087 (mirror delete); index at R7; book state 4/78 + 0/12 bridge.
-- B01 scope decision (page split): B01 teaches the REMAINDER OPERATOR and the
-  division algorithm (a = bq + r, 0 <= r < b, existence + uniqueness complete);
-  the congruence RELATION (a ≡ b mod n, classes) is B02. Notation a mod b
-  (operator) may appear on B01; ≡ is B02's.
-- One bridge page per session (default rule): B01 only this session; B02 = S07.
-
-## Plan (next steps)
-1. Fresh battery: split pieces (<=4KB each), pre-flight probe, no recursion,
-   no BigInt in value path; transcripts + md5 recorded before splice.
-2. Fresh adversarial verifier (zero shared code, independent constants, must-fail injections).
-3. Author page (7 blocks: lecture 0 / idea named / worked by hand / why true /
-   practice / where this goes / footer), lab b01-lab.js + recorded output.
-4. Byte gates (wc -c + md5), push page + labs + mirror checkpoint.
-5. Index R8 (B01 published cell + revision-log line); records ALWAYS-SYNC (S06
-   row closed, standing to-do -> S07 = B02).
-6. Fetch-back byte-diff; delete this mirror; close report.
+## State (checkpoint: page authored + battery + verifier complete)
+- Fresh battery 3 pieces run clean (piece 3 needed run 2: spot value 172 was a
+  remainder-4 number presented as remainder-3; replaced with 171, coincidence
+  printed as honesty note).
+- Fresh adversarial verifier: 12/12 must-fail injections caught (clean first run).
+- Artifacts authored, byte gates passed:
+  - book/b01-remainders.html — 17,015 B, md5 7de84e420bd69c96320de29a4a89f41c
+  - book/labs/b01-lab.js — 10,701 B, md5 38820efa5914d7442a70514204912e01
+  - book/labs/b01-lab-output.txt — 4,902 B, md5 f9b517869a9831addf65101fae7b4034
+- Style audit vs 13-move fingerprint passed; hrefs canonical (b02, b03, p02, p05, p09, p71); no MathJax/CDN/$-TeX.
+- THIS PUSH: page + lab + output. Next steps:
+  1. Index R8 (B01 published cell in bridge-track table + revision-log line) — fetch, edit, push.
+  2. Records ALWAYS-SYNC (S06 row closed, standing to-do -> S07 = B02; KNOWLEDGE.md status).
+  3. Fetch-back byte-diff of all files; delete this mirror; close report.
 
 ## Crash-resume map
-- Local scratch: /home/user/scratch-b01/ (created this session).
+- Local scratch: /home/user/scratch-b01/ (page, lab, output, transcripts/).
 - Local records master: /home/user/knowledge/graph-driven-math-book/book-project.md (S06 row IN PROGRESS).
 - Repo master of record: dsmistral/patterns-atlas branch main.

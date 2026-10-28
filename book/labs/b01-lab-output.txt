@@ -1,0 +1,67 @@
+B01 — Remainders and the division algorithm — recorded verification battery output
+Session S06, 2026-10-28. Run by the drafting engine (b01-lab.js, split pieces)
+plus a fresh adversarial verifier (zero shared code, independent routes:
+floor-based remainder, single-step weekday walk, digit-only power tracking,
+own scans and double loops; 12 must-fail injection rows).
+Honest run history — one defective run was caught and re-run before install:
+- Piece 3 run 1: spot value 3c used n=172 as a "remainder 3" example, but
+  172 = 7*24 + 4 (remainder 4). Its square does leave 2 — but for a different
+  reason (4^2 = 16 = 7*2 + 2), which made the line misleading. Replaced with
+  n=171 = 7*24 + 3 in run 2 (recorded); the coincidence is now printed as an
+  honesty note rather than smuggled in as evidence.
+Constraints honored: split pieces, no recursion, no BigInt in the value path,
+deterministic (no randomness used).
+==============================================================================
+B01 PIECE 1 (probe + division algorithm: existence and uniqueness, exhaustive) — 2026-10-28
+PROBE ok: true
+1a subtraction route over b in [2,13], a in [0,120]: checks=1452 failures=0
+1b uniqueness count over same grid (each (a,b) must have exactly 1 good q): checks=1452 violations=0
+1c negative probe a=-47, b=5: a = 5*(-10) + 3 | valid: true
+1c negative probe a=-13, b=5: a = 5*(-3) + 2 | valid: true
+1c negative probe a=-1, b=5: a = 5*(-1) + 4 | valid: true
+1c negative probe a=-2026, b=5: a = 5*(-406) + 4 | valid: true
+1d scope note: the page treats a >= 0, b >= 1; the negative probe records that the extension exists
+B01 PIECE 2 (lecture-0 numbers, non-examples, examples) — 2026-10-28
+2a 47 = 5*9 + 2: 47 | 5*8 + 7 = 47 (equals 47 too, but r=7 >= b=5: NOT the division algorithm form)
+2b 5*10 - 3 = 47 (equals 47, but r = -3 < 0: NOT the division algorithm form)
+2c S = {47-5k >= 0} = [47, 42, 37, 32, 27, 22, 17, 12, 7, 2]; least element = 2 (the remainder)
+2d 2026 = 7*289 + 3: 2026 (remainder 3)
+2e Wednesday + 47 days: (3+47) mod 7 = 50 mod 7 = 1 -> Monday | 47 = 7*6 + 5: five weekdays after Wednesday: Monday
+2f 7^4 = 2401 (units digit 1) | 2401 = 7*343 + 0: divisible-by check 0
+2g divisibility = remainder 0: 2401 mod 7 = 0, 2047 mod 23 = 0, 2047 mod 89 = 0
+B01 PIECE 3 (square-remainder exercise + units-digit cycle) — RUN 2 — 2026-10-28
+RUN HISTORY: run 1 spot value 3c used n=172 as a remainder-3 example, but
+172 = 7*24 + 4 (remainder 4 — its square also leaves 2, since 4^2 = 16 = 7*2 + 2,
+which made the line misleading). Replaced with n=171 = 7*24 + 3.
+3a route A (exhaustive n in [0,209] with n mod 7 = 3): cases=30 failures (n^2 mod 7 != 2)=0
+3b route B (algebra (7k+3)^2 = 7(7k^2+6k+1)+2, exact) over k in [0,30]: checks=31 failures=0
+3c n=3: n mod 7 = 3 | n^2 = 9 | n^2 mod 7 = 2
+3c n=10: n mod 7 = 3 | n^2 = 100 | n^2 mod 7 = 2
+3c n=171: n mod 7 = 3 | n^2 = 29241 | n^2 mod 7 = 2
+3c-note honesty check: 172 mod 7 = 4 (NOT a remainder-3 number; its square still leaves 2 because 4^2 = 16 = 7*2+2 — a different reason)
+3d units digits of 7^1..7^12: 7, 9, 3, 1, 7, 9, 3, 1, 7, 9, 3, 1 (cycle 7,9,3,1 of length 4)
+3e units digit of 7^100 by digit-only tracking (100 steps): 1 | 100 = 4*25, so the cycle closes at position 0 -> 1: true
+3f exactness of digit-only products: (a*b) mod 10 = ((a mod 10)*(b mod 10)) mod 10 over [0,99]^2: mismatches=0
+B01 ADVERSARIAL VERIFIER (fresh engine, zero shared code, independent constants) — 2026-10-28
+V1 47 on division by 5: q=9, r=2
+  injection CAUGHT: claim 47 = 5*9 + 3 (it is 48; the true form is 5*9 + 2 = 47)
+  injection CAUGHT: claim r=7 is a legal remainder on division by 5 (r must be < b; 5*8+7 packs into 5*9+2)
+V2 2026 on division by 7: q=289, r=3
+  injection CAUGHT: claim 2026 = 7*288 + 3 (that gives 2019)
+  injection CAUGHT: claim the remainder is 4 (it is 3)
+V3 walking 47 single-day steps from Wednesday lands on: Monday
+  injection CAUGHT: claim the walk lands on Sunday (it lands on Monday)
+V4 units digit of 7^4 by 4 single multiplications: 1
+  injection CAUGHT: claim the units digit of 7^4 is 9 (it is 1)
+V5 units digit of 7^100 by 100 single multiplications: 1
+  injection CAUGHT: claim the units digit of 7^100 is 3 (it is 1)
+V6 own scan n in [0,400] with remainder 3: counterexamples to n^2 leaving 2 = 0
+  injection CAUGHT: claim n^2 then leaves remainder 3 (it leaves 2; e.g. 10: 100 = 7*14 + 2)
+  injection CAUGHT: claim 172 leaves remainder 3 (it leaves 4)
+V7 legal (q,r) pairs for 47 on division by 5, q in [0,20]: 1
+  injection CAUGHT: claim two different legal pairs exist (count = 1)
+V8 digit-only product exactness over [1,60]^2: mismatches=0
+  injection CAUGHT: claim the digit-only shortcut is inexact (it is exact: 0 mismatches)
+V9 least element of {47-5k >= 0}: 2
+  injection CAUGHT: claim the least element is 7 (it is 2)
+VERDICT injections caught = 12, missed = 0 — ALL CAUGHT
