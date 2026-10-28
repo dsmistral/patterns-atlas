@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P01 — Pin down the problem · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P01 · the first move of the spine</p>
+<h1>Pin down the problem</h1>
+<p class="tagline">Say precisely what you are asked — before you try to answer it.</p>
+</header>
+
+<aside class="onramp"><strong>P-ID.</strong> Every pattern in this book has a permanent ID: P01, P02, P03, … (the full ladder is on the <a href="index.html">index page</a>). When a solution uses a move, we name it by its ID, so a page can cite a move the way a textbook cites an equation. This page builds P01 — the move every other page starts from.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p>You have seen the book's premise on the index page: this book teaches <em>moves</em>, not topics, because moves transfer to problems you have never seen. Every move page starts the same way: a problem first, the move second, and never the other way round.</p>
+<p>Here is the tension this first page resolves. When a solution goes wrong, the first place to look is not the algebra, not the diagram — it is the <em>statement</em>. Which problem did you actually solve? More failed attempts die of answering a subtly different question than was asked than die of bad mathematics. The good news: the repair is cheap, teachable, and it is the one move that improves every other move you own. This is P01.</p>
+</section>
+
+<section id="encounter">
+<h2>2 · Meet the problem</h2>
+<p>A bat and a ball together cost ₹110. The bat costs ₹100 more than the ball. How much does the ball cost?</p>
+<p>An answer arrives instantly, without effort, without your asking for it: ₹10. And it is wrong. Do not worry — you are in the company of most people who take a famous three-question psychology test (Shane Frederick, <em>Cognitive Reflection and Decision Making</em>, 2005), where this is the opening item.</p>
+<p>Let us do what we should have done before answering anything: pin the problem down. Write down exactly what was said.</p>
+<ul>
+<li>Let the ball cost <strong>b</strong> rupees.</li>
+<li>“The bat costs ₹100 <em>more than the ball</em>” pins to: bat = <strong>b + 100</strong>. (Not: bat = 100. That is a different sentence.)</li>
+<li>“Together ₹110” pins to: <strong>b + (b + 100) = 110</strong>.</li>
+</ul>
+<p>Now the problem is finished with us: 2b = 10, so <strong>b = 5</strong>. The ball costs ₹5, the bat ₹105. Check: 105 − 5 = 100 ✓, and 5 + 105 = 110 ✓.</p>
+<p>Notice where the intuitive answer came from. “₹10” is the correct answer to a nearby but different problem — “the bat costs ₹100, what does the ball cost?” Our intuition solved that one, and handed us its answer. The arithmetic was never the difficulty; the difficulty was which problem we were solving.</p>
+<aside class="aside"><strong>Verify it, don't trust it.</strong> We machine-checked the pinned statement and the intuitive one: with b = 5, bat − ball = 100 and the total is 110; with b = 10, the bat would have to be ₹110 to cost ₹100 more, making the total ₹120 — not ₹110. Recorded in this page's lab (<a href="#graphfooter">block 9</a>). Small checks like this are cheap; we will run them throughout the book.</aside>
+</section>
+
+<section id="name">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p01">
+<p><strong>Pattern P01 — Pin down the problem.</strong> Before attempting a solution, restate the problem in precise terms: define every word it uses, rewrite each given fact as a relationship you can compute with, and state exactly what form an answer must take — including what <em>kind</em> of claim the problem is.</p>
+<p class="words">Or, in words: never solve a sentence. Solve the precise statement you have written yourself, and check that your precise statement says the same thing as the sentence did.</p>
+</div>
+<p>The move has four parts — a checklist you can run on any problem, in about a minute:</p>
+<div class="pattern-box" id="box-p01a">
+<p><strong>Box P01.A — the pinning checklist.</strong></p>
+<ol>
+<li><strong>Define the terms.</strong> Every word the problem leans on (“odd”, “diagonal”, “at random”, “more than”) gets a definition you could read aloud without the problem in front of you.</li>
+<li><strong>Restate the givens</strong> as relationships you can compute with: equations, memberships, inequalities — not prose.</li>
+<li><strong>State the target.</strong> What would an answer look like? A number (with units)? an object? a proof?</li>
+<li><strong>Name the claim type.</strong> Compute · Prove-for-all · Prove-exists · Disprove. The type decides what counts as success (Box P01.B below).</li>
+</ol>
+</div>
+<p>The fourth part deserves its own box, because it is the part most solvers skip:</p>
+<div class="pattern-box" id="box-p01b">
+<p><strong>Box P01.B — the four claim types.</strong></p>
+<table>
+<thead><tr><th>Claim type</th><th>What success looks like</th><th>What destroys it</th></tr></thead>
+<tbody>
+<tr><td>Compute</td><td>A number, with units and a stated form (exact? rounded?)</td><td>A different quantity than the one asked</td></tr>
+<tr><td>Prove-for-all</td><td>An argument that works for <em>every</em> case in range, parameter named (“for every integer n ≥ 1, …”)</td><td>One counterexample, anywhere in range</td></tr>
+<tr><td>Prove-exists</td><td>One honest construction or exhibit</td><td>A “proof” that never exhibits the object</td></tr>
+<tr><td>Disprove</td><td>One counterexample, in range</td><td>An argument about “most” cases (irrelevant — one suffices)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>When does P01 apply?</strong> The three-key diagnosis, used throughout this book, asks: what is the claim type? what shape does the problem have? what tools are at hand? For P01 the answers are: <em>every</em> claim type; any problem not yet restated in your own precise words — especially verbal, novel, or deceptively familiar ones; and the only tools needed are definitions, notation, and a picture. That last point matters: P01 is the entry move, available before you know any mathematics beyond the statement itself.</p>
+<aside class="onramp"><strong>Claim.</strong> In this book, “claim” means any precise mathematical statement that can be true or false — not “claim” as in shouting. Naming the claim type is the first act of a proof, and every later page (P11 contradiction, P66 induction, P03 stress-testing) presupposes you have done it.</aside>
+</section>
+
+<section id="exemplars">
+<h2>4 · The move at work</h2>
+<p>Three worked examples, one per domain. In each, watch the pinning do real work — not ceremony.</p>
+
+<h3>Example 1 (numbers) — “the sum of two odd numbers is even”</h3>
+<p>Pin it down (checklist, in order): <em>odd</em> means an integer of the form 2k + 1 for some whole k; <em>even</em> means 2m for some whole m. The givens: two such numbers, call them 2k + 1 and 2j + 1. The target: prove-for-all — the sum is even, for every choice.</p>
+<p>Now the “proof” is one line of arithmetic: (2k + 1) + (2j + 1) = 2k + 2j + 2 = 2(k + j + 1). Even. Notice what happened: once the terms are pinned, the proof <em>is</em> the pinning — there is no further idea to find. This is the mark of a well-pinned problem: it becomes easy to see what remains to be done. <span class="pid">Moves used: P01.</span></p>
+
+<h3>Example 2 (counting, geometry) — diagonals of a 12-sided polygon</h3>
+<p>“How many diagonals does a convex polygon with 12 sides have?”</p>
+<p>Pinned: a <strong>diagonal</strong> is the segment joining two vertices that are <em>not</em> adjacent (adjacent pairs are the sides, and sides are not diagonals). So: count the pairs of vertices, subtract the pairs that are sides:</p>
+<ul>
+<li>pairs of vertices: 12 × 11 ⁄ 2 = 66,</li>
+<li>minus the 12 sides,</li>
+<li>= <strong>54 diagonals</strong>.</li>
+</ul>
+<p>Notice what the pinning bought: the moment “diagonal” became “vertex pair, not adjacent”, the count turned into arithmetic — nothing else was needed. Getting the definition wrong (say, counting intersection <em>points</em> inside, or including sides) yields a different number for a different problem. The same pinning, with n in place of 12, gives the general count n(n − 3)/2.</p>
+<figure>
+<pre>n  :  3   4   5   6   7   8   9  10  11  12
+d  :  0   2   5   9  14  20  27  35  44  54</pre>
+<figcaption>The first few values of the diagonal count d = n(n − 3)/2, machine-verified. The small-case table here is the move of <strong>P02 · Experiment with small cases</strong>, one page ahead — we let it peek, as a detector only: it can catch a wrong formula, though it cannot by itself prove this one. (This book's pages are being published in ladder order; the pages ahead are on the way.)</figcaption>
+</figure>
+<p><span class="pid">Moves used: P01 — with P02 allowed a brief cameo as a checking device.</span></p>
+
+<h3>Example 3 (calculus) — a growing circle</h3>
+<p>“The radius of a circle increases at 2 cm per second. At the instant the radius is 5 cm, how fast is the area growing?”</p>
+<p>Pinned, the target is a precise object: the rate of change of area with respect to <em>time</em> — that is, dA/dt, in cm²/s. (Not dA/dr: the problem's clock runs in seconds; units are the tell.) The given: dr/dt = 2 cm/s; A = πr²; at the instant of interest, r = 5 cm. Chain rule, once:</p>
+<p style="text-align:center">dA/dt = 2πr · (dr/dt) = 2π · 5 · 2 = <strong>20π ≈ 62.83 cm²/s</strong>.</p>
+<p>“How fast is the area growing” never becomes computable until it is pinned as dA/dt with units. In related-rates problems, the pinning <em>is</em> most of the work — which is why examiners say students lose these problems in the first line, not the last.</p>
+<p><span class="pid">Moves used: P01.</span> (The chain rule itself is assumed at the class-12 entry level; the page builds no calculus beyond it.)</p>
+<aside class="aside"><strong>Units as intuition.</strong> “cm² per second” — area units, flowing in time. If your pinned target does not carry sensible units, that is a mis-pinning you can see from outside, before any computation. We machine-checked this one by simulating the growing circle over a tiny time step: the time-stepped rate matches 20π to four decimal places (62.8319 vs 62.8319).</aside>
+</section>
+
+<section id="fails">
+<h2>5 · When the move fails (or seems to)</h2>
+<p>P01 is necessary, cheap, and honest. None of that makes it a solution.</p>
+<ul>
+<li><strong>Pinned ≠ solved.</strong> The checklist produces a precise statement, not a proof. P01 tells you what must be shown — never how. If a problem resists after a clean pinning, the pinning has still helped: it shows the resistance is real, not verbal.</li>
+<li><strong>Over-pinning.</strong> Wrapping a one-step insight in heavy notation can bury it. If the pinned statement is longer than the problem, you may be solving bureaucracy. Mitigation: pin as lightly as the claim needs. Price: occasionally re-pin when a lighter statement turns out too thin. Default: full checklist the first time you meet a problem type; a one-line pinning once the type is familiar.</li>
+<li><strong>Mis-pinning.</strong> The bat-and-ball failure had this shape: an intuition quietly substitutes a nearby, easier problem and answers that. The checklist's cure is blunt: write the givens <em>as relationships</em> (“bat = ball + 100”), because prose hides substitutions that equations cannot.</li>
+<li><strong>Underspecified statements.</strong> Sometimes the sentence genuinely does not determine one problem. Joseph Bertrand's classic (<em>Calcul des probabilités</em>, 1889) asks: a chord of a circle is chosen “at random”; what is the probability it is longer than the side of the inscribed equilateral triangle? Three honest pinnings of “at random” give three different answers: 1/3 (random endpoints), 1/2 (random midpoint along a radius), 1/4 (random midpoint anywhere in the disc). We simulated all three by machine (see Exercise 6): the simulation lands on 0.3365, 0.5015, 0.2508 with 100,000 trials each — three honest pinnings, three different problems.</li>
+</ul>
+<aside class="aside warn"><strong>Scope note.</strong> P01 makes the choice of interpretation visible; it cannot make the choice for you. When a problem is underspecified, the mathematician's move is to <em>choose a definition and say so</em> — the source technique behind this page is called <em>axiomatize from instances</em>: when a concept is vague, pin it by writing the precise rule that your examples obey. That is not a confession of weakness; it is how “number”, “function”, and “continuity” themselves got their definitions.</aside>
+</section>
+
+<section id="next">
+<h2>6 · What to try next</h2>
+<p>Once a problem is pinned, route by claim type (Box P01.B):</p>
+<ul>
+<li><strong>Target is a computation</strong> → reach for <strong>P02 · Experiment with small cases</strong>: build a small table before trusting any formula. Mitigation for the impatient: a table of three cases costs a minute. Price: occasionally the pattern in the small table misleads (P03 exists to stress it). Default: table first, formula second.</li>
+<li><strong>Claim is prove-for-all</strong>, with a whole-number parameter → <strong>P66 · Prove by induction</strong> (planned). If instead the claim says something <em>cannot</em> happen → <strong>P11 · Prove by contradiction</strong> (planned). Default: induction when there is a natural “next case”, contradiction when the negation is concrete.</li>
+<li><strong>Claim is prove-exists</strong> → <strong>P07 · Build an auxiliary object</strong> (planned): construct the thing. Price: construction is craft; it can take a genuinely new idea.</li>
+<li><strong>A vague term you must choose</strong> → the deeper gear of this very page: axiomatize from instances — write your examples first, then the rule they obey, and say which you chose.</li>
+</ul>
+</section>
+
+<section id="lineage">
+<h2>7 · Lineage interlude</h2>
+<aside class="aside"><strong>History, lightly.</strong> Pinning down before proceeding is ancient habit: Euclid's <em>Elements</em> opens by defining its terms — “a point is that which has no part” — before stating a single theorem. The move became a discipline at the turn of the last century, when David Hilbert's <em>Grundlagen der Geometrie</em> (1899) pinned down the axioms of geometry itself. And for problem-solvers it became a named phase in George Pólya's <em>How to Solve It</em> (1945), whose first of four phases is, precisely, <em>understand the problem</em>. The registry behind this book tracks the same move in its modern, computational form, under the technique id <strong>axiomatizeFromInstances</strong>. None of this history is load-bearing — it is seasoning — but it says something reassuring: the first move in the book is the oldest one in mathematics.</aside>
+</section>
+
+<section id="exercises">
+<h2>8 · Exercises</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◆ diagnose · ◐ explore. Hints and worked answers are collapsible; the ◆ exercise has no hint — the diagnosis <em>is</em> the exercise.</p>
+
+<h3>Exercise 1 ●○○</h3>
+<p>Three consecutive integers sum to 48. Which integers?</p>
+<details><summary>Hint</summary><p>Pin the unknowns first: name the middle integer m. What are the other two, in terms of m?</p></details>
+<details><summary>Worked answer</summary><p>Pinned: the integers are m − 1, m, m + 1, and (m − 1) + m + (m + 1) = 48. So 3m = 48, m = 16: the integers are <strong>15, 16, 17</strong> (check: 15 + 16 + 17 = 48 ✓). Notice how pinning by the middle one makes the equation symmetric — a preview of P08.</p></details>
+
+<h3>Exercise 2 ●○○</h3>
+<p>A shopkeeper marks a jacket 20% above cost, then sells it at a 20% discount. Did the shopkeeper gain or lose, and by what percentage?</p>
+<details><summary>Hint</summary><p>Pin “20% of what?” — the markup and the discount are percentages of <em>different</em> bases.</p></details>
+<details><summary>Worked answer</summary><p>Pinned: cost c, marked price 1.2c, selling price 0.8 × 1.2c = 0.96c. Sold at 96% of cost: a <strong>4% loss</strong>. The tempting answer “no change” pins the discount to the cost as well — a different problem. Exact-fraction check (machine-verified): 4⁄5 × 6⁄5 = 24⁄25 = 0.96.</p></details>
+
+<h3>Exercise 3 ●●○</h3>
+<p>A car travels from A to B at 60 km/h and returns along the same road at 40 km/h. What is its average speed for the whole trip?</p>
+<details><summary>Hint</summary><p>Pin the phrase “average speed” (Box P01.A, item 3) — it is a rate of <em>total distance over total time</em>. The answer is not the average of two numbers.</p></details>
+<details><summary>Worked answer</summary><p>Pinned: average speed = total distance ÷ total time. Take a concrete leg (the answer cannot depend on it): 120 km each way. Times: 120⁄60 = 2 h out, 120⁄40 = 3 h back; total 240 km in 5 h → <strong>48 km/h</strong>. The 50 km/h answer averages two speeds over <em>equal weights in time</em> — but the slow leg took more time, so it must weigh more. Machine check with the concrete numbers: 240 ÷ (2 + 3) = 48.</p></details>
+
+<h3>Exercise 4 ●●●</h3>
+<p>How many zero digits does 100! (100 factorial) end with?</p>
+<details><summary>Hint</summary><p>Pin “ends with k zeros”: 10<sup>k</sup> divides 100!. And pin 10 as a product: 2 × 5.</p></details>
+<details><summary>Worked answer</summary><p>Pinned: the count is the largest k with 10<sup>k</sup> dividing 100!, i.e. min(v₂, v₅) — the exponents of 2 and 5 in its factorization. Counting fives in 1, 2, …, 100: multiples of 5 contribute 20, and each multiple of 25 carries a second five, contributing 4 more; 20 + 4 = 24. Twos are plentiful (97 of them). So the answer is <strong>24</strong>. Two independent machine checks agree: counting factors gives v₅ = 24, v₂ = 97; and computing 100! exactly (158 digits, beginning 9.33262… × 10<sup>157</sup>) and reading off its trailing zeros also gives 24. Detectors, using the same pinning: 10! ends in 2 zeros, 25! in 6 — these small cases can expose a wrong formula, though only the argument proves this one.</p></details>
+
+<h3>Exercise 5 ◆ Diagnose the pinning</h3>
+<p>Each item below is a proposed pinning. No hint: decide which pinnings are honest and which fail, and say why. (All three are machine-verified in the lab.)</p>
+<ol>
+<li>To show “n² + n + 41 is prime for every whole number n”, it suffices to check n = 1, 2, 3, and observe the values are prime.</li>
+<li>To show “the sum of two odd numbers is even”, pin “odd” as: of the form 2k + 1 for some whole number k.</li>
+<li>To count the diagonals of a 12-sided polygon, pin “diagonal” as: a pair of vertices that are not adjacent.</li>
+</ol>
+<details><summary>Worked answer</summary>
+<p>(1) <strong>Fails</strong> — claim type mismatch (Box P01.B: prove-for-all is destroyed by one counterexample, and completed by nothing less than a universal argument). Any number of checked instances leaves the claim open. This polynomial is a famous trap: it is prime for every whole number n from 0 to 39 — forty consecutive primes (machine-verified) — and at n = 40 it reads 40² + 40 + 41 = 1681 = 41 × 41, composite. Instances are detectors, never proofs of for-all claims; P03 will build this into a full move.</p>
+<p>(2) <strong>Honest.</strong> The definition is what the proof needs, and it is faithful to the word: instances (… −3, −1, 1, 3, …) all fit 2k + 1 with k whole.</p>
+<p>(3) <strong>Honest</strong> — the same pinning as Example 2, and it makes the count mechanical: 66 pairs minus 12 sides = 54.</p></details>
+
+<h3>Exercise 6 ◐ Bertrand's three problems</h3>
+<p>“A chord of a circle is chosen at random. What is the probability it is longer than the side of the inscribed equilateral triangle?” We pinned three different meanings of “at random”: (i) both endpoints chosen uniformly on the circle; (ii) the chord's midpoint chosen uniformly along a radius, in a uniformly random direction; (iii) the midpoint chosen uniformly over the whole disc. Explore: (a) compute the three probabilities by geometry (no simulation needed — each is one line once pinned); (b) verify against the recorded lab simulation (100,000 trials each: 0.3365, 0.5015, 0.2508); (c) hardest and most interesting: if you physically threw broomsticks at a circle drawn on the floor, which pinning would model <em>your</em> experiment? There is no single right answer — that is the lesson. A vague phrase is not one problem; pinning it is a choice, and the choice is yours to make and to state.</p>
+</section>
+
+<section id="graphfooter" class="graphfooter">
+<h2>9 · Graph evidence &amp; revision log</h2>
+<p><strong>Graph evidence.</strong> Source technique: <code>axiomatizeFromInstances</code>. Participation: <strong>423 chains</strong> in the measured knowledge graph (15,941 nodes, 26,614 edges; snapshot dated 2026-10-27). That number counts how often the technique appears in recorded theorem-proving chains — evidence of reuse, not of correctness. Honest note: the graph is a working corpus, not a curated syllabus; its counts say which moves are <em>popular</em>, and the book quotes them as such.</p>
+<p><strong>Related patterns.</strong> P02 (experiment with small cases — the detector this page borrowed), P03 (stress-test with special cases — the counterexample discipline this page met in Exercise 5), P05 (reduce to canonical form — pinning's big sibling), P07 (build an auxiliary object), P11 (prove by contradiction), P66 (prove by induction).</p>
+<p><strong>Labs.</strong> <code>labs/p01-lab.js</code> with recorded output <code>labs/p01-lab-output.txt</code>: bat-and-ball check, odd+odd exhaustive witnesses (100 pairs, 0 failures), consecutive integers, jacket fractions, average speed, diagonal formula verified for all n = 3…200, related-rates time-step, 100! by two independent routes, n² + n + 41 primality sweep, Bertrand simulation (deterministic PRNG, seed 123456789, N = 100,000 per method).</p>
+<p><strong>Revision log.</strong> R0 (2026-10-28, session S02): page published. Fresh verification battery executed in-session; style audit against the presentation fingerprint passed; adversarial review passed (fresh verifier engine, independent constants, must-fail injection rows — verdict recorded in the session log). Honest run history: two defects were caught and corrected before install — a dA/dr rate mislabelled as dA/dt in the lab harness (caught by the pre-flight probe), and this page's first draft mis-stating the prime range of n² + n + 41 as n = 0…40 (the true verified range is n = 0…39; first composite n = 40, since 40² + 40 + 41 = 41²; caught in the pre-review self-check and corrected with a fresh sweep). The full run history is recorded with the lab. Published pages are never rewritten; future fixes will appear here as R1, R2, …</p>
+</section>
+
+<footer>
+<p><em>The Patterns Atlas</em> — P01 · Pin down the problem. <a href="index.html">Return to the index</a>. Next page in the spine: <a href="p02-small-cases.html">P02 · Experiment with small cases</a> (planned).</p>
+</footer>
+</body>
+</html>

@@ -30,3 +30,4 @@ figure { margin: 1.2rem 0; }
 figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
 figcaption { font-size: .85rem; color: var(--soft); }
 .graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); margin-top: 2rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); }
