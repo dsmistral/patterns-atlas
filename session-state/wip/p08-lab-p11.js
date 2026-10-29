@@ -1,6 +1,7 @@
 (function(R, page) {
-  var at=page.indexOf('Fig P08.1'),block=page.slice(at-4000,at+2000);
-  block=block.slice(block.lastIndexOf('<svg'),block.indexOf('</svg>')+6);
+  var at=page.indexOf('Fig P08.1');
+  var s0=page.lastIndexOf('<svg',at),s1=page.indexOf('</figure>',s0);
+  var block=page.slice(s0,s1);
   var circles=[];
   var re=/<circle cx="([\d.]+)" cy="([\d.]+)" r="([\d.]+)"/g,m;
   while((m=re.exec(block))!==null){circles.push([+m[1],+m[2],+m[3]]);}
