@@ -1,0 +1,31 @@
+<section id="name">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p08">
+<p><strong>Pattern P08 — Divide by symmetry.</strong> When the problem's objects come in symmetry-tied families and the question treats every member of a family identically: (1) name the moves that leave the <em>question</em> unchanged — those are the symmetries; (2) pick one <strong>representative</strong> per family and do the work on it, once; (3) cash out by the ledger — multiply the representative's answer by the family size, or divide the brute-force total by it. The family of clones one object generates under the symmetries is its <strong>orbit</strong>.</p>
+<p class="words">Or, in words: twins do twin work. When a rotation, a swap, or a flip hands you identical copies of the same case, do the case once and bill the copies — but keep honest books. The ledger — exactly how many copies a family holds — is the mathematical heart of the move, and it is a fact to prove, not a habit to assume. A division by a number you did not prove is a guess wearing a fraction bar.</p>
+</div>
+<div class="pattern-box" id="box-p08a">
+<p><strong>Box P08.A — the three demands, and what breaks when each fails.</strong></p>
+<ol>
+<li><strong>The move must leave the question unchanged — all of it.</strong> A rotation leaves "who neighbours whom" alone, so it is a symmetry of the seating question; but it moves "who sits nearest the door", so it is not a symmetry of <em>that</em> question. Test the move against every clause, not just the picture. <em>What breaks:</em> the phantom symmetry — block 5's second exhibit shows a swap that looks legal and quietly changes the constraint.</li>
+<li><strong>Every orbit's size must be known — and proved.</strong> Eight distinct people: every orbit has exactly eight members, proved by the no-rotation-fixes-it argument. But introduce repeated beads, or a solution like \((4,4)\) that is its own twin, and orbits shrink: sizes \(1\), \(2\), \(3\) occur, and the ledger must record them all. <em>What breaks:</em> the uneven-orbit division — a total divided by a clone-count that only some families have; block 5's first and third exhibits are both this failure, in different clothes.</li>
+<li><strong>The representative must carry only what its clones carry.</strong> Work on a representative, and every property you use must be shared by the whole orbit — otherwise you proved something about your <em>choice</em>, not about the family. "Assume \(a \le b\)" is fine when the question ignores the order; it is not fine when the question asks about \(a - b\). <em>What breaks:</em> the over-privileged representative — an accident of your choice enters the proof as if it were a property of the family.</li>
+</ol>
+</div>
+<div class="pattern-box" id="box-p08b">
+<p><strong>Box P08.B — the working catalogue of school symmetries.</strong></p>
+<table>
+<thead><tr><th>The move</th><th>The families it ties</th><th>Where in this book</th></tr></thead>
+<tbody>
+<tr><td>rotation (by \(k\) chairs)</td><td>circular seatings; cyclic arrangements</td><td>this page's encounter and Exercise 1</td></tr>
+<tr><td>swap (two variables, two coordinates)</td><td>ordered pairs \((a,b) \leftrightarrow (b,a)\); symmetric systems</td><td>Examples 1 and 2; every symmetric expression \(s = x+y\), \(p = xy\)</td></tr>
+<tr><td>reflection (across a line)</td><td>mirror figures; the two legs of <a href="p07-auxiliary-construction.html">P07</a>'s river problem</td><td>Example 2's swap axis; the twin points \((3,4)\) and \((4,3)\)</td></tr>
+<tr><td>flip of the whole picture (turn over)</td><td>necklaces read clockwise or counter-clockwise</td><td>Exercise 5's census</td></tr>
+<tr><td>reversal of a list</td><td>Gauss's row added to its own reversed copy</td><td><a href="p07-auxiliary-construction.html">P07</a>'s Exercise 5 — the auxiliary copy, seen from here</td></tr>
+<tr><td>side-swap of a rectangle</td><td>\(a \leftrightarrow 20-a\): the same rectangle, turned a quarter-turn</td><td>Example 3's smoothing argument</td></tr>
+</tbody>
+</table>
+<p><strong>Three-key diagnosis.</strong> The claim type: a count, a computation, or a proof where brute force <em>works</em> but visibly pays for the same thing several times. The problem shape: the statement is unchanged under a move you can point at — rotating the table, swapping the names, flipping the figure — while the brute-force answer is not. The tools at hand: P02's small cases, which expose orbit sizes before you commit to any ledger (the \(n = 3\) table caught the division instantly), plus P01's pinning, which tells you exactly what the question does and does not ignore.</p>
+</div>
+<p><strong>When does P08 apply?</strong> Not every problem is symmetric, and dividing where no symmetry exists is worse than counting twice. The honest trigger: you can name a concrete move, you have checked the question against it clause by clause, and the small cases show the clones arriving in steady families. When all three hold, stop paying retail. One more habit belongs to the trigger: before trusting any division, run it on a case small enough to count by hand — a division that yields a non-integer or contradicts a hand count is the move itself telling you the ledger is wrong (block 5 makes this a worked exhibit).</p>
+</section>
