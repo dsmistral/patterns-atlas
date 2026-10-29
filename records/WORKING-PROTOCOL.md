@@ -62,13 +62,15 @@ same session it is found.
   pushed in the session log (or the session-state file mid-session).
 - **Gate 2 — fetch-back.** After the push, re-fetch each pushed file from the repo
   and confirm the expected markers. A push is never "done" until fetch-back passes.
-- **Staged pushes (owner directive, S20 2026-10-29, binding).** Author large
-  artifacts (pages, labs, recorded outputs) part-wise, and push each verified part
-  to the repo staging area (suggested path `session-state/wip/`) as soon as it is
-  verified — never hold a session's verified work only in volatile scratch (an S20
-  environment reset destroyed a completed, machine-verified P06 authoring before
-  any push). Staging is a durability measure, not a publication: final placement,
-  all gates and receipts are unchanged.
+- **Staged parts (owner directive, S20 2026-10-29, binding; two tiers).** Author
+  large artifacts (pages, labs, recorded outputs) part-wise; stage each verified
+  part in BOTH durable locations — the authoring environment's knowledge-topic
+  wip/ work area (survives scratch wipes; it outlived the S20 reset) and the repo
+  staging area (suggested path `session-state/wip/`, pushed as soon as the part
+  is verified) — never hold a session's verified work only in volatile scratch
+  (an S20 environment reset destroyed a completed, machine-verified P06
+  authoring before any push). Staging is a durability measure, not a publication:
+  final placement, all gates and receipts are unchanged.
 
 ## Standing content rules
 
