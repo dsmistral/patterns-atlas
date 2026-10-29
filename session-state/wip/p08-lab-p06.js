@@ -13,14 +13,14 @@
   for(;;){
     var s='';for(var q=0;q<6;q++)s+=L[p[q]];
     if(all.indexOf(s)<0)all.push(s);
-    var i2=5;while(i2>=0&&p[i2]>=p[i2+1])i2--;
+    var i2=4;while(i2>=0&&p[i2]>=p[i2+1])i2--;
     if(i2<0)break;
     var j2=5;while(p[j2]<=p[i2])j2--;
     var t=p[i2];p[i2]=p[j2];p[j2]=t;
     var l=i2+1,r2=5;while(l<r2){var t2=p[l];p[l]=p[r2];p[r2]=t2;l++;r2--;}
   }
   var cens={};
-  for(var w=0;w<all.length;w++){var s2=all[w];if(seenU[s2])continue;var o=[];for(var k=0;k<6;k++){o.push(rot(s2,k));}for(var z=0;z<o.length;z++)seenU[o[z]]=1;var sz=o.length;cens[sz]=(cens[sz]||0)+1;uniq.push(s2);}
+  for(var w=0;w<all.length;w++){var s2=all[w];if(seenU[s2])continue;var o=[];for(var k=0;k<6;k++){var mk=rot(s2,k);if(o.indexOf(mk)<0)o.push(mk);}for(var z=0;z<o.length;z++)seenU[o[z]]=1;var sz=o.length;cens[sz]=(cens[sz]||0)+1;uniq.push(s2);}
   R.push({id:'p06.6',d:'3R3B: 20 linear arrangements',ok:all.length===20});
   R.push({id:'p06.7',d:'3R3B: 4 necklaces, census {2:1, 6:3}',ok:uniq.length===4&&cens['2']===1&&cens['6']===3&&2*1+6*3===20});
   R.push({id:'p06.8',d:'RBRBRB comes home after 2 rotations (orbit size 2)',ok:orbitSize('RBRBRB')===2});
