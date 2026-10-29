@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B03 · The Euclidean algorithm · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B03 · bridge page, group A · before <a href="p13-descent.html">P13</a></p>
+<h1>The Euclidean algorithm</h1>
+<p class="tagline">To find the largest number dividing two others, keep dividing the bigger by the smaller and keep only the leftovers — the leftovers shrink until the answer is all that remains.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern, and it directly extends <a href="b01-remainders.html">B01</a> (the division algorithm) and <a href="b02-congruence-classes.html">B02</a> (congruence classes). B02 ended with two honest debts. Its scope box promised that the precise condition for dividing a congruence "involves the greatest common divisor" — a tool school never builds. And its Exercise 4 conjectured, without proof, that the invertible classes mod \(n\) are exactly the numbers sharing no factor with \(n\) beyond 1. Both debts route through one missing machine: a fast, factoring-free way to find <em>greatest common divisors</em>. Take a pencil and, in spirit, some scissors; you will cut paper before you read.</aside>
+
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p><strong>Task one.</strong> Take a rectangle 1071 units wide and 462 units tall. Cut off the biggest squares you can — as many \(462 \times 462\) squares as fit — then from what remains, again the biggest squares you can, and keep going until nothing is left. How big is the last square you cut?</p>
+<p>Do it. Two \(462 \times 462\) squares come off first (using \(2 \times 462 = 924\) of the 1071 width), leaving a strip 147 wide by 462 tall. Three \(147 \times 147\) squares come off that strip (using \(3 \times 147 = 441\) of its 462 height), leaving a corner 147 by 21. And \(147 = 7 \times 21\), so seven \(21 \times 21\) squares finish the rectangle exactly — nothing left over. The last square is <strong>21 units</strong> wide, and that number deserves a second look: 21 divides both sides of the original rectangle (\(1071 = 51 \times 21\) and \(462 = 22 \times 21\)), and — as this page will prove — no larger number does.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" role="img" aria-label="Fig B03.1 — the 1071 by 462 rectangle cut into two 462 squares, three 147 squares and seven 21 squares">
+<rect x="18" y="16" width="321.3" height="138.6" fill="none" stroke="#555f6e" stroke-width="1.5"/>
+<rect x="18" y="16" width="138.6" height="138.6" fill="#dbe7f5" stroke="#3574d4" stroke-width="1.2"/>
+<rect x="156.6" y="16" width="138.6" height="138.6" fill="#dbe7f5" stroke="#3574d4" stroke-width="1.2"/>
+<rect x="295.2" y="16" width="44.1" height="44.1" fill="#eef3fa" stroke="#3574d4" stroke-width="1.2"/>
+<rect x="295.2" y="60.1" width="44.1" height="44.1" fill="#eef3fa" stroke="#3574d4" stroke-width="1.2"/>
+<rect x="295.2" y="104.2" width="44.1" height="44.1" fill="#eef3fa" stroke="#3574d4" stroke-width="1.2"/>
+<rect x="295.2" y="148.3" width="6.3" height="6.3" fill="#eef3fa" stroke="#3574d4" stroke-width="0.8"/>
+<rect x="301.5" y="148.3" width="6.3" height="6.3" fill="#eef3fa" stroke="#3574d4" stroke-width="0.8"/>
+<rect x="307.8" y="148.3" width="6.3" height="6.3" fill="#eef3fa" stroke="#3574d4" stroke-width="0.8"/>
+<rect x="314.1" y="148.3" width="6.3" height="6.3" fill="#eef3fa" stroke="#3574d4" stroke-width="0.8"/>
+<rect x="320.4" y="148.3" width="6.3" height="6.3" fill="#eef3fa" stroke="#3574d4" stroke-width="0.8"/>
+<rect x="326.7" y="148.3" width="6.3" height="6.3" fill="#eef3fa" stroke="#3574d4" stroke-width="0.8"/>
+<rect x="333" y="148.3" width="6.3" height="6.3" fill="#eef3fa" stroke="#3574d4" stroke-width="0.8"/>
+<text x="87.3" y="88.1" font-size="13" text-anchor="middle" fill="#3a4a5e" font-weight="700">462</text>
+<text x="225.9" y="88.1" font-size="13" text-anchor="middle" fill="#3a4a5e" font-weight="700">462</text>
+<text x="317.25" y="41.05" font-size="11" text-anchor="middle" fill="#3a4a5e">147</text>
+<text x="317.25" y="85.15" font-size="11" text-anchor="middle" fill="#3a4a5e">147</text>
+<text x="317.25" y="129.25" font-size="11" text-anchor="middle" fill="#3a4a5e">147</text>
+<text x="170" y="172" font-size="11.5" text-anchor="middle" fill="#555f6e">2 squares of 462, 3 of 147, 7 of 21 — and the rectangle is gone</text>
+</svg>
+<figcaption><strong>Fig B03.1.</strong> Task one, drawn: the \(1071 \times 462\) rectangle cut into two \(462 \times 462\) squares, then three \(147 \times 147\), then seven \(21 \times 21\), with nothing left over. Every coordinate machine-verified in this page's lab. The square counts 2, 3, 7 are about to reappear as the quotients of a division dance, and the last square's size — 21 — is the number the whole page hunts down.</figcaption>
+</figure>
+<p><strong>Task two.</strong> In <a href="b02-congruence-classes.html">B02</a>'s Exercise 4 you censused the invertible classes: mod 10 they are \(\{1, 3, 7, 9\}\), and the conjecture was that invertibility means sharing no factor with the modulus beyond 1. Checking that for a small modulus is easy. But now try a big one: do 1491 and 2026 share a factor? The obvious route is factoring — and factoring by trial division means testing candidate divisors one by one up to the square root: for 2026 that is every candidate up to 45 (since \(45^2 = 2025 < 2026\)), for 1491 up to 38 (since \(38^2 = 1444 < 1491 < 39^2 = 1521\)). There is a faster road, and you have already walked it: cut squares, or rather strips. A \(2026 \times 2026\) square leaves a strip 535 wide against 1491 (\(2026 - 1491 = 535\)); two \(535 \times 535\) squares leave a strip 421 wide (\(1491 - 2 \times 535 = 421\)); then the strip widths fall: \(114, 79, 35, 9, 8\), and finally <strong>1</strong>. A strip of width 1 measures everything — and nothing bigger survived all the cuts, so 1491 and 2026 share no factor beyond 1. Nine cuts decided it. No factoring anywhere.</p>
+<p>Notice what the two tasks share. At every step, the question "what divides both?" was handed from a pair of numbers down to a <em>smaller</em> pair, with the answer unchanged, until it stood alone at the bottom. That hand-me-down is the entire algorithm — one of the oldest in mathematics, and still the workhorse it was twenty-three centuries ago. We now name it.</p>
+</section>
