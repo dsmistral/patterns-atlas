@@ -1,0 +1,41 @@
+
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Three workings, simplest first, each carried to the end. Under all of them runs Box B04.</p>
+<h3>(a) 25 and 11 — the climb, in the small</h3>
+<p>The dance (B03): \(25 = 2 \times 11 + 3\), then \(11 = 3 \times 3 + 2\), then \(3 = 1 \times 2 + 1\), then \(2 = 2 \times 1 + 0\). Last nonzero leftover: 1. To climb, read the chain from the bottom and substitute each leftover away. The bottom division says \(1 = 3 - 1 \times 2\): true, but the 2 is not yet a combination. The division above it says \(2 = 11 - 3 \times 3\), so</p>
+<p class="eq">\[1 \;=\; 3 - (11 - 3 \times 3) \;=\; 4 \times 3 - 11.\]</p>
+<p>Still a leftover on stage: the 3. The top division says \(3 = 25 - 2 \times 11\), so</p>
+<p class="eq">\[1 \;=\; 4 \times (25 - 2 \times 11) - 11 \;=\; 4 \times 25 - 9 \times 11.\]</p>
+<p>Task one's hunt, produced by three substitutions instead of luck. Check it: \(100 - 99 = 1\).</p>
+<h3>(b) 2026 and 1491 — the certificate of 1321</h3>
+<p>The same climb, seven rungs instead of two. The dance, from B03's section 3(c):</p>
+<p class="eq">\[2026 = 1 \times 1491 + 535, \;\; 1491 = 2 \times 535 + 421, \;\; 535 = 1 \times 421 + 114, \;\; 421 = 3 \times 114 + 79,\]</p>
+<p class="eq">\[114 = 1 \times 79 + 35, \;\; 79 = 2 \times 35 + 9, \;\; 35 = 3 \times 9 + 8, \;\; 9 = 1 \times 8 + 1, \;\; 8 = 8 \times 1 + 0.\]</p>
+<p>Now climb from the bottom, substituting one division per line — and check every line by pencil: on each of them, the two products differ by exactly 1.</p>
+<p class="eq">\[1 = 9 - 1 \times 8\]</p>
+<p class="eq">\[1 = 9 - (35 - 3 \times 9) = 4 \times 9 - 35\]</p>
+<p class="eq">\[1 = 4 \times (79 - 2 \times 35) - 35 = 4 \times 79 - 9 \times 35\]</p>
+<p class="eq">\[1 = 4 \times 79 - 9 \times (114 - 79) = 13 \times 79 - 9 \times 114\]</p>
+<p class="eq">\[1 = 13 \times (421 - 3 \times 114) - 9 \times 114 = 13 \times 421 - 48 \times 114\]</p>
+<p class="eq">\[1 = 13 \times 421 - 48 \times (535 - 421) = 61 \times 421 - 48 \times 535\]</p>
+<p class="eq">\[1 = 61 \times (1491 - 2 \times 535) - 48 \times 535 = 61 \times 1491 - 170 \times 535\]</p>
+<p class="eq">\[1 = 61 \times 1491 - 170 \times (2026 - 1491) = 231 \times 1491 - 170 \times 2026\]</p>
+<p>Eight lines, and the last one is the identity: \(231 \times 1491 - 170 \times 2026 = 344{,}421 - 344{,}420 = 1\). Fig B04.2 compresses the whole climb into one view.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 208" role="img" aria-label="Fig B04.2 — the leftovers of the 2026 and 1491 dance, each rewritten as a combination x times 2026 plus y times 1491">
+<text x="170" y="16" font-size="10.5" text-anchor="middle" fill="#555f6e">each leftover of the (2026, 1491) dance, carrying its certificate</text>
+<text x="170" y="36" font-size="11.5" text-anchor="middle" fill="#3a4a5e">535 = 1 × 2026 − 1 × 1491</text>
+<text x="170" y="55" font-size="11.5" text-anchor="middle" fill="#3a4a5e">421 = −2 × 2026 + 3 × 1491</text>
+<text x="170" y="74" font-size="11.5" text-anchor="middle" fill="#3a4a5e">114 = 3 × 2026 − 4 × 1491</text>
+<text x="170" y="93" font-size="11.5" text-anchor="middle" fill="#3a4a5e">79 = −11 × 2026 + 15 × 1491</text>
+<text x="170" y="112" font-size="11.5" text-anchor="middle" fill="#3a4a5e">35 = 14 × 2026 − 19 × 1491</text>
+<text x="170" y="131" font-size="11.5" text-anchor="middle" fill="#3a4a5e">9 = −39 × 2026 + 53 × 1491</text>
+<text x="170" y="150" font-size="11.5" text-anchor="middle" fill="#3a4a5e">8 = 131 × 2026 − 178 × 1491</text>
+<rect x="12" y="155" width="316" height="19" fill="#dbe7f5"/>
+<text x="170" y="169" font-size="11.5" text-anchor="middle" fill="#3a4a5e" font-weight="700">1 = −170 × 2026 + 231 × 1491</text>
+<text x="170" y="192" font-size="11.5" text-anchor="middle" fill="#3574d4" font-weight="700">−170 + 1491 = 1321 — the brute-forced inverse, produced</text>
+</svg>
+<figcaption><strong>Fig B04.2.</strong> The climb, compressed: each leftover of the (2026, 1491) dance with its certificate, its expression as \(x \times 2026 + y \times 1491\). Read downward, each certificate is built from the divisions as the leftovers were — only backwards; the coefficients grow while the leftovers shrink, and the bottom row is the identity itself. Reduce \(-170\) into the census range mod 1491 and 1321 appears: B02's scan-witness, produced instead of hunted.</figcaption>
+</figure>
+<p>Two readings of the last line. As an equation over the whole numbers: \(231 \times 1491 - 170 \times 2026 = 1\). Reduced mod 1491: the term \(231 \times 1491\) vanishes, leaving \(-170 \times 2026 \equiv 1 \pmod{1491}\) — the class of \(-170\) is the inverse of the class of 2026. Dress it in census range \(0\) to \(1490\): \(-170 + 1491 = 1321\). And B03's brute-force witness falls out of the same line: \(2026 \times 1321 = 2026 \times (1491 - 170) = 2026 \times 1491 - 170 \times 2026 = (2026 - 231) \times 1491 + 1 = 1795 \times 1491 + 1\). The equation the scan found by testing classes — now with its reason attached.</p>
