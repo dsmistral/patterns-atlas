@@ -4,8 +4,8 @@ Unit: author + publish P08 (`book/p08-symmetry.html`) — divide by symmetry, th
 
 State (crash-resume map):
 - [x] Session open: sync verified at open (records 198,866 B, blob 270059f32ac67946bb97fd37a1dc80696943889f, local == repo byte-identical); S38 row IN PROGRESS.
-- [ ] Page authored part-wise (topic wip/ + repo session-state/wip/, staged as verified).
-- [ ] Fresh battery: p08-lab.js (pieces ~<=4 KB, no recursion, no BigInt) + recorded output, 0 FAIL.
+- [x] Page authored part-wise: parts 01-07 complete, assembled p08-symmetry.html 41,947 B (md5 2c86325f76c007def00e80225d401833); design-phase verification pass 44/45 (the one red was a wrong design expectation, not a page defect); cross-page pins verified against P07's actual page (river reflection, Exercise 5 auxiliary copy); all 15 href targets canonical in the index; two user retries survived with nothing lost (parts 01-04 staged immediately after the first, per protocol).
+- [~] Battery dispatch IN FLIGHT (multiple platform retries + error 6100 mid-session; every completed artifact staged before each pause, nothing lost). Clean so far: probe p00 4/4; batch p01-p04 34 checks 0 FAIL. Remaining dispatch: p05-p14, then the recorded output from one clean final run of all 15 pieces. RESUME HERE: dispatch pieces from repo session-state/wip/p08-lab-p*.js against the staged page (byte-identical to wip/p08-symmetry.html, md5 2c86325f76c007def00e80225d401833, 41,947 B).
 - [ ] Fresh adversarial verifier (zero shared code) + must-fail injections refuted.
 - [ ] Style audit 13/13 vs the McFee fingerprint.
 - [ ] Index flip: P08 row planned -> published (index 26,856 B, blob ec5d376ce2019977fad0e09015f8d34de6efad1d as base).
