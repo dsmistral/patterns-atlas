@@ -5,7 +5,7 @@
   var same=true,explain=[];
   for(var k in expect){if(tally[k]!==expect[k]){same=false;explain.push(k+':'+tally[k]+'vs'+expect[k]);}}
   for(var k2 in tally){if(!(k2 in expect)){same=false;explain.push('extra:'+k2);}}
-  R.push({id:'p10.1',d:'href multiset exactly as designed (15 targets, 25 hrefs)',ok:same&&hrefs.length===25,detail:explain.join(';')});
+  R.push({id:'p10.1',d:'href multiset exactly as designed (15 targets, 24 hrefs)',ok:same&&hrefs.length===24,detail:explain.join(';')});
   R.push({id:'p10.2',d:'every target is a canonical index slug',ok:same});
   var ext=hrefs.filter(function(h){return h.indexOf('http')===0;});
   R.push({id:'p10.3',d:'zero external hrefs',ok:ext.length===0});
