@@ -1,0 +1,31 @@
+<section id="name">
+<h2>3 · Name the move</h2>
+<p>What the meadow taught, stated once and for all.</p>
+<div class="pattern-box" id="box-p09">
+<p><strong>Pattern P09 — Find the invariant.</strong> When a problem hands you a process — a set of allowed moves carrying states to states — and asks whether some target can be reached, do not attack the target. Hunt the quantity the process <em>cannot change</em>: (1) define a quantity on the states; (2) prove that <em>every</em> allowed move preserves it exactly; (3) compute it at the start and at the target. If it disagrees, the target is unreachable — by any sequence of moves, of any length, ever. If it agrees, nothing follows: the invariant is a necessary condition, never a sufficient one. The same move, pointed the other way, pins values down: when the process must end in a single state and the invariant fixes a value there, that value is the answer, on every route at once.</p>
+<p class="words">Or, in words: before asking what a process can do, find what it cannot undo. A quantity that survives every move untouched is a wall: states on opposite sides of the wall never meet, and no amount of cleverness tunnels through arithmetic. But the wall only separates — landing on the same side as your target guarantees nothing, and the move is honest about that asymmetry: one disagreement closes the case forever; any number of agreements prove nothing at all.</p>
+</div>
+<div class="pattern-box" id="box-p09a">
+<p><strong>Box P09.A — the three demands, and what breaks when each fails.</strong></p>
+<ol>
+<li><strong>The quantity must be defined on states, and computable at both ends.</strong> "The class of \(R - G \pmod{3}\)" is computed from any meadow snapshot in one subtraction, and every single-colour target carries one too. <em>What breaks:</em> the vague quantity — a feeling that "the colours stay balanced" is not a quantity; if you cannot compute it on a napkin for any state you might reach, it cannot separate anything.</li>
+<li><strong>Preservation must hold for every move — proved, not sampled.</strong> Three meeting types, three checks of \(R - G\): changes of \(0\), \(-3\), \(+3\). All three, or nothing. A quantity preserved by <em>most</em> moves is preserved by nothing, because the walk is free to use the move you did not check. <em>What breaks:</em> the phantom invariant — block 5's first exhibit survives one of the three meetings and dies on the other two.</li>
+<li><strong>The quantity must separate start from target.</strong> The meadow's total \(45\) is perfectly conserved — and perfectly useless, because every target also totals \(45\). An invariant earns its keep only by disagreeing. <em>What breaks:</em> the true-but-useless invariant, block 5's second exhibit.</li>
+</ol>
+</div>
+<div class="pattern-box" id="box-p09b">
+<p><strong>Box P09.B — the working catalogue of school invariants, with the three-key diagnosis.</strong></p>
+<table>
+<thead><tr><th>Invariant</th><th>What it fixes</th><th>Where it bites</th></tr></thead>
+<tbody>
+<tr><td>parity</td><td>a count's odd/even</td><td>pairing and handshake questions; every move that changes counts by \(2\)</td></tr>
+<tr><td>colour census</td><td>the two colour totals of a grid</td><td>tiling by pieces that always cover one square of each colour</td></tr>
+<tr><td>digit sum mod \(9\)</td><td>the class of a number mod \(9\)</td><td>arithmetic checks; anything built from powers of \(10\)</td></tr>
+<tr><td>the running total</td><td>the sum of everything on the board</td><td>moves that trade rather than create — replacing \(a, b\) by relatives</td></tr>
+<tr><td>the product in disguise</td><td>\(\prod (x_i + 1)\) over the board</td><td>the merge move \(a, b \to a + b + ab\); Example 1</td></tr>
+<tr><td>gcd divisibility</td><td>multiples of the capacities' \(\gcd\)</td><td>pouring between jugs; Exercise 3</td></tr>
+</tbody>
+</table>
+<p><strong>The three-key diagnosis</strong> — when to reach for this move. <em>Claim type:</em> an impossibility ("can never"), a forced value ("must always"). <em>Problem shape:</em> a process — meetings, replacements, transformations — rather than a one-shot computation; the target sits at the end of a long walk whose individual steps are easy. <em>Tools at hand:</em> the move's arithmetic is visible enough to test candidate quantities against, a few at a time. If the claim is "compute this number" with no process in sight, this is not your page; if the claim is "no walk reaches there," it is almost nobody's page but this one.</p>
+</div>
+</section>
