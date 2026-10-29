@@ -1,0 +1,206 @@
+p07-lab-output.txt — Patterns Atlas P07 recorded lab output (session S22, 2026-10-29)
+
+Artifacts (all assembled from staged parts, then re-dispatched fresh to confirm):
+  Page under test: book/p07-auxiliary-construction.html — 52,031 chars / 52,433 bytes,
+    assembled from 8 staged parts (session-state/wip/p07-part01..08.html),
+    md5 65fd093e1faef060a0ce3e6a87eb986f.
+  Battery: book/labs/p07-lab.js — 19,825 bytes, assembled from 6 staged parts,
+    md5 7707c3455d2001fbc58e8da65538d9c1. Fresh engine: zero code shared with any
+    earlier chapter's lab.
+  Adversarial verifier: book/labs/p07-review-verifier.js — 10,033 bytes, assembled
+    from 3 staged parts, md5 4001d557d4fe9b48acf3a6e92792ee64. Fresh engine: zero
+    code shared with the battery or with any earlier verifier.
+The dispatch below was recorded from a fresh process executing the assembled
+engines against the assembled page bytes.
+
+=== recorded final dispatch — p07-lab.js, all 13 pieces (p00–p12) ===
+=== p07-lab — pieces: p00, p01, p02, p03, p04, p05, p06, p07, p08, p09, p10, p11, p12 ===
+--- piece p00 ---
+[ok] p00 smoke: integer arithmetic sane
+[ok] p00 smoke: sqrt round-trip within 1e-15
+[ok] p00 smoke: page bytes present (52031 chars)
+--- piece p01 ---
+[ok] p01 river grid min at x = 4.000 (claimed 4.000; 6001 points, 0.001 steps)
+[ok] p01 f(4) = 4√2 + 2√2 = 6√2 = 8.4852813742386
+[ok] p01 |AB'| = √72 = 6√2: the shortest walk equals the build's straight line
+[ok] p01 the straight line A→B' crosses the bank at (4, 0) exactly (t = 2/3)
+[ok] p01 the x = 1 candidate = 10.5262298631 km loses (page: 10.5262)
+[ok] p01 the x = 3 candidate = 8.6055512755 km loses (page: 8.6056)
+[ok] p01 both legs meet the bank at 45°: the equal-angles law of reflection
+[ok] p01 the x = 1 guess loses by over 2 km; the x = 3 guess by 0.1203 km — a near miss, honestly recorded
+--- piece p02 ---
+[ok] p02 angle sum = π over 100 deterministic triangles, worst error 8.882e-16 (page: under 1e-15)
+[ok] p02 the auxiliary parallel's alternate angles match the base angles over the same grid, worst gap 4.996e-16
+--- piece p03 ---
+[ok] p03 median grid: 1089 integer right triangles (legs 1..33), |CM| = |AB|/2, 0 mismatches (worst rel err 0)
+[ok] p03 circle route: 625 triangles (legs 1..25), |MA| = |MB| = |MC| = R, 0 mismatches
+[ok] p03 the 6-8-10 witness: M = (3,4), |CM| = 5 = |AB|/2 exactly
+[ok] p03 the 5-12-13 witness: median 6.5 exactly
+[ok] p03 the 8-15-17 witness: median 8.5 exactly
+[ok] p03 the rectangle recipe: adjacent edges of A-C-B-C' perpendicular at all four corners (dots 0, 0, 0, 0)
+[ok] p03 the build's cash-out: |CC'| = |AB| = 10, so |CM| = 5 by bisection
+[ok] p03 M = (3,4) is the midpoint of both diagonals (the bisect property, exact)
+--- piece p04 ---
+[ok] p04 identity worst error 1.7764e-15 over 721 angles (page: 1.776 × 10⁻¹⁵)
+[ok] p04 grid max 4.999987109645316 within 1.289e-5 of 5 (page: 1.3 × 10⁻⁵), peaked near 37.0°
+[ok] p04 exact peak 5 at θ = arctan(3/4) = 36.8698976° (page: 36.8698976°)
+[ok] p04 sin φ = 4/5, cos φ = 3/5 (exact fractions)
+[ok] p04 φ = 53.1301024° (page: 53.1301024°)
+[ok] p04 the phantom trap 7 never approached: grid max < 5.0000001 (gap 7 − 5 = 2 exact)
+--- piece p05 ---
+[ok] p05 R = √(25 + 144) = 13 exactly
+[ok] p05 identity worst error 5.3291e-15 over 721 angles (steeper wave than (3,4); threshold 1e-14)
+[ok] p05 grid max 12.9999715520 within 2.845e-5 of 13 (half-degree grid brackets the peak)
+[ok] p05 sin φ = 12/13, cos φ = 5/13 (exact fractions)
+[ok] p05 φ = 67.3801351° (page: 67.3801351°)
+[ok] p05 peak at θ = 22.6198649° (page: 22.6198649°)
+[ok] p05 exact peak 13 at the computed θ
+[ok] p05 the trap gap 17 − 13 = 4 exact
+--- piece p06 ---
+[ok] p06 recurrence route: p = 2, 3, 7, 18, 47, 123 (integers all the way)
+[ok] p06 binomial route: 3⁵ = 243 = p5 + 5·18 + 10·3 → p5 = 123 exactly
+[ok] p06 radical route: ((3+√5)/2)⁵ + ((3−√5)/2)⁵ = 123.0000000000 (float check)
+[ok] p06 the golden reveal: x = φ² exactly (φ² ≈ 2.6180340)
+[ok] p06 Lucas route: L10 = F9 + F11 = 34 + 89 = 123 (the trace of P06's Q¹⁰)
+[ok] p06 the machine's given: φ² + φ⁻² = 3
+--- piece p07 ---
+[ok] p07 recurrence route: p = 2, 4, 14, 52, 194, 724
+[ok] p07 binomial route: 4⁵ = 1024 = p5 + 5·52 + 10·4 → p5 = 724 exactly
+[ok] p07 exact integer radical route: (2+√3)⁵ = 362 + 209√3 (no floats)
+[ok] p07 conjugate sum: 2·362 = 724 — three routes agree exactly
+[ok] p07 float cross-check of the radical route: 724.0000000000
+--- piece p08 ---
+[ok] p08 staircase: Σk = n(n+1)/2 and the two-copy assembly 2Σk = n(n+1), exact for all n ≤ 200
+[ok] p08 the squares build fails: two square staircases fill no n×(n+1) rectangle for any 2 ≤ n ≤ 50 (0 accidental fits)
+[ok] p08 the honest closed form Σk² = n(n+1)(2n+1)/6 verified as a detector for all n ≤ 200 (certificate deferred to P66)
+--- piece p09 ---
+[ok] p09 the river bisects BB': midpoint (6, 0) on the bank exactly
+[ok] p09 BB' is perpendicular to the bank (vertical against horizontal)
+[ok] p09 mirror-twin legs: |(x,0)→B| = |(x,0)→B'| over the 13-point grid, 0 mismatches
+[ok] p09 triangle inequality: no broken path A→bank→B' beats the straight line |AB'| = 6√2 (0 violations)
+[ok] p09 equality only at x = 4 (x = 3.9 already loses by 1.310e-3)
+--- piece p10 ---
+[ok] p10 all cited values appear on the page verbatim (19 claims)
+[ok] p10 zero dollar-dollar delimiters on the page
+[ok] p10 pid spans: 3 (one per exemplar)
+[ok] p10 eq paragraphs: 7 display blocks
+[ok] p10 figcaptions: 3
+[ok] p10 the two power-sum answers appear (123, 724)
+--- piece p11 ---
+[ok] p11 three inline SVGs found (split count 4)
+[ok] p11 Fig P07.1 viewBox 320×240
+[ok] p11 Fig1 the river at y = 150
+[ok] p11 Fig1 dots A(80,60), B(215,105), B'(215,195), P(170,150)
+[ok] p11 Fig1 the bank bisects BB' (midpoint (215,150) on the river line)
+[ok] p11 Fig1 P lies on the straight line A→B' (t = 2/3, y hits 150 exactly)
+[ok] p11 Fig1 leg ratio |AP|:|PB| = 2:1 (4√2 km vs 2√2 km)
+[ok] p11 Fig1 scale: |AP| px / 22.5 = 4√2 km exactly
+[ok] p11 Fig P07.2 viewBox 340×240
+[ok] p11 Fig2 the amplitude circle: centre (140,130), r = 90 (5 units at 18 px/unit)
+[ok] p11 Fig2 the point P = (3,4) at (194,58)
+[ok] p11 Fig2 |OP| = 90 px exactly (= 5 units)
+[ok] p11 Fig2 legs 54 px and 72 px (3 and 4 units)
+[ok] p11 Fig2 the φ-arc endpoints both at radius 34 px from O
+[ok] p11 Fig2 the arc sweeps φ = 53.1301°
+[ok] p11 Fig P07.3 viewBox 470×228
+[ok] p11 Fig3(ii) the rectangle 96×128 px (6 and 8 units at 16 px/unit)
+[ok] p11 Fig3(i) M at (110,126)
+[ok] p11 Fig3 triangle legs 96, 128 px → hypotenuse 160 px (10 units)
+[ok] p11 Fig3(i) M is the exact midpoint of the hypotenuse A(158,190)–B(62,62)
+[ok] p11 Fig3(ii) the diagonals cross at (340,126) — both midpoints agree
+[ok] p11 Fig3(ii) the median |CM| = 80 px = 5 units exactly (half the 160-px diagonal)
+--- piece p12 ---
+[ok] p12 the MathJax config block is byte-exact (120 B)
+[ok] p12 nine section h2s
+[ok] p12 three svg/figure/figcaption
+[ok] p12 details/summary 7/7 (2+2+2+1: hints and answers, the ◆ exercise answer-only)
+[ok] p12 p open/close balance 61/61 (bare and classed paragraphs both counted)
+[ok] p12 inline TeX balance 324/324
+[ok] p12 display TeX balance 8/8 (7 content + 1 config)
+[ok] p12 zero dollar-dollar delimiters (indexOf check)
+[ok] p12 title exact
+[ok] p12 kicker exact
+[ok] p12 all hrefs canonical (32 total, 17 whitelisted)
+[ok] p12 footer nav exact
+VERDICT: 94 checks, 0 FAIL
+
+=== honest run history (battery) ===
+dispatch 1 (pieces p00–p09, run against the staged page parts 1–7): 54 checks,
+  3 FAIL — all three defects were in the LAB, not in the page. p03's
+  rectangle-recipe check computed its second dot product at the wrong vertex
+  (used C−B where B−C was meant); p05's identity threshold (2e-15) was tighter
+  than the steeper (5,12) wave's actual float error (5.33e-15); p05's grid-max
+  threshold (1.5e-5) was tighter than the half-degree grid's bracket of the peak
+  (2.845e-5). All three fixed in the lab; the page was not edited.
+dispatch 2 (same pieces, lab fixed): 54 checks, 0 FAIL.
+final-dispatch run 1 (all 13 pieces vs the assembled page): 94 checks, 3 FAIL —
+  all three were miscounted page-byte EXPECTATIONS in the lab, while the page
+  itself was correct and balanced throughout: p10 expected 6 eq paragraphs but
+  the page has 7; p12 expected display TeX 7 = 6 content + 1 config, but the
+  true count is 8 = 7 content + 1 config; p12's p-balance regex counted only
+  bare <p> tags, missing the 11 classed paragraphs (<p class=...>). All three
+  expectations corrected; the page was not edited.
+final-dispatch run 2 = the recorded dispatch above: 94 checks, 0 FAIL.
+post-assembly re-dispatch (fresh process, assembled engines vs assembled page):
+  94 checks, 0 FAIL — output identical to the recorded dispatch.
+
+=== recorded dispatch — p07-review-verifier.js ===
+=== p07-review-verifier — recorded dispatch ===
+pre-dispatch boolean audit: 12/12 rows consistent (pos true, neg false)
+PASS V01 — river touch point: recomputed grid minimum vs the page's cited (4, 0)
+   real page: upheld (independent 4001-point grid (0.0015 steps): min at x = 4.0005, f = 8.4852814074)
+   injection: caught as required (independent 4001-point grid (0.0015 steps): min at x = 4.0005, f = 8.4852814074)
+PASS V02 — shortest walk 6√2 vs the page's printed value
+   real page: upheld (√72 = 8.4852813742386 = 6√2, page prints 8.4853)
+   injection: caught as required (√72 = 8.4852813742386 = 6√2, page prints 8.4853)
+PASS V03 — median of the 6-8-10 witness: |CM| = 5 recomputed from coordinates
+   real page: upheld (M = (3,4): |CM| = √25 = 5 = |AB|/2)
+   injection: caught as required (M = (3,4): |CM| = √25 = 5 = |AB|/2)
+PASS V04 — the 5-12-13 circle-route witness: median 6.5 recomputed
+   real page: upheld (M = (2.5, 6): |CM| = 6.5 = 13/2)
+   injection: caught as required (M = (2.5, 6): |CM| = 6.5 = 13/2)
+PASS V05 — auxiliary-angle amplitude: R = 5 recomputed; the phantom 7 refuted
+   real page: upheld (361-point sweep max = 4.9999871096 < 5.0000001; √(9+16) = 5 exactly)
+   injection: caught as required (361-point sweep max = 4.9999871096 < 5.0000001; √(9+16) = 5 exactly)
+PASS V06 — the build's angle: φ = 53.1301024° recomputed to 7 decimals
+   real page: upheld (atan2(4, 3) = 53.1301023542°)
+   injection: caught as required (atan2(4, 3) = 53.1301023542°)
+PASS V07 — power sum p5 = 123 for x + 1/x = 3, by an independent binomial route
+   real page: upheld (3⁵ − 5·p3 − 10·p1 = 243 − 90 − 30 = 123)
+   injection: caught as required (3⁵ − 5·p3 − 10·p1 = 243 − 90 − 30 = 123)
+PASS V08 — power sum p5 = 724 for x + 1/x = 4, by the exact integer radical route
+   real page: upheld ((2+√3)⁵ = 362 + 209√3, conjugate sum = 724)
+   injection: caught as required ((2+√3)⁵ = 362 + 209√3, conjugate sum = 724)
+PASS V09 — staircase closed form: Σk = n(n+1)/2 re-verified on a fresh 60-case loop
+   real page: upheld (n = 60: Σ = 1830 = 60·61/2; 0 mismatches in 60 cases)
+   injection: caught as required (n = 60: Σ = 1830 = 60·61/2; 0 mismatches in 60 cases)
+PASS V10 — the MathJax config block: 120 bytes, byte-exact, at its shipped offset
+   real page: upheld (block found at offset 248, 120 B)
+   injection: caught as required (block found at offset -1, 120 B)
+PASS V11 — canonical hrefs: every link on the page against the 17-slug whitelist
+   real page: upheld (32 hrefs, 0 outside the whitelist)
+   injection: caught as required (32 hrefs, 1 outside the whitelist)
+PASS V12 — the equal-angles law: both river legs at 45°, recomputed and cross-checked against the figure text
+   real page: upheld (leg A→P: atan2(4,4) = 45°; leg P→B: atan2(2,2) = 45°)
+   injection: caught as required (leg A→P: atan2(4,4) = 45°; leg P→B: atan2(2,2) = 45°)
+PASS C1 — positive control: a fresh 2001-point river grid (0.003 steps) reproduces the page's numbers (min at x = 3.999, length 8.4852815068 = 6√2 within 1.4e-7 (grid discretization))
+PASS C2 — positive control: the MathJax block byte-exact at 120 B on the real page (offset 248, 120 B)
+VERDICT: 14 verdict lines — 14 PASS, 0 FAIL
+
+=== verifier run history ===
+run 1: ABORTED by the pre-dispatch boolean audit — two harness defects: V05's
+  page needle missed the page's <strong> wrapping of the maximum, and V06's
+  poison replaced only the first of the page's two occurrences of 53.1301024
+  (the second kept the row's stamp true on the doctored page). Fixed: needle
+  retargeted to the strong-tagged string; poison rewritten with split/join.
+run 2: the 12 registry rows all PASSed, but the controls loop printed id/desc
+  from the result object instead of from the control object, and positive
+  control C1's 1e-9 threshold was tighter than its own 0.003-step grid's
+  discretization error (1.4e-7). Two harness defects; fixed (controls read
+  from the control object; threshold 5e-7 with the discretization recorded in
+  the witness).
+run 3 = the recorded dispatch above: pre-dispatch audit 12/12 consistent;
+  12/12 must-fail injections caught with printed in-grid witnesses; 2/2
+  positive controls upheld; 14 verdict lines — 14 PASS, 0 FAIL.
+post-assembly re-dispatch (fresh process): 14 verdict lines — 14 PASS, 0 FAIL —
+  output identical to the recorded dispatch.
