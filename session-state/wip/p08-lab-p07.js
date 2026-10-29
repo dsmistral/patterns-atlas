@@ -7,7 +7,7 @@
     for(var v=0;v<total;v++){
       var s='';for(var b=0;b<n;b++)s+=(((v>>b)&1)===0)?'0':'1';
       if(seen[s])continue;
-      var o=[];for(var k=0;k<n;k++){o.push(rot(s,k));}
+      var o=[];for(var k=0;k<n;k++){var mk=rot(s,k);if(o.indexOf(mk)<0)o.push(mk);}
       for(var z=0;z<o.length;z++)seen[o[z]]=1;
       orbits.push(s);cens[o.length]=(cens[o.length]||0)+1;
     }
