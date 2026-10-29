@@ -22,7 +22,7 @@
 <ul>
 <li><strong>Yes, coprime:</strong> \(4 \times 25 - 9 \times 11 = 1\) — task one's hunt, again.</li>
 <li><strong>Yes, gcd above 1:</strong> \(7 \times 462 - 3 \times 1071 = 3{,}234 - 3{,}213 = 21 = \gcd(1071, 462)\) — B03's task-one pair, its 21 now with an address, not just a value. (Check both products.)</li>
-<li><strong>No, wrong target:</strong> no combination of 4 and 6 is odd: \(4x + 6y\) is even whatever \(x, y\) are. Box B04.A says so structurally — \(\gcd(4, 6) = 2\), so the reachable set is the even numbers, exactly. A sweep over all \(x, y\) from \(-40\) to \(40\) finds only evens, and every even number in range.</li>
+<li><strong>No, wrong target:</strong> no combination of 4 and 6 is odd: \(4x + 6y\) is even whatever \(x, y\) are. Box B04.A says so structurally — \(\gcd(4, 6) = 2\), so the reachable set is the even numbers, exactly. A sweep over all \(x, y\) from \(-40\) to \(40\) finds only evens, and every even number from \(-396\) to \(396\) turns up in it.</li>
 <li><strong>Yes, with zero:</strong> \(\gcd(a, 0) = a = a \times 1 + 0 \times 0\) — the identity holds at the edge: one stack, and nothing.</li>
 </ul>
 <p>The identity carries Étienne Bézout's name (1730–1783), from his 1779 treatise, which handled the general case and — more famously — the same statement for polynomials. But the coprime case was in print long before: Claude-Gaspard Bachet stated it in 1612, in the same book that carries the famous weights puzzle. Names in mathematics drift to the generalizers; the idea itself is as old as the dance it reverses. The claim that such \(x, y\) always exist — and the climb that finds them — is proved in section 4; nothing on this page rests on either name's authority.</p>
