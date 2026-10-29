@@ -24,13 +24,29 @@
 - **Math notation (universal rule, owner directive 2026-10-28):** all displayed equations and all substantive inline math are written in TeX — display `\[…\]`, inline `\(…\)`. Unicode symbols and `<sub>`/`<sup>` remain acceptable for single symbols in prose and inside table cells (keep the ∣-not-pipe rule there), but every formula a reader must read precisely is TeX. **Display delimiter: \[…\]** (MathJax-native); `$$…$$` is banned from masters — the authoring environment's edit tool collapses `$$` to `$` (defect caught by the S10 fetch-back, repaired via bash, a channel verified immune by probe; receipt in BOOK-PROJECT.md S10).
 - **SVG figures (universal rule, owner directive 2026-10-28):** every page carries inline `<svg>` diagrams where visualization genuinely helps — geometric objects, number lines, transformations, graphs, cycles. Figures are self-authored inline SVG (no external images, no raster assets), numbered and citable (`Fig P05.1` style, cited from the prose), and machine-checked: the figure's coordinates are verified against the page's own recorded numbers (a figure is a lab artifact, not decoration).
 - File naming: `pNN-slug.html` (pattern pages), `mNN-slug.html` (multi-pattern pages), `bNN-slug.html` (bridge pages); lowercase-hyphen slugs, immutable once published.
-- Every page: standard header (book title → index link, P-ID + pattern name) and standard footer (revision section + graph-evidence block), plus the standard MathJax block above.
+- Every page: standard header (book title → index link, P-ID + pattern name) and a plain navigation footer (return-to-index + next-page links), plus the standard MathJax block above. No revision section, labs block or graph-evidence block on any page — the Page content scope rule below is binding.
 
 ## Formatting retrofit passes (owner directive 2026-10-28; charter session S10)
 
 - **Licensed body edits.** The owner directive licenses *formatting* passes as body edits — an owner amendment to extend-never-rewrite, recorded with receipt. The license covers ONLY formatting: math → TeX, SVG figures, styling classes. Claims, numbers, proofs, exercises, boxes, links, and prose meaning are unchanged; each pass proves it by diffing the tag-stripped text content before vs. after (allowing only for the math-notation change) and by re-checking the page's numeric claims against its existing lab receipts.
 - **Sequence (owner decision 2026-10-28):** retrofit all published pages before the next new page — P01 → P02 → P03 → P04 → P05 → B01 → B02 → B12, then the spine resumes at P06. One page per pass session.
 - **Per-pass gates:** conversion complete (no unconverted display equations left; hygiene grep updated to the new rules), figures added where they genuinely help (machine-checked coordinates), the page's revision log gains the pass entry Rn, two-gated push + fetch-back, records ALWAYS-SYNC. A pass does not re-run the original proof battery (content unchanged) but DOES run a fresh formatting-verifier: re-extract every numeric claim from the converted page and re-verify against the recorded receipts, plus TeX sanity (balanced \(…\) and \[…\] delimiters; `$$` never used as a math delimiter (banned — toolchain collapse, S10 receipt)) and SVG sanity (viewBox present, no external hrefs, coordinates matching the page's numbers).
+
+## Page content scope (owner directive 2026-10-29, session S24; binding; supersedes every revision-log-on-page requirement in this file's history)
+
+- **Chapter pages (pattern, bridge, orientation, multi-pattern) carry subject matter and navigation only**: the teaching content of the template blocks, plus links that serve the reader.
+- **Never on a chapter page:** lab/battery/verifier references in prose or captions; revision logs or run histories; session identifiers; gate, sequence, publication-order or other book-building talk ("planned", "the gate stays shut", "next session's unit"); graph participation/build metadata. Inline links to other pages remain where pedagogically meaningful — a short mathematical pointer is navigation; book logistics around it is not.
+- **The index page is the central board/map** (owner, 2026-10-29): intro, how-to-read note, the pattern/bridge tables with status — and nothing else. No revision log, no build notes, no session references.
+- **Where the removed material lives:** the records only — the session log plus **one log file per page**, `page-logs/<page>.md` (master in the knowledge topic, mirrored to repo `records/page-logs/`). Each page's log file records its lab + output files and all receipts. Per-page logs are deliberately separate and are never merged into one large file (owner's system-limits caution, 2026-10-29).
+- **Revision mechanism (amended):** fixes to published pages are recorded ONLY in the records — the session log row and the page's log file. Published pages carry no revision section; nothing about a page's build history appears on the page itself.
+
+## Cleanup passes (owner directive 2026-10-29, session S24)
+
+- **Licensed body edits — the second licensed exception to extend-never-rewrite.** Cleanup passes may edit published pages ONLY to remove book-building/logging content: the labs paragraph, the revision-log section, gate/sequence/build prose (including "where this goes" logistics), in-body lab/verification references, session identifiers. Everything else is byte-stable.
+- **Sequence (owner decision 2026-10-29, the S10 precedent):** all published pages before the next new page — P01 → P02 → P03 → P04 → P05 → B01 → B02 → B12 → P06 → P07 → B03 → the index (12 passes, one page per pass session); then authoring resumes at B04. The owner may reorder or batch.
+- **Per-pass gates:** removal-only verified by a tag-stripped word diff (every deleted word belongs to the licensed categories; any added words are counted, listed, and limited to sentence joints left by a removal); math untouched (display/inline TeX counts change only by removals; zero `$`); structure preserved (no sections or figures added, removed or reordered; boxes, exercises, figures byte-stable); every remaining href valid and canonical; two-gated push (byte count + predicted blob sha) + fetch-back; records ALWAYS-SYNC; the pass creates `page-logs/<page>.md` by migrating that page's full receipt history from the session log.
+- A pass does not re-run the page's proof battery (no numeric content changes — the diff gate proves it); the labs and their recorded outputs stay in `book/labs/`.
+- New pages (B04 onward) are authored clean under the amended templates — no cleanup pass will ever be needed for them.
 
 ## Pattern page template (9 blocks, in order)
 
@@ -42,7 +58,7 @@
 6. **What to try next** — default guidance + forward links (mitigation + price + default).
 7. **Lineage interlude** — the historical arc (registry first-use/modern-use), short, cited, never load-bearing.
 8. **Exercises** — graded ●○○ / ●●○ / ●●● with hints + fully worked answers; one ◆ pattern-unknown diagnosis exercise; ◐ exploration.
-9. **Graph footer** — participation evidence (chains), source technique id, related patterns, revision log.
+9. **Footer — navigation.** Return-to-index and next-page links; nothing else. (Participation evidence, source technique ids and revision history live in the records — Page content scope.)
 
 ## Bridge page template (7 blocks, in order)
 
@@ -51,8 +67,8 @@
 3. **Worked by hand.** The simplest case first, carried to the end; then 2–3 further worked examples. If a problem-solving pattern is used, it is named by P-ID — light foreshadowing, never teaching.
 4. **Why it is true.** A complete proof, or an explicitly labeled sketch naming exactly what is missing.
 5. **Practice.** Graded ●○○ / ●●○ / ●●● with hints + fully worked answers; one ◐ exploration. (No ◆ exercise: there is no pattern to diagnose yet.)
-6. **Where this goes.** Forward links to the consumer pages — why the book builds this bridge before those pages.
-7. **Footer.** B-ID + group + consumer links; revision log.
+6. **Where this goes.** The mathematics that depends on this page, with inline links to the pages that will use it — as mathematics only: no gates, publication order or build talk (Page content scope).
+7. **Footer — navigation.** Return-to-index and next-page links; nothing else.
 
 ## Multi-pattern page template
 
@@ -72,6 +88,6 @@ Audit every finished page against the presentation fingerprint in the `science-b
 
 ## Governance
 
-- Extend-never-rewrite for published pages; fixes go to the page's revision section + the session log. **One licensed exception (owner directive 2026-10-28, receipt in `BOOK-PROJECT.md` S10): formatting retrofit passes may edit the body for math → TeX conversion, SVG figures, and styling classes only, under the per-pass gates of the Formatting retrofit passes section above.**
-- The index page grows ALWAYS-SYNC with every page publication (status table updated in the same session).
+- Extend-never-rewrite for published pages; fixes go to the session log + the page's log file (`page-logs/<page>.md`) — pages carry no revision section (Page content scope). **Two licensed exceptions (owner directives 2026-10-28 and 2026-10-29, receipts in `BOOK-PROJECT.md` S10/S24): formatting retrofit passes may edit the body for math → TeX conversion, SVG figures, and styling classes only, under the per-pass gates of the Formatting retrofit passes section above; cleanup passes may edit the body to remove book-building/logging content only, under the per-pass gates of the Cleanup passes section above.**
+- The index page grows ALWAYS-SYNC with every page publication (status table updated in the same session). The index carries no revision log or build notes — it is the central board/map (Page content scope).
 - Publishing (repo visibility, GitHub Pages) is a user gate, not a unilateral decision.

@@ -17,6 +17,7 @@ same session it is found.
 | `records/WORKING-PROTOCOL.md` | This file: the operating rules |
 | `records/DISCOVERY-ENGINE-ANALYSIS.md` | Evidence base: machine-measured analysis of the source knowledge graph (why these 65 patterns) |
 | `records/MCFEE-STYLE-STUDY.md` | The 13-move writing-style fingerprint; audit every drafted page against it |
+| `records/page-logs/` | Per-page receipt logs — one file per page (owner directive S24); the only place a published page's build history lives |
 | `book/index.html` | The book's central organization page; **its hrefs are the canonical slug map** |
 | `book/assets/style.css` | Shared stylesheet |
 | `book/labs/` | Verification scripts + recorded outputs for published pages |
@@ -81,8 +82,8 @@ same session it is found.
 
 ## Standing content rules
 
-- **Extend, never rewrite.** Published pages are never silently replaced; fixes
-  append a revision section at the page foot plus a session-log row.
+- **Extend, never rewrite.** Published pages are never silently replaced; fixes append a session-log row plus an entry in that page's log file `records/page-logs/<page>.md` (owner directive S24, 2026-10-29: pages themselves carry no revision section). Two licensed exceptions may edit the body: formatting retrofit passes (S10) and cleanup passes (S24), each under its per-pass gates in `BOOK-CONVENTIONS.md`.
+- **Page content scope (owner directive S24, 2026-10-29, binding).** Chapter pages carry teaching content + navigation links only — no labs/verifier references, no revision logs or run histories, no session/gate/sequence/build talk; the index is the central board/map (status tables, no build notes). All build material lives in the records: the session log plus per-page log files, kept separate.
 - **P-index immutability.** P-IDs and slugs are immutable once assigned; the index
   appends (P66+) or demotes, never rewrites.
 - **Slugs come from the index.** A new page uses exactly the href recorded in
