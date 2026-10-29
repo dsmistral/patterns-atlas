@@ -1,16 +1,7 @@
 # ACTIVE SESSION — S23 (open 2026-10-29)
 
-**Unit:** author B03 `b03-euclidean-algorithm.html` (bridge page, group A · modular arithmetic; first half of the P13 bridge gate — B03–B04 must precede it; 7-block bridge template; staged-parts protocol binding).
+**Unit:** author B03 `b03-euclidean-algorithm.html` (bridge page, group A; first half of the P13 gate).
 
-**Protocol state:** session-log row S23 IN PROGRESS in records/BOOK-PROJECT.md (pushed in the same commit as this file). Clean-and-reuse: no new folders or files; this marker + session-state/wip/ are the only session state; delete at close.
+**Progress (all verified, staged):** page authored part-wise (8 parts) — assembled page 39,930 B, md5 050a900758d56540f6ef8ef4ae232832; battery 6 pieces (fresh engine) dispatched against the final bytes — 72 checks, 0 FAIL, honest run history recorded (three lab-side defects caught by machine-counted verdicts: p00 byte gate, p04 xmlns gate, p05 figure-ordering + recurrence direction; the page never edited for the lab); adversarial verifier (fresh engine, zero shared code, subtraction remainders, no %) — pre-dispatch audit 16/16, 14/14 must-fail injections refuted with witnesses, 2/2 controls upheld; style audit 13/13 (moves 5/7 adapted). Artifacts: b03-lab.js 24,948 B (md5 b2aad57f04d427292374928502893126), b03-review-verifier.js 8,149 B (md5 cb9174dd35fe9dd76ad45d2036703e7e), b03-lab-output.txt 12,279 B (md5 7042f60c3376dd026aac7a2a1c760406).
 
-**Plan (steps in order):**
-1. Author page part-wise, staging each verified part to session-state/wip/ + knowledge wip/.
-2. Battery pieces (fresh engine: split ≤4 KB, no recursion, no BigInt in value path, iterative gcd), assembled b03-lab.js, recorded output b03-lab-output.txt.
-3. Adversarial verifier parts → b03-review-verifier.js (fresh engine, zero shared code, must-fail injections).
-4. Index R15: B03 planned→published + revision entry; byte-diff = exactly those two changes.
-5. Placement commit: book/b03-euclidean-algorithm.html + book/labs/b03-lab.js + b03-review-verifier.js + b03-lab-output.txt + book/index.html; two-gated pushes, fetch-back.
-6. Records close: S23 CLOSED with receipts, standing to-do → S24 = B04; records ALWAYS-SYNC push.
-7. Delete session-state/ entirely; clean knowledge wip/; honest close report.
-
-**Durable receipts so far:** records/BOOK-PROJECT.md 109,686 B (S23 row IN PROGRESS). No artifacts staged yet. Content plan in the S23 row: Euclidean algorithm — remainder dance, gcd preservation lemma, termination by well-ordering (B01), every common divisor divides the gcd; B02 Exercise 4 debt partially paid (invertible ⇒ coprime proved; hard direction + inverse construction deferred to B04); worked: 1071×462 both routes (factorization vs dance, square-cutting), 2026/1491 coprime chain, Fibonacci worst case; exercises: dance + fraction reduction, consecutive-numbers self-inverse, three-number gcd associativity, ◐ steps census ≤1000 with Lamé bound.
+**Remaining steps:** index R15 (B03 planned→published + revision entry, byte-diff = exactly those two changes); placement commit (page + lab + verifier + output + index, predicted-sha-gated, fetch-back); records close (S23 CLOSED with receipts, standing to-do → S24 = B04; ALWAYS-SYNC push); delete session-state/ entirely; clean knowledge wip/; honest close report.
