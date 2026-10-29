@@ -1,0 +1,64 @@
+The Patterns Atlas — P05 wording-fix (R2) lab output
+====================================================
+
+Session S19, 2026-10-29. Fresh engine: labs/p05-r2-wording.js, written for
+this unit only, zero shared code with the R0 engine (labs/p05-lab.js) and the
+R1 engine (labs/p05-format-pass.js). All checks deterministic; no recursion, no
+BigInt in the value path, all loops bounded.
+
+Run history (honest record)
+----------------------------
+Run 1 (2026-10-29, in-sandbox, piece code inlined verbatim): clean pass —
+VERDICT: 19 checks, 0 FAIL. No harness defects, no re-runs needed. The
+assembly cat of the five pieces was executed before the run; its byte receipt
+(8,597 B / 138 lines) was re-observed after the run with the identical file
+(md5 1ebecff71cf542b33e0d27fff3ac60b2), so the transcript below verifies the
+exact artifact shipped.
+
+Clean transcript (run 1)
+------------------------
+P05 wording-fix (R2) verifier — labs/p05-r2-wording.js
+Session S19, 2026-10-29. Fresh engine, zero shared code with the R0 and R1 engines.
+Target: book/p05-canonical-form.html at R2.
+[p00] pre-flight smoke probe
+probe: rem(10,4)=2, |−3|=3, 2·2·1+2·2=8 — PASS
+artifact carries all 3 piece markers — PASS
+artifact utf-8 bytes: 8597
+[p01] the corrected difference claim, exact over the full sign grid
+difference formulas: 441 grid cases (B = b/2, b −4..4; x, y −3..3), 0 mismatches; 105 zero-difference cases all in the licensed forms — PASS
+boundedness inequality 4(x^2+Bxy+y^2) ≥ (4−|b|)(x^2+y^2): 0 violations over the same 441 cases — PASS
+|B| = 2 collapse: x^2 ± 2xy + y^2 = (x ± y)^2, 49 cases each sign, 0 mismatches — PASS
+integer curve points (x, y in −5..5, b −4..4): 72 on-curve, all inside the bound (4−|b|)(x^2+y^2) ≤ 4 — PASS
+must-fail rows: the old wording’s claimed identity gives 0 where the true difference is 2 (B = 1, x = y = 1; B = −1, x = 1, y = −1) — PASS
+[p02] R2 page bytes: the fix is in, the old wording is out
+page utf-8 bytes: 55047 (assembly receipt 55,047) — PASS
+old wording absent (0 occurrences of the exact-difference claim) — PASS
+corrected sentence present exactly once — PASS
+R2 revision entry and Labs sentence present exactly once each — PASS
+inline TeX: 217/217 balanced (217/217 = 216 content + 1 config) — PASS
+display TeX: 1/1 (1/1 = config only), $$ 0, eq-class 0 — PASS
+structure preserved: sections 9, figures 3, svgs 3, figcaptions 3 — PASS
+details/summary 7/7, p open/close 42/42 — PASS
+revision log carries R0/S08, R1/S15, R2/S19 — PASS
+labs line names all three labs and the R2 output file — PASS
+mojibake and placeholders: none — PASS
+figures untouched: Fig P05.1/2/3 captions intact — PASS
+VERDICT: 19 checks, 0 FAIL
+
+Prose-drift gate (bash, tag-stripped word diff R1 vs R2)
+--------------------------------------------------------
+Deleted words: 5 total, all from the one reworded block-5 sentence
+(|y|)^2, \ge, 0\), —, again). Added words: 293 total, all belonging to the
+reworded block-5 sentence, the appended R2 revision-log entry, and the
+extended Labs sentence. Zero drift elsewhere in prose, figures, or TeX.
+
+Artifact byte receipt (honest note: an intermediate working receipt
+md5 6e673724435faf53c889c3cb4eaec6b5 was computed mid-assembly, before the
+final same-length grid-range fix in the R2 entry text; the receipts below are
+the shipped final artifact, re-hashed and re-verified after that fix by the
+same run whose transcript appears above)
+------------------------------------------------------------------
+book/p05-canonical-form.html at R2: 55,047 bytes / 245 lines,
+md5 f7cf1e1e2572d0c3bc46a98b69da6e36.
+labs/p05-r2-wording.js: 8,597 bytes / 138 lines,
+md5 1ebecff71cf542b33e0d27fff3ac60b2.
