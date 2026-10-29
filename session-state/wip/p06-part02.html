@@ -1,0 +1,29 @@
+
+<section id="encounter">
+<h2>2 · Meet the problem</h2>
+<p>Two problems, one geometric and one trigonometric. No names yet — just watch what solves them.</p>
+<p><strong>Problem one.</strong> Find every right triangle with whole-number legs and hypotenuse 65. Hunting by hand: the legs \\(x, y\\) must satisfy \\(x^2 + y^2 = 65^2 = 4225\\), so try squares near 4225 and hope the gap is a square: \\(4225 - 63^2 = 256 = 16^2\\) — a hit, \\(63^2 + 16^2 = 4225\\), the \\((16, 63, 65)\\) triangle. But is that all? The hunt gives no completeness, and each further hit would cost another search. Now watch B12's recipe do the same work. The hypotenuse factors as \\(65 = 5 \cdot 13\\), and B12's Lecture 0 already wrote 65 as a sum of two squares two ways: \\(65 = 1^2 + 8^2 = 4^2 + 7^2\\). Compose each representation with itself: \\((1, 8) \odot (1, 8) = (1 - 64, 8 + 8) = (-63, 16)\\) and \\((4, 7) \odot (4, 7) = (16 - 49, 56) = (-33, 56)\\). Both answers carry norm \\(63^2 + 16^2 = 33^2 + 56^2 = 4225 = 65^2\\): two more triangles, \\((63, 16, 65)\\) and \\((33, 56, 65)\\), manufactured — not hunted. Compose the two representations with each other, both routes: \\((4, 7) \odot (1, 8) = (4 - 56, 32 + 7) = (-52, 39)\\) and \\((4, 7) \odot (1, 8)\\) by the sign-flipped route \\(= (4 + 56, 32 - 7) = (60, 25)\\). Norms \\(52^2 + 39^2 = 60^2 + 25^2 = 4225\\): the triangles \\((39, 52, 65)\\) and \\((25, 60, 65)\\). Four compositions, four triangles, zero hunting — and the hand-hunted \\((16, 63)\\) is on the list, because \\((1, 8) \odot (1, 8)\\) produced it (signs are free; the norm only sees squares). The lab census (block 9) confirms: exactly four such triangles exist, and the composition machine produced all of them.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 240" role="img" aria-label="Fig P06.1 — the four whole-number points on the circle of radius 65: (63,16), (60,25), (52,39), (33,56), all produced by composing the two representations of 65">
+<line x1="170" y1="6" x2="170" y2="234" stroke="#e2e2dd" stroke-width="1"/>
+<line x1="42" y1="120" x2="298" y2="120" stroke="#e2e2dd" stroke-width="1"/>
+<circle cx="170" cy="120" r="117" fill="none" stroke="#8a94a6" stroke-width="1.6"/>
+<line x1="170" y1="120" x2="283.4" y2="91.2" stroke="#c25b4a" stroke-width="1.3" stroke-dasharray="3 3"/>
+<text x="228" y="112" font-size="10.5" fill="#c25b4a">r = 65</text>
+<circle cx="283.4" cy="91.2" r="4" fill="#3574d4"/>
+<text x="283.4" y="76" font-size="12.5" text-anchor="middle" fill="#3574d4">(63, 16)</text>
+<circle cx="278" cy="75" r="4" fill="#3574d4"/>
+<text x="278" y="60" font-size="12.5" text-anchor="middle" fill="#3574d4">(60, 25)</text>
+<circle cx="263.6" cy="49.8" r="4" fill="#3574d4"/>
+<text x="263.6" y="35" font-size="12.5" text-anchor="middle" fill="#3574d4">(52, 39)</text>
+<circle cx="229.4" cy="19.2" r="4" fill="#3574d4"/>
+<text x="229.4" y="30" font-size="12.5" text-anchor="middle" fill="#3574d4">(33, 56)</text>
+<text x="170" y="228" font-size="11.5" text-anchor="middle" fill="#555f6e">every dot: x² + y² = 4225 = 65², produced by composing 1²+8² and 4²+7²</text>
+</svg>
+<figcaption><strong>Fig P06.1.</strong> The four whole-number points on the circle of radius 65: squaring \\((1,8)\\) and \\((4,7)\\) gives \\((63,16)\\) and \\((33,56)\\); composing the two representations gives \\((52,39)\\) and \\((60,25)\\) by the two routes. One machine, four witnesses, no hunting. Every dot position machine-verified in this page's lab.</figcaption>
+</figure>
+<p><strong>Problem two.</strong> What is \\(\cos 75^\circ\\)? No standard table row is memorized at 75 degrees — but 45 and 30 are. Turn the point \\((1, 0)\\) by \\(45^\circ\\) and then by \\(30^\circ\\); the point ends up turned by \\(75^\circ\\). Write each rotation as a pair and compose with B12's rule — the turning pair at angle \\(t\\) is \\((\cos t, \sin t)\\), so compose \\((\tfrac{\sqrt{2}}{2}, \tfrac{\sqrt{2}}{2})\\) with \\((\tfrac{\sqrt{3}}{2}, \tfrac{1}{2})\\):</p>
+<p class="eq">\[\left(\tfrac{\sqrt{6} - \sqrt{2}}{4},\ \tfrac{\sqrt{6} + \sqrt{2}}{4}\right)\]</p>
+<p>Numerically that is \\((0.2588190451, 0.9659258263)\\) — and the lab confirms both routes agree to fifteen decimals with the direct evaluation of \\((\cos 75^\circ, \sin 75^\circ)\\), plus the exact check \\(\left(\tfrac{\sqrt{6} - \sqrt{2}}{4}\right)^2 + \left(\tfrac{\sqrt{6} + \sqrt{2}}{4}\right)^2 = 1\\). A composed answer, exact and new, from two memorized ones.</p>
+<p>Both problems were solved by the same shape of move: <em>the object you cannot crack is placed inside a composition with an object you control</em> — itself, a familiar representation, or a pair on the unit circle — and the answer is read off the composition's invariant. Neither solution stared at the original object. The move has a name, and it is the sixth pattern of the spine.</p>
+</section>

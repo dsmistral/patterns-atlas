@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P06 · Compose with identity · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P06 · the sixth move of the spine</p>
+<h1>Compose with identity</h1>
+<p class="tagline">Stuck on one object? Put it inside a composition with an object you control. The identity does nothing — that is its job. A familiar one manufactures witnesses. And the invariants multiply.</p>
+</header>
+
+<aside class="onramp"><strong>New word: composition.</strong> You have been composing all your life without the word. Whenever an operation takes two objects of a kind and returns a third — addition takes two numbers, multiplication takes two numbers, "then" takes two rotations — you can <em>compose</em> the second with the first. And among all the objects, one is special: the <em>identity element</em>, the object that composes without changing anything. Zero for addition (\\(x + 0 = x\\)), one for multiplication (\\(x \cdot 1 = x\\)), the do-nothing rotation for turning. This page is about a move that sounds trivial and is not: when a claim about one object resists you, <em>compose it with something</em> — often with the identity itself — and read the claim off the composition. The identity is not decoration; it is the probe that certifies the operation, and the composition is the machine that manufactures new facts from old ones.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p>The spine so far: <a href="p01-pin-down-the-problem.html">P01</a> pinned claims, <a href="p02-small-cases.html">P02</a> built tables, <a href="p03-special-cases.html">P03</a> attacked them with hostile cases, <a href="p04-complete-the-square.html">P04</a> paid for corners, and <a href="p05-canonical-form.html">P05</a> put every object in its uniform before asking it questions. Then the bridge <a href="b12-brahmagupta-fibonacci.html">B12</a> taught a recipe that none of those moves explains: multiply two pairs by the rule \\((a, b) \odot (c, d) = (ac - bd, ad + bc)\\), and the norms multiply — \\(N(a, b) \cdot N(c, d) = N\\) of the answer, always, with a second route \\((ac + bd, ad - bc)\\) giving a second witness for free.</p>
+<p>Here is the tension this page resolves. B12's recipe arrived as a fact about pairs — clever, verified, and isolated. Why should <em>cross-multiply and subtract, cross-multiply and add</em> preserve anything at all? And why did the same shape of trick appear in <a href="b01-remainders.html">B01</a>–<a href="b02-congruence-classes.html">B02</a>, where a 255-digit power was reduced by repeatedly composing with a small representative? The answer is that both are instances of one move, and the move has a name in the registry: <em>compose with identity</em>. The operation must have an identity element (a legality probe), the composition must carry an invariant that multiplies (the arithmetic engine), and the object you compose with is yours to choose (the control). B12 is this move's mandated carrier — this page assembles the move, proves nothing by authority, and points the machine at new game.</p>
+</section>

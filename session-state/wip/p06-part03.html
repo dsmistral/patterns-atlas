@@ -1,0 +1,29 @@
+
+<section id="name">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p06">
+<p><strong>Pattern P06 — Compose with identity.</strong> When a claim about one object resists direct attack, place the object inside a <strong>composition</strong>: an operation on its class that has an <strong>identity element</strong> and a <strong>multiplicative invariant</strong> — a quantity \\(I\\) with \\(I(z \text{ composed with } w) = I(z) \cdot I(w)\\). Then compose with an object you control: the <em>identity itself</em> (which must return the object unchanged — this is the legality probe that certifies the operation), a <em>familiar object</em> (whose composition manufactures new witnesses from old ones), or the <em>object again</em> (which squares the invariant). Finally read the claim off in composed coordinates, remembering that the invariant multiplies and that a second route, if the operation offers one, is a second witness for free.</p>
+<p class="words">Or, in words: don't interrogate the suspect alone — put them in a room with someone you know, and watch what survives the meeting. The "someone" can be the person who changes nothing (the identity: if the suspect <em>does</em> change in that room, the meeting-room itself is broken); a friend with a clean record (whose file you already have); or the suspect themselves (double trouble). What the meeting multiplies — the norm, the determinant, the angle — is the arithmetic you get out. No multiplicative invariant, no arithmetic: the room is just talk.</p>
+</div>
+<div class="pattern-box" id="box-p06a">
+<p><strong>Box P06.A — the three demands, and what breaks when each fails.</strong></p>
+<ol>
+<li><strong>A true identity must exist.</strong> The operation needs an object \\(e\\) with \\(z\\) composed with \\(e\\) equal to \\(z\\) for every \\(z\\). For pair multiplication this is \\((1, 0)\\): \\((a, b) \odot (1, 0) = (a \cdot 1 - b \cdot 0,\ a \cdot 0 + b \cdot 1) = (a, b)\\). For rotations it is the \\(0^\circ\\) turn; for square matrices, the identity matrix. An operation without an identity element has no "compose with identity" — and an operation whose <em>claimed</em> identity fails to hold still is not an operation; the probe is cheap, so run it first (the lab runs it over 169 pairs, block 9).</li>
+<li><strong>The invariant must be multiplicative.</strong> The composition must carry a quantity that multiplies — the norm \\(N\\) for pairs (B12: \\(N(z \odot w) = N(z) \cdot N(w)\\)), the determinant for matrices. This demand is the engine: it is what turns compositions into arithmetic (products of invariants) and routes into witnesses. Term-wise multiplication of pairs \\((a, b) \otimes (c, d) = (ac, bd)\\) has an identity, \\((1, 1)\\), and fails exactly here: norms do not multiply — the lab refutes \\(N((7,4) \otimes (8,1)) = N(7,4) \cdot N(8,1)\\) with the witness \\(56^2 + 4^2 = 3152 \ne 4225\\) (block 5 runs the story).</li>
+<li><strong>The routes must be real.</strong> If the same composition can be computed two ways — B12's two routes \\((ac - bd, ad + bc)\\) and \\((ac + bd, ad - bc)\\) — both ways must give the same invariant (they do: both carry \\(N(z)N(w)\\)), and comparing the two <em>outputs</em> is legitimate only for the invariant, never for the coordinates: \\((-10, 11)\\) and \\((14, -5)\\) are different pairs with the same norm \\(221\\). A "composition" whose routes disagree on the invariant was never well-defined; a reader who expects the routes to agree on the coordinates has asked the invariant the wrong question.</li>
+</ol>
+</div>
+<div class="pattern-box" id="box-p06b">
+<p><strong>Box P06.B — the working catalogue, and when to reach for the move.</strong> Four compositions this book has already licensed, one per row:</p>
+<table>
+<thead><tr><th>Class</th><th>Composition</th><th>Identity</th><th>Invariant</th></tr></thead>
+<tbody>
+<tr><td>pairs \\((a, b)\\)</td><td>\\((a,b) \odot (c,d) = (ac - bd, ad + bc)\\)</td><td>\\((1, 0)\\)</td><td>norm \\(N = a^2 + b^2\\) multiplies (<a href="b12-brahmagupta-fibonacci.html">B12</a>)</td></tr>
+<tr><td>rotations of the plane</td><td>turn by \\(\alpha\\), then by \\(\beta\\)</td><td>the \\(0^\circ\\) turn</td><td>angle adds; \\(N = 1\\) on the circle — composing circle pairs multiplies norms \\(1 \cdot 1 = 1\\)</td></tr>
+<tr><td>\\(2 \times 2\\) matrices</td><td>matrix multiplication</td><td>\\(I\\)</td><td>determinant multiplies: \\(\det(AB) = \det(A)\det(B)\\)</td></tr>
+<tr><td>whole numbers</td><td>multiplication</td><td>\\(1\\)</td><td>"is a sum of two squares" is preserved in the forward direction by B12 — the invariant-claim this page leans on</td></tr>
+</tbody>
+</table>
+<p><strong>Three-key diagnosis.</strong> The claim type: produce a witness, verify an identity, or compute an invariant for a <em>composite</em> object built from known ones. The problem shape: one object, stuck, whose factors or building blocks <em>are</em> tractable — the claim is about the assembly, not the parts. The tools at hand: a composition with identity and multiplicative invariant (the catalogue), plus small cases to run the probes. The catalogue grows as the book climbs — coordinates give rotations a full machine at <a href="b05-coordinates-basis.html">B05</a>–<a href="b08-diagonalization.html">B08</a>, and <a href="p16-isomorphism.html">P16</a> composes whole problems.</p>
+</div>
+</section>
