@@ -1,0 +1,36 @@
+// p06-review-verifier.js — adversarial review verifier for P06 (Compose with identity)
+// The Patterns Atlas, session S21. A fresh engine sharing zero code with the
+// battery labs/p06-lab.js: different helper names and loop shapes, and every
+// numeric claim recomputed from scratch rather than trusted from the battery.
+// Protocol: a pre-dispatch boolean audit of the registry polarity table; then
+// twelve must-fail injections (each MUST be refuted, with a printed witness
+// taken from the page bytes or from the freshly recomputed grid), and two
+// positive controls (which must be upheld).
+
+const REGISTRY = [
+  ["V01", "must-fail", "the page cites the rotation worst error as 1.077e-15"],
+  ["V02", "must-fail", "the page cites the determinant grid worst as 4.441e-16"],
+  ["V03", "must-fail", "the censuses count 43 two-square, 100 four-square, 16 refusers"],
+  ["V04", "must-fail", "the 1025 census holds four representations"],
+  ["V05", "must-fail", "the hypotenuse-65 census finds three triples"],
+  ["V06", "must-fail", "F(41) = 102334155"],
+  ["V07", "must-fail", "the page links p99-pin-down-the-problem.html"],
+  ["V08", "must-fail", "the MathJax block is 121 bytes"],
+  ["V09", "must-fail", "2 sin 35 deg = sin 70 deg"],
+  ["V10", "must-fail", "(48,15) has norm 4225"],
+  ["V11", "must-fail", "the term-wise product (56,4) has norm 4225"],
+  ["V12", "must-fail", "the exact and double routes to cos 75 are bit-identical"],
+  ["V13", "control", "the page cites 1.221e-15 and a fresh grid agrees"],
+  ["V14", "control", "the MathJax block is byte-exact at 120 bytes"],
+];
+
+function auditRegistry() {
+  let wrong = 0;
+  for (let k = 0; k < REGISTRY.length; k++) {
+    const expected = k < 12 ? "must-fail" : "control";
+    if (REGISTRY[k][1] !== expected) wrong++;
+  }
+  return wrong === 0
+    ? "PRE-DISPATCH BOOLEAN AUDIT: registry consistent — 12 must-fail injections, 2 positive controls"
+    : "AUDIT FAILED: " + wrong + " registry entries carry the wrong polarity";
+}

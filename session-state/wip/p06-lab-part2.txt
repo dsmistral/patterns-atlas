@@ -1,0 +1,51 @@
+
+function p03() {
+  const lines = [];
+  const od = (a, b, c, d, flip) => flip ? [a*c + b*d, a*d - b*c] : [a*c - b*d, a*d + b*c];
+  const conj = (p) => [p[0], -p[1]];
+  let bad = 0, cases = 0;
+  for (let a = 0; a <= 12; a++) for (let b = 0; b <= 12; b++) for (let c = 0; c <= 12; c++) for (let d = 0; d <= 12; d++) {
+    cases++;
+    for (const flip of [false, true]) {
+      const comp = od(a, b, c, d, flip);
+      const left = conj(comp);
+      const right = od(conj([a, b])[0], conj([a, b])[1], conj([c, d])[0], conj([c, d])[1], flip);
+      if (!(left[0] === right[0] && left[1] === right[1])) bad++;
+    }
+  }
+  lines.push(bad === 0 ? "PASS conjugation lemma conj(z*w) = conj(z)*conj(w) both routes over " + cases + " quadruples (13^4 = 28561), 0 mismatches" : "FAIL conjugation mismatches=" + bad);
+  let parkBad = 0;
+  for (let a = 0; a <= 12; a++) for (let b = 0; b <= 12; b++) {
+    const z = [a, b];
+    const cz = conj(z);
+    const parked = od(z[0], z[1], cz[0], cz[1], false);
+    if (!(parked[0] === a*a + b*b && parked[1] === 0)) parkBad++;
+  }
+  lines.push(parkBad === 0 ? "PASS conjugation parking z*conj(z) = (N(z), 0) over 169 pairs" : "FAIL parking exceptions=" + parkBad);
+  return lines;
+}
+
+function p04() {
+  const lines = [];
+  const od = (z, w, flip) => flip ? [z[0]*w[0] + z[1]*w[1], z[0]*w[1] - z[1]*w[0]] : [z[0]*w[0] - z[1]*w[1], z[0]*w[1] + z[1]*w[0]];
+  const N = (z) => z[0]*z[0] + z[1]*z[1];
+  // 221 = 17*13, both routes
+  const r1 = od([1, 4], [2, 3], false), r2 = od([1, 4], [2, 3], true);
+  const ok221 = (r1[0] === -10 && r1[1] === 11 && N(r1) === 221) && (r2[0] === 14 && r2[1] === -5 && N(r2) === 221);
+  lines.push(ok221 ? "PASS 221 = 17*13 both routes: (-10,11) and (14,-5), each N = 221" : "FAIL 221 routes " + JSON.stringify(r1) + " " + JSON.stringify(r2));
+  // hypotenuse-65 factory
+  const s1 = od([4, 7], [4, 7], false), s2 = od([1, 8], [1, 8], false);
+  const c1 = od([4, 7], [1, 8], false), c2 = od([4, 7], [1, 8], true);
+  const fac = (s1[0] === -33 && s1[1] === 56 && N(s1) === 4225) && (s2[0] === -63 && s2[1] === 16 && N(s2) === 4225) && (c1[0] === -52 && c1[1] === 39 && N(c1) === 4225) && (c2[0] === 60 && c2[1] === 25 && N(c2) === 4225);
+  lines.push(fac ? "PASS hyp-65 factory: (4,7)^2=(-33,56), (1,8)^2=(-63,16), cross routes (-52,39),(60,25), all N = 4225 = 65^2" : "FAIL hyp-65 factory");
+  // exhaustive census: legs 1..64
+  const hits = [];
+  for (let x = 1; x <= 64; x++) for (let y = x; y <= 64; y++) if (x*x + y*y === 4225) hits.push([x, y]);
+  const expect = [[16, 63], [25, 60], [33, 56], [39, 52]];
+  const same = hits.length === expect.length && hits.every((h, i) => h[0] === expect[i][0] && h[1] === expect[i][1]);
+  lines.push(same ? "PASS hyp-65 census: exactly four triples, (16,63),(25,60),(33,56),(39,52)" : "FAIL hyp-65 census " + JSON.stringify(hits));
+  // every factory output is a census point (up to sign AND order)
+  const norm4225 = (p) => N(p) === 4225 && hits.some((h) => (Math.abs(h[0]) === Math.abs(p[0]) && Math.abs(h[1]) === Math.abs(p[1])) || (Math.abs(h[0]) === Math.abs(p[1]) && Math.abs(h[1]) === Math.abs(p[0])));
+  lines.push([s1, s2, c1, c2].every(norm4225) ? "PASS all four factory outputs land on census points" : "FAIL factory-vs-census");
+  return lines;
+}

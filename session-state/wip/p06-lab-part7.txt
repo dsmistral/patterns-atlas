@@ -1,0 +1,81 @@
+
+function p14(pageText) {
+  const lines = [];
+  const svgs = pageText.match(/<svg[\s\S]*?<\/svg>/g) || [];
+  lines.push(svgs.length === 3 ? "PASS page carries exactly three inline SVG figures" : "FAIL svg count " + svgs.length);
+  const dist = (x1, y1, x2, y2) => Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  // Fig P06.1: four blue dots on circle center (170,120) r 117, scale 1.8 px/unit
+  const dots1 = [];
+  const re1 = /<circle cx="([0-9.]+)" cy="([0-9.]+)" r="4" fill="#3574d4"\/>/g;
+  let m1;
+  while ((m1 = re1.exec(svgs[0])) !== null) dots1.push([parseFloat(m1[1]), parseFloat(m1[2])]);
+  let okDots = dots1.length === 4;
+  const units1 = [[63, 16], [60, 25], [52, 39], [33, 56]];
+  for (const d of dots1) {
+    if (Math.abs(dist(d[0], d[1], 170, 120) - 117) > 0.5) okDots = false;
+    let matched = false;
+    for (const u of units1) {
+      if (Math.abs(d[0] - (170 + 1.8 * u[0])) < 0.05 && Math.abs(d[1] - (120 - 1.8 * u[1])) < 0.05) matched = true;
+    }
+    if (!matched) okDots = false;
+  }
+  lines.push(okDots ? "PASS Fig P06.1: four dots on the r=117 circle at 1.8 px/unit, positions (63,16),(60,25),(52,39),(33,56), all N = 4225" : "FAIL Fig P06.1 dots " + JSON.stringify(dots1));
+  // Fig P06.2: machine rows and norm labels
+  const labels = (svgs[1].match(/<text[^>]*>([^<]*)<\/text>/g) || []).map((t) => t.replace(/<[^>]*>/g, ""));
+  const has = (s) => labels.indexOf(s) !== -1;
+  const od = (z, w) => [z[0]*w[0] - z[1]*w[1], z[0]*w[1] + z[1]*w[0]];
+  const out1 = od([3, 4], [1, 0]), out2 = od([3, 4], [1, 1]);
+  const ok2 = has("(3, 4)") && has("(1, 0)") && has("(1, 1)") && has("(−1, 7)")
+    && has("N = 25") && has("N = 1") && has("N = 2") && has("N = 25 = 25·1") && has("N = 50 = 25·2")
+    && out1[0] === 3 && out1[1] === 4 && out2[0] === -1 && out2[1] === 7
+    && 1 + 49 === 50 && 50 === 2 * 25;
+  lines.push(ok2 ? "PASS Fig P06.2: both machine rows parsed, outputs (3,4) and (−1,7) equal the true compositions, norm labels 25/1/2 and 25·1/50·2 verified" : "FAIL Fig P06.2 labels " + JSON.stringify(labels));
+  // Fig P06.3: three plotted points on circle center (170,115) r 95
+  const dots3 = [];
+  const re3 = /<circle cx="([0-9.]+)" cy="([0-9.]+)" r="4"/g;
+  let m3;
+  while ((m3 = re3.exec(svgs[2])) !== null) dots3.push([parseFloat(m3[1]), parseFloat(m3[2])]);
+  let ok3 = dots3.length === 3;
+  const angles = [];
+  for (const d of dots3) {
+    if (Math.abs(dist(d[0], d[1], 170, 115) - 95) > 0.5) ok3 = false;
+    angles.push(Math.round(Math.atan2(115 - d[1], d[0] - 170) * 180 / Math.PI));
+  }
+  angles.sort((a, b) => a - b);
+  if (!(angles.length === 3 && angles[0] === 30 && angles[1] === 45 && angles[2] === 75)) ok3 = false;
+  const foot = 170 + 95 * Math.cos(75 * Math.PI / 180);
+  const proj = svgs[2].indexOf('x1="194.59"') !== -1 && Math.abs(194.59 - foot) < 0.05;
+  const lab75 = svgs[2].indexOf("cos 75° ≈ 0.2588") !== -1;
+  lines.push(ok3 && proj && lab75 ? "PASS Fig P06.3: points at 30°, 45°, 75° on the r=95 circle, cos-75 shadow foot at 194.59 = 170 + 95·cos75°" : "FAIL Fig P06.3 " + JSON.stringify(dots3) + " angles=" + JSON.stringify(angles));
+  return lines;
+}
+
+function p15(pageText) {
+  const lines = [];
+  const count = (s) => (pageText.split(s).length - 1);
+  const mj = "<script>window.MathJax={tex:{inlineMath:[['\\\\(','\\\\)']],displayMath:[['\\\\[','\\\\]']]},svg:{fontCache:'global'}};</script>";
+  lines.push(pageText.indexOf(mj) !== -1 ? "PASS MathJax config block byte-exact (120 bytes)" : "FAIL MathJax block");
+  lines.push(count("<section") === 9 ? "PASS structure: 9 sections" : "FAIL sections " + count("<section"));
+  lines.push(count("<h2>") === 9 ? "PASS structure: 9 h2" : "FAIL h2 " + count("<h2>"));
+  const svg = count("<svg"), fig = count("<figure"), figc = count("<figcaption>");
+  lines.push(svg === 3 && fig === 3 && figc === 3 ? "PASS structure: 3 svg / 3 figure / 3 figcaption" : "FAIL figures " + svg + "/" + fig + "/" + figc);
+  const det = count("<details>"), summ = count("<summary>");
+  lines.push(det === 8 && summ === 8 ? "PASS structure: details/summary 8/8" : "FAIL details " + det + "/" + summ);
+  const pOpen = (pageText.match(/<p>|<p /g) || []).length, pClose = count("</p>");
+  lines.push(pOpen === pClose ? "PASS structure: p open/close balanced (" + pOpen + "/" + pClose + ")" : "FAIL p balance " + pOpen + "/" + pClose);
+  const inl = (pageText.match(/\\\(/g) || []).length, inr = (pageText.match(/\\\)/g) || []).length;
+  const do1 = (pageText.match(/\\\[/g) || []).length, do2 = (pageText.match(/\\\]/g) || []).length;
+  lines.push(inl === inr && do1 === do2 ? "PASS TeX balance: inline " + inl + "/" + inr + ", display " + do1 + "/" + do2 : "FAIL TeX balance " + inl + "/" + inr + " " + do1 + "/" + do2);
+  lines.push(pageText.indexOf("$$") === -1 ? "PASS zero dollar-delimiters" : "FAIL dollar delimiters present");
+  const pid = count('class="pid"'), eq = count('class="eq"');
+  lines.push(pid === 3 ? "PASS structure: 3 pid spans" : "FAIL pid " + pid);
+  lines.push(eq === 6 ? "PASS structure: 6 eq paragraphs" : "FAIL eq " + eq);
+  const canon = ["index.html", "p01-pin-down-the-problem.html", "p02-small-cases.html", "p03-special-cases.html", "p04-complete-the-square.html", "p05-canonical-form.html", "p07-auxiliary-construction.html", "p09-invariant.html", "p16-isomorphism.html", "p66-induction.html", "b01-remainders.html", "b02-congruence-classes.html", "b05-coordinates-basis.html", "b08-diagonalization.html", "b12-brahmagupta-fibonacci.html", "assets/style.css"];
+  const hrefs = pageText.match(/href="[^"]*"/g) || [];
+  const bad = hrefs.filter((h) => canon.indexOf(h.slice(6, -1)) === -1);
+  lines.push(bad.length === 0 ? "PASS hrefs: all " + hrefs.length + " canonical (" + new Set(hrefs).size + " distinct)" : "FAIL hrefs " + JSON.stringify(bad));
+  lines.push(pageText.indexOf("<title>P06 · Compose with identity · The Patterns Atlas</title>") !== -1 ? "PASS title exact" : "FAIL title");
+  lines.push(pageText.indexOf("P06 · the sixth move of the spine") !== -1 ? "PASS kicker exact" : "FAIL kicker");
+  lines.push(pageText.indexOf("Next up the spine") !== -1 ? "PASS footer nav present" : "FAIL footer nav");
+  return lines;
+}

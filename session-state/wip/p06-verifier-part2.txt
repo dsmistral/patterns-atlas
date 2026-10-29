@@ -1,0 +1,42 @@
+
+function V01(pg) {
+  const at = pg.indexOf("1.221 \\times 10^{-15}");
+  const ghost = pg.indexOf("1.077");
+  const verdict = at !== -1 && ghost === -1 ? "REFUTED" : "UPHELD";
+  return "V01 " + verdict + ": claim 'the page cites the rotation worst error as 1.077e-15' — witness: " +
+    (at === -1 ? "no 1.221e-15 citation found in the page" : "the page reads, verbatim, '" + pg.slice(at - 30, at + 22) + "'");
+}
+
+function V02(pg) {
+  const at = pg.indexOf("2.293 \\times 10^{-14}");
+  const verdict = at !== -1 ? "REFUTED" : "UPHELD";
+  return "V02 " + verdict + ": claim 'the page cites the determinant grid worst as 4.441e-16' — witness: " +
+    (at === -1 ? "no 2.293e-14 citation found" : "the page's determinant sentence reads, verbatim, '" + pg.slice(at - 34, at + 20) + "'");
+}
+
+function V03() {
+  const two = [], refuse = [];
+  for (let n = 1; n <= 100; n++) {
+    let hit = false;
+    for (let a = 0; a <= 10 && !hit; a++) { const r = n - a * a; if (r >= 0) { const b = Math.sqrt(r); if (b === Math.floor(b)) hit = true; } }
+    if (hit) two.push(n);
+  }
+  let four = 0;
+  for (let n = 1; n <= 100; n++) {
+    let hit = false;
+    scan: for (let a = 0; a <= 10; a++) for (let b = a; b <= 10; b++) for (let c = b; c <= 10; c++) {
+      const d2 = n - a * a - b * b - c * c;
+      if (d2 >= 0) { const d = Math.sqrt(d2); if (d === Math.floor(d)) { hit = true; break scan; } }
+    }
+    if (hit) four++;
+  }
+  for (let n = 1; n <= 100; n++) {
+    let hit = false;
+    scan3: for (let a = 0; a <= 10; a++) for (let b = a; b <= 10; b++) for (let c = b; c <= 10; c++) {
+      if (a * a + b * b + c * c === n) { hit = true; break scan3; }
+    }
+    if (!hit) refuse.push(n);
+  }
+  const verdict = two.length === 43 && four === 100 && refuse.length === 15 ? "REFUTED" : "UPHELD";
+  return "V03 " + verdict + ": claim 'the censuses count 43 two-square, 100 four-square, 16 refusers' — witness: fresh recount gives " + two.length + " two-square, " + four + " four-square, " + refuse.length + " three-square refusers (" + refuse.join(", ") + ")";
+}

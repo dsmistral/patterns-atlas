@@ -1,0 +1,39 @@
+
+function p05() {
+  const lines = [];
+  const od = (z, w) => [z[0]*w[0] - z[1]*w[1], z[0]*w[1] + z[1]*w[0]];
+  const N = (z) => z[0]*z[0] + z[1]*z[1];
+  let bad = 0, cases = 0;
+  for (let a = 0; a <= 12; a++) for (let b = 0; b <= 12; b++) {
+    cases++;
+    const r = od([a, b], [1, 1]);
+    if (!(r[0] === a - b && r[1] === a + b && N(r) === 2 * N([a, b]))) bad++;
+  }
+  lines.push(bad === 0 ? "PASS doubling machine (a,b) od (1,1) = (a-b, a+b), N doubles, over " + cases + " pairs" : "FAIL doubling exceptions=" + bad);
+  const inst = od([3, 4], [1, 1]);
+  lines.push((inst[0] === -1 && inst[1] === 7 && inst[0]*inst[0] + inst[1]*inst[1] === 50 && 1 + 49 === 50 && 50 === 2 * 25)
+    ? "PASS doubling instance (3,4) -> (-1,7), 50 = 1 + 49 = 2*25" : "FAIL doubling instance " + JSON.stringify(inst));
+  return lines;
+}
+
+function p06() {
+  const lines = [];
+  const od = (z, w, flip) => flip ? [z[0]*w[0] + z[1]*w[1], z[0]*w[1] - z[1]*w[0]] : [z[0]*w[0] - z[1]*w[1], z[0]*w[1] + z[1]*w[0]];
+  const N = (z) => z[0]*z[0] + z[1]*z[1];
+  // census 0 <= x <= y <= 33
+  const reps = [];
+  for (let x = 0; x <= 33; x++) for (let y = x; y <= 33; y++) if (x*x + y*y === 1025) reps.push([x, y]);
+  const okCensus = reps.length === 3 && reps[0][0] === 1 && reps[0][1] === 32 && reps[1][0] === 8 && reps[1][1] === 31 && reps[2][0] === 20 && reps[2][1] === 25;
+  lines.push(okCensus ? "PASS 1025 census (0<=x<=y<=33): exactly three reps (1,32),(8,31),(20,25)" : "FAIL 1025 census " + JSON.stringify(reps));
+  // route production from 5^2 * 41
+  const sq1 = od([1, 2], [1, 2], false), sq2 = od([1, 2], [1, 2], true);
+  const okSq = (sq1[0] === -3 && sq1[1] === 4 && N(sq1) === 25) && (sq2[0] === 5 && sq2[1] === 0 && N(sq2) === 25);
+  lines.push(okSq ? "PASS 5^2 built by routes: (1,2)^2 -> (-3,4) and (5,0), both N = 25 (second trivial, on axis)" : "FAIL 5^2 routes");
+  const a1 = od([3, 4], [4, 5], false), a2 = od([3, 4], [4, 5], true);
+  const b1 = od([5, 0], [4, 5], false), b2 = od([5, 0], [4, 5], true);
+  const okRoutes = (a1[0] === -8 && a1[1] === 31 && N(a1) === 1025) && (a2[0] === 32 && a2[1] === -1 && N(a2) === 1025) && (b1[0] === 20 && b1[1] === 25 && N(b1) === 1025) && (b2[0] === 20 && b2[1] === 25 && N(b2) === 1025);
+  lines.push(okRoutes ? "PASS 1025 route-produced: (3,4)*(4,5) -> (-8,31),(32,-1); (5,0)*(4,5) -> (20,25) both routes" : "FAIL 1025 routes");
+  const match = (p) => reps.some((r) => (Math.abs(r[0]) === Math.abs(p[0]) && Math.abs(r[1]) === Math.abs(p[1])) || (Math.abs(r[0]) === Math.abs(p[1]) && Math.abs(r[1]) === Math.abs(p[0])));
+  lines.push([a1, a2, b1].every(match) ? "PASS every census rep is route-produced, one via the trivial parked rep" : "FAIL census-vs-routes");
+  return lines;
+}

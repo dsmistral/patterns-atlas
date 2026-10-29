@@ -1,0 +1,29 @@
+
+function V04() {
+  const reps = [];
+  for (let a = 1; a * a * 2 <= 1025; a++) { const b = Math.sqrt(1025 - a * a); if (b === Math.floor(b)) reps.push("(" + a + "," + b + ")"); }
+  const verdict = reps.length === 3 ? "REFUTED" : "UPHELD";
+  return "V04 " + verdict + ": claim 'the 1025 census holds four representations' — witness: fresh census finds " + reps.length + ": " + reps.join(", ");
+}
+
+function V05() {
+  const trips = [];
+  for (let a = 1; a * a * 2 < 4225; a++) { const b = Math.sqrt(4225 - a * a); if (b === Math.floor(b) && a <= b) trips.push("(" + a + "," + b + ")"); }
+  const verdict = trips.length === 4 ? "REFUTED" : "UPHELD";
+  return "V05 " + verdict + ": claim 'the hypotenuse-65 census finds three triples' — witness: fresh census finds " + trips.length + ": " + trips.join(", ");
+}
+
+function V06() {
+  const fib = [0, 1];
+  while (fib.length < 42) fib.push(fib[fib.length - 1] + fib[fib.length - 2]);
+  const verdict = fib[41] === 102334155 ? "UPHELD" : "REFUTED";
+  return "V06 " + verdict + ": claim 'F(41) = 102334155' — witness: recomputed F(40) = " + fib[40] + ", F(41) = " + fib[41] + " (the injection quoted the wrong index)";
+}
+
+function V07(pg) {
+  const ghost = pg.indexOf("p99-");
+  const canonical = pg.indexOf("p01-pin-down-the-problem.html");
+  const verdict = ghost === -1 && canonical !== -1 ? "REFUTED" : "UPHELD";
+  return "V07 " + verdict + ": claim 'the page links p99-pin-down-the-problem.html' — witness: " +
+    (ghost === -1 ? "no p99- href anywhere in the page; the sibling pattern is cited by its canonical href p01-pin-down-the-problem.html" : "a p99- href sits at offset " + ghost);
+}

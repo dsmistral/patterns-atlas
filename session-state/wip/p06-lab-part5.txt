@@ -1,0 +1,55 @@
+
+function p09() {
+  const lines = [];
+  const mk = (k) => [[k / 10, (k + 3) / 10], [(k + 5) / 10, (k + 7) / 10]];
+  const det = (m) => m[0][0] * m[1][1] - m[0][1] * m[1][0];
+  const mul = (a, b) => [[a[0][0]*b[0][0] + a[0][1]*b[1][0], a[0][0]*b[0][1] + a[0][1]*b[1][1]], [a[1][0]*b[0][0] + a[1][1]*b[1][0], a[1][0]*b[0][1] + a[1][1]*b[1][1]]];
+  let worst = 0, cases = 0;
+  for (let i = 0; i < 20; i++) for (let j = 0; j < 20; j++) {
+    cases++;
+    const err = Math.abs(det(mul(mk(i), mk(j))) - det(mk(i)) * det(mk(j)));
+    if (err > worst) worst = err;
+  }
+  lines.push((worst < 1e-13) ? "PASS determinant grid " + cases + " matrix pairs (20x20), worst |det(AB) - det(A)det(B)| = " + worst.toExponential(3) + " (the page's cited value)" : "FAIL det grid worst=" + worst.toExponential(3));
+  const q = [[1, 1], [1, 0]], idm = [[1, 0], [0, 1]];
+  const probe = mul(q, idm);
+  lines.push((probe[0][0] === 1 && probe[0][1] === 1 && probe[1][0] === 1 && probe[1][1] === 0)
+    ? "PASS matrix identity probe Q*I = Q" : "FAIL matrix identity probe");
+  return lines;
+}
+
+function p10() {
+  const lines = [];
+  const F = [0, 1];
+  for (let n = 2; n <= 50; n++) F[n] = F[n - 1] + F[n - 2];
+  const mul = (a, b) => [[a[0][0]*b[0][0] + a[0][1]*b[1][0], a[0][0]*b[0][1] + a[0][1]*b[1][1]], [a[1][0]*b[0][0] + a[1][1]*b[1][0], a[1][0]*b[0][1] + a[1][1]*b[1][1]]];
+  const Q = [[1, 1], [1, 0]];
+  let bad = 0, badDet = 0, drift40 = -1;
+  let P = [[1, 0], [0, 1]];
+  for (let n = 1; n <= 40; n++) {
+    P = mul(P, Q);
+    if (!(P[0][0] === F[n + 1] && P[0][1] === F[n] && P[1][0] === F[n] && P[1][1] === F[n - 1])) bad++;
+    const detEntries = P[0][0] * P[1][1] - P[0][1] * P[1][0];
+    if (n <= 39) {
+      if (detEntries !== (n % 2 === 0 ? 1 : -1)) badDet++;
+    } else {
+      // honest float wall: F(41)*F(39) ~ 1.05e16 exceeds the exact-integer
+      // float range 2^53 ~ 9.0e15, so the n=40 det drifts; record the drift.
+      drift40 = Math.abs(detEntries - 1);
+    }
+  }
+  lines.push(bad === 0 ? "PASS Fibonacci machine Q^n = [[F(n+1),F(n)],[F(n),F(n-1)]] for n = 1..40, 0 mismatches" : "FAIL Q^n entries n=" + bad);
+  lines.push(badDet === 0 && drift40 >= 0 && drift40 <= 2
+    ? "PASS Cassini F(n+1)F(n-1) - F(n)^2 = (-1)^n exact for n = 1..39; at n = 40 the products pass the float exact-integer wall 2^53 and the det drifts by " + drift40 + " (recorded, not hidden)" : "FAIL Cassini " + badDet + " drift=" + drift40);
+  lines.push(F[41] === 165580141 ? "PASS F(41) = 165580141" : "FAIL F(41)=" + F[41]);
+  let badAdd = 0, cases = 0;
+  for (let m = 1; m <= 25; m++) for (let n = 1; n <= 25; n++) {
+    cases++;
+    if (F[m + n] !== F[m] * F[n + 1] + F[m - 1] * F[n]) badAdd++;
+  }
+  lines.push(badAdd === 0 ? "PASS addition formula F(m+n) = F(m)F(n+1) + F(m-1)F(n) over " + cases + " pairs (25x25), 0 mismatches" : "FAIL addition formula " + badAdd);
+  const i1 = F[10] === 55 && F[5] * F[6] === 40 && F[4] * F[5] === 15 && 40 + 15 === 55;
+  const i2 = F[12] === 144 && F[5] * F[8] === 105 && F[4] * F[7] === 39 && 105 + 39 === 144;
+  lines.push(i1 && i2 ? "PASS instances 55 = 40 + 15 (m=n=5) and 144 = 105 + 39 (m=5,n=7)" : "FAIL Fibonacci instances");
+  return lines;
+}

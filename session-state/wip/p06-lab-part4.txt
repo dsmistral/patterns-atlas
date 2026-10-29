@@ -1,0 +1,47 @@
+
+function p07() {
+  const lines = [];
+  const rad = (deg) => deg * Math.PI / 180;
+  let worst = 0, worstNorm = 0, cases = 0;
+  for (let i = 0; i < 51; i++) for (let j = 0; j < 51; j++) {
+    const al = -180 + i * 7.2, be = -180 + j * 7.2;
+    cases++;
+    const x = Math.cos(rad(al)) * Math.cos(rad(be)) - Math.sin(rad(al)) * Math.sin(rad(be));
+    const y = Math.cos(rad(al)) * Math.sin(rad(be)) + Math.sin(rad(al)) * Math.cos(rad(be));
+    const tx = Math.cos(rad(al + be)), ty = Math.sin(rad(al + be));
+    const err = Math.max(Math.abs(x - tx), Math.abs(y - ty));
+    if (err > worst) worst = err;
+    const nerr = Math.abs(x*x + y*y - 1);
+    if (nerr > worstNorm) worstNorm = nerr;
+  }
+  lines.push((worst < 2e-15 && worst.toExponential(3) === "1.221e-15") ? "PASS rotation grid " + cases + " pairs (51x51, -180..180 step 7.2), worst |error| = " + worst.toExponential(3) + " (the page's cited value)" : "FAIL rotation grid worst=" + worst.toExponential(3));
+  lines.push((worstNorm < 1e-15) ? "PASS rotation grid norms: worst |N-1| = " + worstNorm.toExponential(3) : "FAIL rotation norms " + worstNorm.toExponential(3));
+  return lines;
+}
+
+function p08() {
+  const lines = [];
+  const rad = (deg) => deg * Math.PI / 180;
+  const ex = (Math.sqrt(6) - Math.sqrt(2)) / 4, ey = (Math.sqrt(6) + Math.sqrt(2)) / 4;
+  const dx = Math.cos(rad(75)), dy = Math.sin(rad(75));
+  const ok75 = Math.abs(ex - dx) < 5e-16 && Math.abs(ey - dy) < 5e-16 && Math.abs(ex*ex + ey*ey - 1) < 1e-15;
+  lines.push(ok75 ? "PASS cos75/sin75 both routes agree (exact (sqrt6-sqrt2)/4 vs direct), |diff| < 5e-16, exact norm 1" : "FAIL cos75 exact=" + ex + " direct=" + dx);
+  lines.push((Math.round(ex * 1e10) / 1e10 === 0.2588190451 && Math.round(ey * 1e10) / 1e10 === 0.9659258263)
+    ? "PASS cos75 = 0.2588190451, sin75 = 0.9659258263 (displayed values match)" : "FAIL cos75 value " + ex);
+  const da = Math.cos(rad(35)) * Math.cos(rad(35)) - Math.sin(rad(35)) * Math.sin(rad(35));
+  const ok70 = Math.abs(da - Math.cos(rad(70))) < 5e-16;
+  lines.push(ok70 ? "PASS cos70 by double-angle route agrees with direct cos70" : "FAIL cos70 " + da);
+  lines.push((Math.round(Math.cos(rad(70)) * 1e10) / 1e10 === 0.3420201433)
+    ? "PASS cos70 = 0.3420201433 (displayed value)" : "FAIL cos70 displayed");
+  let worst = 0, cases = 0;
+  for (let i = 0; i < 73; i++) {
+    const t = i * 5;
+    cases++;
+    const c = Math.cos(rad(t)), s = Math.sin(rad(t));
+    const e1 = Math.abs(c*c - s*s - Math.cos(rad(2*t)));
+    const e2 = Math.abs(2*s*c - Math.sin(rad(2*t)));
+    if (Math.max(e1, e2) > worst) worst = Math.max(e1, e2);
+  }
+  lines.push((worst < 1e-15) ? "PASS double-angle sweep " + cases + " angles (0..360 step 5), worst |error| = " + worst.toExponential(3) : "FAIL double-angle worst=" + worst.toExponential(3));
+  return lines;
+}
