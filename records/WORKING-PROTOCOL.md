@@ -71,6 +71,13 @@ same session it is found.
   (an S20 environment reset destroyed a completed, machine-verified P06
   authoring before any push). Staging is a durability measure, not a publication:
   final placement, all gates and receipts are unchanged.
+- **Clean and reuse (owner directive, S20 close, binding).** Do not create new
+  folders or files for work sessions — no per-session scratch directories, no
+  new bookkeeping files. The two stages above are the only working areas,
+  reused every session and kept clean: staged parts are merged into their
+  final placement or deleted at close, and volatile scratch is never relied
+  upon. A session lives as one row in the session log plus the standing
+  session-state file, not as new files.
 
 ## Standing content rules
 
