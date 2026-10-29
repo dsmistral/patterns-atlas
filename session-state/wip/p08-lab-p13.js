@@ -1,6 +1,7 @@
 (function(R, page) {
-  var at=page.indexOf('Fig P08.3'),block=page.slice(at-4000,at+2000);
-  block=block.slice(block.lastIndexOf('<svg'),block.indexOf('</svg>')+6);
+  var at=page.indexOf('Fig P08.3');
+  var s0=page.lastIndexOf('<svg',at),s1=page.indexOf('</figure>',s0);
+  var block=page.slice(s0,s1);
   var ox=60,oy=205,ux=12.75,uy=1.6;
   R.push({id:'p13.1',d:'Fig3: ceiling y=45 corresponds to A=100',ok:Math.abs((205-45)/uy-100)<1e-9&&block.indexOf('y1="45" x2="315" y2="45"')>=0});
   R.push({id:'p13.2',d:'Fig3: mirror line x=187.5 corresponds to a=10',ok:Math.abs((187.5-ox)/ux-10)<1e-9&&block.indexOf('x1="187.5" y1="45" x2="187.5" y2="205"')>=0});
