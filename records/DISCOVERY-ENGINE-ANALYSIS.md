@@ -56,9 +56,11 @@ Verdict: their own graph data **confirms** their curation (technique hubs carry 
 
 ## The 3 findings worth adopting into CGT
 
-1. **Inheritance chains + an `inherits` DAG** — technique→technique ancestry with inherited/added per link. CGT records "engine promotions" in survey dossiers but has no explicit lineage structure. → `cgt-adoption-plan.md`
-2. **Typed function signatures** — preconditions/postconditions per pattern, machine-checkable; powers real decision flowcharts. CGT's Shape/Move/When-to-use/When-it-fails is the same spirit in prose. → `cgt-adoption-plan.md`
-3. **Three-key diagnosis playbook + impossibility catalog** — claim-type/problem-shape/tools-at-hand → technique, plus a standing "what doesn't work" catalog. CGT has the reverse index (powering ◆ exercises) but never rendered it; has per-pattern failure modes but no obstruction catalog. → `cgt-adoption-plan.md`
+1. **Inheritance chains + an `inherits` DAG** — technique→technique ancestry with inherited/added per link. CGT records "engine promotions" in survey dossiers but has no explicit lineage structure.
+2. **Typed function signatures** — preconditions/postconditions per pattern, machine-checkable; powers real decision flowcharts. CGT's Shape/Move/When-to-use/When-it-fails is the same spirit in prose.
+3. **Three-key diagnosis playbook + impossibility catalog** — claim-type/problem-shape/tools-at-hand → technique, plus a standing "what doesn't work" catalog. CGT has the reverse index (powering ◆ exercises) but never rendered it; has per-pattern failure modes but no obstruction catalog.
+
+*(The adoption plan file these findings pointed to — `cgt-adoption-plan.md`, written S01c — was removed 2026-10-29 by owner decision; the three findings remain recorded above as analysis results.)*
 
 ## Full-graph battery (complete file, run 2026-10-27)
 
