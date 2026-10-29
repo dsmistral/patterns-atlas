@@ -1,0 +1,108 @@
+B12 formatting-pass (R1) verifier output — labs/b12-format-pass-output.txt
+Session S18, 2026-10-28. The Patterns Atlas, repo dsmistral/patterns-atlas, branch main.
+Page verified: book/b12-brahmagupta-fibonacci.html at R1
+  37,897 bytes / 292 lines / md5 103aaf5c4eb9f9b69d667662d77f549d.
+Engine: fresh verifier, zero shared code with labs/b12-lab.js (the R0 lab).
+Scope: every numeric claim of the R0 receipts re-verified from scratch; the
+R1 page's TeX and structure counted from the shipped bytes; the three SVG
+figures parsed from the shipped bytes and checked geometrically.
+
+--- clean transcript (run 3) ---
+B12 formatting-pass (R1) verifier — labs/b12-format-pass.js
+Session S18, 2026-10-28. Fresh engine, zero shared code with labs/b12-lab.js.
+Target: book/b12-brahmagupta-fibonacci.html at R1 (head block byte-checked).
+[p00] pre-flight smoke probe
+probe: rem(10,4)=2, rem(2027,4)=3, 16+49=65, 65*65=4225 — PASS
+artifact carries all 11 piece markers — PASS
+artifact utf-8 bytes: 25123
+[p01] identity and sibling route, exhaustive sweeps
+sweep 0..12: 28561 cases (R0 receipt 28,561), 0 mismatches — PASS
+sweep -6..6: 28561 cases (R0 receipt 28,561), 0 mismatches — PASS
+221: 1+16=17, 4+9=13, 17*13=221; routes (-10,11) and (14,-5) — PASS
+221 reps: 10^2+11^2=221, 5^2+14^2=221 — PASS
+65 routes (-4,7) (8,-1); census 0..8: 1,8,4,7 — PASS
+[p02] 4225 five reps, four right triangles, trivial-input routes
+census 0..65: 0,65,16,63,25,60,33,56,39,52 (5 reps) — PASS
+legs squared: 16^2+63^2 = 25^2+60^2 = 33^2+56^2 = 39^2+52^2 = 4225 = 65^2 — PASS
+trivial routes: (-52,39) (-60,25) (-65,0), all norm 4225 — PASS
+E2 square checks: 1105,1105,1105,1105 — PASS
+[p03] 325 and 1105 censuses, routes on 65 x 17, Exercise 1
+census 325 (0..18): 1,18,6,17,10,15, sums 325/325/325 — PASS
+census 1105 (0..33): 4,33,9,32,12,31,23,24 — PASS
+routes on 65 x 17: (-31,12)->(12,31), (33,-4)->(4,33), (-24,23)->(23,24), (32,9)->(9,32), norms 1105,1105,1105,1105 — PASS
+E1a: (-4,7) and (8,-1), norms 65/65 — PASS
+E1b: (1,3) and (3,1), norms 10/10, unordered pairs equal — PASS
+[p04] three-squares non-example, mod-4 census, 2027, Exercise 3
+three-squares a,b,c <= 3 (64 triples): 3 = 1+1+1 yes, 5 = 4+1+0 yes, 15 no — PASS
+mod 4: squares 0,1, two-square sums 0,1,2, class 3 unreachable — PASS
+2027 = 4*506 + 3; 45-scan (2116 pairs): 0 reps — PASS
+[p05] prime census under 100, Brahmagupta N-form
+census: 25 primes, 12 accept with the page witnesses, 13 refuse — PASS
+all refusers = 3 (mod 4); accepters 2 or = 1 (mod 4); witnesses square-sum true — PASS
+N-form, N in {1,2,3,5} over 0..5: 5184 cases (R0 receipt 5,184), 0 mismatches — PASS
+N = 3 instance: (1^2 + 3*1)(2^2 + 3*1) = 28, route = (-1)^2 + 3*9 = 28 — PASS
+[p06] Pell composition identity and P05 witness chain
+(3s+5y)^2 - 5(s+3y)^2 = 4(s^2 - 5y^2), s,y in -5..5: 121 cases, 0 mismatches — PASS
+chain (3,1)-(7,3)-(18,8)-(47,21), values 4,4,4,4 — PASS
+compose (3,1) with itself: value (9-5)*(9-5) = 16, halving divides by 4 — PASS
+[p07] R1 page bytes: TeX and structure sanity
+page utf-8 bytes: 37897 (wc -c receipt 37,897) — PASS
+inline TeX: 214/214 open/close (214/214) — PASS
+display TeX: 5/5 (5/5 = 4 content + config) — PASS
+dollar-dollar 0, class="eq" 4, text-align 0 — PASS
+sections 7, figures 3, svgs 3, figcaptions 3 (7/3/3/3) — PASS
+strong Fig B12. 3, aria Fig B12. 3 (3/3) — PASS
+details 7, summary 7 (7/7) — PASS
+paragraph tags open/close: 44/44 (44/44) — PASS
+config line backslashes: 8 (8) — PASS
+http 4, scripts 2, links 1 (4/2/1) — PASS
+mojibake and placeholders: none — PASS
+revision log carries R0 (session S09) and R1 (session S18) — PASS
+labs line names the pass lab and its output file — PASS
+[p08] Fig B12.1 SVG: the two routes of 221
+viewBox 0 0 340 170 present — PASS
+composition circle (158,99) r=17 with ⊙ — PASS
+labels: inputs, route outputs, route names, note — PASS
+four boxes at planned coordinates — PASS
+4 connector lines and 4 arrowheads — PASS
+arrow geometry: box-edge starts, 23px/4px tip clearances, 9px bases, 5px heads — PASS
+[p09] Fig B12.2 SVG: four right triangles on hypotenuse 65
+viewBox 0 0 340 152 present — PASS
+four triangle paths — PASS
+vertices: legs (16,63), (25,60), (33,56), (39,52) at 1.5 px/unit, right angle at each — PASS
+vertex coordinates match the planned geometry — PASS
+hypotenuse endpoints dotted at (60,88) and (157.5,88) — PASS
+four leg labels — PASS
+note "four right triangles, one hypotenuse: 65" (40 chars) — PASS
+[p10] Fig B12.3 SVG: prime census grid 1..100
+viewBox 0 0 340 214 present — PASS
+100 circles — PASS
+positions on the 10-wide grid, in viewBox; colors 12 blue / 13 red / 75 gray; radii 4.5 primes / 2 rest — PASS
+column labels 1..10 — PASS
+three legend lines, 49 chars or fewer each — PASS
+VERDICT: 57 checks, 0 FAIL
+
+--- honest run history ---
+Run 1: crashed before verdict — harness defect: readText did not await the
+  async sandbox read_file (TypeError at piece p00). Harness made async
+  (readText/page/svgSeg/p00/p07/p08/p09/p10/runAll; driver awaits). No math
+  or page defect.
+Run 2: 57 checks, 1 FAIL — the p08 arrow-geometry check. Cause: a lab
+  harness off-by-one in polygon-points extraction (the slice after
+  'points="' used +9 instead of +8, dropping the first digit of every tip
+  coordinate, e.g. 136.91 read as 36.91, so computed clearances came out as
+  121.4 px and 203.7 px instead of 23 px and 4 px). The shipped SVG was
+  verified correct by direct hand computation (tips at 23.00 px from the
+  composition-circle center, 4.00 px from the target boxes, bases
+  9.01/9.00 px, heads 5.00 px). Fixed in the lab artifact and its source
+  piece; the page was untouched and remains at the md5 above.
+Run 3 (clean, recorded above): VERDICT: 57 checks, 0 FAIL.
+Note: one inline re-paste of the battery during run-3 preparation carried a
+  transcription typo (misplaced parenthesis in piece p09) and failed to
+  compile before executing; not a battery run, artifact unaffected.
+
+--- artifact receipt ---
+labs/b12-format-pass.js (post-fix, the file that produced run 3):
+  25,123 bytes / 340 lines / md5 dbc49034ddfc84fc1dbcd0dd453c6192
+Pre-fix artifact that produced run 2 (for the record):
+  25,123 bytes / md5 54833d93f1cd4dfd8b196aa73e3ffebb
