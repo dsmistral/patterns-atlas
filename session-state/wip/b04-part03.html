@@ -1,0 +1,29 @@
+
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<div class="pattern-box" id="box-b04">
+<p><strong>Box B04 — Bézout's identity.</strong> For whole numbers \(a\) and \(b\), not both zero, whole numbers \(x\) and \(y\) always exist with</p>
+<p class="eq">\[ax + by \;=\; \gcd(a, b).\]</p>
+<p>The dance finds them: run the divisions to the bottom (B03), then climb back up the chain, turning each leftover into a combination of \(a\) and \(b\), until the gcd itself arrives carrying its coefficients.</p>
+<p class="words">In words: the greatest common divisor is not just the biggest shared part of the two numbers — it is <em>buildable</em> from them alone. Stacks of \(a\), stacks of \(b\), and negative stacks: an anti-stack removes instead of adds. Four stacks of 25 minus nine stacks of 11 lands exactly on 1; the climb finds such landings mechanically, for every pair, every time.</p>
+</div>
+<div class="pattern-box" id="box-b04a">
+<p><strong>Box B04.A — the reachable set is exactly the multiples of the gcd.</strong> For \(a, b\) not both zero,</p>
+<p class="eq">\[\{\, ax + by \;:\; x, y \text{ whole} \,\} \;=\; \{\, \text{multiples of } \gcd(a, b) \,\}.\]</p>
+<p>Every combination is a multiple of the gcd: the gcd divides \(a\) and \(b\), so it divides every stack and anti-stack of them, hence every sum of such stacks (B03's hand-me-down arithmetic). And every multiple is a combination: by Box B04 some combination \(ax_0 + by_0\) equals the gcd, and multiplying through by \(k\) gives \(a(kx_0) + b(ky_0) = k \gcd(a, b)\). Nothing else is reachable. In particular, 1 is reachable exactly from coprime pairs — that one line is the engine of everything section 4 does with inverses.</p>
+</div>
+<p>Three words get defined here, at first use:</p>
+<ul>
+<li><em>New word: linear combination.</em> A number of the form \(ax + by\), for whole \(x, y\). Task one built 1 as a linear combination of 25 and 11; this page's combinations are all linear combinations of exactly two numbers.</li>
+<li><em>New word: Bézout coefficients.</em> The \(x, y\) of the identity — the two entries of a gcd's certificate. For (25, 11): \(x = 4\), \(y = -9\). They are not unique: \(4 \times 25 - 9 \times 11\) and \((-7) \times 25 + 16 \times 11\) both equal 1. Exercise 3 builds the full family of them.</li>
+<li><em>New word: certificate.</em> A checkable object that settles a claim outright — here, a spelled-out \(ax + by\) that anyone can verify with one multiplication and one addition, without re-running anything. A certificate for \(\gcd(a, b) = g\) is stronger than the bare claim: it carries its own evidence.</li>
+</ul>
+<p>Examples and non-examples:</p>
+<ul>
+<li><strong>Yes, coprime:</strong> \(4 \times 25 - 9 \times 11 = 1\) — task one's hunt, again.</li>
+<li><strong>Yes, gcd above 1:</strong> \(7 \times 462 - 3 \times 1071 = 3{,}234 - 3{,}213 = 21 = \gcd(1071, 462)\) — B03's task-one pair, its 21 now with an address, not just a value. (Check both products.)</li>
+<li><strong>No, wrong target:</strong> no combination of 4 and 6 is odd: \(4x + 6y\) is even whatever \(x, y\) are. Box B04.A says so structurally — \(\gcd(4, 6) = 2\), so the reachable set is the even numbers, exactly. A sweep over all \(x, y\) from \(-40\) to \(40\) finds only evens, and every even number in range.</li>
+<li><strong>Yes, with zero:</strong> \(\gcd(a, 0) = a = a \times 1 + 0 \times 0\) — the identity holds at the edge: one stack, and nothing.</li>
+</ul>
+<p>The identity carries Étienne Bézout's name (1730–1783), from his 1779 treatise, which handled the general case and — more famously — the same statement for polynomials. But the coprime case was in print long before: Claude-Gaspard Bachet stated it in 1612, in the same book that carries the famous weights puzzle. Names in mathematics drift to the generalizers; the idea itself is as old as the dance it reverses. The claim that such \(x, y\) always exist — and the climb that finds them — is proved in section 4; nothing on this page rests on either name's authority.</p>
+</section>

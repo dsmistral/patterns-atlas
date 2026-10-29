@@ -1,0 +1,44 @@
+
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p><strong>Task one.</strong> List the multiples of 25 up to 100, and the multiples of 11 up to 99. Hunt for the closest pair across the two lists. How close can you get — and can you get down to 1?</p>
+<p>Do it. The multiples of 25 are \(25, 50, 75, 100\); the multiples of 11 run \(11, 22, 33, \dots\) up to \(99\). Within the drawn range the two lists never meet — 25 and 11 share no factor — but they come within one unit of meeting: \(100\) and \(99\) (Fig B04.1). And one unit apart means one <em>subtraction</em> away from a statement about stacks:</p>
+<p class="eq">\[4 \times 25 - 9 \times 11 \;=\; 100 - 99 \;=\; 1.\]</p>
+<p>Neither 25 nor 11 divides 1 — no single kind of stack lands on it — and yet 1 is a <em>combination</em> of them: four stacks of 25, nine anti-stacks of 11, nothing else. The smallest positive thing these two numbers can build together is 1. That is the whole subject of this page, in pencil.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 160" role="img" aria-label="Fig B04.1 — two number lines, multiples of 25 above and multiples of 11 below, with 100 and 99 highlighted one unit apart">
+<text x="20" y="20" font-size="11" text-anchor="start" fill="#555f6e">multiples of 25</text>
+<rect x="20" y="51.7" width="297" height="1.6" fill="#555f6e"/>
+<rect x="86.5" y="48" width="2" height="8" fill="#3574d4"/>
+<rect x="154" y="48" width="2" height="8" fill="#3574d4"/>
+<rect x="221.5" y="48" width="2" height="8" fill="#3574d4"/>
+<rect x="289" y="48" width="2" height="8" fill="#3574d4"/>
+<text x="87.5" y="40" font-size="11.5" text-anchor="middle" fill="#3a4a5e">25</text>
+<text x="155" y="40" font-size="11.5" text-anchor="middle" fill="#3a4a5e">50</text>
+<text x="222.5" y="40" font-size="11.5" text-anchor="middle" fill="#3a4a5e">75</text>
+<text x="290" y="40" font-size="11.5" text-anchor="middle" fill="#3a4a5e" font-weight="700">100</text>
+<rect x="284" y="45" width="12" height="14" fill="none" stroke="#3574d4" stroke-width="1.2"/>
+<text x="288.7" y="76" font-size="10.5" text-anchor="middle" fill="#555f6e">one unit apart</text>
+<text x="20" y="94" font-size="11" text-anchor="start" fill="#555f6e">multiples of 11</text>
+<rect x="20" y="105.7" width="297" height="1.6" fill="#555f6e"/>
+<rect x="48.7" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="78.4" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="108.1" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="137.8" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="167.5" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="197.2" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="226.9" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="256.6" y="102" width="2" height="8" fill="#3574d4"/>
+<rect x="286.3" y="102" width="2" height="8" fill="#3574d4"/>
+<text x="49.7" y="124" font-size="11.5" text-anchor="middle" fill="#3a4a5e">11</text>
+<text x="168.5" y="124" font-size="11.5" text-anchor="middle" fill="#3a4a5e">55</text>
+<text x="257.6" y="124" font-size="11.5" text-anchor="middle" fill="#3a4a5e">88</text>
+<text x="287.3" y="124" font-size="11.5" text-anchor="middle" fill="#3a4a5e" font-weight="700">99</text>
+<rect x="281.3" y="99" width="12" height="14" fill="none" stroke="#3574d4" stroke-width="1.2"/>
+<text x="170" y="146" font-size="11.5" text-anchor="middle" fill="#555f6e">4 stacks of 25 make 100; 9 stacks of 11 make 99 — and 100 − 99 = 1</text>
+</svg>
+<figcaption><strong>Fig B04.1.</strong> Task one, drawn: multiples of 25 above, multiples of 11 below, at a common scale. The hunt's prize is the near-miss \(100\) versus \(99\) — boxed, one unit apart — and the gap of 1 is exactly the combination \(4 \times 25 - 9 \times 11\). Exercise 3's family theorem, applied to \(25x + 11y = 1\), builds every such near-miss at once: the hunt found one; the climb finds the whole family.</figcaption>
+</figure>
+<p><strong>Task two.</strong> B03 closed its (2026, 1491) story with a brute force: \(2026 \times 1321 = 2{,}676{,}346\), and \(2{,}676{,}346 = 1795 \times 1491 + 1\), so 1321 is the inverse of the class of 2026 mod 1491. Check both claims with pencil multiplication — two of them. Then ask the question the brute force cannot answer: is 1321 an accident — a witness found by luck — or was it sitting somewhere, waiting to be found? Task one says combinations of 25 and 11 can reach 1 without any luck at all. The quotients of the (2026, 1491) dance are \(1, 2, 1, 3, 1, 2, 3, 1, 8\) — and section 3 runs that dance backwards to produce whole numbers \(x, y\) with \(2026x + 1491y = 1\). Reduce \(x\) into the class range and 1321 appears. Nothing accidental about it.</p>
+<p>Notice what the two tasks share. Both found the number 1 as a combination — the first by hunting, the second (in section 3) by a mechanical climb back up B03's chain of divisions. The hunt does not scale: for bigger pairs, the near-miss lies too deep in the multiples to see. The climb does — it reuses the dance B03 already ran. We now name what the climb produces.</p>
+</section>
