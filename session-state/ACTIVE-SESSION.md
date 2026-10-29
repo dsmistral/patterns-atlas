@@ -11,9 +11,9 @@
 **Protocol:** staged parts → this topic `wip/` + repo `session-state/wip/`; two-gated pushes (predict git blob sha in-sandbox, compare OUTSIDE; fetch-back md5); ≤10 connector calls per run; records ALWAYS-SYNC at close (S39 row closed + standing to-do → S40 = author P10); cleanup both tiers at close.
 
 **Status / next step:**
-- [ ] Session open (this file pushed; records S39 row IN PROGRESS pushed)
-- [ ] Page parts 01–07 authored + staged both tiers
-- [ ] Page assembled + design gates + staged
+- [x] Session open (this file pushed; records S39 row IN PROGRESS pushed)
+- [x] Page parts 01–07 authored + staged both tiers (repo `session-state/wip/` two-gated: part01 87dd21623c6a516d6e19a6b28ddc545dbfd6125e, part02 9de8a40ea6f613e614457c3d48410f43d4c6f577, part03 68a3b9bc12d62256bfb875a2ed16030132b88215, part04 32e005011cbe017d727bb6f43d2f508fecc31854, part05 a9c8e8b0cdd288ee1d094921034d935d8d226901, part06 1524ed505df8be1e5dc777d9466b9b9823fc3434, part07 04b4def7d10b7278297bd3b2b32e7ba43d8a4c38). Local sizes 3659/5062/4580/14363/5213/4837/9737 B.
+- [x] Page assembled + design gates + staged: `p09-invariant.html` 47,457 B, md5 8ed0cde3e47bf4fa8e4cf54846cb5c81, blob 599baf314ba5df14abef77b653d8264323cd4a7a. Gates: 8 sections in template order (bridge/encounter/name/exemplars/fails/next/lineage/exercises), 8 h2, 8 h3, 3 figure/svg/figcaption, 10/10 details, 4 asides (onramp + 2 warn + history), 3 pattern-box, 3 pid, 2 eq; inline TeX 241/241, display 2/2 + head config, zero $; MathJax block byte-exact once; hrefs all canonical vs index (16 hrefs, 14 distinct: b01 ×1, b02 ×2, index ×2, p01–p08 ×8, p10, p72-monovariants, p75); banned-token keepers: 'lab' ×3 = the three aria-labels, 'machin' ×1 = 'machinery' (P04/P05 precedent); footer return-index + next-link p10-pigeonhole.html. Fig P09.2 grid machine-recounted 64 rects, census 30/32 exact.
 - [ ] Lab pieces authored + staged
 - [ ] Battery final dispatch: 0 FAIL; output recorded + staged
 - [ ] Verifier authored + staged; first dispatch 16/16
@@ -22,3 +22,5 @@
 - [ ] Page log authored + staged
 - [ ] Placement (5 pushes) + fetch-backs
 - [ ] Records close + cleanup both tiers + close report
+
+**Honest run history so far:** staging run 1's in-sandbox SHA-1 engine was broken (round-loop register shuffle: `b` rotated instead of `c`, `b = a` lost) — its four predicted shas were garbage while the four pushes themselves landed correct content (returned sizes matched local masters); the engine was rebuilt and validated on the empty blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 and SHA-1('abc') a9993e364706816aba3e25717850c26c9cd0d89d, and parts 01–04 were retro-verified: recomputed shas == returned shas for all four. Staging run 2 was a clean two-gate (4/4 predicted == returned). Page-side defects caught and fixed before staging: Fig P09.2 phantom 9th row/column (82 rects → 64, h8 struck box y 266 → 258), Box P09.A phantom-survival count corrected to "one of the three meetings" (R parity survives only G+B→2R), §5 P72 href corrected to p72-monovariants.html (index is canonical), Ex5 criterion patched with the mixed-meadow qualifier (frozen one-colour meadows exempt).
