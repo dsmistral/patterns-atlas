@@ -1,0 +1,159 @@
+RECORDED OUTPUT — The Patterns Atlas, P06 "Compose with identity" (session S21, 2026-10-29)
+Source engine: labs/p06-lab.js (26,928 bytes, md5 dc77d2b8f51a04137cb282488ebbb259)
+Subject page: book/p06-compose-identity.html as staged at authoring time
+(50,426 bytes, md5 c5f6cba872974b8d396ebd61cf5ff168)
+Protocol: the battery runs as self-contained pieces p00..p15, dispatched from the
+artifact bytes (no code retyped between the staged file and the runs); the
+machine-counted verdict below was produced by a counting dispatch that executed
+every piece against the final page bytes. Run history follows the verdict, then
+the adversarial verifier section (a separate engine, labs/p06-review-verifier.js,
+9,868 bytes, md5 a487e349a9ef3f19fd1f14622bbaec74).
+
+=== BATTERY (final clean dispatches) ===
+
+[p00]
+PASS smoke probe (arithmetic, cos, join, length, negative mod)
+[p01]
+PASS identity probe (a,b) od (1,0) = (a,b) over 169 pairs, 0 exceptions
+PASS sign-flipped route preserves N over the same 169 pairs
+PASS instance (2,3) composed with (1,0) returns (2,3), N = 4 + 9 = 13
+[p02]
+PASS norm multiplicativity both routes over 14641 quadruples (11^4 = 14641), 0 mismatches
+[p03]
+PASS conjugation lemma conj(z*w) = conj(z)*conj(w) both routes over 28561 quadruples (13^4 = 28561), 0 mismatches
+PASS conjugation parking z*conj(z) = (N(z), 0) over 169 pairs
+[p04]
+PASS 221 = 17*13 both routes: (-10,11) and (14,-5), each N = 221
+PASS hyp-65 factory: (4,7)^2=(-33,56), (1,8)^2=(-63,16), cross routes (-52,39),(60,25), all N = 4225 = 65^2
+PASS hyp-65 census: exactly four triples, (16,63),(25,60),(33,56),(39,52)
+PASS all four factory outputs land on census points
+[p05]
+PASS doubling machine (a,b) od (1,1) = (a-b, a+b), N doubles, over 169 pairs
+PASS doubling instance (3,4) -> (-1,7), 50 = 1 + 49 = 2*25
+[p06]
+PASS 1025 census (0<=x<=y<=33): exactly three reps (1,32),(8,31),(20,25)
+PASS 5^2 built by routes: (1,2)^2 -> (-3,4) and (5,0), both N = 25 (second trivial, on axis)
+PASS 1025 route-produced: (3,4)*(4,5) -> (-8,31),(32,-1); (5,0)*(4,5) -> (20,25) both routes
+PASS every census rep is route-produced, one via the trivial parked rep
+[p07]
+PASS rotation grid 2601 pairs (51x51, -180..180 step 7.2), worst |error| = 1.221e-15 (the page's cited value)
+PASS rotation grid norms: worst |N-1| = 4.441e-16
+[p08]
+PASS cos75/sin75 both routes agree (exact (sqrt6-sqrt2)/4 vs direct), |diff| < 5e-16, exact norm 1
+PASS cos75 = 0.2588190451, sin75 = 0.9659258263 (displayed values match)
+PASS cos70 by double-angle route agrees with direct cos70
+PASS cos70 = 0.3420201433 (displayed value)
+PASS double-angle sweep 73 angles (0..360 step 5), worst |error| = 2.220e-16
+[p09]
+PASS determinant grid 400 matrix pairs (20x20), worst |det(AB) - det(A)det(B)| = 2.293e-14 (the page's cited value)
+PASS matrix identity probe Q*I = Q
+[p10]
+PASS Fibonacci machine Q^n = [[F(n+1),F(n)],[F(n),F(n-1)]] for n = 1..40, 0 mismatches
+PASS Cassini F(n+1)F(n-1) - F(n)^2 = (-1)^n exact for n = 1..39; at n = 40 the products pass the float exact-integer wall 2^53 and the det drifts by 1 (recorded, not hidden)
+PASS F(41) = 165580141
+PASS addition formula F(m+n) = F(m)F(n+1) + F(m-1)F(n) over 625 pairs (25x25), 0 mismatches
+PASS instances 55 = 40 + 15 (m=n=5) and 144 = 105 + 39 (m=5,n=7)
+[p11]
+PASS Euler four-square identity over 65536 quadruple pairs (4^8 = 65536), 0 mismatches
+PASS four-square identity row (1,0,0,0) returns the object
+PASS 105 climb: 105 = 4 + 49 + 36 + 16 = 2^2 + 7^2 + 6^2 + 4^2
+PASS 105 is not a sum of two squares (witness scan 0..10)
+PASS self-composition carries 105 onward: (2,7,6,4)^2 has norm 105^2 = 11025
+[p12]
+PASS two-squares census 1..100: 43 numbers
+PASS four-squares census 1..100: 100 of 100 (Lagrange)
+PASS three-square refusers 1..100: exactly 15, 7,15,23,28,31,39,47,55,60,63,71,79,87,92,95
+PASS 4^a(8b+7) criterion: set matches the refusers exactly, both directions (15 of 15)
+[p13]
+PASS construction (48,15) = half-sum/half-difference of 63 and 33 (the page's own witnesses)
+PASS STARRED false line refuted: 48^2 + 15^2 = 2529 != 4225
+PASS false line refuted: term-wise (7,4)x(8,1) = (56,4), N = 3152 != 4225
+PASS false line refuted: midpoint (48,36), N = 3600 != 4225 (a 60-triple, not 65)
+PASS false line refuted: 2 sin 35 = 1.147 != sin 70 = 0.940 (gap 0.207)
+[p14 — figures, parsed from the shipped page bytes]
+PASS page carries exactly three inline SVG figures
+PASS Fig P06.1: four dots on the r=117 circle at 1.8 px/unit, positions (63,16),(60,25),(52,39),(33,56), all N = 4225
+PASS Fig P06.2: both machine rows parsed, outputs (3,4) and (−1,7) equal the true compositions, norm labels 25/1/2 and 25·1/50·2 verified
+PASS Fig P06.3: points at 30°, 45°, 75° on the r=95 circle, cos-75 shadow foot at 194.59 = 170 + 95·cos75°
+[p15 — page-byte checks]
+PASS MathJax config block byte-exact (120 bytes)
+PASS structure: 9 sections
+PASS structure: 9 h2
+PASS structure: 3 svg / 3 figure / 3 figcaption
+PASS structure: details/summary 8/8
+PASS structure: p open/close balanced (52/52)
+PASS TeX balance: inline 361/361, display 7/7
+PASS zero dollar-delimiters
+PASS structure: 3 pid spans
+PASS structure: 6 eq paragraphs
+PASS hrefs: all 30 canonical (16 distinct)
+PASS title exact
+PASS kicker exact
+PASS footer nav present
+
+VERDICT: 63 checks, 0 FAIL
+
+=== HONEST RUN HISTORY ===
+
+The battery's first dispatches were not clean, and this record does not pretend
+otherwise. Defects, in order of discovery:
+
+1. p04, dispatch 1: the hypotenuse-65 census comparator was order-sensitive
+   (it compared factory outputs against census points as ordered lists);
+   fixed to unordered matching, dispatch 2 clean (4 PASS).
+2. p06, dispatches 1-2: a wrong expected constant (route-2 of (5,0) od (4,5)
+   is (20,25), not (20,-25)) and an order-sensitive matcher; clean on dispatch 3
+   (4 PASS).
+3. p08, dispatch 1: a bit-equality check on the exact cos-75 value — the two
+   routes sit one ulp apart in floats; fixed to displayed-value checks,
+   dispatch 2 clean (5 PASS).
+4. p09, dispatch 1: the determinant-grid threshold (1e-15) was tighter than
+   the measured worst error (2.293e-14 for the 20x20 family); the threshold
+   was corrected and the page's citation updated to the measured value.
+5. p10, dispatch 1: a Cassini check that assumed exactness at n = 40, where
+   F(41)*F(39) ~ 1.05e16 crosses the float exact-integer wall 2^53 — the
+   honest fix checks n = 1..39 exactly and records the n = 40 drift (1);
+   the same dispatch also exposed an F-array too short for the 25x25
+   addition-formula grid (m+n reaches 50; the array stopped at 41).
+6. p03, final recorded dispatch: the conjugation-parking check called the
+   scalar composition helper with array arguments — a genuine defect that
+   had survived dispatch 1's clean report; it surfaced as 169 exceptions
+   (all pairs) on the recorded final dispatch, was fixed, and re-ran clean
+   on dispatch 2.
+
+The machine-counted verdict above counts the final clean dispatches only.
+The style audit against the presentation fingerprint (13 moves, moves 5 and 7
+adapted per the transfer rules: lab receipts instead of audio; invariant
+vocabulary instead of units) passed 13/13; evidence was gathered from the
+shipped page bytes (recall-bridge opener, Box P06 with "Or, in words"
+restatement, anchored B12 citations, concrete numbers throughout, lab receipts
+as the runnable artifact, collapsible vocabulary asides, invariant-as-gauge
+vocabulary, failure catalogue with what-to-try-next, identity probe before
+the general theory, induction named and deferred to P66, the Brahmagupta
+history aside, short-paragraph texture, five graded exercises with hints
+and worked answers).
+
+=== ADVERSARIAL VERIFIER (labs/p06-review-verifier.js, fresh engine, zero code
+=== shared with the battery; run in three dispatches per the piece-size limit,
+=== then re-run in full against the final page bytes after the last R0 edit —
+=== identical verdicts)
+
+PRE-DISPATCH BOOLEAN AUDIT: registry consistent — 12 must-fail injections, 2 positive controls
+V01 REFUTED: claim 'the page cites the rotation worst error as 1.077e-15' — witness: the page reads, verbatim, 'ith worst coordinate error \\(1.221 \times 10^{-15}\'
+V02 REFUTED: claim 'the page cites the determinant grid worst as 4.441e-16' — witness: the page's determinant sentence reads, verbatim, 'es 20 = 400\\) matrix pairs to \\(2.293 \times 10^{-14'
+V03 REFUTED: claim 'the censuses count 43 two-square, 100 four-square, 16 refusers' — witness: fresh recount gives 43 two-square, 100 four-square, 15 three-square refusers (7, 15, 23, 28, 31, 39, 47, 55, 60, 63, 71, 79, 87, 92, 95)
+V04 REFUTED: claim 'the 1025 census holds four representations' — witness: fresh census finds 3: (1,32), (8,31), (20,25)
+V05 REFUTED: claim 'the hypotenuse-65 census finds three triples' — witness: fresh census finds 4: (16,63), (25,60), (33,56), (39,52)
+V06 REFUTED: claim 'F(41) = 102334155' — witness: recomputed F(40) = 102334155, F(41) = 165580141 (the injection quoted the wrong index)
+V07 REFUTED: claim 'the page links p99-pin-down-the-problem.html' — witness: no p99- href anywhere in the page; the sibling pattern is cited by its canonical href p01-pin-down-the-problem.html
+V08 REFUTED: claim 'the MathJax block is 121 bytes' — witness: measured 120 bytes (manual UTF-8 walk; the block runs from <script> to </script> inclusive)
+V09 REFUTED: claim '2 sin 35 deg = sin 70 deg' — witness: 2 sin 35 = 1.147152873, sin 70 = 0.939692621, gap 0.207460252
+V10 REFUTED: claim '(48,15) has norm 4225' — witness: 48^2 + 15^2 = 2529 while 65^2 = 4225 (the mixed pairing misses the norm)
+V11 REFUTED: claim 'the term-wise product (56,4) has norm 4225' — witness: 56^2 + 4^2 = 3152 (the norm is not term-wise multiplicative)
+V12 REFUTED: claim 'the exact and double routes to cos 75 are bit-identical' — witness: (sqrt6 - sqrt2)/4 = 0.2588190451025207 while cos(75 deg) = 0.25881904510252074 — one ulp apart, which is why the battery checks displayed values
+V13 UPHELD (control): claim 'the page cites 1.221e-15 and a fresh grid agrees' — witness: independent 51x51 recomputation, worst |error| = 1.221e-15, page citation present
+V14 UPHELD (control): claim 'the MathJax block is byte-exact at 120 bytes' — witness: the canonical block appears verbatim at offset 244, measured 120 bytes
+
+VERDICT: 14 verdict lines — 14 PASS, 0 FAIL
+
+End of recorded output.
