@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B05 · Coordinates are a measuring scheme · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B05 · bridge page, group B · before <a href="p16-isomorphism.html">P16</a></p>
+<h1>Coordinates are a measuring scheme</h1>
+<p class="tagline">A point does not come with numbers attached. Numbers come from a scheme — a pair of directions you choose — and the readings the scheme takes are what school called the point's coordinates. Choose the scheme well and a problem simplifies; choose one direction twice and the scheme goes blind in an entire half of the plane.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern, and it opens group B — the coordinates block. Four pages share this block: this one builds the measuring scheme itself (what school bookishly calls a <em>basis</em>); <a href="b06-change-of-basis.html">B06</a> translates readings between two schemes; <a href="b07-eigenvectors.html">B07</a> hunts the directions a matrix leaves alone; <a href="b08-diagonalization.html">B08</a> reaps the harvest, choosing the scheme in which a tangled system falls apart into two easy ones. All four stand behind <a href="p16-isomorphism.html">P16</a> — the pattern that solves a problem by re-dressing it — because re-dressing a geometry problem <em>is</em> re-measuring its points in a better scheme. You already own the school floor: position vectors, and the components of a point. This page re-derives what "components" really are — a reading taken by a scheme someone chose — and shows that the choosing, not the reading, is where the power lives. Take a pencil and a ruler; you will describe one treasure four ways before you meet a single formula.</aside>
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p>A flat island; a lighthouse at the point we will call \(O\); a treasure buried at a point we will call \(P\). Four surveyors walk from the lighthouse to the treasure, and each reports a pair of numbers. The treasure never moves — remember that.</p>
+<p><strong>Ana</strong> walks with a compass. Her directions are <em>east</em> and <em>north</em>, and she reports: <em>7 east, 5 north</em>. Her pair is \((7, 5)\) — the school reading, the one printed on maps.</p>
+<p><strong>Ben</strong> walks the coast road and along a fence. One <em>road-step</em> moves him \(1\) east and \(1\) north; one <em>fence-step</em> moves him \(2\) east and \(1\) north. His report: <em>3 road-steps, then 2 fence-steps</em>. His pair is \((3, 2)\). A different pair of numbers for the very same treasure. Check him with a pencil, leg by leg:</p>
+<p class="eq">\[3 \times (1 \text{ east}, 1 \text{ north}) \;=\; (3, 3), \qquad (3, 3) + 2 \times (2 \text{ east}, 1 \text{ north}) \;=\; (7, 5).\]</p>
+<p>Both journeys land on the treasure (Fig B05.1). Two surveyors, two pairs of numbers, one point. Already the school word "the coordinates of \(P\)" is in trouble — <em>whose</em> readings?</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 210" role="img" aria-label="Fig B05.1 — two journeys from the lighthouse O to the treasure P: Ana walks 7 east then 5 north in blue; Ben walks 3 road-steps then 2 fence-steps in red; both land on the same point">
+<rect x="36" y="178" width="294" height="1.4" fill="#555f6e"/>
+<rect x="36" y="34" width="1.4" height="145" fill="#555f6e"/>
+<circle cx="36" cy="178" r="3" fill="#3a4a5e"/>
+<text x="30" y="192" font-size="11.5" text-anchor="middle" fill="#3a4a5e" font-weight="700">O</text>
+<circle cx="162" cy="88" r="4.5" fill="#3a4a5e"/>
+<text x="170" y="84" font-size="11.5" text-anchor="start" fill="#3a4a5e" font-weight="700">P</text>
+<rect x="36" y="176.2" width="126" height="1.6" fill="#3574d4"/>
+<rect x="161.2" y="88" width="1.6" height="90" fill="#3574d4"/>
+<polygon points="162,178 156,174.5 156,181.5" fill="#3574d4"/>
+<polygon points="162,88 158.5,94 165.5,94" fill="#3574d4"/>
+<text x="99" y="171" font-size="10.5" text-anchor="middle" fill="#3574d4">7 east</text>
+<text x="156" y="134" font-size="10.5" text-anchor="start" fill="#3574d4">5 north</text>
+<line x1="36" y1="178" x2="90" y2="124" stroke="#b3543f" stroke-width="1.6"/>
+<polygon points="90,124 87.2,131.1 82.9,126.8" fill="#b3543f"/>
+<line x1="90" y1="124" x2="162" y2="88" stroke="#b3543f" stroke-width="1.6"/>
+<polygon points="162,88 157.1,93.8 154.4,88.4" fill="#b3543f"/>
+<text x="56" y="140" font-size="10.5" text-anchor="middle" fill="#b3543f">3 road-steps</text>
+<text x="140" y="99" font-size="10.5" text-anchor="middle" fill="#b3543f">2 fence-steps</text>
+<text x="36" y="28" font-size="10.5" text-anchor="start" fill="#555f6e">Ana: east and north → readings (7, 5)</text>
+<text x="36" y="16" font-size="10.5" text-anchor="start" fill="#555f6e">Ben: road (1,1) and fence (2,1) → readings (3, 2)</text>
+</svg>
+<figcaption><strong>Fig B05.1.</strong> Two journeys, one destination. Ana's legs walk the school scheme — 7 east (blue, along the ground), then 5 north (blue, straight up). Ben's legs walk his own scheme — 3 road-steps at \(45^\circ\), then 2 fence-steps at the shallower angle (red). The corner points are \((7, 0)\) then \((7, 5)\) for Ana, and \((3, 3)\) then \((7, 5)\) for Ben: every corner is checkable from the step vectors alone, no formulas, just walking.</figcaption>
+</figure>
+<p><strong>Task two: two more surveyors, one of them broken.</strong> Charlie measures along the coast road and along a pier that runs \(2\) east, \(3\) north per step. He reports \((11, -2)\). A negative reading — check that it is honest:</p>
+<p class="eq">\[11 \times (1, 1) \;-\; 2 \times (2, 3) \;=\; (11 - 4, \, 11 - 6) \;=\; (7, 5).\]</p>
+<p>Eleven road-steps forward, two pier-steps walked <em>backwards</em>. The minus sign is not an error; it is a legal reading, and Charlie still lands on the treasure. Daisy is the fourth surveyor, and her scheme is broken. Her two directions are the coast road \((1, 1)\) and what she calls the half-road \((2, 2)\) — but the half-road is just the road walked twice as wide: every half-road-step equals two road-steps. Try to reach \(P\) with her pair: \(a\) road-steps and \(b\) half-road-steps land on</p>
+<p class="eq">\[a \times (1, 1) + b \times (2, 2) \;=\; (a + 2b, \; a + 2b).\]</p>
+<p>East and north readings always come out <em>equal</em>. The treasure sits at \((7, 5)\) with \(7 \ne 5\): Daisy's scheme cannot reach it — not with effort, not with cleverness, not ever. Her pair of directions, both lying on the same diagonal line, only ever reaches that diagonal.</p>
+<p><strong>Task three: Daisy's second defect.</strong> Confine her to her own diagonal and let her measure the point \((3, 3)\), which she <em>can</em> reach. Her readings of it: \((3, 0)\), then \((1, 1)\), then \((-1, 2)\), then \((0, 1.5)\). Check all four with a pencil:</p>
+<p class="eq">\[3(1,1)+0(2,2)=(3,3), \quad 1(1,1)+1(2,2)=(3,3), \quad (-1)(1,1)+2(2,2)=(3,3), \quad 0(1,1)+1.5(2,2)=(3,3).\]</p>
+<p>One point, four readings — and the list does not stop: \((5, -1)\) works too, since \(5 - 2 = 3\). Infinitely many pairs of numbers describe one point. Where Daisy's scheme reaches at all, it cannot <em>count</em>; the phrase "the reading of \((3,3)\)" has no single referent.</p>
+<p><strong>What the pencil just showed.</strong> The treasure never moved, yet four surveyors reported three different honest pairs \((7,5)\), \((3, 2)\), \((11, -2)\) — and the fourth could report nothing, twice over. So the numbers were never the point's. They belong to the scheme: a chosen pair of directions, and readings taken against it. What separates Ana, Ben and Charlie from Daisy is exactly two demands, both visible in pencil:</p>
+<ul>
+<li><strong>Reach everything:</strong> every point of the plane — treasure or not, on the diagonal or off it — must be reachable by some pair of steps along the chosen directions. Daisy fails this: her diagonal is a prison.</li>
+<li><strong>Read each point once:</strong> no point may admit two different readings. Daisy fails this too; the healthy three pass it — press Ben's scheme and it confesses only \((3, 2)\) for the treasure (section 4 proves the confession is always single).</li>
+</ul>
+<p>A scheme that passes both demands is called a <em>basis</em>; its readings are called <em>coordinates</em>. Everything on this page is the slow unfolding of those two sentences. And one more pencil question waits: all four surveyors used exactly <em>two</em> directions. Would three be better? Would one suffice? The page will prove that two is neither habit nor accident.</p>
+</section>
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<p>First the school floor, restated in one breath so nothing after it is mysterious: a <em>position vector</em> is an arrow from the origin \(O\) to a point — the surveyor's leg — and arrows add leg-by-leg (walk one, then the other), and scale by walking the same direction more or fewer times, backwards for a negative multiplier. That is all the machinery this page needs.</p>
+<div class="pattern-box" id="box-b05">
+<p><strong>Box B05 — basis.</strong> Two directions \(\vec u\) and \(\vec v\) of the plane, neither zero, form a <em>basis</em> when every point \(P\) can be written as</p>
+<p class="eq">\[P \;=\; a\,\vec u + b\,\vec v\]</p>
+<p>for exactly one pair of numbers \((a, b)\) — the <em>reading</em> of \(P\) in the scheme \((\vec u, \vec v)\). The two demands it must pass:</p>
+<ul>
+<li><strong>Reach everything</strong> (the scheme <em>spans</em>): every \(P\) admits at least one pair.</li>
+<li><strong>Read each point once</strong> (the scheme is <em>independent</em>): no \(P\) admits two different pairs.</li>
+</ul>
+<p class="words">In words: a basis is a <em>measuring scheme</em> — two chosen directions playing the role of units, like metres for length. The coordinates are not properties of the point; they are <em>readings</em>, and readings belong to the scheme. Ana, Ben and Charlie each own a working scheme for the same island; Daisy's pair, two copies of one direction, fails both demands at once.</p>
+</div>
+<div class="pattern-box" id="box-b05a">
+<p><strong>Box B05.A — the origin test.</strong> Both demands collapse into one checkable fact. The directions \(\vec u, \vec v\) read every point once exactly when the <em>origin</em> is read only by the zero pair:</p>
+<p class="eq">\[a\,\vec u + b\,\vec v \;=\; \vec 0 \quad\Longrightarrow\quad a = 0 \text{ and } b = 0.\]</p>
+<p>Why the read-once half reduces to the origin: if some point had two readings, subtracting them would give a <em>nonzero</em> pair reading the origin; and conversely a nonzero origin-pair, added to any reading of any point, produces a second reading of that same point. (Section 4 runs both directions slowly.) The reach half has its own single check — and for a pair of directions in the plane, the two checks collapse into one number: writing \(\vec u = (p, q)\) and \(\vec v = (r, s)\), the pair is a basis exactly when</p>
+<p class="eq">\[D \;=\; ps - qr \;\ne\; 0,\]</p>
+<p>the <em>determinant</em> of the scheme — the same two-by-two determinant the class-12 syllabus computes, now earning its keep as a scheme-health check.</p>
+</div>
+<p>Four words get defined here, at first use:</p>
+<ul>
+<li><em>New word: linear combination.</em> A number of the form \(a\vec u + b\vec v\) — the surveyor's journey. <a href="b04-bezout.html">B04</a> defined the same phrase for numbers, stacks of \(a\) plus stacks of \(b\); here the stacks are of <em>directions</em>. The shape of the definition — build from the parts by scaling and adding — is the load-bearing part; the parts differ, the shape never does.</li>
+<li><em>New word: span.</em> The set of all linear combinations of the chosen directions — everything the scheme can reach. Daisy's pair spans only the diagonal; a single direction spans only its own line; a healthy basis spans the whole plane.</li>
+<li><em>New word: linear independence.</em> The read-once demand: no direction in the scheme is reachable from the others. For a pair: neither direction is a multiple of the other — parallel directions double-read, exactly as Daisy's road and half-road did.</li>
+<li><em>New word: determinant.</em> For directions \((p, q)\) and \((r, s)\): the single number \(D = ps - qr\). \(D \ne 0\) is the pair's health certificate; \(D = 0\) says the directions are parallel and the scheme is broken both ways.</li>
+</ul>
+<p>Examples and non-examples, each checkable by one determinant:</p>
+<ul>
+<li><strong>Yes, the school scheme:</strong> east \((1,0)\), north \((0,1)\): \(D = 1 \times 1 - 0 \times 0 = 1\). Ana's readings are the map readings.</li>
+<li><strong>Yes, Ben:</strong> road \((1,1)\), fence \((2,1)\): \(D = 1 \times 1 - 2 \times 1 = -1\). Negative determinant — a <em>handedness</em> flip, not a defect: Ben's fence lies clockwise of his road, while east lies anticlockwise of north. The sign records orientation; only its being nonzero matters for health.</li>
+<li><strong>Yes, Charlie:</strong> road \((1,1)\), pier \((2,3)\): \(D = 1 \times 3 - 2 \times 1 = 1\). The negative reading \((11, -2)\) was the scheme working, not straining.</li>
+<li><strong>No, Daisy:</strong> road \((1,1)\), half-road \((2,2)\): \(D = 1 \times 2 - 1 \times 2 = 0\). Parallel directions — the span collapses to the diagonal (Fig B05.2), and on the diagonal the readings are far from unique.</li>
+<li><strong>No, over-supplied:</strong> east \((1,0)\), north \((0,1)\), and the diagonal \((1,1)\). Three directions reach everything — but the diagonal is \(1 \times (1,0) + 1 \times (0,1)\) <em>and</em> \(0 \times (1,0) + 0 \times (0,1) + 1 \times (1,1)\): the point \((1,1)\) is read at least twice. Reach without read-once is still not a basis; two directions are enough (section 4 proves <em>exactly</em> two), and a third is a double-counter.</li>
+</ul>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 150" role="img" aria-label="Fig B05.2 — Daisy's broken scheme: the reachable diagonal line through the directions (1,1) and (2,2), the treasure P off the line and unreachable, and two different reading-paths to the point (3,3) on the diagonal">
+<text x="20" y="18" font-size="10.5" text-anchor="start" fill="#555f6e">Daisy's span: one diagonal — everything else out of reach</text>
+<line x1="44" y1="138" x2="172" y2="10" stroke="#dbe7f5" stroke-width="5"/>
+<line x1="44" y1="138" x2="172" y2="10" stroke="#3574d4" stroke-width="1.2"/>
+<text x="176" y="12" font-size="10.5" text-anchor="start" fill="#3574d4">span: the whole line y = x</text>
+<circle cx="44" cy="138" r="3" fill="#3a4a5e"/>
+<text x="38" y="147" font-size="11" text-anchor="middle" fill="#3a4a5e" font-weight="700">O</text>
+<line x1="44" y1="138" x2="92" y2="90" stroke="#3574d4" stroke-width="1.8"/>
+<polygon points="92,90 89.1,97 84.9,92.9" fill="#3574d4"/>
+<line x1="44" y1="138" x2="60" y2="122" stroke="#b3543f" stroke-width="1.8" stroke-dasharray="4 3"/>
+<polygon points="60,122 57.2,129.1 53,124.9" fill="#b3543f"/>
+<line x1="60" y1="122" x2="92" y2="90" stroke="#b3543f" stroke-width="1.8" stroke-dasharray="4 3"/>
+<circle cx="92" cy="90" r="4" fill="#3a4a5e"/>
+<text x="98" y="94" font-size="11" text-anchor="start" fill="#3a4a5e" font-weight="700">(3, 3)</text>
+<text x="96" y="116" font-size="10.5" text-anchor="start" fill="#3574d4">3 road-steps</text>
+<text x="126" y="66" font-size="10.5" text-anchor="start" fill="#b3543f">1 road-step + 1 half-road-step</text>
+<circle cx="156" cy="58" r="4" fill="#b3543f"/>
+<text x="163" y="55" font-size="11" text-anchor="start" fill="#b3543f" font-weight="700">P = (7, 5) — unreachable</text>
+</svg>
+<figcaption><strong>Fig B05.2.</strong> Daisy's world. Her two directions span only the diagonal line \(y = x\) — the whole line through both, drawn as the band. The treasure \(P = (7,5)\) sits off the line, \(5 \ne 7\): unreachable forever. And on the line, counting fails: the point \((3,3)\) is reached by 3 road-steps (solid blue) and equally by 1 road-step plus 1 half-road-step (dashed red) — two honest journeys to the same point, the double-reading defect in pencil. Both journeys are checked arithmetically in Lecture 0's task three.</figcaption>
+</figure>
+<p>The names carry a history worth one paragraph, none of it load-bearing. Reading points by paired numbers entered print with Descartes, in the 1637 <em>La Géométrie</em> — and the historical detail is this page's thesis in miniature: Descartes' own coordinates were <em>oblique</em>, measured along whatever lines the problem offered, like Ben's road and fence. The perpendicular grid of school maps is a later convention, not the idea. The word <em>basis</em> settled later still: Grassmann's 1844 <em>Ausdehnungslehre</em> built the general theory of directions, Peano's 1888 axioms made the modern concept precise, and Hamel's 1905 basis for the real numbers over the rationals showed the two demands — reach everything, read once — still make sense for families of infinitely many directions. The scheme idea outgrew the plane long ago; this page stays with the plane and says so.</p>
+</section>
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Three workings, simplest first, each carried to the end. Under all of them runs Box B05.</p>
+<h3>(a) Ben's reading, solved by elimination — and the two-line shortcut</h3>
+<p>Ben's scheme: road \(\vec u = (1,1)\), fence \(\vec v = (2,1)\). To read the treasure \(P = (7,5)\), write the unknown pair \((a, b)\) and walk:</p>
+<p class="eq">\[a(1,1) + b(2,1) \;=\; (a + 2b, \; a + b) \;=\; (7, 5).\]</p>
+<p>Two readings, two equations: \(a + 2b = 7\) and \(a + b = 5\). Subtract the second from the first: \(b = 2\). Back-substitute: \(a = 3\). The reading is \((3, 2)\) — Ben's report, now produced instead of remembered. Check by walking: \(3(1,1) + 2(2,1) = (3 + 4, 3 + 2) = (7,5)\). Done: one subtraction, one back-substitution, one check-walk.</p>
+<p>The same elimination, run once with letters, serves every scheme forever. Directions \(\vec u = (p, q)\) and \(\vec v = (r, s)\), target \(P = (x, y)\), unknown reading \((a, b)\): the equations are \(ap + br = x\) and \(aq + bs = y\). Multiply the first by \(s\), the second by \(r\), subtract:</p>
+<p class="eq">\[a(ps - qr) \;=\; sx - ry \qquad\Longrightarrow\qquad a \;=\; \frac{sx - ry}{D}, \qquad b \;=\; \frac{py - qx}{D},\]</p>
+<p>where \(D = ps - qr\) is the scheme's determinant — and the second formula comes the same way, multiplying by \(p\) and \(q\) instead. Run the shortcut on Ben: \(D = -1\), so \(a = (1 \cdot 7 - 2 \cdot 5)/(-1) = 3\) and \(b = (1 \cdot 5 - 1 \cdot 7)/(-1) = 2\). Two lines, no elimination re-run. The shortcut also <em>explains</em>: when \(D \ne 0\) the division is legal, so every target has exactly one reading — reach and read-once in one stroke; when \(D = 0\) the formulas die at birth, and section 4 proves nothing more honest can save the scheme. That is the determinant test of Box B05.A, earned rather than asserted.</p>
+<h3>(b) The scheme carries the arithmetic — readings of sums and scalings</h3>
+<p>Two neighbours of the treasure, in Ben's scheme. The point \(Q = (1,1)\): equations \(a + 2b = 1\), \(a + b = 1\), so \(b = 0\), \(a = 1\) — the reading \((1, 0)\) (one road-step, no fence: \(Q\) lies on the road, as it should). Now the midpoint of the treasure and its neighbour:</p>
+<p class="eq">\[M \;=\; \tfrac{1}{2}(P + Q) \;=\; \tfrac{1}{2}(8, 6) \;=\; (4, 3).\]</p>
+<p>Read \(M\) in Ben's scheme: \(a + 2b = 4\), \(a + b = 3\), so \(b = 1\), \(a = 2\) — the reading \((2, 1)\). And now the punchline, visible in the three pairs already computed:</p>
+<p class="eq">\[(3, 2) \;\text{ reads } P, \qquad (1, 0) \;\text{ reads } Q, \qquad \left(\tfrac{3+1}{2}, \tfrac{2+0}{2}\right) = (2, 1) \;\text{ reads } M.\]</p>
+<p>The readings <em>average</em> exactly when the points do. Doubling behaves the same way: \(2P = (14, 10)\) reads \((6, 4) = 2 \times (3, 2)\) — check by walking, \(6(1,1) + 4(2,1) = (6 + 8, 6 + 4) = (14, 10)\). A healthy scheme does not merely locate points; it <em>carries the arithmetic</em>: midpoints stay midpoints, parallels stay parallel, a third-of-the-way marker stays a third of the way. Section 4 proves this in two lines, and it is the deepest fact on the page — the property that later lets a whole problem be re-measured, solved where it is easy, and translated back. That carrying is exactly what Daisy's scheme cannot promise: "the" reading of a point is not even a well-defined phrase for her, so no arithmetic of readings can be built on it.</p>
+<h3>(c) Diagnosing schemes — the surveyor's checklist</h3>
+<p>Three fresh candidate schemes for the same island; diagnose each with the determinant test, then read the treasure where possible.</p>
+<p><strong>Scheme one: \((3,1)\) and \((1,3)\).</strong> \(D = 3 \times 3 - 1 \times 1 = 8 \ne 0\): healthy — reach and read-once both guaranteed. The shortcut reads the treasure: \(a = (3 \cdot 7 - 1 \cdot 5)/8 = 16/8 = 2\), \(b = (3 \cdot 5 - 1 \cdot 7)/8 = 8/8 = 1\): the reading \((2, 1)\). Check by walking: \(2(3,1) + 1(1,3) = (6 + 1, 2 + 3) = (7, 5)\). A third honest pair for the same treasure: \((7,5)\), \((3,2)\), \((11,-2)\), \((2,1)\) — four schemes, four readings, one point.</p>
+<p><strong>Scheme two: \((2,1)\) and \((4,2)\).</strong> \(D = 2 \times 2 - 1 \times 4 = 0\): broken, because \((4,2) = 2 \times (2,1)\) — the second direction is the first walked twice, Daisy's defect wearing new boots. The span collapses to the single line through \((2,1)\) (that line is \(y = x/2\)); the treasure, with \(5 \ne 7/2\), is unreachable. And on the line, double-reading: the point \((2,1)\) itself is read both as \((1, 0)\) and as \((0, \tfrac{1}{2})\) — check both walks. One determinant, zero: both failures read off the same number.</p>
+<p><strong>Scheme three: \((1,0)\) and \((2,1)\).</strong> \(D = 1 \times 1 - 0 \times 2 = 1\): healthy. The shortcut: \(a = (1 \cdot 7 - 2 \cdot 5)/1 = -3\), \(b = (1 \cdot 5 - 0 \cdot 7)/1 = 5\): the reading \((-3, 5)\) — the most negative yet. Check: \(-3(1,0) + 5(2,1) = (-3 + 10, 0 + 5) = (7,5)\). Nothing wrong: the first leg walks the east direction <em>backwards</em> three steps, the second walks the slanting direction five; negative readings are the scheme's way of saying "behind you", and a healthy scheme says it honestly.</p>
+</section>
+<section id="why">
+<h2>4 · Why it is true</h2>
+<p>Four claims carry this page — the origin test, the determinant test, the count of directions (two, exactly), and the carrying of arithmetic — and all four get complete proofs.</p>
+<p><strong>Claim 1 — read-once is the origin test.</strong> Suppose some point \(P\) admits two different readings, \((a, b)\) and \((a', b')\). Subtract the two walks: \((a - a')\vec u + (b - b')\vec v = P - P = \vec 0\). The difference pair is not \((0,0)\) — the readings were different — so a <em>nonzero</em> pair reads the origin. Conversely, suppose a nonzero pair \((c, d)\) reads the origin, and let \((a, b)\) read any point \(P\) whatsoever. Then \(P = a\vec u + b\vec v\) and also</p>
+<p class="eq">\[P \;=\; a\vec u + b\vec v + \vec 0 \;=\; a\vec u + b\vec v + (c\vec u + d\vec v) \;=\; (a + c)\vec u + (b + d)\vec v:\]</p>
+<p>the shifted pair \((a+c, b+d)\), different from \((a, b)\) since \((c,d) \ne (0,0)\), reads the same point. So: two readings of one point exist somewhere exactly when a nonzero origin-reading exists — the two statements live or die together. Complete, and nothing here used the plane: the test serves any scheme of any size, which is why it became the standard one.</p>
+<p><strong>Claim 2 — the determinant test, both directions.</strong> Directions \(\vec u = (p, q)\), \(\vec v = (r, s)\), both nonzero. <em>Independence:</em> a pair \((a, b)\) reading the origin satisfies \(ap + br = 0\) and \(aq + bs = 0\). Multiply the first equation by \(s\), the second by \(r\), subtract: \(a(ps - qr) = 0\). If \(D = ps - qr \ne 0\), then \(a = 0\); with \(a = 0\), the first equation reads \(br = 0\) and the second \(bs = 0\), and since \((r, s) \ne (0, 0)\) at least one of \(r, s\) is nonzero, forcing \(b = 0\). Only the zero pair reads the origin: independent, by Claim 1. <em>Dependence when \(D = 0\):</em> consider the pair \((s, -q)\) — multiply it out: \(s(p, q) - q(r, s) = (sp - qr, \; sq - qs) = (D, 0) = (0, 0)\) when \(D = 0\). If \((s, -q) \ne (0,0)\) it is a nonzero origin-reading and the scheme double-reads, done. The escape case: \((s, -q) = (0,0)\) means \(s = 0\) and \(q = 0\), so both directions are horizontal, \((p, 0)\) and \((r, 0)\), and then the pair \((r, -p)\) reads the origin: \(r(p, 0) - p(r, 0) = (rp - pr, 0) = \vec 0\), nonzero since \(\vec u \ne \vec 0\). <em>Reach:</em> when \(D \ne 0\), the shortcut of section 3(a) is legal for every target — the pair \(a = (sx - ry)/D\), \(b = (py - qx)/D\) solves the reading equations, as substituting back shows directly:</p>
+<p class="eq">\[a\,p + b\,r \;=\; \frac{(sx - ry)p + (py - qx)r}{D} \;=\; \frac{x(ps - qr)}{D} \;=\; x,\]</p>
+<p>and the same two-line check gives \(aq + bs = y\). So \(D \ne 0\) delivers both demands, \(D = 0\) destroys at least read-once (and with it, for a pair in the plane, reach too — Claim 3 shows why). The test is complete: one number, the whole health report.</p>
+<p><strong>Claim 3 — every basis of the plane has exactly two directions.</strong> Two halves. <em>One direction is too few:</em> the span of a single nonzero direction \(\vec u = (p, q)\) is the line through it — every combination \(t\vec u\) lies on that line. The plane contains a point off the line; here is one, built from \(\vec u\) itself: the quarter-turn \(\vec w = (-q, p)\). Could \(\vec w\) lie on the line after all? If \((-q, p) = t(p, q)\), compare components: \(-q = tp\) and \(p = tq\). If \(q \ne 0\), the second equation gives \(t = p/q\), and substituting: \(-q = p^2/q\), i.e. \(p^2 = -q^2\), impossible for real numbers with \(q \ne 0\). If \(q = 0\), then \(\vec u = (p, 0)\) with \(p \ne 0\), and \(\vec w = (0, p)\); the equation \((0, p) = t(p, 0)\) forces \(p = 0\) from the first component. Contradiction both ways: \(\vec w\) is off the line, so one direction never reaches the whole plane. <em>Three directions are too many:</em> take any three directions of the plane. If all three are parallel, they are dependent outright — say \(\vec v = \lambda \vec u\), giving the nonzero origin-reading \(1 \cdot \vec v - \lambda \cdot \vec u = \vec 0\). Otherwise two of them, call them \(\vec u, \vec v\), are not parallel, so by Claim 2 they form a basis, and the third reads in it: \(\vec w = a\vec u + b\vec v\), giving the origin-reading \(a\vec u + b\vec v - \vec w = \vec 0\) — nonzero, since the coefficient of \(\vec w\) is \(-1\). So no three directions of the plane read-once; no basis has three members. Together with Claim 2, which exhibits a two-member basis, the count is pinned: <em>exactly two</em>. That number is the plane's <em>dimension</em> — a new word, defined by this count: the size of a basis, which for the plane is 2, proved above. (For other spaces the analogous statement — every basis of the same space has the same size — needs one more tool, the exchange argument, and stays off this page; the plane count above is complete, because we exhibited a working pair and ruled out one and three.)</p>
+<p><strong>Claim 4 — the scheme carries the arithmetic.</strong> If \(P\) reads \((a, b)\) and \(Q\) reads \((c, d)\) in a basis \(\vec u, \vec v\), then \(P + Q\) reads \((a + c, \, b + d)\) and \(tP\) reads \((ta, tb)\) — check:</p>
+<p class="eq">\[(a + c)\vec u + (b + d)\vec v \;=\; (a\vec u + b\vec v) + (c\vec u + d\vec v) \;=\; P + Q, \qquad (ta)\vec u + (tb)\vec v \;=\; t(a\vec u + b\vec v) \;=\; tP.\]</p>
+<p>Both computations exhibit <em>a</em> reading; uniqueness (the basis's read-once demand) certifies it is <em>the</em> reading. Midpoints, parallels, third-way markers — every arithmetic fact about points survives measurement, because the readings do the same arithmetic the points do. This is the property that makes coordinates worth having at all: not locating points (a map does that), but <em>carrying structure</em>. When later pages re-dress a whole problem in a better scheme, this claim is the warranty that nothing breaks in transit.</p>
+<aside class="aside warn"><strong>Scope, honestly.</strong> Three boundaries. (i) This page measures the <em>plane</em>. In three-space the same two demands hold, readings have three entries, and bases have exactly three members — the general theory of vector spaces is one floor up and is only named here, not built. (ii) The determinant is used as a health check only; its deeper life — as the area scale of a scheme's grid, and the engine of the translation tables between schemes — is the next page's subject. (iii) Direction-families can be infinite: spaces of functions, where readings have infinitely many entries and the two demands still mean reach-everything and read-once (Hamel's 1905 basis was exactly this, for the reals over the rationals). Nothing on this page is used about those spaces beyond the two words. What this page closes, it closes completely; what it defers, it names.</aside>
+</section>
+<section id="practice">
+<h2>5 · Practice</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◐ open exploration. Hints and worked answers are collapsible. No ◆ exercise here — there is no pattern to diagnose on a concept page yet.</p>
+
+<h3>Exercise 1 ●○○</h3>
+<p>All in Ben's scheme — road \((1,1)\), fence \((2,1)\). (a) Read the point \((10, 7)\). (b) Read the point \((2, 4)\). (c) Read the origin, and explain why that single reading, checked once, certifies that no point anywhere in the plane gets two readings.</p>
+<details><summary>Hint</summary><p>(a) and (b): two equations, subtract, back-substitute — or run the two-line shortcut with \(D = -1\). (c) The origin's reading is a pair you can find without solving anything; then recall what Claim 1 says a second reading of <em>any</em> point would produce.</p></details>
+<details><summary>Worked answer</summary><p>(a) Equations \(a + 2b = 10\), \(a + b = 7\). Subtract: \(b = 3\), then \(a = 4\): the reading \((4, 3)\). Check by walking: \(4(1,1) + 3(2,1) = (4 + 6, 4 + 3) = (10, 7)\). (b) Equations \(a + 2b = 2\), \(a + b = 4\). Subtract: \(b = -2\), then \(a = 6\): the reading \((6, -2)\). Check: \(6(1,1) - 2(2,1) = (6 - 4, 6 - 2) = (2, 4)\) — negative fence-readings are legal, "walk the fence backwards". (c) The origin reads \((0, 0)\) — the empty journey — and by the shortcut it is the <em>only</em> origin-reading, since \(a = (1 \cdot 0 - 2 \cdot 0)/(-1) = 0\) and \(b = (1 \cdot 0 - 1 \cdot 0)/(-1) = 0\). By Claim 1, a second reading of any point, subtracted from its first, would be a nonzero pair reading the origin; there is no such pair, so no point has a second reading. One check at the origin, read-once everywhere: that is the origin test's whole point.</p></details>
+
+<h3>Exercise 2 ●●○</h3>
+<p>Diagnose four schemes. \(S_1 = \{(1,2), (3,1)\}\), \(S_2 = \{(2,1), (4,2)\}\), \(S_3 = \{(3,1), (1,3)\}\), \(S_4 = \{(1,0), (0,1), (1,1)\}\). For each: healthy or broken, by one determinant — and for the healthy ones, the reading game below. (a) \(S_1\) reads some point as \((2, 1)\); find that point in the school scheme. (b) \(S_2\): which of the two demands fail, and what exactly is its span? (c) \(S_3\) reads some point as \((2, 3)\); find the point. (d) \(S_4\) reaches everything but is still not a basis — repair it by crossing out one direction, and show that the crossed-out one is a combination of the two you kept.</p>
+<details><summary>Hint</summary><p>Health is one number: \(D = ps - qr\). For (a) and (c), a reading \((a, b)\) means the point <em>is</em> \(a\vec u + b\vec v\) — just walk it, no solving. For (d), three ways to cross out; whichever pair you keep, check its \(D\), then express the leftover direction through the keepers.</p></details>
+<details><summary>Worked answer</summary><p>(a) \(S_1\): \(D = 1 \times 1 - 2 \times 3 = -5 \ne 0\), healthy. The point reading \((2, 1)\) is \(2(1,2) + 1(3,1) = (2 + 3, 4 + 1) = (5, 5)\). (b) \(S_2\): \(D = 2 \times 2 - 1 \times 4 = 0\), broken; \((4,2) = 2 \times (2,1)\), so the directions are parallel. Both demands fail: the span collapses to the line through \((2,1)\), the line \(y = x/2\) — nothing off it is reachable, so <em>reach</em> fails; and on the line, readings double — e.g. \((2,1)\) itself reads \((1,0)\) and also \((0, \tfrac{1}{2})\), since \(1(2,1) + 0(4,2) = (2,1) = 0(2,1) + \tfrac{1}{2}(4,2)\) — so <em>read-once</em> fails too. (c) \(S_3\): \(D = 3 \times 3 - 1 \times 1 = 8 \ne 0\), healthy. The point reading \((2, 3)\) is \(2(3,1) + 3(1,3) = (6 + 3, 2 + 3) = (9, 11)\). (d) \(S_4\)'s three directions reach everything — the school pair is inside — but \((1,1) = 1 \times (1,0) + 1 \times (0,1)\) is also \(0 \times (1,0) + 0 \times (0,1) + 1 \times (1,1)\): the point \((1,1)\) reads two ways, so read-once fails. Repair: cross out \((1,1)\) — the school pair remains, \(D = 1\), and the leftover is its combination, \(1 \times (1,0) + 1 \times (0,1)\). But the repair is a <em>choice</em>, and two other choices work identically: keep \(\{(1,0), (1,1)\}\) (\(D = 1\), leftover \((0,1) = 1 \times (1,1) - 1 \times (1,0)\)) or keep \(\{(0,1), (1,1)\}\) (\(D = -1\), leftover \((1,0) = 1 \times (1,1) - 1 \times (0,1)\)). All three crossings-out leave a basis — an over-supplied scheme has no unique repair, only repairs.</p></details>
+<h3>Exercise 3 ●●●</h3>
+<p>(a) Prove the <em>extraction principle</em>: every scheme that reaches the whole plane — of any size, two directions or twenty — contains, among its own directions, two that form a basis. (b) The over-supplied scheme \(\{(1,0), (0,1), (1,1)\}\) reaches everything. Find <em>every</em> reading of a general point \((x, y)\) in it; show the answer is a one-roaming-parameter family, and conclude that over-supply by even one direction destroys read-once <em>everywhere</em>, not merely somewhere.</p>
+<details><summary>Hint</summary><p>(a) Suppose every two directions in the scheme were parallel — where could their combinations possibly live? Then apply Claim 2 to the two directions you find. (b) Write the reading as a triple \((a, b, c)\) and solve; one unknown will refuse to be pinned. Let it roam, and check that every value of it still lands on \((x, y)\).</p></details>
+<details><summary>Worked answer</summary><p>(a) Let \(S\) be any scheme reaching the whole plane. If every two of its directions were parallel, then fixing one direction \(\vec u\) of \(S\), every other direction is a multiple of \(\vec u\) — so every combination of the scheme's directions stays on the single line through \(\vec u\), and a line is not the plane (Claim 3's quarter-turn \(\vec w = (-q, p)\) is off it). A scheme confined to a line cannot reach the plane: contradiction. So \(S\) contains two non-parallel directions, and by Claim 2 any such pair has \(D \ne 0\) and is a basis. Every reaching scheme contains a basis among its own members — which is why "basis" could be defined as a <em>minimal</em> reaching scheme: reach, then trim. (b) A reading triple \((a, b, c)\) must satisfy \(a(1,0) + b(0,1) + c(1,1) = (a + c, \; b + c) = (x, y)\). Choose \(c\) freely — call the free value \(t\) — and the other two entries are forced: \(a = x - t\), \(b = y - t\). Check the family:</p>
+<p class="eq">\[(x - t)(1,0) + (y - t)(0,1) + t(1,1) \;=\; (x - t + t, \; y - t + t) \;=\; (x, y),\]</p>
+<p>for every \(t\) without exception. So the full reading set of \((x, y)\) is \(\{(x - t, \, y - t, \, t) : t \text{ any number}\}\) — infinitely many readings, for every point of the plane. Over-supply by one direction does not create a few double-readings; it destroys uniqueness everywhere: the extra direction can be smuggled into any journey, added \(t\) times on the new leg and subtracted \(t\)'s worth on the old legs. Read-once survives exactly in the schemes that are bases — Claim 3's "exactly two", earning its keep.</p></details>
+
+<h3>Exercise 4 ◐</h3>
+<p>A knight on an infinite chessboard, seen through coordinate glasses. Its two short-step directions are \((1,2)\) and \((2,1)\) — and \(D = 1 \times 1 - 2 \times 2 = -3 \ne 0\), so as a fractions-allowed scheme it is a healthy basis. Now restrict the readings to <em>whole</em> numbers: which squares \((x, y)\) are reachable as \(a(1,2) + b(2,1)\) with \(a, b\) whole? (a) Census the block \(-6 \le x, y \le 6\) by hand or by machine (Fig B05.3 shows the outcome — cover it until you have your own). (b) State the rule. (c) Prove it, both directions. (d) Say honestly why the whole-readings question is a different kind of question from everything else on this page — and which earlier page of this book it belongs to.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 175" role="img" aria-label="Fig B05.3 — the knight-lattice census: a 13 by 13 board from minus six to six, squares reachable with whole readings a times (1,2) plus b times (2,1) coloured blue, forming diagonal stripes three apart — exactly the squares with x plus y divisible by 3">
+<rect x="30" y="14" width="143" height="143" fill="#eef1f6"/>
+<rect x="30" y="14" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="63" y="14" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="96" y="14" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="129" y="14" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="162" y="14" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="41" y="25" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="74" y="25" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="107" y="25" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="140" y="25" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="52" y="36" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="85" y="36" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="118" y="36" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="151" y="36" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="30" y="47" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="63" y="47" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="96" y="47" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="129" y="47" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="162" y="47" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="41" y="58" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="74" y="58" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="107" y="58" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="140" y="58" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="52" y="69" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="85" y="69" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="118" y="69" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="151" y="69" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="30" y="80" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="63" y="80" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="96" y="80" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="129" y="80" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="162" y="80" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="41" y="91" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="74" y="91" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="107" y="91" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="140" y="91" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="52" y="102" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="85" y="102" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="118" y="102" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="151" y="102" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="30" y="113" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="63" y="113" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="96" y="113" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="129" y="113" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="162" y="113" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="41" y="124" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="74" y="124" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="107" y="124" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="140" y="124" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="52" y="135" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="85" y="135" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="118" y="135" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="151" y="135" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="30" y="146" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="63" y="146" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="96" y="146" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="129" y="146" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<rect x="162" y="146" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<line x1="30" y1="14" x2="30" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="14" x2="173" y2="14" stroke="#ffffff" stroke-width="1"/>
+<line x1="41" y1="14" x2="41" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="25" x2="173" y2="25" stroke="#ffffff" stroke-width="1"/>
+<line x1="52" y1="14" x2="52" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="36" x2="173" y2="36" stroke="#ffffff" stroke-width="1"/>
+<line x1="63" y1="14" x2="63" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="47" x2="173" y2="47" stroke="#ffffff" stroke-width="1"/>
+<line x1="74" y1="14" x2="74" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="58" x2="173" y2="58" stroke="#ffffff" stroke-width="1"/>
+<line x1="85" y1="14" x2="85" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="69" x2="173" y2="69" stroke="#ffffff" stroke-width="1"/>
+<line x1="96" y1="14" x2="96" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="80" x2="173" y2="80" stroke="#ffffff" stroke-width="1"/>
+<line x1="107" y1="14" x2="107" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="91" x2="173" y2="91" stroke="#ffffff" stroke-width="1"/>
+<line x1="118" y1="14" x2="118" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="102" x2="173" y2="102" stroke="#ffffff" stroke-width="1"/>
+<line x1="129" y1="14" x2="129" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="113" x2="173" y2="113" stroke="#ffffff" stroke-width="1"/>
+<line x1="140" y1="14" x2="140" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="124" x2="173" y2="124" stroke="#ffffff" stroke-width="1"/>
+<line x1="151" y1="14" x2="151" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="135" x2="173" y2="135" stroke="#ffffff" stroke-width="1"/>
+<line x1="162" y1="14" x2="162" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="146" x2="173" y2="146" stroke="#ffffff" stroke-width="1"/>
+<line x1="173" y1="14" x2="173" y2="157" stroke="#ffffff" stroke-width="1"/>
+<line x1="30" y1="157" x2="173" y2="157" stroke="#ffffff" stroke-width="1"/>
+<rect x="30" y="14" width="143" height="143" fill="none" stroke="#555f6e" stroke-width="1"/>
+<text x="35.5" y="170" font-size="9" text-anchor="middle" fill="#555f6e">−6</text>
+<text x="101.5" y="170" font-size="9" text-anchor="middle" fill="#555f6e">0</text>
+<text x="167.5" y="170" font-size="9" text-anchor="middle" fill="#555f6e">6</text>
+<text x="26" y="20.5" font-size="9" text-anchor="middle" fill="#555f6e">6</text>
+<text x="26" y="86.5" font-size="9" text-anchor="middle" fill="#555f6e">0</text>
+<text x="26" y="152.5" font-size="9" text-anchor="middle" fill="#555f6e">−6</text>
+<circle cx="156.5" cy="74.5" r="6" fill="none" stroke="#3a4a5e" stroke-width="1.4"/>
+<line x1="162.5" y1="74.5" x2="184" y2="60" stroke="#3a4a5e" stroke-width="0.8"/>
+<text x="188" y="58" font-size="10.5" text-anchor="start" fill="#3a4a5e">(5, 1) = −1(1,2) + 3(2,1)</text>
+<circle cx="101.5" cy="85.5" r="5" fill="none" stroke="#3a4a5e" stroke-width="1.2"/>
+<text x="188" y="82" font-size="10.5" text-anchor="start" fill="#3a4a5e">(0, 0): the empty reading</text>
+<rect x="185" y="98" width="11" height="11" fill="#3574d4" fill-opacity="0.75"/>
+<text x="201" y="107" font-size="10.5" text-anchor="start" fill="#555f6e">reachable, whole readings</text>
+<rect x="185" y="116" width="11" height="11" fill="#eef1f6" stroke="#555f6e" stroke-width="0.8"/>
+<text x="201" y="125" font-size="10.5" text-anchor="start" fill="#555f6e">never, whole readings</text>
+<text x="188" y="148" font-size="11" text-anchor="start" fill="#3574d4" font-weight="700">rule: x + y ≡ 0 (mod 3)</text>
+</svg>
+<figcaption><strong>Fig B05.3.</strong> The census, drawn: 13 columns and 13 rows from \(-6\) to \(6\); the 57 reachable squares (of 169) coloured blue, in diagonal stripes three apart. Two annotations: the origin is reachable by the empty reading, and \((5,1)\) by \(-1\) steps of \((1,2)\) plus \(3\) of \((2,1)\) — one backward knight-leg, three forward on the other. The stripes are diagonal because adding \(3\) to \(x\) keeps \(x + y\) in its class; Exercise 4's proof explains everything the census shows, and nothing it shows is left unexplained.</figcaption>
+</figure>
+<details><summary>What you should find</summary><p>(a) In the \(-6..6\) block: 57 of the 169 squares are reachable, and they lie in diagonal stripes — add 1 to both \(x\) and \(y\) and reachability is unchanged, since \((x+1) + (y+1) = (x+y) + 3\). (b) The rule: reachable exactly when \(x + y \equiv 0 \pmod 3\). (c) Forward: a reachable square has \(x + y = (a + 2b) + (2a + b) = 3(a + b)\), a multiple of 3. Converse: given \(x + y \equiv 0 \pmod 3\), set \(a = (2y - x)/3\) and \(b = (2x - y)/3\). Both are whole numbers: \(x \equiv -y \equiv 2y \pmod 3\), so \(2y - x \equiv 2y - 2y = 0\) and \(2x - y \equiv 4y - y = 3y \equiv 0 \pmod 3\). And they work — check:</p>
+<p class="eq">\[a(1,2) + b(2,1) \;=\; \left(\tfrac{(2y - x) + 2(2x - y)}{3}, \; \tfrac{2(2y - x) + (2x - y)}{3}\right) \;=\; \left(\tfrac{3x}{3}, \tfrac{3y}{3}\right) \;=\; (x, y).\]</p>
+<p>Both directions proved, so this exploration closes completely — unlike <a href="b04-bezout.html">B04</a>'s stamp conjecture, which stood on two confirmations and remains open. The witness arithmetic for \((5, 1)\): \(a = (2 - 5)/3 = -1\), \(b = (10 - 1)/3 = 3\). (d) Everything else on this page allows <em>any</em> numbers as readings — fractions, negatives, anything — and asks the two demands. The knight question restricts readings to whole numbers, and restricted reachability is a different animal: it depends not on the scheme's directions alone but on their arithmetic, here on divisibility by 3. That is group A's territory — <a href="b02-congruence-classes.html">B02</a>'s congruence classes mod 3, classifying squares by \(x + y\) — wearing coordinate clothes. The two floors meet: bases tell you what can be measured; congruences tell you what can be built from whole steps.</p></details>
+</section>
+<section id="where">
+<h2>6 · Where this goes</h2>
+<ul>
+<li><strong>Consumer — <a href="p16-isomorphism.html">P16 · Same problem, different clothes</a>:</strong> to re-dress a problem is to re-measure its objects in a scheme where the shape is obvious — and "scheme" is now a defined word with proved properties. P16's worked application, the two-by-two change of basis \(A = PDP^{-1}\), is built from this block's four pages end to end: the scheme itself (this page), the translation tables between schemes (<a href="b06-change-of-basis.html">B06</a>), the directions a matrix leaves alone (<a href="b07-eigenvectors.html">B07</a>), and the decoupling those directions buy (<a href="b08-diagonalization.html">B08</a>). Claim 4 — the scheme carries the arithmetic — is the warranty that re-measuring a problem breaks nothing in transit; the whole method leans on it.</li>
+<li><strong>The block continues — <a href="b06-change-of-basis.html">B06 · Change of basis</a>:</strong> same vector, different numbers — and the exact translation between them. This page's determinant \(D\) returns there with a second job: it is the scale of the translation, telling how a scheme's grid stretches area before B06 uses it to convert readings wholesale. The health check becomes a measuring instrument.</li>
+<li><strong>Look back — the instinct, already yours:</strong> <a href="p05-canonical-form.html">P05</a> reduced numbers to canonical form: the number never changed, only its dress — the same thesis as this page, run on numbers instead of points (an analogy, honest as analogies go: canonical form picks one best reading; a basis admits many good ones, which is the new thought here). <a href="b04-bezout.html">B04</a>'s linear combinations stacked numbers; this page's combinations stack directions — one floor up, the same shape. And the origin test is <a href="p03-special-cases.html">P03</a>'s discipline at its purest: when a whole scheme's health is at stake, test it at the most special point there is.</li>
+<li><strong>Patterns named in passing:</strong> the knight census of Exercise 4 is <a href="p02-small-cases.html">P02</a> (experiment with small cases) at full strength — census first, rule after, proof last — and the arithmetic that closes it is <a href="b02-congruence-classes.html">B02</a>'s congruence classes, doing what classes do: sorting an infinite set by a remainder. Both pages own their moves; this one only borrows.</li>
+</ul>
+</section>
+
+<footer>
+<p><em>The Patterns Atlas</em> — B05 · Coordinates are a measuring scheme (bridge page, group B). <a href="index.html">Return to the index</a>. The coordinates block continues: <a href="b06-change-of-basis.html">B06 · Change of basis</a>.</p>
+</footer>
+</body>
+</html>
