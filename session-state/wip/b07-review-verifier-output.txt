@@ -1,0 +1,31 @@
+B07 REVIEW VERIFIER — run history (honest)
+
+Run 1 (first draft): 55/59 checks, 4 FAIL — all four failures in the
+verifier's own substantive round-trip panel ('reading round-trips point
+0..3'). Cause: verifier-engine bug, NOT a page defect. The check compared
+P*(P^-1 v) against M*v, omitting the scheme's middle move (stretch by
+D = diag(1,4)); the correct route read -> stretch by D -> home reproduces
+M*v, as the page's own worked route (3,3) -> (0,3) -> (0,12) -> (12,12)
+already demonstrates. The page was re-verified independently at the four
+fresh points (2,-1), (5,3), (-4,2), (1,6) before the fix; no page change
+was needed. (Also removed at rewrite: a dead unused variable in the draft,
+never asserted, no effect on any verdict; and clone C1's original mutation
+span did not match the page's actual lambda=4 solve text, so the clone
+panel was redesigned with mutations inside needle spans per the S46
+lesson. Needle alignment was pre-checked against the real page bytes:
+32/32 core needles matched before run 1.)
+
+Run 2 (final): 59/59 checks, 0 FAIL.
+  needles: 34/34 present
+  poisons: 8/8 absent (incl. the det-5 wrong inverse form, the 48/5 slip,
+    draft-prose leaks, unaccented history names, false claims)
+  doctored clones: 8/8 rejected (each mutation lands inside a needle
+    span: C1 char-poly root sign, C2 witness direction, C3 det P 3->5,
+    C4 census 8->9, C5 shear 6->7, C6 hunt steps, C7 Vieta tr/det swap,
+    C8 Ex3 arithmetic 60/5->48/5)
+  substantive: independent eigen hunt by feeding over the 13x13 grid
+    (2 directions, factors 1 and 4), brute census 8 of 48, scheme
+    round-trip at 4 fresh points, det P = 3, det M = 4.
+
+Engine: zero code shared with the battery; eigen directions found by
+feeding (no characteristic polynomial), census by brute feed.
