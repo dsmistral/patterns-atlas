@@ -1,0 +1,80 @@
+# p19-review-verifier-output.txt — honest run history for the P19 adversarial verifier
+# Zero code shared with p19-lab.js: fresh helpers (SC/tally/binom/subsets4/perms),
+# fresh algorithms (bitmask censuses, lexicographic permutation walks, exact binomial
+# sums instead of the lab's quadrature), independent recomputation of every number.
+# Page under test: p19-count-outcomes.html, 62,824 bytes / 62,387 UTF-16 chars / 204 lines.
+
+## Run 1 — 180 PASS / 16 FAIL — ALL SIXTEEN VERIFIER-SIDE, page fully clean
+The verifier did its adversarial job on itself: every VFAIL was a defect in the
+verifier's own checks, and none indicted the page.
+  - VB table tolerances too tight for the page's honest roundings: the page prints
+    E-values as 2-significant-figure approximations (0.00195 of 0.001953125,
+    0.00171 of 0.001708984375, 0.000315 of 0.000314712); fixed with an explicit
+    per-row tolerance array (ETP) matched to the printed precision.
+  - VB floor-check slack too tight: the good-fraction column prints floors at
+    their printed decimals (0.998 is the 3-decimal floor of 0.998046875; 0.9996
+    of 0.999685; 0.9999 of 0.999904); fixed with a per-row slack array (FDP),
+    keeping the strict no-overclaim half (1 - E >= printed).
+  - VB pentagon key lookup did not normalize unordered pairs ("52"/"41" were
+    looked up instead of "25"/"14"); fixed with min/max key normalization.
+  - VC String.replace only replaces the FIRST occurrence: three doctored clones
+    (E-value, C(32,10), Paley bound) still contained the genuine needle later in
+    the page, so the must-fail assertion failed. Fixed with split().join() global
+    replacement (the E-value appears 4 times, the Paley bound twice).
+  - VD chunk simulation dropped the newline BETWEEN chunks — the verifier's own
+    loader test committed the exact join() boundary bug it was testing for. Fixed:
+    each 60-line chunk now ends with its newline, exactly like read_file chunks.
+  - VD line count: split("\n") on a file ending in "\n" yields 205 parts for 204
+    lines; the check now asserts 205 split parts AND 204 counted newlines.
+  - VE needle case: "Its mean is its probability" (the page capitalizes).
+No page byte was changed in this round — the page was already correct.
+
+## Run 2 — 196 PASS / 0 FAIL — CLEAN
+Per-panel PASS counts:
+  VA 63  VB 83  VC 10  VD 7  VE 33  (sum 196)
+VVERDICT: 196 checks, 0 FAIL
+
+## What the verifier checks (panels)
+VA — structure and poisons: length 62,387; byte-exact footer; MathJax config
+     double-backslash needle AND single-backslash poison (the run-2 page defect
+     of the lab battery, now a standing regression test); 8 section ids and h2
+     titles; 3 pattern boxes; 1 warn aside; 2 figures with aria-labels; 5
+     exercises with the ●○○/●●○/●●●/◆/◐ ladder; 10 details blocks; 5 display
+     equations; 3 digit-tables; 4 pid move-lines; link-count census per href
+     (p01=5, p11=4, p10=3, p02=3, p20=2, p25=2, p15=2, p07=2, far doors
+     p37/p58/p59, P18 bridge); the session's caught-and-fixed errors as poisons
+     (wrong slugs, LaTeX \emph leak, CJK slip, "same year", "two continents",
+     "cenus", 132-digit overcount, 0.0399 in the table).
+VB — independent recomputation: full Ramsey table (n = floor(2^(k/2)), C(n,k),
+     E = C(n,k)·2^(1-C(k,2)) at k = 4,5,6,7,8,10,12; C(64,12) =
+     3,284,214,703,056 exact); printed values verified as true roundings and the
+     good-fraction column as true floors; Erdos bound 2^(k/2+1)/k! = 1/3 at k=4;
+     2^435 has 131 digits and 10^80^1.6 = 10^128 falls short; K5/K6 censuses
+     12/1024 and 0/32768 by fresh bitmask enumeration; pentagon blue diagonals
+     traced as a second five-cycle; Paley(17) residues and the full 2,380
+     four-set census (0 monochromatic either color); R(3,4) fair 1.328125 and
+     biased 0.87328; K8 witness 12 red edges with 0/56 red triangles and 0/70
+     blue K4; cut walks over all 120 orders of K5 (all reach 6) and all 24
+     orders of P4 (18 reach 3, 6 land 2, order 1,2,4,3 lands 2 with sides
+     {1,3,4} vs {2}); Bernstein B4 = 3/16 by direct five-term sum, B100 =
+     0.0397946 and B1000 = 0.0126125 by exact binomial pmf sums (a different
+     method from the lab's quadrature), constant (1/2)sqrt(2/pi) = 0.398942;
+     Schur E(3) = 0.75, E(4) = 1.5, E(5) = 2.0, censuses 2/16 and 0/32, the
+     0110 avoider checked fresh, Schur's theorem (1916) needle.
+VC — doctored clones MUST fail: E-value, C(32,10) cell, MathJax
+     single-backslash form (the run-2 defect reproduced), footer newline,
+     Paley bound, k=8 groups cell, digit count, biased E, Paley four-set
+     count, and the 13,330-char truncated clone (the run-1 loader bug) —
+     each verified to break the corresponding gate while the true page passes.
+VD — loader regression: first-chunk-only assembly is short (run-1 bug);
+     full offset loop with join("") is byte-faithful to all 62,387 chars;
+     join("\n") injects 3 spurious newlines across 4 chunks (P18 lesson);
+     every chunk ends at a line boundary; 204 newlines total.
+VE — lineage and receipts: Erdos 1947 BAMS 53, 291-297 with title; Bernstein
+     1912 Kharkov with full paper title; Chebyshev/Bienayme 1860s/1853;
+     Shannon 1948 and A Mathematical Theory of Communication; Arikan 2009 polar
+     codes (sixty-one years); Bernstein thirty-five years before Erdos; Lovasz
+     Local Lemma 1975; Moser-Tardos 2010; Marcus-Spielman-Srivastava 2015;
+     Alon-Spencer canon; P11/P10/P02/P25/P20 cross-references; the three
+     exhibits; derandomization and conditional-expectations naming; the
+     three-counts ledger; exercise closers.
