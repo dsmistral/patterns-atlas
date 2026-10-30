@@ -1,0 +1,31 @@
+<p><strong>Exhibit C · The leak — the room that is not closed.</strong> The cleanest pull on the page, worn by the wrong room. Take \(g(x) = x/2\) on the open room \((0, 1]\) — the strip without its left wall. Contraction: \(|g(x) - g(y)| = |x - y|/2\), so \(c = 1/2\), exactly the Babylonian's pull. Self-mapping: \(x/2 \in (0, 0.5]\) for every \(x \in (0,1]\) — inside. Two clauses turned, the pull proven, the receipt one clause short — and this page's certificate, unlike P21's, can tell you exactly where the catch would be: the equation \(g(x^*) = x^*\) has the single solution \(x^* = 0\), which the room does not contain. Run it anyway, from \(0.9\): \(0.45,\, 0.225,\, 0.1125,\, 0.05625,\, 0.028125,\, 0.014063,\, 0.007031,\, 0.003516, \ldots\) — the hits halve forever, crowding toward \(0\), and for once the receipt is exactly honest: the error <em>is</em> the hit (each hit's distance to the missing catch is the hit itself), the price \(c^n e_0\) is met, not beaten — a machine running perfectly toward a point that is not there. This is <a href="p21-limit-point.html">P21</a>'s Exhibit A wearing this page's clothes: the same leak, the same crowd at the removed point, the same repair — close the room, admit the boundary, and the certificate stamps the catch \(x^* = 0\) at once. And the same price, out loud: the repaired claim is about the repaired room \([0,1]\), not the original one; whoever needed the answer inside \((0,1]\) has learned that no answer lives there — sometimes the leak is the finding.</p>
+
+<figure id="fig-p22-3">
+<svg viewBox="0 0 500 160" role="img" aria-label="A number line for the open room from just above zero to one, drawn with a dashed open edge at zero; red ticks at zero point nine, zero point four five, zero point two two five, and on down by halving crowd toward the dashed edge; a shaded window at the edge contains most of the ticks, though its centre, zero, lies outside the room.">
+<rect x="40" y="46" width="44" height="48" fill="#f0f0f0"/>
+<line x1="40" y1="30" x2="40" y2="110" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="40" y1="70" x2="480" y2="70" stroke="#333" stroke-width="1.5"/>
+<line x1="480" y1="64" x2="480" y2="76" stroke="#333" stroke-width="1.5"/>
+<text x="474" y="92" font-size="11" fill="#333">1</text>
+<text x="430" y="92" font-size="11" fill="#333">0.9</text>
+<text x="230" y="92" font-size="11" fill="#333">0.45</text>
+<text x="128" y="92" font-size="11" fill="#333">0.225</text>
+<text x="28" y="130" font-size="11" fill="#333">0 — outside the room</text>
+<line x1="436" y1="62" x2="436" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="238" y1="62" x2="238" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="139" y1="62" x2="139" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="89.5" y1="62" x2="89.5" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="64.8" y1="62" x2="64.8" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="52.4" y1="62" x2="52.4" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="46.2" y1="62" x2="46.2" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="43.1" y1="62" x2="43.1" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="41.5" y1="62" x2="41.5" y2="78" stroke="#c0392b" stroke-width="2.5"/>
+</svg>
+<figcaption><strong>Fig P22.3.</strong> The leak, drawn. The orbit \(x/2\) from \(0.9\) is a certified contraction — pull \(1/2\), self-mapping, everything but the walls — and its hits crowd toward the dashed edge at \(0\), which the open room \((0,1]\) does not contain. The catch exists in the completed room \([0,1]\) and is \(0\) itself; the certificate's existence clause fails only because the room leaked. P21's Exhibit A, wearing this page's clothes.</figcaption>
+</figure>
+<aside class="warn">
+<h3>Scope and price of P22</h3>
+<p><strong>What the move gives.</strong> Given a self-mapping closed room and one proven pull \(c &lt; 1\): convergence from <em>every</em> start in the room — robustness is part of the receipt, not a luck — to the <em>unique</em> fixed point, with the error priced in advance. One hypothesis, checked once, buys three theorems' worth; no other move on the ladder sells existence, uniqueness, and a price in one certificate.</p>
+<p><strong>What it does not give, honestly.</strong> First, the price is a floor, and runs typically beat it — the flattening bonus of Example 1, the squaring constant of Example 2, the tail rate of Example 3; measure the run if a forecast is wanted, but trust the receipt for the guarantee. Second, the three clauses are separate licenses with separate wreckage (§5, Exhibits A, B, C), and the self-mapping clause is the one most often assumed and least often checked — Example 2's map self-maps its big room and still carries no certificate there, because a room must also be small enough for the pull. Third, the catch comes with no closed form: the iteration is the formula — \(\sqrt{2}\)'s digits are computed by the recipe and certified by <a href="p15-squeeze.html">P15</a>'s walls, never delivered by algebra. Fourth, the closed-room clause is the class-12 costume of completeness — the same no-holes coin <a href="p21-limit-point.html">P21</a> spent, worn here by the geometric tail bound — and the grown-up theorem of §7 is stated in complete metric spaces; a treatment that hides the costume is selling a machine with an unpaid bill. Fifth, Newton's method without the room check is a heuristic with a famous name — Example 2's four-step win was won inside a certified room, and the certificate is what makes the recipe a theorem. Sixth, and the honest boundary of the whole page: some of the deepest results of the century were built by iterating maps that are <em>not</em> contractions on any obvious room, and the repair of that failure is a research-grade pattern in its own right — <a href="p57-nash-moser.html">P57</a>, signposted here, built there.</p>
+</aside>
+</section>
