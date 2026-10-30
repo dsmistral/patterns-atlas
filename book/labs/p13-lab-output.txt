@@ -1,0 +1,65 @@
+P13 LAB BATTERY — FINAL full run vs p13-descent.html (55,026 B, md5 020a64543080624e31a275b0ee8af941)
+Dispatch history:
+  probe 1: piece 1 alone (p13-lab-1-machine.js) — 6/6
+  full run 1: pieces 1-6 — 48/49 (L5.8 asserted strict shrink to the end; hand trace showed the honest anatomy)
+  full run 2: pieces 1-6 — 48/49 (L5.8 first fix still demanded end-to-end shrink; the walk honestly RISES at the collapse)
+  probe 2: piece 5 alone after final fix — 8/8
+  THIS RUN: pieces in order 1-6, sequential, fresh loads.
+piece 1 (p13-lab-1-machine.js): 6 checks
+piece 2 (p13-lab-2-scans.js): 9 checks
+piece 3 (p13-lab-3-euclid.js): 7 checks
+piece 4 (p13-lab-4-lattice.js): 7 checks
+piece 5 (p13-lab-5-family.js): 8 checks
+piece 6 (p13-lab-6-page.js): 12 checks
+
+PASS | L1.1 the four near-miss chains run down to the jam exactly as printed | c1: 17/12,7/5,3/2,1/1,JAM; c2: 7/5,3/2,1/1,JAM; c3: 41/29,17/12,7/5,3/2,1/1,JAM; c4: 99/70,41/29,17/12,7/5,3/2,1/1,JAM
+PASS | L1.2 preservation identity b(2b-a)=a(a-b) iff a^2=2b^2, grid 60x60 | no counterexample
+PASS | L1.3 decrease law a-b<b iff a<2b, grid 40x40 | no counterexample
+PASS | L1.4 anchor inequalities 2b^2>b^2 and 2b^2<4b^2 for b<=500 | b in 1..500 all checked
+PASS | L1.5 n=4 machine on 2/1 returns 2/1 (idle fixed point) | output 2/1
+PASS | L1.6 no equal pair (a=b) solves a^2=2b^2, grid 60 | jam would force b=0
+PASS | L2.1 no x^2=2y^2 in 1..3000 | full scan
+PASS | L2.2 no x^2=3y^2 in 1..3000 | full scan
+PASS | L2.3 no x^2=6y^2 in 1..3000 | full scan
+PASS | L2.4 x^2=4y^2 solutions are exactly (2t,t), y<=400 | 400 solutions, all doubled
+PASS | L2.5 6|x^2 forces 6|x, census to 600 | no exception
+PASS | L2.6 4|x^2 forces 2|x (census to 600) and the witness x=2: 4|4 but not 4|2 | witness 2 stands
+PASS | L2.7 (1,1) fails and (2,1) solves x^2=4y^2 | the halved pair leaves the kind
+PASS | L2.8 squares mod 3 in {0,1} and 3|x^2 pins 3|x, census to 600 | census clean
+PASS | L2.9 no x^2=12y^2 in 1..1500 | full scan
+PASS | L3.1 dance remainders 535,421,114,79,35,9,8,1,0 | [535,421,114,79,35,9,8,1,0]
+PASS | L3.2 dance quotients 1,2,1,3,1,2,3,1,8 | [1,2,1,3,1,2,3,1,8]
+PASS | L3.3 certificate -170*2026+231*1491=1 | -344420 + 344421
+PASS | L3.4 (233,144) takes 11 divisions and ends at gcd 1 | divisions: 11
+PASS | L3.5 least positive 2026x+1491y over window +-400 is 1 at (-170,231) | min 1 at [-170,231]
+PASS | L3.6 least positive ax+by equals gcd(a,b) for all pairs 1..20 (window +-60) | B04 re-run clean
+PASS | L3.7 a and b sit in S: 2026*1+1491*0=2026 and 2026*0+1491*1=1491 | S nonempty via a and b
+PASS | L4.1 no equilateral triple among the 100 grid points (161700 checked) | none
+PASS | L4.2 the 3D witness is equilateral, every dist^2 = 2 | the wall dissolves one dimension up
+PASS | L4.3 B12 identity (a^2+b^2)(c^2+d^2)=(ac+bd)^2+(ad-bc)^2, grid [-4..4]^4 | no counterexample
+PASS | L4.4 third vertex of u=(3,1) at 60 deg: (0.634,3.098), svg (50.4,15.3) | svg (50.4,15.3)
+PASS | L4.5 drawn u=(3,1): |u|^2=10 (even), u.v=s/2=5 an integer | s=10, s/2=5
+PASS | L4.6 no x^2+y^2=3z^2 with z<=250 | full scan clean
+PASS | L4.7 mod-4 censuses: squares {0,1}; two-square sums never 3; 3z^2=3 for odd z; sum 0 pins both even | all four clean
+PASS | L5.1 p^2-2q^2 alternates -1,+1 across all 8 members | [-1,1,-1,1,-1,1,-1,1]
+PASS | L5.2 the successor map (p,q)->(p+2q,p+q) regenerates the family from (1,1) | all 8 regenerated
+PASS | L5.3 forward machine (2b-a,a-b) maps each member to its predecessor | exact inverses on all 7 steps
+PASS | L5.4 errors |p/q-sqrt2| strictly shrink across all 8 | 0.414 0.0858 0.0142 0.00245 0.000420 0.0000722 0.0000124 0.00000212
+PASS | L5.5 sign of p^2-2q^2 says which side of sqrt2 (all 8) | bracketing confirmed
+PASS | L5.6 (1,1,1) and (1,7,5) solve x^2+y^2=2z^2 | the phantom witnesses stand
+PASS | L5.7 calculator error about 2.4e-9 (between 2e-9 and 3e-9) | 2.373e-9
+PASS | L5.8 calculator fraction: a dozen shrinking floors, then the walk collapses (floor rises) and exits, not jam | 12 shrinking floors down to 4796, collapse to 5840, exit at step 13 with b=-6884
+PASS | L6.1 eight sections (h2) | 8
+PASS | L6.2 seven h3 (2 examples + 5 exercises) | 7
+PASS | L6.3 ten details: 5 Hint + 5 Worked | 10
+PASS | L6.4 three figures, three aria-labels, three figcaptions | 3
+PASS | L6.5 three pattern boxes, two pid lines | 3
+PASS | L6.6 TeX delimiters balanced (440 inline, 2 display) | 440/440 inline; 2/2 display
+PASS | L6.7 zero dollar signs | none
+PASS | L6.8 kicker: P13, thirteenth move of the spine | present
+PASS | L6.9 footer: return to index and next move P14 | present
+PASS | L6.10 banned tokens zero; lab-substring only on aria-label lines | clean, 4 aria-label hits
+PASS | L6.11 all 51 hrefs canonical | all canonical
+PASS | L6.12 MathJax config bytes exact (doubled backslash form) | byte-exact
+
+TOTAL: 49 PASS, 0 FAIL, 49 checks
