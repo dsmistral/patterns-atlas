@@ -1,0 +1,49 @@
+<section id="encounter">
+<h2>2 · The same question, asked twice</h2>
+<p>Two questions, cold. <strong>Question one.</strong> Do the points \((2,5)\), \((3,9)\), and \((7,4)\) lie on a single line? You know how this goes — <a href="p02-small-cases.html">P02</a>'s table work and <a href="p09-invariant.html">P09</a>'s determinant, expanded along the first row:</p>
+\[
+\begin{vmatrix} 2 &amp; 5 &amp; 1 \\ 3 &amp; 9 &amp; 1 \\ 7 &amp; 4 &amp; 1 \end{vmatrix}
+= 2(9-4) - 5(3-7) + 1(12-63) = 10 + 20 - 51 = -21.
+\]
+<p>Three points lie on one line exactly when this determinant vanishes; here it is \(-21\), so they do not — no single line through all three, and the figure's left panel shows the triangle they form instead.</p>
+<p><strong>Question two.</strong> Do the lines \(y = 2x-5\), \(y = 3x-9\), and \(y = 7x-4\) pass through a single point? The same determinant test exists for lines — write each line as \(px - y = q\) and take the determinant of the coefficient rows \([p,\,-1,\,-q]\):</p>
+\[
+\begin{vmatrix} 2 &amp; -1 &amp; -5 \\ 3 &amp; -1 &amp; -9 \\ 7 &amp; -1 &amp; -4 \end{vmatrix}
+= 2(4-9) + 1(3\cdot(-4)-7\cdot(-9)) - 5(3-7) = -10 + 51 + 20 = 21.
+\]
+<p>Three lines pass through one point exactly when this one vanishes; here it is \(+21\), so they do not. But stop and look at what you just computed. Question one's answer was \(-21\). Question two's answer was \(+21\). Same magnitude, opposite sign — and not because I chose the examples to force it. Take any triple, say the points \((1,2)\), \((2,3)\), \((3,4)\): the point determinant is \(0\) (they sit on the line \(y = x+1\)), and their partnered lines \(x - y = 2\), \(2x - y = 3\), \(3x - y = 4\) have line determinant \(0\) too, meeting all three at the single point \((1,-1)\). Vanishing together, non-vanishing together, always the same number up to sign. These two questions are not two questions. They are one question wearing two uniforms — the exact phrasing belongs to <a href="p16-isomorphism.html">P16</a>.</p>
+<p>Here is the dictionary doing the tailoring. To each point \((p,q)\) attach the line \(px - y = q\), that is \(y = px - q\). To each line \(y = mx + c\) attach the point \((m,-c)\). Point \((2,5)\) becomes the line \(y = 2x - 5\); that line becomes the point \((2,5)\) again. Flip twice, arrive home — the involution from the onramp, checked on one example, proved in §4. The three points of question one become, under the dictionary, exactly the three lines of question two; that is why the answers match. One dictionary, one line long, and a whole family of question-pairs collapse into single questions.</p>
+<p>Now the trap, because there is one, and it is the reason this page exists as a move rather than a curiosity. The oldest true statement of geometry is: <em>any two distinct points lie on exactly one line</em>. Flip it by swapping the nouns, the way you would flip any sentence: <em>any two distinct lines pass through exactly one point</em>. That flipped statement is <strong>false</strong> — the lines \(y = x\) and \(y = x+1\) never meet. Hostile case, one line of arithmetic, and the naive flip is dead on arrival. Now flip the same statement <em>through the dictionary</em>, and watch the difference: two distinct points \((p_1,q_1)\) and \((p_2,q_2)\) become two lines with slopes \(p_1\) and \(p_2\), and those lines meet exactly when the slopes differ. When the two points share a first coordinate, their duals are parallel and the flipped statement fails — for the same reason \(y = x\) and \(y = x+1\) fail. The dictionary does not erase the exception; it <em>moves</em> it. Points stacked vertically (equal \(p\)) trade places with parallel line families (equal slope), and the repair that heals one heals the other — §4 names it. What the dictionary does that noun-swapping cannot: it keeps the bookkeeping exact, so the exception arrives <em>labeled</em>, as a visible clause about equal first coordinates, instead of hiding inside an English sentence that quietly claimed <em>any</em> two lines. The naive noun-swap erased the fine print and paid for it with a falsehood. This is the tension of §1 in miniature: the flip is a machine, the machine has fine print, and the difference between executing the flip through a checked dictionary and performing it as wordplay on English is the difference between a theorem and a lie.</p>
+
+<figure id="fig-p17-1">
+<svg viewBox="0 0 500 170" role="img" aria-label="Two panels. Left: three points forming a triangle, no single line through them, determinant minus twenty-one. Right: their three dual lines, steep, pairwise crossing at three distinct points, no single crossing, determinant plus twenty-one.">
+<line x1="20" y1="138" x2="175" y2="138" stroke="#bbb" stroke-width="1"/>
+<line x1="45" y1="160" x2="45" y2="20" stroke="#bbb" stroke-width="1"/>
+<line x1="45" y1="126" x2="70" y2="78" stroke="#666" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="70" y1="78" x2="170" y2="138" stroke="#666" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="45" y1="126" x2="170" y2="138" stroke="#666" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="45" cy="126" r="4" fill="#c0392b"/>
+<circle cx="70" cy="78" r="4" fill="#c0392b"/>
+<circle cx="170" cy="138" r="4" fill="#c0392b"/>
+<text x="50" y="118" font-size="11" fill="#333">(2, 5)</text>
+<text x="75" y="72" font-size="11" fill="#333">(3, 9)</text>
+<text x="140" y="132" font-size="11" fill="#333">(7, 4)</text>
+<text x="20" y="16" font-size="12" fill="#333">points · det = −21</text>
+<g transform="translate(260,0)">
+<line x1="46" y1="60" x2="189" y2="150" stroke="#2471a3" stroke-width="1.5"/>
+<line x1="53" y1="10" x2="185" y2="150" stroke="#1e8449" stroke-width="1.5"/>
+<line x1="59" y1="10" x2="115" y2="150" stroke="#b7950b" stroke-width="1.5"/>
+<circle cx="178" cy="130" r="4" fill="#333"/>
+<circle cx="86" cy="96" r="4" fill="#333"/>
+<circle cx="63" cy="23" r="4" fill="#333"/>
+<text x="95" y="115" font-size="11" fill="#333">y = 2x − 5</text>
+<text x="120" y="140" font-size="11" fill="#333">y = 3x − 9</text>
+<text x="10" y="60" font-size="11" fill="#333">y = 7x − 4</text>
+<text x="20" y="16" font-size="12" fill="#333">dual lines · det = +21</text>
+</g>
+</svg>
+<figcaption><strong>Fig P17.1.</strong> One question, two uniforms. Left: the points \((2,5)\), \((3,9)\), \((7,4)\) — no single line, point determinant \(-21\). Right: their duals \(y=2x-5\), \(y=3x-9\), \(y=7x-4\) — pairwise crossings at three distinct places (the marked dots), no single point, line determinant \(+21\). Same magnitude, opposite sign, always.</figcaption>
+</figure>
+
+<p>A skeptic should now object, and the objection is the right one: two matched examples and one worked observation do not make a machine, the same way one matched pair of cities did not make <a href="p16-isomorphism.html">P16</a>'s dictionary a theorem. What is the dictionary certified to carry? Where is it defined, and where does it tear? Which relations does it preserve, and which does it reverse? And why would anyone bother — what does the flip <em>buy</em>? The next three sections answer in order: name the move and its promises (\S3), watch it work and certify the fine print (\S4), then study the wreckage where it fails (\S5). The pattern to hold onto is the one P16 established: a correspondence is only as good as its checks, and the checks are the content.</p>
+</section>
