@@ -1,0 +1,176 @@
+p24-review-verifier.js — adversarial review verifier for P24 "Split into waves"
+Repo: dsmistral/patterns-atlas · book/labs/p24-review-verifier.js · session S58
+Executed inline in the sandbox (pieces VA, VB, VC, VD, engine + checks copied
+verbatim from this file; the page was read from the local working tree).
+
+INDEPENDENCE (zero shared code with p24-lab.js)
+- Orthogonality and every dial family re-derived by EXACT ANTIDERIVATIVES
+  (the lab used Simpson quadrature).
+- Basel and Leibniz partials by EXACT RATIONALS (n <= 4) and by BACKWARD
+  summation with subtraction of upper tails (the lab summed forward).
+- Si(pi)/2 by the ALTERNATING POWER SERIES (the lab used Simpson).
+- Gibbs crests located by the derivative identity sum cos((2j+1)x) =
+  sin(2Nx)/(2 sin x), giving the crest at exactly pi/(2N) (the lab used
+  grid search).
+- Fejer maxima by DERIVATIVE BISECTION on every + to - crossing of sigma',
+  endpoint included (the lab used grid-and-refine).
+- Filter counts by PURE INTEGER Pascal rows and integer pair arithmetic in
+  Z[omega] and Z[i] (the lab used floating complex arithmetic and a floating
+  binomial function). No floats anywhere in the filter checks.
+
+RUN HISTORY (honest, in order — six verifier-side fixes, ZERO page defects found)
+- VA1-VA6, VA8, VA9, VA11-VA19, VA21-VA23, VA25-VA34: PASS on first run.
+- VA7 initially FAILED on its own strictness: even-n |x| dials computed to
+  -2e-17 (print -0.0000) and the check demanded exact 0. The antiderivative
+  value is exactly 0; tolerance loosened to 1e-9 to match its sibling check.
+  Page defect: none.
+- VA10 initially FAILED: my backward accumulation returned TAIL sums where
+  PARTIAL sums were needed (1.5498 -> computed 0.1042 at n = 10). Fixed by
+  the subtraction form: partial(n) = total - shi[n+1]. Re-run PASS.
+- VA20 initially FAILED, and the investigation mattered. My first scan took
+  the whole room (0, pi/2] and read sigma_50's max as 0.7728 — higher than
+  the page's 0.7616. Brute force (300,000 points + ternary refine)
+  confirmed 0.77284244 at x = 1.54 is real — but the page scopes its claim
+  precisely: "their maxima over 0 < x <= 0.3 read 0.7616 and 0.7792". The
+  page is CORRECT as printed; my range was wrong. Second fix: the max over
+  (0, 0.3] sits AT the boundary x = 0.3 (sigma_50 is still rising there,
+  heading for the 0.7728 hill far from the jump) — bisectMax now evaluates
+  the endpoint too. Final VA20 PASS (0.761622 at x = 0.3000, 0.779208 at
+  x = 0.3000), and the added VA20b verifies the stronger fact the page
+  implies: over the whole room both maxima stay strictly below pi/4
+  (0.772842, 0.782204). Page defect: none.
+- VA24 initially FAILED with the same tail-vs-partial bug as VA10 (L_50
+  computed -0.007132); fixed with the same subtraction form. Re-run PASS.
+- VA26 initially FAILED: my integer translation of the closed form wrongly
+  reduced 2cos((n-2r)pi/3) to +2 / -1 by (n-2r) mod 3; the true cycle is
+  mod 6: +2, +1, -1, -2, -1, +1 (e.g. n=3, r=0 gives 3c_0 - 2^3 = -2, and
+  the Pascal row confirms c_0 = 2). Fixed with the mod-6 table. Re-run PASS.
+- VB29 initially FAILED: the Basel table's last cell carries a colspan
+  attribute (<td colspan="7">) and the cell extractor missed it. The
+  extractor now accepts attributes on t[hd]. Re-run PASS.
+- All ten poisons (VC0 sanity + VC1-VC9) REJECTED as required: a global
+  mutation, a mutation inside a needle span, a transposition, a last-digit
+  nudge, a digit transposition, an impostor maximum, a boundary-address
+  transposition, a doctored table cell, and an overshoot-free world.
+
+FINAL VERDICT: 104/104 PASS (VA 35, VB 29, VC 10, VD 30).
+Page defects found by the verifier: none. The two page defects this session
+(the S_N convention in Exhibit A/Exercise 5 and the Exhibit B center values)
+were found by the LAB battery and were already corrected and re-verified
+before this verifier ran; every needle here matches the corrected page.
+
+ACTUAL OUTPUTS
+
+--- piece VA: independent re-derivations ---
+PASS VA1 sin*sin: exact antiderivative reads pi on the diagonal, 0 off (5x5) — 25 pairs by closed forms
+PASS VA2 cos*cos: exact antiderivative reads pi on the diagonal, 0 off (5x5) — 25 pairs
+PASS VA3 sin*cos: exact antiderivative reads 0 always (5x5) — even on the diagonal
+PASS VA4 dials of x^2: exact a_n = 4(-1)^n/n^2, printing -4, 1, -0.4444, 0.25, -0.16, 0.1111 — -4.0000, 1.0000, -0.4444, 0.2500, -0.1600, 0.1111
+PASS VA5 the parabola's constant dial a_0/2 = pi^2/3 = 3.2899 (exact) — 3.289868
+PASS VA6 dials of x: exact b_n = 2(-1)^(n+1)/n, printing 2, -1, 0.6667, -0.5 — 2.0000, -1.0000, 0.6667, -0.5000
+PASS VA7 dials of |x|: exact 0 on even n, -4/(pi n^2) on odd (the -1.2732, -0.1415, -0.0509 family) — -1.2732, -0.0000, -0.1415, -0.0000, -0.0509
+PASS VA8 |x| constant dial a_0 = pi (exact: (1/pi) integral of |x| over the room) — pi^2/pi
+PASS VA9 Basel partials as exact rationals: 1, 5/4, 49/36, 205/144 — 1, 1.25, 1.3611, 1.4236
+PASS VA10 Basel partials by backward summation: 1.5498, 1.6350, 1.6439 at n = 10, 100, 1000 — 1.5498, 1.6350, 1.6439
+PASS VA11 pi^2/6 = 1.6449340668 and the alternating pi^2/12 = 0.82246703 — 1.6449340668
+PASS VA12 the split closes: pi^2/8 + pi^2/24 = pi^2/6 exactly; odd 1.23370055, even 0.41123352, even = quarter — three exact identities
+PASS VA13 the derivative identity sum cos((2j+1)x) = sin(2Nx)/(2 sin x) holds (120 probes) — the crest sits at sin(2Nx) = 0
+PASS VA14 crests at exactly x = pi/(2N): S_5 = 0.9286, S_50 = 0.9260, S_500 = 0.9260 — 0.928598, 0.925995, 0.925969
+PASS VA15 the addresses print 0.3142, 0.0314, 0.0031 = pi/10, pi/100, pi/1000 — exactly pi/(2N)
+PASS VA16 the limiting crest Si(pi)/2 by power series = 0.9259685 — 0.92596853
+PASS VA17 S_500's crest is within 1e-6 of Si(pi)/2 (series vs summation, independent) — gap 2.62e-7
+PASS VA18 the overshoot's limit: Si(pi)/2 - pi/4 = 0.1406, a fraction 0.0895 = 8.95% — 0.140570, 8.95%
+PASS VA19 S_5's own fraction is 0.0912 = 9.12% already at N = 5 — 9.12%
+PASS VA20 over the page's approach run 0 < x <= 0.3: sigma_50 tops at 0.7616 and sigma_200 at 0.7792, both strictly below pi/4 — 0.761622 at x = 0.3000, 0.779208 at x = 0.3000
+PASS VA20b the stronger reading the page implies: over the whole room (0, pi/2] both still stay strictly below pi/4 — maxima 0.772842, 0.782204
+PASS VA21 the price in numbers: sigma_200(0.02) = 0.7139, sigma_200(0.05) = 0.7575, raw S_200(0.02) = 0.7871 — 0.713894, 0.757461, 0.787095
+PASS VA22 Exhibit B dials by exact antiderivative: b_m = 2(1-(-1)^m)/(pi m) -> 1.2732, 0.4244, 0.2546 — 1.273240, 0.424413, 0.254648
+PASS VA23 the room's center: T_5(pi/2) = (4/pi)(263/315) = 1.0631 exactly as printed — 1.063054 from 263/315
+PASS VA24 the bracketing: 0.9936 at N = 50, 0.9994 at N = 500 — Leibniz-slow around 1 — 0.993634, 0.999363
+PASS VA25 Example 1's dials by exact antiderivative: (1-(-1)^m)/(2m) -> 1, 0, 0.3333, 0, 0.2, 0, 0.1429, 0, 0.1111, 0 — m=1..10
+PASS VA26 integer Pascal census: 3c_r - 2^n = 2cos((n-2r)pi/3) exactly (the mod-6 cycle +2, +1, -1, -2), and c_r = (2^n + t)/3 in integers — n = 1..20, all exact integers
+PASS VA27 n = 12 reads 1366, 1365, 1365 and the census closes at 4096 = 2^12 — 1366, 1365, 1365
+PASS VA28 (1+omega)^3 = -1 and (1+omega)^12 = 1 in exact integer pair arithmetic — omega^2 = -omega - 1, no floats
+PASS VA29 (1+i)^20 = -1024 and (1-i)^20 = -1024, exact integers — 2^10 e^{i 5pi}
+PASS VA30 the mod-4 census by integer Pascal: 1 + 4845 + 125970 + 125970 + 4845 + 1 = 261632 — row 20 by pure addition
+PASS VA31 the filter formula closes: (2^20 - 1024 + 0 - 1024)/4 = 261632, an integer exactly — the closed form is honest
+PASS VA32 the probability prints 0.249512, within 0.000488 of a quarter — 0.24951172, gap 0.00048828
+PASS VA33 the spike's dial contribution is exactly 100 sin(w) <= 100w: 9.9834, 0.99998, 0.1 against bounds 10, 1, 0.1 — 9.983342 <= 10; 0.999983 <= 1; 0.100000 <= 0.1
+PASS VA34 two left sums differ by exactly 100w: 10, 1, 0.1 as exact rationals — 100/10, 100/100, 100/1000
+
+--- piece VB: page scans (page read from the working tree, 71,708 bytes) ---
+PASS VB1 inline openers 420 (419 body + 1 config), openers = closers — 420/420
+PASS VB2 display delimiters 15 (14 body + 1 config), open = close — 15/15
+PASS VB3 banned standalone tokens 0 — lab/session/gate/verifier/adversarial/battery/planned/published/revision
+PASS VB4 backticks 0 — no code fences in prose
+PASS VB5 dollar signs 0 — TeX is all \( \) form
+PASS VB6 'receipt' exactly 1 (house metaphor) — one allowed use
+PASS VB7 h2 count 8 — 8 numbered sections
+PASS VB8 h3 count 9 — 3 boxes + 3 examples + warn + 2 doors
+PASS VB9 sections 8 — bridge..exercises
+PASS VB10 digit-tables 4 — four tables
+PASS VB11 figures 3 — Fig P24.1-3
+PASS VB12 inline svg 3 — hand-drawn svgs
+PASS VB13 polyline blocks 4 (three in Fig 1, one in Fig 2) — machine-checked figures
+PASS VB14 pattern boxes exactly box-p24, box-p24a, box-p24b — 3 boxes
+PASS VB15 asides 2 (onramp + warn) — onramp + warn
+PASS VB16 pid lines 3 — Moves used
+PASS VB17 details 10: Hint/Worked alternating HWHWHWHWHW — 5 Hint + 5 Worked
+PASS VB18 exercises 5, difficulty moons in order — ●○○ ●●○ ●●● ◆ ◐
+PASS VB19 em-dashes 209 (>= 150) — house rhythm
+PASS VB20 section marks 25 (>= 10) — cross-references
+PASS VB21 href set exactly the 13 known internal targets — 13 targets
+PASS VB22 exactly one external url, the tex-svg CDN — https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js
+PASS VB23 aria-labels 3, none contains standalone 'lab' — figure descriptions
+PASS VB24 no TODO/XXX/FIXME — clean
+PASS VB25 tags balanced: p, details, table, figure, div, section — open = close (p counted with a boundary so <path is not read as a paragraph)
+PASS VB26 table 1 the Leibniz reading at pi/2: sums, gaps, next tones — the encounter table
+PASS VB27 table 2 the square wave's dials: 1, 0, 0.3333, 0, 0.2, 0, 0.1429, 0, 0.1111, 0 — odd dials only
+PASS VB28 table 3 the parabola's dials: 3.2899 then -4, 1, -0.4444, 0.25, -0.16, 0.1111 — a_0/2 then 4(-1)^n/n^2
+PASS VB29 table 4 the Basel harvest: partials to 1.6439 against the target 1.6449340668 — the dial table at n = 0 harvested
+
+--- piece VC: poisons, each REJECTED as required ---
+PASS VC0 the honest needles all pass (the traps are armed) — all six
+PASS VC1 poison: a global 0.9260 -> 0.9460 mutation must be rejected — REJECTED: crests disagree by 0.02
+PASS VC2 poison: the last needle entry nudged 0.9260 -> 0.9259 must be rejected — REJECTED: interior values are checked, not just the first
+PASS VC3 poison: swapping 0.7139 and 0.7575 inside the Fejer needle must be rejected — REJECTED: order is part of the claim
+PASS VC4 poison: 1.0631 -> 1.0632 (one digit) must be rejected — REJECTED: tolerance 5e-5 is tight enough
+PASS VC5 poison: dial 0.4244 -> 0.4424 (digits transposed) must be rejected — REJECTED
+PASS VC6 poison: claiming sigma_200 tops at the raw sum's 0.7871 must be rejected — REJECTED: the average stays below the wall
+PASS VC7 poison: address 0.0314 -> 0.0341 must be rejected — REJECTED: the crest sits at exactly pi/(2N)
+PASS VC8 poison: a doctored dial table (0.3333 -> 0.3433) must fail the cell scan — REJECTED: the honest scan demands 0.3333
+PASS VC9 poison: an overshoot-free world (fractions 0) must be rejected — REJECTED: the 9% refuses to die
+
+--- piece VD: loader and prose gates ---
+PASS VD1 title byte-exact — P24 · Split into waves
+PASS VD2 MathJax config byte-exact — same config as P23
+PASS VD3 tex-svg script with integrity hash — pinned CDN
+PASS VD4 stylesheet link — house style
+PASS VD5 kicker byte-exact — kicker names the tier position
+PASS VD6 h1 byte-exact — the move's name
+PASS VD7 section ids in the house order — bridge,encounter,name-the-move,the-move-at-work,when-it-fails,what-next,lineage,exercises
+PASS VD8 h2 texts exact — 8 numbered sections
+PASS VD9 pattern-box h3 byte-exact — pattern sentence
+PASS VD10 Box P24.A h3 — the extraction machine
+PASS VD11 Box P24.B h3 — signature box
+PASS VD12 Example h3s exact — 3 worked examples
+PASS VD13 warn h3 byte-exact — the price box
+PASS VD14 doors h3 — doors section
+PASS VD15 default habit h3 — the habit paragraph
+PASS VD16 three New words in order — frequency, orthogonal, spectrum
+PASS VD17 pid 1 cites P05 + P08 — the rack + symmetry
+PASS VD18 pid 2 cites P05 + P23 — the rack + the carried audit
+PASS VD19 pid 3 cites P16 + P05 + B02 — wave coordinates + the cyclic rack
+PASS VD20 exhibits are strong paragraphs, not h3 — A overshoot, B wrong room, C blind spot
+PASS VD21 figcaptions numbered Fig P24.1-3 — three figures
+PASS VD22 doors: P25 nearest, P36 and P42 further — the three doors of section 6
+PASS VD23 tagline prerequisites P05, P15, P16 and the census next — P05 P15 P16 named, P25 teased
+PASS VD24 footer byte-exact — index + P25
+PASS VD25 page ends </html> with trailing newline — byte-exact tail
+PASS VD26 five exercise titles in order — 5 exercises
+PASS VD27 difficulty spans in the exact span format — moons in spans
+PASS VD28 lineage: d'Alembert 1747, Fourier 1822, Dirichlet 1829 — three dated receipts
+PASS VD29 lineage: Wilbraham 1848, Gibbs 1898, Fejer 1904 with volume and pages — the overshoot's paper trail
+PASS VD30 cross-pins to P23, P15, P08, P02, B02, B06 present — the web of the book
+
+CENSUS: 104/104 PASS (VA 35, VB 29, VC 10, VD 30)

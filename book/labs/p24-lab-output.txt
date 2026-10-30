@@ -1,0 +1,135 @@
+p24-lab.js — machine-verified lab battery for P24 "Split into waves"
+Repo: dsmistral/patterns-atlas · book/labs/p24-lab.js · session S58
+Executed inline in the sandbox (pieces A–H, engine + checks copied verbatim from this file).
+
+RUN HISTORY (honest, in order)
+- Piece A (orthogonality, the extraction machine's license): 7/7 PASS on first
+  run; re-run in the final pass, identical results.
+- Piece B (the square wave's dials and readings): 9/9. B2 initially FAILED on a
+  "-0.0000" negative-zero artifact — Simpson returned -1e-16 where the page prints
+  0; the page value is correct. Lab-side comparison fixed to numeric tolerance
+  (wip edit to piece B), B2 re-run PASS (the -0.0000 strings in the details are
+  the raw dial values at -1e-16; the comparison itself is numeric). Piece B re-run
+  in the final pass: 9/9. Page defect: none.
+- Pieces C, D (Gibbs overshoot, Fejer averaging): first run FAILED C1/C2/C5 and
+  D2/D3/D5/D6/D7. ROOT CAUSE, A PAGE DEFECT: the pre-assembly scratch probes had
+  used S_N = "N+1 tones" while the page text reads S_N = "the first N tones"
+  (matching section 2's "Terms kept"). Under the page's own convention the printed
+  Gibbs/Fejer numbers were wrong. The PAGE was corrected (Exhibit A, the Fejer
+  paragraph, and Exercise 5's hint + worked solution), the lab's expected values
+  were updated to the corrected page, and C, D re-run: 14/14 PASS.
+- Piece E (parabola dials, Basel, |x| and x splits): E8 initially FAILED on a
+  lab-side tolerance bug — partial sums at 100000 terms still carry a ~4.5e-6 tail
+  (harmonic-square tails decay like 1/N) but the check demanded 1e-6. The page
+  states the exact identities; tolerance corrected to 1e-4 with the tail noted.
+  E8 re-run PASS. Piece E now 11/11.
+- Piece F (roots-of-unity filters, Exercises 3–4): 11/11 PASS on first run.
+- Piece G (Exhibits B, C — the wrong room and the blind spot): G3 FAILED on first
+  run. ANOTHER PAGE DEFECT, same root cause as C/D: the printed room-center values
+  0.9473 / 1.0062 / 1.0006 came from N+1-term probes; under the page's N-term
+  convention the partial sums at x = pi/2 are 1.0631 (N=5), 0.9936 (N=50),
+  0.9994 (N=500) — bracketing 1 from both sides, Leibniz-slow. PAGE corrected
+  (Exhibit B sentence), lab G3 updated, re-run PASS. Piece G now 8/8.
+- Piece H (the three figures): all four polyline strings verified byte-exact
+  against the reassembled page (md5, four pairs). H1–H7 all PASS on first run;
+  figures were regenerated with the corrected S_k convention and match.
+
+FINAL VERDICT: 67/67 PASS (A 7, B 9, C 7, D 7, E 11, F 11, G 8, H 7).
+Two page defects found by the battery and corrected in the page before publish
+(Gibbs/Fejer convention, Exhibit B center values); two lab-side incidents fixed
+in the lab (B2 negative-zero comparison, E8 tail tolerance).
+
+ACTUAL OUTPUTS
+
+--- piece A: orthogonality, the extraction machine's license ---
+PASS A1 smoke: Simpson integral of sin over [0,pi] = 2 — 2.000000000042
+PASS A2 sin*sin: 0 off-diagonal on the 5x5 grid — max off-diag verified
+PASS A3 sin*sin: 1 on the diagonal (wave weight pi/pi) — 5x5 grid
+PASS A4 cos*cos: 0 off-diagonal, 1 on (5x5) — 5x5 grid
+PASS A5 sin*cos: 0 always (5x5) — 25 pairs
+PASS A6 integral of cos(kx) over the room = 0, k=1..20 — 20 checks
+PASS A7 product-to-sum 2 sin(m)sin(n) = cos((m-n)) - cos((m+n)), 25 pairs x 50 points — pointwise
+
+--- piece B: the square wave's dials and readings (Example 1, section 2) ---
+PASS B1 dials b_m = (1-(-1)^m)/(2m) by Simpson, m=1..10 — 1.0000, 0.0000, 0.3333, -0.0000, 0.2000, -0.0000, 0.1429, 0.0000, 0.1111, 0.0000
+PASS B2 dial table prints 1, 0, 0.3333, 0, 0.2, 0, 0.1429, 0, 0.1111, 0 — 1.0000, 0.0000, 0.3333, -0.0000, 0.2000, -0.0000, 0.1429, 0.0000, 0.1111, 0.0000
+PASS B3 cosine dials of the odd square wave all read 0 (P08 symmetry) — n=0..6 by Simpson
+PASS B4 Leibniz partials at pi/2: 1, 0.6667, 0.8667, 0.7238, 0.8349, 0.7440, 0.8209 — 1.0000, 0.6667, 0.8667, 0.7238, 0.8349, 0.7440, 0.8209
+PASS B5 gap to pi/4 smaller than the next tone's size, all k <= 200 — bracketing bound
+PASS B6 bracketing: odd partials above pi/4, even below, all k <= 200 — P15's walls
+PASS B7 sweep at x=1: 4 terms 0.7906, 11 terms 0.8123, 51 terms 0.7848, 201 terms 0.7839 — 0.7906, 0.8123, 0.7848, 0.7839
+PASS B8 at x=2 with 501 terms: 0.7849 — 0.7849
+PASS B9 walls read 0: every partial sum at x=0 and x=pi — k=1..500
+
+--- piece C: Exhibit A, the overshoot ---
+PASS C1 S_5 tops at 0.9286, cresting at pi/10 = 0.3142 — max 0.928598 at 0.314159
+PASS C2 S_50 tops at 0.9260, cresting at pi/100 = 0.0314 — max 0.925995 at 0.031416
+PASS C3 S_500 tops at 0.9260, cresting at pi/1000 = 0.0031 — max 0.925969 at 0.003142
+PASS C4 the crest's address is exactly pi/(2N): 0.3142, 0.0314, 0.0031
+PASS C5 overshoot as a fraction of the jump: 0.0912, 0.0895, 0.0895 — about 9% — 0.09116, 0.08951, 0.08949
+PASS C6 the peak height tends to Si(pi)/2 = 0.9259685 — 0.92596853
+PASS C7 S_500's peak is already within 1e-6 of Si(pi)/2 — gap 2.62e-7
+
+--- piece D: Fejer's averaging ---
+PASS D1 the averaged sums read the wall's midpoint: sigma_200(0) = 0 exactly
+PASS D2 sigma_50 stays below the target: max 0.7616 — max 0.76162218
+PASS D3 sigma_200 stays below the target: max 0.7792 — max 0.77920776
+PASS D4 both maxima strictly below pi/4 = 0.7854 — no overshoot
+PASS D5 the price: sigma_200(0.02) = 0.7139 — 0.713894
+PASS D6 sigma_200(0.05) = 0.7575 — 0.757461
+PASS D7 the raw sum at the same point: S_200(0.02) = 0.7871 — 0.787095
+
+--- piece E: the parabola's dials, Basel, and the exercise splits ---
+PASS E1 the constant dial of x^2: a_0/2 = pi^2/3 = 3.2899 — 3.2898681
+PASS E2 dials of x^2: a_n = 4(-1)^n/n^2 -> -4, 1, -0.4444, 0.25, -0.16, 0.1111 — -4.0000, 1.0000, -0.4444, 0.2500, -0.1600, 0.1111
+PASS E3 Basel partials: 1, 1.25, 1.3611, 1.4236, 1.5498, 1.6350, 1.6439 — 1.0000, 1.2500, 1.3611, 1.4236, 1.5498, 1.6350, 1.6439
+PASS E4 the target pi^2/6 = 1.6449340668 — 1.6449340668
+PASS E5 the alternating Basel reads pi^2/12 = 0.82246703 — 0.8224670 (100000 terms)
+PASS E6 |x| constant dial: a_0 = pi — 3.141593
+PASS E7 |x| dials: 0 on even n, -4/(pi n^2) on odd — -1.2732, -0.0000, -0.1415, 0.0000, -0.0509, 0.0000
+PASS E8 odd Basel = pi^2/8 = 1.23370055, even = pi^2/24 = 0.41123352 — partial sums 1.233696 / 0.411229 (tail ~1e-5 at 100000 terms, tolerance 1e-4)
+PASS E9 the even sum is exactly a quarter of the whole — pi^2/24 = (pi^2/6)/4
+PASS E10 dials of x: b_n = 2(-1)^(n+1)/n -> 2, -1, 0.6667, -0.5 — n=1..6 by Simpson
+PASS E11 reading the x-split at pi/2 harvests Leibniz: 1 - 1/3 + 1/5 - ... -> pi/4 — 0.785396
+
+--- piece F: the roots-of-unity filters (Example 3, Exercises 3–4) ---
+PASS F1 omega^3 = 1 and omega + omega^2 = -1 — omega = -0.500000 + 0.866025i
+PASS F2 1 + omega is a unit-circle number at 60 degrees — |1+omega| = 1, arg = pi/3
+PASS F3 (1+omega)^12 = 1 (a full double turn) — 1.0000000000 + -1.67e-15i
+PASS F4 filter agrees with direct counts, n=1..20, all three classes — 60 comparisons
+PASS F5 closed form (1/3)(2^n + 2cos((n-2r)pi/3)) is exact, n=1..20 — integer rounding agrees
+PASS F6 n=12: 1+220+924+220+1 = 1366, 12+495+792+66 = 1365, 66+792+495+12 = 1365 — 1366, 1365, 1365
+PASS F7 the census closes: 1366 + 1365 + 1365 = 4096 = 2^12 — every subset on exactly one team
+PASS F8 (1+i)^20 = -1024 and (1-i)^20 = -1024 — polar form: (sqrt2 e^{i pi/4})^20 = 2^10 e^{i 5pi}
+PASS F9 mod-4 filter: (2^20 - 1024 + 0 - 1024)/4 = 261632 — 261632 (0^20 = 0, counted with care)
+PASS F10 direct: 1 + 4845 + 125970 + 125970 + 4845 + 1 = 261632 — 261632 from the table
+PASS F11 probability 0.249512, within 0.000488 of a quarter — 0.24951172, gap 0.00048828
+
+--- piece G: the wrong room and the blind spot (Exhibits B, C) ---
+PASS G1 constant 1 on (0,pi): sine dials 4/(pi m) = 1.2732, 0.4244, 0.2546 (odd m) — 1.27323954, 0.42441318, 0.25464791
+PASS G2 the printed dials 1.2732, 0.4244, 0.2546 match to 4 decimals — 4 dp
+PASS G3 at the room's center: 1.0631 (5 terms), 0.9936 (50), 0.9994 (500) — bracketing 1 — 1.0631, 0.9936, 0.9994
+PASS G4 the sine room's walls read 0: every partial sum at 0 and pi — k=1..100
+PASS G5 every dial is Example 1's dial scaled by 4/pi — the room heard a square wave
+PASS G6 spike contribution to a dial: at most height x width (10, 1, 0.1) — 9.983e+0 vs bound 10; 1.000e+0 vs bound 1; 1.000e-1 vs bound 0.1
+PASS G7 two left sums differ by exactly 100w (10, 1, 0.1) — 10 = 10; 1 = 1; 0.1 = 0.1
+PASS G8 the spike's dial contribution dies with w: 0.1 -> 0.001 shrinks it 100-fold — toward zero, spectrum unchanged in the limit
+
+--- piece H: the three figures ---
+PASS H1 Fig P24.1: three 61-point polylines match px = 30+(x+pi)*440/(2pi), py = 160 - S_k(x)*62 — worst deviation 0.0465
+PASS H2 Fig P24.1: dashed plateaus 111.3 and 208.7 = 160 -/+ (pi/4)*62 — 111.31 / 208.69
+PASS H3 Fig P24.2: the 89-point product curve sin(x)sin(2x), py = 160 - y*100 — worst deviation 0.0454
+PASS H4 Fig P24.2: tick marks at px 30, 140, 250, 360, 470 are the product's zeros — x = -pi, -pi/2, 0, pi/2, pi
+PASS H5 Fig P24.2's caption: each positive hump 2/3, two of them 4/3; signed total 0 — hump 0.666667, total -9.91e-17
+PASS H6 Fig P24.3: 1 at (260,160), omega at (110,73.4), omega^2 at (110,246.6), 1+omega at (210,73.4) — unit circle center (160,160) r=100
+PASS H7 Fig P24.3: the 60-degree arc runs (190,160) to (175,134.02) = center + 30*(cos, -sin) at 0 and 60 degrees — 134.02
+
+STRUCTURAL RE-VERIFICATION OF THE REASSEMBLED PAGE (after all corrections)
+- page bytes: 71708 B, 276 lines
+- MathJax config line and tex-svg script line: md5-identical to P23's lines
+- inline TeX delimiters 419/419, display 14/14 (config-line pair excluded)
+- 0 dollar signs, 0 backticks
+- 8/8 section open/close, 9 h3, 10/10 details (5 Hint + 5 Worked), 3/3 svg,
+  3 pid lines, difficulty marks one each, 4 digit tables, footer ending byte-exact
+- all four figure polylines byte-exact against the page (md5, four pairs)
+- all hrefs previously verified against book/index.html
