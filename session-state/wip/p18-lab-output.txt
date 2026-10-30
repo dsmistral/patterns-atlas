@@ -1,0 +1,322 @@
+P18 LAB OUTPUT — p18-raise-dimension.html
+Lab: wip/p18-lab.js (56,361 B, md5 7f2cb43a7d80d61a1196d59467875b0c, cat-assembled from 14 pieces)
+Page under test: wip/p18-raise-dimension.html (69,392 B, md5 1ddcdc80b878f87f88ba35655628446d, FROZEN)
+Engine: run_typescript, code = "var __P18_STANDALONE__ = true;" + exact file bytes. Deterministic; no recursion, no BigInt.
+
+RUN HISTORY (honest)
+--------------------
+Run 1: 258/269, 11 FAIL. Tally: p0:47 p1:34(2 FAIL) p2:22 p3:8 p3d:22 p3f:26 p3x:18(5 FAIL) p4:21(2 FAIL) p4x:11 p4y:14 p5:22(2 FAIL) p5x:24
+
+The 11 FAIL lines, verbatim:
+FAIL  Fig P18.1's drawn axis lies on y=-3x-3   [(-4.42, 10.25) to (1.69, -8.07)]
+FAIL  fresh config: triangle non-degenerate (area cross 11)   [cross 14.000000000]
+FAIL  Q(1,i) = (-i,1) = -i(1,i): rail with factor -i
+FAIL  Q(1,-i) = (i,1) = i(1,-i): rail with factor i
+FAIL  M(1,-i) = (1+2i)(1,-i): rail with factor 1+2i   [(undefined+undefinedi, undefined+undefinedi)]
+FAIL  conjugate rail (1,i) carries 1-2i
+FAIL  junk descent: M(1,0) = (1,2), nobody's eigenvector
+FAIL  substitution u = r^2, way one: (1/2) int e^{-u} du = 1/2   [0.5000000004]
+FAIL  substitution u = r^2, way two: both quadratures agree   [0.5000000001 vs 0.5000000466]
+FAIL  Ex2: trace 4, determinant 5, discriminant -16 (one of the 148)
+FAIL  Ex2: the shear's discriminant is 0 and the doubled factor 1 is present
+
+Root causes and fixes (8 fixes, all making the checks MORE honest; no numeric claim weakened, no page byte touched):
+1. p1 drawn axis: the check demanded 1e-12 exactness on SVG endpoints that the page itself rounds to pixels
+   (<line x1="15" y1="28.5" x2="381.4" y2="285">). Endpoint (381.4,285) sits 0.0014 math units (~0.02 px)
+   off the exact axis y=-3x-3 — rounding, not error. Fix: tolerance 0.05 math units (~0.7 px), label now
+   says "(within SVG pixel rounding)". The page claim (the drawn line IS the axis) is unchanged.
+2. p1 fresh config: sanity constant was wrong — cross of (B2-A2)x(C2-A2) for A2=(3,0),B2=(0,2),C2=(-1,-2)
+   is 14, not 11. Fix: 14 (recomputed by hand: (-3,2)x(-4,-2) = 6+8). Lab-side value; the page states nothing here.
+3. p1 honesty (found while fixing 2): three check labels said "as stated on the page" for P=(4,-2/3),
+   Q=(-3/2,-4), R=(15,6) and axis slope 20/33 — but grep of the page shows it states NONE of these. They are
+   the lab's own independent second witness (a fresh Desargues config, built and verified by the lab alone).
+   Fix: relabeled "(independent second witness)". Numbers unchanged; the false page-attribution removed.
+4. p3x Qi: returned ca(-v, u) — a SUM — instead of the PAIR (-v, u); Q(1,i)/Q(1,-i) checks then read
+   undefined second components. Fix: return the pair [[-v],[u]].
+5. p3x M + conjugate check: same pair bug in M, and the conjugate check compared (1-2i)*i against (1,2)
+   instead of feeding M(1,i). Fix: M returns the pair; conjugate check now feeds M(1,i) and matches
+   (1-2i)(1,i) = (1-2i, 2+i) — exactly the page's Worked line for §4's machine.
+6. p4 quadrature resolution: Simpson n=2000 on [0,40] lands 4e-10 off the exact 1/2 (tolerance 1e-10), and
+   the way-two agreement at n=1000 was off by 4.7e-8 (tolerance 1e-8). Fix: raise n to 20000/16000/32000.
+   Tolerances UNCHANGED (the claims are exact; only the mesh was too coarse). Run 2: 0.5000000000 both ways.
+7. p5 Ex2: the exercise's machine is [[2,-1],[1,2]] (page: "one of the census's 148"), whose discriminant
+   is 4*(-1)*(1) = -4 — the check constant -16 was carried over from §4's [[1,-2],[2,1]] by mistake.
+   Fix: -4 (still D<0, still one of the 148, still eigenvalues 2±i as the page prints).
+8. p5 Ex2 shear: constants mistyped — (1-0)*(1-0)+4*1*0 = 1, not 0. The page's shear is [[1,1],[0,1]]
+   (grep-verified), whose D = (1-1)^2 + 4*1*0 = 0 and whose doubled factor 1 satisfies 1-2+1=0.
+   Fix: correct constants for [[1,1],[0,1]].
+
+Run 2: 269/269, 0 FAIL. Full output below.
+========================================================================
+P18 LAB — page loaded, 68880 chars, tail check: true
+PASS  title is P18's
+PASS  MathJax config line byte-identical to the house template
+PASS  tail byte-exact \n</footer>\n</body>\n</html>\n
+PASS  section id=bridge
+PASS  section id=encounter
+PASS  section id=name-the-move
+PASS  section id=the-move-at-work
+PASS  section id=when-it-fails
+PASS  section id=what-next
+PASS  section id=lineage
+PASS  section id=exercises
+PASS  8 h2   [8]
+PASS  9 h3   [9]
+PASS  3 pattern boxes (box-p18, box-p18a, box-p18b)
+PASS  warn box Scope and price of P18
+PASS  10 details = 5 Hint + 5 Worked   [10/5/5]
+PASS  5 exercises with the house moon scale (●○○ ●●○ ●●● ◆ ◐)
+PASS  zero dollar-delimiters
+PASS  zero backticks
+PASS  raw inline openers 594 = closers 594 (1 each inside the MathJax line)   [594/594]
+PASS  raw display openers 2 = closers 2 (1 each inside the MathJax line)   [2/2]
+PASS  2 machine-verified SVG figures
+PASS  2 digit-tables
+PASS  footer return-index + next-link P19
+PASS  kicker names the first move of tier 2
+PASS  onramp: 3 New words (lift, projection, perspectivity)
+PASS  needle h1
+PASS  needle §1
+PASS  needle §2
+PASS  needle §3
+PASS  needle §4E1
+PASS  needle §4E2
+PASS  needle §4E3
+PASS  needle §5A
+PASS  needle §5B
+PASS  needle §5C
+PASS  needle §6
+PASS  needle §7
+PASS  needle §8
+PASS  poison absent: wrong Hilbert date
+PASS  poison absent: wrong Veblen–Wedderburn year
+PASS  poison absent: wrong Hamilton year
+PASS  poison absent: old Ex3 moon
+PASS  poison absent: drafting voice
+PASS  poison absent: naive polar claim on sinc
+PASS  poison absent: old junk axis
+PASS  poison absent: wrong census upstairs
+PASS  scalars: A'=4A, B'=2B, C'=-2C
+PASS  AA' is the x-axis through O
+PASS  BB' is the y-axis through O
+PASS  CC' passes through O (y = 3/2 x)
+PASS  P = AB ∩ A'B' = (-2,3)   [(-2.000000000, 3.000000000)]
+PASS  Q = BC ∩ B'C' = (-1,0)   [(-1.000000000, 0.000000000)]
+PASS  R = CA ∩ C'A' = (0,-3)   [(0.000000000, -3.000000000)]
+PASS  axis y = -3x-3 carries P, Q, R
+PASS  AB is x+y=1
+PASS  A'B' is x+2y=4
+PASS  BC is y=x+1
+PASS  B'C' is y=2x+2
+PASS  CA is y=3x-3
+PASS  C'A' is y=(3/4)x-3
+PASS  Fig P18.1 pixel of O at (280,172)   [predicted (280.0, 172.0)]
+PASS  Fig P18.1 pixel of A at (340,172)   [predicted (340.0, 172.0)]
+PASS  Fig P18.1 pixel of B at (280,158)   [predicted (280.0, 158.0)]
+PASS  Fig P18.1 pixel of C at (400,130)   [predicted (400.0, 130.0)]
+PASS  Fig P18.1 pixel of A' at (520,172)   [predicted (520.0, 172.0)]
+PASS  Fig P18.1 pixel of B' at (280,144)   [predicted (280.0, 144.0)]
+PASS  Fig P18.1 pixel of C' at (40,256)   [predicted (40.0, 256.0)]
+PASS  Fig P18.1 pixel of P at (160,130)   [predicted (160.0, 130.0)]
+PASS  Fig P18.1 pixel of Q at (220,172)   [predicted (220.0, 172.0)]
+PASS  Fig P18.1 pixel of R at (280,214)   [predicted (280.0, 214.0)]
+PASS  Fig P18.1's drawn axis lies on y=-3x-3 (within SVG pixel rounding)   [(-4.42, 10.25) to (1.69, -8.07)]
+PASS  red dash endpoint on AB extended (x+y=1)   [(-2.17, 3.16)]
+PASS  blue dash endpoint on A'B' extended (x+2y=4)   [(-2.17, 3.09)]
+PASS  fresh config: triangle non-degenerate (cross 14)   [cross 14.000000000]
+PASS  fresh config: perspective scalars from O2
+PASS  fresh config: P=(4,-2/3) (independent second witness)
+PASS  fresh config: Q=(-3/2,-4) (independent second witness)
+PASS  fresh config: R=(15,6) (independent second witness)
+PASS  fresh config: axis slope 20/33 (independent second witness)   [slopes 0.606061 0.606061]
+PASS  fresh config: meets collinear too (Desargues, second witness)   [meets (4.000000000,-0.666666667) (-1.500000000,-4.000000000) (15.000000000,6.000000000)]
+PASS  needle move title
+PASS  needle move close
+PASS  needle sigh
+PASS  needle decoration
+PASS  needle change of subject
+PASS  needle box A title
+PASS  needle promise 1
+PASS  needle promise 2
+PASS  needle promise 3
+PASS  needle honesty
+PASS  needle box B title
+PASS  needle key 1
+PASS  needle key 2
+PASS  needle key 3
+PASS  needle keys close
+PASS  needle dandelin
+PASS  box ids present
+PASS  box B names P20's engine
+PASS  box B names P27
+PASS  box B names Dandelin's spheres
+PASS  box B names Hamilton 1837
+PASS  box B names Stirling
+PASS  A',B',C' on rays from O* (scalars 1/2, 1/3, -1/2)
+PASS  triangle 1 lies in z=1
+PASS  triangle 2 lies in x=1
+PASS  planes z=1 and x=1 meet in the line ell={(1,t,1)}
+PASS  P=(1,0,1) on AB and on A'B', with x=1, z=1
+PASS  Q=(1,8/5,1) on BC and on B'C', with x=1, z=1
+PASS  R=(1,1,1) on CA and on C'A', with x=1, z=1
+PASS  all three meets on ell (x=1, z=1)
+PASS  A1 on the ray from S through A
+PASS  B1 on the ray from S through B
+PASS  C1 on the ray from S through C
+PASS  A2 = O1A1 meet SA' = (4/3,0,10/3), on both lines
+PASS  B2 = O1B1 meet SB' = (0,6/5,2), on both lines
+PASS  C2 = O1C1 meet SC' = (-2,-3,5/2), on both lines
+PASS  the stated A2,B2,C2 sit on their meets
+PASS  A1A2, B1B2, C1C2 all pass through O1
+PASS  C2 on the ray opposite C1 (perspectivity permits)
+PASS  lifted triangles lie in two distinct planes
+PASS  neither lifted plane is z=0
+PASS  all six lifted vertices off the floor z=0
+PASS  the center S lies on none of the nine lines
+PASS  all three spatial meets exist
+PASS  spatial meets collinear (the lifted axis)
+PASS  six lifted vertices project onto §2's six vertices
+PASS  projection preserves meets: mAB projects to P=(-2,3)
+PASS  mBC projects to Q=(-1,0)
+PASS  mCA projects to R=(0,-3)
+PASS  the projected meets lie on §2's axis y=-3x-3
+PASS  ray from S through A1 continues past A1 to A
+PASS  page claims the lab verifies all six projections
+PASS  O*, A, A' collinear in pixels
+PASS  O*, B, B' collinear in pixels
+PASS  O*, C, C' collinear in pixels
+PASS  P on the pixel line AB
+PASS  P on the pixel line A'B'
+PASS  Q on the pixel line BC
+PASS  Q on the pixel line B'C'
+PASS  R on the pixel line CA
+PASS  R on the pixel line C'A'
+PASS  P, Q, R all on the vertical line x=320
+PASS  ell drawn as the vertical line (320,15)-(320,288)
+PASS  P,Q,R inside the drawn span of ell
+PASS  dash P-B on line AB
+PASS  dash P-(360,166) on line A'B'
+PASS  dash C-B on line BC
+PASS  dash Q-C' on line B'C'
+PASS  dash C-A on line CA
+PASS  dash R-C' on line C'A'
+PASS  light dash O*-A on the ray O*A
+PASS  light dash O*-B on the ray O*B
+PASS  light dash C-C' on the ray O*C
+PASS  all ten labelled points drawn as circles
+PASS  caption: P = (1,0,1)
+PASS  caption: Q = (1,8/5,1) in TeX
+PASS  caption: R = (1,1,1)
+PASS  caption names both planes and the perspective center
+PASS  couples: (0,1)(0,1) = (-1,0)
+PASS  embedding a -> (a,0) carries + and x over untouched
+PASS  multiplying by i sends (c,d) to (-d,c) (a quarter-turn)
+PASS  census by discriminant: 416 two-rail, 61 doubled, 148 empty-handed   [416/61/148]
+PASS  of the 61: five pure stretches, fifty-six shears   [5/56]
+PASS  every doubled factor is an integer (no half-integer eigenvalue)
+PASS  Vieta's two readings hold on all 148 (sum=trace, product=determinant)
+PASS  both eigenvalues of every machine feed the characteristic equation
+PASS  the census closes at 625 x 2 = 1250 eigenvalues upstairs
+PASS  416 + 61 + 148 = 625
+PASS  Q(1,i) = (-i,1) = -i(1,i): rail with factor -i
+PASS  Q(1,-i) = (i,1) = i(1,-i): rail with factor i
+PASS  M = [[1,-2],[2,1]]: trace 2, determinant 5, discriminant -16
+PASS  M(1,-i) = (1+2i)(1,-i): rail with factor 1+2i   [(1+2i, 2+-1i)]
+PASS  conjugate rail: M(1,i) = (1-2i)(1,i), i.e. (1-2i, 2+i)   [(1+-2i, 2+1i)]
+PASS  junk descent: M(1,0) = (1,2), nobody's eigenvector
+PASS  page pins the repair: the lab checks every step of this paragraph
+PASS  page pins the wholesale closure at 625 x 2 = 1250
+PASS  I = int e^{-x^2} over the line = sqrt(pi) = 1.7724538509   [1.7724538509]
+PASS  sqrt(pi) = 1.7724538509 as printed   [1.7724538509]
+PASS  I^2 = pi (the product of the two one-dimensional factors)   [3.1415926536]
+PASS  the radial integral int e^{-r^2} r dr = 1/2   [0.5000000000]
+PASS  2 pi times the radial integral = pi (the room pays out)
+PASS  substitution u = r^2, way one: (1/2) int e^{-u} du = 1/2   [0.5000000000]
+PASS  substitution u = r^2, way two: both quadratures agree   [0.5000000000 vs 0.5000000000]
+PASS  collapse: the triangles stay in perspective from O (an accident)
+PASS  junk meets land at (-2,3), (-4/7,0), (0,-6/5)   [(-2.0000,3.0000) (-0.5714,0.0000) (0.0000,-1.2000)]
+PASS  each junk meet verified on both of its lines
+PASS  one of the three happens to coincide with P=(-2,3)
+PASS  the junk meets are collinear on 21x + 10y + 12 = 0
+PASS  and NOT on the axis y = -3x - 3 the question asked about
+PASS  J = int e^{-x^4} = Gamma(5/4) = 0.9064024771   [0.9064024771]
+PASS  smooth chain: J = int 2t e^{-t^8} dt, same value   [0.9064024771]
+PASS  the true J^2 is about 0.8216   [0.821565]
+PASS  the pretend radial toll: pi^{3/2}/2 is about 2.7841   [2.784164]
+PASS  the gap of nearly two: toll minus J^2 is about 1.96   [1.9626]
+PASS  cos^4 + sin^4 is 1 at 0 degrees, 1/2 at 45 degrees
+PASS  cos^4 + sin^4 ranges inside [1/2, 1] (not a constant)
+PASS  page names the junk map and the lesson
+PASS  t^2 = -1 = 2 in F9
+PASS  one line shows the twist biting: (1+t) circ t = 1+2t
+PASS  while 1 circ t + t circ t = t + 2 — not equal
+PASS  right-distributivity over a sum is gone (the same witness)
+PASS  circ is associative (full 729-triple sweep)
+PASS  identity is 1 on both sides
+PASS  every nonzero element owns an inverse
+PASS  circ distributes from the left (full sweep)
+PASS  page names Dickson's twist (1905, the first proper nearfield)
+PASS  page names the 1907 Veblen-Wedderburn plane
+PASS  page pins the field recipe (three digits, t^2 = -1, mod 3)
+PASS  81 points and 90 lines (81 nearfield lines plus 9 verticals)
+PASS  nine points on every line
+PASS  exactly one line through every pair of points
+PASS  at most one meet for every pair of lines
+PASS  projective completion: 9^2 + 9 + 1 = 91
+PASS  the two triangles are in perspective from the origin (all three lines checked)
+PASS  P = (t, 2+t): the unique meet of AB and A'B'
+PASS  Q = (2t, 1+2t): the unique meet of BC and B'C'
+PASS  R = (1+t, t): the unique meet of CA and C'A'
+PASS  and they are NOT collinear (no line holds all three)
+PASS  page pins the failure: And they are not collinear
+PASS  page pins the meets P = (t,\; 2+t) etc.
+PASS  page names it the first finite non-Desarguesian plane
+PASS  page pins the embeddability boundary (Veblen-Young)
+PASS  Ex1: scalars A'=4A, B'=2B, C'=-2C
+PASS  Ex1: perspective from the origin (AA' x-axis, BB' y-axis, CC' is y=x/2)
+PASS  Ex1: meets P=(-2,3) unmoved, Q=(-1,1), R=(0,-1)   [(-2.000,3.000) (-1.000,1.000) (0.000,-1.000)]
+PASS  Ex1: all three on the new axis 2x + y + 1 = 0
+PASS  Ex1: the new axis is NOT §2's y = -3x - 3
+PASS  Ex1b: A1 is the midpoint of S and A
+PASS  Ex1b: A2 on O1A1 and on the ray S to A'
+PASS  Ex1b: the projection from S through A2 lands exactly on A'=(4,0)
+PASS  Ex2: trace 4, determinant 5, discriminant -4 (one of the 148)
+PASS  Ex2: (1,-i) is a rail with factor 2+i   [(2+1i, 1+-2i)]
+PASS  Ex2: (2-i) times i = 1+2i, the second component of M(1,i)
+PASS  Ex2: M(1,i) = (2-i)(1,i), the conjugate rail
+PASS  Ex2: Vieta — (2+i)+(2-i)=4=tr, (2+i)(2-i)=5=det
+PASS  Ex2: the scaled turn — M is multiplication by 2+i (sample arrow), scale sqrt(5), tan=1/2
+PASS  Ex2: the shear [[1,1],[0,1]] has discriminant 0 and the doubled factor 1 is present
+PASS  Ex2: the shear owns exactly one direction (M - I is not zero)
+PASS  Ex3a: I2 = int x^2 e^{-x^2} = sqrt(pi)/4   [0.4431134627]
+PASS  Ex3a: both sides equate — 2 I2 sqrt(pi) = pi/2
+PASS  Ex3a: the polar side — int r^3 e^{-r^2} = 1/2   [0.5000000000]
+PASS  Ex3a: int cos^2 over the full circle = pi
+PASS  Ex3b: int e^{-x^2/2} = sqrt(2 pi)   [2.5066282746]
+PASS  Ex3c: int x e^{-x^2} = 1/2, no lift needed   [0.5000000000]
+PASS  Ex4a: |sin x/x| partials about 2.56 / 3.47 / 4.05 at X=10/40/100   [2.5587 / 3.4664 / 4.0467]
+PASS  Ex4a: absolute convergence fails — the partials keep growing (40 to 100 gains > 0.5)   [0.5803]
+PASS  Ex4a: growth rate about 2/pi (logarithmic)   [0.6333]
+PASS  Ex4b: at r=5 the slice at angle 0.3 gives about -0.141 (x~4.78, y~1.48)   [-0.1408]
+PASS  Ex4b: at r=5 the slice at angle 1.2 gives about -0.115 (x~1.81, y~4.66)   [-0.1149]
+PASS  Ex4b: same radius, different values — the integrand is not radial
+PASS  Ex4c: I(eps) = pi/2 - arctan eps at eps = 0.5 (1e-9)   [1.1071487178]
+PASS  Ex4c: I(1) = pi/4 exactly as the page checks   [0.7853981634]
+PASS  Ex4c: I(2) = pi/2 - arctan 2 is about 0.4636   [0.463648]
+PASS  Ex4c: I'(eps) = -1/(1+eps^2): the by-parts integral at eps = 0.5, 1, 2
+PASS  Ex4c: brute force cannot pay it — the eps=0.001 sum to x=200 lands short   [short by 0.00197]
+PASS  Ex4c: the closed form at eps=0.001 is about 1.5698   [1.569796]
+PASS  page pins the honest boundary (still lands about 0.002 short)
+PASS  Ex5a: the real census — 416 / 61 / 148, summing to 625   [416/61/148]
+PASS  Ex5a: of the 61, five are multiples of the identity table (zero machine included)   [5/56]
+PASS  Ex5b: 416 + 148 + 5 = 569 own a scheme over the couples   [569]
+PASS  Ex5b: 421 diagonalizable over the reals (416 + 5), difference exactly the 148
+PASS  Ex5b: the residue is the 56 shears — factor present, one direction, unrepairable by numbers
+PASS  Ex5c: char lambda^2 - 4 lambda + 8, discriminant -16 (one of the 148)
+PASS  Ex5c: the factor 2+2i satisfies the characteristic equation   [(0.000000, 0.000000)]
+PASS  Ex5c: M(1,-i) = (2+2i)(1,-i) — the rail, fed   [(2+2i, 2+-2i)]
+PASS  Ex5c: the conjugate rail (1,i) carries 2-2i
+PASS  Ex5c: Vieta — sum 4 = tr, product 8 = det
+PASS  Ex5c: the scaled turn — scale 2sqrt(2), angle 45 degrees
+P18 LAB TALLY  p0:47 p1:34 p2:22 p3:8 p3d:22 p3f:26 p3x:18 p4:21 p4x:11 p4y:14 p5:22 p5x:24
+P18 LAB FINAL: 269/269, 0 FAIL
