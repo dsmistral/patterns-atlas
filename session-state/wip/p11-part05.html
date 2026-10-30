@@ -1,0 +1,25 @@
+<h3>Example 3 (geometry) — the triangle that cannot close</h3>
+<p><strong>The claim: a triangle has at most one right angle.</strong> The negation hands us a figure: a triangle \(ABC\) with right angles at \(A\) <em>and</em> at \(B\). Draw it — the assumption is a picture now, and pictures can be squeezed.</p>
+<p>Two crashes, one external and one internal, and watching both is the point. The external: the angles sum to \(90^\circ + 90^\circ + C = 180^\circ + C\), which exceeds \(180^\circ\) for every possible \(C\) — and the angle-sum theorem of triangles is already on the ladder, proven long before this page. The assumed figure collides with a standing theorem. The internal, worse: draw it honestly. Base \(AB\); the third vertex \(C\) sits above it; the side from \(A\) toward \(C\) and the side from \(B\) toward \(C\). A right angle at \(A\) makes \(AC\) perpendicular to \(AB\); a right angle at \(B\) makes \(BC\) perpendicular to \(AB\) as well — and two lines perpendicular to the same line are parallel, another standing fact. Parallel lines never meet. But \(AC\) and \(BC\) are supposed to meet at \(C\). The assumed figure defeats itself: the vertex \(C\) that both sides must share is a point that perpendiculars refuse to produce.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 172" role="img" aria-label="Fig P11.3 — the impossible triangle: base A B horizontal, with a right angle marked at A and at B; the side from A and the side from B both leave the base perpendicular to it, so both are vertical and parallel — the two rays rise side by side and never meet, so the vertex C cannot exist">
+<rect x="70" y="30" width="200" height="4" fill="#555f6e"/>
+<circle cx="70" cy="34" r="4" fill="#303743"/>
+<circle cx="270" cy="34" r="4" fill="#303743"/>
+<text x="56" y="52" font-size="13" text-anchor="middle" fill="#303743">A</text>
+<text x="284" y="52" font-size="13" text-anchor="middle" fill="#303743">B</text>
+<rect x="70" y="14" width="18" height="16" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+<rect x="252" y="14" width="18" height="16" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="70" y1="10" x2="70" y2="150" stroke="#3574d4" stroke-width="1.6"/>
+<polygon points="70,150 66,142 74,142" fill="#3574d4"/>
+<line x1="270" y1="10" x2="270" y2="150" stroke="#3574d4" stroke-width="1.6"/>
+<polygon points="270,150 266,142 274,142" fill="#3574d4"/>
+<text x="170" y="128" font-size="12" text-anchor="middle" fill="#3574d4">both sides perpendicular to AB — parallel</text>
+<text x="170" y="146" font-size="12" text-anchor="middle" fill="#c0392b">never meet: the vertex C cannot exist</text>
+<text x="170" y="166" font-size="11" text-anchor="middle" fill="#555f6e">two right angles at the base — and the triangle never closes</text>
+</svg>
+<figcaption><strong>Fig P11.3.</strong> The assumed figure, drawn honestly. Right angles at both base vertices force both rising sides perpendicular to the base — and two perpendiculars to the same line are parallel, so they rise side by side forever. The vertex \(C\) the triangle needs is a meeting that parallel lines decline. The figure refutes itself; no outside fact was needed — though the angle-sum theorem crashes it independently.</figcaption>
+</figure>
+<p>Sharpness — the boundary is exactly one. A triangle with one right angle is the healthiest object in school geometry: the \(3\)-\(4\)-\(5\) triangle carries angles of \(90^\circ\), \(36.87^\circ\) and \(53.13^\circ\), and no theorem complains. The census agrees over three hundred random integer triangles: none carries two angles of \(90^\circ\) or more — for the blunt reason that two such angles already sum to at least \(180^\circ\), leaving the third angle nothing to be. One right angle: life. Two: contradiction. The claim's edge is exact.</p>
+<p><span class="pid">Moves used: P11 (the assumed two-right-angle figure), P03 (the one-right-angle control that certifies where the impossibility begins).</span></p>
+</section>
