@@ -1,0 +1,67 @@
+p14-lab — verification battery transcript — S44 (P14, p14-diagonal.html)
+Page under test: wip/p14-diagonal.html — 58,456 bytes, md5 5378f86208bf12584a5cc07ee89020e7
+
+RUN HISTORY (honest — every dispatch recorded):
+ Run 1 (probe; pieces 1-2 as first drafted): 47 checks — 44 PASS / 3 FAIL.
+   p1.01 FAIL — test bug: JS string length (UTF-16 units) compared against byte size;
+        corrected to a UTF-8 byte counter.
+   p2.17 FAIL — REAL PAGE DEFECT: Exercise 1 row 4 shows digits 314159 labeled pi-3;
+        those are pi/10's digits. Label fixed to pi/10.
+   p2.18 FAIL — REAL PAGE DEFECT: Exercise 1 row 5 shows digits 271828 labeled e-2;
+        those are e/10's digits. Label fixed to e/10.
+   (aftermath) Exercise 1 row 2 label "the odds, then a prime" also corrected to
+        "the odds, cycling" (1 is not prime). Page 58,463 -> 58,456 bytes.
+ Run 2 (corrected p1.01/p2.17/p2.18 + pieces 3,4,5): 24 checks — 21 PASS / 3 FAIL.
+   p4.02 FAIL — test bug: census encoded 2-bit subset masks (64 functions) where the
+        page (correctly) claims all 512; fixed to 3-bit masks (8^3 = 512).
+   p4.05 FAIL — test bug: bijection round-trip reversed bit order, plus one bogus
+        "parseInt as decimal" reading; rewritten as injective+surjective+round-trip.
+   p5.06 FAIL — test bug: cx-extraction regex concatenated both captured numbers;
+        fixed with matchAll capture groups.
+ Run 3 (the three fixed checks alone): 3 checks — 2 PASS / 1 FAIL (p4.05 still carried
+   the bogus second reading).
+ Run 4 (p4.05 final form): 1 check — 1 PASS.
+ Run 5 (FULL battery, all six pieces, current page): 68 checks — 67 PASS / 1 FAIL.
+   p6.01 FAIL — test bug: two census needles did not match the page's actual phrasing
+        ("27 candidates" vs the page's "27\) candidates"); needle list corrected and
+        re-verified separately: 17/17 needles present.
+ FINAL EFFECTIVE STATE: 68/68 PASS, 0 FAIL. Both real page defects were found by the
+ battery and fixed in the page before this final state.
+
+FULL PASS LIST (Run 5, with p6.01 re-verified):
+ p1.01 page byte size 58456 — PASS
+ p1.02 title — PASS        p1.03 kicker — PASS       p1.04 MathJax head — PASS
+ p1.05 integrity sha — PASS  p1.06 zero-dollar — PASS  p1.07 8 h2 — PASS
+ p1.08 3 pattern-boxes — PASS  p1.09 3 pid spans — PASS  p1.10 3 figures — PASS
+ p1.11 10 details — PASS    p1.12 3 svg — PASS       p1.13 sections 8/8 — PASS
+ p1.14 onramp — PASS        p1.15 box ids — PASS      p1.16 fig ids — PASS
+ p1.17 footer — PASS        p1.18 no build-talk — PASS  p1.19 warn aside — PASS
+ p1.20 13 spine hrefs — PASS  p1.21 forward links — PASS  p1.22 no draft residue — PASS
+ p1.23 five exhibits — PASS  p1.24 exercises + pairs — PASS  p1.25 inline TeX >= 200 — PASS
+ p2.01 1/3 — PASS  p2.02 14/99 — PASS  p2.03 1/2 — PASS  p2.04 2/3 — PASS
+ p2.05 e — PASS  p2.06 e-2 digits — PASS  p2.07 Machin pi — PASS  p2.08 pi-3 digits — PASS
+ p2.09 sqrt2 — PASS  p2.10 sqrt2-1 digits — PASS  p2.11 sqrt3/2 digits — PASS
+ p2.12 diagonal 3,4,8,5,0,6,4,6 — PASS  p2.13 page diagonal string — PASS
+ p2.14 no diagonal 1 — PASS  p2.15 shadow prefix 0.11111111 — PASS
+ p2.16 page table rows exact (all 8 rows, digit-by-digit) — PASS
+ p2.17 gamma — PASS  p2.18 Ex1 fib 112358 + pi/10 314159 + e/10 271828 — PASS
+ p2.19 Ex1 diagonal 2,3,2,1,2,5 + shadow 111211 + corrected labels — PASS
+ p3.01 0.999 truncations exact K<=15 — PASS  p3.02 costume pair exact K<=12 — PASS
+ p3.03 64 {1,2} strings distinct as integers — PASS
+ p3.04 Exhibit-1 diagonal zeros -> all-9s shadow = listed row — PASS
+ p4.01 Cantor census n=2 all 16 miss — PASS  p4.02 census n=3 all 512 miss — PASS
+ p4.03 2^n — PASS  p4.04 Example-1 f -> D={1} missed — PASS
+ p4.05 strings <-> subsets bijection n=3 — PASS
+ p5.01 sweep positions 1/2=2, 2/3=4, 3/7=15 — PASS  p5.02 page says row 15 — PASS
+ p5.03 phi(q) q=2..12 by enumeration — PASS
+ p5.04 first 12 sweep fractions = Fig P14.3 values — PASS
+ p5.05 Fig P14.3 cx coordinates machine-checked — PASS
+ p5.06 no duplicates first 40 sweep rows — PASS
+ p5.07 20-digit shadow prefix differs from each of first 20 sweep rows — PASS
+ p6.01 numeric/markers census (17 needles) — PASS (after needle correction, see Run 5 note)
+ p6.02 verified-history date census (18 needles) — PASS
+ p6.03 consumers named (P34, P21, B08) — PASS  p6.04 sketch label honest — PASS
+ p6.05 costume language — PASS  p6.06 demands language — PASS  p6.07 keys language — PASS
+ p6.08 footer forward link exactly once — PASS
+
+VERDICT: 0 FAIL (68/68 effective; all defects — 2 page, 4 test — disclosed above)

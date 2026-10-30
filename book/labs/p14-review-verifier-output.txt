@@ -1,0 +1,46 @@
+p14-review-verifier — adversarial verifier transcript — S44 (P14, p14-diagonal.html)
+Page under test: wip/p14-diagonal.html — 58,456 bytes, md5 5378f86208bf12584a5cc07ee89020e7
+
+RUN HISTORY (honest — every dispatch recorded):
+ Run 1 (as first drafted): 15 checks — 6 PASS / 9 FAIL.
+   - v2-v8, v14 FAIL — verifier needle bugs: the page stores table digits in per-cell
+     markup, so contiguous digit needles ('1415926535', '7182818284', ...) do not appear
+     in the bytes; corrected to the td-separated needle form.
+   - v11 FAIL — one needle used a curly apostrophe ("Cantor’s"); the page uses ASCII.
+   - Probe run (numeric): TWO REAL FRESH-ENGINE BUGS FOUND:
+     (a) reverse factorial series summed k=25..3, but sum_{k>=3} 1/k! = e - 2.5 =
+         0.2182818..., not e - 2; corrected to k=25..2 (e - 2 = sum_{k>=2} 1/k!).
+     (b) digit-pair schoolbook sqrt paired '2' + 24 zeros as '20','00',... (i.e.
+         sqrt(20)*10^11 = 4472135954999) instead of the odd-length leading group
+         '02','00',...; corrected with a leading-zero pad when the digit count is odd.
+   - v15: 5 clones rejected, 1 ACCEPTED — the mutation 'phantom diagonal' ->
+     'phantom diagonals' left the needle as a substring; replaced with a needle-breaking
+     mutation ('D = {1}' -> 'D = {2}').
+ Run 2 (corrected engine, same run as probe fixes): 15 checks — 15 PASS / 0 FAIL.
+   All six doctored clones rejected: diagonal digit corrupted, Ex1 shadow corrupted,
+   sweep row corrupted, 512 -> 513, Russell letter date corrupted, Cantor D corrupted.
+
+FINAL STATE: 15/15 PASS, 0 FAIL. 6/6 doctored clones rejected. 24/24 needles present,
+12/12 poisons absent, fresh engine (arcsin pi, reverse-series e, digit-pair square roots,
+uncorrected gamma at n=10^7, Binet Fibonacci, closed-form sweep position) independently
+reproduces every digit claim on the page.
+
+CHECK LIST:
+ v1 pi fresh (arcsin) agrees to 1e-11 — PASS
+ v2 fresh pi-3 digits 1415926535 (td-separated on page) — PASS
+ v3 e-2 fresh (reverse series, k=25..2) digits on page — PASS
+ v4 fresh e/10 digits 271828 (td-separated on page) — PASS
+ v5 sqrt2 fresh (digit-pair, odd-length padded) digits on page — PASS
+ v6 sqrt3 fresh (digit-pair) sqrt3/2 digits on page — PASS
+ v7 gamma fresh (n=10^7, no correction) digits on page — PASS
+ v8 Fibonacci fresh (Binet) digits on page — PASS
+ v9 fresh closed-form position 3/7 = row 15 on page — PASS
+ v10 fresh 0.999 truncation identity K=15 — PASS
+ v11 24 needles all present — PASS
+ v12 12 poisons all absent — PASS
+ v13 control: Ex1 row bytes parsed, shadow recomputed = 0.111211 — PASS
+ v14 control: fresh pi (arcsin) reproduces Ex1 pi/10 digits 314159 — PASS
+ v15 all 6 doctored clones rejected — PASS
+
+VERDICT: 0 FAIL (15/15; fresh-engine defects found by the probe and fixed before freeze,
+all disclosed above)
