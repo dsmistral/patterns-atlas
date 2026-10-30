@@ -1,0 +1,49 @@
+<h3>Example 3 (the sliding puzzle) — the swap that cannot be slid into place</h3>
+<p><strong>The question, from the 1880 craze:</strong> the fifteen puzzle — a \(4 \times 4\) tray holding fifteen numbered tiles and one empty slot — starts with its tiles in order, and 1880 America went mad for it. Years later Sam Loyd — not the puzzle's inventor, whatever he claimed — offered a thousand dollars to anyone who could reach one particular arrangement: the same order, except tiles \(14\) and \(15\) exchanged, with the empty slot back in its corner. The prize was never claimed, and this example is the reason why — the wall that blocked it, named and checkable.</p>
+<p>Small case first, P03's discipline — because the full puzzle is beyond any hunt. A \(2 \times 2\) tray holds three tiles and a blank; there are \(4 \cdot 3 \cdot 2 \cdot 1 = 24\) arrangements. An honest enumeration of all of them (a small machine, a spare afternoon) splits the \(24\) cleanly in half: exactly \(12\) arrangements are reachable from the solved tray — and the unreachable \(12\) are precisely their mirror images with two tiles exchanged. Reach the same split with a parity count: every slide is a single swap — the blank trades places with one adjacent tile — so the parity of the four-token arrangement flips on every slide; and the blank, moving one square, flips the parity of its displacement from home just as often. The two flips cancel: the <em>combined</em> parity — arrangement parity plus blank-displacement parity — is the wall, never breached by any legal slide. The solved tray stamps it even; the two-tiles-swapped, blank-at-home arrangement stamps it odd. Unreachable — and the exhaustive \(12/24\) split confirms the census in miniature.</p>
+<p>Now the full tray, where the hunt is not merely hard but impossible: \(16!\) arrangements is \(20{,}922{,}789{,}888{,}000\) — twenty trillion, at a million arrangements per second, roughly eight months without sleeping, and you would only be <em>searching</em>, not proving. The census does not grow with the tray. Every slide still swaps the blank with one tile; the parity pair still flips in unison; the combined stamp is still invariant. The solved tray stamps even; Loyd's target — \(14\) and \(15\) exchanged, blank home — stamps odd. No slide sequence exists, for the \(4 \times 4\), the \(5 \times 5\), or any size of tray, and the thousand dollars were safe from the moment the first applicant computed a parity. Read the wall backwards and it becomes a puzzle-designer's manual: the reachable arrangements (blank at home) are exactly the even permutations of the tiles — so swap two <em>pairs</em>, or cycle three tiles, and the challenge becomes solvable; exchange two single tiles and it never will be. The obstruction does not just block the prize — it draws the exact boundary between the puzzles that can be sold and the ones that cannot.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 168" role="img" aria-label="Fig P12.3 — the fifteen puzzle: a four by four tray with tiles 1 through 13 in order, tiles 14 and 15 exchanged and highlighted, and the empty slot in the corner — stamped odd by the parity census, unreachable from the solved tray">
+<g stroke="#555f6e" stroke-width="1.4">
+<rect x="56" y="16" width="28" height="28" fill="#eef1f6"/>
+<rect x="84" y="16" width="28" height="28" fill="#eef1f6"/>
+<rect x="112" y="16" width="28" height="28" fill="#eef1f6"/>
+<rect x="140" y="16" width="28" height="28" fill="#eef1f6"/>
+<rect x="56" y="44" width="28" height="28" fill="#eef1f6"/>
+<rect x="84" y="44" width="28" height="28" fill="#eef1f6"/>
+<rect x="112" y="44" width="28" height="28" fill="#eef1f6"/>
+<rect x="140" y="44" width="28" height="28" fill="#eef1f6"/>
+<rect x="56" y="72" width="28" height="28" fill="#eef1f6"/>
+<rect x="84" y="72" width="28" height="28" fill="#eef1f6"/>
+<rect x="112" y="72" width="28" height="28" fill="#eef1f6"/>
+<rect x="140" y="72" width="28" height="28" fill="#eef1f6"/>
+<rect x="56" y="100" width="28" height="28" fill="#eef1f6"/>
+<rect x="84" y="100" width="28" height="28" fill="#eef1f6"/>
+<rect x="112" y="100" width="28" height="28" fill="#f7e9e7" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="140" y="100" width="28" height="28" fill="#f7e9e7" stroke="#c0392b" stroke-width="1.8"/>
+</g>
+<text x="70" y="34" font-size="13" text-anchor="middle" fill="#303743">1</text>
+<text x="98" y="34" font-size="13" text-anchor="middle" fill="#303743">2</text>
+<text x="126" y="34" font-size="13" text-anchor="middle" fill="#303743">3</text>
+<text x="154" y="34" font-size="13" text-anchor="middle" fill="#303743">4</text>
+<text x="70" y="62" font-size="13" text-anchor="middle" fill="#303743">5</text>
+<text x="98" y="62" font-size="13" text-anchor="middle" fill="#303743">6</text>
+<text x="126" y="62" font-size="13" text-anchor="middle" fill="#303743">7</text>
+<text x="154" y="62" font-size="13" text-anchor="middle" fill="#303743">8</text>
+<text x="70" y="90" font-size="13" text-anchor="middle" fill="#303743">9</text>
+<text x="98" y="90" font-size="13" text-anchor="middle" fill="#303743">10</text>
+<text x="126" y="90" font-size="13" text-anchor="middle" fill="#303743">11</text>
+<text x="154" y="90" font-size="13" text-anchor="middle" fill="#303743">12</text>
+<text x="70" y="118" font-size="13" text-anchor="middle" fill="#303743">13</text>
+<text x="98" y="118" font-size="13" text-anchor="middle" fill="#c0392b">15</text>
+<text x="126" y="118" font-size="13" text-anchor="middle" fill="#c0392b">14</text>
+<text x="154" y="118" font-size="13" text-anchor="middle" fill="#555f6e">—</text>
+<text x="196" y="60" font-size="11" text-anchor="middle" fill="#555f6e">target: order, except 14 and 15 exchanged</text>
+<text x="196" y="80" font-size="11" text-anchor="middle" fill="#555f6e">blank home in its corner</text>
+<text x="196" y="104" font-size="12" text-anchor="middle" fill="#c0392b">parity stamp: odd</text>
+<text x="196" y="120" font-size="11" text-anchor="middle" fill="#c0392b">the solved tray stamps even — unreachable</text>
+</svg>
+<figcaption><strong>Fig P12.3.</strong> Loyd's thousand-dollar arrangement. Every slide swaps the blank with one tile — flipping the arrangement's parity — while the blank's one-square step flips its displacement parity in unison; the combined stamp never changes. The solved tray wears the even stamp; this target wears the odd one; no sequence of legal slides carries even to odd. The \(2 \times 2\) tray shows the same wall in miniature: \(12\) of its \(24\) arrangements reachable, the exchanged pairs sealed off — a split the census predicts before any slide is made.</figcaption>
+</figure>
+<p><span class="pid">Moves used: P12 (the parity pair named as the obstruction, its boundary read as the puzzle-designer's manual), P09 (the combined parity is a conserved quantity — this page's parent move), P02 (the \(2 \times 2\) census that made the wall visible small before trusting it large), P03 (the boundary checks: which swaps are reachable and which are sealed).</span></p>
+</section>
