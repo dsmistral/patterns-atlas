@@ -1,0 +1,37 @@
+<section id="when-it-fails">
+<h2>5 · When it fails</h2>
+<p>Three exhibits, one per working part. Each is a place the certificate genuinely breaks — not a hard identity it merely fails to settle, but a way its own logic goes wrong.</p>
+<h3>Exhibit A · The five-hour clock — a complete census that certifies nothing</h3>
+<p>Take the difference \(x^5 - x\) into the arithmetic of remainders mod \(5\) — the five-hour clock of <a href="b01-remainders.html">B01</a> and <a href="b02-congruence-classes.html">B02</a>, where \(5\) wraps to \(0\). Evaluate the difference at every single residue, an honest and complete census of the room:</p>
+<table class="digit-table">
+<tr><th>\(a\)</th><th>\(0\)</th><th>\(1\)</th><th>\(2\)</th><th>\(3\)</th><th>\(4\)</th></tr>
+<tr><th>\(a^5 - a\)</th><td>\(0\)</td><td>\(0\)</td><td>\(30\)</td><td>\(240\)</td><td>\(1020\)</td></tr>
+<tr><th>mod \(5\)</th><td>\(0\)</td><td>\(0\)</td><td>\(0\)</td><td>\(0\)</td><td>\(0\)</td></tr>
+</table>
+<p>All five residues vanish. The difference agrees with zero at <em>every point of the room</em> — a stronger test than any certificate of \S4 ever ran — and yet \(x^5 - x\) is blatantly not the zero polynomial: its \(x^5\) coefficient is \(1\). The certificate theorem has not failed; it was never licensed. Its budget argument needs \(d + 1 = 6\) distinct test points, and this room has only \(5\) — the degree does not fit in the room, and every conclusion drawn from the census is a type error. What the census actually proved is a different, honest statement: \(a^5 \equiv a \pmod 5\) for every residue \(a\) — Fermat's little theorem in its smallest case, a true fact about the <em>function</em> the clock sees. Over a finite room, two different forms can be the same function: \(x^5 - x\) and the zero polynomial are indistinguishable to the five-hour clock while being different objects, and the repair is always the same — certify in a room that outruns the degree. Over the integers the same polynomial shows its honest budget: \(x^5 - x = x(x-1)(x+1)(x^2+1)\) has exactly three real roots, three of its five allowed, a vanishing set nowhere near big enough to fake an identity over any room with six points in it.</p>
+<figure id="fig-p20-2">
+<svg viewBox="0 0 560 200" role="img" aria-label="Two panels. Left: the real number line from -2 to 2 with the polynomial x to the fifth minus x marked, red dots at its three roots -1, 0 and 1. Right: a five-hour clock, a ring of five nodes labeled 0 to 4, every node ringed red because x to the fifth minus x vanishes at all five residues mod 5.">
+<line x1="40" y1="100" x2="300" y2="100" stroke="#333" stroke-width="1"/>
+<line x1="40" y1="95" x2="40" y2="105" stroke="#333" stroke-width="1"/><text x="36" y="122" font-size="11" fill="#333">-2</text>
+<line x1="105" y1="95" x2="105" y2="105" stroke="#333" stroke-width="1"/><text x="101" y="122" font-size="11" fill="#333">-1</text>
+<line x1="170" y1="95" x2="170" y2="105" stroke="#333" stroke-width="1"/><text x="166" y="122" font-size="11" fill="#333">0</text>
+<line x1="235" y1="95" x2="235" y2="105" stroke="#333" stroke-width="1"/><text x="231" y="122" font-size="11" fill="#333">1</text>
+<line x1="300" y1="95" x2="300" y2="105" stroke="#333" stroke-width="1"/><text x="296" y="122" font-size="11" fill="#333">2</text>
+<circle cx="105" cy="100" r="6" fill="#c0392b"/>
+<circle cx="170" cy="100" r="6" fill="#c0392b"/>
+<circle cx="235" cy="100" r="6" fill="#c0392b"/>
+<text x="60" y="45" font-size="12" fill="#333">over the reals: 3 roots, budget 5</text>
+<line x1="430" y1="45" x2="482.3" y2="83" stroke="#999" stroke-width="1"/>
+<line x1="482.3" y1="83" x2="462.3" y2="144.5" stroke="#999" stroke-width="1"/>
+<line x1="462.3" y1="144.5" x2="397.7" y2="144.5" stroke="#999" stroke-width="1"/>
+<line x1="397.7" y1="144.5" x2="377.7" y2="83" stroke="#999" stroke-width="1"/>
+<line x1="377.7" y1="83" x2="430" y2="45" stroke="#999" stroke-width="1"/>
+<circle cx="430" cy="45" r="7" fill="none" stroke="#c0392b" stroke-width="2"/><text x="426" y="34" font-size="11" fill="#333">0</text>
+<circle cx="482.3" cy="83" r="7" fill="none" stroke="#c0392b" stroke-width="2"/><text x="490" y="80" font-size="11" fill="#333">1</text>
+<circle cx="462.3" cy="144.5" r="7" fill="none" stroke="#c0392b" stroke-width="2"/><text x="464" y="162" font-size="11" fill="#333">2</text>
+<circle cx="397.7" cy="144.5" r="7" fill="none" stroke="#c0392b" stroke-width="2"/><text x="390" y="162" font-size="11" fill="#333">3</text>
+<circle cx="377.7" cy="83" r="7" fill="none" stroke="#c0392b" stroke-width="2"/><text x="362" y="80" font-size="11" fill="#333">4</text>
+<text x="368" y="185" font-size="12" fill="#333">mod 5: all five residues vanish</text>
+</svg>
+<figcaption><strong>Fig P20.2.</strong> One polynomial, two rooms. Over the reals, \(x^5 - x = x(x-1)(x+1)(x^2+1)\) spends three of its five-root budget. Over the five-hour clock, every residue vanishes — a complete census, and a void certificate: the degree \(5\) needs a room with at least \(6\) points in it, and the clock has \(5\).</figcaption>
+</figure>
