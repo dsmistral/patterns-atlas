@@ -1,0 +1,62 @@
+P21 lab output - session S55 - page p21-limit-point.html
+Engine: fresh this session, deterministic (no random, no eval). Zero code shared
+with the adversarial review verifier. The sandbox blocks eval, so pieces were
+executed piecewise as inline bodies; p21-lab.js is the durable record of exactly
+the code that ran, at final revision.
+
+HONEST RUN HISTORY (chronological, defects included):
+
+RUN 1 pieceA rev1: 23 pass / 1 fail.
+  FAIL distinct-6dp-10000: over-strict check, not a page claim. The page claims
+  hits are distinct (exact values); exact-distinctness passes over the first
+  10,000 hits. Two hits share a 6dp printout among the first 10,000; the page
+  prints only 16 hits. Check dropped at rev 2.
+
+RUN 1 pieceB rev1: 15 pass / 2 fail.
+  FAIL eps05-from-11th, eps001-from-500th: CHECKER BUGS, not page defects - the
+  checks tested only the upper edge of the window instead of the full window
+  (|hit - centre| < eps). Page claims are correct (hit 11 = 0.375 sits inside
+  the window 0.2833-0.3833). Fixed at rev 2.
+
+RUN 2 pieceB rev2: 17 pass / 0 fail. CLEAN.
+
+RUN 1 pieceC rev1: 23 pass / 1 fail.
+  FAIL rcatch-is-2/3: GENUINE PAGE DEFECT. Exercise 5(a) called the level-6
+  room [21/32, 43/64] (width 1/64) "a thirty-second of a metre wide".
+  Page fixed to "a sixty-fourth of a metre wide"; checker width expectation
+  also corrected (1/32 -> 1/64).
+
+pieceD rev1: PROCESS SAFETY DEADLINE EXCEEDED - too many 1e-6 scans in one
+  body (about 30 million evaluations). Split into pieceD1 / pieceD2.
+
+RUN pieceD1: 13 pass / 0 fail. CLEAN.
+RUN pieceD2 rev1: 10 pass / 0 fail, but gap checks subtracted ROUNDED constants
+  (0.690759, 0.533858); see verifier history for the defect this hiding later
+  exposed. Rev 2 recomputes gaps from exact critical values; rerun below.
+
+RUN 1 pieceEF rev1: 10 pass / 1 fail.
+  FAIL exA-window-around-0-infinite: CHECKER BUG, not a page defect - the check
+  tested 1/1000 < 0.001, an equality. The page claim is hits with n > 1/eps
+  (n >= 1001 land strictly inside). Corrected check run CLEAN.
+
+RUN 1 pieceG rev1: 8 pass / 2 fail.
+  FAIL ex2-window-4hits: GENUINE PAGE DEFECT. b(10) = 0.55 exactly - hit 10
+  lands exactly ON the near wall of the window, not strictly inside the open
+  window (0.55, 0.65). Page fixed: the worked solution now says "within 0.05
+  of 0.6 - the closed window from 0.55 to 0.65 - exactly {4, 6, 8, 10}, four
+  of them, with hit 10 landing exactly on the near wall at 0.55; strictly
+  inside the open window the count is three."
+  FAIL ex2-level1-tie: CHECKER BUG, not a page defect - threshold was >9000 per
+  half; the record splits evenly (5000/5000 of the first 10,000). Fixed.
+
+RUN 2 pieceG rev2: 9 pass / 0 fail. CLEAN.
+RUN pieceC rev2 + corrected exA check: 25 pass / 0 fail. CLEAN.
+RUN labD2 gaps rev2 (exact critical values): 2 pass / 0 fail. CLEAN.
+
+FINAL CLEAN CENSUS (final revisions, one run each):
+  pieceA 23, pieceB 17, pieceC 25, pieceD1 13, pieceD2 10, pieceEF 10,
+  pieceG 9. TOTAL 107/107 PASS.
+
+Page defects caught by the lab: 2 (Ex5 width thirty-second -> sixty-fourth;
+Ex2 window boundary hit 10). Both fixed before publish.
+Final page: 58,218 bytes / 57,786 chars, md5 dbd7efa3b918b63163b12b5d8ee7a1ea.
