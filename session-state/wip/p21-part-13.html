@@ -1,0 +1,15 @@
+<p class="ex"><strong>Exercise 5 · The full audit — both walks and the whole crowd</strong> <span class="difficulty">◐</span><br>
+(a) Run the machine on §2's card with the <em>right</em> tie rule, to depth 6: write the six kept intervals and their endpoints, and verify each level's choice with the closed-form counting of §4 — which half is endlessly hit, which half goes quiet and after how many hits. (b) Prove the card's crowd set is exactly \(\{1/3, 2/3\}\): every window around each of the two is hit infinitely often, and every other point has a window that goes quiet. (c) State the lesson, in one sentence, that the two runs together teach about what one run certifies.</p>
+<details><summary>Hint</summary>
+<p>For (a), mirror the §4 table: level 1 is again a tie (both halves endlessly hit), the right rule keeps \([1/2, 1]\), and from there the even crowd dictates every choice. For (b), the quiet-window argument is Exercise 2's: a point \(x\) away from both crowd points has windows of radius half its distance to the nearer one, and the parity formulas count the survivors.</p>
+</details>
+<details><summary>Worked</summary>
+<p>(a) The right-rule trace, all six levels, lab-verified: level 1 keeps \([1/2, 1]\) (the tie rule); level 2 keeps \([1/2, 3/4]\) (the left half — right of \(1/2\), note: the crowd is climbing, and \([3/4, 1]\) holds no hit at all); level 3 keeps \([5/8, 3/4]\); level 4 keeps \([5/8, 11/16]\); level 5 keeps \([21/32, 11/16]\); level 6 keeps \([21/32, 43/64]\) — a thirty-second of a metre wide, closing on the even crowd's target. The catch: \(2/3\). (b) Windows around \(1/3\): the odd formula gives \(1/(2n+2) &lt; \epsilon\) for all large odd \(n\) — endlessly hit; likewise \(2/3\) with the even formula. Any other \(x\): let \(d\) be its distance to the nearer of \(1/3\), \(2/3\), and take radius \(d/2\); a hit inside must have its parity formula's offset within a bounded interval away from zero, forcing \(n\) between two positive bars — finitely many hits, lab-verified on a grid of test points. So the crowd set is exactly \(\{1/3, 2/3\}\), two points, each never hit. (c) One sentence, the honest one: a single run of the machine certifies that <em>a</em> crowd exists where the run looked — the full audit, both walks plus the quiet-window sweep, is what certifies the crowd set; existence is cheap, the census is the work. It is P20's lesson again, one tier up: certificates certify what they certify.</p>
+</details>
+</section>
+
+<footer>
+<p>Return to the <a href="index.html">index</a> · Next: <a href="p22-fixed-point.html">P22 · Iterate to a fixed point</a></p>
+</footer>
+</body>
+</html>
