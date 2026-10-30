@@ -1,0 +1,51 @@
+P13 ADVERSARIAL REVIEW VERIFIER — fresh engine, zero shared code with the battery
+Target: p13-descent.html (55,026 B, md5 020a64543080624e31a275b0ee8af941)
+
+== verify(real page): PASS (37 checks) ==
+PASS | needle present: smallest criminal | found
+PASS | needle present: a dozen shrinking floors | found
+PASS | needle present: walks the same staircase | found
+PASS | needle present: 1/0 — jam | found
+PASS | needle present: 161{,}700 | found
+PASS | needle present: 344{,}421 | found
+PASS | needle present: 535, 421, 114, 79, 35, 9, 8, 1, 0 | found
+PASS | needle present: 1 = -170 \cdot 2026 + 231 \cdot 1491 | found
+PASS | needle present: descente infinie | found
+PASS | needle present: Bachet | found
+PASS | needle present: 1659 | found
+PASS | needle present: 1670 | found
+PASS | needle present: 1225 | found
+PASS | needle present: three demands | found
+PASS | needle present: three-key | found
+PASS | needle present: ground floor | found
+PASS | needle present: Pell | found
+PASS | needle present: (577, 408) | found
+PASS | needle present: (239, 169) | found
+PASS | needle present: b03-euclidean-algorithm.html | found
+PASS | needle present: b04-bezout.html | found
+PASS | needle present: p14-diagonal.html | found
+PASS | poison absent: TODO | absent
+PASS | poison absent: FIXME | absent
+PASS | poison absent: (planned) | absent
+PASS | poison absent: Lorem | absent
+PASS | poison absent: battery | absent
+PASS | poison absent: verifier | absent
+PASS | poison absent: 344,421 | absent
+PASS | poison absent: 161700 | absent
+PASS | poison absent: XXX | absent
+PASS | poison absent: TBD | absent
+PASS | control A: subtraction-only Euclid gives gcd(2026,1491) = 1 | gcd 1 after 21 subtractions
+PASS | control A: extended table recomputes the certificate exponents (-170, 231) | recomputed x=-170, y=231
+PASS | control A: recomputed certificate matches the page needle byte-for-byte | 1 = -170 \cdot 2026 + 231 \cdot 1491
+PASS | control B: matrix power [[1,2],[1,1]] regenerates all eight family members | eighth member [577,408]
+PASS | control B: p^2 - 2q^2 alternates -1,+1 across the recomputed family | checked all 8
+
+== selfTest (6 doctored clones, each must be REJECTED): ALL CAUGHT ==
+PASS | injection must FAIL: remainder chain 535,421 mutated to 535,422 | caught
+PASS | injection must FAIL: certificate coefficient 231 mutated to 232 | caught
+PASS | injection must FAIL: poison TODO injected at a staircase sentence | caught
+PASS | injection must FAIL: needle descente infinie truncated away | caught
+PASS | injection must FAIL: family member (577, 408) mutated to (577, 409) | caught
+PASS | injection must FAIL: lattice count 161{,}700 mutated to 161{,}800 | caught
+
+VERDICT: verify(real page) = true; selfTest all-caught = true
