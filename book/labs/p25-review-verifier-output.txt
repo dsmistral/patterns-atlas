@@ -55,7 +55,7 @@ V18c | Richardson extrapolant matches page 5762209.3754 | PASS | 5762209.375448 
 V19 | absolute gap grows at all seven points | PASS | 5.13,9.61,17.14,37.81,129.55,339.41,754.38
 V20 | all 5 injections CAUGHT | PASS | pi+1 (twice), Li 3rd decimal, gap 3rd decimal, gap direction — each caught
 
-TOTAL: 23 checks, 23 PASS; 17 poisoned-claim injections, 17 CAUGHT.
+TOTAL: 22 checks, 22 PASS (V7 V9 V6); 17 poisoned-claim injections, 17 CAUGHT. (The count line initially said 23, corrected at close with the miscount disclosed.)
 Cross-engine agreement: every page constant confirmed by at least two
 independent engines (lab + verifier), with the lab's exact series route
 carrying the 4th decimal of Li(10^8) against the verifier's error-barred
