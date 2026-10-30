@@ -1,1 +1,28 @@
-[object Object]
+<section id="name">
+<h2>3 · Name the move</h2>
+<p>Generalize the encounter and the pattern falls out. The machine was one costume; the plot underneath is always the same three acts.</p>
+<div class="pattern-box" id="box-p13">
+<p><strong>Pattern P13 — Infinite descent.</strong> When the claim is that <em>no solution of a certain kind exists</em> — no fraction equals \(\sqrt 2\), no triangle sits on the lattice, no counterexample survives — run the criminal investigation, in three acts. (1) <strong>Choose a measure:</strong> attach to every would-be solution a positive integer — a denominator, a coordinate, a sum, a count — and say precisely what "smaller" means. (2) <strong>Prove the manufacturing theorem:</strong> from <em>any</em> solution of the forbidden kind, construct another solution of the same kind with strictly smaller measure — a theorem over every solution, never a sample of the ones you tried; the construction can be an explicit shrinking formula, a divisibility strip that divides out a common factor, or a least-element argument that squeezes a trespasser below the least. (3) <strong>Crash on the ground floor:</strong> the measures of the would-be solutions form a nonempty set of positive integers with no least element — because the least one would manufacture a smaller — and <a href="b01-remainders.html">B01</a>'s well-ordering forbids exactly that. Conclusion: no solution of the kind exists, none ever, and the family the kind covers is sealed at once.</p>
+<p class="words">Or, in words: among the positive integers there is a ground floor, so a smallest counterexample is the sturdiest object in the world — set it on a machine that manufactures smaller accomplices and it cannot survive its own trial. The whole art is the manufacturing step: it must be a theorem over every solution, the new pair must stay the same kind, and the measure must shrink by whole integers — strictly, not politely. When all three hold, one machine kills an infinite family; when any one fails, the descent is a phantom, and phantoms convict nobody.</p>
+</div>
+<div class="pattern-box" id="box-p13a">
+<p><strong>Box P13.A — the three demands, and what breaks when each fails.</strong></p>
+<ol>
+<li><strong>The measure must be a positive integer, strictly decreasing.</strong> Denominators, coordinates, sums of coordinates — integers, so B01's ground floor exists and each step descends by at least one floor. <em>What breaks:</em> the measure without a floor — §5's first exhibit watches a descent run happily down the staircase \(1, \tfrac12, \tfrac14, \ldots\) that never lands anywhere, because among the fractions there is no ground floor at all.</li>
+<li><strong>The step must be a theorem over every solution — the same kind out as in.</strong> The smaller pair must still solve the original equation, and the proof of that must cover <em>every</em> solution, the smallest included. <em>What breaks:</em> two faces of one failure — the phantom step, a shrinking "theorem" that some legal solution simply walks around (§5's second exhibit), and the jam, where the manufactured pair falls out of the kind and the machine idles (§5's third exhibit, where \(\sqrt 4\) politely declines to be refuted).</li>
+<li><strong>The contradiction must land on well-ordering — honestly.</strong> The chain of ever-smaller measures must actually be impossible, which means the crash site is <a href="b01-remainders.html">B01</a>, cited, not hand-waved; a descent that "sort of cannot go on forever" has not finished its proof. <em>What breaks:</em> the circular hope — §5's fourth exhibit catches a proof whose "smaller" was quietly the same object in a mirror, so nothing descended and nothing crashed.</li>
+</ol>
+</div>
+<div class="pattern-box" id="box-p13b">
+<p><strong>Box P13.B — the working catalogue of descent shapes, with the three-key diagnosis.</strong></p>
+<table>
+<thead><tr><th>Shape</th><th>The manufacturing step</th><th>Where you meet it</th></tr></thead>
+<tbody>
+<tr><td>the shrinking formula</td><td>an explicit map \((a,b) \mapsto (2b-a,\, a-b)\) that preserves solutions and shrinks the measure</td><td>\(\sqrt 2\)'s fraction machine — §2</td></tr>
+<tr><td>the common-divisor strip</td><td>every solution has a common factor \(d\); dividing it out leaves a same-kind solution, smaller</td><td>\(x^2 = 3y^2\) and the lattice triangle — Example 2</td></tr>
+<tr><td>the smallest criminal</td><td>the least member of a set, squeezed: a trespasser below the least cannot exist</td><td>B03's stopping dance and B04's identity — Example 1</td></tr>
+</tbody>
+</table>
+<p><strong>The three-key diagnosis</strong> — when to reach for this move. <em>Claim type:</em> an impossibility, and specifically one whose would-be solutions live among the integers — no fraction, no solution in positive integers, no lattice object. <em>Problem shape:</em> solutions transform into other solutions — a machine eats them, a factor divides out of them, a remainder replaces them — so there is motion to exploit; and the motion comes with a natural size. <em>Tools at hand:</em> well-ordering from <a href="b01-remainders.html">B01</a>, a divisibility or inequality handle from <a href="b02-congruence-classes.html">B02</a>–<a href="b03-euclidean-algorithm.html">B03</a>, and the contradiction frame of <a href="p11-contradiction.html">P11</a>. If the claim is an existence claim instead — <em>find me a solution</em> — the descent is the wrong door: it convicts, it never constructs, and §5's last exhibit draws that boundary.</p>
+</div>
+</section>
