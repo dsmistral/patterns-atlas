@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P12 · Name the obstruction · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P12 · the twelfth move of the spine</p>
+<h1>Name the obstruction</h1>
+<p class="tagline">A proof that ends at "contradiction, done" has certified that the door is locked — and thrown away the key. Every impossibility leans on a wall: a class no candidate can reach, a count that cannot balance, a parity that refuses to flip. Name the wall, prove it holds for every route at once, and it answers a whole family of questions before you ask them.</p>
+</header>
+
+<aside class="onramp"><strong>New word: obstruction.</strong> An <em>obstruction</em> is a named property that blocks a whole family of attempts at once: every candidate that could possibly succeed must satisfy it, and the target violates it. "Cannot be a sum of two squares because it leaves remainder \(3\) on division by \(4\)" is an obstruction — the class \(3 \pmod 4\) is the wall's name. <strong>New word: necessity.</strong> The wall's first half — "every candidate <em>must</em> satisfy it" — is its <em>necessity</em>, and it is a theorem, never a sample: a property that merely happens to hold for the attempts you happened to try is a coincidence wearing an obstruction's coat. <strong>New word: census.</strong> The instrument that finds walls: list which classes the reachable objects can occupy — remainders, colours, parities — and the classes nobody can reach stand out by themselves. A <em>census</em> is a count taken over classes, not over candidates; it is what turns one dead target into a sealed family.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p>The spine so far: <a href="p01-pin-down-the-problem.html">P01</a> pinned the claim, <a href="p02-small-cases.html">P02</a> built the table, <a href="p03-special-cases.html">P03</a> attacked it with hostile cases, <a href="p04-complete-the-square.html">P04</a> paid for corners, <a href="p05-canonical-form.html">P05</a> dressed every object in its uniform, <a href="p06-compose-identity.html">P06</a> composed stuck objects inside identities, <a href="p07-auxiliary-construction.html">P07</a> built the objects nobody handed us, <a href="p08-symmetry.html">P08</a> divided by the twins, <a href="p09-invariant.html">P09</a> found the quantity nothing can change, <a href="p10-pigeonhole.html">P10</a> forced collisions by counting, and <a href="p11-contradiction.html">P11</a> exploded the opposite of the claim. P11's closing pointer promised exactly this page: <em>a successful contradiction often runs on a quantity that refuses to change; when the refusing quantity blocks a whole family of claims at once, promote it from a proof device to a named obstruction — that promotion is P12's first move, and P11 is its front door.</em></p>
+<p>Here is the tension this page resolves. The good news: you have already built walls without naming them. P09's colour class sealed the chameleon meadow — not "this sequence fails" but "no sequence exists"; P11's parity census cornered \(\sqrt{2}\) — not "these fractions miss" but "every fraction misses"; the mutilated chessboard died on a colour count, not on a search through coverings. Each of those proofs <em>used</em> a wall and threw it away. Name the wall instead — prove it necessary, check the target against it, state the family it seals — and the same one-page argument answers "is \(2027\) a sum of two squares?" and every question shaped like it, instantly, with no search at all. The bad news, paid up front: the move is one-way — a wall rules out, it never rules in; the necessity must be proven for every route, not sampled from the routes you tried — a wall some legitimate route simply walks around is the move's most seductive wrong answer; and walls are family-specific — the census that seals one family may say nothing at all about its next-door neighbour, which is exactly the asymmetry P11's Exercise 3 left open and this page's Example 1 closes.</p>
+</section>
