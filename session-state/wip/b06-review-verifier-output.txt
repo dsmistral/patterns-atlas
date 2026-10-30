@@ -1,0 +1,26 @@
+B06 review-verifier output — Patterns Atlas, S47 (B06 · Change of basis)
+Run 1 (final): 55 checks, 55 pass, 0 fail.
+
+  30/30 sampled needles present — title, kicker, index tagline, graded-intro line, Box B06.A
+  display, claims intro, Claim 5 header, Elena dissection numbers, scope closer, footer line,
+  Ex2/Ex3 anchors, all three figure aria-labels, the Fig B06.1 dashed-walk line (the session's
+  fixed defect, now pinned), pencil summary wording, adjugate identity, witness display,
+  det-legs line, reciprocal-law closer, B04/P78 look-backs, and all six history anchors
+  (Seki 1683, Leibniz 1693, Cramer 1750, Sylvester 1850, Cayley 1853, the law office).
+
+  Baseline: full battery on the true page — 508 pass / 0 fail.
+
+  8/8 doctored clones rejected (GLOBAL split().join(), mutations placed INSIDE needle spans —
+  the S46 escape lesson applied):
+    1. Charlie's report (11,-2)      -> (11,2)
+    2. Elena dissection 16 - 8 = 8   -> 16 - 8 = 7
+    3. det legs (-1)·1 = -1          -> (-1)·1 = 1
+    4. Box B06.A [s,-r;-q,p]          -> [s,-q;-r,p]   (in-span, anchored needle)
+    5. Ex2 note 2 D = 0              -> D = 2
+    6. Fig B06.2 aria 'parallelogram' -> 'square'
+    7. walk check 6(1,1)-1(2,3)=(4,3) -> =(5,3)
+    8. Fig B06.2 polygon corner (7,0) pixel y 160 -> 150
+
+  8/8 poison pages rejected: empty page, whitespace, half page, doubled page, page with
+  </html> stripped, page with an injected '$', page with an injected 'TODO', page with all
+  fill dots broken.

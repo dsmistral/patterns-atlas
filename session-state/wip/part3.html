@@ -1,0 +1,29 @@
+</section>
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<p>First the floor, restated from B05 in one breath: a scheme (a <em>basis</em>) is a pair of directions; a <em>reading</em> is a pair of numbers counting steps along them; a scheme is healthy when it reaches everything and reads each point once — equivalently, when its determinant \(D = ps - qr\) is nonzero. That is all this page needs; everything new is filed structure on top of it.</p>
+<div class="pattern-box" id="box-b06">
+<p><strong>Box B06 — the translation dictionary.</strong> Let scheme \(B\)'s directions, read in scheme \(A\)'s numbers, be \(\vec u = (p,q)\) and \(\vec v = (r,s)\). The <em>dictionary from \(B\) to \(A\)</em> is the table whose columns are those directions:</p>
+<p class="eq">\[M_{B \to A} \;=\; \begin{bmatrix} p & r \\ q & s \end{bmatrix}, \qquad M_{B \to A}\begin{bmatrix} a \\ b \end{bmatrix} \;=\; \begin{bmatrix} pa + rb \\ qa + sb \end{bmatrix},\]</p>
+<p>and it translates any reading \((a,b)\) of \(B\) into the \(A\)-numbers of the same point. <em>In words:</em> the columns are the new scheme's units, spelled out in the old scheme's numbers; translating a reading means walking the columns with the reading's step-counts — the same leg-by-leg walk as ever, done once and for all.</p>
+</div>
+<div class="pattern-box" id="box-b06a">
+<p><strong>Box B06.A — the reverse dictionary.</strong> When \(D = ps - qr \ne 0\), the dictionary in the other direction exists, is unique, and is</p>
+<p class="eq">\[M_{A \to B} \;=\; \frac{1}{D}\begin{bmatrix} s & -r \\ -q & p \end{bmatrix}.\]</p>
+<p>You have met these four numbers before: \(a = (sx - ry)/D\) and \(b = (py - qx)/D\) were B05's two-line shortcut, filed as formulas; here they stand revealed as a dictionary — the shortcut was the reverse table all along. When \(D = 0\) no reverse exists: the columns are parallel, the translation collapses the plane onto a line, and (B05's read-once failure) no table can un-collapse it.</p>
+</div>
+<p>Three words get defined here, at first use:</p>
+<ul>
+<li><em>New word: matrix.</em> A rectangular arrangement of numbers — for this page always two-by-two, four numbers in a square. Sylvester coined the word in 1850 (he saw the arrangement as a <em>womb</em> from which determinants are born; more in the history note below). A translation dictionary is a matrix whose columns carry meaning: they are the new scheme's units.</li>
+<li><em>New word: column.</em> A matrix's vertical slice. In \(M_{B \to A}\) the first column is scheme \(B\)'s first direction and the second column its second — the whole content of the dictionary sits in its two columns, and everything else is bookkeeping.</li>
+<li><em>New word: inverse matrix.</em> The reverse dictionary \(M^{-1}\): the matrix that undoes \(M\), in either order — translate \(B\) to \(A\), then apply \(M^{-1}\), and you are back where you started. Box B06.A says the inverse exists and is unique exactly when \(D \ne 0\); section 4 proves both halves.</li>
+</ul>
+<p>Examples and non-examples, one per line, each checkable against the boxes:</p>
+<ul>
+<li><strong>Ben → school:</strong> \(\begin{bmatrix} 1 & 2 \\ 1 & 1 \end{bmatrix}\), \(D = -1\): healthy, inverse \(\begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\) — the tables of Lecture 0, now with names.</li>
+<li><strong>Charlie → school:</strong> \(\begin{bmatrix} 1 & 2 \\ 1 & 3 \end{bmatrix}\), \(D = 1\): healthy. The reverse, by Box B06.A: \(M_{\text{school} \to \text{Charlie}} = \begin{bmatrix} 3 & -2 \\ -1 & 1 \end{bmatrix}\), and the honest check runs on the treasure's map point: \(M^{-1}\begin{bmatrix} 7 \\ 5 \end{bmatrix} = \begin{bmatrix} 3 \cdot 7 - 2 \cdot 5 \\ -7 + 5 \end{bmatrix} = \begin{bmatrix} 11 \\ -2 \end{bmatrix}\) — Charlie's own report, recovered without ever re-solving the equations.</li>
+<li><strong>School → school:</strong> \(\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\), the <em>identity</em> dictionary — east reads east, north reads north; its own inverse, \(D = 1\). Trivial, and worth one glance: every special case you meet below should be checked against it (<a href="p03-special-cases.html">P03</a>'s discipline, one floor up).</li>
+<li><strong>Daisy → school:</strong> \(\begin{bmatrix} 1 & 2 \\ 1 & 2 \end{bmatrix}\), \(D = 0\): the non-example. No inverse; the plane collapses onto her diagonal in translation.</li>
+</ul>
+<p>The names carry a history worth one paragraph, none of it load-bearing. The determinant is older than the matrix: Seki, in 1683 Japan, was solving problems by tables and computing what we now call determinants of arrays up to five-by-five — without any word for the object; Leibniz, writing to de l'Hôpital in 1693, ten years after Seki, gave Europe its first appearance of the same idea. Cramer's 1750 textbook published the solving rule for any number of unknowns — the ancestor of B05's two-line shortcut, and so of Box B06.A. The word came last: Sylvester, 1850, named the "matrix" as an oblong arrangement of terms, a womb generating determinants; Cayley — who by 1853 had published the first inverse of a matrix — made the matrix itself a citizen of mathematics in his 1858 <em>Memoir on the theory of matrices</em>, defining addition, multiplication, and the rest of the algebra you are about to build on this page. The two met not in a mathematics department but in a law office: both were practicing lawyers at the time, doing algebra after hours. Change of basis as a named, routine move is a twentieth-century settling of their notation; the dictionary itself — two columns, one per unit — is as old as anyone's second map.</p>
+</section>

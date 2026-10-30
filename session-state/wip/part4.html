@@ -1,0 +1,47 @@
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Three workings, simplest first, each carried to the end. Under all of them run Boxes B06 and B06.A.</p>
+<h3>(a) Ben's whole logbook, translated both ways</h3>
+<p>Ben's dictionary and its reverse sit side by side; run every waypoint of Lecture 0 through both, in one pass:</p>
+<p class="eq">\[\begin{bmatrix} 1 & 2 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 3 \\ 2 \end{bmatrix} = \begin{bmatrix} 7 \\ 5 \end{bmatrix}, \quad \begin{bmatrix} 1 & 2 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 2 \\ 1 \end{bmatrix} = \begin{bmatrix} 4 \\ 3 \end{bmatrix}, \quad \begin{bmatrix} 1 & 2 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 1 \\ 4 \end{bmatrix} = \begin{bmatrix} 9 \\ 5 \end{bmatrix}; \qquad \begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 7 \\ 5 \end{bmatrix} = \begin{bmatrix} 3 \\ 2 \end{bmatrix}, \quad \begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 4 \\ 3 \end{bmatrix} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}, \quad \begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 9 \\ 5 \end{bmatrix} = \begin{bmatrix} 1 \\ 4 \end{bmatrix}.\]</p>
+<p>Six translations, zero re-solving — the whole point of filing. One more observation, and it is the deepest fact in this section's neighborhood: in B05, the point \(M = (4,3)\) was the midpoint of the treasure \(P = (7,5)\) and its neighbour \(Q = (1,1)\). The dictionary agrees: in Ben's readings the same three points are \((2,1)\), \((3,2)\), \((1,0)\) — and \((2,1)\) is exactly the average of \((3,2)\) and \((1,0)\). The dictionary did not just locate the points; it carried the <em>arithmetic</em>: midpoints stayed midpoints. B05's Claim 4 promised this for schemes; here it is what the dictionary preserves, and section 4 states it as the property that makes wholesale re-measuring safe.</p>
+<h3>(b) The wholesale translation — a fence re-measured</h3>
+<p>A single waypoint is a courier's job; the harbourmaster's real work is the <em>wholesale</em> kind: a whole shape, re-measured in another scheme at once. The island builds a square fence around the treasure — corners \((7,5)\), \((9,5)\), \((9,7)\), \((7,7)\) on the school map, side 2, area 4. Ben must stake it out in his own readings. Run each corner through the reverse dictionary \(M_{\text{school} \to \text{Ben}}\):</p>
+<p class="eq">\[\begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 7 \\ 5 \end{bmatrix} = \begin{bmatrix} 3 \\ 2 \end{bmatrix}, \quad \begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 9 \\ 5 \end{bmatrix} = \begin{bmatrix} 1 \\ 4 \end{bmatrix}, \quad \begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 9 \\ 7 \end{bmatrix} = \begin{bmatrix} 5 \\ 2 \end{bmatrix}, \quad \begin{bmatrix} -1 & 2 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 7 \\ 7 \end{bmatrix} = \begin{bmatrix} 7 \\ 0 \end{bmatrix}.\]</p>
+<p>Look at what came out, with a pencil over Fig B06.2: four corners in, four corners out. Corners go to corners, and the shape's arithmetic travels with them: on the map the square's two diagonals share the midpoint \((8,6)\) — check, \((7,5)\) and \((9,7)\) average to it, and so do \((9,5)\) and \((7,7)\) — and in Ben's book the translated diagonals share \((4,2)\): \((3,2)\) with \((5,2)\), and \((1,4)\) with \((7,0)\). The centre travelled with the fence. And now the honest surprise, the one this block will mine again and again: on Ben's own grid those four readings do <em>not</em> stake a coordinate square — they stake the parallelogram of Fig B06.2, with unequal side-walks: from \((3,2)\) to \((1,4)\) is \(-2\) road-steps plus \(2\) fence-steps, while from \((1,4)\) to \((5,2)\) it is \(4\) road-steps minus \(2\) fence-steps. The fence never stopped being a square — each side still measures \(2\) school units, and the sides still meet at right angles — but its <em>picture</em> belongs to the scheme, not the shape: school prints it square, Ben prints it slanted, and neither picture is wrong. What survives every scheme is the arithmetic — corners to corners, diagonals to diagonals, the shared centre — and, as section 4 proves, the area up to the determinant's printed exchange rate. Hold that surprise: B07 and B08 turn it into a method — choose the scheme whose picture is the simple one.</p>
+<p>Now the numbers get interesting. The fence has area 4 in school units. In Ben's units? His cell — one road-step by one fence-step — has area \(|D| = 1\) school unit (Fig B06.1), so his cells count area the same way school squares do, and the fence's area number in Ben readings is \(4 / 1 = 4\): no surprise. But bring in Elena, the surveyor whose directions are \((3,1)\) and \((1,3)\), with \(D = 8\). Her cell has area 8 school units — one of her cells <em>covers eight of Ana's squares</em> — so the very same fence measures \(4/8 = \tfrac{1}{2}\) in her readings. Run her reverse dictionary on the corners, by Box B06.A with \(D = 8\):</p>
+<p class="eq">\[M_{\text{school} \to \text{Elena}} = \frac{1}{8}\begin{bmatrix} 3 & -1 \\ -1 & 3 \end{bmatrix}: \quad (7,5) \to (2,1), \;\; (9,5) \to \left(\tfrac{11}{4}, \tfrac{3}{4}\right), \;\; (9,7) \to \left(\tfrac{5}{2}, \tfrac{3}{2}\right), \;\; (7,7) \to \left(\tfrac{7}{4}, \tfrac{7}{4}\right).\]</p>
+<p>Readings with fractions — honest, and worth a pause: Elena's steps are long, so fine positions need fractional step-counts. The shape is unchanged, the area number shrank by exactly her cell's size, and the determinant \(D = 8\) printed the exchange rate before any corner was translated. That is the determinant's second job, promised by B05 and delivered in section 4: \(|D|\) is the area of the scheme's cell, the dictionary's exchange rate for areas.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 190" role="img" aria-label="Fig B06.2 — the square fence staked two ways: on the school grid the square with corners (7,5), (9,5), (9,7), (7,7); on Ben's reading grid the same fence as the parallelogram with corners (3,2), (1,4), (5,2), (7,0); one shape, two schemes, the dictionary bridging">
+<rect x="20" y="20" width="150" height="150" fill="#eef1f6"/>
+<line x1="35" y1="20" x2="35" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="72.5" y1="20" x2="72.5" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="110" y1="20" x2="110" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="147.5" y1="20" x2="147.5" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="20" y1="35" x2="170" y2="35" stroke="#ffffff" stroke-width="1"/>
+<line x1="20" y1="72.5" x2="170" y2="72.5" stroke="#ffffff" stroke-width="1"/>
+<line x1="20" y1="110" x2="170" y2="110" stroke="#ffffff" stroke-width="1"/>
+<line x1="20" y1="147.5" x2="170" y2="147.5" stroke="#ffffff" stroke-width="1"/>
+<polygon points="57.5,57.5 95,57.5 95,95 57.5,95" fill="#3574d4" fill-opacity="0.45" stroke="#3574d4" stroke-width="1.5"/>
+<text x="76" y="50" font-size="10.5" text-anchor="middle" fill="#3a4a5e">school: (7,5)·(9,5)·(9,7)·(7,7)</text>
+<text x="76" y="108" font-size="10.5" text-anchor="middle" fill="#3a4a5e">area 4 school units</text>
+<rect x="190" y="20" width="130" height="150" fill="#eef1f6"/>
+<polygon points="246,128 214,96 278,128 310,160" fill="#b3543f" fill-opacity="0.35" stroke="#b3543f" stroke-width="1.5"/>
+<line x1="214" y1="20" x2="214" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="230" y1="20" x2="230" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="246" y1="20" x2="246" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="262" y1="20" x2="262" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="278" y1="20" x2="278" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="294" y1="20" x2="294" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="310" y1="20" x2="310" y2="170" stroke="#ffffff" stroke-width="1"/>
+<line x1="190" y1="160" x2="320" y2="160" stroke="#ffffff" stroke-width="1"/>
+<line x1="190" y1="144" x2="320" y2="144" stroke="#ffffff" stroke-width="1"/>
+<line x1="190" y1="128" x2="320" y2="128" stroke="#ffffff" stroke-width="1"/>
+<line x1="190" y1="112" x2="320" y2="112" stroke="#ffffff" stroke-width="1"/>
+<text x="255" y="35" font-size="10.5" text-anchor="middle" fill="#3a4a5e">Ben: (3,2)·(1,4)·(5,2)·(7,0)</text>
+<text x="255" y="170" font-size="10.5" text-anchor="middle" fill="#3a4a5e">area 4 Ben cells (|D| = 1)</text>
+<text x="170" y="188" font-size="10.5" text-anchor="middle" fill="#555f6e">one fence, two schemes — corners to corners, the dictionary bridging</text>
+</svg>
+<figcaption><strong>Fig B06.2.</strong> The fence, staked two ways. Left: the school map, the fence a square of side 2 about the treasure, corners \((7,5)\), \((9,5)\), \((9,7)\), \((7,7)\). Right: Ben's own reading grid — his gridlines run along his road and fence directions — where the same fence has corners \((3,2)\), \((1,4)\), \((5,2)\), \((7,0)\) and stakes a parallelogram, not a coordinate square: school prints the fence square, Ben prints it slanted, and neither picture is wrong — the picture belongs to the scheme. The island is one island; the two pictures are the two schemes' own views of it; the dictionary is the bridge that carries every corner across.</figcaption>
+</figure>
