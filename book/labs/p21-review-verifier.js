@@ -54,7 +54,7 @@ function pieceVB() { // EVT + IVT by independent methods: Newton, exact fraction
   var x2=9.5; for (i=0;i<60;i++){ x2 = x2 - d1f(x2)/d2f(x2); }
   vck("decoy-via-newton", x1.toFixed(3)==="6.097" && f(x1).toFixed(6)==="0.533858");
   vck("runnerup-via-newton", x2.toFixed(3)==="9.441" && f(x2).toFixed(6)==="0.690759");
-  vck("gaps-via-newton", (f(x)-f(x2)).toFixed(6)==="1.239145" && (f(x)-f(x1)).toFixed(6)==="1.396046");
+  vck("gaps-via-newton", (f(x)-f(x2)).toFixed(6)==="1.239145" && (f(x)-f(x1)).toFixed(6)==="1.396047");
   // IVT bisection table by EXACT FRACTIONS (num/den integers, no floating point)
   var frac=function(n,d){ return {"n":n,"d":d}; };
   var fval=function(m){ return m.n*m.n*m.n/(m.d*m.d*m.d) - m.n/m.d - 1; }; // returns float, but from exact dyadic mid

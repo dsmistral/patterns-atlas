@@ -52,3 +52,10 @@ TOTAL 56/56 PASS.
 Page defects caught by the verifier: 1 (decoy gap 1.396046 -> 1.396047).
 Combined lab + verifier: 3 page defects caught and fixed before publish.
 Final page: 58,218 bytes / 57,786 chars, md5 dbd7efa3b918b63163b12b5d8ee7a1ea.
+
+POST-PUBLISH NOTE (same session, before index flip): the first publish commit
+carried a stale constant in the assembled verifier FILE - pieceVB's
+gaps-via-newton expected "1.396046" while the inline execution that ran clean
+expected the correct "1.396047". Caught by reading the fetch-back of the
+published file. The file was corrected and republished; the executed census
+(56/56) was unaffected. Durable artifacts must match the code that ran.
