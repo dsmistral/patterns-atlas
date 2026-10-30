@@ -1,0 +1,36 @@
+<section id="encounter">
+<h2>2 · A card that settles</h2>
+<p>A builder needs the diagonal of a unit square — the number that squares to \(2\). School arithmetic offers recipes and no answers: no fraction squares to \(2\), so the answer has to be cornered, not written. The recipe the ancients used is one line: to refine a guess \(x\), average it with the number divided by it,
+\[ g(x) \;=\; \frac{1}{2}\left(x + \frac{2}{x}\right), \]
+and repeat. Start at the crudest honest guess there is, \(x_0 = 1\), and keep a card of the hits:</p>
+<table class="digit-table">
+<tr><th>Hit</th><th>Guess</th><th>Error</th><th>Hit</th><th>Guess</th><th>Error</th></tr>
+<tr><td>0</td><td>1.0000000000</td><td>\(4.1421 \times 10^{-1}\)</td><td>3</td><td>1.4142156863</td><td>\(2.1239 \times 10^{-6}\)</td></tr>
+<tr><td>1</td><td>1.5000000000</td><td>\(8.5786 \times 10^{-2}\)</td><td>4</td><td>1.4142135624</td><td>\(1.5947 \times 10^{-12}\)</td></tr>
+<tr><td>2</td><td>1.4166666667</td><td>\(2.4531 \times 10^{-3}\)</td><td>5</td><td>1.4142135624</td><td>\(8.99 \times 10^{-25}\)</td></tr>
+</table>
+<p>Read the error column, not the guess column. The errors run \(4.1421 \times 10^{-1}\), \(8.5786 \times 10^{-2}\), \(2.4531 \times 10^{-3}\), \(2.1239 \times 10^{-6}\), \(1.5947 \times 10^{-12}\), \(8.99 \times 10^{-25}\): correct decimals \(0, 1, 2, 5, 11, 24\) — doubling per hit, hit after hit, on a card that stabilizes at ten-decimal display after four hits and then keeps improving where the printer cannot show it.</p>
+<p>Now the cold questions, and the third is the whole page. <strong>First:</strong> do the hits settle at all — is there some spot the guesses are walking into, or could an endless recipe wander forever? <strong>Second:</strong> if they settle, do they settle at the true diagonal — the number that squares to \(2\) — and not at some impostor the recipe happens to like? <strong>Third:</strong> how close is hit \(n\), in advance, before anyone runs it? A finite card answers none of these. <a href="p02-small-cases.html">P02</a>'s discipline stops where the data stops, and the data never stops; <a href="p15-squeeze.html">P15</a>'s ε-trap extracts digits beautifully once convergence is granted — but granting it was exactly what P15's contrast left unpaid, deferring the receipt to this page; and <a href="p21-limit-point.html">P21</a>'s machine would catch a crowd — the orbit is an endless record in a bounded room — but P21's catch could be anywhere and could be several, and P21 charged no price for the approach. The three questions need a machine that pays for all three at once.</p>
+
+<figure id="fig-p22-1">
+<svg viewBox="0 0 500 320" role="img" aria-label="Cobweb plot for the averaging map on the room from one to two: a blue curve arching with its minimum near the square root of two, a grey diagonal, and a red staircase descending from the guess one — up to the curve, across to the diagonal, down to the curve — the steps shrinking into a dashed vertical line at the square root of two, where a red dot marks the catch.">
+<line x1="50" y1="20" x2="50" y2="300" stroke="#333" stroke-width="1.5"/>
+<line x1="40" y1="290" x2="460" y2="290" stroke="#333" stroke-width="1.5"/>
+<line x1="50" y1="290" x2="450" y2="30" stroke="#333" stroke-width="1.5"/>
+<polyline points="50,160 70,165.9 90,170.6 110,174.4 130,177.3 150,179.5 170,181 190,181.9 210,182.3 230,182.2 250,181.7 270,180.8 290,179.5 310,177.9 330,176.1 350,173.9 370,171.6 390,169 410,166.2 430,163.2 450,160" fill="none" stroke="#2471a3" stroke-width="2.5"/>
+<line x1="215.7" y1="20" x2="215.7" y2="300" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
+<polyline points="50,290 50,160 250,160 250,181.7 216.7,181.7 216.7,182.3 215.7,182.3" fill="none" stroke="#c0392b" stroke-width="2"/>
+<circle cx="215.7" cy="182.3" r="4" fill="#c0392b"/>
+<text x="46" y="306" font-size="11" fill="#333">1</text>
+<text x="240" y="306" font-size="11" fill="#333">3/2</text>
+<text x="446" y="306" font-size="11" fill="#333">2</text>
+<text x="30" y="294" font-size="11" fill="#333">1</text>
+<text x="26" y="164" font-size="11" fill="#333">3/2</text>
+<text x="32" y="34" font-size="11" fill="#333">2</text>
+<text x="221" y="36" font-size="11" fill="#333">√2</text>
+<text x="228" y="200" font-size="11" fill="#c0392b">the catch: √2</text>
+</svg>
+<figcaption><strong>Fig P22.1.</strong> The recipe, drawn as a cobweb. From the guess \(1\): up to the curve (blue), across to the diagonal, down again — a red staircase descending on the dashed line at \(\sqrt{2}\), the spot where curve meets diagonal, which is the fixed point: the only place a staircase is allowed to stop. By hit four the steps are thinner than the line that draws them; §3 proves what the eye suspects — they cannot stop anywhere else.</figcaption>
+</figure>
+<p>So stand where <a href="p17-duality.html">P17</a>'s skeptic stood: a pattern suspected, three questions, nothing certified. What would a machine even look like, that could turn one rule into all three answers? Not a card — cards end. Not a trap alone — traps need something to catch. The next section names the shape of the hypothesis that buys the whole receipt, and the section after runs it on this very card, in public, with the price tag attached.</p>
+</section>
