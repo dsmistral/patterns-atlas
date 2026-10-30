@@ -1,0 +1,71 @@
+B05 lab output - b05-lab.js run against b05-coordinates-basis.html
+Final run: 317/317 PASS (p0: 41, p1: 52, p2: 45, p3: 42, p4: 48, p5: 89), 0 FAIL.
+
+RUN HISTORY (all runs disclosed, in order):
+- Probe (pre-rebuild lab): clean - 6 pieces registered, witness det=-1, needle present.
+- Run 1, dispatch 1 (pre-rebuild lab): 0 checks ran - harness bug (pieces captured
+  closure T from pieces(T); per-piece fn(PAGE, h.T) ignored). Driver fixed by
+  instantiating pieces(h.T) per piece. No page defect.
+- Run 1, dispatch 1b (pre-rebuild lab): 87 checks, 2 FAIL - both lab needle bugs
+  (MathJax needle needed quadruple backslash in JS source; page prose says
+  "Eleven road-steps forward", not "11 road-steps"). Page itself correct.
+- Run 2 full (pre-rebuild lab): 171 checks, 4 FAIL = 1 REAL PAGE DEFECT + 3 lab bugs.
+  PAGE DEFECT (fixed in part7.html before freeze): the "What you should find" block
+  claimed stepping (x+1, y+1) preserves reachability, citing (x+1)+(y+1)=(x+y)+3 -
+  false arithmetic (that expression is (x+y)+2, not +3). The true stripe invariants
+  are east+south: (x+1)+(y-1)=x+y, and three-east: (x+3)+y=(x+y)+3. The figcaption's
+  "adding 3 to x keeps x+y in its class" was and remains true.
+  Lab bugs: inverted origin-scan logic (p4.04); wrong Fig B05.3 corner want
+  [173,157] vs correct map c3(6,-6)=(162,146); over-broad census needle (the legend
+  swatch also carries fill-opacity="0.75", so the page count is 58 = 57 + 1).
+- FILE INCIDENT: the sed batch applying those fixes was lost to compaction; the local
+  b05-lab.js was then found corrupted (77,026 bytes, 296 duplicated lines of one
+  replacement; no repo copy existed). The lab was REBUILT FROM SCRATCH as six piece
+  files (lab-head/p0..p5/tail, cat into b05-lab.js), so any fix rewrites one piece
+  instead of sed. The rebuilt battery is stronger than the original: 317 checks
+  including an exact-set verification of the Fig B05.3 census against the mod-3 rule.
+- Rebuilt run 1: 317 checks, 6 FAIL - all lab bugs, no page defect: p1.17 count want
+  1 -> 2 (the 3-road-steps label is drawn in Fig B05.1 AND Fig B05.2); p1.52 integer
+  window scan want 5 -> 6 (pairs a=3-2b in -6..6: six, not five); p3.42 float
+  round-trip needed 1e-9 tolerance; p4.03 needle missing the close-paren after the
+  primes a' and b'; p5.83 and p5.85 needles crossed </a> tags (P05</a>, B04</a>).
+- Rebuilt run 2 (final): 317/317 PASS, 0 FAIL.
+
+KEY INVARIANTS VERIFIED BY THE FINAL RUN:
+- Head: MathJax 3.2.2 pinned with integrity hash; double-backslash TeX delimiters;
+  zero dollar signs on the page; footer is navigation only.
+- Global: 6 sections, 7 h3, 7 details, 3 figures with aria-labels, exactly one
+  diamond (the no-exercise disclaimer), all block and lookback links present.
+- Lecture 0: all four surveyor walks re-computed in JS (Ana 7e+5n, Ben 3 road + 2
+  fence, Charlie 11 road - 2 pier, all landing on (7,5)); Daisy's four (+1) readings
+  of (3,3) re-walked; window scans: no Daisy pair reaches (7,5); six integer
+  readings of (3,3) exist in her broken scheme (the double-reading defect).
+- Idea named: Boxes B05 and B05.A present and needled; four new words defined;
+  five determinant examples (school 1, Ben -1, Charlie 1, Daisy 0, over-supplied)
+  re-computed; Fig B05.2 needles; history paragraph (Descartes 1637 oblique,
+  Grassmann 1844, Peano 1888, Hamel 1905).
+- Worked by hand: elimination reading (3,2); shortcut formulas; Q, M, 2P readings
+  reproduced; three diagnosis schemes ((3,1)/(1,3) D=8 healthy, (2,1)/(4,2) D=0
+  broken with double reading, (1,0)/(2,1) D=1 reading (-3,5)); shortcut round-trip
+  scan over 5 schemes x 6 targets.
+- Why it is true: Claims 1-4 all needled including the witness pair (s,-q), the
+  horizontal escape case, the quarter-turn off-line argument, and the scope box;
+  JS re-verifications: 81-pair Ben origin window scan (only (0,0) reads origin);
+  Daisy negative control (2,-1); witness (s,-q) reads (D,0)=(0,0) for four
+  dependent pairs; horizontal escape witness; quarter-turn det(u,w)=p^2+q^2 for six
+  directions; Claim 4 arithmetic; Claim 1 converse demo.
+- Practice: Exercise 1 readings (4,3) and (6,-2); Exercise 2 all four schemes with
+  det (-5, 0, 8) and repairs (three crossings-out all verified); Exercise 3
+  over-supply family (x-t, y-t, t) lands on (x,y) for 4 points x 5 t-values;
+  Exercise 4 knight census 57 of 169, rule x+y = 0 mod 3, closed forms
+  a=(2y-x)/3 and b=(2x-y)/3 whole and rebuilding all 57 cells, witness (5,1) =
+  -1(1,2)+3(2,1); stripe invariance east+south (x+1,y-1) and (x+3,y) full-board
+  scan - the corrected claim, which the corrupted run-2 had caught as false in its
+  (x+1,y+1) form.
+- Fig B05.3: the 57 drawn census rects are EXACTLY the predicted mod-3 reachable
+  set (set equality, not just count); legend swatch is the 58th fill-opacity rect;
+  28 grid lines; axis labels drawn twice each; cell map corners verified,
+  c3(6,-6)=(162,146), c3(-6,6)=(30,14), cell center of (5,1) = (156.5,74.5)
+  matching the drawn annotation circle.
+- Where this goes: P16 consumer, B06 next with determinant-as-area-scale preview,
+  P05/B04/P03 lookbacks, P02 census instinct, B02 congruence borrow.
