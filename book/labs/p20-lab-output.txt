@@ -1,0 +1,74 @@
+P20 LAB OUTPUT — p20-lab.js against wip/p20-polynomial-identity.html (session S54)
+Page under test: 68,781 bytes / 68,323 chars / 235 lines (all-BMP), md5 20512be91e341bad985a5af3f21f43f8.
+Lab: p20-lab.js, 20,708 bytes / 368 lines, assembled from 7 pieces (p20-lab-00..06.js).
+No recursion, no BigInt, exact integer lanes (float64 holding integers < 2^53); Math.random never called.
+
+RUN HISTORY (honest, all runs recorded):
+- Run 1: 307/310 PASS, 3 FAIL — all three lab-side, zero page defects.
+  (i) "02 6*RHS cubic coefficients" and (ii) "02 coefficient arrays equal":
+  the harness summed coefficient arrays with a fixed inner loop j<4 over terms
+  of differing lengths; the length-3 array contributed undefined -> NaN.
+  Fix: inner loop bound changed to terms[ti].length. 
+  (iii) "02 needle 7776": the check expected 1 occurrence, but the S5 table
+  prints 7776 in two cells of one row (F(6)-F(5) and 6^5) — the recorded count
+  was a grep LINE count; occurrence count is 2. Fix: expectation corrected
+  to === 2 and relabeled. No page bytes changed in run 1's fixes.
+- Run 2: 310/310 PASS, 0 FAIL. CLEAN.
+- Run 3: 310/310 PASS, 0 FAIL (deterministic re-run, per-piece tallies recorded).
+  p00:22 p01:39 p02:129 p03:17 p04:33 p05:70 (sum 310).
+
+PAGE DEFECT FOUND BEFORE THE LAB (pre-flight probe, fixed pre-run):
+- The S4 escape table claimed the k=10 escape chance was "le 6.2 x 10^-16".
+  Exact value (6/199)^10 = 6.2084e-16 > 6.2e-16: the bound was marginally false.
+  Fixed to "approx 6.2 x 10^-16" in part-08 (page 68,777 -> 68,781 bytes).
+  The lab now asserts BOTH the corrected claim and that the old claim was false
+  (check "04 ten points NOT <= 6.2e-16 (approx was the honest claim)").
+
+COVERAGE BY PIECE:
+- p00 (22): page loader gates — chars 68,323; doctype; title; MathJax config
+  double-backslash line; byte-exact tail "</footer></body></html>"; 236 split
+  parts; 8 section ids each once; 0 dollars; 0 backticks; 630 inline openers and
+  630 closers (629 body + 1 config); 4 display pairs (3 body + 1 config);
+  h2=8; h3=12; details=10; pattern-box=3; digit-table=6; pid=4; p.ex=5;
+  "New word:"=3.
+- p01 (39): quartic identity (n-1)n(n+1)(n+2)+1 = (n^2+n-1)^2 — both sides
+  expand to [1,-2,-1,2,1]; values at n=-1,0,1,2,3 = 1,1,1,25,121; conjecture
+  rows 120+1=121=11^2, 360+1=361=19^2, 840+1=841=29^2, 3024+1=3025=55^2;
+  substitution m=n^2+n collapses both sides; boundary witness x(x-1)(x-2)(x-3)
+  vanishes at 0,1,2,3, reads 24 at 4; page needles for both tables.
+- p02 (129): S5 formula n^2(n+1)^2(2n^2+2n-1)/12 exact for n=0..6
+  (0,1,33,276,1300,4425,12201; numerator % 12 == 0 checked), increments
+  F(n)-F(n-1)=n^5 for n=1..6, F(10)=220,825 = direct sum, F(11)=381,876 =
+  direct sum; Vandermonde (m+4 choose 3) = 4+6m+4C(m,2)+C(m,3) at m=0..3
+  (4,10,20,35) and m=4,5 (56,84); coefficient arrays equal after clearing the
+  denominator ([24,26,9,1]); two-variable Vandermonde C(m+n,3) = sum_k
+  C(m,k)C(n,3-k) EXHAUSTIVE over all 81 pairs m,n <= 8 (exact integer
+  binomials — never float coefficient evaluation); monomial census
+  C(d+n,n): 5, 6, 15, 495, 74,613.
+- p03 (17): grid lemma census — all 729 coefficient vectors in {-1,0,1}^6
+  with dx=1, dy=2 on grid A={-1,1} x B={0,1,2}: only the zero polynomial
+  vanishes; all 625 vectors in {-2..2}^4 with dx=1, dy=1 on A={-1,1} x
+  B={0,1}: only zero; boundary witness x^2-1 (degree-2 cap, |A|=2) vanishes
+  on the grid and is nonzero; parabola: exhaustive 720-configuration scan
+  finds NO 2x2 grid inside {(n,n^2)} for n in -4..4; the 2x1 grid
+  A={-1,1}, B={1} sits on the curve; every row b holds at most 2 columns.
+- p04 (33): Desnanot-Jacobi on 5 fixed 4x4 integer matrices (iterative
+  cofactor expansion, no recursion): dets 12, 344, 1330, 0, 1735; cores 5,
+  22, 39, 1, 45; both sides equal 60, 7568, 51870, 0, 78075 respectively;
+  raw product census 24*2 + 2*6*6 = 120; grid 3^16 = 43,046,721; Schwartz-Zippel
+  D=6, S=199: 6/199 ~ 0.0302, (6/199)^5 = 2.4917e-8 <= 2.5e-8 (bound holds),
+  (6/199)^10 = 6.2084e-16 ~ 6.2e-16 and NOT <= 6.2e-16 (the corrected
+  approx claim is the honest one); stale "le 6.2" purged from the page.
+- p05 (70): Exhibit A mod-5 census a^5-a = 0,0,30,240,1020, all 0 mod 5;
+  Fermat smallest case; mod-3 cubes; x(x-1)(x+1)(x^2+1) = x^5-x exactly
+  (three real roots -1,0,1); forgery correction (n-1)...(n-10) vanishes at
+  n=1..10, equals 10! = 3,628,800 at n=11 against true S5(11) = 381,876
+  (overshoot factor 9.5, "nearly ten"); SVG pixel maps: Fig P20.1 rings at
+  (246+88n, 270-1.9(n^2+n-1)^2) for the five certificate points and the
+  n=3.1 curve end; Fig P20.2 number line 170+65n with red roots -1,0,1 and
+  pentagon vertices at radius 55 (cos/sin 18deg, 54deg verified); Fig P20.3
+  parabola 280+45x, 230-20x^2 with the dashed 2x2-failure rectangle at
+  columns -1,1 and rows 0,1; needles: five-hour clock x10, Chevalley x3,
+  frabjous, and all door hrefs (p23, p25, p27, p30, p73, b01, b02, p21).
+
+VERDICT: P20 LAB RUN 3: 310/310 PASS, 0 FAIL (deterministic re-run).

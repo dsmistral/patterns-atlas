@@ -1,0 +1,104 @@
+P20 REVIEW VERIFIER — HONEST RUN HISTORY
+========================================
+Date: 2026-10-30, session S54. Unit: wip/p20-review-verifier.js
+(assembled: cat p20-verifier-a.js p20-verifier-b.js p20-verifier-c.js
+p20-verifier-d.js > p20-review-verifier.js; 17,400 bytes / 241 lines).
+Target: wip/p20-polynomial-identity.html — 68,323 chars / 68,781 bytes /
+235 lines, md5 20512be91e341bad985a5af3f21f43f8 (staging copy of
+book/p20-polynomial-identity.html).
+
+WHAT THE VERIFIER IS
+- Piece A, VA (38 checks): independent chunked loader (loop + guard
+  counter, no recursion), byte/regex gates (68,323 chars; 630/630/4/4
+  delimiters; 235 newlines; h2=8 h3=12 details=10 pattern-box=3
+  digit-table=6 pid=4 p.ex=5; 197 em-dashes; moons full set once each;
+  3 New words; 0 dollars; 0 backticks), line probes (title on line 6,
+  MathJax config on line 8 byte-exact, tail </footer>/</body>/</html>),
+  section id order (bridge..exercises), figcaptions 3+3, figure ids once
+  each, no TODO/Lorem/double-spaces, h2 numbered 1..8, canonical href
+  whitelist (21 targets), honest-prose needles (120-products,
+  tens-of-thousands + 74,613, one-more-than-the-degree, tier-2 kicker,
+  no stale "le 6.2", "approx 6.2e-16" present).
+- Piece B, VB (60 checks): independent math, zero code shared with the
+  lab. Quartic (n-1)n(n+1)(n+2)+1 = (n^2+n-1)^2 checked by direct
+  arithmetic at n = -5..10; spot values 1,1,1,25,121; conjecture squares
+  11/19/29/55; coefficient arrays [1,-2,-1,2,1] via polynomial
+  multiplication; S_5 direct sum vs closed formula n=1..15 (F(6)=12201,
+  F(10)=220825, F(11)=381876); Pascal triangle rows 0..22;
+  binom(m+4,3) = 4,10,20,35,56,84; (x+2)(x+3)(x+4) both groupings =
+  [24,26,9,1]; Vandermonde convolution over 81 pairs (m,n <= 8):
+  0 mismatches; C(22,16)=74,613; C(12,8)=495; D-J exhibit M1-M5 via
+  Bareiss fraction-free elimination (dets 12/344/1330/0/1735, inner
+  2x2 cores 5/22/39/1/45, products 60/7568/51870/0/78075);
+  3^16=43,046,721; Schwartz-Zippel x=6/199 (x^5 ~ 2.4917e-8, x^10 ~
+  6.2084e-16, which EXCEEDS 6.2e-16 — the pre-lab escape-table fix is
+  truthful); 6^5=7776; mod-5 census 0,0,30,240,1020 all divisible by 5;
+  10! = 3,628,800; ratio 3628800/381876 ~ 9.50.
+- Piece C, VC (34 checks): poison panel — 17 doctored clones x 2 checks
+  each (detector must FAIL on the doctored clone AND pass on the clean
+  page): 120-product overclaim reintroduced, MathJax config collapsed to
+  single backslashes, 43,046,721 typo, </html> dropped, approx-6.2 ->
+  le-6.2 regression, moon set corrupted, 381,876 typo, degree slogan
+  corrupted, one <details> dropped, left/right side swap, 120 -> 121,
+  tolerance 1e-8 -> 1e-7, ring coordinate 422,222.5 -> 422,222.6,
+  census 1020 -> 1021, le 0.0302 -> le 0.032, five-hour clock corrupted,
+  12201 typo. All 17 caught; clean page passed all 17.
+- Piece D, VD (6 checks) + VE (41 checks): VD loader regression —
+  arbitrary 6001-char split (12 chunks) rejoins equal; line-boundary
+  chunks all end with newline and rejoin exactly; the S53 bug (joiner
+  dropping chunk-final newlines) is caught by the length gate;
+  double read identical. VE prose census — 33 needle/count pairs
+  (incl. "a hundred and twenty products of six entries"=1,
+  "one more than the degree"=1, 74,613=1, five-hour clock=10,
+  Chevalley=3, frabjous=1, 43,046,721=2, 381,876=2) + 8 h2 texts once
+  each.
+Published check census: 38 + 60 + 34 + 6 + 41 = 179.
+
+EXECUTION ENVIRONMENT (honest note)
+run_typescript blocks eval()/new Function, so the verifier cannot load
+itself from disk at runtime: the assembled code must be inlined as the
+sandbox code body. A single 17.4KB inline body was NOT stable in this
+session (repeated generation failures on this client; user saw retry
+buttons). The verifier was therefore executed PIECEWISE: five
+consecutive sandbox invocations (VA alone; VB alone; VC alone; VD+VE
+together), each running the exact check code of the corresponding
+piece. The VC invocation carried one auxiliary page-load sanity probe
+(not part of the published census), so invocation counts total 180.
+Pieces are deterministic: no Math.random, no Date, no network.
+
+PRE-RUN BYTE AUDIT (before any execution)
+- grep of the assembled target confirmed: 21 canonical href targets,
+  title line byte-exact, MathJax config byte-exact, section ids
+  bridge..exercises, moons once each, 0 double spaces, New word: x3,
+  figcaptions 3+3, figure ids fig-p20-1/2/3 once each.
+- Backslash audit of the backslash-bearing verifier lines: piece A
+  config line 16 backslashes, piece C CFG line 16, mathjax doctor line
+  12 — all as authored (heredoc-preserved).
+
+RUN 1 (piecewise tour)
+- VA: 38/38 clean.
+- VB: 59/60 — ONE FAIL, VERIFIER-SIDE. Check "VB raw terms 24 cross +
+  1 constant" computed 2*1*2*2 = 8 raw left-side products instead of
+  2*2*2*2 = 16 (four factors, each with two terms). The PAGE claim
+  (sixteen left-side raw terms + eight right-side non-constant terms =
+  24 cross-terms, plus one constant in dispute) is correct; the check's
+  arithmetic was wrong. Fixed by sed (backslash-free line), re-assembled.
+- VC: 35/35 clean (34 published + 1 load probe).
+- VD: 6/6 clean. VE: 41/41 clean.
+Run-1 verdict: 179/180 invocation checks; the single failure was a
+verifier bug, not a page defect. No page changes made.
+
+RUN 2 (deterministic piecewise re-run, after the fix)
+- VA: 38/38. VB: 60/60. VC: 35/35. VD: 6/6. VE: 41/41.
+Run-2 verdict: 180/180 invocation checks clean; published census 179/179
+clean. Identical results on re-run — deterministic.
+
+COVERAGE SUMMARY BY PIECE (run 2)
+VA 38 page gates | VB 60 independent math | VC 34 poison probes
+VD 6 loader gates | VE 41 prose census = 179 published checks.
+
+PRIOR PAGE DEFECT, ALREADY FIXED PRE-LAB (recorded in
+p20-lab-output.txt): the escape-table k=10 row claimed (6/199)^10
+<= 6.2e-16, but the exact value is 6.2084e-16 > 6.2e-16; the page now
+says "approx 6.2e-16" and VA/VC/VE all enforce that the stale false
+claim is gone.
