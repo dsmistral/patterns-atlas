@@ -1,1 +1,24 @@
-[object Object]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P13 · Infinite descent · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P13 · the thirteenth move of the spine</p>
+<h1>Infinite descent</h1>
+<p class="tagline">Some impossibilities refuse to name a wall: the target passes every census, survives every parity check, and still you are sure it cannot exist. For those, the natural numbers themselves supply the trap. Among the positive integers there is a ground floor — nothing descends forever. So prove that any solution of the forbidden kind secretly contains a smaller one of the same kind, and the whole family collapses at once: a smallest counterexample that begets a smaller accomplice cannot exist.</p>
+</header>
+
+<aside class="onramp"><strong>New word: descent.</strong> A <em>descent</em> is a proof that manufactures, out of any solution of the forbidden kind, another solution of the same kind that is strictly smaller — smaller in a positive-integer measure, so the manufacturing cannot run forever. <strong>New word: measure.</strong> The <em>measure</em> of a solution is any quantity attached to it that is a positive integer: a denominator, a coordinate, a sum, a count of prime factors. The whole move turns on choosing one that the transformation genuinely shrinks. <strong>New word: criminal.</strong> The <em>criminal</em> is the smallest counterexample — the least solution of the kind the claim forbids. The move convicts it by proving it always denounces a smaller accomplice; a least positive integer cannot do that, and that is <a href="b01-remainders.html">B01</a>'s ground floor — well-ordering — doing the final work.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p>The spine so far: <a href="p01-pin-down-the-problem.html">P01</a> pinned the claim, <a href="p02-small-cases.html">P02</a> built the table, <a href="p03-special-cases.html">P03</a> attacked it with hostile cases, <a href="p04-complete-the-square.html">P04</a> paid for corners, <a href="p05-canonical-form.html">P05</a> dressed every object in its uniform, <a href="p06-compose-identity.html">P06</a> composed stuck objects inside identities, <a href="p07-auxiliary-construction.html">P07</a> built the objects nobody handed us, <a href="p08-symmetry.html">P08</a> divided by the twins, <a href="p09-invariant.html">P09</a> found the quantity nothing can change, <a href="p10-pigeonhole.html">P10</a> forced collisions by counting, <a href="p11-contradiction.html">P11</a> exploded the opposite of the claim, and <a href="p12-obstruction.html">P12</a> named the wall the explosion leaned on. P12's closing pointer promised exactly this page: <em>a named number-wall is often the front half of a full family theorem, and descent is the engine that finishes it</em>. And two bridge pages pointed here as well: <a href="b03-euclidean-algorithm.html">B03</a>'s dance of remainders and <a href="b04-bezout.html">B04</a>'s smallest positive combination — both, it will turn out, were descents all along, running long before this page named them.</p>
+<p>Here is the tension this page resolves. The good news: you have already run this move twice without naming it. B03 proved the dance must stop because the remainders strictly shrink — a machine that manufactures smaller remainders, step after step. B04 proved every member of the combination set is a multiple of its least element by showing that a trespasser would manufacture a smaller trespasser. Both times the crash landed in the same place: among the positive integers, a strictly descending chain is impossible. The bad news, paid up front: descent is strictly an impossibility move — it convicts, it never constructs, so a <em>find me a solution</em> problem gets nothing from it. The manufacturing step must be a theorem over <em>every</em> solution, never a sample — P12's necessity lesson wearing a new coat. And <em>smaller</em> must be strict and integer-valued, or the machine seizes: a measure that halves forever is a staircase with no ground floor, and a <em>smaller solution</em> that is not a solution of the same kind is no descent at all. Those two seductive failures — the phantom step and the jam — are what Example 2 and Exercise 4 put on the dissecting table.</p>
+</section>
