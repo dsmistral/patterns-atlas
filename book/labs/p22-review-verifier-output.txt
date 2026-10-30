@@ -1,0 +1,71 @@
+P22 review verifier output - session S56 - page p22-fixed-point.html
+Engine: fresh this session, deterministic, zero code shared with p22-lab.js.
+Independence by construction:
+  - Babylonian hits audited as EXACT FRACTIONS in base-10^7 chunk string
+    arithmetic, with the card's decimals produced by string long division
+    (11 decimals, rounded to 10), not toFixed;
+  - sqrt2 and e5 computed in double-double arithmetic from the exact Pell
+    pair (the lab used plain doubles);
+  - Dottie's number re-derived by NEWTON on h(x) = cos(x) - x from 0.7 (the
+    lab counted plain cos-iteration hits);
+  - the plastic constant re-derived by the SECANT method from (1, 1.5) (the
+    lab used Newton's map); the room slope re-scanned analytically at 10001
+    points (lab grid: 2001);
+  - 10 poisoned claims that must be REJECTED (card value 1.4142156862, c=1/3,
+    d=0.7390852, 36 hits, N'(1)=-1.25, e5=8e-25, scan 0.1819, 23 digits,
+    certificate 88, "5 steps");
+  - 30 loader gates and prose needles against the live page text.
+Pieces executed as inline sandbox bodies (eval is blocked); the .js file is
+the durable record of exactly the code that ran, at final revision.
+
+HONEST RUN HISTORY (chronological, defects included):
+
+RUN 1 pieceVA rev1: 23 pass / 3 fail.
+  FAIL va.residual lv5 (0, expected 1), va.a6 (off by one, ...3216 vs
+  ...3217), va.residual6 (rounding garbage): VERIFIER BUG - the chunk base
+  was 10^9, whose chunk products reach ~1e18 and exceed 2^53, so vmul
+  rounded on 12-digit operands. The verifier's own residual checks caught
+  it, at exactly the scale where the lab's base-10^7 choice had been
+  careful. Fixed: base 10^7, products stay under 2^53; header comment
+  updated to record the incident. No page number was wrong: the page's
+  chain, a6/b6 and e5 all verify under the corrected arithmetic.
+
+RUN 2 pieceVA rev2 (base 10^7): chain, residuals, long division clean;
+  e5(dd) = 8.9929e-25. Confirmed by a final verbatim run at freeze.
+
+RUN 1 pieceVB rev1: 47 pass / 1 fail.
+  FAIL vb.exhibit.cycle: VERIFIER BUG - the check demanded 0.3 after SEVEN
+  applications of x -> 1 - x (an odd count lands on 0.7; the two-cycle
+  itself is the point). Fixed to assert both phases: 7 steps -> 0.7,
+  8 steps -> 0.3.
+
+RUN 2 pieceVB rev2: 47 pass / 1 fail.
+  FAIL vb.exhibit.cycle again: VERIFIER BUG - exact float equality; in
+  doubles 1 - 0.7 = 0.30000000000000004. Fixed with a 1e-12 tolerance.
+
+RUN 1 pieceVC+VD rev1: VC 15/16, VD 27/30.
+  FAIL vc.p5.pageclean, vd.head.jsdelivr, vd.footer.index, vd.footer.next:
+  all four were NEEDLE-FORMAT ERRORS in the verifier, not page defects. The
+  page (per the P21 house template) loads tex-svg.js (the needle said
+  tex-mml-chtml.js), wraps the footer words "index" and "P23 - Interpolate
+  and continue" in anchor tags (the needles demanded contiguous text), and
+  prints N'(1) in TeX with an ASCII hyphen ("= -1.5"; the needle looked for
+  the Unicode minus). Needles corrected to the page's actual forms.
+
+FINAL CLEAN CENSUS (one run each, at freeze):
+  pieceVA 26, pieceVB 48, pieceVC 16, pieceVD 30.
+  TOTAL 120/120 PASS.
+
+Poisons rejected: 10/10. Page defects found by the verifier: 0 (the two
+page defects of record were caught by the lab and fixed before this
+verifier ran; both fixes are pinned by the prose needle vd.prose.fixes and
+verified numerically in pieceVB).
+Verifier defects caught by its own checks: base-10^9 chunk rounding; the
+two-cycle parity bug; the float-equality bug; four needle formats. All
+recorded above and fixed before the freeze.
+
+Final page: 62,226 bytes / 61,709 chars / 271 lines,
+md5 29618f8fcae3487a68e1920fdd93521c.
+Final verifier: 19,741 bytes / 19,714 chars / 272 lines,
+md5 ea6bb477bca91d8670266c47abfad580 (after the header comment's gate count
+was corrected from 21 to 30; size unchanged).

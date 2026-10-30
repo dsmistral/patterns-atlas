@@ -1,0 +1,113 @@
+P22 lab output - session S56 - page p22-fixed-point.html
+Engine: fresh this session, deterministic (no random, no eval). Zero code shared
+with the adversarial review verifier. The sandbox blocks eval, so pieces were
+executed piecewise as inline bodies; p22-lab.js is the durable record of exactly
+the code that ran, at final revision. Extension from the P21 house format: the
+pieces take PAGE (page text read through a chunk-loop read_file helper), because
+needle checks ran inside the lab itself.
+
+HONEST RUN HISTORY (chronological, defects included):
+
+RUN 1 pieceA rev1: 28 pass / 1 fail.
+  FAIL a.taglineLen: CHECKER BUG, not a page defect - a regex .length===1 test
+  that ignores the capture group. The tagline is present and well-formed. Check
+  corrected (count 1 + text match) at rev 2.
+
+RUN 1 pieceB rev1: 19 pass / 5 fail.
+  FAIL b.card (3 of 4 needles): CHECKER BUGS - needle indices off by one.
+  FAIL b.contractionGrid: CHECKER BUG - 0/0 = NaN at x = y on the grid diagonal;
+  skip i === j.
+  FAIL b.slopeIdentities, b.ceilingId, b.identityOnPage: CHECKER BUGS - needles
+  written in "4.1421e-1" style; the page prints \(4.1421 \times 10^{-1}\).
+  FAIL b.digits, b.ratios, b.pess: CHECKER BUGS - e5 = 8.99e-25 is below float
+  resolution (|x5 - sqrt2| measures as ~1e-16); e5 is derived from the identity
+  e5 = e4^2/(2 x4), digits from identity-derived errors; the identity's ratios
+  are e_{n+1}/e_n^2 = 1/(2 x_n), not e_n/e_{n+1}.
+
+RUN 2 pieceB rev2 (correct formats, identity-derived e5): 22 pass / 2 fail.
+  FAIL b.errorIdentity, b.ratiosSq at 1e-18 absolute then 1e-12 relative: at
+  n = 3 the CHECK ITSELF is cancellation-limited - e4 = 1.59e-12 versus
+  ulp(x4) = 2.2e-16, so only ~4 significant figures survive the float
+  subtraction. The identity is exact in mathematics; rev 3 uses a
+  cancellation-aware tolerance max(1e-12, 4 ulp(x_{n+1})/e_{n+1}). Recorded as
+  a float limitation, not a page claim.
+
+RUN 3 pieceB rev3 (cancellation-aware): identity checks 3 pass / 0 fail.
+
+RUN 1 pieceC rev1: 22 pass / 2 fail.
+  FAIL c.a6, c.b6: CHECKER BUG - the build loop advanced one level too far and
+  reported the level-7 pair. Level 6 verified exactly by chunk string
+  arithmetic (base 10^7 chunks, no BigInt anywhere in the value path):
+  a6 = 1572584048032918633353217, b6 = 1111984844349868137938112.
+  FAIL c.e4: CHECKER BUG - wrong pair: hit 4 is 665857/470832, not 577/408
+  (that is hit 3). e4 = 1.595e-12, eleven decimals.
+
+RUN 2 pieceC rev2: 4 pass / 0 fail. a6, b6 exact; residual a6^2 - 2 b6^2 = 1
+  digit-by-digit in base ten; residual-squaring identity L6 = L5^2 = 1.
+
+RUN 1 pieceD rev1: 19 pass / 4 fail.
+  FAIL d.errors: GENUINE PAGE DEFECT. The Newton card printed
+  2.1678 \times 10^{-7}; the true error of hit 4 is 2.167543e-7, verified by
+  double-double arithmetic (~30 digits: x4 = 1.32471817399905367,
+  rho = 1.32471795724474606). Page fixed: 2.1678 -> 2.1675. The other five
+  errors were exact as printed.
+  FAIL d.rhoOnPage: CHECKER BUG - needle demanded rho + 1 = 2.3247179572, which
+  the page never prints; corrected to rho's own 10dp print.
+  FAIL d.imageBound: CHECKER BUG - the receipt's image bound is c times the
+  START ERROR (0.1849 x 0.1252820 = 0.0232, e0 = |1.45 - rho|), not c times
+  the room width; the page's arithmetic is correct.
+
+ENCODING INCIDENT (process defect, between pieceD runs): the error fix was
+  first applied through an emulated-shell read+printf loop, which
+  double-encoded UTF-8 (94 page lines mojibake'd; the scratch part-07 was
+  similarly affected). RECOVERED BYTE-EXACTLY: the page was rebuilt in the
+  sandbox from the clean local parts (01-06, 08-13) plus the repo-staged
+  part-07; the pre-fix rebuild hashed to 23793b234f9dcc956886d0b978aefa5f,
+  exactly the md5 recorded at assembly, and the fix was then applied by
+  sandbox string replace. Lesson recorded: shell read/printf loops never touch
+  UTF-8 or TeX content; tools.file_system write_file was probe-tested
+  (backslash + multibyte fidelity EXACT) and used for every later edit.
+
+RUN 2 pieceD rev2 (fixed page, corrected needles): 23 pass / 0 fail. CLEAN.
+
+RUN 1 pieceE rev1: 19 pass / 3 fail.
+  FAIL e.guaranteed83: CHECKER BUG - off-by-one in exponent bookkeeping; the
+  smallest n with 0.8414710^n x 0.7390851 < 5e-7 is 83, with both the page's
+  rounded constant and the true sin(1).
+  FAIL e.twoCycle: CHECKER BUG - float equality (JS: 1-0.3 is
+  0.7000000000000001, 1-0.7 is 0.30000000000000004); tolerance added.
+  FAIL e.ybcDiff: CHECKER BUG, twice - first expected "6.0e-7" from a
+  toExponential(2) that yields "5.99e-7"; then the needle demanded
+  "5.99 \times 10^{-7}", a form the page never prints. The page's claim is
+  "off ... by 6 \times 10^{-7}, within one part in two million" - honest at one
+  significant figure (5.994e-7 absolute; 4.24e-7 relative, one part in
+  2.4 million). Final needle checks the page's actual claim.
+  ALSO FOUND: GENUINE PAGE DEFECT. The Dottie card's orbit omitted hit 5
+  (0.793480) and every later hit was shifted one early - the page's hit "5" was
+  the true hit 6 (0.701369), its hit "11" the true hit 12 (0.735605). The
+  corrupt value list had come from the session's own compacted summary. Page
+  fixed: the table now carries the true twelve hits 0-11 (0.793480 at hit 5,
+  0.744237 at hit 11). The "35 hits" claim was re-audited with the error
+  criterion |x_n - d| < 5e-7 and is correct (hit 35 error 3.93e-7; the naive
+  step-gap criterion needs 36 - the page's wording is the error one).
+
+RUN 2 pieceE rev2 (fixed page, corrected checks): 22 pass / 0 fail. CLEAN.
+
+RUN 1 pieceF rev1: 17 pass / 4 fail.
+  FAIL f.fig2.sqrt2line, f.fig2.segs, f.fig3.ticks, f.fig3.dashedZero: CHECKER
+  BUG - the segment helper sliced each figure up to the FIRST "</figure>" in
+  the page (figure 1's), so figures 2 and 3 compared empty text. Helper
+  corrected to search past the start index; all three SVGs' coordinates
+  re-derived from the maps and matched.
+
+FINAL CLEAN CENSUS (final revisions, one run each, at freeze):
+  pieceA 25, pieceB 20, pieceC 25, pieceD 23, pieceE 22, pieceF 21.
+  TOTAL 136/136 PASS.
+
+Page defects caught by the lab: 2 (Newton card error digit 2.1678 -> 2.1675;
+Dottie orbit table shifted, hit 5 omitted). Both fixed before publish.
+Process defect caught and repaired: one UTF-8 double-encoding of the page by a
+shell loop, recovered byte-exactly (pre-fix md5 matched the assembly record).
+Final page: 62,226 bytes / 61,709 chars / 271 lines,
+md5 29618f8fcae3487a68e1920fdd93521c (after both defect fixes; the interim
+post-rebuild pre-Dottie-fix hash was 216e7598d5ce2ac321c91136c45b9463).
