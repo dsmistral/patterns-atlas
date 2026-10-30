@@ -1,0 +1,43 @@
+P17 LAB — p17-lab.js (39,735 B) against wip/p17-duality.html (53,929 B / 223 lines)
+====================================================================
+
+Run 1: 192/219, 27 FAIL
+  p0: 61/61  p1: 39/44  p2: 10/30  p3: 32/32  p4: 11/11  p5: 39/41
+  All 27 failures were LAB-SIDE, none page-side:
+  - ldet used rows [p,-1,-c]; the page's convention (and the L = -P proof
+    via column ops) needs rows [p,-1,-q] = [m,-1,c]: sign error in the lab,
+    caught by 'L = -P over 84 triples', 'line det = +21', 'Ex1a line det'.
+  - tOn/rCross treated rational points as integers/omitted the base-point
+    subtraction: all Ceva/Menelaus ratio checks failed though the
+    intersection points themselves verified exactly.
+  - Two float-equality traps (3*4.1-9 === 3.3 etc.) -> tolerance 1e-9.
+  - One spot-value slip ('both reduce to ap = b + q' used 5+9 = 14, which
+    equals 2*7, defeating the intended negative example).
+  - One array-vs-object access (dualOfLine returns [m,-c], checked .m/.c).
+  - One over-broad poison ('hold on' matched the legitimate prose phrase
+    'the pattern to hold onto').
+  No page numbers changed between runs 1 and 2.
+
+Run 2: 219/219, 0 FAIL
+  p0: 61/61  p1: 44/44  p2: 30/30  p3: 32/32  p4: 11/11  p5: 41/41
+
+Page-side defects caught by authoring-recompute BEFORE run 1 (disclosed):
+  1. Fig P17.1 panel B was drawn with wrong endpoints and a non-reversed
+     y-orientation (the three segments did not depict y=2x-5, y=3x-9,
+     y=7x-4); fully rederived with px = 90+22x, py = 35-10y.
+  2. Fig P17.1 panel A: two stray reference lines ran through data points;
+     removed. (7,4) label overlapped the dashed CA edge; moved.
+  3. Fig P17.3: line labels were swapped (y=x must sit below y=x+1);
+     fixed, and panel-B crossing dot rounded to Math.round (62.5 -> 63).
+  4. Example 3 census said 65,536 ordered pairs; 16 subsets give 256.
+  5. Ex2 pid line cited P14 (diagonal) for Euler's formula; now cites
+     P08 (symmetry) for the twin swap, with Euler taken as given.
+  6. Ex2 Worked contained a draft-voice self-correction ('— wait:');
+     removed. Ex4(c) lacked its de Polignac 1849 attribution; added
+     (status verified: open per Wikipedia/MathWorld).
+  7. One index-one-liner needle ('Solve the mirrored problem instead;
+     translate the answer back') was pinned to the lab but is index text,
+     not page text; removed from the needle list before run 1.
+
+Verdict (final): B17/P17 LAB — checks: 219/219, 0 FAIL
+  p0: 61/61  p1: 44/44  p2: 30/30  p3: 32/32  p4: 11/11  p5: 41/41

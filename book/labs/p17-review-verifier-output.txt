@@ -1,0 +1,60 @@
+P17 REVIEW VERIFIER — honest run history (S51, freeze 2026-10-30)
+Assembled from 3 pieces (ver1.js + ver2.js + ver3.js, cat-assembled); own harness
+vCheck/vEqN/vIn/vAbsent (global split().join)/vHowMany/vEndsWith; zero code shared
+with p17-lab.js. Needles pre-checked against the page bytes BEFORE run 1: 4 needles
+corrected pre-run (capitalization 'The flip...' and 'Flip twice...'; 'erase' vs
+'erases'; 'turning' vs 'turned'; the P09 bridge line's real wording 'leaves its
+zero untouched') — needle misalignment caught by grep, not scored as failure.
+
+Run 1: 214/214 checks registered, 3 FAIL — all three VERIFIER-SIDE, zero page-side:
+ 1. 'involution: dual of dual returns the point (all 16)' — the check passed the
+    wrong intercept sign (dualLine(L[0], -L[2]) for the line y = px - q); the page
+    claim is correct and was re-pinned by the fixed check.
+ 2. 'Menelaus product (Ex3)' — miscomposed constants inside the check itself
+    (1*2*-2 vs -(2*1*1)); true product (1/2)*1*(-2) = -1, re-pinned in num/den form.
+ 3. 'boundary count in 3..60' — the sweep found THREE boundary pairs q(p-2) = 2p:
+    (3,6), (4,4), (6,3). (4,4) — four squares at a vertex, the square tiling — is a
+    genuine discovery of the check; the page names (3,6) as 'the first hostile case
+    to die at the boundary' and claims no exclusivity, so the expected count was
+    wrong, not the page. Fixed to 3, with (4,4) now pinned.
+
+Run 2 (final): 215/215, 0 FAIL.
+
+Coverage: 43 needles present (tagline, bridge, onramp, §2 questions, Fig P17.1
+caption, Boxes P17/P17.A/P17.B, §4 dictionary/incidence/determinant/repair/census/
+Ceva-Menelaus paragraphs, Ex2 boundary, Ex3 reversal, §5 three exhibits, scope box,
+§6 doors and habit, §7 lineage, §8 verdicts); 14 poisons absent (wrong dates 'Ceva
+1679' / 'Brianchon 1807' / 'Poncelet 1824' / 'Gergonne 1826' / 'Euler 1751' — page
+has Ceva 1678, Brianchon 1806, Poncelet 1825, Legendre 1787; '65,536', '45
+collinear', '560 collinear', 'Gergogne', 'TODO', 'FIXME', 'Lorem', 'scratch that',
+draft voice '-- wait:'); 12 doctored-clone pairs, each mutant differing INSIDE the
+needle span and absent globally (split().join semantics, S46 lesson), 12/12.
+
+Substantive independent panel: 4x4 lattice census by canonical-line FAMILY grouping
+(44 collinear triples = 16 horizontal + 16 vertical + 6 slope-1 + 6 slope -1, 14
+families, no other slope fits three lattice points, C(16,3) = 560); dictionary
+involution on all 16 grid points; incidence symmetry ap = b + q on all 256 ordered
+point pairs; all 28 ordinary-concurrent dual triples verified by PAIR-SOLVING
+(independent of the lab's determinant route) and all 16 parallel families verified
+(same slope, distinct intercepts); §2's -21/+21 by SARRUS expansion (independent of
+the page's cofactor expansion and of the lab), degenerate family concurrent at
+(1,-1); Ceva by AREAS (P(2,1): 3/4, 5/3, 4/5, product 1; Ex3 P(3,1): 1/2, 1, 2,
+product 1 — parametrization-free); Menelaus by SQUARED DISTANCES (x+y=3: 1, 1/3,
+-3, product -1, BD^2 = 117 = 9*13; Ex3 x+y=2: 1/2, 1, -2, product -1, BD^2 = 208 =
+4*52); Platonic census by the direct angle form q(p-2) < 2p swept 3..60 (exactly
+five survivors (3,3),(3,4),(3,5),(4,3),(5,3); boundary (3,6),(4,4),(6,3); vertex
+sums 180/270/240/324/300; all 15 V/E/F table entries by D = 2p+2q-pq); De Morgan
+by STRING-SET encoding (4-char membership strings, charwise operations; 16 subsets,
+256 ordered pairs, 4096 ordered triples; De Morgan + inclusion reversal hold in
+all 256 pairs, both distributive laws in all 4096 triples — independent of the
+lab's bitmask encoding); byte gates (MathJax config line byte-exact, tail
+</footer></body></html> with newlines, 355 inline TeX openers, 3 display, 8 h2,
+9 h3, 10 details, 8 sections, 6 'Exercise ' mentions (5 statements + 1 prose
+reference), 4 x '1639', 131 em-dashes, 3 figures / SVGs / figcaptions, zero dollar
+signs, zero backticks).
+
+Verdict (run 2, recorded): P17 REVIEW VERIFIER — checks: 215/215, 0 FAIL
+Zero page-side failures in both runs.
+
+Assembled p17-review-verifier.js at freeze: 21,065 B,
+md5 c93329c4394a1ce5e0360f8bdbc709d2.
