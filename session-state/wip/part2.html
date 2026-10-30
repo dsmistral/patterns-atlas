@@ -1,0 +1,56 @@
+<section id="encounter">
+<h2>2 · Meet the problem</h2>
+<p>Ask the oldest quantitative question there is: how long is the rim of a circle? Take a circle of radius \(1\); the answer, half the circumference, is the number \(\pi\). You cannot write \(\pi\). Not as a fraction — Lambert proved that in the eighteenth century, by a route this book defers — and not through any finite stack of square roots and arithmetic either (Lindemann, 1882; §5's last exhibit prices that wall). But you do not need to write \(\pi\). You need to <em>corner</em> it.</p>
+<p>Build the walls from polygons, starting with the cheapest ones. The hexagon inside: join the center to six equally spaced points on the rim. Each of the six triangles has two sides of length \(1\) (radii) meeting at \(60^\circ\), so the third side is forced — equal sides carry equal angles, the base angles sum to \(120^\circ\), every angle is \(60^\circ\), every triangle is equilateral, every side is exactly \(1\). The inscribed hexagon's perimeter is \(6\), half of it is \(3\), and every chord is shorter than the arc it cuts: the first wall reads \(\pi &gt; 3\). The hexagon outside: rest six tangent sides against the circle. Each side touches the rim at its midpoint; the center, the tangent point, and a vertex form a right triangle with its \(30^\circ\) angle at the center and the radius \(1\) as the adjacent leg. The \(30\)-\(60\)-\(90\) triangle is built from \(1\), \(\sqrt 3\), \(2\), so the opposite leg — half the side — is \(1/\sqrt 3\), each side is \(2/\sqrt 3\), the perimeter is \(12/\sqrt 3 = 4\sqrt 3\), and half of it, \(2\sqrt 3\), overhangs the rim it touches: \(\pi &lt; 2\sqrt 3\). The trap closes:</p>
+<p class="eq">\[3 \;&lt;\; \pi \;&lt;\; 2\sqrt 3 \;\approx\; 3.4641.\]</p>
+<p>Hand-check the outer wall without decimals: squaring is fair to positive quantities, and \((2\sqrt 3)^2 = 12 &lt; 12.0409 = 3.47^2\), so \(2\sqrt 3 &lt; 3.47\). The trap reads \(3 &lt; \pi &lt; 3.47\) — honest walls, both proved, and jointly worth exactly one digit: the integer part of \(\pi\) is \(3\). Not much. But the trap has a crank.</p>
+<p>Double the polygons. Twelve sides fit tighter than six; twenty-four tighter than twelve. Two lines of Pythagoras — one chase per family, and Exercise 1 runs the first doubling by hand — turn each doubling into bookkeeping. If \(a_n\) is the side of the inscribed \(n\)-gon and \(b_n\) the side of the circumscribed one:</p>
+<p class="eq">\[a_{2n} = \sqrt{2 - 2\sqrt{1 - a_n^2/4}}, \qquad b_{2n} = \frac{b_n}{1 + \sqrt{1 + b_n^2/4}}.\]</p>
+<p>Start from \(a_6 = 1\) and \(b_6 = 2/\sqrt 3\) and turn the crank:</p>
+<table class="digit-table">
+<thead><tr><th>sides \(n\)</th><th>lower wall (inside)</th><th>upper wall (outside)</th><th>gap</th></tr></thead>
+<tbody>
+<tr><td>6</td><td>3.00000</td><td>3.46410</td><td>0.46410</td></tr>
+<tr><td>12</td><td>3.10583</td><td>3.21539</td><td>0.10956</td></tr>
+<tr><td>24</td><td>3.13263</td><td>3.15966</td><td>0.02703</td></tr>
+<tr><td>48</td><td>3.13935</td><td>3.14609</td><td>0.00674</td></tr>
+<tr><td>96</td><td>3.14103</td><td>3.14271</td><td>0.00168</td></tr>
+<tr><td>192</td><td>3.14145</td><td>3.14187</td><td>0.00042</td></tr>
+</tbody>
+</table>
+<p>Read the gap column: \(0.46410, 0.10956, 0.02703, 0.00674, 0.00168, 0.00042\). Each doubling takes roughly a quarter off the gap — the ratios run \(4.24, 4.05, 4.01, 4.00, 4.00\) — and the pattern underneath is that the gap shrinks like \(1/n^2\): multiply gap by \(n^2\) and the column reads \(16.7, 15.8, 15.6, 15.5, 15.5, 15.5\), nearly constant. Doubling the effort buys about \(0.6\) of a decimal (a fourfold gain is \(\log_{10} 4 \approx 0.602\) digits); two doublings buy a bit more than one digit. The \(96\)-gon certifies two decimals — both walls agree on \(3.14\) — and the \(192\)-gon certifies three.</p>
+<p>That is exactly where Archimedes stopped — by hand, in rational arithmetic, in the treatise <em>Measurement of a Circle</em>. His walls, rounded outward to convenient fractions (a wall may always be loosened, never tightened), read</p>
+<p class="eq">\[3 + \frac{10}{71} \;&lt;\; \pi \;&lt;\; 3 + \frac{1}{7}, \qquad\text{that is,}\qquad \frac{223}{71} \;&lt;\; \pi \;&lt;\; \frac{22}{7}.\]</p>
+<p>Our \(96\)-gon table brackets him: \(3.14103 &gt; 223/71 = 3.14085\ldots\) and \(3.14271 &lt; 22/7 = 3.14286\ldots\) — his fractions sit just inside the computed walls, the outward rounding visible as slack. He wanted walls a student can verify by dividing integers, and he paid one digit for the convenience.</p>
+<figure id="fig-p15-1">
+<svg viewBox="0 0 340 260" role="img" aria-label="Unit circle with an inscribed hexagon and a circumscribed tangent hexagon">
+<circle cx="170" cy="130" r="75" fill="none" stroke="#333" stroke-width="1.5"/>
+<polygon points="245,130 207.5,65.05 132.5,65.05 95,130 132.5,194.95 207.5,194.95" fill="#e8f0fe" stroke="#447" stroke-width="1.5"/>
+<polygon points="256.6,130 213.3,55 126.7,55 83.4,130 126.7,205 213.3,205" fill="none" stroke="#a33" stroke-width="1.5"/>
+<g font-size="11" fill="#555" text-anchor="middle">
+<text x="170" y="136" fill="#333">unit circle</text>
+<text x="170" y="230" fill="#447">inside: 6 sides of 1 → half-rim 3</text>
+<text x="170" y="248" fill="#a33">outside: 6 sides of 2/√3 → half-rim 2√3 ≈ 3.464</text>
+</g>
+</svg>
+<figcaption>Fig P15.1 — the hexagon trap. Inside, six equilateral triangles of side \(1\) squeeze the rim from below: \(\pi &gt; 3\). Outside, six tangent sides of \(2/\sqrt 3\) press from above: \(\pi &lt; 2\sqrt 3\). The first trap, worth one digit.</figcaption>
+</figure>
+<figure id="fig-p15-2">
+<svg viewBox="0 0 320 170" role="img" aria-label="Chart of lower and upper walls closing on pi as polygon sides double from 6 to 96">
+<line x1="32" y1="150" x2="305" y2="150" stroke="#999"/>
+<line x1="32" y1="20" x2="32" y2="150" stroke="#999"/>
+<polyline points="40,150 100,122.6 160,115.7 220,114 280,113.5" fill="none" stroke="#447" stroke-width="2"/>
+<polyline points="40,30 100,94.3 160,108.7 220,112.2 280,113.1" fill="none" stroke="#a33" stroke-width="2"/>
+<line x1="32" y1="113.4" x2="305" y2="113.4" stroke="#333" stroke-dasharray="4 3"/>
+<g font-size="10" fill="#555" text-anchor="middle">
+<text x="40" y="164">6</text><text x="100" y="164">12</text><text x="160" y="164">24</text><text x="220" y="164">48</text><text x="280" y="164">96</text>
+<text x="16" y="154" text-anchor="end">3.00</text><text x="16" y="34" text-anchor="end">3.46</text>
+<text x="300" y="110" fill="#333">π ≈ 3.14159</text>
+</g>
+<g font-size="9" fill="#447"><text x="52" y="140">lower wall</text></g>
+<g font-size="9" fill="#a33"><text x="52" y="44">upper wall</text></g>
+</svg>
+<figcaption>Fig P15.2 — the jaws of the trap. The lower wall (inscribed) rises and the upper wall (circumscribed) falls; by \(n = 96\) both jaws are within \(0.002\) of \(\pi\). Each doubling of \(n\) takes about a quarter off the gap.</figcaption>
+</figure>
+<p>Notice what the table does <em>not</em> contain: \(\pi\) itself. No polygon's side ever equals the arc; the walls only lean in. What licenses "the \(96\)-gon certifies two decimals" is not that the trap catches its prisoner — it never touches — but that the gap has been driven below the demanded precision. That demand structure — what a trap must prove, and what happens when each part fails — is the move proper, and it gets a name next.</p>
+</section>

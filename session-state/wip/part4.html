@@ -1,0 +1,39 @@
+<section id="the-move-at-work">
+<h2>4 · The move at work</h2>
+<p>Three worked examples, one per family in the catalogue. The first is Archimedes' own: an area cornered by triangles, two thousand years before calculus. The second certifies a constant's digits with nothing but fraction arithmetic. The third builds the move's closing act — the ε-trap — and shows it pin three famous quantities: a decimal, an area, a root.</p>
+<h3>Example 1 · The parabola's cap, cornered to \(\tfrac{4}{3}\)</h3>
+<p class="pid">Moves used: <a href="p07-auxiliary-construction.html">P07</a> building the triangle-filling machine · <a href="p02-small-cases.html">P02</a> tabulating the covered sums · <strong>P15</strong> trapping the area between covered and overhang.</p>
+<p>Take the parabola \(y = x^2\) and the chord joining \((-1, 1)\) to \((1, 1)\). The parabolic <em>segment</em> is the cap between chord and curve, and the question is its area. Calculus answers in one line at the class-12 floor; Archimedes answered it around 250 BC with a squeeze — and this page rebuilds his, because it shows the move running where no formula is allowed to help.</p>
+<p>The inscribed triangle first: vertex at \((0, 0)\), base the chord. Its area is exactly \(1\) — the shoelace on \((-1,1)\), \((1,1)\), \((0,0)\) gives \(\tfrac{1}{2}\,|{-1}(1-0) + 1(0-1) + 0(1-1)| = \tfrac{1}{2}|-2| = 1\). Call it \(T = 1\). The triangle is inside the cap: each slanted side is a chord of the parabola, a parabola lies below every one of its chords, and the base is the cap's own lid — so the covered area starts at \(T\).</p>
+<p>Now the machine, one <a href="p07-auxiliary-construction.html">P07</a>-style construction. Each slanted side leaves a sliver between itself and the curve. In each sliver, inscribe the triangle whose base is the sliver's chord and whose apex sits where the <em>tangent parallel to that chord</em> touches the parabola. The left sliver's chord runs from \((-1,1)\) to \((0,0)\), slope \(-1\); the tangent to \(y = x^2\) has slope \(2x\), which equals \(-1\) at \(x = -\tfrac{1}{2}\), so the apex is \((-\tfrac{1}{2}, \tfrac{1}{4})\). The new triangle \((-1,1)\), \((0,0)\), \((-\tfrac{1}{2},\tfrac{1}{4})\) has area exactly \(\tfrac{1}{8}\) — shoelace again — one-eighth of its parent. The mirror triangle on the right contributes the same, and stage 2 covers \(T + 2 \cdot \tfrac{T}{8} = \tfrac{5T}{4}\).</p>
+<p>And the machine repeats: each sliver of a parabola cut by a chord is the whole problem in miniature, so every stage's triangles carve exactly one-eighth out of their parent's leftover — doubling the count, quartering the total. Stage \(k\) contributes exactly \(T \cdot 4^{-(k-1)}\), and the covered sums are a geometric series in disguise:</p>
+<p class="eq">\[\text{covered}_k \;=\; \bigl(1 + \tfrac{1}{4} + \tfrac{1}{16} + \cdots + 4^{-(k-1)}\bigr)T \;=\; \tfrac{4}{3}\,T\,\bigl(1 - 4^{-k}\bigr).\]</p>
+<table class="digit-table">
+<thead><tr><th>stage \(k\)</th><th>stage adds</th><th>covered so far</th><th>gap to \(\tfrac{4}{3}T\)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>\(T = 1\)</td><td>1</td><td>\(\tfrac{1}{3}\)</td></tr>
+<tr><td>2</td><td>\(\tfrac{T}{4} = \tfrac{1}{4}\)</td><td>1.25</td><td>\(\tfrac{1}{12}\)</td></tr>
+<tr><td>3</td><td>\(\tfrac{T}{16} = \tfrac{1}{16}\)</td><td>1.3125</td><td>\(\tfrac{1}{48}\)</td></tr>
+<tr><td>4</td><td>\(\tfrac{T}{64} = \tfrac{1}{64}\)</td><td>1.328125</td><td>\(\tfrac{1}{192}\)</td></tr>
+<tr><td>5</td><td>\(\tfrac{T}{256} = \tfrac{1}{256}\)</td><td>1.33203125</td><td>\(\tfrac{1}{768}\)</td></tr>
+</tbody>
+</table>
+<p>The lower wall is free: every stage's triangles lie inside the cap, so \(\text{covered}_k \le \text{area}\) for every \(k\). The upper wall is the honest part, and it carries an honesty label. <em>Sketch</em> — the missing piece is the enclosure lemma: the leftover after stage \(k\) fits inside a region of area at most \(\tfrac{4}{3} \times\) the total of the stages after \(k\), a tangent-chord chase this book defers. Taken on credit, the lemma delivers the upper wall, and the algebra collapses beautifully:</p>
+<p class="eq">\[\text{area} \;\le\; \text{covered}_k + \tfrac{4}{3}\,T \cdot 4^{-k} \;=\; \tfrac{4}{3}\,T\,\bigl(1 - 4^{-k}\bigr) + \tfrac{4}{3}\,T \cdot 4^{-k} \;=\; \tfrac{4}{3}\,T, \qquad \text{for every } k \text{ at once}.\]</p>
+<p>The leftover bound and the series tail cancel exactly, and the trap snaps shut around a constant: \(\text{covered}_k \le \text{area} \le \tfrac{4}{3}T\), for every \(k\). The walls do not touch at any finite stage — the lower one rises forever, the upper one never moves — and yet the prisoner has nowhere to stand: §4's third example names the principle that forces \(\text{area} = \tfrac{4}{3}T\) from exactly this shape. (Archimedes, who had no ε, closed it his own way — twice: once by Eudoxus' double contradiction, once by summing the geometric series directly. His <em>Quadrature of the Parabola</em> runs twenty-four propositions to this one number.)</p>
+<p>The class-12 floor can check the constant: \(\int_{-1}^{1}(1 - x^2)\,dx = \bigl[x - \tfrac{x^3}{3}\bigr]_{-1}^{1} = \tfrac{4}{3}\) — the trap and the integral agree, two millennia apart. The check is a courtesy; the trap above is the proof.</p>
+<figure id="fig-p15-3">
+<svg viewBox="0 0 320 170" role="img" aria-label="Parabolic segment between chord and curve, with the stage-one triangle and two stage-two triangles shaded">
+<polyline points="40.0,20.4 50.0,41.1 60.0,60.0 70.0,77.1 80.0,92.4 90.0,105.9 100.0,117.6 110.0,127.5 120.0,135.6 130.0,141.9 140.0,146.4 150.0,149.1 160.0,150.0 170.0,149.1 180.0,146.4 190.0,141.9 200.0,135.6 210.0,127.5 220.0,117.6 230.0,105.9 240.0,92.4 250.0,77.1 260.0,60.0 270.0,41.1 280.0,20.4" fill="none" stroke="#333" stroke-width="1.5"/>
+<line x1="60" y1="60" x2="260" y2="60" stroke="#a33" stroke-width="1.5"/>
+<polygon points="60,60 260,60 160,150" fill="#e8f0fe" stroke="#447" stroke-width="1"/>
+<polygon points="60,60 160,150 110,127.5" fill="#cfe0fc" stroke="#447" stroke-width="1"/>
+<polygon points="260,60 160,150 210,127.5" fill="#cfe0fc" stroke="#447" stroke-width="1"/>
+<g font-size="10" fill="#555" text-anchor="middle">
+<text x="160" y="52" fill="#a33">chord</text>
+<text x="160" y="106" fill="#447">T = 1</text>
+<text x="286" y="30">y = x²</text>
+</g>
+</svg>
+<figcaption>Fig P15.3 — the parabolic segment: curve \(y = x^2\), chord in red, the stage-1 triangle \(T\) shaded light, and the two stage-2 triangles (each \(T/8\)) shaded darker. Every stage carves one-eighth slivers; the covered sums rise toward \(\tfrac{4}{3}T\) and never reach it.</figcaption>
+</figure>
