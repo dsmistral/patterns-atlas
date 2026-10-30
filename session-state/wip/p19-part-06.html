@@ -1,0 +1,21 @@
+<section id="the-move-at-work">
+<h2>4 · The move at work</h2>
+<h3>Example 1 · The general Ramsey bound — an inequality no search could earn</h3>
+<p class="pid">Moves used: <a href="p01-pin-down-the-problem.html">P01</a> (the pinned claim, in general \(k\)), <a href="p10-pigeonhole.html">P10</a> (the collision being dodged, one room up), <a href="p11-contradiction.html">P11</a> (the reductio in disguise, per Box P19.A).</p>
+<p>Pin the claim the P01 way, now in general: <em>for every \(k \ge 4\), there is a seating of \(n = \lfloor 2^{k/2} \rfloor\) people with no monochromatic group of \(k\) — that is, \(R(k,k) &gt; \lfloor 2^{k/2} \rfloor\).</em> The room: all \(2^{\binom{n}{2}}\) colorings, the coin flip per pair. The bad events, one per \(k\)-group: the group is all-red or all-blue, chance \(2 \cdot 2^{-\binom{k}{2}} = 2^{1-\binom{k}{2}}\) each. The average crime count, by linearity:</p>
+<p class="eq">\[\mathbb{E}[\text{mono } K_k\text{s in } K_n] \;=\; \binom{n}{k} \cdot 2^{1-\binom{k}{2}}.\]</p>
+<p>Two honest estimates finish it. First, \(\binom{n}{k} \le \frac{n^k}{k!}\): every ordered \(k\)-tuple of distinct people names a \(k\)-group, there are at most \(n^k\) ordered tuples, and each group is named \(k!\) times — a bound, not a count, and the looseness is priced below. Second, with \(n = \lfloor 2^{k/2} \rfloor\) so that \(n^k \le 2^{k^2/2}\), the exponents collapse:</p>
+<p class="eq">\[\mathbb{E} \;\le\; \frac{2^{k^2/2}}{k!} \cdot 2^{1-k(k-1)/2} \;=\; \frac{2^{k/2+1}}{k!}.\]</p>
+<p>Is \(\frac{2^{k/2+1}}{k!}\) below \(1\)? At \(k = 4\) it is \(\frac{2^3}{24} = \frac{1}{3}\), and each step from \(k\) to \(k+1\) multiplies it by \(\frac{\sqrt{2}}{k+1}\) — below \(1\) already at \(k = 4\), so the bound only shrinks. For every \(k \ge 4\): average crime count under \(1\), witness exists, \(R(k,k) &gt; \lfloor 2^{k/2} \rfloor\). The actual values, computed exactly for each \(k\) — this is what the argument earns:</p>
+<table class="digit-table">
+<tr><th>\(k\)</th><th>People \(n = \lfloor 2^{k/2} \rfloor\)</th><th>\(k\)-groups \(\binom{n}{k}\)</th><th>Expected mono \(K_k\)'s</th><th>Good fraction of the room (at least)</th></tr>
+<tr><td>4</td><td>4</td><td>1</td><td>\(1/32 = 0.03125\)</td><td>\(\ge 0.96875\)</td></tr>
+<tr><td>5</td><td>5</td><td>1</td><td>\(1/512 \approx 0.00195\)</td><td>\(\ge 0.998\)</td></tr>
+<tr><td>6</td><td>8</td><td>28</td><td>\(\approx 0.00171\)</td><td>\(\ge 0.9983\)</td></tr>
+<tr><td>7</td><td>11</td><td>330</td><td>\(\approx 0.000315\)</td><td>\(\ge 0.9997\)</td></tr>
+<tr><td>8</td><td>16</td><td>12,870</td><td>\(\approx 0.0000959\)</td><td>\(\ge 0.9999\)</td></tr>
+<tr><td>10</td><td>32</td><td>64,512,240</td><td>\(\approx 0.0000037\)</td><td>\(\ge 0.9999963\)</td></tr>
+<tr><td>12</td><td>64</td><td>3,284,214,703,056</td><td>\(\approx 0.000000089\)</td><td>\(\ge 0.9999999\)</td></tr>
+</table>
+<p>Now the honesty owed. The \(k = 4\) row certifies only \(R(4,4) &gt; 4\) — while the truth is \(R(4,4) = 18\). The count is a <em>floor</em>, not an estimate: it says good seatings are plentiful, never that the bound is anywhere near tight. The gap has a name and a cure. The named cure: seat seventeen people at vertices \(0\) through \(16\), color the pair \(\{i,j\}\) red exactly when \(i - j\) is a quadratic residue mod \(17\) — the residues are \(\{1, 2, 4, 8, 9, 13, 15, 16\}\), eight of the sixteen nonzero differences, a perfect split. This is the <em>Paley seating</em>, and it has no monochromatic group of four in either color: all \(\binom{17}{4} = 2380\) four-groups fail to be monochromatic, so \(R(4,4) &gt; 17\), one short of the truth. The page's lab runs all 2380 checks. Note what each method paid: the coin argument bought <em>abundance</em> — a \(0.97\)-fraction of good colorings at \(k=4\) — while the Paley seating bought a <em>name</em> — a witness you can write on one line, at the price of one hundredfold more people. Existence is cheap; named existence is a different market.</p>
+<p class="pid">Moves used, one level up: the room was designed (colorings of \(K_n\)), the experiment designed (fair coin), the count linear — and the price paid was the truth's location: the floor sits far below the fact.</p>
