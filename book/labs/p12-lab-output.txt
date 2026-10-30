@@ -1,0 +1,71 @@
+P12 LAB BATTERY - OUTPUT AND DISPATCH HISTORY
+==================================================
+Engine: fresh for this chapter (zero code shared with earlier labs).
+Constraints honored: no recursion, no BigInt, no eval (harness scans the
+source for eval( before running), deterministic seeded Lehmer LCG
+(48271, mod 2^31 - 1, exact in doubles), new Function harness. Harness
+note: an explicit return tail ("return LAB.OUTPUT") is appended at
+dispatch - completion values of trailing IIFEs are discarded by the
+Function constructor.
+
+PRE-DISPATCH REPAIRS (caught at authoring review, before dispatch 1)
+- The walk-audit parse in the structure-pins piece ran at IIFE top
+  level, outside its CHECK (a stray early return could silently skip
+  later checks); pieces restructured 16 -> 18 to move all work inside
+  CHECK callbacks and isolate the report IIFE.
+- The M02 criterion census never stripped factors of 2 before sieving
+  odd primes (even n misclassified), and carried a fudge branch that
+  forced agreement for n = 2 mod 4; both removed - the census is a
+  straight factorization check now.
+
+DISPATCH HISTORY (honest, every run kept)
+- Dispatch 1: 34 PASS / 6 FAIL. All six FAILs LAB-SIDE; the page was
+  re-verified correct on every count and left frozen. Two lab defects:
+  (a) L21/L22/L23 - the census checks compared enumeration-order
+  strings against the page's sorted sets: sums 0,1,4,2,5 vs the page's
+  {0,1,2,4,5}, squares 0,1,4,9,16,25,17 vs the page's
+  {0,1,4,9,16,17,25} - the sets were right, the comparison was not;
+  repaired by sorting census output (set semantics, as the page prints
+  them). (b) L27/L32/L33 - the receipt checks validated the page's
+  square-VALUE sums (8 = 4+4, i.e. 2^2 + 2^2) as root triples
+  (4^2 + 4^2 = 32 != 8); repaired to validate a+b = n with both a and
+  b perfect squares.
+- Dispatch 2: 40 PASS / 0 FAIL. Three dispatches inside the run,
+  byte-identical to each other.
+- Dispatch 3 (byte-gate): fresh read, fresh dispatch; output
+  byte-identical to dispatch 2 (parked to file and compared, no
+  retyping).
+
+FINAL OUTPUT (dispatch 2 = dispatch 3, byte-identical)
+==================================================
+P12 LAB BATTERY OUTPUT
+checks passed: 40
+checks failed: 0
+note: 2027 scan a=0..45 hits=0
+note: 21 scan residues=21,20,17,12,5 hits=0
+note: class theorem odd n<=200 mismatches=0
+note: konigsberg degrees=5,3,3,3 odds=4
+note: 512-situation search: walk=false
+note: eighth bridge AB: walk C->CABACDABD
+note: eighth bridge AC: walk B->BABDACACD
+note: eighth bridge AD: walk B->BABDACADC
+note: eighth bridge BC: walk A->ABACADBCD
+note: eighth bridge BD: walk A->ABACADBDC
+note: eighth bridge CD: walk A->ABACADCDB
+note: printed walk degrees=5,4,3,4
+note: 2x2 reachable=12 of 24
+note: 2x2 blank-home reachable=3
+note: 2x2 unreachable=12 all mirror swaps=true
+note: 16! = 20922789888000
+note: 16!/1e6 seconds = 20922789.888 = 7.96 months
+note: random slides: 4x4 breaches=0 2x2 breaches=0
+note: mod8 sealed=3,6,7
+note: mod16 sealed=3,6,7,11,12,14,15
+note: mod32 squares=0,1,4,9,16,17,25 sums=17 sealed=3,6,7,11,12,14,15,19,22,23,24,27,28,30,31
+note: smallest all-gates refuser=21
+note: phantom-wall residues: 2,0,2,0
+note: 2033 scan hits=0; 2021 scan below
+note: 2021 scan hits=0
+note: fig p12.3: highlighted slots=84,100;112,100 blank center=154
+note: M02 criterion census n<=200 mismatches=0
+VERDICT: 40 PASS / 0 FAIL
