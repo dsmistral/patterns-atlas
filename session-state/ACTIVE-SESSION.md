@@ -2,8 +2,8 @@
 
 **Unit:** author + publish P13 (p13-descent.html) — infinite descent, the spine's thirteenth move. Prereq P11 published; bridges B03+B04 published (gate satisfied); mandate: Euclid's division algorithm and Bezout's identity ax+by=gcd(a,b) via descent, linking B03-B04.
 
-**State at this mirror:** records row S43 IN PROGRESS pushed (two-gated, sha below). Page authoring about to begin (part-wise, staged to session-state/wip/ + the topic wip/ per the staged-parts protocol).
+**State at this mirror:** session open COMPLETE (records S43 row IN PROGRESS pushed, fetch-back byte-identical, md5 390ec793d51e78f742052206fd0cd3c0, 230,764 B; tool sha label 061713ee…, computed blob sha b7ff0e19… — sha-label anomaly logged in runtime-log, fetch-back md5 is the primary gate this session). Tooling built and validated (pure-JS SHA-1 piece; write_file content-mangling defect found and logged — bash heredoc is the trusted write channel). Page authoring begins next: 8 parts, 9-block template, staged to session-state/wip/ + topic wip/ per part.
 
-**Next step:** author page parts 1-8 (9-block template, P12 conventions), gates per part, then lab battery + adversarial verifier + style audit, index flip, page log, records close, delete this file.
+**Next step:** author p13-descent.html part 1 (head + onramp + recall bridge), verify, stage both tiers; repeat per part; then lab battery + adversarial verifier + style audit + index flip + page log + records close + delete this file.
 
-**Crash-resume map:** local master of records = knowledge topic book-project.md (md5 390ec793d51e78f742052206fd0cd3c0, 230,764 B, repo blob b7ff0e1981b8a36da8010c2f005a8bcd318fa3d9); staged parts land in session-state/wip/ as they verify; the repo is master of record for everything pushed.
+**Crash-resume map:** records master = knowledge topic book-project.md; every verified part lands in BOTH durable stages before the next part is authored; the repo is master of record for everything pushed.
