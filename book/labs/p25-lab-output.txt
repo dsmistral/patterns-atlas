@@ -90,7 +90,7 @@ F7 | 16 column masks = 2^4 | PASS
 F8 | 8!=40320; 40320s = 11.2h; 8^8=16,777,216 | PASS | 11.2000h
 F9 | 64^8 = 281,474,976,710,656 | PASS
 
-TOTAL: 45 checks, 45 PASS (after the lab-code fixes above and one page fix in F3).
+TOTAL: 48 checks, 48 PASS (A7 B7 C9 D10 E6 F9; this line initially miscounted 45, corrected at close with the miscount disclosed) (after the lab-code fixes above and one page fix in F3).
 Web-verified §7 dates (Bezzel 1848, Nauck 1850, Gauss 1850, Lucas 1882, Laquière,
 Tarry 1900–01, Littlewood 1914, taxicab 1917–18, Dijkstra 1972, Wirth 1976
 + 15,720, Appel–Haken 21 June 1976 / 1,936 configurations / 1,200 hours,
