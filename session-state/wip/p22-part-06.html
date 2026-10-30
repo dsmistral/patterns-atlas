@@ -1,0 +1,54 @@
+<section id="the-move-at-work">
+<h2>4 · The move at work</h2>
+<h3>Example 1 · The craftsman's recipe — \(\sqrt{2}\) by averaging, certified</h3>
+<p class="pid">Moves used: <a href="p15-squeeze.html">P15</a> (the ε-trap: digits certified by walls, the currency of every error below), <a href="p21-limit-point.html">P21</a> (the nested rooms: the orbit's own gaps run the machine).</p>
+<p>Name the room. Every sensible guess for \(\sqrt{2}\) lives in \([1, 2]\), and even a silly start walks in: one averaging step lands at or above \(\sqrt{2}\) wherever the start was positive, by the floor below. The map returns into the room, twice over. <strong>The floor:</strong> by AM–GM, \(g(x) = (x + 2/x)/2 \ge \sqrt{x \cdot (2/x)} = \sqrt{2} \ge 1\) — averaging never undershoots. <strong>The ceiling:</strong> \(g(x) - 3/2 = (x-1)(x-2)/(2x) \le 0\) on \([1,2]\), so \(g(x) \le 3/2\). Together: \(g([1,2]) \subseteq [\sqrt{2},\, 1.5]\), a strictly smaller room inside the first — the self-mapping clause, checked, not assumed.</p>
+<p>Now the pull, and it is two lines of class-12 algebra. For any two guesses \(x, y\) in the room,
+\[ g(x) - g(y) \;=\; \frac{x - y}{2} + \frac{2/y - 2/x}{2} \;=\; (x - y)\left(\frac{1}{2} - \frac{1}{xy}\right). \]
+On the room, \(xy \ge 1\), so \(0 \le 1/(xy) \le 1\) and the bracket sits between \(-1/2\) and \(1/2\): \(|g(x) - g(y)| \le \tfrac{1}{2}|x - y|\). The averaging map is a contraction with \(c = 1/2\), and Box P22.A's whole receipt applies: the card settles, at one spot, priced. The price, quoted in advance: \(e_n \le (1/2)^n e_0\) with \(e_0 = 0.4142135624\) — a guaranteed \(\log_{10} 2 = 0.301\) digits per hit, bisection's own rate, P15's currency. The receipt against the run:</p>
+<table class="digit-table">
+<tr><th>Hit</th><th>Receipt's bound \((1/2)^n e_0\)</th><th>Actual error</th><th>Receipt ÷ actual</th></tr>
+<tr><td>1</td><td>0.2071067812</td><td>\(8.5786 \times 10^{-2}\)</td><td>2.4</td></tr>
+<tr><td>2</td><td>0.1035533906</td><td>\(2.4531 \times 10^{-3}\)</td><td>42</td></tr>
+<tr><td>3</td><td>0.0517766953</td><td>\(2.1239 \times 10^{-6}\)</td><td>\(2.4 \times 10^{4}\)</td></tr>
+<tr><td>4</td><td>0.0258883476</td><td>\(1.5947 \times 10^{-12}\)</td><td>\(1.6 \times 10^{10}\)</td></tr>
+<tr><td>5</td><td>0.0129441738</td><td>\(8.99 \times 10^{-25}\)</td><td>\(1.4 \times 10^{22}\)</td></tr>
+</table>
+<p>The receipt never lies, and from hit 3 on it is absurdly pessimistic — the run beats it by a factor that compounds to \(10^{22}\). The bonus has a name, and it is the same identity that answers §2's second question. Compute \(g(x) - \sqrt{2}\) directly: putting the two terms over the common denominator \(2x\) gives
+\[ g(x) - \sqrt{2} \;=\; \frac{x^2 - 2\sqrt{2}\,x + 2}{2x} \;=\; \frac{(x - \sqrt{2})^2}{2x}. \]
+<p>Three consequences, each read straight off the identity. <strong>Impostors are impossible:</strong> a settle point must satisfy \(g(x^*) = x^*\), and for this map that equation is \((x^*)^2 = 2\) — the positive solution is \(\sqrt{2}\) itself, so the catch is the true diagonal, not an impostor the recipe happens to like. <strong>One-sidedness:</strong> the identity is a square over a positive denominator, so every hit after the first overshoots — the card's errors are all overshoots from hit 1 on. <strong>The squaring:</strong> \(e_{n+1} = e_n^2/(2x_n)\) — errors square, then halve — so correct decimals go \(1, 2, 5, 11, 24\), doubling per hit. The receipt priced the whole room's worst pair; the run rides the flattening at the answer, where the pull factor is \(g'(\sqrt{2}) = 0\) — flat, the map's one tangent-horizontal spot, sitting exactly at the catch. That is where the doubling comes from: a floor you can quote before running is worth more than a sharp guess you cannot, and the doubling is the map paying its own bonus.</p>
+<p>And the card is <em>exact</em>, a fact this page will spend twice. Averaging a fraction gives a fraction: from \(x_0 = 1\), every hit is a ratio of whole numbers — the card read as a chain of fractions,</p>
+<table class="digit-table">
+<tr><th>Level</th><th>Hit, exactly</th><th>Residual \(a^2 - 2b^2\)</th></tr>
+<tr><td>0</td><td>1/1</td><td>−1</td></tr>
+<tr><td>1</td><td>3/2</td><td>+1</td></tr>
+<tr><td>2</td><td>17/12</td><td>+1</td></tr>
+<tr><td>3</td><td>577/408</td><td>+1</td></tr>
+<tr><td>4</td><td>665857/470832</td><td>+1</td></tr>
+<tr><td>5</td><td>886731088897/627013566048</td><td>+1</td></tr>
+</table>
+<p>— the Pell chain, each pair satisfying \(a^2 - 2b^2 = \pm 1\), with the residual's <em>square</em> at each step (Exercise 5 proves the identity): the level-0 residual \(-1\) squares to \(+1\) and stays \(+1\) forever. The residual pins the error exactly: \(a/b - \sqrt{2} = (a^2 - 2b^2)/(b^2(a/b + \sqrt{2}))\), so hit 4 is within \(1.6 \times 10^{-12}\) of \(\sqrt{2}\) — eleven decimals, in integers — hit 5 within \(9 \times 10^{-25}\) — twenty-four decimals — and the pattern predicts level 6 at forty-eight, a 25-digit pair verified in the lab by whole-number arithmetic, no floating point anywhere. The doubling, in exact fractions, forever.</p>
+
+<figure id="fig-p22-2">
+<svg viewBox="0 0 500 200" role="img" aria-label="Five horizontal segments, one per level from zero to four, nested onto a dashed vertical line at the square root of two: level zero approaches the dashed line from the left, the only undershoot; levels one and two approach from the right and shrink fast; levels three and four are drawn as dots because their rooms are thinner than a line. A red dot at the bottom marks the catch.">
+<line x1="404.5" y1="20" x2="404.5" y2="190" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="40" y1="55" x2="404.5" y2="55" stroke="#2471a3" stroke-width="2.5"/>
+<line x1="404.5" y1="80" x2="480" y2="80" stroke="#2471a3" stroke-width="2.5"/>
+<line x1="404.5" y1="105" x2="406.7" y2="105" stroke="#2471a3" stroke-width="2.5"/>
+<line x1="404.5" y1="130" x2="404.5" y2="130" stroke="#2471a3" stroke-width="2.5"/>
+<line x1="404.5" y1="155" x2="404.5" y2="155" stroke="#2471a3" stroke-width="2.5"/>
+<circle cx="404.5" cy="180" r="4" fill="#c0392b"/>
+<text x="22" y="59" font-size="11" fill="#333">0</text>
+<text x="22" y="84" font-size="11" fill="#333">1</text>
+<text x="22" y="109" font-size="11" fill="#333">2</text>
+<text x="22" y="134" font-size="11" fill="#333">3</text>
+<text x="22" y="159" font-size="11" fill="#333">4</text>
+<text x="196" y="52" font-size="11" fill="#333">[1, √2]</text>
+<text x="416" y="77" font-size="11" fill="#333">[√2, 3/2]</text>
+<text x="414" y="102" font-size="11" fill="#333">[√2, 17/12]</text>
+<text x="414" y="127" font-size="11" fill="#333">dots: thinner than the line</text>
+<text x="416" y="184" font-size="11" fill="#c0392b">the catch: √2</text>
+</svg>
+<figcaption><strong>Fig P22.2.</strong> The orbit's own rooms, drawn. Level 0's room \([1, \sqrt{2}]\) approaches the dashed catch from the left — the only undershoot, for the AM–GM floor forbids any other. Every later room is one-sided: \([\sqrt{2}, x_n]\), nested, collapsing quadratically — by level 3 the room is \(2.1 \times 10^{-6}\) wide, thinner than the line that draws it, and level 4's is a rounding error of the printer's ink. The certificate's rooms shrink geometrically; the orbit's own shrink faster, and §4's first lesson is that both are honest, at different prices.</figcaption>
+</figure>
+<p>Two prices, paid out loud. First: the receipt quotes 0.301 digits per hit and the run delivers doubling — the gap is real, explained, and never promised; a receipt that promised the doubling would be a receipt the map has not signed. Second: the catch comes with no closed form — the recipe <em>is</em> the formula for \(\sqrt{2}\)'s digits, and P15's walls are still needed to certify each digit the recipe delivers; this page guarantees the pipeline, P15 certifies the product.</p>
