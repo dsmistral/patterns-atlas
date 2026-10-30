@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P21 · Catch the limit point · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P21 · the fourth move of tier 2</p>
+<h1>Catch the limit point</h1>
+<p class="tagline">A target shooter plays forever on a one-metre strip, and the record of hits never repeats a spot. The claim this page teaches sounds like folklore: in a bounded room, endless attempts must crowd — some spot has hits arbitrarily close to it, arbitrarily often, forever. The finite tools of the ladder all decline the job. <a href="p10-pigeonhole.html">P10</a>'s pigeonhole counts boxes, and the boxes run out; <a href="p15-squeeze.html">P15</a>'s walls trap a number between computables, but the number here is a place nobody can name; <a href="p20-polynomial-identity.html">P20</a>'s certificate tests a claim at enough points, and infinity has no enough. The move is the pigeonhole's endless form: halve the room, and one half is hit infinitely often; halve that half, and again — nested intervals closing like a trap on a point that must exist, because the number line has no holes. The catch is a <em>limit point</em>, and the machine that finds it is the engine under three theorems this page proves in full: every bounded endless record crowds somewhere (Bolzano–Weierstrass), a continuous function on a closed bounded room attains its maximum (the extreme value theorem), and a sign change forces a root (the intermediate value theorem — P15's ε-trap, promoted from a computing trick to a theorem with a floor under it). The wreckage gets three exhibits: an open room whose crowd gathers at a point the room does not contain, a record with no room at all, and a staircase whose top step no stair ever delivers.</p>
+</header>
+
+<aside class="onramp"><strong>New word: limit point.</strong> A <em>limit point</em> of a record of hits is a spot where the hits crowd: every window around it, however narrow, is hit infinitely often. The point itself may never be hit — the crowd gathers <em>at</em> it, not necessarily <em>on</em> it — and nothing about the order of the hits matters to the definition, only where they land. <strong>New word: nested intervals.</strong> <em>Nested intervals</em> are a chain of closed intervals, each one inside the last, with lengths shrinking toward zero. They are a trap's blueprint: whatever survives the whole chain is caught, and on the number line exactly one point survives. <strong>New word: subsequence.</strong> A <em>subsequence</em> is a record read with hits skipped: keep some of the hits, in their original order, drop the rest. A subsequence whose hits walk toward one spot is the crowd caught in the act of gathering — and finding one is the same as finding a limit point, a fact this page uses without proof but never needs beyond the window definition.</aside>
