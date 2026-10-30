@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P10 · Force a collision · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P10 · the tenth move of the spine</p>
+<h1>Force a collision</h1>
+<p class="tagline">More objects than boxes, and two of them must share a box — sometimes the strongest way to prove that something exists is to prove that avoiding it is impossible. Aim for the collision; let the count do the finding.</p>
+</header>
+
+<aside class="onramp"><strong>New word: box.</strong> A <em>box</em> is one possible value of a property — the category an object falls into the moment you ask the question that matters: a birth month, a remainder on division by \(4\), a quadrant of a square. Sorting objects into boxes is the whole geometry of this page. <strong>New word: collision.</strong> A <em>collision</em> is two objects assigned the same box: two people with the same birth month, two numbers in the same remainder class. The word is chosen honestly — a collision here is not an accident to avoid but an event you can <em>plan</em>. <strong>New word: pigeonhole.</strong> The old office furniture: a wall of small open drawers, one per addressee, into which the morning's letters were sorted. English named the drawers after the birds, then lent the drawers' name to mathematics; the <em>pigeonhole principle</em> is this page's move, and the furniture is why it is called what it is called.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p>The spine so far: <a href="p01-pin-down-the-problem.html">P01</a> pinned the claim, <a href="p02-small-cases.html">P02</a> built the table, <a href="p03-special-cases.html">P03</a> attacked it with hostile cases, <a href="p04-complete-the-square.html">P04</a> paid for corners, <a href="p05-canonical-form.html">P05</a> dressed every object in its uniform, <a href="p06-compose-identity.html">P06</a> composed stuck objects inside identities, <a href="p07-auxiliary-construction.html">P07</a> built the objects nobody handed us, <a href="p08-symmetry.html">P08</a> divided by the twins, and <a href="p09-invariant.html">P09</a> found the quantity nothing can change. P09's closing pointer promised exactly this page: <em>where the invariant proves that nobody can reach a target, the pigeonhole proves that somebody must — more objects than boxes forces two into one box, and the art is arranging the boxes. Impossibility here; existence there; the spine alternates them deliberately.</em></p>
+<p>Here is the tension this page resolves. P09 built walls: a quantity no move can change, and every target on the wrong side of it is unreachable — by anyone, forever. But mathematics asks the opposite question just as often, and asks it in a form searching cannot answer: not <em>does a pair exist in this set?</em> — a glance — but <em>must a pair exist in every set like this one?</em>, with the choices far too many to visit. Inspection is a detector, not a proof: a claim about every choice cannot be settled by checking choices, and each checked choice carries its own \(\binom{101}{2} = 5{,}050\) pairs to inspect besides. The good news: when objects outnumber boxes, a collision is not likely but <em>forced</em>, and existence arrives with no route found, no construction built, no pair named — the count does the finding. The bad news, stated honestly up front: the guarantee never identifies the pair, and it is only as strong as the boxes are honest — one object with no box, one count that merely matches, one box claiming more than it encodes, and the move fails, some of those without a sound. The art is entirely in the choice of boxes; this page teaches the choosing.</p>
+</section>
+
+<section id="encounter">
+<h2>2 · Meet the problem</h2>
+<p>Gather thirteen people — any thirteen — and I will bet, without asking any of them a single question, that two were born in the same month. The bet cannot lose. There are twelve months; the thirteenth guest must double somebody's month. Notice what did the work: nobody searched, nobody compared, nobody constructed — the room ran out of months before it ran out of people.</p>
+<p>Now the number-flavoured version, and this one you should genuinely try to defeat — P02's instinct, and the right one. The numbers \(1\) through \(8\); choose any five. <strong>The claim: two of your five add up to \(9\).</strong> Try: \(1, 2, 3, 4, 5\) — and \(4 + 5 = 9\). Try again, hostile now: dodge every pair that sums to \(9\). The full list of such pairs is short — \(\{1,8\}\), \(\{2,7\}\), \(\{3,6\}\), \(\{4,5\}\) — four pairs, and every number from \(1\) to \(8\) lives in exactly one of them. To dodge \(9\) entirely, your numbers must take at most one member from each pair: at most four numbers. You were asked for five. The claim was never in doubt; the count was against you from before you chose.</p>
+<p class="eq">\[5 \text{ chosen numbers} \;>\; 4 \text{ pairs} \quad\Longrightarrow\quad \text{two of yours share a pair} \quad\Longrightarrow\quad \text{they sum to } 9.\]</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 170" role="img" aria-label="Fig P10.1 — the four sum-9 pairs drawn as boxes with two slots each; the chosen numbers 1, 2, 4, 6, 8 fill five slots, and the pair-box 1-8 receives two of them — the forced collision">
+<rect x="10" y="52" width="70" height="78" rx="6" fill="#eef1f6" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3"/>
+<rect x="90" y="52" width="70" height="78" rx="6" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<rect x="170" y="52" width="70" height="78" rx="6" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<rect x="250" y="52" width="70" height="78" rx="6" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<circle cx="30" cy="92" r="13" fill="#3574d4"/>
+<text x="30" y="96" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+<circle cx="60" cy="92" r="13" fill="#3574d4"/>
+<text x="60" y="96" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">8</text>
+<circle cx="110" cy="92" r="13" fill="#3574d4"/>
+<text x="110" y="96" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+<circle cx="140" cy="92" r="13" fill="#ffffff" stroke="#b9b9b9" stroke-width="1.2"/>
+<text x="140" y="96" font-size="12" text-anchor="middle" fill="#555f6e">7</text>
+<circle cx="190" cy="92" r="13" fill="#ffffff" stroke="#b9b9b9" stroke-width="1.2"/>
+<text x="190" y="96" font-size="12" text-anchor="middle" fill="#555f6e">3</text>
+<circle cx="220" cy="92" r="13" fill="#3574d4"/>
+<text x="220" y="96" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">6</text>
+<circle cx="270" cy="92" r="13" fill="#3574d4"/>
+<text x="270" y="96" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">4</text>
+<circle cx="300" cy="92" r="13" fill="#ffffff" stroke="#b9b9b9" stroke-width="1.2"/>
+<text x="300" y="96" font-size="12" text-anchor="middle" fill="#555f6e">5</text>
+<text x="45" y="147" font-size="11" text-anchor="middle" fill="#555f6e">{1, 8}</text>
+<text x="125" y="147" font-size="11" text-anchor="middle" fill="#555f6e">{2, 7}</text>
+<text x="205" y="147" font-size="11" text-anchor="middle" fill="#555f6e">{3, 6}</text>
+<text x="285" y="147" font-size="11" text-anchor="middle" fill="#555f6e">{4, 5}</text>
+<text x="45" y="30" font-size="11" text-anchor="middle" fill="#c0392b">two in one box</text>
+<text x="45" y="44" font-size="11" text-anchor="middle" fill="#c0392b">— they sum to 9</text>
+</svg>
+<figcaption><strong>Fig P10.1.</strong> The sum-\(9\) boxes: four pairs, every number in exactly one. Five chosen numbers fill five slots, and with only four boxes one box must receive two — here \(\{1, 8\}\) — and the receiving pair sums to \(9\). The count did the finding; nobody inspected a single pair.</figcaption>
+</figure>
+<p>Check the edges — P03's discipline, aimed at our own argument. Four numbers <em>can</em> dodge: \(1, 2, 3, 4\), one member from each pair, no sum-\(9\) pair among them. So five is exactly the threshold, with no slack. And the census agrees: there are \(\binom{8}{5} = 56\) ways to choose five numbers from eight, and every single one of the fifty-six contains a pair summing to \(9\) — all \(56\), checked, not asserted. Same for the months: twelve people can hold twelve distinct months; thirteen cannot hold thirteen.</p>
+<p>And the honest fine print, paid up front: the argument never tells you <em>which</em> pair. It guarantees the pair exists the moment your fifth number lands; finding it still takes a glance. Existence without identification — that is the shape of this move, and §5 will charge it full price.</p>
+</section>
+
+<section id="name">
+<h2>3 · Name the move</h2>
+<p>What the two rooms taught, stated once and for all.</p>
+<div class="pattern-box" id="box-p10">
+<p><strong>Pattern P10 — Force a collision.</strong> When a claim says that two of your objects must share a property — and the property takes only a few values — do not search and do not construct: count. (1) Name the boxes: the values the property can take, each a category that objects fall into. (2) Assign every object to a box, with the assignment covering every object and leaving nothing outside. (3) If the objects outnumber the boxes, some box holds two — a collision — and the shared box is exactly the shared property. Existence arrives with no route found, no pair named, no case checked: the collision is forced by arithmetic alone. The sharpened form runs the count further ahead: \(n+1\) objects in \(n\) boxes force a shared box; \(kn+1\) objects in \(n\) boxes force some box to hold at least \(k+1\).</p>
+<p class="words">Or, in words: more objects than boxes, so two objects must land together — and the whole art is that <em>you</em> draw the boxes. A collision proves only what its box encodes: choose the boxes so that sharing one means exactly the conclusion you owe, and the collision <em>is</em> the proof. The move never identifies the pair, never counts the pairs, never ranks the boxes — it guarantees that avoiding a collision is impossible, and stops there, honestly.</p>
+</div>
+<div class="pattern-box" id="box-p10a">
+<p><strong>Box P10.A — the three demands, and what breaks when each fails.</strong></p>
+<ol>
+<li><strong>Every object must land in a box — covered, nothing outside.</strong> Every person has a birth month; every number from \(1\) to \(8\) lives in a sum-\(9\) pair. <em>What breaks:</em> the phantom box — one object the assignment quietly misses, and the count weakens from under you; block 5's first exhibit loses a whole claim to a single unboxed number.</li>
+<li><strong>The count must honestly exceed.</strong> Thirteen people against twelve months: \(13 > 12\), strictly, with the edges named. <em>What breaks:</em> the threshold miss — twelve is not thirteen, and a count that merely <em>matches</em> forces nothing (block 5's second exhibit); the edges count too, and a year holds \(365\) days, or \(366\) with February \(29\)th.</li>
+<li><strong>The collision must be the conclusion.</strong> Sharing a box must mean exactly the property claimed — no more, no less. <em>What breaks:</em> the wrong conclusion — two points sharing a quadrant sit within the quadrant's diagonal, not within any smaller distance you were promised (block 5's third exhibit): the box encodes what it encodes, and not one unit more.</li>
+</ol>
+</div>
+<div class="pattern-box" id="box-p10b">
+<p><strong>Box P10.B — the working catalogue of school pigeonholes, with the three-key diagnosis.</strong></p>
+<table>
+<thead><tr><th>Boxes</th><th>What the box records</th><th>Where it bites</th></tr></thead>
+<tbody>
+<tr><td>residue classes</td><td>the class of an integer mod \(n\)</td><td>\(n+1\) integers force two whose difference is a multiple of \(n\) — <a href="b02-congruence-classes.html">B02</a>'s classes; Exercise 2</td></tr>
+<tr><td>parity</td><td>odd or even</td><td>two boxes: any three integers force two of the same parity</td></tr>
+<tr><td>pair-sums</td><td>the pair \(\{k,\, s-k\}\) summing to \(s\)</td><td>chosen numbers against a target sum — §2's game</td></tr>
+<tr><td>calendars</td><td>birth months; days of the year</td><td>rooms of people; mind the \(366\)</td></tr>
+<tr><td>geometric pieces</td><td>quadrants, sub-squares, intervals</td><td>points crammed into a bounded region — Example 3</td></tr>
+<tr><td>odd parts</td><td>write \(m = 2^a q\) with \(q\) odd; the box is \(q\)</td><td>chosen numbers and divisibility — Example 2</td></tr>
+<tr><td>bounded ranges</td><td>hair counts, sums inside a window</td><td>large populations against few possible values</td></tr>
+</tbody>
+</table>
+<p><strong>The three-key diagnosis</strong> — when to reach for this move. <em>Claim type:</em> an existence — "there are two", "some pair must" — phrased over a whole family of choices at once. <em>Problem shape:</em> many objects; a property with visibly few values; a search space far too large to inspect (the pairs alone can run to thousands). <em>Tools at hand:</em> a clean assignment from objects into a small, honest set of boxes. If the claim asks <em>which</em> pair, the count alone never answers; if it asks <em>whether</em> a pair must exist — on every choice at once — it is almost nobody's page but this one.</p>
+</div>
+</section>
+
+<section id="exemplars">
+<h2>4 · The move at work</h2>
+<p>Three worked examples, three domains, one pose: the count that forces a pair to exist. In each, the boxes are the entire art — the arithmetic after them is one line.</p>
+<h3>Example 1 (numbers) — the fifty-one that must touch</h3>
+<p>Choose any \(51\) integers from \(1\) to \(100\). <strong>The claim: two of them are consecutive — and therefore two of them are coprime.</strong></p>
+<p>The boxes first. Pair the numbers off as \(\{1,2\}, \{3,4\}, \ldots, \{99,100\}\) — fifty pairs, and every integer from \(1\) to \(100\) lives in exactly one of them. Your \(51\) chosen numbers land in these fifty boxes, and \(51 > 50\): some box holds two of your numbers, and the two numbers in one pair-box are consecutive. That they are then also coprime is one line of Euclid: any number dividing both \(n\) and \(n+1\) divides their difference, which is \(1\).</p>
+<p>Sharpness, and the census. The fifty odd numbers \(1, 3, \ldots, 99\) take exactly one member from each box — fifty numbers, no consecutive pair anywhere — so \(51\) is exactly the threshold: one number less and the move falls silent. The census backs the claim the way §2's did: \(300\) random fifty-one-number choices were generated and checked, and every single one contained a consecutive pair — a detector's reassurance on top of a proof that needed none.</p>
+<p><span class="pid">Moves used: P10 (the fifty pair-boxes), P02 (the small tries that showed the wall's shape before it had a name).</span></p>
+<h3>Example 2 (numbers) — the hundred and one that must divide</h3>
+<p>Choose any \(101\) integers from \(1\) to \(200\). <strong>The claim: one of them divides another.</strong> This one looks unfair — the claim ranges over every possible choice at once, and no inspection of pairs settles a claim about every choice. It is settled in one count.</p>
+<p>The boxes come from <a href="p05-canonical-form.html">P05</a>'s wardrobe. Dress each integer in its canonical uniform by dividing out every factor of \(2\): write \(m = 2^a q\) with \(q\) odd. The odd part \(q\) is the box, and the odd parts available between \(1\) and \(200\) are \(1, 3, 5, \ldots, 199\) — one hundred boxes, every integer in exactly one. Your \(101\) numbers land in the hundred boxes and \(101 > 100\): two of them share an odd part, so they are \(2^a q\) and \(2^b q\), and whichever carries the smaller power of \(2\) divides the other. One of your numbers divides another, and we still do not know which — the count never says.</p>
+<p>Sharpness — and the extremal example is the claim's own mirror. The hundred numbers \(101, 102, \ldots, 200\) evade divisibility entirely: for \(x &lt; y\) both above \(100\), doubling \(x\) overshoots \(200\), so \(x\) cannot divide \(y\). A hundred numbers, no divisibility pair — so \(101\) is exactly the threshold, and the evasion is not a freak but the <em>largest</em> evasion there is: the argument itself proves no hundred-and-one can match it. Proof and boundary, from one box set. The census again agrees: \(200\) random hundred-and-one-number choices were checked, and every one contained a dividing pair; the top hundred contains none — all \(\binom{100}{2} = 4{,}950\) of its pairs inspected, none dividing.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 152" role="img" aria-label="Fig P10.2 — three doubling chains starting at odd numbers 1, 3 and 5: each integer from 1 to 200 lives on exactly one chain, the chains are the boxes, and two chosen numbers on the same chain — here 12 and 96 on the chain of odd part 3 — stand in a divisibility relation">
+<line x1="35" y1="40" x2="59" y2="40" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="79" y1="40" x2="103" y2="40" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="123" y1="40" x2="147" y2="40" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="167" y1="40" x2="191" y2="40" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="211" y1="40" x2="235" y2="40" stroke="#b9b9b9" stroke-width="1.4"/>
+<circle cx="25" cy="40" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="25" y="44" font-size="11" text-anchor="middle" fill="#303743">1</text>
+<circle cx="69" cy="40" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="69" y="44" font-size="11" text-anchor="middle" fill="#303743">2</text>
+<circle cx="113" cy="40" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="113" y="44" font-size="11" text-anchor="middle" fill="#303743">4</text>
+<circle cx="157" cy="40" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="157" y="44" font-size="11" text-anchor="middle" fill="#303743">8</text>
+<circle cx="201" cy="40" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="201" y="44" font-size="11" text-anchor="middle" fill="#303743">16</text>
+<circle cx="245" cy="40" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="245" y="44" font-size="11" text-anchor="middle" fill="#303743">32</text>
+<text x="285" y="44" font-size="11" text-anchor="middle" fill="#555f6e">⋯ 128</text>
+<text x="47" y="28" font-size="10" text-anchor="middle" fill="#555f6e">× 2</text>
+<line x1="32" y1="88" x2="58" y2="88" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="78" y1="88" x2="104" y2="88" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="124" y1="88" x2="150" y2="88" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="170" y1="88" x2="196" y2="88" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="216" y1="88" x2="242" y2="88" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="262" y1="88" x2="288" y2="88" stroke="#b9b9b9" stroke-width="1.4"/>
+<circle cx="22" cy="88" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="22" y="92" font-size="11" text-anchor="middle" fill="#303743">3</text>
+<circle cx="68" cy="88" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="68" y="92" font-size="11" text-anchor="middle" fill="#303743">6</text>
+<circle cx="114" cy="88" r="11" fill="#3574d4"/>
+<text x="114" y="92" font-size="11" font-weight="bold" text-anchor="middle" fill="#ffffff">12</text>
+<circle cx="160" cy="88" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="160" y="92" font-size="11" text-anchor="middle" fill="#303743">24</text>
+<circle cx="206" cy="88" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="206" y="92" font-size="11" text-anchor="middle" fill="#303743">48</text>
+<circle cx="252" cy="88" r="11" fill="#3574d4"/>
+<text x="252" y="92" font-size="11" font-weight="bold" text-anchor="middle" fill="#ffffff">96</text>
+<circle cx="298" cy="88" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="298" y="92" font-size="11" text-anchor="middle" fill="#303743">192</text>
+<text x="183" y="66" font-size="11" text-anchor="middle" fill="#3574d4">12 divides 96 — same chain</text>
+<line x1="32" y1="136" x2="58" y2="136" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="78" y1="136" x2="104" y2="136" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="124" y1="136" x2="150" y2="136" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="170" y1="136" x2="196" y2="136" stroke="#b9b9b9" stroke-width="1.4"/>
+<line x1="216" y1="136" x2="242" y2="136" stroke="#b9b9b9" stroke-width="1.4"/>
+<circle cx="25" cy="136" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="25" y="140" font-size="11" text-anchor="middle" fill="#303743">5</text>
+<circle cx="71" cy="136" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="71" y="140" font-size="11" text-anchor="middle" fill="#303743">10</text>
+<circle cx="117" cy="136" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="117" y="140" font-size="11" text-anchor="middle" fill="#303743">20</text>
+<circle cx="163" cy="136" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="163" y="140" font-size="11" text-anchor="middle" fill="#303743">40</text>
+<circle cx="209" cy="136" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="209" y="140" font-size="11" text-anchor="middle" fill="#303743">80</text>
+<circle cx="255" cy="136" r="11" fill="#eef1f6" stroke="#555f6e" stroke-width="1.2"/>
+<text x="255" y="140" font-size="11" text-anchor="middle" fill="#303743">160</text>
+</svg>
+<figcaption><strong>Fig P10.2.</strong> The doubling chains: every integer from \(1\) to \(200\) lives on exactly one chain — start at its odd part and keep doubling. One chain per odd part, one hundred chains, so the chains are the boxes of Example 2. Two chosen numbers on the same chain stand in a divisibility relation — here \(12\) and \(96\), both on the chain of odd part \(3\).</figcaption>
+</figure>
+<p><span class="pid">Moves used: P10 (the hundred odd-part boxes), P05 (the odd part as canonical form — strip the factors of \(2\)), P03 (the extremal top hundred as the control that certifies the threshold).</span></p>
+<h3>Example 3 (geometry) — the five points that must crowd</h3>
+<p>Drop five points anywhere inside a \(2 \times 2\) square — two metres on a side, if you want units. <strong>The claim: two of the points sit within \(\sqrt{2}\) metres of each other — about \(1.41\) metres.</strong></p>
+<p>The boxes are drawn on the floor. Cut the square into its four \(1 \times 1\) quadrants; every point lands in one; \(5 &gt; 4\): two points share a quadrant. And two points inside the same \(1 \times 1\) quadrant are at most the quadrant's own diagonal apart — the diagonal of a unit square is \(\sqrt{2}\) — and that is the whole bound.</p>
+<p>Where the count's power ends, honestly. With only four points, one can sit in each quadrant — say at the four quadrant centres, which are exactly one metre apart at the closest — and then the move is silent: no collision is forced, and whether some pair is still close is a question this page cannot touch. Five is the threshold for no deeper reason than that four boxes exist; the boxes set the price, and the price is exact. The census agrees: \(300\) random five-point placements were checked — every one had two points in one quadrant, and no same-quadrant pair ever lay farther than the quadrant's diagonal.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Fig P10.3 — a 2 by 2 metre square cut into four 1 by 1 quadrants; five points land in it, two of them sharing the top-right quadrant, and the shared quadrant's diagonal bounds their distance by √2">
+<rect x="70" y="20" width="200" height="200" fill="#eef1f6" stroke="#555f6e" stroke-width="1.6"/>
+<line x1="170" y1="20" x2="170" y2="220" stroke="#b9b9b9" stroke-width="1.2"/>
+<line x1="70" y1="120" x2="270" y2="120" stroke="#b9b9b9" stroke-width="1.2"/>
+<line x1="170" y1="20" x2="270" y2="120" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4 3"/>
+<circle cx="120" cy="70" r="6" fill="#555f6e"/>
+<circle cx="120" cy="170" r="6" fill="#555f6e"/>
+<circle cx="220" cy="170" r="6" fill="#555f6e"/>
+<circle cx="195" cy="60" r="6" fill="#3574d4"/>
+<circle cx="245" cy="95" r="6" fill="#3574d4"/>
+<line x1="195" y1="60" x2="245" y2="95" stroke="#3574d4" stroke-width="1.6"/>
+<text x="233" y="52" font-size="11" text-anchor="middle" fill="#303743">two share this quadrant</text>
+<text x="216" y="135" font-size="11" text-anchor="middle" fill="#c0392b">quadrant diagonal √2</text>
+<text x="170" y="242" font-size="11" text-anchor="middle" fill="#555f6e">a 2 × 2 square, four 1 × 1 quadrants, five points</text>
+</svg>
+<figcaption><strong>Fig P10.3.</strong> Five points, four quadrants: two must share one, and the farthest apart they can then lie is the shared quadrant's own diagonal, \(\sqrt{2} \approx 1.41\) metres. The bound is the box's shape, nothing deeper — redraw the boxes and the price changes with them.</figcaption>
+</figure>
+<p><span class="pid">Moves used: P10 (the four quadrants), P03 (the four-centre control that shows exactly where the forcing stops).</span></p>
+</section>
+
+<section id="fails">
+<h2>5 · When the move fails</h2>
+<p>P03's discipline applies to the move itself: it fails, in five named shapes, and naming the shape is the diagnosis. The first three fool you on the proof side — the boxes are not what you think. The last two fool you on the claim side — the count was never the tool the grammar asked for. Every exhibit below is checked, not asserted: each one was run.</p>
+<p><strong>The phantom box.</strong> The claim: "any five numbers from \(1\) to \(9\) contain two summing to \(10\)." The pairs that sum to \(10\) are \(\{1,9\}\), \(\{2,8\}\), \(\{3,7\}\), \(\{4,6\}\) — four boxes, and the number \(5\) belongs to none of them: an object with no box. The counterexample is waiting: \(1, 2, 3, 4, 5\) — five numbers, and the largest pair-sum in sight is \(4 + 5 = 9\). The count "five against four" was silently wrong, because the unboxed \(5\) lets a fifth number in without touching any pair: the honest capacity is one per box plus the free agent — five evaders — so the threshold is six, not five. Repaired, the claim holds and the census confirms it: all \(\binom{9}{6} = 84\) six-number choices were checked, and every one contains a pair summing to \(10\). <em>Mitigation:</em> audit the assignment object by object and ask "what escapes?" — Box P10.A's first demand. <em>Price:</em> a phantom hides inside the very numbers you were proud of choosing, and the claim dies without a sound. <em>Default:</em> every object in a box, or no claim at all.</p>
+<p><strong>The threshold miss.</strong> "Twelve people in a room, so two share a birth month" — no: a room of twelve can hold one person per month, all twelve distinct, no collision anywhere. The count must <em>exceed</em>, not match: thirteen is the number, and the difference between twelve and thirteen is the whole move. And honest counting minds the edges: a year of days holds \(365\), or \(366\) with February \(29\)th, so \(366\) people force a shared birthday in a common year but not in a leap one — the honest forcing number is \(367\). <em>Mitigation:</em> restate the count as an explicit inequality — objects \(&gt;\) boxes — and check both sides, edges included. <em>Price:</em> off-by-one is invisible in prose and fatal in arithmetic. <em>Default:</em> strictly more, with every edge named.</p>
+<p><strong>The wrong conclusion.</strong> Five points in the \(2 \times 2\) square force two into one quadrant — true, and Example 3's argument. "So two points are within one metre of each other" — false as a conclusion: two points in the same \(1 \times 1\) quadrant can sit \(\sqrt{2} \approx 1.41\) metres apart, at opposite corners. The box encodes <em>same quadrant</em>; the conclusion wanted <em>close by</em>, and the quadrant's diagonal is the most the box can certify. The repair redraws the boxes so that the encoded meaning matches the wanted one: nine sub-squares of side \(2/3\) and ten points force two into one, and the sub-square's diagonal is \(2\sqrt{2}/3 \approx 0.94\) metres — under the metre, as claimed. <em>Mitigation:</em> write down exactly what a shared box implies — the box's diameter, its range, its label — and compare it with the conclusion you owe. <em>Price:</em> a true collision proving the wrong claim feels exactly like progress. <em>Default:</em> collision <em>is</em> the conclusion, or redraw the boxes.</p>
+<p><strong>The silent move.</strong> A class of forty students: do two share a birthday? The count says nothing — \(40 &lt; 365\), no collision forced, and none refuted either. Silence is not a "no": the move does not say the birthdays are distinct; it says nothing at all. Misreporting that silence as a negative — "the pigeonhole says no shared birthday" — is this move's most common public misuse. What the class actually wants to know is how <em>likely</em> a shared birthday is, and likelihood is a different page's currency: counting and comparing outcomes is <a href="p19-count-outcomes.html">P19</a>'s move, and Exercise 5 runs the full reconciliation. <em>Mitigation:</em> when boxes outnumber objects, do not stretch the count — ask the question you actually meant, and check whose page answers it. <em>Price:</em> silence costs nothing, but quoting it as a verdict costs the argument's honesty. <em>Default:</em> count short, move silent; probability questions route to P19.</p>
+<p><strong>The unlabelled pair.</strong> Even at full success the move hands you a guarantee, not a pair: "two of your fifty-one numbers are consecutive" — which two? The argument cannot say; it never looked. Finding the pair still takes a search (a cheap one, once the count promises treasure, but a search). Existence without identification is the move's nature, not a defect — but a problem that asks <em>which</em> pair needs this page's proof <em>plus</em> P02's search, and billing the proof as the finding is the trap. <em>Mitigation:</em> read the claim's grammar before choosing the tool: "there exist two" is this page; "find the two" is this page and then work. <em>Price:</em> the guarantee arrives with no coordinates attached, every time. <em>Default:</em> prove existence by counting, identify by searching — and never bill the first as the second.</p>
+<aside class="warn">
+<p><strong>Scope, honestly.</strong> This move proves that collisions are unavoidable. It does not identify the colliding pair, does not count how many collisions, does not rank the boxes, does not certify any pair you already chose by hand — and it says nothing at all when the boxes outnumber the objects. And it is only as good as its boxes: one uncovered object (the phantom), one inflated or merely matched count (the threshold miss), one over-strong conclusion (the wrong claim), one misread silence (the birthday class), one confused grammar (the unlabelled pair), and the move fails — some of these without any warning. The audit list in Box P10.A is short for a reason: each line is one of these deaths.</p>
+</aside>
+</section>
+
+<section id="next">
+<h2>6 · What to try next</h2>
+<p>The collision is forced — or the count fell short. This page's endings are cleaner than P09's: the count either exceeded or it did not, and each ending has a door.</p>
+<p>The routes out of this page, each with its own door:</p>
+<p><strong>P11 — prove by contradiction.</strong> Look back at what §2 actually argued: suppose no two of your five numbers share a pair; then the four pairs hold at most four of your numbers; but you chose five — contradiction. The pigeonhole argument is a proof by contradiction in miniature, and P11 — the next page of the spine — names the general shape and trains it on purpose.</p>
+<p><strong>P12 — name the obstruction.</strong> The mirror door: when the count falls short, the shortfall itself is information. The claim dies by a counted margin — twelve is not thirteen — and promoting that margin into a named obstruction, a number that blocks a whole family of claims, is P12's first move.</p>
+<p><strong>P14 — the diagonal argument.</strong> The pigeonhole at countable scale: infinitely many boxes labelled \(1, 2, 3, \ldots\), and the art of building an object that sits in none of them. The diagonal is this page's mirror image — a guaranteed <em>miss</em>, engineered on purpose — and it rewires what "more objects than boxes" means when neither number is finite.</p>
+<p><strong>P19 — count the outcomes.</strong> The silent move's heir: when the count does not force a collision, a random choice still lands somewhere, and weighing the outcomes turns "must exist" into "almost surely exists". Erdős built a style of mathematics on that turn, and P19 opens it — the birthday class of §5 is its front door.</p>
+<p><strong>M04 — Ramsey's \(R(3,3) = 6\).</strong> The party generalization: six people, acquaintance and strangeness, and the pigeonhole doing the heavy lifting not once but twice inside one proof. M04 runs this page and P08 together, at a party, and the answer is six.</p>
+<aside class="warn">
+<p><strong>Deferred honestly, with reasons.</strong> Two deep relatives of this move wait up the ladder, and both need pages you have not climbed. <em>Shearer entropy counting</em> (P59) is the pigeonhole with overlapping boxes, counted honestly: when boxes share objects, the naive count lies, and entropy weighs the overlap — it needs the outcome-counting of P19 first. <em>The optimized sieve</em> (P39) carries this move into number-theoretic territory where the boxes are residue classes and the objects are primes — it needs the localize-at-a-prime move (P30) first. Both are this page's descendants; neither is reachable yet, and pretending otherwise would violate the ladder's one law.</p>
+</aside>
+</section>
+<section id="lineage">
+<h2>7 · Lineage</h2>
+<aside class="history">
+<p>The move has a name, a date, and a piece of furniture. Peter Gustav Lejeune Dirichlet stated it in 1834 as the <em>Schubfachprinzip</em> — the drawer principle — and used it the way working mathematicians still do, in number theory: his approximation theorem guarantees a fraction \(p/q\) within \(1/q^2\) of any real number, by boxing the fractional parts of \(\alpha, 2\alpha, \ldots, N\alpha\) and forcing two of them close together. The English name came from the office, not the birds: a "pigeonhole" was the letter-sorting drawer of a desk, and mathematics adopted the furniture along with the principle. Frank Ramsey's 1930 theorem made the move recursive — parties where the objects are people and the boxes are acquaintance patterns — and grew into the field M04 surveys; Paul Erdős's probabilistic method turned the count from a guarantee into an odds-maker, which is P19's territory. None of this history is load-bearing here — but when a proof says "two of them must", it is running the tenth move of the spine.</p>
+</aside>
+</section>
+
+<section id="exercises">
+<h2>8 · Exercises</h2>
+<h3>Exercise 1 ●○○ — the drawer in the dark</h3>
+<p>A drawer holds \(5\) blue socks, \(4\) black, and \(3\) grey — loose, unsorted, and the room is dark. <strong>(a)</strong> How many socks must you take out, sight unseen, to be <em>certain</em> of a matched pair — any colour? <strong>(b)</strong> How many to be certain of a matched <em>blue</em> pair?</p>
+<details><summary>Hint</summary>
+<p>The worst case is the pigeonhole backwards: "no matched pair yet" means at most one sock per box. In (a), what are the boxes? In (b), what can the drawer withhold entirely, and for how long?</p>
+</details>
+<details><summary>Worked answer</summary>
+<p><strong>(a)</strong> The boxes are the three colours, and the worst case draws one sock of each — three draws, still no pair. The fourth draw lands somewhere, and wherever it lands it doubles a colour: \(4\). <strong>(b)</strong> The drawer can withhold blue entirely: all \(4\) black plus all \(3\) grey is \(7\) draws, none of them blue, still no blue pair. The eighth and ninth draws are blue — the ninth completes the pair: \(9\). The lesson is the contrapositive pose: "no collision yet" is a census of at most one per box, and the version of events that fights you hardest is exactly that census — the worst case <em>is</em> the box count.</p>
+</details>
+<h3>Exercise 2 ●●○ — five marks, one shared remainder</h3>
+<p>Prove that among any five integers there are two whose difference is divisible by \(4\). Then show that four integers can evade — and name the boxes that make the evasion visible.</p>
+<details><summary>Hint</summary>
+<p><a href="b02-congruence-classes.html">B02</a> built them for you: how many classes does division by \(4\) leave?</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>The boxes are the four residue classes of <a href="b02-congruence-classes.html">B02</a>: every integer sits in exactly one class — \(0, 1, 2\), or \(3 \pmod 4\). Five integers, four classes, \(5 &gt; 4\): two share a class, and two integers in the same class differ by a multiple of \(4\), because that is what a shared class <em>is</em>. The evasion at four: \(0, 1, 2, 3\), one per class, whose pairwise differences are \(1, 2\), and \(3\), none divisible by \(4\). Five is exact, and the classes are the whole proof: the box is the remainder, and the collision is the shared one.</p>
+</details>
+<h3>Exercise 3 ●●● — the party you cannot distinguish</h3>
+<p>At a party of six people — acquaintance mutual, as at real parties — prove that two people know exactly the same number of the other five. The naive count matches instead of exceeding; the real work is repairing it.</p>
+<details><summary>Hint</summary>
+<p>Six people, and the possible acquaintance counts run from \(0\) to \(5\): six boxes for six objects, which forces nothing. Can an actual party hold both the person who knows everybody and the person who knows nobody? What does that leave in the box census?</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>The six counts \(0, 1, 2, 3, 4, 5\) are six boxes, so the naive census reads six objects into six boxes — no collision forced, and if that were the end, the claim would be false. It is not the end, because the boxes \(0\) and \(5\) cannot both be occupied at a real party: whoever knows all five others is known by everyone, so nobody at that party knows nobody — the \(0\)-box is empty whenever the \(5\)-box is full. Every actual party therefore spreads six people over at most five occupied boxes, and \(6 &gt; 5\): two people share a count. The census of all \(2^{15} = 32{,}768\) acquaintance patterns on six labelled people confirms it — every single pattern has two people with equal counts, and not one pattern contains both a \(0\) and a \(5\). The deep end of this party question — not just equal counts, but forced cliques of friends or of strangers — is Ramsey's \(R(3,3)\), and it is <a href="m04-ramsey-3-3.html">M04</a>'s territory.</p>
+</details>
+<h3>Exercise 4 ◆ — referee the three students</h3>
+<p>The claim on trial: <em>"any six integers chosen from \(1\) to \(10\) include two differing by exactly \(4\)."</em> Three students hand in verdicts. <strong>Student A:</strong> "The pairs \(\{1,5\}, \{2,6\}, \ldots, \{6,10\}\) are six boxes; six numbers land in six boxes, so by P10 a collision — a pair differing by \(4\) — is forced." <strong>Student B:</strong> "The claim is false: \(\{1, 2, 3, 4, 9, 10\}\) evades — check every pair." <strong>Student C:</strong> "True by the remainder argument: five integers already force two into one class mod \(4\), so their difference is a multiple of \(4\); with six integers, a pair differing by exactly \(4\) is even more forced." Referee all three: verdicts, and the reason each passes or fails.</p>
+<details><summary>Hint</summary>
+<p>For A, three separate audits: do six objects exceed six boxes? do the "boxes" even partition the objects? and does a filled box mean what A claims it means? For B: check the counterexample, all fifteen pairs. For C: read the box's label again — what exactly does a shared residue class certify?</p>
+</details>
+<details><summary>Worked answer</summary>
+<p><strong>Student A: rejected, three ways at once.</strong> Six objects into six boxes do not exceed — P10 needs strictly more — so no collision is forced at all. Worse, the "boxes" overlap: the number \(5\) sits in both \(\{1,5\}\) and \(\{5,9\}\), so they are not boxes in this move's sense. And even a filled pair-box would certify "differs by \(4\)" only for the pairs listed — a claim A never showed was forced. <strong>Student B: upheld, and decisive.</strong> The set \(\{1, 2, 3, 4, 9, 10\}\) has no pair differing by \(4\) — its pairwise differences are \(1, 2, 3, 5, 6, 7, 8\), and \(9\) — and one counterexample ends a "must" claim forever: that is <a href="p03-special-cases.html">P03</a>'s discipline. The census agrees: exactly \(4\) of the \(210\) six-number choices from \(1\) to \(10\) evade the difference-\(4\) pair. Because the claim is false, every "proof" of it was broken from the first word. <strong>Student C: rejected — the smuggled conclusion.</strong> The mod-\(4\) argument is genuine (Exercise 2 proved it), but it certifies a difference that is a <em>multiple</em> of \(4\): \(1\) and \(9\) share a class and differ by \(8\), not \(4\). C proved "divisible by \(4\)" and read it out as "equal to \(4\)" — a box that certifies one thing billed as certifying another, which is §5's wrong-conclusion failure wearing a proof's clothes. The referee move is P03's, aimed at counting arguments; the honest verdicts come from auditing the count, the boxes, and the label — in that order.</p>
+</details>
+<h3>Exercise 5 ◐ — the birthday census</h3>
+<p>How large must a class become before a shared birthday is more likely than not? Compute, for \(n = 20, 21, \ldots, 30\) people — birthdays independent, uniformly over \(365\) days, no leap years — the probability that all \(n\) birthdays are distinct, and find where the probability of a shared birthday first exceeds \(\tfrac{1}{2}\). Then the honest reconciliation: at that class size, what does this page's move actually say?</p>
+<details><summary>Hint</summary>
+<p>Count the all-distinct outcomes: each arrival must dodge every birthday already in the room — \(365\) days free for the first, \(364\) for the second, and so on.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p class="eq">\[P(\text{all distinct}) \;=\; \frac{365}{365} \cdot \frac{364}{365} \cdots \frac{365-n+1}{365}.\]</p>
+<p>Each new person must land on a still-empty day, and the days run out faster than intuition expects. The census: at \(22\) people the shared-birthday probability is about \(0.4757\); at \(23\) it crosses one half, at about \(0.5073\). Twenty-three is the famous threshold — smaller than most people guess, which is why the surprise is famous. And the reconciliation is this exercise's real point: with \(23\) people and \(365\) days, \(23 &lt; 365\) by a factor of sixteen — P10 says nothing at all. No collision is forced at twenty-three; a shared birthday is <em>likely</em>, not <em>inevitable</em>, and those two words live on different pages of the Atlas. Forcing needs \(366\) people — or \(367\), with February \(29\)th named and honoured. Probability — likelihood by counting outcomes — is <a href="p19-count-outcomes.html">P19</a>'s move, and this census is its front door: the same birthday question, two different doors, and the grammar of the claim decides which one answers.</p>
+</details>
+</section>
+
+<footer>
+<p><a href="index.html">Return to the index</a> · Next move: <a href="p11-contradiction.html">P11 · Prove by contradiction</a></p>
+</footer>
+</body>
+</html>
