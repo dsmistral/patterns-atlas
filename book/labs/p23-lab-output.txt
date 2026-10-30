@@ -1,0 +1,95 @@
+P23 lab output — book/labs/p23-lab.js against book/p23-interpolate.html
+All 54 checks run against the frozen page. Exact integer/fraction arithmetic for
+every integer or fraction the page prints; Simpson quadrature only for the gamma
+claims (tolerances stated per check); the Gaussian form for Gamma(1/2).
+
+PIECE A — the bamboo, the chord, and Exercise 1 (12 checks)
+PASS A1 bamboo rows 0,1,4,9,16,25 — 0,1,4,9,16,25
+PASS A2 growth column 1,3,5,7,9 — 1,3,5,7,9
+PASS A3 growth of growth 2,2,2,2 — 2,2,2,2
+PASS A4 table dies at row 3 — row3=0,0,0
+PASS A5 Newton carrier is x^2 on integers -5..10 — 0+1C(x,1)+2C(x,2)=x^2
+PASS A6 carried noon 25/4 = 6.25 — 6.25
+PASS A7 chord noon 6.5 — 4+0.5*5=6.5
+PASS A8 the degree-2 carrier through rows 1,3,4 also reads rows 0,2,5 (certificate) — a=0,b=0,c=1; six of six rows
+PASS A9 Ex1 rows 2,3,6,11,18,27 die at row 3 — row2=2,2,2,2
+PASS A10 Ex1 carrier x^2+2 — 2+1C(x,1)+2C(x,2)
+PASS A11 Ex1 carried 57/4 = 14.25 — 14.25
+PASS A12 Ex1 chord 14.5 — 11+0.5*7=14.5
+
+PIECE B — binomials, two-tailed (6 checks)
+PASS B1 two-tailed C(x,3) table matches the page — -35,-20,-10,-4,-1,0,0,0,1,4,10,20
+PASS B2 C(x,k) integer for k=1..6, x=-20..20 — 246 values, all integers
+PASS B3 Pascal as difference identity, x=-10..10, k=1..6 — C(x+1,k)-C(x,k)=C(x,k-1)
+PASS B4 reflection C(-m,k)=(-1)^k C(m+k-1,k), m=1..12, k=1..6 — 72 cases
+PASS B5 the page's meeting: C(5,3)=10, C(-5,3)=-35=-C(7,3) — 10 meets -35
+PASS B6 bad clothes: x(x-1)(x-2)/6 equals C(x,3), x=-5..6 — q(x) is the binomial in disguise
+
+PIECE C — integer-valued polynomials and the sum of squares (6 checks)
+PASS C1 integer coefficients on binomials give integer values (5 random polys, x=-30..30) — 305 values each
+PASS C2 descent: difference-table leading entries are the binomial coefficients — c_k = Delta^k f(0), 5 random polys
+PASS C3 S(x)=2C(x+2,3)-C(x+1,2) for x=-10..10 — 21 values, exact
+PASS C4 S reads 0,1,5,14,30,55,91 at n=0..6 — 0,1,5,14,30,55,91
+PASS C5 reflection S(-n)=-S(n-1), n=1..12 — 12 cases, exact
+PASS C6 no monomial-combination reads C(x,3): rows 0,1,2 force zero, row 3 reads 1 — 0,0,0 then 1 - degree 2 cannot follow
+
+PIECE D — Newton's identity and the dying table (6 checks)
+PASS D1 Newton's identity reproduces 20 random tables exactly — sizes 3..8
+PASS D2 degree-<=d laws die at row d+1 (d=1..5) — difference of binomials is one index down
+PASS D3 a table dying at row d+1 is read everywhere by the truncation — 10 random laws
+PASS D4 Delta C(x,k) = C(x,k-1), k=1..7, x=-10..10 — 147 cases
+PASS D5 Delta x^2 = 2x+1 (monomials fall off their own basis) — x=-5..5
+PASS D6 Ex1 carried reading 3.5 from the dying table — 57/4
+
+PIECE E — the impostor and the streak of forty primes (11 checks)
+PASS E1 impostor difference table leading entries all 1 — 1,1,1,1,1
+PASS E2 carrier passes the five rows — 1,2,4,8,16
+PASS E3 carrier reads 31 and 57 at n=5,6 — 31,57
+PASS E4 carrier reads 99 and 163 at n=7,8 — 99,163
+PASS E5 the Moser pin: carrier = 1+C(x+1,2)+C(x+1,4), x=0..8 — the circle count in person
+PASS E6 family f+t*C(x,5) passes the rows for t=-7..7 — 15 members, five rows each
+PASS E7 t=1 member reads 32 at n=5 and 63 at n=6 — 32,63 - not 64
+PASS E8 forty primes: x^2+x+41 prime at x=0..39 — 40 trial divisions
+PASS E9 the breaks: f(40)=1681=41^2, f(41)=1763=41*43 — 1681, 1763
+PASS E10 residues: f(x)=0 mod 41 only at x=0,40 mod 41 — residues found: 0,40,41,81,82,122,123 over 0..123
+PASS E11 41 divides f(41k) for k=1..50 (and f(41k-1) by symmetry) — factorization holds identically
+
+PIECE F — the carried binomial series, gamma, and the two ballots (13 checks)
+PASS F1 C(1/2,k) for k=0..6 matches the series — 1,1/2,-1/8,1/16,-5/128,7/256,-21/1024
+PASS F2 truncation squared = 1+z exactly through z^4 — coeffs 1,1,0,0,0 (over /128: 16384,16384,0,0,0)
+PASS F3 first failure at z^5 is -7/128 — -896/16384 = -7/128
+PASS F4 the next term kills it: -7/128 + 2*(7/256) = 0 — exact
+PASS F5 partial sums at z=1 approach sqrt(2) — alternating series, gap 6e-6 by k=2000, shrinking after
+PASS F6 Gamma(1/2)=1.7724539 (Gaussian quadrature 1.772454) — vs sqrt(pi)
+PASS F7 Gamma(3/2)=0.8862269 (quadrature 0.886227) — vs sqrt(pi)/2
+PASS F8 Gamma(5/2)=1.3293404 (quadrature 1.329340) — vs 3*sqrt(pi)/4
+PASS F9 sine ballot: 1.8862269, 0.3293404, half-of-first 0.9431135 — printed to 7 decimals
+PASS F10 the recursion gap is (3-sqrt(pi))/2 = 0.6137731 — an entire failure, not a rounding one
+PASS F11 periodic ballot detector at (2.1, 2.4) reads +0.0341 — 0.03414
+PASS F12 gamma's own detector reads <= 0 on the whole grid — max -0.00329
+PASS F13 f(1)=1 and the recursion f(x+1)=x f(x) at x=0.5, 0.7 — quadrature cross-checks, both sides independent (1.8e-15 and 6.2e-9)
+
+CENSUS: 54/54 PASS (A 12, B 6, C 6, D 6, E 11, F 13). Zero page defects: every
+number the page prints was confirmed exactly as printed.
+
+HONEST HISTORY — all failures during development were check-side, none page-side:
+1. A8 as first drafted was vacuous (hardcoded solution); replaced with a genuine
+   exact solve through rows (1,1),(3,9),(4,16) before the first run.
+2. F6 as first drafted would have returned Infinity: Gamma(1/2)'s integrand
+   t^(-1/2)e^(-t) is singular at t=0; replaced with the Gaussian form
+   2e^(-v^2) (P18's own integral, smooth everywhere).
+3. D2 failed once: the coefficient array had five entries but the loop ran
+   deg=1..5, so cs[5] was undefined and poisoned the degree-5 law with NaN.
+   Fixed by adding a sixth coefficient; the theorem's mechanism is D4.
+4. E10 failed once: the check expected 4 residue solutions over 0..123; the
+   true count is 7 (x = 0, 40, 41, 81, 82, 122, 123). Expectation bug, fixed.
+5. F7 failed once: plain Simpson on t^(1/2)e^(-t) carries an endpoint kink
+   (error 2.9e-5 vs the 2e-5 tolerance). Fixed with the smooth substitution
+   t = v^(1/x), which turns the integrand into (1/x) v^(1/x) e^(-v^(1/x)).
+6. F5's detail line printed gaps as 0.0000 (the alternating series converges
+   faster than planned); switched to exponential notation, tolerances unchanged.
+7. F13 failed twice for one reason: the check itself mis-stated the recursion
+   (compared Gamma(3/2) with 0.5*Gamma(1) instead of 0.5*Gamma(1/2)). Fixed by
+   adding gammaA(a) — Gamma(a) for 0 < a < 1 via the flat substitution
+   t = v^(1/a), whose integrand (1/a)e^(-v^(1/a)) is smooth at the origin —
+   and pairing the recursion correctly at x = 0.5 and x = 0.7.

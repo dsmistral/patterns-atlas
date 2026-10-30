@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P23 · Interpolate and continue · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P23 · the sixth move of tier 2</p>
+<h1>Interpolate and continue</h1>
+<p class="tagline">A grower measures a bamboo on whole days only — 0, 1, 4, 9, 16, 25 centimetres, six honest rows — and is asked the one question the table cannot hear: how tall at day two and a half? The finite tools all decline it. <a href="p02-small-cases.html">P02</a>'s tables own their rows and nothing else, and noon has no row; <a href="p20-polynomial-identity.html">P20</a>'s certificate confirms a carrier only once both candidates are already built, and nothing on the shelf builds one; the traps of <a href="p15-squeeze.html">P15</a> need a law before they can catch it. This page makes the missing move deliberate: appoint a shape, out loud — a degree bound, a named regularity — then build the unique carrier through the integer points, and carry every licensed conclusion across: values between the rows, readings beyond them, symmetries the table never showed. The carrier assembles from the difference table into Newton's binomial form — the basis canonical for integer data because the difference operator treats it diagonally, <a href="p05-canonical-form.html">P05</a>'s sentence worn at the scale of a whole theory. Three runs in public: the bamboo's noon (constant second differences; the carrier reads 25/4 against the chord's 13/2, and the referee between them is the page's whole point), the integer-valued polynomials (x(x−1)(x−2)/6 is an integer at every integer, and the binomial basis is why — the two-tailed table reads it negative as well as positive), and the binomial theorem carried to half exponents ((1+z)^{1/2} = 1 + z/2 − z²/8 + z³/16 − 5z⁴/128 + …, squared and checked, every zero a fraction cancelled in the clear). The honest price, paid in full: the integers alone pin nothing — a phantom sine passes every row of every table — so the shape must be demanded, and the demand is a hypothesis about the law, not a finding from the data: five honest rows of the doubling sequence fit a carrier that answers 31 where the pattern says 32 — P02's circle-count impostor, caught in the act — and at the factorial's frontier, Euler's half-a-factorial, the shape is appointed wholesale (log-convexity, Bohr and Mollerup 1922), because between the integers agreement certifies nothing. Prerequisites: P05 (canonical forms: the shape a theory appoints). Next: waves — the phantom this page executes becomes, in <a href="p24-waves.html">P24</a>, the main instrument.</p>
+</header>
+<aside class="onramp"><strong>New word: interpolation.</strong> To <em>interpolate</em> is to build a carrier through known values and read it between them; to <em>extrapolate</em> is to read it beyond. This page keeps the two together — continue — because one carrier does both jobs, one shape demand licenses both readings, and both fail the same way when the demand was wrong. <strong>New word: forward difference.</strong> The <em>forward difference</em> of a table is its growth column: \(\Delta f(x) = f(x+1) - f(x)\), and the difference of that, the growth of the growth. The difference table — rows of \(\Delta\), \(\Delta^2\), \(\Delta^3\), stacked under the data — is this page's assembly line: it detects degree, it assembles the carrier, and its death by a row of zeros is a finding about the law. <strong>New word: integer-valued polynomial.</strong> An <em>integer-valued polynomial</em> is a polynomial, rational coefficients allowed, that reads an integer at every integer \(x\) — a weaker demand on the coefficients and a stronger demand on the values than "integer coefficients" — and it has its own canonical basis: the binomials \(\binom{x}{k}\), not the monomials.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p>The reader arrives owning four tools and owes this page a fifth. From <a href="p02-small-cases.html">P02</a>: the discipline of the small table — compute honestly, read the rows for a law, and never let the eye write checks the rows do not cash. From <a href="p05-canonical-form.html">P05</a>: the canonical form — a theory appoints the basis in which its objects are simplest, and the proof is done once, in that basis, for all. From <a href="p20-polynomial-identity.html">P20</a>: the certificate — two polynomials of degree at most \(d\) that agree at \(d+1\) points agree everywhere, uniqueness as a checkable fact; this page borrows the certificate whole and does not re-prove it. And from P02 again, the warning this page must answer: the rows of a table are data, the law behind them is a guess, and the gap between the two is where every false pattern ever found was born. What the shelf lacks is the construction itself: nothing in the book so far builds a formula from data — takes six honest rows and returns a carrier that reads them all, ready to be read elsewhere. This page builds it, prices it, and shows exactly what it cannot buy.</p>
+<p>The runner is a bamboo, measured by a grower who can only visit on whole days. Day 0: not yet emerged — 0 centimetres. Day 1: 1. Day 2: 4; day 3: 9; day 4: 16; day 5: 25. Six rows, each honest to the centimetre. On the evening of day 2 a buyer asks: how tall will it be at noon tomorrow — day two and a half? The grower's table has no row for noon, and noon is not a whole day: the question is not a lookup gone wrong, it is a question the table cannot even hear. Two answers suggest themselves at once — the chord from (2, 4) to (3, 9), which reads 6.5 at noon, and the smooth curve the rows hint at, which reads 6.25 — and the buyer, no fool, asks the only question that matters: what entitles either answer? §2 runs the encounter cold; §3 names the move it forces; §4 builds carriers in public three times; §5 shows what the move costs; §6 opens the doors.</p>
+</section>
+
+<section id="encounter">
+<h2>2 · A question the table cannot hear</h2>
+<p>First, the data, with its growth columns — the table P02 taught the reader to read for its law:</p>
+<table class="digit-table">
+<tr><th>Day</th><th>Height</th><th>Growth</th><th>Growth of growth</th></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>2</td></tr>
+<tr><td>1</td><td>1</td><td>3</td><td>2</td></tr>
+<tr><td>2</td><td>4</td><td>5</td><td>2</td></tr>
+<tr><td>3</td><td>9</td><td>7</td><td>2</td></tr>
+<tr><td>4</td><td>16</td><td>9</td><td>—</td></tr>
+<tr><td>5</td><td>25</td><td>—</td><td>—</td></tr>
+</table>
+<p>The law in the rows: growth runs the odd numbers 1, 3, 5, 7, 9 — and the growth of growth sits flat at 2. That flatness is not decoration; it is a finding, and §4 turns it into the carrier. But first the noon question, run honestly. Answer one — the chord: the plant grew from 4 to 9 across day 3, so at noon it has put on half a day's growth at day 3's pace: \(4 + \frac{1}{2}\cdot 5 = 6.5\) centimetres. Answer two — the curve: if the height is the square of the day, then at day \(\frac{5}{2}\) the height is \(\frac{25}{4} = 6.25\). Both answers pass all six rows. Both claim the law. The table, which owns its rows and nothing else, cannot referee between them — and this is not a temporary weakness that more data would fix: §5's first exhibit shows a phantom that passes every row of every table, however long. The data is silent at noon forever.</p>
+<figure id="fig-p23-1">
+<svg viewBox="0 0 500 320" role="img" aria-label="Two candidate carriers through six plotted points for days zero to five: a grey polyline joining the points and a blue parabola arching smoothly through them, with a dashed vertical line at day two and a half marking the polyline reading six point five and the parabola reading six point two five">
+<line x1="30" y1="300" x2="470" y2="300" stroke="#999" stroke-width="1"/>
+<line x1="40" y1="298" x2="40" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="120" y1="298" x2="120" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="200" y1="298" x2="200" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="280" y1="298" x2="280" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="360" y1="298" x2="360" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="440" y1="298" x2="440" y2="306" stroke="#999" stroke-width="1"/>
+<text x="36" y="320" font-size="12" fill="#555">0</text>
+<text x="116" y="320" font-size="12" fill="#555">1</text>
+<text x="196" y="320" font-size="12" fill="#555">2</text>
+<text x="276" y="320" font-size="12" fill="#555">3</text>
+<text x="356" y="320" font-size="12" fill="#555">4</text>
+<text x="436" y="320" font-size="12" fill="#555">5</text>
+<polyline points="40,300 120,290 200,260 280,210 360,140 440,50" fill="none" stroke="#999" stroke-width="2"/>
+<path d="M 40 300 Q 240 300 440 50" fill="none" stroke="#1a5fb4" stroke-width="2"/>
+<circle cx="40" cy="300" r="3.5" fill="#333"/>
+<circle cx="120" cy="290" r="3.5" fill="#333"/>
+<circle cx="200" cy="260" r="3.5" fill="#333"/>
+<circle cx="280" cy="210" r="3.5" fill="#333"/>
+<circle cx="360" cy="140" r="3.5" fill="#333"/>
+<circle cx="440" cy="50" r="3.5" fill="#333"/>
+<line x1="240" y1="300" x2="240" y2="225" stroke="#c01c28" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="240" cy="235" r="4" fill="#999"/>
+<circle cx="240" cy="237.5" r="4" fill="#1a5fb4"/>
+<text x="248" y="231" font-size="13" fill="#666">6.5</text>
+<text x="248" y="256" font-size="13" fill="#1a5fb4">6.25</text>
+<text x="228" y="315" font-size="12" fill="#c01c28">2½</text>
+</svg>
+<figcaption><strong>Fig P23.1.</strong> Six honest rows, two carriers. The chord (grey) joins the rows with straight segments and answers 6.5 at day \(\frac{5}{2}\); the parabola (blue) answers \(\frac{25}{4} = 6.25\). Both pass every row — the referee is not in the data.</figcaption>
+</figure>
+<p>Three cold questions, asked before any technique is offered, because they are the ones the move must answer:</p>
+<p><strong>First — what is even being asked?</strong> The table defines nothing at day \(\frac{5}{2}\): it is not that the height there is unknown, it is that "the height at noon" is, as far as the table is concerned, undefined. To ask it is to ask about a <em>law</em> — a rule that assigns heights to all days, of which the six rows are six samples. The question means: what does the law read at \(\frac{5}{2}\)? And the honest answer begins by admitting the law was never given.</p>
+<p><strong>Second — if a law exists, can the data pick it out?</strong> No — and this is the page's hard center, stated once here and shown three ways in §5. The chord is one law through six rows; the parabola is another; and the reader who adds any quantity that vanishes at whole days — there are endlessly many — has a third that passes every row yet reads anything it likes at noon. Agreement with data never pinned a law, at any table length, in any world where polynomials and sines live.</p>
+<p><strong>Third — so what could possibly license an answer?</strong> Not the rows. What remains is a demand about <em>shape</em>, stated out loud: if the law is demanded to be a polynomial of degree at most 2, then — and only then — do the six rows, any three of them in fact, pin it uniquely, and the carrier reads \(\frac{25}{4}\). The move this page teaches is exactly this sequence: demand a shape, build the unique carrier the demand licenses, carry the carrier's readings across — and never blur which parts of the answer the data bought and which the demand bought. The buyer at the fence deserves the difference, and §4's first run prices it to the centimetre.</p>
+<p>The reader who suspects the demand is smuggling — that "degree at most 2" is a preference dressed as a fact — is right, and §5 was written for exactly that reader: three exhibits, three ways the demand fails or must be paid for, priced in public.</p>
+</section>
+
+<section id="name-the-move">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p23">
+<h3>P23 · Interpolate and continue — hold on to a formula that works on the integers; carry it across</h3>
+<p>When a formula or table <strong>owns the integers</strong> — values at \(0, 1, 2, 3, \dots\), each one verified, the table's rows or the formula's outputs — and the question lives <strong>between or beyond them</strong>, do not hunt for the answer in the data: the data is silent there forever. Instead: <strong>appoint a shape, out loud</strong> — a degree bound ("the law is a polynomial of degree at most \(d\)"), or a named regularity (a recursion, convexity, a power series); <strong>build the carrier</strong> — the unique object of the appointed shape that passes every integer value, assembled by the difference table and written in Newton's binomial form, \(d+1\) honest rows pin it and <a href="p20-polynomial-identity.html">P20</a>'s certificate confirms it; then <strong>carry</strong> — read the carrier at new inputs, between the rows and beyond them, and carry every conclusion the shape licenses: values, identities, symmetries. What the move buys: answers to every question of the form "the data owns the integers and the question does not live there."</p>
+</div>
+<p>In words, the move has three working parts, and the page keeps saying which part is doing the work. First, <strong>name the integer data</strong>: the honest rows — measured, computed, or proved — and nothing else; garbage interpolated is garbage carried. Second, <strong>appoint the shape, out loud</strong>: this is the move's confession and its engine at once — a hypothesis about the law, stated as a demand on the carrier; §5 prices what happens when it is smuggled instead of stated, and what happens when it is simply wrong. Third, <strong>build and carry</strong>: the difference table assembles the carrier, the certificate pins it, and every reading it gives inherits its license — exact for the carrier, predicted for the law, and the page will not blur the two.</p>
+<div class="pattern-box" id="box-p23a">
+<h3>Box P23.A · The two demands</h3>
+<p><strong>The data demand.</strong> \(d+1\) honest values at integers determine one carrier of degree at most \(d\): existence by construction — the difference table builds it — and uniqueness by <a href="p20-polynomial-identity.html">P20</a>'s certificate: two degree-\(\le d\) carriers agreeing at \(d+1\) integers agree everywhere. The construction is Newton's forward form, the certificate cited, not re-proved:</p>
+\[ f(x) \;=\; f(0) \;+\; \Delta f(0)\binom{x}{1} \;+\; \Delta^2 f(0)\binom{x}{2} \;+\; \cdots \;+\; \Delta^d f(0)\binom{x}{d}, \qquad \binom{x}{k} \;=\; \frac{x(x-1)(x-2)\cdots(x-k+1)}{k!}. \]
+<p>Each binomial \(\binom{x}{k}\) reads 1 at \(x = k\) and 0 at each of \(0, 1, \dots, k-1\) — the form is the table restated: the values' own growth increments, worn as coefficients. Check it on §2's rows: leading entries \(0, 1, 2\), and \(0 + 1\binom{x}{1} + 2\binom{x}{2} = x + x(x-1) = x^2\) — six rows, one line, the carrier built.</p>
+<p><strong>The shape demand.</strong> Without it, agreement pins nothing. The phantom engine: if \(h\) vanishes at every integer — \(h(x) = \sin(\pi x)\) will do — then \(f\) and \(f + h\) both pass every row of the table, whatever its length, and read differently everywhere else. The shape demand kills phantoms by fiat of degree: a nonzero polynomial of degree at most \(d\) has at most \(d\) roots, so a phantom that is itself degree \(\le d\) and vanishes at \(d+1\) integers is zero — the certificate worn backwards, as a uniqueness theorem. The two demands together are the whole license: <em>data</em> says a carrier passes the rows; <em>shape</em> says it is the only one; construction says it exists. Take either away and nothing is left — §5 exhibits both collapses.</p>
+</div>
+<div class="pattern-box" id="box-p23b">
+<h3>Box P23.B · Where it shows up, and the three-key signature</h3>
+<p><strong>Appearances.</strong> Logarithm tables, computed at coarse intervals and filled in between — Briggs's 1624 logarithms trusted interpolation with the whole of their accuracy, and every numerical table since lives the same way. Surveying and actuarial work, where finite differences turned data into carriers wholesale. Newton's binomial series, carried from whole exponents to fractional ones — his 1676 letters to Leibniz — the formula for \((1+z)^n\) at integer \(n\), read at \(n = \frac{1}{2}\). Euler's 1729 factorial: the table \(1, 1, 2, 6, 24, 120, \dots\) owns the integers, and the question \(\left(\frac{1}{2}\right)!\) does not live there. Lagrange's 1795 carrier, written to fit arbitrary points, not just consecutive integers. Computer graphics, where every animated curve is a carrier through keyframes — appointed piecewise-polynomial shapes, smoothed to order. And Bohr and Mollerup's 1922 theorem, which pins Euler's carrier among all its rivals by one appointed demand. The move is not a curiosity of algebra; it is the standing method wherever tables are computed and questions live between them.</p>
+<p><strong>The three-key signature</strong> — the checklist that says the move applies, and the checklist that says it was honestly run: <strong>(1) the formula demonstrably works on the integers</strong> — the rows are verified, not presumed: P02's discipline, checked before anything is carried. <strong>(2) The shape can be honestly appointed</strong> — a degree bound, a recursion, convexity: stated out loud, chosen for the law, never smuggled inside the answer. <strong>(3) The conclusion is the kind that carries</strong> — values, identities, symmetries: facts about the carrier that the shape demand transfers to the law. What does not carry: value-properties, like primality — Exercise 4 exhibits a streak of forty primes that the carrier serves and then, by its own arithmetic, predicts the end of. A pattern that does not carry is not carried; it is reported, as a coincidence, until the shape says otherwise.</p>
+</div>
+</section>
+
+<section id="the-move-at-work">
+<h2>4 · The move at work</h2>
+<p>Three runs in public, one per species of integer data: a measured table (the bamboo), a proved formula (the integer-valued polynomials), and a theorem (the binomial theorem, carried to half exponents). Each run states the shape demand, builds the carrier, carries — and prices what the demand bought.</p>
+<h3>Example 1 · The bamboo's noon — the difference table builds the carrier</h3>
+<p class="pid">Moves used: <a href="p02-small-cases.html">P02</a> (the table read for its law: the growth columns are the pattern hiding in the rows), <a href="p20-polynomial-identity.html">P20</a> (agree at enough points, agree everywhere: the certificate that pins the carrier).</p>
+<p>Appoint the shape. The growth-of-growth column sat flat at 2, and the demand, out loud: <em>the law is a polynomial of degree at most 2</em>. Why this demand and not another? Because the data's own growth table suggested it — and the suggestion is a hypothesis about the bamboo, refutable, priced below, and nothing more.</p>
+<p>Build the carrier, by the difference table. The table's leading entries are \(f(0) = 0\), \(\Delta f(0) = 1\), \(\Delta^2 f(0) = 2\); Newton's forward form assembles them:
+\[ f(x) \;=\; 0 \;+\; 1\cdot\binom{x}{1} \;+\; 2\cdot\binom{x}{2} \;=\; x + x(x-1) \;=\; x^2. \]
+One line, and the six rows' law wears its carrier: \(f(x) = x^2\). The certificate confirms the pin: any degree-\(\le 2\) carrier through three of these rows passes through all of them — six rows, one carrier, no rivals inside the demand. Data demand met, shape demand met, carrier unique.</p>
+<p>Carry. At day \(\frac{5}{2}\): \(f\left(\frac{5}{2}\right) = \frac{25}{4} = 6.25\) centimetres — against the chord's \(6.5\). The two readings should now feel different in the reader's hand: the chord is the carrier of a different shape demand — "piecewise linear, corners at whole days," a legal demand, honestly answering 6.5 — and the parabola is the carrier of "degree at most 2." The table did not choose between them; the grower did, when appointing smooth growth. And the carrier gives more than was asked, free: the growth at any day, the symmetry \(f(-x) = f(x)\), the reading at day \(-1\) — meanings the table never contained, flowing from the shape alone.</p>
+<p>Price it. \(6.25\) is exact for the carrier and a prediction for the plant. The demand "degree at most 2" is a hypothesis about biology: the bamboo knows nothing of polynomials, and a truer law — smooth growth that accelerates, then saturates — passes these six centimetre-rows too; §5's phantom engine guarantees infinitely many such laws. What the honest grower reports at the fence: "if the growth's growth stays 2, then 6.25; the table can never confirm the if." That sentence, with its parts unblurred, is the move — and every remaining example is one of its parts worn larger.</p>
+<h3>Example 2 · The denominator that divides — integer-valued polynomials</h3>
+<p class="pid">Moves used: <a href="p05-canonical-form.html">P05</a> (reduce to canonical form: the basis a theory appoints), <a href="p03-special-cases.html">P03</a> (the stress test: negative integers push the claim past its comfort zone).</p>
+<p>A formula this scary circulates in every corner of the subject:
+\[ q(x) \;=\; \frac{x(x-1)(x-2)}{6}. \]
+Three consecutive factors divided by 6 — the values look doomed to come out fractional, and the claim to be justified is that they never do: \(q(x)\) is an integer at <em>every</em> integer \(x\), positive or negative, without exception. P03's discipline says stress it before believing it — the two-tailed table:</p>
+<table class="digit-table">
+<tr><th>\(x\)</th><th>\(-5\)</th><th>\(-4\)</th><th>\(-3\)</th><th>\(-2\)</th><th>\(-1\)</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
+<tr><td>\(\binom{x}{3}\)</td><td>\(-35\)</td><td>\(-20\)</td><td>\(-10\)</td><td>\(-4\)</td><td>\(-1\)</td><td>0</td><td>0</td><td>0</td><td>1</td><td>4</td><td>10</td><td>20</td></tr>
+</table>
+<p>Twelve integers, no fractions — and the negative side is where the claim earns its keep, reading \(-1, -4, -10, -20, -35\) where a skeptic expected debris. The formula's secret is that it is not \(q\) at all: it is the binomial coefficient \(\binom{x}{3}\) wearing bad clothes — the two-tailed values are the subset count read backwards, \(\binom{5}{3} = 10\) meeting \(\binom{-5}{3} = -\binom{7}{3} = -35\), the reflection \(\binom{-m}{k} = (-1)^k\binom{m+k-1}{k}\) doing the bookkeeping. Every integer \(x\) is now covered by a two-case argument, both cases honest:</p>
+<p><strong>Case \(x \ge 0\).</strong> \(\binom{x}{k}\) counts the \(k\)-subsets of an \(x\)-element set when \(x \ge k\) — an integer by meaning; and for \(0 \le x &lt; k\) the falling product contains the factor zero. No counting is needed, in fact, for the reader who wants the argument from the table itself: Pascal's rule \(\binom{x}{k} = \binom{x-1}{k-1} + \binom{x-1}{k}\), with \(\binom{x}{0} = 1\), builds every \(\binom{x}{k}\) with \(x \ge 0\) from integers by adding integers — integrality by induction, no combinatorics required.</p>
+<p><strong>Case \(x &lt; 0\).</strong> Pair the falling factors: \((-m)(-m-1)\cdots(-m-k+1) = (-1)^k\,m(m+1)\cdots(m+k-1)\), so
+\[ \binom{-m}{k} \;=\; (-1)^k\,\frac{(m+k-1)(m+k-2)\cdots m}{k!} \;=\; (-1)^k\binom{m+k-1}{k}, \]
+a sign times a binomial with non-negative top — an integer by the first case. The two-tailed table is now a theorem: \(\binom{x}{3}\) is an integer at every integer, and so is every \(\binom{x}{k}\).</p>
+<p>The theorem, both directions, in P05's own format — the theory here is <em>integer-valuedness</em>, and it appoints its basis. A polynomial \(f\) with rational coefficients is integer-valued at every integer — \(f(\mathbb{Z}) \subseteq \mathbb{Z}\) — if and only if it expands as
+\[ f(x) \;=\; c_0\binom{x}{0} \;+\; c_1\binom{x}{1} \;+\; c_2\binom{x}{2} \;+\; \cdots \;+\; c_d\binom{x}{d}, \qquad c_0, c_1, \dots, c_d \text{ integers}. \]
+The direction just proved: integer coefficients on binomials give integer values everywhere. The converse is a descent: if \(f\) has degree \(d\), take \(c_d = \Delta^d f(0)\) — the bottom entry of the difference table, an integer, because it is a sum of integer values with whole-number coefficients. Then \(f(x) - c_d\binom{x}{d}\) is still integer-valued — two integer-valued carriers subtracted — and has degree at most \(d-1\), so descend to \(c_{d-1}, c_{d-2}\), and the expansion assembles itself, coefficient by coefficient, from the difference table of the values. The basis is forced by the theory: the monomial basis \(1, x, x^2, \dots\) cannot even state the theorem (which combination with integer coefficients reads \(\binom{x}{3}\)? — none), and the binomials wear the values' own growth increments as coefficients. P05's sentence — <em>the theory appoints the basis</em> — is here a fact of algebra, not a slogan.</p>
+<p>Run it on an old friend: the sum of squares \(S(x) = \frac{x(x+1)(2x+1)}{6}\), the formula every schoolbook proves by induction over the integers. The binomial basis certifies it in one line, for free:
+\[ S(x) \;=\; 2\binom{x+2}{3} \;-\; \binom{x+1}{2}, \]
+two integer coefficients on two shifted binomials — integer at every integer, no induction, the proof now a corollary of the basis. And the carrier, unlike the induction, answers off the shelf for the negative side too — read it backwards, P03's stress test again:</p>
+<table class="digit-table">
+<tr><th>\(n\)</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
+<tr><td>\(S(n)\)</td><td>0</td><td>1</td><td>5</td><td>14</td><td>30</td><td>55</td><td>91</td></tr>
+<tr><td>\(S(-n)\)</td><td>0</td><td>\(-1\)</td><td>\(-5\)</td><td>\(-14\)</td><td>\(-30\)</td><td>\(-55\)</td><td>\(-91\)</td></tr>
+<tr><td>\(-S(n-1)\)</td><td>—</td><td>\(-1\)</td><td>\(-5\)</td><td>\(-14\)</td><td>\(-30\)</td><td>\(-55\)</td><td>\(-91\)</td></tr>
+</table>
+<p>Seven rows, exact — the backwards reading obeys a law the schoolbook never mentions, \(S(-n) = -S(n-1)\), and the carrier proves it for all \(n\) in Exercise 2, where the reflection engine of the negative case is the whole proof. This is the move's signature, worn small: the integer rows were known; the shape (binomial basis, degree 3) was appointed; the carrier carried a reading — backwards — that the rows alone never contained and no induction would have volunteered.</p>
+<h3>Example 3 · The binomial theorem, carried to half exponents</h3>
+<p class="pid">Moves used: <a href="p05-canonical-form.html">P05</a> (the carrier's coefficients in the appointed basis), <a href="p06-compose-identity.html">P06</a> (compose with identity: the carrier is defined by what it must square to, and checked by exactly that).</p>
+<p>The integer fact, school property: \((1+z)^n = \sum_k \binom{n}{k} z^k\) for every whole exponent \(n\) — rows of Pascal, verified by induction, worn smooth by use. The formula owns the integers \(n = 0, 1, 2, 3, \dots\). The question that does not live there: what is \((1+z)^{1/2}\)? A shape demand appoints the carrier: read the formula's own body — \(\binom{n}{k} = \frac{n(n-1)\cdots(n-k+1)}{k!}\) — at \(n = \frac{1}{2}\), where every falling product still makes sense, and demand the result be a power series in \(z\). The carried formula:
+\[ (1+z)^{1/2} \;=\; 1 \;+\; \frac{z}{2} \;-\; \frac{z^2}{8} \;+\; \frac{z^3}{16} \;-\; \frac{5z^4}{128} \;+\; \frac{7z^5}{256} \;-\; \cdots \]
+This is P05 twice over — the coefficients are the same binomials in the same basis, merely read at a new value of the parameter — and P06 once over: the carrier is <em>defined by what it must do</em>, square to \(1+z\), so the check is the definition, run as arithmetic. Square the truncation through \(z^4\), exactly, in fractions — no decimals anywhere:</p>
+<table class="digit-table">
+<tr><th>Coefficient of</th><th>\(z^0\)</th><th>\(z^1\)</th><th>\(z^2\)</th><th>\(z^3\)</th><th>\(z^4\)</th><th>\(z^5\)</th></tr>
+<tr><td>target: \(1+z\)</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>square of the truncation</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>\(-\frac{7}{128}\)</td></tr>
+</table>
+<p>The square is exactly \(1+z\) through \(z^4\), every zero a fraction cancelled in the clear — and the first failure, at \(z^5\), is not noise but structure: the \(-\frac{7}{128}\) sitting there is precisely killed by doubling the next term \(\frac{7}{256}\), the truncation's next outfit. The pattern of the check is the proof's outline: each new term exists to cancel the last failure, and the carried formula, squared, is \(1+z\) — to the extent any truncation can show, and then some; Exercise 5's grammar makes the mechanism exact.</p>
+<p>Price it, twice. First: the ellipsis hides an infinite series, and infinite is a word P02 taught respect for — the series converges for \(|z| &lt; 1\), a fact this page names and does not prove; the honest proof belongs to analysis, and Abel (1826) did the fractional binomial series properly. The finite check above is arithmetic, honest and complete; it is not the theorem. Second, the deeper price, stated in the house's own terms: the shape demand here is a demand about the \(z\)-side — "a power series in \(z\)" — not about the exponent-side, and the reader should notice the demand changed species without changing duties. It still does the same job, killing phantoms: infinitely many functions of the exponent agree with the integer rows of \((1+z)^n\), and the series demand picks one — the one that squares right, which is why the check, not the derivation, is the receipt.</p>
+<p>One carried reading, for the shelf's pleasure: set \(z = 1\). The series \(1 + \frac{1}{2} - \frac{1}{8} + \frac{1}{16} - \cdots\) converges at the boundary of its range — again Abel's territory — and what it converges to is \(\sqrt{2} = 1.4142135623\ldots\), the number <a href="p22-fixed-point.html">P22</a>'s Babylonian iteration settles on from any positive guess, reached here by carrying a school formula across one forbidden border: the whole exponents. Two pages, two moves, one number.</p>
+
+</section>
+
+<section id="when-it-fails">
+<h2>5 · When it fails — three exhibits of fine print</h2>
+<p>The shape demand is a hypothesis about the law, and this page has said so five times already. §5 stops saying it and shows it: three exhibits, each a fine print a carried answer ignores at its peril — a phantom that no data can exclude, an impostor that data positively suggests, and a frontier where the demand must be appointed wholesale because nothing else exists to appoint. The move's honesty lives here, not in §4.</p>
+<p><strong>Exhibit A · The phantom — a law that passes every row and reads anything at noon.</strong> Take the emptiest table there is: the law \(f(x) = 0\), zero at every integer — a doubly infinite table of honest rows. It has a twin: \(h(x) = \sin(\pi x)\), zero at every integer too, because the sine vanishes at every multiple of \(\pi\). Both carriers pass the entire doubly infinite table; at day \(\frac{5}{2}\), one reads \(0\) and the other reads \(1\). No table — six rows, six million rows, however densely spread over the integers — can referee: add \(h\) to any candidate law and every integer row still reads the same. This is the phantom engine, and it is not a curiosity; it is the standing tax on every interpolation ever made: <em>the rows alone pin nothing, at any length, forever.</em></p>
+<figure id="fig-p23-2">
+<svg viewBox="0 0 500 320" role="img" aria-label="A flat grey line at height zero and a blue sine wave oscillating between plus one and minus one, both passing through the same integer points on the axis, with a dashed vertical line at the half-integer point where the line reads zero and the wave reads one">
+<line x1="20" y1="160" x2="480" y2="160" stroke="#999" stroke-width="2"/>
+<path d="M -4.0 160.0 L 4.0 183.0 L 12.0 202.4 L 20.0 215.4 L 28.0 220.0 L 36.0 215.4 L 44.0 202.4 L 52.0 183.0 L 60.0 160.0 L 68.0 137.0 L 76.0 117.6 L 84.0 104.6 L 92.0 100.0 L 100.0 104.6 L 108.0 117.6 L 116.0 137.0 L 124.0 160.0 L 132.0 183.0 L 140.0 202.4 L 148.0 215.4 L 156.0 220.0 L 164.0 215.4 L 172.0 202.4 L 180.0 183.0 L 188.0 160.0 L 196.0 137.0 L 204.0 117.6 L 212.0 104.6 L 220.0 100.0 L 228.0 104.6 L 236.0 117.6 L 244.0 137.0 L 252.0 160.0 L 260.0 183.0 L 268.0 202.4 L 276.0 215.4 L 284.0 220.0 L 292.0 215.4 L 300.0 202.4 L 308.0 183.0 L 316.0 160.0 L 324.0 137.0 L 332.0 117.6 L 340.0 104.6 L 348.0 100.0 L 356.0 104.6 L 364.0 117.6 L 372.0 137.0 L 380.0 160.0 L 388.0 183.0 L 396.0 202.4 L 404.0 215.4 L 412.0 220.0 L 420.0 215.4 L 428.0 202.4 L 436.0 183.0 L 444.0 160.0" fill="none" stroke="#1a5fb4" stroke-width="2"/>
+<circle cx="60" cy="160" r="3.5" fill="#333"/>
+<circle cx="124" cy="160" r="3.5" fill="#333"/>
+<circle cx="188" cy="160" r="3.5" fill="#333"/>
+<circle cx="252" cy="160" r="3.5" fill="#333"/>
+<circle cx="316" cy="160" r="3.5" fill="#333"/>
+<circle cx="380" cy="160" r="3.5" fill="#333"/>
+<circle cx="92" cy="100" r="4" fill="#1a5fb4"/>
+<line x1="92" y1="160" x2="92" y2="108" stroke="#c01c28" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="92" cy="160" r="4" fill="#999"/>
+<text x="100" y="96" font-size="13" fill="#1a5fb4">1</text>
+<text x="100" y="150" font-size="13" fill="#666">0</text>
+</svg>
+<figcaption><strong>Fig P23.2.</strong> The phantom: two carriers through the same doubly infinite table of zeros. The flat law (grey) reads \(0\) at the half-integers; \(\sin(\pi x)\) (blue) reads \(\pm 1\). The data is silent forever — only a shape demand can break the tie.</figcaption>
+</figure>
+<p>The repair is the shape demand doing exactly the work it was appointed for: demand degree \(\le d\), and a phantom that vanishes at \(d+1\) integers is itself a polynomial of degree \(\le d\) with more roots than its degree — identically zero, by P20's engine worn backwards. The phantom dies, not because the data defeated it, but because the demand excluded it by fiat — and the reader now sees §2's cold question answered in the harshest available form: the bamboo's six rows could never, even in principle, have forced 6.25; the grower's demand did, and the demand is biology, refutable tomorrow by a taller noon. What the phantom engine takes away with one hand it hands back with the other: the recognition that <em>carried answers are conditional answers</em> — exact under the demand, worth what the demand is worth, and labelled as such.</p>
+<p><strong>Exhibit B · The impostor — the pattern that doubles until it doesn't.</strong> The cost of a wrong demand, shown on the most seductive small table the book has met. Five honest rows: \(1, 2, 4, 8, 16\). The pattern-hunter's law is doubling, \(2^n\), and the eye's answer for the sixth row is 32. Now the move, run with its demand stated but chosen carelessly — "some polynomial, low degree; the rows will pin the rest": the difference table of the rows runs \(1, 2, 4, 8\), then \(1, 2, 4\), then \(1, 2\), then \(1\) — leading entries all 1 — and Newton's form assembles the degree-4 carrier
+\[ f(x) \;=\; \binom{x}{0} + \binom{x}{1} + \binom{x}{2} + \binom{x}{3} + \binom{x}{4} \;=\; 1 + \binom{x+1}{2} + \binom{x+1}{4}, \]
+which passes all five rows, is the only degree-\(\le 4\) carrier that does (P20 again, five rows against degree 4), and reads at the sixth and seventh:</p>
+<table class="digit-table">
+<tr><th>\(n\)</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
+<tr><td>honest rows so far</td><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>—</td><td>—</td></tr>
+<tr><td>the carrier reads</td><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>31</td><td>57</td></tr>
+<tr><td>doubling reads</td><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td></tr>
+</table>
+<p>The carrier answers 31, and the gap at the sixth row is the whole lesson: the demand "degree at most 4" was not a reading of the data — the data never mentioned degree — it was a guess about the law, and the law, if doubling, breaks it. Worse, and this is the exhibit's sting: the impostor is not imaginary. This exact carrier, \(1 + \binom{x+1}{2} + \binom{x+1}{4}\), is the count of the regions into which chords divide a circle — <a href="p02-small-cases.html">P02</a>'s own circle exhibit, whose first five regions double by coincidence and whose sixth count is 31. Five rows cannot tell the two laws apart, and the five agreements certify neither: the table never contains its law, and the demand is the only place the guess can live.</p>
+<figure id="fig-p23-3">
+<svg viewBox="0 0 500 320" role="img" aria-label="A plot from zero to six where doubling values climb steeply as marked dots and a carrier curve rises smoothly through the first five of them, the two parting at the sixth point where the dot reads sixty-four and the curve reads fifty-seven">
+<line x1="30" y1="300" x2="470" y2="300" stroke="#999" stroke-width="1"/>
+<line x1="50" y1="298" x2="50" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="115" y1="298" x2="115" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="180" y1="298" x2="180" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="245" y1="298" x2="245" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="310" y1="298" x2="310" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="375" y1="298" x2="375" y2="306" stroke="#999" stroke-width="1"/>
+<line x1="440" y1="298" x2="440" y2="306" stroke="#999" stroke-width="1"/>
+<text x="46" y="320" font-size="12" fill="#555">0</text>
+<text x="111" y="320" font-size="12" fill="#555">1</text>
+<text x="176" y="320" font-size="12" fill="#555">2</text>
+<text x="241" y="320" font-size="12" fill="#555">3</text>
+<text x="306" y="320" font-size="12" fill="#555">4</text>
+<text x="371" y="320" font-size="12" fill="#555">5</text>
+<text x="436" y="320" font-size="12" fill="#555">6</text>
+<path d="M 50 296.5 L 115 293.0 L 180 286.0 L 245 272.0 L 310 244.0 L 375 191.5 L 440 100.5" fill="none" stroke="#1a5fb4" stroke-width="2"/>
+<circle cx="50" cy="296.5" r="3.5" fill="#c01c28"/>
+<circle cx="115" cy="293.0" r="3.5" fill="#c01c28"/>
+<circle cx="180" cy="286.0" r="3.5" fill="#c01c28"/>
+<circle cx="245" cy="272.0" r="3.5" fill="#c01c28"/>
+<circle cx="310" cy="244.0" r="3.5" fill="#c01c28"/>
+<circle cx="375" cy="188" r="3.5" fill="#c01c28"/>
+<circle cx="440" cy="76" r="3.5" fill="#c01c28"/>
+<line x1="375" y1="188" x2="375" y2="191.5" stroke="#c01c28" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="440" y1="76" x2="440" y2="100.5" stroke="#c01c28" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="341" y="182" font-size="13" fill="#c01c28">32</text>
+<text x="382" y="206" font-size="13" fill="#1a5fb4">31</text>
+<text x="400" y="70" font-size="13" fill="#c01c28">64</text>
+<text x="404" y="118" font-size="13" fill="#1a5fb4">57</text>
+</svg>
+<figcaption><strong>Fig P23.3.</strong> The impostor, caught: doubling (dots) and the degree-4 carrier (curve) agree for five rows and part at the sixth — 32 against 31, 64 against 57. Five honest agreements, zero certificates.</figcaption>
+</figure>
+<p>The detector, run honestly, would have spoken — and its silence is instructive. The difference table detects polynomial laws only when a row dies: a degree-\(d\) law kills row \(d+1\) to zeros, and the doubling table's differences just keep doubling — row after row of \(2^n\), nothing ever dies. That refusal to die was the warning, and the pattern-hunter overrode it. Under the warning sits the hard truth: no finite table ever dies all the way down — six rows kill degree 4 but admit degree 5, which passes doubling's six rows too and parts at the seventh (Exercise 3 builds the whole family). The move's demand is not a formality to be mumbled; it is the entire content of the guess, and Exhibit A's engine guarantees that no amount of data can replace it.</p>
+<p><strong>Exhibit C · The spoiled ballot — Euler's half a factorial, and the shape appointed wholesale.</strong> The factorial's table owns the integers: \(1, 1, 2, 6, 24, 120, 720, \dots\) at \(0, 1, 2, 3, 4, 5, 6\). Euler's question, 1729: what is \(\left(\frac{1}{2}\right)!\)? The question does not live where the table is, and the phantom engine of Exhibit A works at analysis scale without strain: if \(g\) is any candidate continuation, then \(g(x) + \sin(\pi x)\) passes every integer row — the sine vanishes at all of them — and reads differently at every half-integer. Infinitely many carriers, one table, and the data — even doubly infinite data — elects none of them. What settles a question at the frontier is a demand, and here the demand must be appointed wholesale, because the table's own law, the recursion \(f(x+1) = x\,f(x)\), is part of the shape itself.</p>
+<p>The appointment, in three demands: \(f(1) = 1\); the recursion \(f(x+1) = x\,f(x)\); and log-convexity — \(\log f\) convex, growth that compounds smoothly. Bohr and Mollerup, 1922: among all functions meeting all three, exactly one exists — Euler's \(\Gamma(x+1)\), defined by the integral \(\int_0^\infty t^x e^{-t}\,dt\), whose readings include \(\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi} \approx 1.7724539\) — the same \(\sqrt{\pi}\) <a href="p18-raise-dimension.html">P18</a>'s Gaussian integral produced — and \(\Gamma\left(\frac{3}{2}\right) = \frac{\sqrt{\pi}}{2} \approx 0.8862269\): the factorial's honest readings at the half-integers.</p>
+<p>Each demand kills its own species of phantom, and the executions are worth watching. The sine ballot \(\Gamma(x+1) + \sin(\pi x)\) passes every integer row and fails the recursion between them: it reads \(\Gamma\left(\frac{3}{2}\right) + 1 = 1.8862269\) at \(x = \frac{1}{2}\), and \(\Gamma\left(\frac{5}{2}\right) - 1 = 0.3293404\) at \(x = \frac{3}{2}\) — but the recursion demands the second be half the first, \(0.9431135\), and it is off by \(0.6137731\): an entire failure, not a rounding one. The periodic ballot \((1 + 0.1\sin 2\pi x)\,\Gamma(x+1)\) is smarter — the periodic factor commutes with the recursion and vanishes nowhere, so it passes the integers and the recursion both, and dies only on convexity: the detector \(\log g(\text{midpoint}) - \frac{1}{2}\bigl(\log g(a) + \log g(b)\bigr)\) must read \(\le 0\) for a convex \(\log g\), and on the pair \(a = 2.1\), \(b = 2.4\) it reads \(+0.0341\) — bowed up, convexity broken, ballot spoiled — while \(\Gamma\)'s own detector reads negative on every pair of the same grid. The three demands together are the theorem: <em>uniqueness by appointment</em>, P05's sentence at analysis scale, and the last exhibit of the price — at the frontier, the shape demand is not an input to the theorem, it is the theorem.</p>
+<aside class="warn">
+<h3>Scope and price of P23</h3>
+<p><strong>What the move gives.</strong> Given integer data, honestly verified, and a shape demand, honestly stated: a unique carrier, assembled by the difference table in Newton's binomial form, pinned by P20's certificate, readable at every input the data never contained — with values, identities and symmetries carried from the binomials to the law, under the demand's license.</p>
+<p><strong>What the move costs, and cannot not cost.</strong> First: the rows alone never pin anything — Exhibit A's phantom passes any table at any length, so a carried answer is always conditional, and the honest form of every carried answer is "if the law has this shape, then this value." Second: the demand is a guess about the law — refutable, sometimes wrong — and Exhibit B's impostor shows the guess failing in the direction of false confidence: five agreeing rows and a sixth that reads 31, not 32. Third: only conclusions of the carrying kind carry — values, identities, symmetries; value-properties do not (Exercise 4's forty primes are served and then ended by the carrier's own arithmetic). Fourth: at the frontier the demand may have to be appointed wholesale, as Bohr and Mollerup appointed convexity, and the book says so rather than dressing the appointment as a discovery.</p>
+<p><strong>When not to use it.</strong> When the question lives at the data's own points — look it up; when the law is known and closed — read the law, skip the carrier; when no shape can be honestly appointed — the answer is not conditional but unknown, and saying so is the move's last honesty; and when the carried answer would be laundered into the data's own voice, which is the one misuse this page exists to prevent.</p>
+</aside>
+</section>
+
+<section id="what-next">
+<h2>6 · What next</h2>
+<h3>The doors this page opens</h3>
+<p><strong>The nearest door: <a href="p24-waves.html">P24 · Split into waves</a>.</strong> This page executed a phantom: \(\sin(\pi x)\), the law that passes every integer row and reads anything at noon, was treated as an enemy of interpolation — a spoiler of uniqueness. P24 turns the same object into the main instrument: complicated signals split into pure waves, sums built from sines, and the split is honest because the waves cancel to nothing everywhere except where they conspire — the phantom's talent for vanishing on the dot, promoted from forgery to measurement. The reader who owns both pages owns the whole engine: the carrier is one species of demand, and the sine is the demand's universal solvent.</p>
+<p><strong>A working door: <a href="p25-machine-cases.html">P25 · Check every case by machine</a>.</strong> This page's discipline is stated, not enforced: "verify the rows." When the rows number forty — Exercise 4's prime streak — or forty thousand, a sweep reads them all, and every claim this page made about its tables (the two-tailed binomials, the truncation's square, the ballots' failed demands) is exactly the kind of finite check that exhausts a whole case range. But the sweep reads rows, never laws — Exhibit A's engine holds at every scale a sweep can reach — and P25 is the honest instrument for that boundary: verify everything the data contains, and nothing more.</p>
+<p><strong>The far door: <a href="p57-nash-moser.html">P57 · Nash–Moser fast Newton</a>.</strong> The research frontier inherits this page's problem in monstrous form: Newton's method — <a href="p22-fixed-point.html">P22</a>'s engine — needs derivatives, and the frontier's objects lose them at every step. The Nash–Moser cascade runs the iteration anyway, rebuilding a smoothed carrier as it goes: interpolate, correct, smooth again — this page's move and P22's, married, at a scale where neither works alone. Two tiers up the ladder, the same sentence is still being said.</p>
+<h3>The default habit</h3>
+<p>From this page on, the reader handed integer data and a question that does not live at the integers should run, without being told: write the difference table; read where it dies — a dying row is a finding about the law, and a refusal to die is a warning; state the shape demand out loud, before building; build the carrier in Newton's form; check it against every row (P02's discipline, P20's certificate); carry; and print the answer with its condition attached — "if the law has this shape, then this" — because the unlabelled carried answer is not a shortcut, it is Exhibit B with a straight face. The habit takes ten seconds at the table's edge and is the whole difference between the grower who reports 6.25 honestly and the pattern-hunter who reports 32.</p>
+</section>
+
+<section id="lineage">
+<h2>7 · Where it came from</h2>
+<p>The move is older than its algebra, and its algebra is old. Linear interpolation between table entries is as old as astronomical tables themselves — Babylonian ephemerides fill between computed entries by proportional parts, and in the Greek tradition Ptolemy's tables do the same: the carrier's shape demand ("straight between the rows") worn so habitually that it stopped being noticed as a demand at all.</p>
+<p>The modern theory arrives with the logarithm trade. Henry Briggs, computing his 1624 <em>Arithmetica Logarithmica</em>, evaluated logarithms at coarse intervals and filled the between-values by finite differences — interpolation carrying the accuracy of a table too large to compute row by row. James Gregory, in a 1670 letter to John Collins, writes the interpolation formula now called Gregory–Newton: the forward-difference carrier of Box P23.A, before its binomial basis had a name. Newton adopts and generalizes it — the difference method in his 1670s work, and, in the 1676 letters to Leibniz, the binomial series carried to fractional exponents: Example 3's carrier in Newton's own hand, \(\frac{1}{2}\) among the exponents.</p>
+<p>The frontier questions follow. Euler, in letters to Goldbach (1729–1730), asks what the factorial of one half could mean and builds the answer by an integral — Exhibit C's table, extended; the constant his integral reads at the half is \(\sqrt{\pi}\), though the identification took him a decade to see. Lagrange's 1795 lectures give the carrier through arbitrary points, not just consecutive integers, its closed form. Abel (1826) makes the fractional binomial series honest — the convergence named and proved where Newton wrote an ellipsis, Example 3's first price, paid eighty years late. Schoenberg, 1946, names the <em>spline</em>: piecewise polynomial carriers, smoothness appointed degree by degree — every animation curve since is an interpolation with a stated shape demand. And Bohr and Mollerup, 1922, pin Euler's factorial carrier among all its rivals by convexity alone — Exhibit C's wholesale appointment, the move's last and largest scale, in a textbook the subject had waited two centuries to need.</p>
+</section>
+
+<section id="exercises">
+<h2>8 · Exercises</h2>
+<p class="ex"><strong>Exercise 1 · A growth column of your own</strong> <span class="difficulty">●○○</span><br>
+A measured table reads \(2, 3, 6, 11, 18, 27\) at \(x = 0\) through \(5\). (a) Build the difference table and find where it dies. (b) Assemble the carrier in Newton's form and identify the simple law it hides. (c) Read the carrier at \(x = \frac{7}{2}\), and compare with the chord's reading between \(x = 3\) and \(x = 4\). Which reading is honest, and under what demand?</p>
+<details><summary>Hint</summary>
+<p>Differences of the differences first; then the leading entries of the difference table are Newton's coefficients.</p>
+</details>
+<details><summary>Worked</summary>
+<p>(a) Differences: \(1, 3, 5, 7, 9\); second differences: \(2, 2, 2, 2\); third differences: zeros — the table dies at row 3, so a degree-2 demand fits. (b) Leading entries \(2, 1, 2\): \(f(x) = 2 + 1\cdot\binom{x}{1} + 2\cdot\binom{x}{2} = 2 + x + x(x-1) = x^2 + 2\). (c) \(f\left(\frac{7}{2}\right) = \frac{49}{4} + 2 = \frac{57}{4} = 14.25\); the chord between \(11\) and \(18\) reads \(14.5\). Both are honest — each under its own demand: the chord answers under "piecewise linear," the carrier under "degree at most 2." The data certifies neither demand, and Exhibit A's phantom engine explains why nothing ever will.</p>
+</details>
+<p class="ex"><strong>Exercise 2 · The carrier read backwards</strong> <span class="difficulty">●●○</span><br>
+The sum of squares \(S(x) = \frac{x(x+1)(2x+1)}{6}\). (a) Verify the binomial-basis form \(S(x) = 2\binom{x+2}{3} - \binom{x+1}{2}\) for \(x = 0\) to \(5\). (b) Read \(S\) at \(x = -1\) through \(-6\). (c) Discover, then prove, the reflection \(S(-n) = -S(n-1)\).</p>
+<details><summary>Hint</summary>
+<p>For the proof, use the reflection engine of Example 2's negative case, \(\binom{-m}{k} = (-1)^k\binom{m+k-1}{k}\), applied to the binomial form directly.</p>
+</details>
+<details><summary>Worked</summary>
+<p>(a) Both forms read \(0, 1, 5, 14, 30, 55\) — two integer coefficients on shifted binomials, integer-valued by Example 2's basis, no induction needed. (b) \(S(-1) = 0\), \(S(-2) = -1\), \(S(-3) = -5\), \(S(-4) = -14\), \(S(-5) = -30\), \(S(-6) = -55\). (c) Each negative value is the negated value one step earlier: \(S(-6) = -55 = -S(5)\), and so on down the table. Proof by the form: \(S(-n) = 2\binom{2-n}{3} - \binom{1-n}{2}\); the reflection engine reads \(\binom{2-n}{3} = -\binom{n}{3}\) and \(\binom{1-n}{2} = \binom{n}{2}\), so \(S(-n) = -2\binom{n}{3} - \binom{n}{2}\). Meanwhile \(-S(n-1) = -2\binom{n+1}{3} + \binom{n}{2}\), and Pascal's rule — \(\binom{n+1}{3} = \binom{n}{3} + \binom{n}{2}\) — turns that into \(-2\binom{n}{3} - \binom{n}{2}\) as well: the two expressions match, so \(S(-n) = -S(n-1)\) for every \(n\). The schoolbook formula hid a symmetry its induction could not see; the carrier states it in one line.</p>
+</details>
+<p class="ex"><strong>Exercise 3 · The impostor's whole family</strong> <span class="difficulty">●●●</span><br>
+The five rows \(1, 2, 4, 8, 16\). (a) Why does exactly one carrier of degree at most 4 pass all five rows — and why is "exactly one" a statement about the demand, not the data? (b) Build the carrier by its difference table and read it at \(n = 5\) and \(n = 6\). (c) Show that \(f(x) + t\binom{x}{5}\) passes the same five rows for every \(t\); find the \(t\) for which that family member reads 32 at \(n = 5\); read it at \(n = 6\); and state the moral.</p>
+<details><summary>Hint</summary>
+<p>(a) P20, five rows against degree 4. (c) At which integers does \(\binom{x}{5}\) vanish? After that, only \(\binom{5}{5}\) and \(\binom{6}{5}\) are needed.</p>
+</details>
+<details><summary>Worked</summary>
+<p>(a) Five rows pin a degree-\(\le 4\) carrier uniquely — P20 with \(d = 4\) — but infinitely many carriers of unbounded degree pass the same rows, so "exactly one" is what the demand buys, and part (c) makes that concrete. (b) The difference table's leading entries are \(1, 1, 1, 1, 1\), so \(f(x) = \binom{x}{0} + \binom{x}{1} + \binom{x}{2} + \binom{x}{3} + \binom{x}{4}\); at \(n = 5\): \(1 + 5 + 10 + 10 + 5 = 31\); at \(n = 6\): \(1 + 6 + 15 + 20 + 15 = 57\). (c) \(\binom{x}{5}\) vanishes at \(x = 0, 1, 2, 3, 4\) — a falling factor hits zero or the top runs short — so every member of the family passes the five rows. Reading 32 at \(n = 5\) needs \(t\binom{5}{5} = 31 + t = 32\), so \(t = 1\); that member at \(n = 6\) reads \(57 + \binom{6}{5} = 57 + 6 = 63\), not 64. The moral: for every finite table and every claim, some carrier passes the table and breaks the claim — the demand, never the data, is the referee; and a demand loose enough to fit the doubling rows is loose enough to be Exhibit B's impostor with a straight face.</p>
+</details>
+<p class="ex"><strong>Exercise 4 · The streak of forty primes</strong> <span class="difficulty">◆</span><br>
+The carrier \(f(x) = x^2 + x + 41\) reads prime at \(x = 0, 1, 2, \dots, 39\) — forty primes in a row — and then reads \(1681 = 41^2\) at \(x = 40\) and \(1763 = 41 \cdot 43\) at \(x = 41\). Diagnose the death the way this page would: the carrier itself predicts exactly where the streak must break. Find the modulus and the residue classes, prove the breakage is forced, and state which kind of conclusion carried — and which did not.</p>
+<details><summary>Hint</summary>
+<p>Forty primes, then a break at a multiple of 41, is not a coincidence. Reduce the carrier mod 41 and factor what remains: \(x^2 + x = x(x+1)\).</p>
+</details>
+<details><summary>Worked</summary>
+<p>Modulo 41: \(f(x) = x^2 + x + 41 \equiv x(x+1)\), which vanishes exactly when \(x \equiv 0\) or \(x \equiv -1 \pmod{41}\). So 41 divides \(f(x)\) for \(x = 0, 41, 82, \dots\) and for \(x = 40, 81, \dots\): the streak from \(x = 0\) — where \(f(0) = 41\), prime because it equals the modulus itself — must break at \(x = 40\), where \(f(40) = 41^2\), and again at \(x = 41\), where \(f(41) = 41 \cdot 43\). Both break points are predicted by the carrier's own arithmetic before any primality test is run. What carried: integer-valuedness, and the divisibility identity — structural conclusions of the carrying kind. What never carried: primality, a value-property the shape is silent about; the streak was a run of luck the carrier could serve and can also end. The general lesson: a carrier's streak is not its law, and forty confirmations certify a pattern only in a book that has not read §5.</p>
+</details>
+<p class="ex"><strong>Exercise 5 · The grammar of the difference table</strong> <span class="difficulty">◐</span><br>
+Prove the two facts the whole page has leaned on, and draw the moral P05 promised. (i) \(\Delta\binom{x}{k} = \binom{x}{k-1}\). (ii) A table's difference table dies at row \(d+1\) — \(\Delta^{d+1} f\) all zeros — if and only if the table's law is a polynomial of degree at most \(d\). (iii) The moral: why is the binomial basis canonical for integer data — what does the difference operator do to it that the monomial basis can only envy?</p>
+<details><summary>Hint</summary>
+<p>(i) is Pascal's rule in disguise, one line. For (ii) forward, apply (i) to Newton's form and read the bottom row; for (ii) backward, prove Newton's identity — every table equals its own Newton form — by induction on \(n\), merging two sums with Pascal's rule.</p>
+</details>
+<details><summary>Worked</summary>
+<p>(i) \(\Delta\binom{x}{k} = \binom{x+1}{k} - \binom{x}{k} = \binom{x}{k-1}\) — Pascal's rule, worn as a difference identity. (ii) Forward: if \(f = \sum_{j \le d} c_j\binom{x}{j}\), then by (i), applied \(d+1\) times, \(\Delta^{d+1}f = \sum_{j \le d} c_j\binom{x}{j-(d+1)}\), and every binomial with negative bottom index is zero — the table dies at row \(d+1\). Backward: Newton's identity, \(f(n) = \sum_{k=0}^{n}\binom{n}{k}\,\Delta^k f(0)\) for every \(n \ge 0\) — prove it by induction on \(n\): both sides agree at \(n = 0\), and \(f(n+1) = f(n) + \Delta f(n)\) merges the identity for \(f\) with the identity for \(\Delta f\) whose own differences are \(\Delta^{k+1}f(0)\), the two binomial columns fusing by Pascal's rule. If the table dies at \(d+1\), every \(\Delta^k f(0)\) with \(k &gt; d\) is zero, the identity truncates, and \(f(n) = \sum_{k \le d}\binom{n}{k}\Delta^k f(0)\) for every row — the carrier exists, degree at most \(d\), and reads the whole table. (iii) The moral: \(\Delta\) treats the binomial basis diagonally — index down by exactly one, coefficient untouched — the discrete shadow of \(\frac{d}{dx}x^n = nx^{n-1}\), which the monomial basis only approximates (\(\Delta x^2 = 2x+1\), off the basis at once). The difference operator is the integer data's native instrument; the basis it diagonalizes is therefore the theory's canonical form — P05's sentence with the theory named: the table's own arithmetic.</p>
+</details>
+</section>
+
+<footer>
+<p>Return to the <a href="index.html">index</a> · Next: <a href="p24-waves.html">P24 · Split into waves</a></p>
+</footer>
+</body>
+</html>

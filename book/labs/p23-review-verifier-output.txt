@@ -1,0 +1,58 @@
+P23 review verifier output — session S57
+========================================
+
+Page under review: book/p23-interpolate.html
+  59,578 B / 59,056 chars / 296 lines / md5 7c71ac09962d15e77fe91dcb07004a16
+
+Verifier: p23-review-verifier.js (four pieces, run piecewise)
+  VA — independent re-derivations of every numeric claim (28 checks)
+  VB — page scans: delimiters, banned tokens, structure, all five tables cell-by-cell (32 checks)
+  VC — ten poisons, each a false claim that the verifier must reject (10 checks)
+  VD — loader and prose gates: byte-exact head, kicker, section ids, h2/h3 texts,
+       pid citations, exhibits, figcaptions, doors, footer, lineage dates (30 checks)
+
+FINAL CENSUS: 100/100 PASS
+  VA 28/28   VB 32/32   VC 10/10 (all poisons rejected)   VD 30/30
+Page defects found: ZERO. Every number on the page re-derived independently
+(downward Pascal for the two-tailed table, monomial expansion for the impostor,
+sieve for the forty primes, Wallis product for pi, a second quadrature for the
+gamma family) matches the page as printed.
+
+Honest history of the verifier itself (all bugs verifier-side, all fixed before
+the final census; none touched the page):
+  1. The first gamma quadrature used the Gamma(x+1) integrand — an extra
+     v^(1/x) factor — which coincidentally read Gamma(3/2) at x = 1/2 but
+     would have poisoned the x < 1 detector grid. Replaced with the flat
+     substitution t = v^(1/x), integrand (1/x)e^(-v^(1/x)) — P18's Gaussian.
+  2. VA24's tolerance (5e-7) was tighter than the Wallis product's precision:
+     k = 300000 leaves ~5e-6 in pi, ~1.5e-6 in its square root. Widened to 2e-6.
+  3. VA28 originally reused the periodic ballot pb(x) for the true-gamma
+     detector grid — but pb is designed to violate log-convexity (+0.0341 at
+     2.1/2.4), so the grid maxed at exactly that violation. The true-gamma
+     detector now uses the bare gamma (max -0.00329, matching the pre-flight
+     probe's -0.0033).
+  4. VB23's needle check used indexOf(... ) === 0 against a URL that carries
+     the https:// scheme, so the matched URL could never sit at index 0.
+     Now an exact string equality.
+  5. VB26's paragraph balance counted "<p" by substring, which also matches
+     <path and <polygon inside the SVGs (76 vs 72). Paragraphs now counted
+     with a boundary regex, <p followed by space or >: 72/72.
+  6. VD7's id extraction sliced at offset 14, one past the end of the literal
+     '<section id="', cropping the first letter of every id ("ridge",
+     "ncounter"...). Corrected to 13.
+
+The ten poisons, all rejected as designed:
+  VC1  a second degree-2 carrier through the bamboo rows   (Vandermonde: unique)
+  VC2  C(-4,3) reads fractional                            (reads -20, an integer)
+  VC3  the truncation square leaks at z^4                  (exactly 0)
+  VC4  the impostor carrier answers 30 at n = 5            (answers 31)
+  VC5  x = 40 is prime                                     (1681 = 41^2)
+  VC6  sin(pi x) satisfies the factorial recursion at 1/2  (-1 vs 0.5)
+  VC7  the periodic ballot is log-convex                   (detector +0.0342)
+  VC8  S(-n) = -S(n)                                       (S(-1) = 0, -S(1) = -1)
+  VC9  the doubling table dies at difference row 5         (row 5 reads 2^n)
+  VC10 Gamma(1/2) = pi/2                                   (sqrt(pi) = 1.7725)
+
+Verifier file: 27,043 B / 265 lines / md5 bc71e67d36303d5cfd5eaa3bc5f5bd8a
+Session: S57, 2026-10-30. Book state after publish: 23/78 pattern pages
+(P01-P23) + 9/12 bridge pages (B01-B08, B12) published, tier 2 open.
