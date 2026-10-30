@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B08 · Diagonalization: decoupling by relabelling · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B08 · bridge page, group B · before <a href="p16-isomorphism.html">P16</a></p>
+<h1>Diagonalization: decoupling by relabelling</h1>
+<p class="tagline">One feed of a machine is a column walk; a hundred feeds look like a hundred tangles. Relabel the plane by the machine's own rails and the tangles dissolve: each rail-reading stretches by its own factor and never speaks to the other. This page names that relabelling — diagonalization — reaps its harvest (powers, orbits, closed forms), and says honestly which machines refuse it.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern, and it is the fourth and last page of group B — the coordinates block. <a href="b05-coordinates-basis.html">B05</a> built the measuring scheme: a basis is a pair of directions, a reading is a pair of numbers. <a href="b06-change-of-basis.html">B06</a> built the translation between two schemes: the dictionary, its reverse, and the determinant as the exchange rate for areas. <a href="b07-eigenvectors.html">B07</a> found the machine's own directions — the rails — and filed them as a scheme. This page reaps what those three sowed: relabelled into that scheme, a coupled machine becomes two uncoupled one-number stretches, and its whole future — every power, every orbit — collapses into short formulas. The name for the move is <em>diagonalization</em>; the box it buys is the block's last; and the two honest failures (one rail, or none) get their own worked section. All four pages stand behind <a href="p16-isomorphism.html">P16</a>, the pattern that solves a problem by re-dressing it: to re-dress a problem that wears a machine is exactly this relabelling. You already own every tool on the page: the rails and the hunt (<a href="b07-eigenvectors.html">B07</a>), the dictionaries both ways (<a href="b06-change-of-basis.html">B06</a>), the health test (<a href="b05-coordinates-basis.html">B05</a>). Take a pencil; you will feed one point three times the hard way, and watch the same computation collapse, before you meet a single new word.</aside>
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p>The island is back, and so is the harbourmaster's distortion machine \(M = \begin{bmatrix} 3 & 1 \\ 2 & 2 \end{bmatrix}\), still on the office desk: feed it a map point, out comes a new one. Last page the office hunted the machine's two rails — the red diagonal \((1,1)\), stretched \(\times 4\), and the blue cove arrow \((1,-2)\), stretched \(\times 1\) and so not moved at all — and filed them as the machine's own measuring scheme. Today's question is the one the office has been putting off. The storm is not finished: the coastline machine now runs <em>every year</em>, each spring eating the whole map and returning the next year's. The harbourmaster wants the map of spring 3 — and of spring 10 — without walking the machine one year at a time.</p>
+<p><strong>Task: feed the point \((3,0)\) three years running, by hand, in school numbers.</strong> One feed is the column walk <a href="b06-change-of-basis.html">B06</a> taught; one point per year is all the office asks. Year by year, on paper:</p>
+<p class="eq">\[M(3,0) \;=\; 3\begin{bmatrix} 3 \\ 2 \end{bmatrix} + 0\begin{bmatrix} 1 \\ 2 \end{bmatrix} \;=\; (9,6),\]</p>
+<p class="eq">\[M(9,6) \;=\; 9\begin{bmatrix} 3 \\ 2 \end{bmatrix} + 6\begin{bmatrix} 1 \\ 2 \end{bmatrix} \;=\; (27+6,\; 18+12) \;=\; (33,30),\]</p>
+<p class="eq">\[M(33,30) \;=\; 33\begin{bmatrix} 3 \\ 2 \end{bmatrix} + 30\begin{bmatrix} 1 \\ 2 \end{bmatrix} \;=\; (99+30,\; 66+60) \;=\; (129,126).\]</p>
+<p>Three feeds, six grown multiplications, and the numbers couple at every step: both entries of each answer hear from both entries of the question. Now put the pencil down and read the four points again: \((3,0)\), \((9,6)\), \((33,30)\), \((129,126)\). Something never moved. Subtract within each point: \(3-0\), \(9-6\), \(33-30\), \(129-126\) — the answer is \(3\), four times running. The tangle has a spine: some one-number story the machine is protecting while it scrambles everything else.</p>
+<p><strong>Now the same three years, done the rails way.</strong> Split the starting point on the machine's two rails — find the step-counts \(a, b\) with \((3,0) = a\cdot(1,-2) + b\cdot(1,1)\). Two little equations: \(a + b = 3\) along the first coordinate, \(-2a + b = 0\) along the second, so \(b = 2a\) and \(3a = 3\). Whole numbers: \(a = 1\), \(b = 2\). The point is one blue step plus two red steps,</p>
+<p class="eq">\[(3,0) \;=\; 1\cdot(1,-2) \;+\; 2\cdot(1,1).\]</p>
+<p>And a machine that only stretches rail arrows cannot scramble rail step-counts — that is what <a href="b07-eigenvectors.html">B07</a>'s rails <em>are</em>. The blue step sits on the \(\times 1\) rail: returned as itself, this year and every year. The red content \(2\cdot(1,1)\) sits on the \(\times 4\) rail: one year makes it \(8\cdot(1,1)\), two years \(32\cdot(1,1)\), three years \(128\cdot(1,1)\). Reassemble spring 3:</p>
+<p class="eq">\[1\cdot(1,-2) \;+\; 128\cdot(1,1) \;=\; (129,126).\]</p>
+<p>The same answer — and this route was barely arithmetic: multiply 2 by 4, three times. The protected \(x - y = 3\) is no longer mysterious either: it is the standing-still blue piece, whose \(x - y\) is \(1 - (-2) = 3\), wearing school clothes. Fig B08.1 draws the whole story.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 300" role="img" aria-label="Fig B08.1 — the three spring points of the orbit of (3,0) under the machine M: (3,0), (9,6) and (33,30), each split the same way into a standing blue piece 1 times (1,−2), identical all three years, plus a red piece along the diagonal quadrupling from 2 times (1,1) to 8 times (1,1) to 32 times (1,1); the three points march up the faint dotted road x − y = 3, one blue step off the red rail.">
+<line x1="60" y1="30" x2="60" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="90" y1="30" x2="90" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="120" y1="30" x2="120" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="150" y1="30" x2="150" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="180" y1="30" x2="180" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="210" y1="30" x2="210" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="240" y1="30" x2="240" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="270" y1="30" x2="270" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="300" y1="30" x2="300" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="330" y1="30" x2="330" y2="270" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="240" x2="335" y2="240" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="210" x2="335" y2="210" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="180" x2="335" y2="180" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="150" x2="335" y2="150" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="120" x2="335" y2="120" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="90" x2="335" y2="90" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="60" x2="335" y2="60" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="30" x2="335" y2="30" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="35" y1="235" x2="265" y2="5" stroke="#b3543f" stroke-width="1" stroke-dasharray="2 3" stroke-opacity="0.5"/>
+<line x1="30" y1="150" x2="95" y2="280" stroke="#3574d4" stroke-width="1" stroke-dasharray="2 3" stroke-opacity="0.5"/>
+<line x1="66" y1="222" x2="282" y2="6" stroke="#9aa7b8" stroke-width="1" stroke-dasharray="1 4" stroke-opacity="0.7"/>
+<line x1="60" y1="210" x2="66" y2="222" stroke="#3574d4" stroke-width="2"/>
+<polygon points="66,222 60.4,220.6 63.8,215.8" fill="#3574d4"/>
+<circle cx="66" cy="222" r="3.2" fill="none" stroke="#3574d4" stroke-width="1.3"/>
+<line x1="66" y1="222" x2="78" y2="210" stroke="#b3543f" stroke-width="1.6"/>
+<polygon points="78,210 72.4,211.2 74.9,215.6" fill="#b3543f"/>
+<line x1="66" y1="222" x2="114" y2="174" stroke="#b3543f" stroke-width="2"/>
+<polygon points="114,174 108.2,175.6 111.2,180.2" fill="#b3543f"/>
+<line x1="66" y1="222" x2="258" y2="30" stroke="#b3543f" stroke-width="2"/>
+<polygon points="258,30 252.2,31.6 255.2,36.2" fill="#b3543f"/>
+<circle cx="78" cy="210" r="3" fill="#3a4a5e"/>
+<circle cx="114" cy="174" r="3" fill="#3a4a5e"/>
+<circle cx="258" cy="30" r="3" fill="#3a4a5e"/>
+<text x="83" y="226" font-size="10" text-anchor="start" fill="#3a4a5e">(3,0): 1 blue + 2 red</text>
+<text x="119" y="190" font-size="10" text-anchor="start" fill="#3a4a5e">(9,6): 1 blue + 8 red</text>
+<text x="228" y="27" font-size="10" text-anchor="start" fill="#3a4a5e">(33,30): 1 blue + 32 red</text>
+<text x="74" y="243" font-size="10" text-anchor="start" fill="#3574d4">blue piece (1,−2): never moves</text>
+<circle cx="60" cy="210" r="3" fill="#3a4a5e"/>
+<text x="53" y="224" font-size="11.5" text-anchor="middle" fill="#3a4a5e" font-weight="700">O</text>
+<text x="60" y="294" font-size="10.5" text-anchor="start" fill="#555f6e">every spring point sits on the dotted road x − y = 3: the red arm quadruples, the blue arm never moves</text>
+</svg>
+<figcaption><strong>Fig B08.1.</strong> The same three years, drawn. Each spring point splits the same way: a blue piece \(1\cdot(1,-2)\) — the short arrow from \(O\), identical all three years, tip ringed — plus a red piece along the diagonal, \(2\cdot(1,1)\), then \(8\cdot(1,1)\), then \(32\cdot(1,1)\), quadrupling with every feed. The sums \((3,0)\), \((9,6)\), \((33,30)\) march up the faint dotted road \(x - y = 3\), one blue step off the red rail: the orbit's private line, parallel to the red rail because the blue piece is a constant. In school numbers the years are a tangle; in rail step-counts they are two one-number stories, one frozen and one quadrupling.</figcaption>
+</figure>
+<p><strong>What the pencil just showed.</strong> A coupled computation — both coordinates mixed at every step — became, in the right reading, two uncoupled one-number stories. That is the whole phenomenon, and it wants its law. <em>When</em> can a machine be read this way at all? <a href="b07-eigenvectors.html">B07</a> answered half of that: it must own two rails, and the discriminant says whether it does. <em>What exactly</em> does the rail reading buy for the machine itself — spring 10, spring 100, a formula for every spring at once? And <em>what honest price</em> does the relabelling charge, on the machines the door refuses? The next section names the move; the name is the block's last new word.</p>
+</section>
