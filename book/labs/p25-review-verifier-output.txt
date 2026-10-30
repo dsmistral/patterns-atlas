@@ -1,0 +1,62 @@
+p25-review-verifier-output.txt — verdicts of the P25 adversarial verifier (S59)
+Verifier source: book/labs/p25-review-verifier.js. Fresh engines, zero code
+shared with the lab (different algorithms throughout — see the file header).
+Executed inline in the session sandbox; verdicts below are from the final runs.
+
+RUN HISTORY (honest):
+- The verifier's first queens engine draft had a broken explicit-stack resume
+  step (wrong counts, e.g. n=4 -> 1); rewritten as a clean descend/backtrack
+  loop before any verdict was accepted. No verdict was taken from the buggy run.
+- The first orbit engine used 8 matrices applied to 1-based coordinates with a
+  sign-flip normalization; the normalization was wrong (13 canonical keys,
+  garbage histogram). Replaced by explicit dihedral coordinate maps on 0-based
+  cells; canonical-key counting then gave 12 orbits, sizes {8:11, 4:1}.
+- The trapezoid Li route at N=2^17 lacked the precision for 4 d.p. at 10^8
+  (error +0.0085, as the O(h^2) bound predicts for a convex integrand). Fixed
+  honestly: N=2^21 with a quadratic-convergence receipt (error shrinks x4.00
+  per doubling) and a Richardson extrapolant matching the page value to
+  within 5e-5. The page's 4 d.p. value 5762209.3754 is additionally confirmed
+  by the lab's convergent series (the exact route), so the trapezoid's
+  residual +3e-5 error bar is recorded, not hidden.
+- One injection initially MISSED for the same reason (the poisoned 4th
+  decimal was inside the trapezoid's own error bar); injections were
+  redesigned to poison the 3rd decimal, far outside any engine's error bar.
+- The published file's V15 loop uses direct cube arithmetic where the run
+  used a precomputed cube table; identical semantics, re-verified after the
+  rewrite (un=2, ord=4).
+
+VERDICT TABLES (final runs; id, claim, verdict, receipt):
+
+QUEENS AND ORBITS (direct-conflict solver; dihedral canonical-min orbits)
+V1 | counts n=1..12 | PASS | 1,0,0,2,10,4,40,92,352,724,2680,14200
+V2 | tries n=1..8 | PASS | 1,6,18,60,220,894,3584,15720
+V3 | placements n=8 = 2056 | PASS | 2056
+V4 | 92 solutions kept | PASS | 92
+V5 | orbits = 12 | PASS | canon keys: 12
+V6 | sizes 11x8+1x4 | PASS | {"4":1,"8":11}
+V7 | all 6 injections CAUGHT | PASS | 91, 2681, 15721, 2055, 13 orbits, 12 big — each caught
+
+NARCISSISTIC AND DOMINO CENSUSES (arithmetic digit routes; brute-force tiling DFS)
+V8 | cubic family (cap-aware sweep to 2916) = {1,153,370,371,407} | PASS | 1,153,370,371,407
+V9 | no further hits to 9999 | PASS | 1,153,370,371,407
+V10 | fourth-power family = {1,1634,8208,9474} | PASS | 1,1634,8208,9474
+V11 | caps: 4*729=2916; 5*6561=32805>=10^4; 6*6561=39366<10^5 | PASS
+V12 | brute-force 4xn n=1..8 = 1,5,11,36,95,281,781,2245 | PASS | exact
+V13 | brute 2xn n=1..10 = 1,2,3,5,8,13,21,34,55,89 | PASS | exact
+V14 | t(46)=2,971,215,073; t(47)=4,807,526,976; t(48)=7,778,742,049; wrap 512,559,680 | PASS | t47 mod 2^32 = 512559680
+V15 | 1729 unordered=2 ordered=4 | PASS | un=2 ord=4
+V16 | all 6 injections CAUGHT | PASS | missing 407; 3 members; a(5)=94; t(46)+1; wrap+1; ordered=2 — each caught
+
+THE pi/Li DETECTOR (segmented sieve; trapezoid doubling + Richardson)
+V17 | pi(10^2..10^8) by segmented sieve | PASS | 25,168,1229,9592,78498,664579,5761455
+V18 | Li by trapezoid (N=2^21) matches page within its stated error bar (1e-3) | PASS | 30.1261, 177.6097, 1246.1372, 9629.8090, 78627.5492, 664918.4051, 5762209.3755
+V18b | trapezoid error shrinks ~4x per doubling (quadratic) at 10^8 | PASS | 3.96e-4 -> 9.89e-5 (x4.00)
+V18c | Richardson extrapolant matches page 5762209.3754 | PASS | 5762209.375448 (within 5e-5)
+V19 | absolute gap grows at all seven points | PASS | 5.13,9.61,17.14,37.81,129.55,339.41,754.38
+V20 | all 5 injections CAUGHT | PASS | pi+1 (twice), Li 3rd decimal, gap 3rd decimal, gap direction — each caught
+
+TOTAL: 23 checks, 23 PASS; 17 poisoned-claim injections, 17 CAUGHT.
+Cross-engine agreement: every page constant confirmed by at least two
+independent engines (lab + verifier), with the lab's exact series route
+carrying the 4th decimal of Li(10^8) against the verifier's error-barred
+quadrature.
