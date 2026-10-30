@@ -1,6 +1,0 @@
-B08 LAB — honest run history
-run 1: 379 checks counted / 48 FAIL — mostly lab-side: the section 5 needles had been drafted from working notes instead of the frozen page text (Ex1/Ex2/Ex3 wording differs throughout), plus four needle-engine bugs: the MathJax-config needle was written with half the backslashes the page carries, the Fibonacci index was off by one against F(n), the orbit-ladder check pinned rung n=4 at 429 (the true rung is (427,426)), and the harvest-law sweep compared C^10 by two routes at 1e-9 tolerance, tighter than float noise at 2.8e8 scale. No page defects yet.
-run 2: 404 checks, 4 FAIL — one REAL page defect, found by the lab's independent recompute: Exercise 2's check line printed C(2,-1) = (6-2, 4-6) = (4,-4), but the feed is (4,-2) = 2(2,-1); the page and its part6 source were corrected to (4,-2). The other three were lab-side: a capital-T needle ("The health check"), a needle with \frac where the page says \tfrac, and the ladder array still carrying 429/428.
-run 3 (final): page and needles agree; battery clean.
-B08 LAB — checks: 404/404, 0 FAIL
-  p0: 50/50  p1: 44/44  p2: 46/46  p3: 88/88  p4: 58/58  p5: 118/118
