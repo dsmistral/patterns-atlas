@@ -1,7 +1,0 @@
-B07 LAB — honest run history
-run 1: 590 checks counted / 2 FAIL — the tail auto-run guard fired inside the harness runner, so the battery ran TWICE on shared globals (295 checks per run, one real failure each): the real FAIL was fig2 red rail through O — a genuine page defect, Fig B07.2 red rail ended at (230,70) but the (1,1) rail through O=(170,190) ends at (230,130). Lab-side fixes: tail guard now requires __B07_STANDALONE__, runBattery resets state per run.
-run 2: 295 checks, 1 FAIL — same red-rail failure: page fixed (part3 y2 70→130, page 49,897 B) but the lab needle still carried the old coordinates.
-run 3 (final): needle updated to the corrected rail.
-B07 LAB — checks: 295/295, 0 FAIL
-  p0: 49/49  p1: 34/34  p2: 53/53  p3: 64/64  p4: 52/52  p5: 43/43
-
