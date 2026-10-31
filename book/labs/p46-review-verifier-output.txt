@@ -1,4 +1,4 @@
-p46 adversarial verifier output — wip/p46-review-verifier.js (19,062 bytes) against wip/p46-spectral-sequences.html (58,802 bytes, 225 lines)
+p46 adversarial verifier output — wip/p46-review-verifier.js (19,093 bytes) against wip/p46-spectral-sequences.html (58,802 bytes, 225 lines)
 Design: zero code shared with the lab. Vectors are integer bitmasks; every quotient is computed by enumerating ALL vectors of a cell and counting spans by XOR-basis insertion (no rref, no nullspace basis construction). The d2 knight is computed by brute-force preimage enumeration with an all-preimages well-definedness check. The flattening and the F^p H^n reassembly are computed from a per-diagonal D-mask table (source bit -> target mask, applied by XOR). Groups: T tower · R floor route + miniature + Ex1 · C brute-force census (all four routes, 2x2 through 3x3, joint knights, pinch) · P needle panel + 8 poison-injection clones + 1 control.
 
 RUN HISTORY (honest):
