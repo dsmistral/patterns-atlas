@@ -1,0 +1,48 @@
+b09-review-verifier.js — output of the adversarial re-verification run for B09 "Graphs and numbers on them"
+run 2026-10-31 against the frozen page (52,847 B, md5 7c49dde595b11a1da31d0e32424d8324): 42 checks — 26 fresh (F01-F26) + 16 injections (I01-I16)
+independent engine: edge-list relaxation potential-solver, union-find spanning sizes, scaled-integer geometry
+PASS 1 F01 Lecture 0: rises recovered from solved potentials (+50,-75,+25)
+PASS 2 F02 Lecture 0: page altitudes = solved potentials + 40 (gauge)
+PASS 3 F03 Lecture 0: forward loop sums to 0
+PASS 4 F04 Lecture 0: backward loop sums to 0
+PASS 5 F05 square: potentials solved from rises, root A = (0,4,-5,2)
+PASS 6 F06 square: page altitudes = solved + 3 (gauge)
+PASS 7 F07 square: all three cycles die
+PASS 8 F08 square: A->C shortcut = via B = -5
+PASS 9 F09 square: C->B both routes = +9
+PASS 10 F10 path: solved potentials from root 0 = 0,2,-1,4,5
+PASS 11 F11 path: gauge +10 moves every potential by one constant, rises unchanged
+PASS 12 F12 tree: solved potentials from S = 0,3,-4,8,-2,7
+PASS 13 F13 tree: re-rooted at E = E0,C1,A-4,S-7,B-11,D-9
+PASS 14 F14 tree: re-rooting difference is one constant -7 (Claim 3)
+PASS 15 F15 Ex1: solved rises -15,+35,-20 from potentials
+PASS 16 F16 Ex1: clockwise and counterclockwise loops both die
+PASS 17 F17 Ex2: solved (0,5,3,8); page altitudes = solved + 1
+PASS 18 F18 Fig B09.1: arrowhead A->B matches the page (scaled-integer)
+PASS 19 F19 Fig B09.1: arrowhead B->C matches the page (scaled-integer)
+PASS 20 F20 Fig B09.1: arrowhead C->A matches the page (corner2 x = 1117 scaled)
+PASS 21 F21 Ex4: union-find spanning size of the tree = 5 = V-1
+PASS 22 F22 Ex4: union-find spanning size of the triangle = 2
+PASS 23 F23 Ex4: union-find spanning size of square+shortcut = 3
+PASS 24 F24 Ex4: union-find spanning size of K4 = 3 (so 3 loop tests)
+PASS 25 F25 K4: walk A-B-C-D-A-C-B totals +5 = phi(B)-phi(A)
+PASS 26 F26 K4: long closed walk A-C-B-D-A-B-D-C-A totals 0
+REJECTED 27 I01 inject phi(B)=8 in lecture 0 (engine recovers +50)
+REJECTED 28 I02 inject loop total 5 for (+50,-75,+25) (engine 0)
+REJECTED 29 I03 inject (+1,+1,+1) passes the loop test (engine total 3, fails)
+REJECTED 30 I04 inject square A->C = -7 (engine -5)
+REJECTED 31 I05 inject square outer cycle = 4 (engine 0)
+REJECTED 32 I06 inject gauge +100 changes A->B to +104 (engine still +4)
+REJECTED 33 I07 inject path phi(v2) = -2 (engine -1)
+REJECTED 34 I08 inject tree phi(C) = 9 (engine 8)
+REJECTED 35 I09 inject tree phi(E) = 6 (engine 7)
+REJECTED 36 I10 inject re-rooted phi'(A) = -3 (engine -4)
+REJECTED 37 I11 inject Claim-3 constant -8 (engine -7)
+REJECTED 38 I12 inject Ex1 counterclockwise total 20 (engine 0)
+REJECTED 39 I13 inject Ex2 C->B direct +3 (engine +2)
+REJECTED 40 I14 inject K4 needs 2 loop tests (engine 3)
+REJECTED 41 I15 inject triangle spanning size 3 (engine 2)
+REJECTED 42 I16 inject Fig B09.1 arrowhead C->A corner2 x = 111.8 (engine 111.74)
+
+census: 42 checks, 26 pass, 16 rejected, 0 fail
+VERDICT: ALL PASS (fresh checks pass, injections rejected)
