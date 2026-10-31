@@ -1,0 +1,49 @@
+# p35-review-verifier.js output — S69 run, fresh engine, zero shared code with lab
+# run: new Function(content)() in sandbox; 26 fresh checks + 16 fault injections
+
+PASS V01 fresh order-2 census: 16 candidates, 4 monoids
+PASS V02 fresh order-2: 0 nonabelian
+PASS V03 fresh order-3 census: 33 monoids of 19683
+PASS V04 fresh order-3 split: 27 abelian + 6 nonabelian
+PASS V05 fresh W1 is a monoid and abelian
+PASS V06 fresh W2 is a monoid
+PASS V07 fresh W2 nonabelian witness: ab=b, ba=a
+PASS V08 fresh W1 relabels to Z/3
+PASS V09 fresh order-2 cancellation split: semilattice fails, Z/2 holds
+PASS V10 fresh word pool 15, instances 38, all flatten-trivial
+PASS V11 fresh transitivity two ways = 100 (pair scan and side-buckets)
+PASS V12 fresh total size-2 derivations 290 = 38+100+152
+PASS V13 fresh distinct conclusions 31, all word-trivial
+PASS V14 fresh ab=ba not among conclusions
+PASS V15 fresh pool 32; 1024 pairs x 4, failures 0; positive-product failures 0
+PASS V16 fresh 32768 triples x 4 checks, failures 0
+PASS V17 fresh x > n for n=1..50
+PASS V18 fresh epsilon receipts n=1..50
+PASS V19 fresh (1-eps)*x/(x-1) = 1 exact
+PASS V20 fresh eps^5 residue identity exact
+PASS V21 fresh T(0.5) sum 151.9275, defect 28.0725, area 0.49 rad
+PASS V22 fresh T(0.9) sum 101.9851, defect 78.0149, area 1.3616
+PASS V23 fresh flatness approach: T(0.25)/T(0.1)/T(0.01) sums
+PASS V24 fresh defect ratios within 0.005 of s^2/0.25
+PASS V25 fresh dichotomy 19 escape / 18 cross / 2 graze; cx=1.5 meets at 0.382
+PASS V26 Beltrami 284-312 = 29 pages; Goedel 1938 to Cohen 1963 = 25 years; Cohen 6 pages
+PASS V27 INJECT order-2 has a nonabelian witness: rejected
+PASS V28 INJECT order-3 monoids = 32: rejected
+PASS V29 INJECT order-3 abelian = 26: rejected
+PASS V30 INJECT T(0.5) defect = 0 (flat triangle): rejected
+PASS V31 INJECT T(0.5) sum = 161.9275 (digit transposition): rejected
+PASS V32 INJECT x < n somewhere in 1..50: rejected
+PASS V33 INJECT eps > 1/n for some n<=50: rejected
+PASS V34 INJECT dichotomy 20 escape / 19 other: rejected
+PASS V35 INJECT total size-2 derivations = 289: rejected
+PASS V36 INJECT ab=ba derivable at size 2: rejected
+PASS V37 INJECT Bolyai letter year 1832 is prime: rejected
+PASS V38 INJECT Cohen part I year 1964: rejected
+PASS V39 INJECT Poincare Acta year 1883: rejected
+PASS V40 INJECT Beltrami Saggio year 1869: rejected
+PASS V41 INJECT W2 commutative (ab = ba): rejected
+PASS V42 INJECT asymptotic graze hits strictly inside (-1,1): rejected
+
+FRESH CHECKS: 26   INJECTIONS REJECTED: 16
+VERIFIER TOTAL: 42  PASS: 42  FAIL: 0
+VERIFIER STATUS: ALL PASS
