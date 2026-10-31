@@ -263,8 +263,8 @@ ND('E47 footer next', 'Next:</strong> <a href="p48-representable-functor.html">P
 ND('E48 footer next words', 'an object is known by the questions you can ask of it');
 ND('E49 footer home', 'The patterns atlas</a> · <a href="p33-sheaf-cohomology-bridge.html">P33 · The sheaf cohomology bridge</a>');
 ND('E50 door P53', 'Door <a href="p53-deformation-cohomology.html">P53</a> · deformation cohomology');
-ND('E51 door P52', 'Door <a href="p52-microlocal-propagation.html">P52</a>');
-ND('E52 door P60', 'Door <a href="p60-group-completion.html">P60</a> · spectral sequences, the far shore');
+ND('E51 door P52', 'Door <a href="p52-microlocal-propagation.html">P52</a>.</strong> The propagation door: a singularity is an obstruction with an address');
+ND('E52 door P60', "Door <a href=\"p60-group-completion.html\">P60</a> · group completion, the universal invariant.</strong> An exact category's group completion imposes every short exact sequence");
 ND('E53 door P65', 'Door <a href="p65-floer-homology.html">P65</a> · the customers');
 ND('E54 literature Weibel', "Weibel's <em>An Introduction to Homological Algebra</em> (Cambridge, 1994)");
 ND('E55 literature Mac Lane', "Mac Lane's <em>Homology</em> (Springer, 1963)");
