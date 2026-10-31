@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P36 · Count with characters · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P36 · the second move of tier 4</p>
+<h1>Count with characters</h1>
+<p class="tagline">When a count must respect symmetry, stop listing orbits by hand: make the symmetry group act, read each action by its character — the count of what it fixes — and the whole family of answers falls out of one table, as inner products.</p>
+</header>
+
+<aside class="onramp"><strong>New word: character.</strong> A <em>character</em> is the trace of an action. When a group of symmetries acts on a vector space — each group element moving every vector by a matrix — the <em>character</em> assigns to each element the trace (diagonal sum) of its matrix. The word sounds abstract; the device is a pair of scissors for counting: for a permutation action, the trace counts <em>fixed points</em>, so characters can be read off by counting, with no matrices in sight. A cube rotation's character on faces says how many faces it leaves alone; its character on the space of all colorings says how many colorings it freezes. This page's whole method is two moves: turn counts into characters, then turn characters back into counts — through an average that <a href="p08-symmetry.html">P08</a> already taught you to trust.</aside>
+
+<section id="recall">
+<h2>1 · Before we begin</h2>
+<p><a href="p35-force-independence.html">P35</a> ended by keeping a promise: the next move counts what symmetry refuses to distinguish. It is time to pay. But the tools were assembled long ago, on the spine and the waves, and the fastest way in is to recall who owes what.</p>
+<p><a href="p08-symmetry.html">P08</a> taught the honest average: when \(G\) acts on a set, the number of orbits is the average number of fixed points, \(\frac{1}{|G|}\sum_{g \in G} \mathrm{fix}(g)\) — divide by symmetry, and the overcounting cancels exactly. This page leans on that average at every step; nothing here replaces it. What this page adds is the discovery that the average is only the first entry of a ledger. <a href="p24-waves.html">P24</a> taught the wave ledger: a complicated signal splits into pure frequencies, and the splitting is linear bookkeeping — \(\langle f, f \rangle = \sum |c_k|^2\), amplitudes squared and summed. The character method is that lesson wearing group clothes: the pure frequencies of a group are its <em>irreducible characters</em>, every action splits into them, and the split is read off by the same inner product. <a href="p05-canonical-form.html">P05</a> named what an orbit is: a canonical class — objects counted up to symmetry are exactly canonical forms, so a counting problem wearing symmetry is a canonical-form problem, and P05's discipline (name the transformation before counting the forms) is this page's Key 1. <a href="p16-isomorphism.html">P16</a> supplies the deepest comfort: the rotation group of the cube, met below, <em>is</em> the permutation group \(S_4\) in different clothes — the four long diagonals are the four letters — so a table computed once for one action is a table reusable across every object with the same symmetry group. And <a href="p25-machine-cases.html">P25</a> keeps the whole book honest: every count, average, and inner product below is machine-checked, over full censuses, not samples.</p>
+<p>Here is the tension this page resolves. The average of P08 delivers one number — ten black-and-white cubes, say — and then throws the machinery away. Ask the average a second question — <em>how many of the ten have exactly one black face</em> — and it answers only if you re-derive everything; ask <em>how does the space of colorings decompose into symmetry waves</em>, and it cannot even hear you. The character ledger keeps the machinery: one table, computed once, answers the orbit count, the weighted inventory, the multiplicity of every wave, the dimension of every invariant subspace — each as a single inner product, each machine-checkable, and each honest about what it cannot see (two exhibits below are exactly about that blindness). The method's price is printed up front: the symmetry must be a known finite group action, and the ground field's characteristic must not divide the group order — the two jams have their own exhibits.</p>
+</section>
