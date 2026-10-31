@@ -1,0 +1,46 @@
+p36-review-verifier — fresh adversarial verification for P36 (S70)
+independent engines: signed perms, BFS partitions, bitmask necklaces, coded quaternions
+V01 PASS — bytes 63685, units 63061
+V02 PASS — 221 lines, closes </html> + newline
+V03 PASS — h2 pairs: 8
+V04 PASS — h3 pairs: 11
+V05 PASS — details 10, svg 3, tables 2
+V06 PASS — boxes 3, warn 1, onramp 1
+V07 PASS — inline TeX 267/267
+V08 PASS — display TeX 11/11
+V09 PASS — no $$, no backticks
+V10 PASS — pin, integrity, title, stylesheet
+V11 PASS — moons, next door, home door
+V12 PASS — det+1 signed permutations: 24
+V13 PASS — face action faithful: 24 distinct perms
+V14 PASS — five breeds 1,6,3,8,6
+V15 PASS — k=2: BFS 10 orbits, Burnside 10
+V16 PASS — k=3: 57 orbits
+V17 PASS — vertices: BFS 23, char 256,4,16,16,16
+V18 PASS — S3 orbits: 2-color 4, 3-color 10
+V19 PASS — chars (3,1,0)/(2,0,-1)/(1,-1,1), mults 4,0,2, self 20
+V20 PASS — 3-color (27,9,3), mults 10,1,8, self 165, dims 10+1+16
+V21 PASS — S4 table: 5x5 orthogonal, 1+1+4+9+9 = 24
+V22 PASS — face char 6,2,2,0,0; mults 1,0,1,1,0; self 3
+V23 PASS — C4 orthogonal, split 6,3,4,3, Parseval 70
+V24 PASS — necklaces 2,3,4,6,8,14,20,36,60,108,188,352; bracelets 2,3,4,6,8,13,18,30,46,78,126,224; 2B=N+A holds
+V25 PASS — same trace table -2,0,0,0,0,0,0,2; orders differ: not isomorphic
+V26 PASS — invariant swap-lines: F2 has 1, F3 has 2 — Maschke's edge
+V27 PASS — lineage dates, Redfield 433–455, Conway–Norton 308–339, Monster arithmetic
+V28 REJECTED — title corruption caught
+V29 REJECTED — MathJax version bump caught
+V30 REJECTED — dropped h2 caught
+V31 REJECTED — injected backtick caught
+V32 REJECTED — injected $$ caught
+V33 REJECTED — moons corruption caught
+V34 REJECTED — corrupted class tally (6 -> 7) gives 10.333333333333334, not 10
+V35 REJECTED — dropped rotation: 23 elements, not a group
+V36 REJECTED — claimed vertex count 22 rejected: engine says 23
+V37 REJECTED — corrupted totient formula (2^d for 2^(n/d)) at n=12: 1380.5, not 352
+V38 REJECTED — dev-bug reflection term at n=9 gives 38.888888888888886, not 46
+V39 REJECTED — corrupted table with ii = +1 breaks associativity: (ii)j != i(ij)
+V40 REJECTED — trivialized sign char equals triv: not orthogonal
+V41 REJECTED — forced all-achiral claim fails 2B = N + A at n=6
+V42 REJECTED — corrupted Monster arithmetic rejected
+V43 REJECTED — F2 split claim rejected: only span(1,1) is swap-invariant
+TOTAL: 43/43 PASS — 27 fresh checks, 16 injections rejected
