@@ -1,7 +1,9 @@
 /* ============================================================================
    The Patterns Atlas — P02 "Experiment with small cases" — verification battery
    Session S03, 2026-10-28. Executed in-session; outputs recorded verbatim in
-   p02-lab-output.txt (pieces 1–6 + adversarial verifier). Constraints honored:
+   p02-lab-output.txt (pieces 1–6 + adversarial verifier; piece 7 added by the
+   S76 improvement pass, 2026-10-31 — the pass's own run history lives in the
+   output file's piece-7 section). Constraints honored:
    split pieces, no recursion, no BigInt in the value path (2^100 via base-1e9
    limb arrays), deterministic (no randomness used on this page).
 
@@ -250,6 +252,86 @@ function pageLiterals(): void {
   console.log('6c 2^100 =', pow2(100), '(digits:', pow2(100).length + ')');
 }
 
+/* ---- Piece 7 (S76 improvement pass, 2026-10-31): checks for the three
+   adopted fragments. 7a: the §2 second look — the plane cousin's region
+   count by three independent routes (recurrence; Euler on the explicit
+   arrangement, E = n^2 edges and V = C(n,2) vertices, regions = E - V + 1;
+   the static sort into lowest-point regions, one per crossing, plus
+   bottomless regions read off a low horizontal line), all equal to
+   1 + n(n+1)/2, n = 0..60. 7b: Box P02.B's two new readings — the units
+   digits of 3^n repeat 3, 9, 7, 1 with period 4 and 3^2024 ends in 1;
+   and the neighbour reading: cube-sums equal the squares of the handshake
+   numbers. 7c: Exercise 6 — the locker corridor by direct simulation
+   (every student toggles in person), the divisor-count route, the
+   divisor-pairing certificate (odd touch-count iff perfect square),
+   m = 1..1000, and the shrink-invariance of the first ten lockers. ---- */
+function improvementPass(): void {
+  // 7a — three routes to the plane's regions
+  let m7a = 0;
+  const tab7a: number[] = [];
+  for (let n = 0; n <= 60; n++) {
+    let rec = 1;
+    for (let k = 1; k <= n; k++) rec += k;                      // route 1: one line at a time
+    const euler = n * n - (n * (n - 1)) / 2 + 1;                // route 2: E - V + 1, E = n^2, V = C(n,2)
+    const stat = (n * (n - 1)) / 2 + n + 1;                     // route 3: C(n,2) + (n+1)
+    const closed = 1 + (n * (n + 1)) / 2;
+    if (!(rec === euler && euler === stat && stat === closed)) m7a++;
+    if (n <= 5) tab7a.push(rec);
+  }
+  console.log('7a plane cousin, three routes (recurrence / Euler / static sort) n=0..60 mismatches =', m7a);
+  console.log('7a cousin table n=0..5 ->', tab7a.join(', '), "(the pancake's own table)");
+  console.log('7a static sort at n=10: C(10,2)+(10+1) =', (10 * 9) / 2 + 11, '| pancake(10) =', 56);
+
+  // 7b — the cycle reading
+  const seq: number[] = [];
+  let u = 1;
+  for (let n = 1; n <= 60; n++) { u = (u * 3) % 10; seq.push(u); }
+  let cycMis = 0;
+  for (let n = 0; n + 4 < 60; n++) if (seq[n + 4] !== seq[n]) cycMis++;
+  u = 1;
+  for (let i = 0; i < 2024; i++) u = (u * 3) % 10;
+  console.log('7b units digits of 3^1..3^5 ->', seq.slice(0, 5).join(', '), '| period-4 violations over n=1..56 =', cycMis);
+  console.log('7b units digit of 3^2024 ->', u, '(2024 = 4 x ' + (2024 / 4) + ", the cycle's last seat)");
+  let cs = 0, hs = 0;
+  const csq: number[] = [], hsq: number[] = [];
+  for (let k = 1; k <= 5; k++) { cs += k * k * k; hs += k; csq.push(cs); hsq.push(hs * hs); }
+  console.log('7b cube-sums n=1..5 ->', csq.join(', '), '| squares of handshakes 1,3,6,10,15 ->', hsq.join(', '), '| equal:', JSON.stringify(csq) === JSON.stringify(hsq));
+
+  // 7c — the locker corridor, by direct simulation
+  const N = 100;
+  const open: boolean[] = [];
+  for (let m = 1; m <= N; m++) open.push(false);
+  for (let k = 1; k <= N; k++) for (let m = k; m <= N; m += k) open[m - 1] = !open[m - 1];
+  const openList: number[] = [];
+  for (let m = 1; m <= N; m++) if (open[m - 1]) openList.push(m);
+  console.log('7c corridor simulation: open lockers among 100 =', openList.length, '->', openList.join(', '));
+  let pairMis = 0, sqCount = 0;
+  for (let m = 1; m <= 1000; m++) {
+    let t = 0;
+    for (let k = 1; k <= m; k++) if (m % k === 0) t++;
+    const s = Math.sqrt(m);
+    const isSq = Math.floor(s) === s;
+    if ((t % 2 === 1) !== isSq) pairMis++;
+    if (isSq) sqCount++;
+  }
+  console.log('7c divisor-count odd <=> perfect square, m=1..1000 mismatches =', pairMis, '| squares up to 1000 =', sqCount);
+  const lines7c: string[] = [];
+  for (let m = 1; m <= 10; m++) {
+    const who: number[] = [];
+    for (let k = 1; k <= m; k++) if (m % k === 0) who.push(k);
+    lines7c.push('locker ' + m + ': students ' + who.join(', ') + ' — ' + who.length +
+      (who.length === 1 ? ' touch' : ' touches') + ' — ' + (who.length % 2 === 1 ? 'open' : 'closed'));
+  }
+  console.log('7c first-ten table ->');
+  for (const L of lines7c) console.log('   ', L);
+  const tenState: boolean[] = [];
+  for (let j = 1; j <= 10; j++) tenState.push(false);
+  for (let k = 1; k <= 10; k++) for (let j = k; j <= 10; j += k) tenState[j - 1] = !tenState[j - 1];
+  let shrMis = 0;
+  for (let m = 1; m <= 10; m++) if (tenState[m - 1] !== open[m - 1]) shrMis++;
+  console.log('7c shrink-invariance: 10-locker corridor vs first ten of the 100, mismatches =', shrMis);
+}
+
 /* ---- run ---- */
 export function runAll(): void {
   probe();
@@ -263,5 +345,6 @@ export function runAll(): void {
   boardSquares();
   exerciseNumbers();
   pageLiterals();
+  improvementPass();
 }
 runAll();
