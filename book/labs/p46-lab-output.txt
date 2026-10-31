@@ -1,0 +1,143 @@
+p46 lab output — wip/p46-lab.js (38,441 bytes) against wip/p46-spectral-sequences.html (58,802 bytes, 225 lines)
+Engine: fresh F2 linear algebra + column-filtration spectral sequence (colSS with d2 zig-zag and well-definedness asserts), direct total-complex flattening (directH), F^p H^n reassembly (reassemblyDims). Groups: A tower wing route · B tower floor route · C census (both reading orders, joint knight census, pinch receipts) · D exercise receipts · E page needles · F figure machine-check.
+
+RUN HISTORY (honest):
+- Lab-design review caught one page defect BEFORE the first full run: the census table's "knight fires" column follows the either-reading convention (the 2x3 row counts its floor-first firing), but the 3x3 cell said 12. Engine receipts: 12 blueprints fire wing-route, 12 fire floor-route, zero fire both (disjoint) = 24 distinct firing blueprints. Page fixed before run 1: table cell 12 -> 24 ("knight country: 12 per reading order, never both (Exercise 5)"), the accompanying sentence, and the table caption. Recorded in the page log revision history.
+- Run 1: 118/124 PASS, 6 FAIL — all six defects lab-side, none page-side: C8 checked the wrong route on the transpose (the 3x2 blueprint's floor-reading has two layer-columns and is structurally knight-free; the 2x3 transpose configuration is what fires floor-route — fixed to census rowFire receipt plus transpose-wiring bookkeeping, rowFire = [38]); D1 used F0H2 - F1H2 instead of F1H2 - F2H2 for cell (1,1); E6 needle missed that the MathJax config line carries double backslashes in the file; F1 needle had a phantom space (the label is "e2↦1", no space); F2 needles missed the real spaces ("h01: f2 ↦ k", "h10: g ↦ w").
+- Run 2 (final): 126/126 PASS. Full output below.
+
+=== GROUP A: tower, wing route ===
+A1 tower valid PASS
+A1 seven basis-vector checks (h^2 + squares, v^2 none) PASS | counted=7
+A2 E1 dims PASS | q=1 | 1 0 1  ; q=0 | 1 0 1 
+A3 E1(0,0) basis <e2> PASS
+A3 im v00 = <f1> PASS
+A3 E1(0,1) rep f2 mod f1 PASS
+A3 E1(1,0)=0 (ker v10 empty) PASS
+A3 E1(1,1)=0 (covered by v10) PASS
+A3 E1(2,0) basis <w> PASS
+A3 E1(2,1) <z> survives v20=0 PASS
+A4 E2 = E1 (every induced corridor zero on classes) PASS
+A5 h01(f2) = k PASS
+A5 lift b = g (v10 g = k) PASS
+A5 h10(g) = w PASS
+A5 d2 rank 1 at (0,1), total rank 1 PASS | [[0,1],[0,0],[0,0]]
+A5 d2 isomorphism (1->1, rank 1) PASS
+A6 E3 = stable page {(0,0),(2,1)} PASS | q=1 | 0 0 1  ; q=0 | 1 0 0 
+A6 d3 off-board (p=0 lands p=3 = P) PASS
+A7 flattened beta = [1,0,0,1] PASS | [1,0,0,1]
+A8 F-table PASS | [[1,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,0]]
+A8 reassembly cell-by-cell PASS
+A8 H3 layer 2 (F^2 not F^3) PASS
+A8 H0 layer 0 PASS
+A9 page-one alternating count 0 (+1-1+1-1) PASS
+A9 beta alternating count 0 (1-0+0-1) PASS
+=== GROUP B: tower, floor route (transpose) ===
+B1 transpose valid PASS
+B2 E1 floor ledger {(0,0):2,(1,0):1,(1,2):1} PASS | q=2 | 0 1  ; q=1 | 0 0  ; q=0 | 2 1 
+B2 west ground two classes <e1,e2> PASS
+B2 floor-1 west class <f1> (ker h01) PASS
+B2 east upper class <z> survives PASS
+B3 E2 = [[1,0,0],[0,0,1]] (v00 kills <e1>) PASS | q=2 | 0 1  ; q=1 | 0 0  ; q=0 | 1 0 
+B3 page-one arrow rank 1 PASS
+B4 no knight (two layer-columns) PASS
+B4 E3 = E2 stable PASS
+B5 reassembly cell-by-cell PASS
+B5 floor-route survivors sum to beta PASS | [1,0,0,1]
+B5 direct beta transpose-invariant PASS
+B6 survivors match wing route (<e2> at t-(0,0), <z> at t-(1,2)=old (2,1)) PASS
+=== GROUP C: census, both reading orders ===
+C1 2x2: 10/16 valid PASS
+C1 2x2: 10/10 all four routes agree PASS
+C1 2x2: 0 knights, both readings structural PASS
+C1 2x2: exactly 3 have E1 != E2 PASS | e1ne=3
+C2 3x2: 38/128 valid PASS
+C2 3x2: 38/38 agree PASS
+C2 3x2: 1 col-knight, 0 row-knight PASS
+C2 3x2: unique firing blueprint b=50 (bits 110010) PASS | [50]
+C3 2x3: 38/128 valid, 38/38 agree PASS
+C3 2x3: 0 col-knight, 1 row-knight (fires floor-first) PASS
+C4 3x3: 308/4096 valid PASS
+C4 3x3: 308/308 agree PASS
+C4 3x3: 12 col-knights, 12 row-knights PASS
+C5 394 valid blueprints total, all agree PASS
+C6 3x3 joint: 12 wing, 12 floor, 0 both PASS
+C6 firing in some reading = 24 PASS | colK=12 rowK=12 both=0
+C6 pinch: corner wing-knights v01=0, corner floor-knights v01=id PASS | colCorner=6 rowCorner=6
+C7 3x2 joint: 1 wing, 0 floor, 0 both PASS
+C8 b=50 maps (v00,v10,v20|h00,h01,h10,h11) = (0,id,0|0,id,id,0) PASS | [0,1,0,0,1,1,0]
+C8 b=50 valid PASS
+C8 b=50 E1 = tower page one PASS | q=1 | 1 0 1  ; q=0 | 1 0 1 
+C8 b=50 E2 = E1 PASS
+C8 b=50 knight iso (0,1)->(2,0) PASS
+C8 b=50 E3 = {(0,0),(2,1)} PASS
+C8 b=50 beta = (1,0,0,1) PASS | [1,0,0,1]
+C8 b=50 tower in miniature (tables equal SH) PASS
+C8 3x2 floor-reading has two layer-columns: row-route structurally knight-free PASS
+C8 2x3 floor-firing blueprint is the transpose of b=50 PASS | [38]
+C8 transpose bookkeeping: 2x3 row-firing transposes to b=50 wiring PASS
+=== GROUP D: exercise receipts ===
+D1 all-zero 2x2 valid PASS
+D1 E1 all ones PASS
+D1 E2 = E1, d2 structural (p=0 lands p=2 = P) PASS
+D1 beta = (1,2,1) PASS | [1,2,1]
+D1 F-table [[1,2,1],[0,1,1],[0,0,0]] PASS | [[1,2,1],[0,1,1],[0,0,0]]
+D1 E_inf(0,0) = 1 = H^0 PASS
+D1 E_inf(0,1) = F0H1 - F1H1 = 2-1 = 1 PASS
+D1 E_inf(1,0) = F1H1 - F2H1 = 1-0 = 1 PASS
+D1 E_inf(1,1) = F1H2 - F2H2 = 1-0 = 1 PASS
+D1 level sums = beta (1,2,1) PASS
+D2 the three E1!=E2 blueprints are b=4,8,12 PASS | [4,8,12]
+D2 b=4 (0,0,id,0) kills (0,0),(1,0) PASS
+D2 b=4 beta (0,1,1) PASS
+D2 b=8 (0,0,0,id) kills (0,1),(1,1) PASS
+D2 b=8 beta (1,1,0) PASS
+D2 b=12 (0,0,id,id) kills all four PASS
+D2 b=12 beta (0,0,0), empty stable page PASS
+D3 2x2 never fires either route PASS
+D3 2x3 fires only floor-first PASS
+D3 3x2 floor-reading has two layer-columns (structural) PASS
+D4 3x3 disjointness 12/12/0 PASS
+D4 3x2 asymmetry: 1 wing, 0 floor PASS
+D4 pinch receipts hold (v01: 0 vs id) PASS
+D4 4x3 census size 2^17 = 131072 PASS
+=== GROUP E: page needles ===
+E0 page loaded PASS | len=58323
+E1 no banned tokens PASS | []
+E1 no dollar sign PASS
+E1 no backtick PASS
+E2 inline math balanced PASS | 449/449
+E2 display math balanced (2 pairs) PASS | 2/2
+E6 MathJax config line byte-form PASS
+E3 eight sections PASS
+E3 two figures PASS
+E3 nine details blocks PASS
+E3 one pattern box PASS
+E3 one warn box PASS
+E3 one onramp PASS
+E3 three digit tables PASS
+E3 moons line PASS
+E3 kicker first move of tier 5 PASS
+E4 all hrefs whitelisted PASS | []
+E4 all sixteen page links present PASS | []
+E5 all needles present PASS | []
+=== GROUP F: figure machine-check ===
+F0 both figures found PASS | fig1=2508 fig2=2116
+F1 v00 (rank 1) = engine rank 1 PASS
+F1 v10 (id) = engine id PASS
+F1 v20 (0) = engine zero PASS
+F1 h00 (0) = engine zero PASS
+F1 h01 (e2↦1) = engine e2↦1, e1↦0 PASS
+F1 h10 (id) = engine id PASS
+F1 h11 (0) = engine zero PASS
+F1 dim labels match blueprint (2 x dim2, 4 x dim1) PASS | dim2 2/2, dim1 4/4
+F2 [f2] at (0,1) PASS
+F2 [e2] cell PASS
+F2 [w] cell PASS
+F2 h01: f2 ↦ k PASS
+F2 lift: v10(g) = k PASS
+F2 h10: g ↦ w PASS
+F2 d2: (0,1) → (2,0) PASS
+=== SUMMARY ===
+checks: 126 pass, 0 fail
+LAB P46: 126/126 PASS
