@@ -1,0 +1,32 @@
+<h3>Example 2 · The triangle — a table built by counting</h3>
+<p class="pid">Moves used: <a href="p01-pin-down-the-problem.html">P01</a> pinning group, set, action · <a href="p24-waves.html">P24</a> the wave ledger the table tabulates · <a href="p08-symmetry.html">P08</a> the average, exposed as the first row.</p>
+<p>The cube's table was borrowed from \(S_4\). Build one from scratch instead, at the smallest size where it has any structure — the six motions of the equilateral triangle: the identity; three reflections (each through a vertex and the midpoint of the opposite edge); two rotations (\(\pm 120^\circ\)). Two elements are <em>conjugate</em> when one is another wearing a rotated costume — the reflections form one class of 3, the rotations one of 2, the identity its own — and the class census \(1 + 3 + 2 = 6\) is the machine's first receipt.</p>
+<p>Let the triangle act on its three vertices. The character of this permutation action is the fixed-point count, read straight off the motions: the identity fixes all 3 vertices, a reflection fixes the vertex on its axis, a rotation fixes none:</p>
+<p>\[\chi_{\mathrm{vertex}} = (3,\; 1,\; 0).\]</p>
+<p>Now the whole character table, and notice how it is <em>built</em>, not decreed. The constant wave is always a character — \(\mathbf{1} = (1,1,1)\). The sign wave — record \(+1\) for the identity and rotations, \(-1\) for the flips — is \(\varepsilon = (1,-1,1)\): motions split into gentle and flipping, and the sign is that split as a number. For the third wave, subtract: the vertex action visibly contains the constant direction (the vector \(e_1 + e_2 + e_3\), fixed by everything), so remove it, \(\chi_{\mathrm{std}} = \chi_{\mathrm{vertex}} - \mathbf{1} = (2, 0, -1)\), and check the remainder is pure: \(\langle \chi_{\mathrm{std}}, \chi_{\mathrm{std}} \rangle = \frac{4 + 0 + 2 \cdot 1}{6} = 1\) — irreducible, the <em>standard wave</em>: the plane in which the triangle genuinely rotates. The table, with class sizes on top:</p>
+<table>
+<tr><th>class size</th><th>1</th><th>3</th><th>2</th></tr>
+<tr><th>class</th><th>\(e\)</th><th>reflection</th><th>rotation</th></tr>
+<tr><th>\(\mathbf{1}\) · constant</th><td>1</td><td>1</td><td>1</td></tr>
+<tr><th>\(\varepsilon\) · sign</th><td>1</td><td>−1</td><td>1</td></tr>
+<tr><th>\(\chi_{\mathrm{std}}\) · standard</th><td>2</td><td>0</td><td>−1</td></tr>
+</table>
+<p>Three checks, all one-line inner products, all machine-run. The vertex action decomposes: \(\langle (3,1,0), \mathbf{1} \rangle = \frac{3+3+0}{6} = 1\), \(\langle (3,1,0), \varepsilon \rangle = \frac{3-3+0}{6} = 0\), \(\langle (3,1,0), \chi_{\mathrm{std}} \rangle = \frac{6+0+0}{6} = 1\) — so the vertex space is <em>one</em> copy of the constant wave plus <em>one</em> copy of the standard wave, \(3 = 1 + 2\), and the safety gate agrees: \(\langle \chi_{\mathrm{vertex}}, \chi_{\mathrm{vertex}} \rangle = \frac{9+3+0}{6} = 2 = 1^2 + 1^2\). Then count with it. Two-color the vertices and ask for orbits under the full six-motion group — the bracelet count, since flips are now allowed. The paint character is cycles-to-the-\(k\): the identity has 3 cycles on vertices (\(2^3 = 8\) fixed colorings), a reflection has 2 — its axis vertex stands alone, the other two trade — (\(2^2 = 4\)), a rotation has 1 (\(2^1 = 2\)):</p>
+<p>\[\chi_{\mathrm{paint}} = (8,\,4,\,2), \qquad \langle \chi_{\mathrm{paint}}, \mathbf{1} \rangle = \frac{8 + 3 \cdot 4 + 2 \cdot 2}{6} = \frac{24}{6} = 4,\]</p>
+<p>and the census agrees: the four binary triangles are the all-white, one-black, two-black, all-black — 4 orbits. But the table keeps going where the average stopped: the <em>split</em> of the 8-dimensional space of all vertex colorings into the triangle's waves:</p>
+<p>\[\langle \chi_{\mathrm{paint}}, \mathbf{1} \rangle = 4, \quad \langle \chi_{\mathrm{paint}}, \varepsilon \rangle = \frac{8 - 12 + 4}{6} = 0, \quad \langle \chi_{\mathrm{paint}}, \chi_{\mathrm{std}} \rangle = \frac{16 + 0 - 4}{6} = 2,\]</p>
+<p>so \(8 = 4 \cdot \mathbf{1} \oplus 2 \cdot \chi_{\mathrm{std}}\), with the gate \(\langle \chi_{\mathrm{paint}}, \chi_{\mathrm{paint}} \rangle = \frac{64 + 48 + 8}{6} = 20 = 4^2 + 2^2\). Read what the 4 is: four copies of the constant wave, one per orbit — the invariant colorings are exactly the functions constant on orbits, so <em>the orbit count is the multiplicity of the constant wave</em>. That is the pattern's quiet engine: counting up to symmetry <em>is</em> measuring how much of the constant wave an action contains, and every count in this book's family — §2's average included — is that measurement with different clothes on.</p>
+<figure class="page-figure" aria-label="A stacked bar of height eight split into a lower block of height four labeled four copies of the constant wave, one per orbit, and an upper block of height four labeled two copies of the standard wave. The two block heights sum to eight, matching four squared plus two squared equals twenty, the character self product.">
+<svg viewBox="0 0 560 200" role="img">
+<text x="90" y="18" font-size="13" fill="#555" font-weight="bold">the 8-dimensional space of vertex colorings, split by the triangle's waves</text>
+<rect x="150" y="104" width="120" height="56" fill="#555"/>
+<text x="280" y="140" font-size="12" fill="#777">4 copies of the constant wave — one per orbit</text>
+<rect x="150" y="48" width="120" height="56" fill="#2a5"/>
+<text x="280" y="80" font-size="12" fill="#777">2 copies of the standard wave — the genuinely triangular variation</text>
+<text x="90" y="60" font-size="12" fill="#777">dim 8</text>
+<text x="90" y="140" font-size="12" fill="#777">4 + 2×2</text>
+<line x1="150" y1="48" x2="150" y2="176" stroke="#555" stroke-width="1"/>
+<line x1="150" y1="176" x2="380" y2="176" stroke="#999" stroke-width="1"/>
+</svg>
+<figcaption><strong>Fig P36.3</strong> — The split, drawn. The 8 dimensions of vertex colorings decompose as \(4 \cdot \mathbf{1} \oplus 2 \cdot \chi_{\mathrm{std}}\): four copies of the constant wave (one per orbit — the invariant colorings) and two copies of the standard plane (the variation that the symmetry genuinely permutes). The self-product gate: \(\langle \chi, \chi \rangle = 20 = 4^2 + 2^2\).</figcaption>
+</figure>
