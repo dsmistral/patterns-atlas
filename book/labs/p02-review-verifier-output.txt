@@ -1,0 +1,35 @@
+P02 — review verifier output (adversarial, zero shared code with the lab battery)
+Session S76, 2026-10-31. p02-review-verifier.js run against the page after
+the S75b improvement pass. Axes of independence: decimal-string arithmetic
+(lab: base-1e9 limbs), binary exponentiation (lab: sequential multiplies),
+divisor pairing-count (lab: enumeration + direct toggle simulation),
+trapezoid quadrature (lab: midpoint), formula-route Moser count (lab:
+chord-by-chord walk), literal tables. Run history: clean on the first full
+run — numerics V01–V10, 37 needles W01–W37 (three counted), 14 census
+fields, banned-token sweep, and 8/8 poison clones rejected. Constraints
+honored: split pieces, no recursion, no BigInt in the value path,
+deterministic.
+==============================================================================
+V01 pancake table literal vs formula, pancake(10) = 56: true
+V02 sum of odds (descending loop) == n^2, n=1..300 mismatches = 0
+V03 handshakes(12) by 11+10+...+1 = 66 (page: 66)
+V04 literal cube-sums == squares of handshakes: true
+V05 trapezoid int x^4 = 0.20000000 vs 0.2, within 1e-7: true
+V06 Moser(6) = 1 + chords + crossings = 31 (page: 31)
+V07 2^100 by string doubling: digits = 31 , matches page literal: true
+V08 units digit of 3^2024 by square-and-multiply = 1 (page: 1)
+V09 pairing-count: odd <=> square mismatches m=1..200 = 0 | open lockers among 100 = 10 (page: ten)
+V10 C(n,2)+(n+1) == 1+n(n+1)/2, n=0..50 mismatches = 0 | at n=10: 56
+needles: 37 checked, failures: none
+census: all 14 match
+sweep: clean
+poison clones:
+  poison X01 (corrupts the section-2 pancake table): REJECTED
+  poison X02 (corrupts the second look's static-sort formula): REJECTED
+  poison X03 (corrupts the units-digit cycle): REJECTED
+  poison X04 (corrupts the locker count): REJECTED
+  poison X05 (reinstates Moser's doubling lie): REJECTED
+  poison X06 (removes the new h3 — census must shift): REJECTED
+  poison X07 (injects a banned token): REJECTED
+  poison X08 (corrupts the divisor-pairing certificate): REJECTED
+VERDICT GREEN — numerics pass, page pass (needles + census + sweep), 8/8 poisons rejected
