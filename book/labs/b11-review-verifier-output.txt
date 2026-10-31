@@ -1,0 +1,45 @@
+// b11-review-verifier.js — output transcript, run in-session 2026-10-31 (session S62).
+// 42 checks: 26 fresh (page facts re-derived independently) + 16 injections (poisoned twins, all rejected).
+PASS F01 fresh — Lecture 0: 50/60 is 5/6, not 4/5
+PASS F02 fresh — the sixtieths column: 30, 10, 5, 3, 2 sixtieths, checked by cross-multiplication
+PASS F03 fresh — n = 40 survivors 40/41, float, forward sum
+PASS F04 fresh — the same sum, tail-first — order does not matter at this size
+PASS F05 fresh — H_1 = 1, H_2 = 1.5, H_4 = 2.0833, H_12 = 3.1032, tail-first
+PASS F06 fresh — the crossing: H_12366 < 10 < H_12367, tail-first sum
+PASS F07 fresh — ln(22027) > 10 > ln(22026): the lower arm guarantees the crossing by n = 22026
+PASS F08 fresh — ln(8103) < 9 < ln(8104): the upper arm holds H_n < 10 through n = 8103
+PASS F09 fresh — Gauss at full size: 1 + ... + 100 = 5050 = 100*101/2
+PASS F10 fresh — squares at n = 10: 385 = 10*11*21/6
+PASS F11 fresh — 1+4+18+96 = 119 = (2-1)+(6-2)+(24-6)+(120-24), the telescoping regrouping
+PASS F12 fresh — 5! - 1 = 119
+PASS F13 fresh — 1/2+1/4+1/8+1/16 = 15/16 = 0.9375
+PASS F14 fresh — geometric r = 3, n = 5: 121 both ways
+PASS F15 fresh — two-slot hand sum 17/30
+PASS F16 fresh — triple-slot at n = 3: 1/4 - 1/40 = 9/40 = 1/6 + 1/24 + 1/60
+PASS F17 fresh — falling factorial step at k = 7: 336 - 210 = 126 = 3*42
+PASS F18 fresh — k^3 row at k = 9: 504 + 216 + 9 = 729
+PASS F19 fresh — P23 pin at (k, m) = (10, 4): 10__4 = 4!*C(10,4) = 5040
+PASS F20 fresh — 2^10 - 2^9 = 2^9: the fixed point at k = 9
+PASS F21 fresh — Delta(3^4) = (r-1)r^4 = 162, both groupings
+PASS F22 fresh — H_8 = 2.7179 to four decimals, tail-first
+PASS F23 fresh — gamma at n = 10^6, tail-first: 0.5772
+PASS F24 fresh — Fig B11.3 lower arm at n = 12: ln(13) = 2.5649, y = 88.9
+PASS F25 fresh — Fig B11.3 upper arm at n = 12: 1 + ln(12) = 3.4849, y = 38.3
+PASS F26 fresh — Fig B11.2: net 180 px = 12*15, and the k = 4 landing is y = 100
+PASS I01 injection REJECTED — poisoned sixtieths total: 50/60 reduced to 4/5 — refuted
+PASS I02 injection REJECTED — poisoned survivors: the n = 100 sum equals 1 — refuted (it is 100/101)
+PASS I03 injection REJECTED — poisoned counter-probe: 1/2 + 1/3 + 1/5 = 29/30 — refuted
+PASS I04 injection REJECTED — poisoned Gauss: sum 1..5 = 16 — refuted (it is 15)
+PASS I05 injection REJECTED — poisoned squares: 1 + 4 + 9 + 16 + 25 = 54 — refuted (it is 55)
+PASS I06 injection REJECTED — poisoned geometric: 1 + 3 + 9 + 27 + 81 = 122 — refuted (it is 121)
+PASS I07 injection REJECTED — poisoned halving: 1 - 1/16 = 7/8 — refuted (it is 15/16)
+PASS I08 injection REJECTED — poisoned factorial: 5! - 1 = 118 — refuted (it is 119)
+PASS I09 injection REJECTED — poisoned two-slot: 17/30 equals 1/2 — refuted
+PASS I10 injection REJECTED — poisoned triple-slot: 9/40 equals 1/4 — refuted
+PASS I11 injection REJECTED — poisoned crossing: first past 10 at n = 12,366 — refuted by tail-first sum
+PASS I12 injection REJECTED — poisoned gamma: 0.5672 — refuted (it is 0.5772)
+PASS I13 injection REJECTED — poisoned arm: e^9 = 8203 — refuted (it is 8103)
+PASS I14 injection REJECTED — poisoned fixed point: 3^k is its own step — refuted (the step is 2*3^k)
+PASS I15 injection REJECTED — poisoned falling-factorial step: Delta(k^^3) = 2k^^2 — refuted (it is 3k^^2)
+PASS I16 injection REJECTED — poisoned table: H_8 = 2.8179 — refuted (it is 2.7179)
+TOTAL: 42 PASS, 0 FAIL — 26 fresh + 16 injections
