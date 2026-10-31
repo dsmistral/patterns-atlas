@@ -1,0 +1,100 @@
+p35-lab: machine receipts for P35 (Build two worlds)
+fresh run; groups A-H; no shared code with the review verifier
+
+[A monoid census]
+PASS A01 order-2 candidate tables
+PASS A02 order-2 monoids
+PASS A03 order-2 nonabelian (census silent)
+PASS A04 order-3 candidate tables
+PASS A05 order-3 monoids
+PASS A06 order-3 abelian
+PASS A07 order-3 nonabelian (the witnesses)
+PASS A08 W1 is a monoid
+PASS A09 W1 abelian (ab=ba read off)
+PASS A10 W2 is a monoid
+PASS A11 W2 nonabelian (ab=b, ba=a)
+PASS A12 W1 is Z/3 renamed
+PASS A13 W1 cancellation holds
+PASS A14 W2 cancellation fails (ae=aa, e!=a)
+PASS A15 every nonabelian witness carries an unequal pair
+
+[B proof census]
+PASS B01 word pool (len<=3 plus E)
+PASS B02 identity instances
+PASS B03 associativity instances
+PASS B04 total axiom instances
+PASS B05 all instances flatten-trivial
+PASS B06 symmetry derivations
+PASS B07 transitivity derivations
+PASS B08 congruence derivations
+PASS B09 total size-2 derivations
+PASS B10 distinct conclusions
+PASS B11 ab=ba among conclusions
+PASS B12 all 290 conclusions word-trivial
+
+[C ordered field]
+PASS C01 field pool
+PASS C02 1024 pairs x 4 checks, failures
+PASS C03 32768 triples checked
+PASS C04 associativity failures (both ops)
+PASS C05 distributivity failures
+PASS C06 order-compatibility failures
+PASS C07 positive-product failures
+PASS C08 x>n for n=1..50, failures
+PASS C09 epsilon receipts, failures
+PASS C10 (1-eps)*x/(x-1) = 1 exact
+
+[D disk angles]
+PASS D01 T(0.5) hypotenuse center
+PASS D02 orthogonality |C|^2-r^2=1
+PASS D03 vertex angle at (0.5,0)
+PASS D04 T(0.5) angle sum
+PASS D05 T(0.5) defect
+PASS D06 T(0.5) defect in radians = area
+PASS D07 T(0.9) sum, defect, area
+PASS D08 T(0.25) sum
+PASS D09 T(0.1) and T(0.01) sums
+PASS D10 defect ratios 0.2548/0.0408/0.0004 ~ s^2
+
+[E parallel dichotomy]
+PASS E01 39 centers sampled on 0.4cx+cy=1.29
+PASS E02 P on all 39 circles, all orthogonal
+PASS E03 escape pile (|cx|<1)
+PASS E04 crossing pile (|cx|>1), all inside (-1,1)
+PASS E05 asymptotic grazes (|cx|=1) at x=+-1
+PASS E06 cx=1.5 meets l at x=0.3820
+PASS E07 no circle did anything else
+
+[F figures]
+PASS F01 Fig P35.2 bar widths, longest fits
+PASS F02 Fig P35.1 arc radius 145.77 (100x, 2dp); flat 90/45/45
+PASS F03 Fig P35.3 escape-1 boundary points (0.6317,0.7752)
+PASS F04 Fig P35.3 meet-point svg x=318.2 (1dp)
+PASS F05 Fig P35.3 witnesses r=0.8149,0.7622 through P
+
+[G exercise receipts]
+PASS G01 Ex1a W2 identity halves + witness
+PASS G02 Ex1b order-2 argument (ea=ae forced)
+PASS G03 Ex2c eps^5 residue identity exact
+PASS G04 Ex2 Q Archimedean witnesses k=2..13
+PASS G05 Ex3b hypotenuse radius 1.4577, cos 0.8575
+PASS G06 Ex4 semilattice monoid, cancellation fails
+PASS G07 Ex4 Z/2 monoid, cancellation holds
+PASS G08 Ex5 spherical triangle sums 270 (excess 90)
+
+[H lineage]
+PASS H01 Bolyai letter year 1823 is prime
+PASS H02 Saccheri Euclides year 1733 is prime
+PASS H03 Lambert 1766 = 2 x 883, both prime factors
+PASS H04 Lobachevsky Kazanskii vestnik 1829-1830
+PASS H05 Playfair 1795 = 5 x 359
+PASS H06 Beltrami 1868 Saggio pages 284-312 (29 pages)
+PASS H07 Klein 1871 Math. Ann. vol 4 (1871%4=3)
+PASS H08 Poincare Acta 1:1-62 (Dec 1882), 62=2x31
+PASS H09 Skolem 1934 = 2 x 967 (967 prime)
+PASS H10 Robinson 1961 KNAW A64 pages 432-440 (9 pages)
+PASS H11 Goedel Dec 1938 PNAS vol 24 = 4!, pages 556-557
+PASS H12 Cohen part I PNAS 50(6) pages 1143-1148 (6 = issue)
+PASS H13 Cohen part II 1964 vol 51; Fields 1966 = 2x983
+
+TOTAL: 80/80 PASS
