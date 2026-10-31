@@ -1,0 +1,102 @@
+p31-lab-output — machine verification for book/p31-universal-property.html
+page md5 b02590ee384632a329a1fb7baee411f1 · 49060 bytes · 226 lines
+lab p31-lab.js md5 9654fa5d3a446c32c99146eed2b2aa4d · 35807 bytes · 453 lines
+engine: deterministic recomputation from first principles; no recursion, no BigInt, no Math.random; exact rational [n,d] polynomial arithmetic over Q[x]; group homomorphisms brute-forced over every function; figure coordinates recomputed from design formulas (the helix sampled at eighth turns t = k*pi/8)
+groups A-N · 96 checks
+PASS A1 · x^2 - 1 and x^2 + 2x + 1 factor as (x-1)(x+1) and (x+1)^2
+PASS A2 · 2(x+1) divides x^2 - 1 over Q: quotient (x-1)/2
+PASS A3 · 2(x+1) divides (x+1)^2 over Q: quotient (x+1)/2
+PASS A4 · but 2(x+1) does NOT divide x^2 - 1 over Z[x] (quotient not integral)
+PASS A5 · (1/2)(x+1) divides both over Q: quotients 2(x-1) and 2(x+1)
+PASS A6 · -5(x+1) divides both over Q
+PASS A7 · survivors mutually divide: (x+1) | 2(x+1) | (x+1), quotients 2 and 1/2
+PASS A8 · common divisors of the pair over Z[x] (census 342 candidates): exactly 4
+PASS A9 · and they are precisely +-1 and +-(x+1)
+PASS A10 · over Q[x] the c(x+1) family is real: c = 1..6 all divide both
+PASS B1 · divisors of 36: 1,2,3,4,6,9,12,18,36
+PASS B2 · divisors of 60: 1,2,3,4,5,6,10,12,15,20,30,60
+PASS B3 · common divisors of 36 and 60: 1,2,3,4,6,12
+PASS B4 · every common divisor of 36,60 divides 12 — the job claim
+PASS B5 · Bézout receipt: 2*36 - 1*60 = 12
+PASS B6 · gcd*lcm = 36*60: 12*180 = 2160
+PASS B7 · Fig P31.1 right panel: 360,540,720,900 are common multiples of both and multiples of 180
+PASS B8 · census receipt: 1521 pairs checked
+PASS B9 · every common divisor divides the gcd, for all 1521 pairs
+PASS B10 · the job-holder is unique in Z: exactly one per pair, for all 1521 pairs
+PASS B11 · gcd*lcm = a*b for all 1521 pairs
+PASS B12 · every common multiple up to 4*lcm is a multiple of lcm, for all 1521 pairs
+PASS C1 · divisors of 2 in Z[x] (census): exactly +-1, +-2
+PASS C2 · divisors of x in Z[x] (census): exactly +-1, +-x
+PASS C3 · common divisors of 2 and x in Z[x]: exactly +-1
+PASS C4 · the divisibility job holds: every common divisor of 2,x divides 1
+PASS C5 · census size receipt: 15,625 = 125^2 pairs a,b of degree <= 2, coefficients in [-2,2]
+PASS C6 · constant term of 2a(x) + x b(x) is even in every one of the 15,625 cases — no Bézout certificate for 1
+PASS C7 · spot receipts: a=1,b=0 gives 2; a=0,b=1 gives x (constant 0, even)
+PASS C8 · fields have no products: (1,0)*(0,1) = (0,0) in Q x Q
+PASS D1 · honest holder: exactly one factorization for every pair (f,g), all instances
+PASS D2 · junk holder: exactly 2^k factorizations, k = inputs landing on the junk reading
+PASS D3 · uniqueness fails exactly when k >= 1
+PASS D4 · Exercise 2 instance: f = (0,1,0), g = (a,a,b) has k = 1 and two factorizations through the junk
+PASS D5 · census size receipt: instance count over |A|,|B| <= 2, |X| <= 3
+PASS E1 · Hom census, every function tried: the printed 4x4 table cell for cell
+PASS E2 · separating probe into Z/2: from Z/4 exactly 2, from V exactly 4 — 2 != 4, no tables opened
+PASS E3 · a single column can tie: into Z/4 both give exactly 4 — one probe proves nothing
+PASS E4 · the probe vectors (2,1,4,4) vs (4,1,4,16) differ in exactly two coordinates
+PASS E5 · as sets they are indistinguishable: 4^4 = 256 functions either way — but Hom(V,V) = 16 vs Hom(Z/4,Z/4) = 4
+PASS E6 · from V into Z/4: exactly 4 homs, each generator landing in {0-bar, 2-bar} (killed by 2)
+PASS E7 · Ex4 step 1 is legal: 1-bar -> (1,1) extends to a genuine hom Z/4 -> V (checked on all 16 pairs)
+PASS E8 · Ex4 step 2 is illegal: (1,0) -> 1-bar sends 2*(1,0) = (0,0) to 2*1-bar = 2-bar != 0-bar (fails on the pair (2,2) of V)
+PASS F1 · the readings on offer: exactly 2 homs Z/4 -> Z/2
+PASS F2 · every reading kills every mediating hom: pi(h(v)) = 0 for all pi, h, v (2*4*4 = 32 receipts)
+PASS F3 · census law: a pair (f,g) factors through Z/4 with readings (piA,piB) exactly when f = g = 0 (64 combos)
+PASS F4 · exactly 15 of 16 pairs fail per reading-pair; 60 of 64 combos have no factorization at all
+PASS F5 · for every choice of readings, a pair of maps fails to factor — Z/4 cannot do V's product job
+PASS G1 · substitution is a ring hom on the Z/12 clock: (p+q)(c) = p(c)+q(c) and (pq)(c) = p(c)q(c), 4 polys x 4 polys x 12 images = 384 receipts
+PASS G2 · same product check on the Z/5 clock (80 receipts)
+PASS G3 · page receipts: x^2+1 at x=5 reads 26; 3x+4 at x=7 on the clock reads 25 = 1 mod 12
+PASS G4 · Fermat wearing a formula: x^5 - x reads 0 on Z/5 for every one of the five images of x
+PASS G5 · yet it is not the zero polynomial: over Z at x=2 it reads 30 — two elements, one function
+PASS G6 · the free object remembers: x^5-x and 0 give the same function on Z/5 (all 5 values agree) but differ as elements
+PASS G7 · the count is the fingerprint: into Z/n exactly n substitution maps, each a hom, all distinct (n = 2, 3, 5, 12; 2 into Z/2, 3 into Z/3, 12 into the clock)
+PASS H1 · left panel: five divisor nodes at x = 34 + 30k (k = 0..4), evenly spaced 30 apart at y = 112, r = 11
+PASS H2 · right panel: four multiple nodes at x = 224 + 40k (k = 0..3), evenly spaced 40 apart at y = 112, r = 13
+PASS H3 · the left arrows converge on the holder: target x = 94 is the exact midpoint of the five nodes, target (94, 40), r = 13
+PASS H4 · right captions sit under their panel: 284 = midpoint of 224 and 344; left caption aligns with the holder at x = 94
+PASS H5 · arrow directions: the left five lines run node -> (94, 40) (every divisor sends its arrow INTO 12); the right four run (270, 40) -> node (180 sends its arrow OUT into every multiple)
+PASS H6 · the left nodes are the census: labels 1, 2, 3, 4, 6 are exactly the common divisors of 36 and 60 short of the holder 12
+PASS H7 · right labels 360, 540, 720, 900 are exactly 2x, 3x, 4x, 5x the lcm 180
+PASS H8 · label bands: all nine node labels at y = 116, both holder labels at y = 45, both captions at y = 137
+PASS I1 · the polyline regenerates from (160 + 70cos t, 50 + 110t/2pi) sampled at eighth turns t = k*pi/8, k = 0, 2, .., 16 — all nine points match
+PASS I2 · max deviation of the printed coordinates from the formula: 0.0025 (the rounding of 209.4975 to 209.5), well inside the 0.051 tolerance budget
+PASS I3 · the five anchor dots sit on the polyline at t = 0, pi/2, pi, 3pi/2, 2pi: (230,50), (160,77.5), (90,105), (160,132.5), (230,160)
+PASS I4 · the 3D anchors echo the formula (cos t, sin t, t): (1,0,0), (0,1,pi/2), (-1,0,pi), (0,-1,3pi/2), (1,0,2pi)
+PASS I5 · height is linear in t: y = 50 + 110t/(2pi) — at t = pi/2 the receipt 50 + 110/4 = 77.5 exactly
+PASS I6 · cylinder geometry: rx = 70 puts the sides at 160 - 70 = 90 and 160 + 70 = 230 — the helix touches both at t = pi and t = 0; one full turn drops 160 - 50 = 110
+PASS J1 · the source box: rect (140, 70, 64 x 40) with its two texts centered at x = 172 = 140 + 64/2, inside the box height 70..110
+PASS J2 · the four target rings: rects at (26,16), (266,16), (26,136), (266,136), all 48 x 28, texts at rect center (offset +24, +18)
+PASS J3 · the four arrows leave the source box's top and bottom edges and land on their target boxes' near edges
+PASS J4 · the arrow labels carry Group G's receipts: 26 for x^2+1 at x = 5, and 1 for 3x+4 at x = 7 on the clock
+PASS J5 · the figure's arrow counts 2, 12, 5 are the hom counts of Group G: 2 into Z/2, 12 into Z/12, 5 into Z/5 — the census and the picture agree
+PASS K1 · six group homs Z -> Z/6, one per element y-bar: f(k) = ky, each additive on the full block k, l in [-8, 8] (6 x 17 x 17 receipts)
+PASS K2 · the forced unital map k -> k-bar is a ring hom on the full clock tables of Z/2, Z/6, Z/12 (add, mult, 1), checked element-by-element and on [-9,9]
+PASS K3 · the forcing chain: phi(k+1) = phi(k) + phi(1) builds phi(k) = k mod 12 for k up to 50 — 1 -> 1-bar pins everything
+PASS K4 · unital ring homs Z -> Z/n: exactly 1 — searching all generator images y finds the additive k -> ky, and only y = 1 is both multiplicative and unital (in Z/6 the idempotent pretenders y = 3, 4 are honest ring homs but fail the 1-bar clause)
+PASS K5 · group self-maps z -> mz for m in [-3, 3]: all seven are additive (Z as the free group on one generator)
+PASS L1 · Euclid on (36, 60): quotients [1, 1, 2] (60 = 1*36+24, 36 = 1*24+12, 24 = 2*12), gcd 12
+PASS L2 · back-substitution: 12 = 2*36 - 1*60, and the chain receipt 2*36 - 1*60 = 12 holds
+PASS L3 · Euclid on (84, 120): quotients [1, 2, 3] (120 = 1*84+36, 84 = 2*36+12, 36 = 3*12), gcd 12
+PASS L4 · Exercise 1(d): 12 = 3*84 - 2*120 — the back-substituted certificate, checked
+PASS L5 · Box P31.B's quotient job: homs Z -> Z/4 killing 12 = exactly 4 (one per killed-image choice), matching Hom(Z/12, Z/4) = 4 — both censuses agree
+PASS M1 · the job-pair census size: every (a, b) with 2 <= a, b <= 40 is 39*39 = 1521 pairs
+PASS M2 · the printed table is a census of 51 homomorphisms in all (sum of the sixteen cells)
+PASS M3 · beyond the printed table: Hom(Z/6, Z/6) = 6, brute-forced over all 46,656 functions
+PASS M4 · Exhibit C's footnote, self-to-self: all functions Z/4 -> V and V -> Z/4 number 256 either way, but Hom(V, V) = 16 vs Hom(Z/4, Z/4) = 4 — the groups differ even before probing
+PASS N1 · the five exercises carry the moons ●○○ ●●○ ●●● ◆ ◐ — eleven marks: six filled, three open, one diamond, one half
+PASS N2 · eight sections in the fixed order: before we begin / meet the problem / name the move / at work / when it fails / what next / lineage / exercises — numbered 1..8 without gaps
+PASS N3 · three Examples (numbers, geometry, algebra) then three Exhibits (A existence, B uniqueness, C wrong maps) — the h3 census is 3 + 3 = 6, Exercises then Workings alternate HWHW x5
+PASS N4 · three pattern boxes carry the ids box-p31, box-p31a, box-p31b — the pattern, its obligations, its habitats; plus one warn aside (Scope, honestly) and one onramp aside (New word: universal property)
+PASS N5 · the index one-liner for P31: "Don't describe the object; describe its job." — seven words, two clauses, one instruction
+PASS N6 · the kicker places the page: "The Patterns Atlas · P31 · the first move of tier 3" — P31 is the first tier-3 page
+PASS N7 · the footer next-link points at p33-sheaf-cohomology-bridge.html — P33, whose remaining prerequisite this page was
+PASS N8 · the three pid lines pay their debts: P01+P05+P16 (the grown-up habits), B03–B04, P17, P02, P16, B05, P05, B02, P20 — every move used is cited
+p31-lab: 96/96 checks passed — groups A-N, all green against page md5 b02590ee384632a329a1fb7baee411f1
