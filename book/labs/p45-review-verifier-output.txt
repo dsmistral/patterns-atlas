@@ -1,0 +1,62 @@
+V01 PASS 41 composites, independently: 41
+V02 PASS 27 S-closed: 27
+V03 PASS Z list: 4,8,9,16,25,27,32,49
+V04 PASS C closes only 30
+V05 PASS resisters: 12,24,36,48,56
+V06 PASS order 30 closed by three pairs: (2,3)=36 (2,5)=40 (3,5)=45
+V07 PASS the page receipt: n_3 max 10, n_5 max 6, 10*2+6*4+1 = 45 > 30
+V08 PASS order 60: S silent
+V09 PASS order 60: no C pair exceeds 60 (the 3,5 worst is 45 <= 60)
+V10 PASS the 36-poison: 4 is 1 mod 3
+V11 PASS order 48: 4 and 16 both 1 mod 3 (Ex1 poison row)
+V12 PASS order 30 via S with p=5 dies: 6 is 1 mod 5
+V13 PASS 17 primes below 60: 17
+V14 REJECTED injected claim "order 30 resists/S-closes" is false — it is C-closed
+V15 REJECTED injected claim "order 36 is S-forced" rejected by the divisor engine
+V16 REJECTED injected claim "order 12 falls to Lemma C" rejected (no first-power pair)
+V17 REJECTED injected claim "order 56 closed by the ledger" rejected
+V18 PASS S4=24 A4=12 A5=60 (string engine)
+V19 PASS S4 classes 1,3,6,6,8
+V20 PASS A5 classes 1,12,12,15,20
+V21 PASS A5 simple: no proper normal class-union
+V22 REJECTED injected normal subgroups of order 12/30 do not exist in A5
+V23 PASS exactly one id-containing union reaches 12
+V24 PASS the union is A4, closed under string composition
+V25 PASS V = {e, (12)(34), (13)(24), (14)(23)} closed (string engine)
+V26 PASS V normal in A4 under all 12 conjugators
+V27 PASS A4 has exactly 4 Sylow 3-subgroups (Ex4)
+V28 REJECTED injected false lemma "largest first-power prime forces n_p=1" rejected: A4 has n_3 = 4
+V29 PASS A5 non-abelian (string engine)
+V30 PASS line counts 1, 7, 37 (mask engine): 1, 7, 37
+V31 PASS max line-free 2 and 6 (exhaustive bitmasks)
+V32 PASS the only triple-line points are 00,11,22
+V33 PASS two deletions cover at most 5 of 7 lines: 5
+V34 PASS deleting 00,11,22 breaks all 7 lines
+V35 PASS no 8-point hitting set (fewest-uncovered branching)
+V36 PASS a 9-point hitting witness: 000 021 201 111 012 102 222 210 120
+V37 PASS the witness hits all 37 lines
+V38 PASS max line-free [3]^3 = 18
+V39 REJECTED injected "max line-free [3]^2 = 5" rejected by the exhaustive census
+V40 REJECTED injected "36 lines in [3]^3" rejected: 37
+V41 PASS base-10^4 scrambled product = the 54-digit order
+V42 PASS exactly 9 trailing zeros: 9
+V43 PASS long division peels every prime power exactly, quotient 1 at the end
+V44 REJECTED injected one-digit-altered Monster string rejected (digit 13)
+V45 PASS structure 8/11/9: 8/11/9
+V46 PASS 4 hints + 5 worked
+V47 PASS 3 figures
+V48 PASS boxes 3+1
+V49 PASS no dollars, no backticks
+V50 PASS MathJax pin
+V51 PASS kicker
+V52 PASS all receipt needles present
+V53 REJECTED injected wrong values absent from the page
+V54 REJECTED injected claim "Lemma C closes 60" absent
+V55 REJECTED injected claim "8 deletions suffice" absent (the page says no 8-set hits all 37)
+V56 PASS the Monster order appears in TeX with {,} separators
+V57 PASS href whitelist holds: 8 targets
+V58 PASS inline TeX balanced by state machine (net 0)
+V59 PASS display delimiters 2/2 (config + the Monster equation)
+V60 PASS grid figure: 9 circles, 7 lines
+VTOTALS pass=48 rejected=12 fail=0
+VVERDICT: ALL PASS (48 verified, 12 injections rejected)
