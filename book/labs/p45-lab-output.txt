@@ -1,0 +1,127 @@
+B01 PASS 41 composites 4..59, got 41
+B02 PASS Lemma S closes 27, got 27
+B03 PASS prime powers 8: 4,8,9,16,25,27,32,49
+B04 PASS Lemma C closes exactly order 30
+B05 PASS resisters 12,24,36,48,56
+B06 PASS order 30 via (3,5): n_3 in {1,10}, n_5 in {1,6}, worst 10*2+6*4+1=45 > 30
+B06b PASS Lemma C closes 30 (first pair found: (2,3) cnt=36 — the (2,3) route 36>30 also valid)
+B07 PASS Part C has 11 composites
+B08 PASS Part C: 32 via Z, 36 resists, 9 others via S
+B09 PASS order 36 resists the ledger (the page poison)
+B10 PASS row 33: divisors of 3, 3 mod 11 != 1
+B11 PASS row 35: divisors of 5, 5 mod 7 != 1
+B12 PASS row 36: 4 == 1 mod 3 — the claim "only 1" is false
+B13 PASS row 40: only 1 == 1 mod 5
+B14 PASS row 42: only 1 == 1 mod 7
+B15 PASS row 45: only 1 == 1 mod 5
+B16 PASS order 60 resists Lemma S
+B17 PASS order 60: Lemma C worst count null <= 60
+B18 PASS order 60 not closed by C (45<=60 recomputed: true)
+B19 PASS 17 primes + 41 composites = 58 orders 2..59
+A01 PASS honest Part C assembly: exactly the 36-row rejected
+A02 PASS seam named: Lemma S hypothesis unmet: 4 = 1 mod 3;row claims closure the ledger cannot deliver
+A03 PASS repaired assembly: 10 rows closed, 1 escalated, ACCEPT
+A04 PASS paraphrase citation rejected: citation not verbatim in the ledger
+A05 PASS self-audit rejected
+A06 PASS mutual audit cycle rejected on both rows
+A07 PASS order 30 via Lemma C is a genuine closure (recomputed)
+A10 PASS fudged count rejected: recomputation mismatch: claimed 44, recomputed 36
+A08 PASS order 12 via Lemma S rejected — the resister is real: Lemma S hypothesis unmet: 4 = 1 mod 3;row claims closure the ledger cannot deliver
+A09 PASS all five resisters: no ledger closure available, escalation owed
+C01 PASS S4=24, A4=12, A5=60
+C02 PASS S4 class sizes 1,3,6,6,8: 1,3,6,6,8
+C03 PASS exactly one class union containing 1 reaches 12
+C04 PASS the unique 12-union is A4, closed under composition
+C05 PASS V = {e, (12)(34), (13)(24), (14)(23)} closed under multiplication
+C06 PASS V normal in A4 (all 36 conjugations stay in V)
+C07 PASS A4 has exactly 4 Sylow 3-subgroups (Ex4 counterexample)
+C08 PASS the four subgroups: <(123)>,<(124)>,<(134)>,<(234)> as arrays
+C09 PASS A5 class sizes 1,12,12,15,20: 1,12,12,15,20
+C10 PASS A5: no union of classes containing 1 has size dividing 60 except 1 and 60 — simple
+C11 PASS A5 is non-abelian (commuting-pair search fails)
+D01 PASS [3]^1: 1 line, max line-free 2
+D02 PASS [3]^2: 7 lines, max line-free 6 (exhaustive over 512 subsets)
+D03 PASS [3]^2 has 9 points
+D04 PASS deleting 00,11,22 breaks all 7 lines
+D05 PASS survivors {01,02,10,12,20,21} line-free, size 6
+D06 PASS two deletions cover at most 5 of 7 lines: 5
+D07 PASS the only triple-line points are 00, 11, 22
+D08 PASS [3]^3 lines: 27+9+1 = 37
+D09 PASS no 8 deletions break all 37 lines (search)
+D10 PASS an explicit 9-deletion witness exists: 000 012 021 102 111 120 201 210 222
+D11 PASS the 9-witness hits every line (verified)
+D12 PASS max line-free [3]^3 = 18
+D13 PASS density 2/3 at n = 1, 2, 3
+D14 PASS this page census: 2, 6, 18; machine-scale 52, 150, 450 quoted from the collaboration
+E01 PASS Monster order: 54 digits, got 54
+E02 PASS limb product matches the digit string exactly
+E03 PASS the digit string is the published order
+E04 PASS exactly 9 trailing zeros (5^9 pairs with 9 of the 46 twos), got 9
+E05 PASS log10 = 53.907 ~ 53.907, so ~8.08 x 10^53
+E06 PASS 9999999^2 = 99999980000001 = [low 1, high 9999998] in base-10^7 limbs (exact below 10^14 per step)
+E07 PASS the 15 primes incl. 23 and 29: 2,3,5,7,11,13,17,19,23,29,31,41,47,59,71
+E08 PASS exponents 46,20,9,6,2,3 then eleven 1s
+H01 PASS lineage years present on the page: 1955,1963,1983,2004,2009,2012,2002,2003,2006,2010,2018,2021
+H02 PASS no unverified GLS year on the page
+H03 PASS the quasithin gap: 21 years
+H04 PASS the 1,221-page Aschbacher-Smith proof named
+H05 PASS Feit-Thompson 255 pages and 150,000 lines referenced
+H06 PASS the Polymath paper and pseudonym
+H07 PASS the three Perelman teams named
+H08 PASS the Scholze-Stix report quoted
+H09 PASS the PRIMS recusal noted
+H10 PASS the machine-scale census 52, 150, 450
+H11 PASS the Monster factorization incl. 23 and 29 in TeX
+H12 PASS 18 infinite families
+H13 PASS 26 sporadic groups
+H14 PASS ~100 authors phrasing
+H15 PASS tens of thousands of pages
+F01 PASS 8 h2 sections, got 8
+F02 PASS 11 h3 (3 examples + 3 exhibits + 5 exercises), got 11
+F03 PASS 9 details, got 9
+F04 PASS 4 hints (Ex1,2,3,5), got 4
+F05 PASS 5 worked answers, got 5
+F06 PASS 3 SVG figures
+F07 PASS 3 pattern boxes + 1 warn box
+F08 PASS 3 pid lines
+F09 PASS moons line present
+F10 PASS zero dollar signs
+F11 PASS zero backticks
+F12 PASS MathJax 3.2.2 integrity pin
+F13 PASS jsdelivr 3.2.2 pinned once
+F14 PASS kicker
+F15 PASS title
+F16 PASS footer next-link P46 + atlas-home P44
+F17 PASS all 8 href targets present
+F18 PASS no href outside the whitelist: 
+F19 PASS page ends cleanly
+F20 PASS no banned dollar-dollar display delimiters
+F21 PASS inline TeX delimiters balanced (net 0)
+F22 PASS display TeX: 2 opens = 2 closes (1 math display + 1 config)
+F23 PASS census receipt: 27 via S
+F24 PASS the 45 > 30 element-count receipt
+F25 PASS the five resisters named
+F26 PASS S4 classes and the unique union
+F27 PASS A5 class sizes
+F28 PASS the 36-closed / 5-escalated / 0-assumed receipt
+F29 PASS the line-free census 2, 6, 18
+F30 PASS 37 lines for [3]^3
+F31 PASS the 8.08 x 10^53 receipt
+F32 PASS the nine-trailing-zeros receipt
+G01 PASS Fig P45.2 has 9 point circles
+G02 PASS the 3 deleted diagonal points hollow
+G03 PASS the 6 surviving points filled
+G04 PASS 7 lines drawn in Fig P45.2 (3 rows + 3 cols + 1 diagonal), got 7
+G05 PASS row 0 drawn
+G06 PASS col 0 drawn
+G07 PASS the combinatorial diagonal drawn
+G08 PASS point centers at the grid positions
+G09 PASS timeline years labeled
+G10 PASS quasithin gap band from 1983 to 2004
+G11 PASS the 1,221-page mark + second-generation band
+G12 PASS four part boxes
+G13 PASS ledger + assembly pass in the diagram
+G14 PASS the dead seam marked at Part C row 36
+G15 PASS cross-audit labels in the parts
+TOTALS pass=125 fail=0
+VERDICT: ALL PASS
