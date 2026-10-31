@@ -1,0 +1,149 @@
+---- p69-lab summary ----
+PASS: 146  FAIL: 0
+PASS A1 S(1)=1.0000
+PASS A2 S(4)=2.7845
+PASS A3 S(9)=4.7048
+PASS A4 S(16)=6.6640
+PASS A5 S(100)=18.5896
+PASS A6 S(2)=1.7071 (Ex1 census row)
+PASS A7 S(n)/root(n) n=1 = 1.0000
+PASS A8 S(n)/root(n) n=4 = 1.3922
+PASS A9 S(n)/root(n) n=9 = 1.5683
+PASS A10 S(n)/root(n) n=16 = 1.6660
+PASS A11 S(n)/root(n) n=100 = 1.8590
+PASS B1a term k=1
+PASS B1b step k=1
+PASS B1c two steps k=1
+PASS B2a term k=2
+PASS B2b step k=2
+PASS B2c two steps k=2
+PASS B3a term k=3
+PASS B3b step k=3
+PASS B3c two steps k=3
+PASS B4a term k=4
+PASS B4b step k=4
+PASS B4c two steps k=4
+PASS B5a term k=5
+PASS B5b step k=5
+PASS B5c two steps k=5
+PASS B6a term k=6
+PASS B6b step k=6
+PASS B6c two steps k=6
+PASS C1 step <= term, k=1..200 (two squarings)
+PASS C1b margin identity (3k+1)(k-1), k=1..200
+PASS C1c equality holds iff k=1 (boundary honesty)
+PASS C2 half-term <= step iff term <= two steps, k=1..200
+PASS C3 forward double-step <= term, k=1..200 (two squarings)
+PASS D1a backward arm root(n)
+PASS D1b forward arm 2root(n+1)-2
+PASS D1c upper arm 2root(n)
+PASS D1d prisoner S(n)
+PASS D1e cage order: forward <= prisoner <= upper, backward <= prisoner
+PASS D2a backward arm root(n)
+PASS D2b forward arm 2root(n+1)-2
+PASS D2c upper arm 2root(n)
+PASS D2d prisoner S(n)
+PASS D2e cage order: forward <= prisoner <= upper, backward <= prisoner
+PASS D4a backward arm root(n)
+PASS D4b forward arm 2root(n+1)-2
+PASS D4c upper arm 2root(n)
+PASS D4d prisoner S(n)
+PASS D4e cage order: forward <= prisoner <= upper, backward <= prisoner
+PASS D9a backward arm root(n)
+PASS D9b forward arm 2root(n+1)-2
+PASS D9c upper arm 2root(n)
+PASS D9d prisoner S(n)
+PASS D9e cage order: forward <= prisoner <= upper, backward <= prisoner
+PASS D16a backward arm root(n)
+PASS D16b forward arm 2root(n+1)-2
+PASS D16c upper arm 2root(n)
+PASS D16d prisoner S(n)
+PASS D16e cage order: forward <= prisoner <= upper, backward <= prisoner
+PASS D100a backward arm root(n)
+PASS D100b forward arm 2root(n+1)-2
+PASS D100c upper arm 2root(n)
+PASS D100d prisoner S(n)
+PASS D100e cage order: forward <= prisoner <= upper, backward <= prisoner
+PASS D7 touch at n=1: S(1) = root(1) exactly
+PASS D8 window at n=100 is 1.9002
+PASS D9 window width < 2 for n=1..200
+PASS D10 window = 2 - 2(root(n+1)-root(n)) algebraically < 2
+PASS E1 backward arm polyline = page literal (root n, 12 pts)
+PASS E2 forward arm polyline = page literal (2root(n+1)-2)
+PASS E3 upper arm polyline = page literal (2root n)
+PASS E4 all 12 prisoner dots = page literals (S_n/30)
+PASS E5 x grid = 40 + 25(n-1), n=1..12 (40..315)
+PASS E6 dot 1 touches backward arm exactly (200.0 both)
+PASS E7 arms cross between n=1 and n=2: forward below at 1, above at 2
+PASS F1 product telescope = (n+1)/(2n), exact n=2..60
+PASS F2 chain one prod (k-1)/k = 1/n, exact n=2..60
+PASS F3 chain two prod (k+1)/k = (n+1)/2, exact n=2..60
+PASS F4 hand row n=2: 3/4
+PASS F5 hand row n=3: 3/4 x 8/9 = 2/3
+PASS F6 hand row n=4: x 15/16 = 5/8
+PASS F7 hand row n=5: x 24/25 = 3/5
+PASS F8 k=1 factor is zero — the product must start at k=2
+PASS F9 factorisation (1-1/k^2) = [(k-1)/k][(k+1)/k], k=7
+PASS F10 limits: (n+1)/(2n) shrinks to 1/2, n=1..60 decreasing
+PASS G1 hockey stick sum_{k=r..n} C(k,r) = C(n+1,r+1), r=0..6, n=r..25
+PASS G2 the drawn stick: 1+3+6+10+15 = 35 = C(7,3)
+PASS G3 r=1 stick is Gauss: sum k = n(n+1)/2, n=1..25
+PASS G4 r=0 stick: sum_{k=0..n} 1 = n+1 = C(n+1,1)
+PASS G5 Pascal-as-difference: C(k+1,r+1) - C(k,r+1) = C(k,r), r=0..6, k=0..25
+PASS G6 Pascal rows 0-7 = page literals (all 36 cells)
+PASS G7 Pascal's rule on every drawn cell, rows 1-7
+PASS G8 blade cell coords = polyline literal 210,79..130,187
+PASS G9 head cell (row 7, i=3) = 150,214
+PASS G10 the drawn stick IS the r=2, n=6 case of G1
+PASS H1 Exhibit A passes at n=1 (the dangerous row): claim 2/3 = truth 2/3
+PASS H2 Exhibit A dies at n=2: left 11/12, claimed 3/4
+PASS H3 Exhibit A truth = 1 + 1/2 - 1/(n+1) - 1/(n+2), n=1..50; claim wrong for n>=2
+PASS H4 Exhibit B fence: 1/k^2 < 1/(k(k-1)) = 1/(k-1) - 1/k, k=2..100
+PASS H5 Exhibit B tail fence: sum_{k>n} 1/(k(k-1)) = 1/n - 1/K < 1/n, exact n=1..50 (K=500)
+PASS H6 Exhibit C: 1/k - 1/(k+2) = 2/(k(k+2)); true split carries the 1/2, k=1..50
+PASS H7 Exhibit C at n=1: claim pays 2/3, sum is 1/3 — dead by a factor of two
+PASS I1 odd lattice sum = n/(2n+1), exact n=1..50
+PASS I2 split 1/(4k^2-1) = (1/2)(1/(2k-1) - 1/(2k+1)), exact k=1..50
+PASS I3 census n=1: 1/3
+PASS I4 census n=2: 1/3 + 1/15 = 2/5
+PASS I5 census n=3: + 1/35 = 3/7
+PASS I6 census n=4: + 1/63 = 4/9
+PASS I7 limit: n/(2n+1) climbs to 1/2 from below, n=1..200
+PASS J1 u_k = root(k)(root(k+1)-root(k)) < 1/2 by (2k+1)^2 - 4k(k+1) = 1, k=1..200
+PASS J2 u_k < 1/2 float, k=1..200
+PASS J3 u_k = 1/(root(1+1/k)+1), the conjugate rewrite, k=1..200
+PASS J4 u_k climbs strictly toward 1/2, k=2..200
+PASS J5 workable-set bound 1+root(1+1/k) > 2 always, k=1..200 (inf = 2, never attained)
+PASS J6 c=2 works with slack: 2(root(k+1)-root(k)) < 1/root(k), k=1..200
+PASS J7 c=2.01 fails at k=50, exact: 1.01 > root(51/50) iff 50*10201 > 51*10000 (510050 > 510000)
+PASS J8 the same c=2.01 passes at k=25 (failure is a large-k fact): 1.01 <= root(26/25) iff 25*10201 <= 26*10000
+PASS J9 and passes at k=1: 1.01 <= root(2) iff 10201 <= 20000
+PASS J10 census row n=1: 0.8284 <= 1 <= 2
+PASS J11 census row n=4: 2.4721 <= 2.7845 <= 4
+PASS J12 census row n=100: 18.0998 <= 18.5896 <= 20
+PASS K1 sum F_k^2 = F_n F_{n+1}, n=1..12
+PASS K2 step identity F_{k+1} - F_{k-1} = F_k, k=1..12
+PASS K3 staircase F_{k-1}F_k is exact: F_kF_{k+1} - F_{k-1}F_k = F_k^2, k=1..12
+PASS K4 census 1, 2, 6, 15, 40, 104, 273, 714 (n=1..8)
+PASS K5 next rung F_{n+1}(F_n+F_{n+1}) = F_{n+1}F_{n+2}, n=1..12
+PASS K6 census rows are staircase differences: 2-1=1, 6-2=4=2^2, 15-6=9=3^2, 40-15=25=5^2
+PASS L1 (a) claim dies at n=1: claim pays 0, the sum is 1 - 1/root(2) = 0.2929
+PASS L2 (a) truth = 1 - 1/root(n+1) (the last step lands at n+1), n=1..200
+PASS L3 (b) step identity k*k! = (k+1)! - k!, k=2..20
+PASS L4 (b) B11's row from k=1: sum k*k! = (n+1)! - 1, n=1..10
+PASS L5 (b) claim dies at n=2: claim says 3! = 6, the sum is 2*2! = 4
+PASS L6 (b) truth from k=2: (n+1)! - 2, exact n=2..10
+PASS L7 (c) 1/k - 1/(k+3) = 3/(k(k+3)); true split carries 1/3, k=1..50
+PASS L8 (c) dies at k=1: claim 3/4, term 1/4
+PASS L9 (c) honest full sum = (1/3)(1 + 1/2 + 1/3 - 1/(n+1) - 1/(n+2) - 1/(n+3)), exact n=1..50
+PASS L10 (c) at n=1 pays (1/3)(11/6 - 13/12) = 1/4
+PASS M1 factor split 4n^2/(4n^2-1) = (2n/(2n-1))(2n/(2n+1)), exact n=1..50
+PASS M2 p_N = (2N)!!/(2N-1)!! * (2N)!!/(2N+1)!!, exact N=1..8
+PASS M3 exact partials p1..p5 = 4/3, 64/45, 256/175, 16384/11025, 65536/43659
+PASS M4 decimals p6 = 1.5116, p7 = 1.5193, p8 = 1.5253
+PASS M5 census decimals 1.3333, 1.4222, 1.4629, 1.4861, 1.5011
+PASS M6 increasing toward pi/2, never reaching it: p_N < p_{N+1} < pi/2, N=1..60
+PASS N1 the drawn walk: cage holds and S_n climbs at every drawn row n=1..12
+PASS N2 twelfth dot: S(12) = 5.6112, y = 61.7 on the figure grid
+PASS N3 the walk stays inside the window: 2root(n) - (2root(n+1)-2) < 2 at n=12
+ALL CHECKS PASS
