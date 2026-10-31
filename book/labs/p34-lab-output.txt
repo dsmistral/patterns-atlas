@@ -1,0 +1,96 @@
+p34-lab: machine receipts for P34 (Arithmetize the syntax)
+fresh run; groups A-H; no shared code with the review verifier
+
+[A codebook]
+PASS A01 code(0=0)
+PASS A02 code(x=0)
+PASS A03 code(0=x)
+PASS A04 code(x=x)
+PASS A05 code(nothing-0=0)
+PASS A06 code(0=S0)
+PASS A07 decode(6750000)
+PASS A08 decode(2048)
+PASS A09 decode(12)
+PASS A10 decode(256)
+PASS A11 decode(7290000000)
+PASS A12 decode(10) is a jam
+PASS A13 roundtrip strings<=3 checked
+PASS A14 roundtrip mismatches
+PASS A15 string-numbers in 2..20000
+[B grammar census]
+PASS B01 terms length 1
+PASS B02 terms length 2
+PASS B03 terms length 3
+PASS B04 terms length 4
+PASS B05 terms length 5
+PASS B06 terms length 6
+PASS B07 formulas<=4 (odometer)
+PASS B08 formulas length 5 (odometer)
+PASS B09 formulas length 6 (odometer)
+PASS B10 constructive=odometer set at L6
+PASS B11 bracketed formulas among F<=6
+PASS B12 total terms<=3 (proof pool)
+[C smallest sentence-number]
+PASS C01 smallest formula number
+PASS C02 smallest formula is 0=0
+PASS C03 formula-numbers < 1e10
+PASS C04 formula-numbers < 1e12
+PASS C05 second formula is x=0
+PASS C06 bracket-free L6 bound 30030^3
+PASS C07 bracketed bound 2*3*5*7*11*13*17^6
+PASS C08 every formula <=6 contains =
+PASS C09 total formulas <=6
+PASS C10 no formula number below 7290000000
+
+[D proof machine]
+PASS D01 pool terms
+PASS D02 pool equations
+PASS D03 axioms
+PASS D04 1-line proofs
+PASS D05 2-line proofs
+PASS D06 3-line proofs
+PASS D07 proofs of SS0=SS0 (1,2,3-line)
+PASS D08 canonical chain present
+PASS D09 chain line2 = R1(line1)
+PASS D10 chain line3 = R1(line2)
+[E beta receipts]
+PASS E01 beta (7,6,7) smallest pair b
+PASS E02 beta (7,6,7) smallest pair c
+PASS E03 907 mod 9,17,25 = 7,6,7
+PASS E04 beta (4,3,6) pair (b,c)
+PASS E05 84 mod 5,9,13 = 4,3,6
+PASS E06 gcd(9,25),gcd(17,25),gcd(9,17) all 1
+PASS E07 c=7 moduli 8,15,22 fail the gate
+
+[F 8-table census]
+PASS F01 tables dying at row 1
+PASS F02 tables dying at row 2
+PASS F03 tables dying at the skeptic
+PASS F04 survivors
+PASS F05 skeptic survivors are (H,L,L),(H,L,H)
+
+[G figures]
+PASS G01 Fig P34.2 strings bars 280,373,467,560
+PASS G02 Fig P34.2 formulas bars 52,104,143,176
+PASS G03 bars increase with length
+PASS G04 longest bar fits 760 canvas
+PASS G05 Fig P34.1 boxes ordered, gaps, fit
+PASS G06 Fig P34.3 verdicts 4/2/2
+PASS G07 Fig P34.3 tables rendered
+PASS G08 page figures numbered 1,2,3
+
+[H lineage]
+PASS H01 Goedel incompleteness paper year
+PASS H02 Monatshefte volume
+PASS H03 codebook page
+PASS H04 announcement to Carnap,Feigl,Waismann 26 Aug
+PASS H05 Koenigsberg roundtable day (Sept 1930)
+PASS H06 Hilbert radio address evening (Sept 1930)
+PASS H07 von Neumann letter day (Nov 1930, Berlin)
+PASS H08 Tarski Polish year
+PASS H09 Tarski German year
+PASS H10 Turing paper year (Proc LMS 42, 230-265)
+PASS H11 Kleene T predicate year (Trans AMS 54)
+PASS H12 Quine Scientific American year (April)
+PASS H13 Chaitin JACM year (July, vol 21)
+TOTAL: 80/80 PASS
