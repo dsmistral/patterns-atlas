@@ -1,0 +1,66 @@
+p47 review-verifier output — wip/p47-review-verifier.js (fresh bitmask engine, zero code shared with the lab) against wip/p47-diagram-chase.html (50,515 bytes, 208 lines)
+Engine: integer bitmask vectors, kernels/images/fibers by full enumeration, spans by XOR-basis insertion, quotient classes by minimal coset representatives; the chase walked per anomaly over EVERY lift. Groups: V01-V16 the instance re-derived · V17-V23 the census re-counted (incl. per-(f,h) pair counts and the pinned-entry reduction) · V24-V25 the Short Five · V26-V30 the wide tower · V31-V37 the broken exhibits · V38-V40 exercise receipts · 68 page needles with control P00 and 8 poison clones P01-P08.
+
+RUN HISTORY (honest):
+- Run 1: 47/49 PASS, 2 FAIL — both defects verifier-side, none page-side. V34 demanded WA2.nz === true, but in Exhibit A mode 2 the first route lands on class [0], so the walk's nz flag is false even though the two classes disagree — route-dependence, not a nonzero delta, is the receipt; the check was rewritten to assert the two audits (0 and u), the unique pinning on both routes, and the disagreeing classes [0] vs [1]. P00 control missed 2 of 68 needles: 'the second mode is the dangerous one' (the page sentence begins with capital The) and the snake-sequence needle carried a \( prefix the page's long sequence does not have at that position (the \xrightarrow{\delta} stretch appears twice, both without an inline-math delimiter in front of \ker h); both needles corrected byte-exactly. All 8 poison clones were already REJECTED in run 1.
+- Run 2 (final): 49/49 PASS. Full output below.
+
+=== GROUP V: the instance, re-derived by bitmask ===
+V01 top row exact (p after i is zero, im i = ker p) PASS
+V02 bottom row exact PASS
+V03 both squares commute on every vector PASS
+V04 ker h = {0, c} PASS
+V05 im f = {0} (coker f has two classes) PASS
+V06 c lifts to exactly two witnesses {b2, b1+b2} PASS
+V07 both audits land on u PASS
+V08 the pull-back of u is the single witness a-prime PASS
+V09 delta(c) = [a-prime]: nonzero and route-free PASS
+V10 delta(0) = [0] PASS
+V11 six snake rooms all dim 1 PASS
+V12 exact at ker g PASS
+V13 exact at ker h (delta injective) PASS
+V14 exact at coker f (delta surjective) PASS
+V15 exact at coker g PASS
+V16 delta is an isomorphism (two rooms, two distinct classes) PASS
+=== GROUP V: the census, re-counted ===
+V17 census 64 / left 16 / right 16 PASS | tot=64 L=16 R=16
+V18 both 8 / left-only 8 / right-only 8 / neither 40 PASS | both=8 Lonly=8 Ronly=8 neither=40
+V19 all 8 both-commuting: delta well-defined on every anomaly PASS | wellDef=8
+V20 exactly 1 of the 8 has delta nonzero — the page instance g#2 PASS | dnz=1 cfg=f=0 h=0 g#2
+V21 each (f,h) pair leaves exactly 2 both-commuting auditors PASS | pairs=2,2,2,2
+V22 commutativity reduces to the pinned matrix entries in all 64 PASS
+V23 the quiet majority: 7 of the 8 well-defined and zero PASS | zeroSnake=7
+=== GROUP V: the Short Five, re-counted ===
+V24 f=h=id: exactly 2 of 16 commute with both squares PASS | sf=2 ts=9,11
+V25 both are bijections and both send b1 to u PASS
+=== GROUP V: the wide tower, re-counted ===
+V26 tower rows exact (arrivals = killed part, dims 2,4,2) PASS
+V27 all 16 arrival-killing maps commute with both squares PASS | comm=16
+V28 every anomaly has exactly 4 lifts PASS
+V29 all 16 well-defined PASS
+V30 delta nonzero on 15 of 16, vanishing only at the zero map PASS | dnz=15 zeroAt=0
+=== GROUP V: the broken exhibits, re-run ===
+V31 A1: left square commutes, right square broken PASS
+V32 A1: both lifts audit outside the killed part, no pre-witness exists PASS
+V33 A2: right square commutes, left square broken PASS
+V34 A2: both routes complete, witnesses pinned uniquely, classes [0] and [1] disagree PASS
+V35 A2: i-prime is injective (the mirage premise holds) PASS
+V36 B: bottom row broken at B-prime while both squares still commute PASS
+V37 B: audits reach u, no y explains it, no lift rescues PASS
+=== GROUP V: exercise receipts, re-run ===
+V38 Ex1(a): the zero-audit commutes and delta = 0 everywhere PASS
+V39 Ex1(b): f=id empties both end rooms (ker f = coker f = 0) PASS
+V40 Ex3(c): the mode-2 difference a-prime is outside im f PASS
+=== GROUP V: page needles, control, and poison clones ===
+P00 control: unmutated page passes all needles PASS | needles=68 missing=0
+P01 census both-count PASS | REJECTED, 1 needle(s) missing
+P02 census delta-nonzero count PASS | REJECTED, 1 needle(s) missing
+P03 wide-tower lift count PASS | REJECTED, 1 needle(s) missing
+P04 wide-tower delta-nonzero count PASS | REJECTED, 1 needle(s) missing
+P05 Short Five commuting count PASS | REJECTED, 1 needle(s) missing
+P06 snake dims PASS | REJECTED, 1 needle(s) missing
+P07 honesty clause PASS | REJECTED, 1 needle(s) missing
+P08 E/U diagnosis PASS | REJECTED, 1 needle(s) missing
+=== SUMMARY ===
+verifier checks: 49 pass, 0 fail
+VERIFIER P47: 49/49 PASS
