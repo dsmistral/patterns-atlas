@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B11 · The discrete derivative and telescoping · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B11 · bridge page, group C · before <a href="p69-telescoping.html">P69</a></p>
+<h1>The discrete derivative and telescoping</h1>
+<p class="tagline">Five fractions that resist addition turn out to be five steps of one staircase — and when a sum's terms are steps, the middle of the sum cancels against itself, leaving two survivors. This page names the step: the discrete derivative \(\Delta f(k) = f(k{+}1) - f(k)\), the honest difference between one term of a sequence and the next. It proves the one theorem every collapse obeys — a sum of consecutive steps keeps only its ends — and builds the machine that runs it: recognize a term as a step, check the shift, keep the survivors. Staircase sums, geometric series, even \(1 \cdot 1! + 2 \cdot 2! + 3 \cdot 3! + \cdots\) fall in one line each. And the page says which sums refuse: the harmonic \(1 + \tfrac{1}{2} + \tfrac{1}{3} + \cdots\) telescopes not at all — but it can be trapped between two sums that do, and the trap is honest enough to count its own terms.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern — the pattern that owns the move, <a href="p69-telescoping.html">P69 · Telescoping</a>, comes right after, and this page is the floor it stands on. It belongs to group C — graphs, potentials, telescoping — and it is the group's simplest door: the whole group is built on one piece of bookkeeping, that <em>differences and sums are two readings of the same ledger</em>, and this page teaches that bookkeeping where it is barest, along the number line. The group's other two pages carry the same idea onto dots joined by lines — <a href="b09-graphs-and-numbers.html">B09</a> puts numbers on dots, <a href="b10-loop-obstruction.html">B10</a> asks when edge-numbers come from dot-numbers — and they stand behind the page that needs them, far up the ladder. You already own every tool on this page: the table habit from <a href="p02-small-cases.html">P02</a>, the summation sign \(\sum\) as it ran through <a href="p66-induction.html">P66</a>'s staircases, the squeeze from <a href="p15-squeeze.html">P15</a>, and — for one exploration only — the logarithm and its derivative from class-12 calculus. <a href="p74-strengthen-the-claim.html">P74</a> has already leaned on this page twice without naming it; the naming is what this page is for. Take a pencil: before any notation appears you will add five fractions the hard way, watch them die the easy way, and meet the question this page exists to answer.</aside>
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p>Add these five fractions by hand, the way school taught:</p>
+<p class="eq">\[\frac{1}{2} \;+\; \frac{1}{6} \;+\; \frac{1}{12} \;+\; \frac{1}{20} \;+\; \frac{1}{30}.\]</p>
+<p>The honest route is the common denominator, and the least one is \(60\). Term by term, in sixtieths:</p>
+<table>
+<thead><tr><th>term</th><th>as a product</th><th>in sixtieths</th></tr></thead>
+<tbody>
+<tr><td>\(\frac{1}{2}\)</td><td>\(1 \times 2\)</td><td>\(\frac{30}{60}\)</td></tr>
+<tr><td>\(\frac{1}{6}\)</td><td>\(2 \times 3\)</td><td>\(\frac{10}{60}\)</td></tr>
+<tr><td>\(\frac{1}{12}\)</td><td>\(3 \times 4\)</td><td>\(\frac{5}{60}\)</td></tr>
+<tr><td>\(\frac{1}{20}\)</td><td>\(4 \times 5\)</td><td>\(\frac{3}{60}\)</td></tr>
+<tr><td>\(\frac{1}{30}\)</td><td>\(5 \times 6\)</td><td>\(\frac{2}{60}\)</td></tr>
+<tr><td><strong>total</strong></td><td></td><td>\(\frac{50}{60} \;=\; \frac{5}{6}\)</td></tr>
+</tbody>
+</table>
+<p>Five conversions, five additions, three of them awkward — done, and the answer is \(\tfrac{5}{6}\). But before leaving the table, read its middle column: each denominator is a product of neighbours, \(k \times (k{+}1)\) for \(k = 1, \ldots, 5\). And a product of neighbours hides a difference — because to get from \(\tfrac{1}{k}\) down to \(\tfrac{1}{k+1}\) you subtract exactly this much:</p>
+<p class="eq">\[\frac{1}{k} \;-\; \frac{1}{k{+}1} \;=\; \frac{(k{+}1) - k}{k(k{+}1)} \;=\; \frac{1}{k(k{+}1)}.\]</p>
+<p>So each term is a <em>step</em> — not a quantity standing alone, but the drop from one value of a single staircase to the next. Write the sum term by term with the steps stacked, and watch:</p>
+<p class="eq">\[\underbrace{\Bigl(1 - \tfrac{1}{2}\Bigr)}_{1/2} \;+\; \underbrace{\Bigl(\tfrac{1}{2} - \tfrac{1}{3}\Bigr)}_{1/6} \;+\; \underbrace{\Bigl(\tfrac{1}{3} - \tfrac{1}{4}\Bigr)}_{1/12} \;+\; \underbrace{\Bigl(\tfrac{1}{4} - \tfrac{1}{5}\Bigr)}_{1/20} \;+\; \underbrace{\Bigl(\tfrac{1}{5} - \tfrac{1}{6}\Bigr)}_{1/30}.\]</p>
+<p>Drop the brackets and every interior number appears twice — once subtracted, once added — and dies: \(1 - \tfrac{1}{2} + \tfrac{1}{2} - \tfrac{1}{3} + \tfrac{1}{3} - \tfrac{1}{4} + \tfrac{1}{4} - \tfrac{1}{5} + \tfrac{1}{5} - \tfrac{1}{6} = 1 - \tfrac{1}{6} = \tfrac{5}{6}\). The same answer, and the arithmetic was barely arithmetic. The sum was never five quantities; it was five <em>steps</em> of the staircase of values \(\;1,\; \tfrac{1}{2},\; \tfrac{1}{3},\; \tfrac{1}{4},\; \tfrac{1}{5},\; \tfrac{1}{6}\), and adding steps answers a different, easier question: not "how much is here?" but "how far did it climb?" This staircase only descends, and the five drops total its whole descent, \(1 - \tfrac{1}{6}\). Fig B11.1 draws the ledger.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Fig B11.1 — the reciprocal staircase: the six values 1, one half, one third, one fourth, one fifth and one sixth marked as positions descending a vertical line, the five drops between them labelled with the five terms one half, one sixth, one twelfth, one twentieth and one thirtieth, and a bracket on the right spanning the whole descent labelled net drop 1 minus one sixth equals five sixths.">
+<line x1="40" y1="30" x2="335" y2="30" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="70" x2="335" y2="70" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="110" x2="335" y2="110" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="150" x2="335" y2="150" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="40" y1="190" x2="335" y2="190" stroke="#dbe7f5" stroke-width="1"/>
+<line x1="150" y1="25" x2="150" y2="225" stroke="#9aa7b8" stroke-width="1.4"/>
+<line x1="150" y1="40" x2="150" y2="115" stroke="#b3543f" stroke-width="2.4"/>
+<line x1="150" y1="115" x2="150" y2="140" stroke="#b3543f" stroke-width="1.8"/>
+<line x1="150" y1="140" x2="150" y2="152.5" stroke="#b3543f" stroke-width="1.5"/>
+<line x1="150" y1="152.5" x2="150" y2="160" stroke="#b3543f" stroke-width="1.3"/>
+<line x1="150" y1="160" x2="150" y2="165" stroke="#b3543f" stroke-width="1.1"/>
+<circle cx="150" cy="40" r="3.4" fill="#3a4a5e"/>
+<circle cx="150" cy="115" r="3.4" fill="#3a4a5e"/>
+<circle cx="150" cy="140" r="3.4" fill="#3a4a5e"/>
+<circle cx="150" cy="152.5" r="3.4" fill="#3a4a5e"/>
+<circle cx="150" cy="160" r="3.4" fill="#3a4a5e"/>
+<circle cx="150" cy="165" r="3.4" fill="#3a4a5e"/>
+<text x="160" y="44" font-size="11" text-anchor="start" fill="#3a4a5e">1</text>
+<text x="160" y="119" font-size="11" text-anchor="start" fill="#3a4a5e">1/2</text>
+<text x="160" y="144" font-size="11" text-anchor="start" fill="#3a4a5e">1/3</text>
+<text x="160" y="156.5" font-size="11" text-anchor="start" fill="#3a4a5e">1/4</text>
+<text x="160" y="170" font-size="11" text-anchor="start" fill="#3a4a5e">1/5</text>
+<text x="160" y="185" font-size="11" text-anchor="start" fill="#3a4a5e">1/6</text>
+<text x="142" y="82" font-size="10" text-anchor="end" fill="#b3543f">1/2</text>
+<text x="142" y="131" font-size="10" text-anchor="end" fill="#b3543f">1/6</text>
+<text x="142" y="149" font-size="10" text-anchor="end" fill="#b3543f">1/12</text>
+<text x="142" y="159" font-size="10" text-anchor="end" fill="#b3543f">1/20</text>
+<text x="142" y="167" font-size="10" text-anchor="end" fill="#b3543f">1/30</text>
+<line x1="255" y1="40" x2="255" y2="165" stroke="#3574d4" stroke-width="1.2"/>
+<line x1="250" y1="40" x2="260" y2="40" stroke="#3574d4" stroke-width="1.2"/>
+<line x1="250" y1="165" x2="260" y2="165" stroke="#3574d4" stroke-width="1.2"/>
+<text x="268" y="96" font-size="10.5" text-anchor="start" fill="#3574d4">net drop</text>
+<text x="268" y="110" font-size="10.5" text-anchor="start" fill="#3574d4">1 − 1/6 = 5/6</text>
+<text x="40" y="244" font-size="10.5" text-anchor="start" fill="#555f6e">the five terms are the five drops; the sum of the drops is the whole descent — only the two ends survive</text>
+</svg>
+<figcaption><strong>Fig B11.1.</strong> The reciprocal staircase. The six values \(1, \tfrac{1}{2}, \ldots, \tfrac{1}{6}\) sit on one line, drawn to scale: each gap between neighbours is exactly the term with that pair's product in the denominator. The five terms of Lecture 0 are the five drops, and their sum is the net drop from the first value to the last, \(1 - \tfrac{1}{6} = \tfrac{5}{6}\) — the bracket on the right. A sum of steps is a distance between two ends; the middle of the staircase, however long, never enters the answer.</figcaption>
+</figure>
+<p>The collapse scales for free. Replace \(5\) by \(100\): \(\sum_{k=1}^{100} \frac{1}{k(k{+}1)} = 1 - \frac{1}{101} = \frac{100}{101}\) — one hundred terms for the price of two, and the pencil never tires. <a href="p74-strengthen-the-claim.html">P74</a> spent exactly this release, \(\frac{1}{k} - \frac{1}{k{+}1} = \frac{1}{k(k{+}1)}\), as the working capital of a proof by induction, and called it "a telescoping sum in miniature"; this page builds the full-size instrument.</p>
+<p><strong>Now try to force the same death on a sum that refuses.</strong> Take \(\tfrac{1}{2} + \tfrac{1}{3} + \tfrac{1}{5}\). Hunt all you like for a staircase whose steps these are: no single sequence drops by exactly these three amounts in a row, the middle will not die, and the sum is simply \(\frac{15 + 10 + 6}{30} = \frac{31}{30}\) — three terms, three survivors. The phenomenon is not a universal trick. Some sums are sums of steps, and some are not, and the difference is the whole subject.</p>
+<p><strong>What the pencil just showed.</strong> A sum whose terms are consecutive steps of one staircase collapses to the distance between its two ends — the interior annihilates pairwise. Four questions demand answers before this is a tool and not a miracle. <em>What exactly is a step?</em> — the middle died because consecutive terms shared a value; what is the general object? <em>When does the middle die, always?</em> — is there a theorem, and what does it say precisely? <em>How do you find the staircase hiding inside a term</em> — the split \(\frac{1}{k(k{+}1)} = \frac{1}{k} - \frac{1}{k{+}1}\) was handed to you; what if it is not? And <em>which sums refuse, and what can still be done for them?</em> The next section names the move; two of the four answers are one theorem and one table.</p>
+</section>
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<p>The middle died in Lecture 0 because every interior value of the staircase was counted twice — once as somebody's top, once as somebody's bottom. That is the whole mechanism, and it deserves a name for the object that makes it run: the step itself.</p>
+<div class="pattern-box" id="box-b11">
+<p><strong>Box B11 — the discrete derivative, and the theorem every collapse obeys.</strong> For a sequence \(f(k)\) defined on the whole numbers, its <em>discrete derivative</em> is the sequence of steps from each \(k\) to the next:</p>
+<p class="eq">\[\Delta f(k) \;=\; f(k{+}1) \;-\; f(k).\]</p>
+<p>And for any whole numbers \(m \le n\), the sum of consecutive steps is the net climb — the <em>telescoping theorem</em>:</p>
+<p class="eq">\[\sum_{k=m}^{n} \Delta f(k) \;=\; f(n{+}1) \;-\; f(m).\]</p>
+<p><em>In plain words:</em> every term of the form \(f(k{+}1) - f(k)\) is one step of one staircase; sum any run of consecutive steps and every interior value of \(f\) arrives twice — once subtracted, once added — and annihilates; the sum keeps only the two ends, the value behind the first step and the value past the last. A sum that dies this way is called a <em>telescoping sum</em>, after the folding spyglass: nested tubes sliding one into the gap the last one leaves, until only the two end-caps remain. Lecture 0's staircase was \(f(k) = \tfrac{1}{k}\) on \(k = 1, \ldots, 6\): five downward steps, net drop \(1 - \tfrac{1}{6}\). The proof of the theorem is the column of section 4 — nothing in it is deeper than the bracket-dropping you already did by hand.</p>
+</div>
+<p>Read as a recipe, the theorem converts any sum \(\sum g(k)\) into a two-step question: is the term a step, and whose? If \(g(k) = f(k{+}1) - f(k)\) for a single known \(f\), the sum is dead already. So the craft moves to the finding: given a term, produce its staircase.</p>
+<div class="pattern-box" id="box-b11a">
+<p><strong>Box B11.A — the anti-difference machine, and the standard table.</strong> A staircase \(f\) with \(\Delta f = g\) is an <em>anti-difference</em> of the term \(g\) — "anti" by exact analogy with the antiderivative of class-12 calculus, and Claim 2 will pin down how much choice there is in one. Running the machine on a sum is three obligations, in order:</p>
+<p><strong>1. Recognize the term as a step.</strong> Find any \(f\) whose steps are the terms: check it by one subtraction, \(\Delta f \overset{?}{=} g\), never by memory. The table below is a starter kit of recognized terms, each verifiable in one line.</p>
+<p><strong>2. Check the shift.</strong> The theorem eats consecutive steps \(k = m\) to \(n\) and pays out \(f(n{+}1) - f(m)\). Get either end wrong and the survivors are wrong: the most common error of this whole subject is a shift of one, and the honest habit is to write the two end-values explicitly before believing any answer.</p>
+<p><strong>3. Keep the survivors — and test them.</strong> The survivors are a formula for the sum; test that formula against a small case you can add by hand, the census habit of <a href="p02-small-cases.html">P02</a>. A wrong shift fails the small case loudly.</p>
+<p>The starter kit — for each term \(g(k)\), one staircase \(f(k)\) with \(\Delta f = g\), and the resulting closed form for \(\sum_{k=1}^{n} g(k) = f(n{+}1) - f(1)\), read straight off Box B11:</p>
+<table>
+<thead><tr><th>term \(g(k)\)</th><th>staircase \(f(k)\), \(\Delta f = g\)</th><th>survivors: \(\sum_{k=1}^{n} g(k)\)</th></tr></thead>
+<tbody>
+<tr><td>\(1\)</td><td>\(k\)</td><td>\(n\)</td></tr>
+<tr><td>\(k\)</td><td>\(\frac{k(k-1)}{2}\)</td><td>\(\frac{n(n{+}1)}{2}\)</td></tr>
+<tr><td>\(k{+}1\)</td><td>\(\frac{k(k{+}1)}{2}\)</td><td>\(\frac{(n{+}1)(n{+}2)}{2} - 1\)</td></tr>
+<tr><td>\(k^2\)</td><td>\(\frac{k(k-1)(2k-1)}{6}\)</td><td>\(\frac{n(n{+}1)(2n{+}1)}{6}\)</td></tr>
+<tr><td>\(\frac{1}{k(k{+}1)}\)</td><td>\(-\frac{1}{k}\)</td><td>\(1 - \frac{1}{n{+}1}\)</td></tr>
+<tr><td>\(2^k\)</td><td>\(2^k\)</td><td>\(2^{n+1} - 2\)</td></tr>
+<tr><td>\(r^k\), \(r \ne 1\)</td><td>\(\frac{r^k}{r-1}\)</td><td>\(\frac{r^{n+1} - r}{r-1}\)</td></tr>
+<tr><td>\(k \cdot k!\)</td><td>\(k!\)</td><td>\((n{+}1)! - 1\)</td></tr>
+</tbody>
+</table>
+<p>Every row is a claim, not a fact — section 3 works the rows by hand, and the exercises make you do the same. Three rows deserve a second look now. The \(k\) row says \(1 + 2 + \cdots + n = \tfrac{n(n{+}1)}{2}\) — Gauss's formula is the net climb of a staircase whose steps grow. The \(k{+}1\) row carries obligation 2's teeth: its survivors include a lone \(-1\), which is \(f(1) = 1\), a first-class survivor that a casual reading drops — and summed instead from \(k = 0\), the same row pays out \(1 + 2 + \cdots + n = \tfrac{n(n{+}1)}{2}\), the working section 3(a) runs. And the \(2^k\) row is the strangest: the staircase equals its own steps, \(\Delta 2^k = 2^k\), so doubling is the one growth rate whose step is exactly itself. That fixed-point property, not luck, is why powers of two sum so cleanly — and Claim 4 says it is the only exponential with it.</p>
+</div>
+<ul>
+<li><em>New word: discrete derivative.</em> The sequence of steps \(\Delta f(k) = f(k{+}1) - f(k)\). Calculus names its derivative after the "carried" change a quantity is undergoing; this is the same office held honestly — the change is a definite step, not an instant's rate, and nothing in it is infinitesimal. The step is the whole story, which is why the subject stays this close to school arithmetic.</li>
+<li><em>New word: telescoping sum.</em> A sum whose terms are consecutive steps of one staircase, so the interior values annihilate pairwise and only the two ends survive. Also used as a verb: the sum telescopes; you telescope it. The name is the classroom's own coinage — the folding spyglass — and the picture is exact: each tube disappears into the gap its neighbour leaves.</li>
+<li><em>New word: anti-difference.</em> For a term \(g(k)\), any staircase \(f\) with \(\Delta f = g\) — the answer to "whose step is this?". Claim 2 proves the anti-difference is unique exactly up to adding a constant, which is why the table can list one per term without losing anything.</li>
+<li><em>New word: falling factorial.</em> The product of \(m\) factors each one step below the last, \(k^{\underline{m}} = k(k-1)(k-2) \cdots (k-m{+}1)\). Where the ordinary power \(k^m\) repeats a factor, the falling factorial steps down — which is precisely the shape the discrete derivative likes: Claim 3 shows \(\Delta\) turns \(k^{\underline{m}}\) into \(m \, k^{\underline{m-1}}\), a carbon copy of the calculus power rule \(x^m \mapsto m x^{m-1}\), with the derivative replaced by the honest step.</li>
+</ul>
+<p>Calibration, with the honest side first. What telescopes:</p>
+<ul>
+<li>Lecture 0's term is a step: \(\frac{1}{k(k{+}1)} = -\Delta\bigl(\tfrac{1}{k}\bigr)\) — the sum collapses to the ends of the reciprocal staircase. This is the table's fifth row, the one you just did by hand.</li>
+<li>The staircase sum \(1 + 2 + \cdots + n\) is a climb: its term \(k{+}1\) is a step of the triangular numbers, \(\Delta\bigl(\tfrac{k(k+1)}{2}\bigr) = k{+}1\). Gauss's formula is Box B11 with \(f\) the triangular staircase.</li>
+<li>Every geometric series is a telescope: \(\Delta\bigl(\tfrac{r^k}{r-1}\bigr) = r^k\), so the geometric sum is a fixed formula in the ends. Section 3(b) runs it twice, once with \(r = \tfrac{1}{2}\) — the load <a href="p74-strengthen-the-claim.html">P74</a> carried as \(\sum_{i=1}^{n} \frac{1}{2^i} = 1 - \frac{1}{2^n}\).</li>
+<li>Found art telescopes too: \(k \cdot k! = (k{+}1)! - k!\) — no table row would suggest it, but the term is visibly a step of the factorials, "the next one minus me". Section 3(c) collects it.</li>
+<li><em>Non-example, honest: the harmonic term \(\tfrac{1}{k}\).</em> No staircase in this page's toolkit — no rational function of \(k\) — has \(\Delta f = \tfrac{1}{k}\). The partial sums \(H_n = 1 + \tfrac{1}{2} + \cdots + \tfrac{1}{n}\) grow without bound, but slower than any staircase of this table, like a logarithm; the paragraph below turns that "like" into a trap, and the exploration proves it.</li>
+<li><em>Non-example, honest: \(\tfrac{1}{k^2}\).</em> The sum converges — to \(\tfrac{\pi^2}{6}\), a number <a href="p74-strengthen-the-claim.html">P74</a>'s exploration squeezed between two telescoping sums — but no telescoping staircase produces the term itself, and no closed form of this page's kind evaluates the whole sum. What telescopes near it is the cousin \(\tfrac{1}{k(k{+}1)}\), whose tail \(\sum_{i > n} \frac{1}{i(i{+}1)} = \frac{1}{n{+}1}\) is what made the squeeze possible.</li>
+</ul>
+<p>The harmonic's refusal has shape, and the shape is worth seeing now, once, informally — the exploration proves it. Each single term \(\tfrac{1}{k}\) sits trapped between two telescoping drops of the logarithm's staircase:</p>
+<p class="eq">\[\ln\frac{k{+}1}{k} \;<\; \frac{1}{k} \;<\; \ln\frac{k}{k-1} \qquad (k \ge 2),\]</p>
+<p>and both sides telescope when summed — a sum of logarithms of fractions is one logarithm of everything multiplied: \(\sum_{k=1}^{n} \ln\frac{k{+}1}{k} = \ln(n{+}1)\). So the partial sums \(H_n\) inherit a squeeze built entirely from sums that do collapse:</p>
+<p class="eq">\[\ln(n{+}1) \;\le\; H_n \;\le\; 1 + \ln n.\]</p>
+<p>The harmonic itself never collapses; the arms of its cage do. Fig B11.3 shows the cage and its prisoner:</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Fig B11.3 — the harmonic partial sums H sub n drawn as dots for n from 1 to 12, rising and flattening, trapped between a lower dashed curve, the natural log of n plus one, and an upper dashed curve, one plus the natural log of n; the dots stay inside the channel, and at n equal 1 the dot touches the upper arm.">
+<line x1="35" y1="230" x2="335" y2="230" stroke="#9aa7b8" stroke-width="1.4"/>
+<line x1="35" y1="230" x2="35" y2="20" stroke="#9aa7b8" stroke-width="1.4"/>
+<polyline points="40,191.9 65,169.6 90,153.8 115,141.5 140,131.5 165,123 190,115.6 215,109.2 240,103.4 265,98.1 290,93.3 315,88.9" fill="none" stroke="#3574d4" stroke-width="1.2" stroke-dasharray="4 3"/>
+<polyline points="40,175 65,136.9 90,114.6 115,98.8 140,86.5 165,76.5 190,68 215,60.6 240,54.2 265,48.4 290,43.1 315,38.3" fill="none" stroke="#3574d4" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="40" cy="175" r="3.4" fill="#b3543f"/>
+<circle cx="65" cy="147.5" r="3.4" fill="#b3543f"/>
+<circle cx="90" cy="129.2" r="3.4" fill="#b3543f"/>
+<circle cx="115" cy="115.4" r="3.4" fill="#b3543f"/>
+<circle cx="140" cy="104.4" r="3.4" fill="#b3543f"/>
+<circle cx="165" cy="95.3" r="3.4" fill="#b3543f"/>
+<circle cx="190" cy="87.4" r="3.4" fill="#b3543f"/>
+<circle cx="215" cy="80.5" r="3.4" fill="#b3543f"/>
+<circle cx="240" cy="74.4" r="3.4" fill="#b3543f"/>
+<circle cx="265" cy="68.9" r="3.4" fill="#b3543f"/>
+<circle cx="290" cy="63.9" r="3.4" fill="#b3543f"/>
+<circle cx="315" cy="59.3" r="3.4" fill="#b3543f"/>
+<text x="333" y="34" font-size="10.5" text-anchor="end" fill="#3574d4">1 + ln n</text>
+<text x="333" y="102" font-size="10.5" text-anchor="end" fill="#3574d4">ln(n+1)</text>
+<text x="40" y="166" font-size="10.5" text-anchor="middle" fill="#b3543f">H₁</text>
+<text x="315" y="50" font-size="10.5" text-anchor="middle" fill="#b3543f">H₁₂</text>
+<text x="175" y="244" font-size="10.5" text-anchor="middle" fill="#555f6e">n from 1 to 12</text>
+</svg>
+<figcaption><strong>Fig B11.3.</strong> The harmonic prisoner. The dots are the partial sums \(H_n\) for \(n = 1, \ldots, 12\); the dashed arms are the telescoping bounds \(\ln(n{+}1)\) below and \(1 + \ln n\) above. At \(n = 1\) the dot touches the upper arm — \(H_1 = 1 = 1 + \ln 1\) — and every dot after stays inside the channel. The channel widens like a logarithm and so does the prisoner: the trap does not evaluate \(H_n\), it <em>identifies the growth</em>. A sum that refuses to die can still be caged by two that do.</figcaption>
+</figure>
+<p>A few values, read off the trap — the survivors of the arms beside the prisoner they hold:</p>
+<table>
+<thead><tr><th>\(n\)</th><th>\(H_n\)</th><th>lower arm \(\ln(n{+}1)\)</th><th>upper arm \(1 + \ln n\)</th></tr></thead>
+<tbody>
+<tr><td>\(1\)</td><td>\(1\)</td><td>\(0.6931\)</td><td>\(1\)</td></tr>
+<tr><td>\(2\)</td><td>\(1.5\)</td><td>\(1.0986\)</td><td>\(1.6931\)</td></tr>
+<tr><td>\(4\)</td><td>\(2.0833\)</td><td>\(1.6094\)</td><td>\(2.3863\)</td></tr>
+<tr><td>\(8\)</td><td>\(2.7179\)</td><td>\(2.1972\)</td><td>\(3.0794\)</td></tr>
+<tr><td>\(16\)</td><td>\(3.3807\)</td><td>\(2.8332\)</td><td>\(3.7726\)</td></tr>
+<tr><td>\(32\)</td><td>\(4.0585\)</td><td>\(3.4965\)</td><td>\(4.4657\)</td></tr>
+</tbody>
+</table>
+<p>The gap between the arms is \(1 - \ln\frac{n{+}1}{n}\) wide at the top — under one unit wide, always — and both arms climb like \(\ln n\), so \(H_n\) does too, forever. That is the honest shape of the refusal: <em>no closed form will ever come</em>, but the growth is nailed exactly, by telescoping. The exploration at the end of this page pushes the trap to its punchline.</p>
+<p><strong>A short history, none of it load-bearing.</strong> The difference calculus has run alongside the big calculus from the beginning: the forward differences at work on this page's staircases are the same differences Gregory was tabulating in the 1670s to interpolate between known values — the lineage <a href="p23-interpolate.html">P23</a> tells — and Newton's binomial bridge of 1676, P23's own centrepiece, is the falling factorial's habitat. The subject got its first systematic textbook a century and a half later, and from an unexpected author: George Boole — the logician's own Boole — published his <em>Treatise on the Calculus of Finite Differences</em> in 1860, one year after his <em>Treatise on Differential Equations</em>, as its declared sequel; the algebra of steps was, to Boole, coequal with the calculus of flows. The word "telescoping", by contrast, is the classroom's own — no theorem carries the name, and no date pins it; the spyglass picture earned its keep and stayed. The naming on this page follows the classroom: step, staircase, telescope, anti-difference.</p>
+</section>
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Three workings, in order of the table they use. Each one ends the way <a href="p78-reversible-steps.html">P78</a> teaches: computed one way, then checked a genuinely different way before it is believed. The pattern of all three is the same — a term, a staircase, Box B11 — but the third shows the machine's reach beyond its table, and each works a different row of the kit.</p>
+<h3>(a) The staircases — \(\;1 + 2 + \cdots + n\), then \(\;1 + 4 + 9 + \cdots + n^2\)</h3>
+<p>The term \(k{+}1\), summed from \(k = 0\) to \(n-1\), is \(1 + 2 + \cdots + n\). Recognize it as a step: with \(f(k) = \tfrac{k(k+1)}{2}\),</p>
+<p class="eq">\[\Delta f(k) \;=\; \frac{(k{+}1)(k{+}2) - k(k{+}1)}{2} \;=\; \frac{(k{+}1)\,\bigl[(k{+}2) - k\bigr]}{2} \;=\; k{+}1.\]</p>
+<p>One subtraction, one factorization, done — obligation 1. Box B11 with \(m = 0\), \(n \to n{-}1\) pays out \(f(n) - f(0) = \tfrac{n(n+1)}{2} - 0\): Gauss's formula, bought as a net climb. The staircase is drawn in Fig B11.2 — the steps are \(1, 2, 3, 4, 5\) tall, and the sum is where you land.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Fig B11.2 — the rising staircase of the triangular numbers: a step path from height 0 climbing by risers 1, 2, 3, 4 and 5, with the landing platforms labelled 0, 1, 3, 6, 10 and 15, the five risers labelled with the five terms, and a bracket at the right spanning the whole climb labelled net climb 15 equals 1 plus 2 plus 3 plus 4 plus 5.">
+<line x1="35" y1="230" x2="335" y2="230" stroke="#9aa7b8" stroke-width="1.4"/>
+<line x1="35" y1="230" x2="35" y2="20" stroke="#9aa7b8" stroke-width="1.4"/>
+<polyline points="50,220 50,208 100,208 100,184 150,184 150,148 200,148 200,100 250,100 250,40 300,40" fill="none" stroke="#3a4a5e" stroke-width="2"/>
+<circle cx="50" cy="220" r="3" fill="#3a4a5e"/>
+<circle cx="100" cy="208" r="3" fill="#3a4a5e"/>
+<circle cx="150" cy="184" r="3" fill="#3a4a5e"/>
+<circle cx="200" cy="148" r="3" fill="#3a4a5e"/>
+<circle cx="250" cy="100" r="3" fill="#3a4a5e"/>
+<circle cx="300" cy="40" r="3" fill="#3a4a5e"/>
+<text x="56" y="218" font-size="10.5" text-anchor="start" fill="#b3543f">1</text>
+<text x="106" y="202" font-size="10.5" text-anchor="start" fill="#b3543f">2</text>
+<text x="156" y="172" font-size="10.5" text-anchor="start" fill="#b3543f">3</text>
+<text x="206" y="126" font-size="10.5" text-anchor="start" fill="#b3543f">4</text>
+<text x="256" y="66" font-size="10.5" text-anchor="start" fill="#b3543f">5</text>
+<text x="44" y="222" font-size="10" text-anchor="end" fill="#555f6e">0</text>
+<text x="94" y="210" font-size="10" text-anchor="end" fill="#555f6e">1</text>
+<text x="144" y="186" font-size="10" text-anchor="end" fill="#555f6e">3</text>
+<text x="194" y="150" font-size="10" text-anchor="end" fill="#555f6e">6</text>
+<text x="244" y="102" font-size="10" text-anchor="end" fill="#555f6e">10</text>
+<text x="294" y="42" font-size="10" text-anchor="end" fill="#555f6e">15</text>
+<line x1="312" y1="220" x2="312" y2="40" stroke="#3574d4" stroke-width="1.2"/>
+<line x1="307" y1="220" x2="317" y2="220" stroke="#3574d4" stroke-width="1.2"/>
+<line x1="307" y1="40" x2="317" y2="40" stroke="#3574d4" stroke-width="1.2"/>
+<text x="322" y="124" font-size="10.5" text-anchor="start" fill="#3574d4">net climb</text>
+<text x="322" y="138" font-size="10.5" text-anchor="start" fill="#3574d4">= 15</text>
+<text x="175" y="244" font-size="10.5" text-anchor="middle" fill="#555f6e">the five terms are the five risers; the sum of the terms is the height gained</text>
+</svg>
+<figcaption><strong>Fig B11.2.</strong> The triangular staircase. The path climbs from \(0\) by risers of height \(1, 2, 3, 4, 5\) — the terms of \(1 + 2 + 3 + 4 + 5\) — and the landings are the triangular numbers \(0, 1, 3, 6, 10, 15\), each one the sum of the risers before it. The term \(k{+}1\) is a riser of the staircase \(f(k) = \tfrac{k(k+1)}{2}\); the sum of the terms is the net climb, and the bracket measures it: \(15\). Add a sixth riser and nothing re-totals — the new climb is just the new landing minus the old one.</figcaption>
+</figure>
+<p>Return trip, first working: add \(1 + 2 + 3 + 4 + 5\) directly and get \(15\), the bracket's number — and the table habit of <a href="p02-small-cases.html">P02</a> says test the formula too: \(n = 1, 2, 3, 4, 5\) gives \(1, 3, 6, 10, 15\), and \(\tfrac{n(n+1)}{2}\) agrees at every row.</p>
+<p>Now the squares. The term \(k^2\) from \(k = 0\) to \(n-1\) is \(0^2 + 1^2 + \cdots + (n{-}1)^2\); the table offers \(f(k) = \tfrac{k(k-1)(2k-1)}{6}\). Check it — never by memory:</p>
+<p class="eq">\[\Delta f \;=\; \frac{(k{+}1)k(2k{+}3) - k(k{-}1)(2k{-}1)}{6} \;=\; \frac{k\bigl[(k{+}1)(2k{+}3) - (k{-}1)(2k{-}1)\bigr]}{6} \;=\; \frac{k\,(6k{+}6)}{6} \;=\; k(k{+}1).\]</p>
+<p>Read that carefully — the survivors say \(k(k{+}1)\), not \(k^2\). The table's row for \(k^2\) sums \(1^2 + \cdots + n^2\), whose term in position \(k\) is \(k^2\) summed from \(k=1\) to \(n\); the staircase that steps by \(k(k{+}1)\) is the one for term \(k(k{+}1) = (k{+}1)^2 - (k{+}1)\)... this is exactly the shift bookkeeping of obligation 2, done honestly: taking instead the staircase \(F(k) = \tfrac{k(k+1)(2k+1)}{6}\) — the table's survivors promoted to a staircase, one index forward —</p>
+<p class="eq">\[\Delta F(k) \;=\; \frac{(k{+}1)(k{+}2)(2k{+}3) - k(k{+}1)(2k{+}1)}{6} \;=\; \frac{(k{+}1)\bigl[(k{+}2)(2k{+}3) - k(2k{+}1)\bigr]}{6} \;=\; \frac{(k{+}1)(6k{+}6)}{6} \;=\; (k{+}1)^2,\]</p>
+<p>so \(\sum_{k=0}^{n-1} (k{+}1)^2 = F(n) - F(0) = \tfrac{n(n+1)(2n+1)}{6}\) — the familiar formula for \(1 + 4 + 9 + \cdots + n^2\), bought by one factorization and one subtraction. At \(n = 5\): \(\tfrac{5 \cdot 6 \cdot 11}{6} = 55\), and by hand \(1 + 4 + 9 + 16 + 25 = 55\). Return trip: the induction rung — <a href="p66-induction.html">P66</a>'s ladder — with base \(n=1\) and the step checked in Exercise 3. And the question the honest reader is already asking — <em>where did \(F\) come from; who guessed it?</em> — is answered by Claim 3 in section 4: the staircase was not guessed, it was manufactured, and the manufacture works for every polynomial at once.</p>
+<h3>(b) The geometric series — every one is a telescope</h3>
+<p>Fix a ratio \(r\) and take the term \(r^k\). One subtraction finds its staircase, and the subtraction is a two-line bookkeeping of what "multiplying by \(r\)" does:</p>
+<p class="eq">\[\Delta\Bigl(\frac{r^k}{r-1}\Bigr) \;=\; \frac{r^{k+1} - r^k}{r-1} \;=\; \frac{r^k(r-1)}{r-1} \;=\; r^k \qquad (r \ne 1).\]</p>
+<p>So by Box B11, \(\sum_{k=0}^{n-1} r^k = \frac{r^n - 1}{r-1}\) — the geometric series formula, in the wild, as a net climb. Test it the loud way, \(r = 3\), \(n = 5\): the formula says \(\frac{243 - 1}{2} = 121\); by hand \(1 + 3 + 9 + 27 + 81 = 121\). Two routes, one number — <a href="p78-reversible-steps.html">P78</a>'s habit — and nothing about the check depended on \(r\) being large or small, whole or fractional.</p>
+<p>Now the load this page was sent to carry. Take \(r = \tfrac{1}{2}\) and sum from \(k = 1\): \(\sum_{k=1}^{n} \tfrac{1}{2^k}\). The survivors of the machine pay out directly — with \(f(k) = \tfrac{r^k}{r-1} = -\tfrac{1}{2^{k-1}}\), the sum is \(f(n{+}1) - f(1) = 1 - \tfrac{1}{2^n}\), which is exactly the identity <a href="p74-strengthen-the-claim.html">P74</a> carried as its load: \(\sum_{i=1}^{n} \frac{1}{2^i} = 1 - \frac{1}{2^n}\). P74 used it as given; this page has now produced it, and the production took one subtraction. At \(n = 4\): \(1 - \tfrac{1}{16} = \tfrac{15}{16}\), and by hand \(\tfrac{1}{2} + \tfrac{1}{4} + \tfrac{1}{8} + \tfrac{1}{16} = \tfrac{15}{16}\).</p>
+<p>One special ratio deserves its own sentence. For \(r = 2\) the machine's subtraction collapses: \(\Delta 2^k = 2^{k+1} - 2^k = 2^k\) — the staircase equals its own steps. Every other ratio needs the \(\tfrac{1}{r-1}\) rescaling; doubling is the one growth rate that is its own step. Claim 4 will confirm the uniqueness, and it matters: it is the reason \(\sum 2^k\) closes as \(2^{n+1} - 2\) with no coefficient in sight, the tidiest row in the table.</p>
+<h3>(c) Found art — factorials, and a two-slot telescope</h3>
+<p>The machine's table ends; its reach does not. Some terms are steps of staircases nobody tabulated, and recognizing them is the craft's second half. Look at \(k \cdot k!\) and resist the urge to see a product: \(k \cdot k!\) is what you add to \(k!\) to reach \((k{+}1)!\), because \((k{+}1)! = (k{+}1) \cdot k!\). So the term is literally a step of the factorials:</p>
+<p class="eq">\[k \cdot k! \;=\; (k{+}1)! - k! \;=\; \Delta\bigl(k!\bigr),\]</p>
+<p>and Box B11 pays out immediately: \(\sum_{k=1}^{n} k \cdot k! = (n{+}1)! - 1! = (n{+}1)! - 1\). Test at \(n = 4\): the formula says \(120 - 1 = 119\); by hand \(1 \cdot 1! + 2 \cdot 2! + 3 \cdot 3! + 4 \cdot 4! = 1 + 4 + 18 + 96 = 119\). Found art — no table row suggested it — and yet the working was pure obligation 1: <em>whose step is this?</em> asked of the term, answered by looking one factorial up.</p>
+<p>Found art of a second kind: a term that is a <em>fraction</em> of a step — two steps apart, not one. Take \(\tfrac{1}{k(k+2)}\) and split it across the two slots:</p>
+<p class="eq">\[\frac{1}{k(k{+}2)} \;=\; \frac{1}{2}\Bigl(\frac{1}{k} - \frac{1}{k{+}2}\Bigr),\]</p>
+<p>checked in one line: \(\tfrac{1}{2} \cdot \frac{(k{+}2) - k}{k(k{+}2)} = \tfrac{1}{k(k{+}2)}\). Summed, each interior value still dies, but with a delay of one extra term — a value leaves two terms after it arrives — so the survivors are <em>two on each end</em>:</p>
+<p class="eq">\[\sum_{k=1}^{n} \frac{1}{k(k{+}2)} \;=\; \frac{1}{2}\Bigl(1 + \frac{1}{2} - \frac{1}{n{+}1} - \frac{1}{n{+}2}\Bigr).\]</p>
+<p>Test at \(n = 4\): the survivors say \(\tfrac{1}{2}\bigl(\tfrac{3}{2} - \tfrac{1}{5} - \tfrac{1}{6}\bigr) = \tfrac{1}{2} \cdot \tfrac{45 - 6 - 5}{30} = \tfrac{17}{30}\); by hand \(\tfrac{1}{3} + \tfrac{1}{8} + \tfrac{1}{15} + \tfrac{1}{24} = \tfrac{40 + 15 + 8 + 5}{120} = \tfrac{68}{120} = \tfrac{17}{30}\). The moral of the second kind is obligation 2 in its sharpest form: <em>count the shift before trusting the survivors</em>. A shift of two leaves four survivors, a shift of three would leave six, and the only habit that never fails is the small-case census — write out \(n = 2\), \(n = 3\) by hand and watch which values actually survive.</p>
+</section>
+<section id="why">
+<h2>4 · Why it is true</h2>
+<p>Four claims, each stated precisely, each proved in full, none leaning on a picture. Together they answer Lecture 0's remaining questions: the theorem (why the middle dies), the machine's freedom (how much choice an anti-difference has), the manufacture (where polynomial staircases come from), and the fixed point (which growth is its own step).</p>
+<p><strong>Claim 1 — the telescoping theorem.</strong> <em>For any sequence \(f\) and whole numbers \(m \le n\): \(\sum_{k=m}^{n} \Delta f(k) = f(n{+}1) - f(m)\).</em> Proof, by the column itself: write each term as its step and stack them,</p>
+<p class="eq">\[\sum_{k=m}^{n} \Delta f(k) \;=\; \underbrace{\bigl[f(m{+}1) - f(m)\bigr]}_{k=m} \;+\; \underbrace{\bigl[f(m{+}2) - f(m{+}1)\bigr]}_{k=m+1} \;+\;\cdots\;+\; \underbrace{\bigl[f(n{+}1) - f(n)\bigr]}_{k=n}.\]</p>
+<p>Each interior value \(f(m{+}1), f(m{+}2), \ldots, f(n)\) appears exactly twice — once as somebody's top, subtracted, once as somebody's bottom, added — so all of them cancel, whatever their size, whatever the staircase. Two values appear once each: \(f(m)\), only ever subtracted, and \(f(n{+}1)\), only ever added. The sum is \(f(n{+}1) - f(m)\). Nothing was assumed about \(f\) at all — no growth condition, no formula, not even finiteness of values — and that is the theorem's whole strength: the collapse is pure bookkeeping, true for every staircase that exists. ∎</p>
+<p><strong>Reading the boundary.</strong> The survivors of Claim 1 say something worth isolating, because it is the seed of this whole group of pages. A sum of steps from \(a\) to \(b\) depends only on the two ends — not on the path taken between them. Climb a staircase in one run or rest on every landing; the net is the same. Run the steps in a closed loop — up some steps, down others, arrive where you started — and the answer is forced to be \(f(a) - f(a) = 0\): <em>around any closed loop, the sum of steps is zero</em>. On the number line this is automatic and maybe sounds vacuous, because the number line has no loops worth speaking of: you go up and you come back down the same line. On a network of dots joined by lines it is not vacuous — it becomes the question, because there the "steps" are numbers someone hands you on edges, and Claim 1's boundary reading becomes a test the data can fail. <a href="b09-graphs-and-numbers.html">B09</a> and <a href="b10-loop-obstruction.html">B10</a> build exactly that test, and the obstruction that measures its failure is the subject of the page far up the ladder that group exists to serve. This page plants the seed; the group grows it.</p>
+<p><strong>Claim 2 — anti-differences are unique up to a constant.</strong> <em>If \(\Delta f = \Delta g\) on all whole numbers, then \(f - g\) is constant; conversely, adding a constant to a staircase changes nothing about its steps.</em> Proof, both directions. If \(\Delta f = \Delta g\), put \(h(k) = f(k) - g(k)\); then \(\Delta h(k) = \Delta f(k) - \Delta g(k) = 0\) for every \(k\), that is \(h(k{+}1) = h(k)\) for every \(k\): chaining, \(h(m) = h(m{+}1) = \cdots = h(k)\) for all \(k \ge m\), so \(h\) never moves — constant. Conversely, if \(g = f + c\) then \(\Delta g(k) = [f(k{+}1) + c] - [f(k) + c] = \Delta f(k)\): the constant cancels itself in the subtraction. ∎ Two payoffs. In Box B11 the survivors \(f(n{+}1) - f(m)\) never see the constant — so the theorem's answer is the same whichever anti-difference you found, and the machine's freedom is harmless. And in the table, listing one staircase per term loses nothing: every other staircase for that term is the listed one plus a constant, and the sum does not care. The exact analogue in class-12 calculus — antiderivatives unique up to the \(+C\) — is not a coincidence of notation; it is the same Claim 2, one floor down, in the mirror this section ends with.</p>
+<p><strong>Claim 3 — the falling factorials are the staircase monomials.</strong> <em>For \(m \ge 1\), \(\Delta\bigl(k^{\underline{m}}\bigr) = m \, k^{\underline{m-1}}\), where \(k^{\underline{m}} = k(k{-}1)(k{-}2)\cdots(k{-}m{+}1)\).</em> Proof, by one factorization. Write out both steps and line up their common factors:</p>
+<p class="eq">\[(k{+}1)^{\underline{m}} - k^{\underline{m}} \;=\; (k{+}1)\,k\,(k{-}1)\cdots(k{-}m{+}2) \;-\; k\,(k{-}1)\cdots(k{-}m{+}2)\,(k{-}m{+}1).\]</p>
+<p>Every factor except one is shared: pull out \(k\,(k{-}1)\cdots(k{-}m{+}2)\) — that is \(k^{\underline{m-1}}\), which has \(m-1\) factors — and what remains is</p>
+<p class="eq">\[(k{+}1) - (k{-}m{+}1) \;=\; m,\qquad\text{so}\qquad \Delta\bigl(k^{\underline{m}}\bigr) \;=\; m \, k^{\underline{m-1}}.\;\blacksquare\]</p>
+<p>The shape is the calculus power rule exactly — \(\frac{d}{dx}x^m = m x^{m-1}\) — with the derivative swapped for the honest step, and it holds for the same reason: falling factorials are the monomials that <em>fit</em> the step operator, because their factors are built out of steps. And now the manufacture promised in section 3(a): express any polynomial's term in the falling-factorial basis, where the power rule applies term by term, and read off the anti-difference. The first conversions:</p>
+<table>
+<thead><tr><th>ordinary power</th><th>in falling factorials</th></tr></thead>
+<tbody>
+<tr><td>\(k\)</td><td>\(k^{\underline{1}}\)</td></tr>
+<tr><td>\(k^2\)</td><td>\(k^{\underline{2}} + k^{\underline{1}}\)</td></tr>
+<tr><td>\(k^3\)</td><td>\(k^{\underline{3}} + 3\,k^{\underline{2}} + k^{\underline{1}}\)</td></tr>
+</tbody>
+</table>
+<p>Each row is checkable by expanding — for the third, \(k^{\underline{3}} = k(k{-}1)(k{-}2) = k^3 - 3k^2 + 2k\), and adding \(3k^{\underline{2}} + k^{\underline{1}} = 3k^2 - 3k + k\) returns exactly \(k^3\). So for \(k^2\): an anti-difference is \(\tfrac{1}{3}k^{\underline{3}} + \tfrac{1}{2}k^{\underline{2}}\), since by Claim 3 its steps are \(k^{\underline{2}} + k^{\underline{1}} = k^2\). The consequence deserves its own sentence: <em>every polynomial term has a polynomial staircase, manufactured, never guessed</em> — section 3(a)'s \(F(k) = \tfrac{k(k+1)(2k+1)}{6}\) was this machine's output, and Exercise 3 runs the whole manufacture by hand. One more thread ties the lattice down: <a href="p23-interpolate.html">P23</a>'s binomials are the same objects in different print — \(k^{\underline{m}} = m! \binom{k}{m}\) — so Newton's 1676 bridge, P23's centrepiece, was already living in this basis; difference tables and telescoping sums are two readings of one lattice, and the group of pages this one belongs to exists because that sentence is true more widely than along the number line.</p>
+<p><strong>Claim 4 — the fixed points.</strong> <em>(i) \(\Delta f = 0\) exactly for constant sequences. (ii) \(\Delta f = f\) exactly for \(f(k) = c \cdot 2^k\). (iii) \(\Delta(r^k) = (r-1)\,r^k\), so no exponential other than \(2^k\) is its own step.</em> Proof. (i) \(\Delta f(k) = 0\) says \(f(k{+}1) = f(k)\) for every \(k\); chain as in Claim 2: constant. (ii) \(\Delta f = f\) says \(f(k{+}1) = 2 f(k)\) for every \(k\); chaining, \(f(k) = 2 f(k{-}1) = 4 f(k{-}2) = \cdots = 2^k f(0)\): so \(f(k) = c \cdot 2^k\) with \(c = f(0)\), and a direct check confirms every such sequence works. (iii) \(\Delta(r^k) = r^{k+1} - r^k = (r-1)r^k\), and \((r-1)r^k = r^k\) forces \(r - 1 = 1\), \(r = 2\). ∎ Together the three parts say: the step operator has exactly one growth shape it returns unchanged — doubling — and it rescales every other exponential by a fixed factor \(r-1\). That is the deep reason the geometric row of the table carries a \(\tfrac{1}{r-1}\) and the \(2^k\) row carries nothing: uniqueness, not luck.</p>
+<aside class="aside warn"><strong>Scope, honestly.</strong> Three boundaries of the machine, stated so the reader never has to guess. <em>Reach:</em> by Claim 3, every polynomial term has a closed-form sum; by Claim 4, so does every pure exponential; found art like \(k \cdot k!\) extends the reach case by case, when the term happens to name a staircase. <em>The boundary itself:</em> beyond that, the anti-difference may simply not exist as a formula of this kind. The harmonic term \(\tfrac{1}{k}\) is the honest witness — no rational staircase has \(\Delta f = \tfrac{1}{k}\) (a rational staircase grows like a power of \(k\), or tends to a constant; \(\ln k\) does neither), and \(\tfrac{1}{k^2}\) refuses too, though its sum converges. What survives at the boundary is not evaluation but the <em>trap</em>: both of Lecture 0's questions about the harmonic — how fast, when does it pass a mark — are answered by the telescoping arms of Fig B11.3, without a closed form ever arriving. <em>Bookkeeping:</em> the survivors are only as good as the shift; the wrong-by-one answer looks exactly like the right one, and the small-case census of <a href="p02-small-cases.html">P02</a> — test \(n = 1\), \(n = 2\), \(n = 3\) by hand — is the guard that never sleeps. And the price of the whole apparatus, stated plainly: telescoping evaluates a sum by <em>replacing</em> it, term by term, with the story of one staircase. When the replacement fails, there is nothing to fall back on here — the trap is the fallback, and it is the next section's exercises, not the claims, that teach its feel. The continuous mirror, for the reader who has met class-12 calculus: Claim 1 is the Fundamental Theorem of Calculus with the limits stripped off — sums become integrals, steps become differentials, survivors become boundary values — and Claim 3 is the power rule, in falling-factorial print, verbatim. This page's theorem stands on its own feet and proves its own claims; the mirror is there to recognize, not to lean on.</p>
+</aside>
+</section>
+<section id="practice">
+<h2>5 · Practice</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◐ open exploration. Hints and worked answers are collapsible. No ◆ exercise here — there is no pattern to diagnose yet, and the consumer page ahead will set its own drills on this floor. Every answer below was itself checked two ways before it was written down.</p>
+<h3>Exercise 1 ●○○ — the survivors, twice</h3>
+<p>(a) Finish Lecture 0 at full size: write the closed form for \(\sum_{k=1}^{n} \frac{1}{k(k{+}1)}\), and evaluate it at \(n = 100\) with no additions. (b) The two-slot telescope of section 3(c): state the survivors for \(\sum_{k=1}^{n} \frac{1}{k(k{+}2)}\), then verify them the loud way at \(n = 4\) — by adding the four fractions by hand.</p>
+<details><summary>Hint</summary>
+<p>Both are Box B11 with the staircase already found in the text. For (a) the staircase is \(f(k) = -\tfrac{1}{k}\); the survivors are the two values at the ends of the run. For (b), before touching the formula, write the four survivors out in the order the bracket-dropping leaves them — the two early values survive on the left because their partners have not arrived yet, and the two late ones survive on the right because theirs have already gone.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) \(\sum_{k=1}^{n} \frac{1}{k(k{+}1)} = f(n{+}1) - f(1) = -\tfrac{1}{n+1} + 1 = \tfrac{n}{n{+}1}\). At \(n = 100\): \(\tfrac{100}{101}\) — one hundred terms, two survivors, zero additions. A census check at \(n = 5\): \(\tfrac{5}{6}\), Lecture 0's answer, as it must be.</p>
+<p>(b) The survivors: \(\sum_{k=1}^{n} \frac{1}{k(k{+}2)} = \tfrac{1}{2}\bigl(1 + \tfrac{1}{2} - \tfrac{1}{n{+}1} - \tfrac{1}{n{+}2}\bigr)\). At \(n = 4\), the formula pays \(\tfrac{1}{2}\bigl(\tfrac{3}{2} - \tfrac{1}{5} - \tfrac{1}{6}\bigr) = \tfrac{1}{2} \cdot \tfrac{45 - 6 - 5}{30} = \tfrac{17}{30}\). By hand, no telescoping allowed: \(\tfrac{1}{3} + \tfrac{1}{8} + \tfrac{1}{15} + \tfrac{1}{24}\); in one-hundred-and-twentieths that is \(40 + 15 + 8 + 5 = 68\), so \(\tfrac{68}{120} = \tfrac{17}{30}\). Two routes, one number: the survivors are telling the truth.</p>
+</details>
+<h3>Exercise 2 ●●○ — found art, then a third slot</h3>
+<p>(a) Sum the found art of section 3(c): \(\sum_{k=1}^{n} k \cdot k!\). Prove the split \(k \cdot k! = (k{+}1)! - k!\) yourself from \((k{+}1)! = (k{+}1)\,k!\), then check the survivors at \(n = 4\) by direct addition. (b) New territory, one slot further: split \(\frac{1}{k(k{+}1)(k{+}2)}\) into the difference of two adjacent three-factor reciprocals, \(\frac{1}{2}\bigl(\frac{1}{k(k{+}1)} - \frac{1}{(k{+}1)(k{+}2)}\bigr)\), and sum it — then verify the survivors at \(n = 3\) by hand.</p>
+<details><summary>Hint</summary>
+<p>(a) The factorial staircase is a single subtraction away, and Box B11 does the rest; the end-values to evaluate are at \(k = 1\) and \(k = n{+}1\). (b) The split is a difference of steps of the staircase \(f(k) = \tfrac{1}{2}\,\tfrac{1}{k(k{+}1)}\): check \(\Delta f\) before using it. The survivors will be exactly two again — the split is consecutive in \(k\), so nothing is delayed. For the hand check, \(\tfrac{1}{6} + \tfrac{1}{24} + \tfrac{1}{60}\) wants a common denominator of \(120\).</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) \(k \cdot k! = (k{+}1)\,k! - k! = (k{+}1)! - k!\), so \(\sum_{k=1}^{n} k \cdot k! = (n{+}1)! - 1!\). At \(n = 4\): \((5)! - 1 = 119\). Direct addition: \(1 \cdot 1! + 2 \cdot 2! + 3 \cdot 3! + 4 \cdot 4! = 1 + 4 + 18 + 96 = 119\). Agreement.</p>
+<p>(b) Obligation 1 first — the check, never by memory. With \(f(k) = \tfrac{1}{2}\,\tfrac{1}{k(k{+}1)}\): \(f(k{+}1) - f(k) = \tfrac{1}{2}\bigl(\tfrac{1}{(k{+}1)(k{+}2)} - \tfrac{1}{k(k{+}1)}\bigr) = -\tfrac{1}{2}\bigl(\tfrac{1}{k(k{+}1)} - \tfrac{1}{(k{+}1)(k{+}2)}\bigr)\), so the term \(\frac{1}{k(k{+}1)(k{+}2)}\) equals \(-\Delta f(k)\), since \(\tfrac{1}{2}\bigl(\tfrac{1}{k(k{+}1)} - \tfrac{1}{(k{+}1)(k{+}2)}\bigr) = \tfrac{1}{2} \cdot \frac{(k{+}2) - k}{k(k{+}1)(k{+}2)} = \frac{1}{k(k{+}1)(k{+}2)}\). Then \(\sum_{k=1}^{n} \frac{1}{k(k{+}1)(k{+}2)} = -[f(n{+}1) - f(1)] = \tfrac{1}{4} - \frac{1}{2(n{+}1)(n{+}2)}\). At \(n = 3\): \(\tfrac{1}{4} - \tfrac{1}{2 \cdot 4 \cdot 5} = \tfrac{1}{4} - \tfrac{1}{40} = \tfrac{9}{40}\). By hand: \(\tfrac{1}{6} + \tfrac{1}{24} + \tfrac{1}{60} = \tfrac{20 + 5 + 2}{120} = \tfrac{27}{120} = \tfrac{9}{40}\). Agreement — and notice the pattern forming: one slot, two survivors; two slots, four survivors; three factors, two survivors again, because the split stayed consecutive. The delay is caused by <em>gaps in the split</em>, not by the size of the terms.</p>
+</details>
+<h3>Exercise 3 ●●● — the manufacture, end to end</h3>
+<p>Sum the squares <em>entirely by the machine</em>, no guessed staircase allowed. (a) Convert \(k^2\) to the falling-factorial basis using the table in section 4. (b) Manufacture the anti-difference term by term with Claim 3. (c) Evaluate the survivors for \(\sum_{k=1}^{n} k^2\) and simplify to the familiar formula. (d) Test the formula at \(n = 1, 2, 3, 4, 5, 6\) against direct addition, and then climb the induction rung: show that \(\tfrac{n(n{+}1)(2n{+}1)}{6} + (n{+}1)^2\) simplifies to \(\tfrac{(n{+}1)(n{+}2)(2n{+}3)}{6}\), closing the second route to the same formula — the route <a href="p66-induction.html">P66</a> would take.</p>
+<details><summary>Hint</summary>
+<p>(a) The table's second row says \(k^2 = k^{\underline{2}} + k^{\underline{1}}\); verify it by expanding \(k^{\underline{2}} = k(k{-}1)\). (b) Claim 3 is used term by term, exactly as the calculus power rule would be: \(\Delta\bigl(\tfrac{1}{3}k^{\underline{3}}\bigr) = k^{\underline{2}}\) and \(\Delta\bigl(\tfrac{1}{2}k^{\underline{2}}\bigr) = k^{\underline{1}}\). (c) The survivors live at \(k = 0\) and \(k = n\); expanding the falling factorials at the ends will need the products \(n(n{-}1)(n{-}2)\) and \(n(n{-}1)\). (d) For the rung, put everything over the denominator \(6\) and look for the factor \((n{+}1)\) before doing any other algebra.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) \(k^{\underline{2}} + k^{\underline{1}} = k(k{-}1) + k = k^2\). Confirmed.</p>
+<p>(b) With \(F(k) = \tfrac{1}{3}k^{\underline{3}} + \tfrac{1}{2}k^{\underline{2}}\), Claim 3 pays out \(\Delta F(k) = k^{\underline{2}} + k^{\underline{1}} = k^2\) — manufactured, not guessed.</p>
+<p>(c) \(\sum_{k=1}^{n} k^2 = F(n{+}1) - F(1)\). Now \(F(1) = \tfrac{1}{3} \cdot 1 \cdot 0 \cdot (-1) + \tfrac{1}{2} \cdot 1 \cdot 0 = 0\), and \(F(n{+}1) = \tfrac{1}{3}(n{+}1)n(n{-}1) + \tfrac{1}{2}(n{+}1)n = \tfrac{n(n{+}1)}{6}\bigl[2(n{-}1) + 3\bigr] = \tfrac{n(n{+}1)(2n{+}1)}{6}\). The familiar formula, produced.</p>
+<p>(d) The census: \(n = 1, 2, 3, 4, 5, 6\) gives sums \(1, 5, 14, 30, 55, 91\), and the formula gives \(\tfrac{1 \cdot 3 \cdot 3}{6} = 1\), \(\tfrac{2 \cdot 3 \cdot 5}{6} = 5\), \(\tfrac{3 \cdot 4 \cdot 7}{6} = 14\), \(\tfrac{4 \cdot 5 \cdot 9}{6} = 30\), \(\tfrac{5 \cdot 6 \cdot 11}{6} = 55\), \(\tfrac{6 \cdot 7 \cdot 13}{6} = 91\) — agreement at every row. The rung: \(\tfrac{n(n{+}1)(2n{+}1)}{6} + (n{+}1)^2 = \tfrac{(n{+}1)}{6}\bigl[n(2n{+}1) + 6(n{+}1)\bigr] = \tfrac{(n{+}1)(2n^2 + 7n + 6)}{6} = \tfrac{(n{+}1)(n{+}2)(2n{+}3)}{6}\), since \(2n^2 + 7n + 6 = (n{+}2)(2n{+}3)\). Two complete routes — the machine and the ladder — landing on one formula: that is what it means for a result to be believed.</p>
+</details>
+<h3>Open exploration ◐ — the trap, pushed to its punchline</h3>
+<p>Class-12 calculus owns one inequality worth owning here, because it cages the harmonic exactly. Prove that for \(x > 0\): \(\frac{x}{1+x} < \ln(1+x) < x\). Then feed it \(x = \tfrac{1}{k}\), sum both sides, and conclude \(\ln(n{+}1) \le H_n \le 1 + \ln n\) — the arms of Fig B11.3, now yours. Finally, the punchline: use the trap to decide roughly how many terms the harmonic needs before it passes \(10\) — and then reflect on what the trap can and cannot tell you.</p>
+<details><summary>Hint</summary>
+<p>Two monotone functions do all the work. For the right inequality, take \(g(x) = x - \ln(1+x)\) and compute \(g'(x) = \frac{x}{1+x}\); for the left, take \(h(x) = \ln(1+x) - \frac{x}{1+x}\) and compute \(h'(x) = \frac{x}{(1+x)^2}\). Both derivatives have a sign that is decided for every \(x > 0\), and both functions vanish at \(x = 0\). To pass \(10\), the arms say: wait until the lower arm itself passes \(10\) — that forces \(H_n > 10\) — and note the upper arm gives the matching fence the other side.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>For \(x > 0\): \(g'(x) = \frac{x}{1+x} > 0\), and \(g(0) = 0\), so \(g(x) > 0\) — that is \(\ln(1+x) < x\). Likewise \(h'(x) = \frac{x}{(1+x)^2} > 0\) and \(h(0) = 0\), so \(h(x) > 0\) — that is \(\frac{x}{1+x} < \ln(1+x)\). Feed it \(x = \frac{1}{k}\), noting \(\frac{x}{1+x} = \frac{1}{k{+}1}\): \(\frac{1}{k{+}1} < \ln\frac{k{+}1}{k} < \frac{1}{k}\). Summing from \(k = 1\) to \(n\): the left telescopes to \(\sum \frac{1}{k{+}1} = H_n - 1\), the middle to \(\ln(n{+}1)\) — a sum of logs of fractions is the log of the product — and the right to \(H_n\) itself. So \(H_n - 1 < \ln(n{+}1) < H_n\), and sliding the pieces: \(\ln(n{+}1) \le H_n \le 1 + \ln n\), with equality on the right at \(n = 1\) (both sides say \(1\)). The arms are built entirely from telescoping sums — the prisoner inside is the one sum that refuses.</p>
+<p>The punchline. What does the trap promise about passing \(10\)? Both arms, honestly read. Below: if \(1 + \ln n < 10\), that is \(n < e^9 \approx 8103\), then \(H_n\) is under \(10\) for certain — no crossing that early. Above: if \(\ln(n{+}1) > 10\), that is \(n \ge 22026\), then \(H_n\) is over \(10\) for certain. So the trap brackets the crossing: somewhere in \(8103 \le n \le 22026\), a window thirteen thousand terms wide, bought for the price of two logarithms and no additions at all. The exact crossing takes a patient walk of the sum — the census of <a href="p25-machine-cases.html">P25</a>'s kind, done by machine: \(H_{12366} < 10 < H_{12367}\), first past \(10\) at \(n = 12{,}367\), near the floor of the trap's window. What the trap <em>cannot</em> do: name a closed form for \(H_n\), or find the exact crossing, or pass to \(20\) or \(100\) without redoing the walk — the growth is nailed, the value is not, and that boundary is permanent. One last curiosity the walk reveals: \(H_n - \ln n\) does not wander — it closes in on a single number, \(\gamma \approx 0.5772\), the Euler–Mascheroni constant; at \(n = 10^6\) the difference is already \(0.5772\) to four decimals. The constant is the trap's finest print: the harmonic and the logarithm differ by a fixed amount, forever.</p>
+</details>
+</section>
+<section id="where">
+<h2>6 · Where this goes</h2>
+<p><strong>The consumer.</strong> <a href="p69-telescoping.html">P69 · Telescoping</a> is the pattern page that owns this move, and it comes next. This page has taught the concept on the number line, where the staircase is one-dimensional and the survivors sit at the two ends of a run; P69 turns it into a diagnostic and an offence: recognize a sum as a telescope in the wild — in estimates, in identities, in bounds engineered so the middle dies — and strike. When P69 says "the tail is bounded by the first missing term", the machine behind the sentence is Box B11; when it says "prove more by telescoping", the licence is this page's.</p>
+<p><strong>The debts this page pays.</strong> <a href="p74-strengthen-the-claim.html">P74</a> pointed here twice, and this page has now honoured both: its Example 1 carried the release \(\frac{1}{k} - \frac{1}{k{+}1} = \frac{1}{k(k{+}1)}\) — "a telescoping sum in miniature", now full-grown in Box B11's table — and its exploration's half-integer squeeze \(\frac{1}{i-1/2} - \frac{1}{i{+}1/2}\) is a one-slot telescope on the shifted lattice of half-integers, with the ceiling \(\tfrac{5}{3}\) read off the survivors. And one debt older than this session: <a href="b08-diagonalization.html">B08</a>'s harvest law annihilates its interior dictionaries pairwise — the same middle-dies bookkeeping wearing matrix clothes, and B08 said so at the time. This page is the plainest statement of the move both of them used.</p>
+<p><strong>Group C, forward.</strong> The seed planted in Claim 1's boundary reading — <em>a sum of steps depends only on its ends; around a closed loop it is zero</em> — is the entire group's theme. <a href="b09-graphs-and-numbers.html">B09</a> moves the ledger onto dots joined by lines: values on the dots, steps on the edges between them, and the same theorem holding. <a href="b10-loop-obstruction.html">B10</a> asks the converse — if the loop sums vanish, must the edge numbers come from dot values? — and finds the answer is genuinely obstructed when the network has holes. The obstruction that measures it is the subject of <a href="p33-sheaf-cohomology-bridge.html">P33</a>, far up the ladder; this page and its two siblings stand behind that ladder's rung.</p>
+<p><strong>Looking back.</strong> Nothing on this page was new machinery, only newly named. <a href="p23-interpolate.html">P23</a>'s difference tables are this page's \(\Delta\) read backwards — the table that lets you climb from values to steps is the one that lets you descend from steps to values; and P23's binomial basis \(\binom{k}{m}\) is the falling factorial in different print, \(k^{\underline{m}} = m! \binom{k}{m}\). <a href="p66-induction.html">P66</a>'s induction ladder is Claim 1 with the telescoping performed one rung at a time — base plus steps equals ends; P66 proved \(1 + 2 + \cdots + n = \tfrac{n(n+1)}{2}\) by three sentences of ladder, and this page did it in one line of survivors — the same theorem, walked or flown. <a href="p15-squeeze.html">P15</a>'s squeeze is the design behind the harmonic trap; <a href="p02-small-cases.html">P02</a>'s census is obligation 3's guard; <a href="p78-reversible-steps.html">P78</a>'s return trips ran through every working above; and for the reader who has met class-12 calculus, the Fundamental Theorem — integral of a rate, net change of the quantity — is Claim 1's continuous twin, with the staircase made infinitely fine. The ladder's floors are not separate buildings; they are staircases of one another.</p>
+</section>
+<footer>
+<p><em>The Patterns Atlas</em> — B11 · The discrete derivative and telescoping (bridge page, group C). <a href="index.html">Return to the index</a>. The bridge stands; the consumer is next: <a href="p69-telescoping.html">P69 · Telescoping</a>.</p>
+</footer>
+</body>
+</html>
