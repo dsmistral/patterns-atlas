@@ -1,9 +1,11 @@
-p47 review-verifier output — wip/p47-review-verifier.js (fresh bitmask engine, zero code shared with the lab) against wip/p47-diagram-chase.html (50,515 bytes, 208 lines)
+p47 review-verifier output — wip/p47-review-verifier.js (fresh bitmask engine, zero code shared with the lab) against wip/p47-diagram-chase.html (50,722 bytes, 208 lines)
 Engine: integer bitmask vectors, kernels/images/fibers by full enumeration, spans by XOR-basis insertion, quotient classes by minimal coset representatives; the chase walked per anomaly over EVERY lift. Groups: V01-V16 the instance re-derived · V17-V23 the census re-counted (incl. per-(f,h) pair counts and the pinned-entry reduction) · V24-V25 the Short Five · V26-V30 the wide tower · V31-V37 the broken exhibits · V38-V40 exercise receipts · 68 page needles with control P00 and 8 poison clones P01-P08.
 
 RUN HISTORY (honest):
 - Run 1: 47/49 PASS, 2 FAIL — both defects verifier-side, none page-side. V34 demanded WA2.nz === true, but in Exhibit A mode 2 the first route lands on class [0], so the walk's nz flag is false even though the two classes disagree — route-dependence, not a nonzero delta, is the receipt; the check was rewritten to assert the two audits (0 and u), the unique pinning on both routes, and the disagreeing classes [0] vs [1]. P00 control missed 2 of 68 needles: 'the second mode is the dangerous one' (the page sentence begins with capital The) and the snake-sequence needle carried a \( prefix the page's long sequence does not have at that position (the \xrightarrow{\delta} stretch appears twice, both without an inline-math delimiter in front of \ker h); both needles corrected byte-exactly. All 8 poison clones were already REJECTED in run 1.
-- Run 2 (final): 49/49 PASS. Full output below.
+- Run 2: 49/49 PASS.
+- Run 3 (final, in-session post-publish correction): re-run after the two §6 doors were rewritten to their P-index identities (P60 group completion, P52 microlocal propagation — see the lab output's run 3 for the full defect note; the verifier's needles never pinned the door text, so its script is unchanged and its control still passes all 68 needles). 49/49 PASS, all 8 poison clones REJECTED. Full output below.
+
 
 === GROUP V: the instance, re-derived by bitmask ===
 V01 top row exact (p after i is zero, im i = ker p) PASS
