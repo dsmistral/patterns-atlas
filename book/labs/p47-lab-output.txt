@@ -1,0 +1,198 @@
+p47 lab output — wip/p47-lab.js (25,392 bytes) against wip/p47-diagram-chase.html (50,515 bytes, 208 lines)
+Engine: fresh F2 linear algebra (span-enumeration: allV/addV/apply/matMul/spanElems/inSpan/nullB/imB/pre/kerElems), generic snakeRun(F,H,G,P,IP,dB,dC,dA2) walking the four stations (lift / audit / pull-back / class) with per-anomaly receipts. Groups: A the instance (28 checks: row exactness, square commutativity, ker/coker ledgers, all six snake rooms, four internal exactness stations, delta isomorphism, E/U ledger) · B the census (64 configurations, wide tower) · C the Short Five · D broken exhibits A1/A2/B + exercise receipts · E page needles (72) · F figures and structure (34).
+
+RUN HISTORY (honest):
+- Run 1: 175/180 PASS, 5 FAIL — all five defects lab-side, none page-side. A17 counted kerElems(H0,1) as 1, but kerElems lists elements and ker h = {0, c} has two elements (dimension 1); the check was rewritten to state the six snake dims explicitly (kernel basis sizes 1,1,1; coker dims 1-0, 2-1, 1-0). A25 used the coset reps [[0,1],[1,1]] — both from the same coset (they differ by u in im g) — so the induced kernel came back empty; corrected to the two genuine reps [[0,0],[0,1]]. D12 typed the exhibit-B map IPB as the 1x1 matrix [[0]] instead of the 2x1 zero matrix [[0],[0]], so matEq compared a 2x1 product against a 1x1 product; D11/D13/D14 were re-verified unchanged under the corrected shape. E5 expected the honesty clause twice; the page (per design) carries "well-definedness is the theorem, not the paperwork" exactly once, in the pattern box — expectation corrected to 1. F16 expected 6 marker usages, but the fig1 ladder legitimately draws 7 arrows (i, p, i-prime, p-prime, f, g, h) — expectation corrected to 7.
+- Run 2 (final): 180/180 PASS. Full output below.
+
+=== GROUP A: the instance ===
+A1 top row exact (im i = ker p, both <b1>) PASS
+A2 bottom row exact (im i-prime = ker p-prime) PASS
+A3 both squares commute PASS
+A4 ker h = {0, c} (two elements) PASS
+A5 coker f = two cosets (im f = 0) PASS
+A6 delta(0) = [0] PASS
+A7 c has exactly 2 lifts (E-station, two witnesses) PASS | lifts=[[0,1],[1,1]]
+A8 both lifts audit to u PASS
+A9 pull-back unique (U-station): pre(i-prime, u) = {a-prime} PASS
+A10 delta(c) = [a-prime] nonzero PASS
+A11 well-defined (both routes same class) PASS
+A12 delta linear (zero on 0, nonzero on c) PASS
+A13 ker f = <a> (dim 1) PASS
+A14 ker g = <b1> (dim 1) PASS
+A15 coker g: im g = <u>, cosets {[00],[10]} and {[01],[11]} PASS
+A16 coker h: two cosets {[0]},{[1]} PASS
+A17 snake dims 1,1,1,1,1,1 PASS
+A18 induced ker f->ker g: a |-> b1 (in ker g) PASS
+A19 induced ker g->ker h: b1 |-> 0 PASS
+A20 induced coker f->coker g: [a-prime] |-> [u] = [0] (zero map) PASS
+A21 induced coker g->coker h: [v] |-> [w] nonzero PASS
+A22 exact at ker g (image-equals-kernel both <b1>) PASS
+A23 exact at ker h (im = 0 = ker delta: delta injective) PASS
+A24 exact at coker f (im delta = all = ker zero map: delta surjective) PASS
+A25 exact at coker g (im = {[0]} = ker p-prime-induced) PASS
+A26 delta is an isomorphism (injective + surjective) PASS
+A27 E/U ledger: lift station E (2 witnesses), pull-back station U (unique) PASS
+A28 p onto (E functional), i-prime injective (U functional) PASS
+=== GROUP B: the census ===
+B1 census total 64 PASS | total=64
+B2 left square commutes in 16 PASS | left=16
+B3 right square commutes in 16 PASS | right=16
+B4 both squares in 8 PASS | both=8
+B5 left-only 8, right-only 8 PASS | L-only=8 R-only=8
+B6 neither 40 PASS | neither=40
+B7 all 8 both-commuting give delta well-defined PASS | wellDef=8
+B8 exactly 1 of the 8 has delta nonzero PASS | dNonzero=1 f=0 h=0 G=[[0,1],[0,0]]
+B9 the one nonzero is the page instance (f=0 h=0 G=[[0,1],[0,0]]) PASS
+B10 matrix-entry pinning: left <=> (alpha=f, beta=0) PASS
+B11 matrix-entry pinning: right <=> (beta=0, delta=h) PASS
+B12 independence would predict 4, actual is 8 (16*16/64=4) PASS
+B13 wide tower exact (im iW = ker pW, dims 2,4,2) PASS
+B14 wide tower: 16 commuting maps PASS | commute=16
+B15 every anomaly has exactly 4 lifts PASS
+B16 all 16 well-defined PASS | wellDef=16
+B17 delta nonzero on 15 of 16 PASS | dNonzero=15
+B18 delta vanishes only for g=0 PASS
+=== GROUP C: the Short Five ===
+C1 Short Five census: 16 possible g PASS
+C2 exactly 2 commute with both squares PASS | commute=2
+C3 both commuting g are isomorphisms PASS | iso=2
+C4 the two: [[1,0],[0,1]] and [[1,1],[0,1]] PASS
+C5 with f=h=id: ker f = 0 and coker f = 0 (zero rooms) PASS
+=== GROUP D: the broken exhibits ===
+D1 A1: left square commutes, right broken PASS
+D2 A1: the audit of a lift lands outside ker p-prime (p-prime(v)=w nonzero) PASS
+D3 A1: both lifts stall — no y with i-prime(y) = v PASS
+D4 A1: snake run reports stall, not well-defined PASS
+D5 A2: right square commutes, left broken PASS
+D6 A2: i-prime still injective in this exhibit PASS
+D7 A2: route via b2 audits to 0, pulls back to y=0, class [0] PASS
+D8 A2: route via b1+b2 audits to u, pulls back to y=a-prime, class [1] PASS
+D9 A2: the two classes differ (im f = 0), delta ill-defined PASS
+D10 A2: snake run reports route-dependence (ok=false, no stall) PASS
+D11 B: bottom row broken at B-prime (im i-prime dim 0, ker p-prime dim 1) PASS
+D12 B: both squares still commute (with the page instance g) PASS
+D13 B: both lifts audit to u; no y explains u — pull-back stall PASS
+D14 B: snake run reports stall with squares commuting PASS
+=== GROUP D: exercise receipts ===
+D15 Ex1(a): zero-audit g0 commutes with both squares PASS
+D16 Ex1(a): delta = [0] on all of ker h (well-defined zero) PASS
+D17 Ex1(b): f=id makes coker f the zero room (delta has no target) PASS
+D18 Ex1(b): f=id makes ker f zero (snake endpoint rooms) PASS
+D19 Ex3(a) step 1: the two lifts differ by b1, in im i = ker p PASS
+D20 Ex3(a) step 2: audits differ by g(b1) = 0 = i-prime(f(a)) for f=0 PASS
+D21 Ex3(a) step 3: pinned witnesses differ by an element of im f PASS
+D22 Ex3(c) refutation witness: a-prime not in im f = 0 in mode 2 PASS
+D23 Ex4 receipts: mode 2 has unique witnesses per route yet differing classes PASS
+=== GROUP E: page needles ===
+E1 kicker PASS | E1 kicker
+E2 title PASS | E2 title
+E3 tagline PASS | E3 tagline
+E4 onramp short-exact words PASS | E4 onramp short-exact words
+E5 honesty clause appears once PASS | count=1 expected=1
+E6 pattern box title PASS | E6 pattern box title
+E7 forced home PASS | E7 forced home
+E8 A1 stall name PASS | E8 A1 stall name
+E9 A2 route-dependence PASS | E9 A2 route-dependence
+E10 B stall PASS | E10 B stall
+E11 scope box PASS | E11 scope box
+E12 default habit 1 PASS | E12 default habit 1
+E13 default habit 2 PASS | E13 default habit 2
+E14 census table PASS | E14 census table
+E15 census delta-nonzero PASS | E15 census delta-nonzero
+E16 wide tower PASS | E16 wide tower
+E17 wide tower close PASS | E17 wide tower close
+E18 quiet majority x3 PASS | count=3 expected=3
+E19 independence note PASS | E19 independence note
+E20 wide tower wording PASS | E20 wide tower wording
+E21 snake sequence x2 PASS | count=2 expected=2
+E22 delta isomorphism PASS | E22 delta isomorphism
+E23 sketch gaps PASS | E23 sketch gaps
+E24 connecting homomorphism x3 PASS | count=3 expected=3
+E25 shadow lesson PASS | E25 shadow lesson
+E26 EU device 1 PASS | E26 EU device 1
+E27 EU device 2 PASS | E27 EU device 2
+E28 key 1 PASS | E28 key 1
+E29 key 2 PASS | E29 key 2
+E30 key 3 PASS | E30 key 3
+E31 section 1 P33 recall PASS | E31 section 1 P33 recall
+E32 section 1 P25 recall PASS | E32 section 1 P25 recall
+E33 section 2 story PASS | E33 section 2 story
+E34 rule 1 PASS | E34 rule 1
+E35 rule 2 PASS | E35 rule 2
+E36 figure intro PASS | E36 figure intro
+E37 section 2 close PASS | E37 section 2 close
+E38 tension paragraph PASS | E38 tension paragraph
+E39 fig1 caption PASS | E39 fig1 caption
+E40 fig2 caption PASS | E40 fig2 caption
+E41 ex1 title PASS | E41 ex1 title
+E42 ex2 title PASS | E42 ex2 title
+E43 ex3 title PASS | E43 ex3 title
+E44 ex4 title PASS | E44 ex4 title
+E45 ex5 title PASS | E45 ex5 title
+E46 moons line PASS | E46 moons line
+E47 footer next PASS | E47 footer next
+E48 footer next words PASS | E48 footer next words
+E49 footer home PASS | E49 footer home
+E50 door P53 PASS | E50 door P53
+E51 door P52 PASS | E51 door P52
+E52 door P60 PASS | E52 door P60
+E53 door P65 PASS | E53 door P65
+E54 literature Weibel PASS | E54 literature Weibel
+E55 literature Mac Lane PASS | E55 literature Mac Lane
+E56 lineage Cartan-Eilenberg PASS | E56 lineage Cartan-Eilenberg
+E57 lineage Tohoku PASS | E57 lineage Tohoku
+E58 lineage naming PASS | E58 lineage naming
+E59 MathJax pin PASS | E59 MathJax pin
+E60 MathJax version PASS | E60 MathJax version
+E61 MathJax config line (double backslashes in file) PASS | E61 MathJax config line (double backslashes in file)
+E62 Ex4 diagnosis PASS | E62 Ex4 diagnosis
+E63 Ex4 error name PASS | E63 Ex4 error name
+E64 Ex4 setup PASS | E64 Ex4 setup
+E65 Ex5 census-habit close PASS | E65 Ex5 census-habit close
+E66 Ex1 zero-audit PASS | E66 Ex1 zero-audit
+E67 Exhibit B close PASS | E67 Exhibit B close
+E68 Exhibit A close PASS | E68 Exhibit A close
+E69 Ex5 honest hedge PASS | E69 Ex5 honest hedge
+E70 instance lift E PASS | E70 instance lift E
+E71 instance lift U PASS | E71 instance lift U
+E72 instance class nonzero x2 PASS | count=2 expected=2
+=== GROUP F: figures and structure ===
+F1 fig2 lift arrow path PASS | F1 fig2 lift arrow path
+F2 fig2 push arrow path PASS | F2 fig2 push arrow path
+F3 fig2 pull-back arrow path PASS | F3 fig2 pull-back arrow path
+F4 fig1 box A PASS | F4 fig1 box A
+F5 fig1 box B PASS | F5 fig1 box B
+F6 fig1 box C PASS | F6 fig1 box C
+F7 fig1 box A-prime PASS | F7 fig1 box A-prime
+F8 fig1 box B-prime PASS | F8 fig1 box B-prime
+F9 fig1 box C-prime PASS | F9 fig1 box C-prime
+F10 fig2 push label PASS | F10 fig2 push label
+F11 fig2 pull-back label x2 PASS | count=2 expected=2
+F12 fig2 delta label PASS | F12 fig2 delta label
+F13 fig2 quotient note PASS | F13 fig2 quotient note
+F14 fig2 auditor note PASS | F14 fig2 auditor note
+F15 fig2 lift label PASS | F15 fig2 lift label
+F16 fig1 marker usage x7 PASS | count=7 expected=7
+F17 fig2 green marker usage x3 PASS | count=3 expected=3
+F18 fig1 aria PASS | F18 fig1 aria
+F19 fig2 aria PASS | F19 fig2 aria
+F20 two page figures PASS | count=2 expected=2
+F21 two figcaptions PASS | count=2 expected=2
+F22 eight sections PASS | count=8 expected=8
+F23 eight h2 PASS | count=8 expected=8
+F24 five mini-tables PASS | count=5 expected=5
+F25 nine details blocks PASS | count=9 expected=9
+F26 one pattern box PASS | count=1 expected=1
+F27 one warn box PASS | count=1 expected=1
+F28 one sketch marker PASS | count=1 expected=1
+F29 one moons line PASS | count=1 expected=1
+F30 eleven h3 headers PASS | count=11 expected=11
+F31 href count matches whitelist (15) PASS | count=15 expected=15
+F32 no banned lab/session talk PASS
+F33 balanced inline TeX open/close PASS
+F34 balanced display TeX open/close PASS
+
+=== SUMMARY ===
+total checks: 180 | PASS: 180 | FAIL: 0
+p47 lab: ALL GREEN
