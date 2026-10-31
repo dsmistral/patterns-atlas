@@ -1,0 +1,48 @@
+p31-review-verifier-output — adversarial verification for book/p31-universal-property.html
+page md5 b02590ee384632a329a1fb7baee411f1 · 49060 bytes · 226 lines
+verifier p31-review-verifier.js md5 20a68381c7db34320e1bcd82e5787a8d · 19357 bytes · 170 lines
+fresh engine: homomorphism counts by generator theory — the images of a generator are exactly the elements killed by its order, cross-checked against the gcd law on all nine cells; divisors by sieve and factorization; Bézout certificates by extended Euclid; the junk census by subset construction over the eligible inputs; Exhibit A walked over all of F2; the helix rebuilt from Math.SQRT2 and double-angle chains; no recursion, no BigInt, no Math.random
+contract: 26 fresh checks must PASS and 16 poisoned injections must come back false; a poison that reads true is INJECTION-ACCEPTED and fails review — all 16 came back false
+PASS V1 · generator theory, from Z/2: images of the generator must be killed by 2 — row (2, 1, 2, 4), the page's first table row
+PASS V2 · from Z/3: killed by 3 — row (1, 3, 1, 1)
+PASS V3 · from Z/4: killed by 4 — row (2, 1, 4, 4)
+PASS V4 · from V: two generators, each free among the killed-by-2, squared — row (4, 1, 4, 16)
+PASS V5 · the counted-killed census obeys |Hom(Z/m, Z/n)| = gcd(m, n) on all nine (m, n) in {2,3,4}^2
+PASS V6 · the page's probe story: into Z/2 the four-element groups read 2 vs 4 (separating); into Z/4 both read 4 (a tie acquits nothing); the vectors (2,1,4,4) and (4,1,4,16) differ in exactly two coordinates
+PASS V7 · the census sums to 51 homomorphisms over the sixteen cells; as sets, 4^4 = 256 functions either way
+PASS V8 · sieve route: 36 = 2^2·3^2 and 60 = 2^2·3·5; their factorization-built divisor lists are the page's lists
+PASS V9 · the common divisors of 36 and 60 are exactly the divisors of gcd 12 (exponent-min); each divides 12 by construction — the job claim without a single trial division
+PASS V10 · gcd·lcm ledger by exponents: 12·180 = 2160 = 36·60; and Ex1: gcd(84,120) = 12, lcm 840, 12·840 = 10080 = 84·120, common divisors (1,2,3,4,6,12)
+PASS V11 · extended Euclid: 12 = 2·36 - 1·60 and 12 = 3·84 - 2·120 — the two certificates, coefficient-tracked
+PASS V12 · section 2, synthetic-division route: (x^2-1)/(x+1) = x-1 remainder 0; ((x+1)^2)/(x+1) = x+1 remainder 0; and (x-1)/(x+1) leaves -2 — so the shared root is exactly -1 and the common-divisor family is c(x+1)
+PASS V13 · Exhibit A, F2 route: across all 64 (a,b) pairs of degree-2 polynomials over F2, the constant of 2a + xb reads 0 mod 2 every time — 1 is unreachable, no Bézout certificate for (2,x)
+PASS V14 · Exhibit B, subset route: the Ex2 pair (f,g) has k = 1 eligible input (p); all 2^1 = 2 subsets build a legal factorization — the honest map and the junk redirect — and the honest holder gives exactly 1
+PASS V15 · the 2^k law by subset construction: all 64 (f,g) pairs on |X| = 3 — each subset of the k junk-eligible inputs builds exactly one legal factorization, count = 2^k in every case
+PASS V16 · Ex4 census by algebra: every reading pi kills 2-bar (2pi(1-bar) = 0 mod 2), every mediating hom lands in {0-bar, 2-bar}, so pi(h(v)) = 0 always — a pair (f,g) factors exactly when f = g = 0; 15 of 16 fail per reading-pair, 60 of 64 overall
+PASS V17 · evaluation receipts: x^2+1 at x=5 reads 26; 3x+4 at x=7 reads 25 = 1 mod 12; and substitution respects + and · between those two polynomials on the whole Z/12 clock
+PASS V18 · Fermat wearing a formula: x^5 - x vanishes on all of Z/5 yet reads 32 - 2 = 30 at x=2 over Z — two elements of Z[x], one function on the clock
+PASS V19 · Ex5 counts by idempotent census: ring maps Z -> Z/n = idempotents (Z/2: 2, Z/6: 4, Z/12: 4 — the pretenders 3, 4, 9 among them), unital = exactly 1 for each, and group homs Z -> Z/6 = 6 (the image of 1 is free)
+PASS V20 · Fig P31.1 by symmetry and factorization: the five divisor nodes mirror perfectly about the holder x = 94, the four multiples about x = 284; the left labels are the divisors of gcd 12 short the holder; the right labels are 2,3,4,5 x lcm 180
+PASS V21 · Fig P31.2 from SQRT2 alone: the nine helix points regenerate to the printed digit — cos values built by the double-angle chain, heights linear in t
+PASS V22 · Fig P31.3: every target text sits at its rect's center + (24, 18); the source texts at x = 172 = 140 + 64/2; the arrow counts 2, 12, 5 are the theory counts into Z/2, Z/12, Z/5
+PASS V23 · needle: the page's four table rows, transcribed byte-exact, agree with the generator-theory counts formatted the same way
+PASS V24 · needle: the Bézout certificate, the map-count sentence, and the two clock receipts — byte-exact, and arithmetically equal to the extended-Euclid and evaluation engines
+PASS V25 · needle: Fermat receipt, junk law, fingerprint — title, kicker, the five moons, the next-link, the MathJax pin, and the closing tail — each transcribed byte-exact
+PASS V26 · needle: the lineage dates as receipts — Euclid (more than two millennia), Cayley 1854, Eilenberg-Mac Lane 1945, Samuel 1948, Yoneda 1954, Tôhoku 1957, Kan 1958 — all seven transcribed byte-exact
+REJECTED I01 · poisoned needle: the Z/4 row with last cell 5
+REJECTED I02 · poisoned needle: the V row with 8 homomorphisms into itself
+REJECTED I03 · poisoned theory: Z/3 has 2 elements killed by 3
+REJECTED I04 · poisoned probe: Hom(Z/4, Z/2) counts 3
+REJECTED I05 · poisoned needle: the Bézout certificate reads 18
+REJECTED I06 · poisoned ledger: the lcm of 36 and 60 is 90
+REJECTED I07 · poisoned needle: the Ex1 certificate is 2·84 - 3·120
+REJECTED I08 · poisoned receipt: x^2+1 reads 27 at x=5
+REJECTED I09 · poisoned receipt: 3x+4 reads 2 at x=7 on the clock
+REJECTED I10 · poisoned needle: over Z the polynomial reads 32 - 2 = 28
+REJECTED I11 · poisoned law: the junk holder gives 3^k factorizations
+REJECTED I12 · poisoned count: Z/6 admits 6 unital ring homomorphisms out of Z
+REJECTED I13 · poisoned needle: the kicker says the first move of tier 2
+REJECTED I14 · poisoned geometry: the quarter-turn anchor sits at y = 78.5
+REJECTED I15 · poisoned census: 9 is not a divisor of 36
+REJECTED I16 · poisoned probe: the tie breaks — Hom(Z/4, Z/4) counts 5
+p31-review-verifier: 26 fresh checks PASS, 16 poisoned injections REJECTED — 42/42, the page stands
