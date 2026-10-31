@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B09 · Graphs and numbers on them · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · B09 · bridge page, group C · before <a href="b10-loop-obstruction.html">B10</a> and <a href="p33-sheaf-cohomology-bridge.html">P33</a></p>
+<h1>Graphs and numbers on them</h1>
+<p class="tagline">Three towns at different altitudes, joined by roads, give each road a climb — and one hour with a pencil shows the climbs are not free data: walk all the way around and they cancel to the last metre, whichever direction you walk, whichever roads you take. This page names the stage that cancellation plays on: the <em>graph</em> — dots joined by lines, connection data, not a picture — and the two ledgers you can keep on it, numbers on the dots (potentials) and numbers on the lines (edge assignments), with the <em>rise operator</em> that turns the first ledger into the second. It proves the two laws every potential obeys — the total rise along any walk depends only on the walk's two ends, and around any closed loop the total rise is zero — by nothing more than \(\varphi(v) - \varphi(u)\), subtracted along the way and telescoped, the one move of <a href="p69-telescoping.html">P69</a>. And it says exactly what it does not settle: whether numbers handed to you on the lines out of the blue must have come from numbers on the dots. On a tree the answer is always yes, and the page builds the construction that proves it; on a graph with a loop the answer can be no — one triangle of road numbers already refuses — and the refusal is measured on the next page. Nothing here is beyond school arithmetic: it is <a href="b11-discrete-derivative.html">B11</a>'s telescoping, escaped from the number line onto any network at all.</p>
+</header>
+
+<aside class="onramp"><strong>What this page is.</strong> This is a <em>bridge page</em>: it teaches a concept, not a problem-solving pattern — the pages that will use this concept come after it, and this page is the floor they stand on. It belongs to group C — graphs, potentials, telescoping — and it is the group's second door. The group is built on one piece of bookkeeping, that <em>differences and sums are two readings of the same ledger</em>; <a href="b11-discrete-derivative.html">B11</a> taught that bookkeeping where it is barest, along the number line, one step at a time. This page keeps the ledger and drops the line: numbers will live on dots joined by lines, and the same bookkeeping will run unchanged — the reader who owns B11's telescoping theorem owns every tool this page uses. The reader also wants two habits from the spine: the small-case census of <a href="p02-small-cases.html">P02</a> — every table below is checked row by row — and the return trip of <a href="p78-reversible-steps.html">P78</a> — every number is computed one way and checked a genuinely different way before it is believed. The group's other doors: <a href="b10-loop-obstruction.html">B10</a> asks the question this page plants — when do edge numbers come from dot numbers? — and the far page the whole group exists for is <a href="p33-sheaf-cohomology-bridge.html">P33</a>, high on the ladder. Take a pencil: before any notation appears you will walk three towns' roads and watch their climbs cancel.</aside>
+<section id="lecture0">
+<h2>1 · Lecture 0 — the phenomenon, before any notation</h2>
+<p>Three towns stand in hills, each pair joined by one road. Their altitudes, read off a map: town \(\mathrm{A}\) at \(40\) m, \(\mathrm{B}\) at \(90\) m, \(\mathrm{C}\) at \(15\) m. Give each road a forward direction — the direction we agree to call positive — say \(\mathrm{A} \to \mathrm{B}\), \(\mathrm{B} \to \mathrm{C}\), \(\mathrm{C} \to \mathrm{A}\). The climb of a road, walked forward, is its destination's altitude minus its source's. Compute all three, with a pencil:</p>
+<table>
+<thead><tr><th>road</th><th>climb, walked forward</th><th>in metres</th></tr></thead>
+<tbody>
+<tr><td>\(\mathrm{A} \to \mathrm{B}\)</td><td>\(90 - 40\)</td><td>\(+50\)</td></tr>
+<tr><td>\(\mathrm{B} \to \mathrm{C}\)</td><td>\(15 - 90\)</td><td>\(-75\)</td></tr>
+<tr><td>\(\mathrm{C} \to \mathrm{A}\)</td><td>\(40 - 15\)</td><td>\(+25\)</td></tr>
+</tbody>
+</table>
+<p>Three subtractions, three numbers — and already the first honest question. Walk a road backward: what happens to its climb? \(\mathrm{B} \to \mathrm{A}\) is \(40 - 90 = -50\): the same road, the climb's negative. The forward directions are a bookkeeping choice, not physics; each road carries one number, which the choice reads with a sign.</p>
+<p>Now walk the whole loop, forward all the way: \(\mathrm{A} \to \mathrm{B} \to \mathrm{C} \to \mathrm{A}\). Add the climbs as they come: \((+50) + (-75) + (+25) = 0\). Walk it the other way: \((-25) + (+75) + (-50) = 0\). And between two towns, every route agrees: from \(\mathrm{A}\) to \(\mathrm{C}\), the direct road backward is \(-25\), and the route through \(\mathrm{B}\) is \((+50) + (-75) = -25\); from \(\mathrm{B}\) to \(\mathrm{C}\), direct is \(-75\), and the long way \(\mathrm{B} \to \mathrm{A} \to \mathrm{C}\) is \((-50) + (-25) = -75\). Whichever way you travel, the total climb between two towns is one number, and around any closed trip the climbs cancel to the metre. Fig B09.1 draws the ledger.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Fig B09.1 — three towns A, B and C joined by roads: A at 40 metres, B at 90, C at 15; each road carries an arrow for its forward direction and its climb, A to B plus 50, B to C minus 75, C to A plus 25; around the triangle the three climbs cancel.">
+<line x1="70" y1="195" x2="255" y2="175" stroke="#3a4a5e" stroke-width="1.8"/>
+<line x1="255" y1="175" x2="150" y2="48" stroke="#3a4a5e" stroke-width="1.8"/>
+<line x1="150" y1="48" x2="70" y2="195" stroke="#3a4a5e" stroke-width="1.8"/>
+<polygon points="171.8,184 165.6,187.7 165,181.7" fill="#3a4a5e"/>
+<polygon points="197.3,105.2 203.7,108.2 199.1,112.1" fill="#3a4a5e"/>
+<polygon points="106,128.9 106.5,121.7 111.7,124.6" fill="#3a4a5e"/>
+<circle cx="70" cy="195" r="3.4" fill="#3a4a5e"/>
+<circle cx="255" cy="175" r="3.4" fill="#3a4a5e"/>
+<circle cx="150" cy="48" r="3.4" fill="#3a4a5e"/>
+<text x="40" y="216" font-size="11" text-anchor="start" fill="#3a4a5e">A (40 m)</text>
+<text x="263" y="196" font-size="11" text-anchor="start" fill="#3a4a5e">B (90 m)</text>
+<text x="150" y="36" font-size="11" text-anchor="middle" fill="#3a4a5e">C (15 m)</text>
+<text x="170" y="206" font-size="10.5" text-anchor="middle" fill="#b3543f">+50</text>
+<text x="215" y="120" font-size="10.5" text-anchor="start" fill="#b3543f">−75</text>
+<text x="95" y="131" font-size="10.5" text-anchor="end" fill="#b3543f">+25</text>
+<text x="170" y="244" font-size="10.5" text-anchor="middle" fill="#555f6e">each climb is destination minus source; around the loop the three climbs cancel — whichever way you walk it</text>
+</svg>
+<figcaption><strong>Fig B09.1.</strong> The altitude triangle. Three towns, three altitudes \(40, 90, 15\); each road's climb is manufactured from the altitudes by one subtraction, read with the sign of the chosen forward direction (the arrows). The three climbs are not free data: they are two readings of one ledger, and the ledger's arithmetic — a closed walk totals zero, an open walk totals the difference of its end altitudes — was visible before any of it was named.</figcaption>
+</figure>
+<p><strong>Now disturb the ledger.</strong> A surveyor who never read the altitudes hands you the three road numbers directly: \(+50\), \(-75\), \(+25\). You already know a hidden altitude column stands behind them. A second surveyor hands you different numbers on the same three roads: \(+1\), \(+1\), \(+1\). Does a hidden column stand behind those? Try to manufacture one: altitudes \(a, b, c\) would need \(b - a = 1\), \(c - b = 1\), and \(a - c = 1\). Add the three equations and the left side annihilates — each altitude arrives once subtracted and once added — leaving \(0 = 3\), which is not so. No column exists for this table. Some tables of road numbers are manufactured from altitudes; some are not; and the distinction does not need the altitudes to be seen — the loop saw it, with no map at all.</p>
+<p><strong>What the pencil just showed.</strong> Numbers at the towns manufactured numbers on the roads, and the manufactured numbers obey two laws: every route between two towns agrees, and every closed trip cancels. A table of road numbers with no town numbers behind it can break the second law in plain sight. Four questions demand answers before this is mathematics and not an excursion. <em>What exactly is the stage?</em> — the towns and roads were drawn, but is the drawing the thing, or is the join-data the thing? <em>What exactly is a manufactured table?</em> — and what is the precise statement of the two laws it obeys? <em>What is the bookkeeping of directions and walks?</em> — the loop was walked two ways and both worked; what, exactly, is a walk? And <em>which tables are manufactured?</em> — the second surveyor's was not; what decides, and where does the decision live? The next section names the stage and the two ledgers; the one after runs the machine by hand.</p>
+</section>
+<section id="idea">
+<h2>2 · The idea, named</h2>
+<p>The loop cancelled because the road numbers were manufactured from the town numbers by subtraction — and subtraction, summed, telescopes. That was <a href="b11-discrete-derivative.html">B11</a>'s whole mechanism, and it never actually needed the number line. It needed only: places to stand numbers, and pairs of places to subtract across. Name the stage and the two ledgers, and the mechanism carries over untouched.</p>
+<div class="pattern-box" id="box-b09">
+<p><strong>Box B09 — the graph, the two ledgers, and the rise operator.</strong> A <em>graph</em> is a finite collection of <em>vertices</em> (the dots — the towns) together with a finite collection of <em>edges</em> (the joins — the roads), each edge joining two distinct vertices. The graph <em>is</em> the join-data — which pairs are joined — and not any drawing of it; two different drawings of the same join-data are the same graph. On a graph, two ledgers:</p>
+<p><strong>The vertex ledger — a potential.</strong> A potential \(\varphi\) assigns one number to each vertex: altitudes on towns, voltages at junctions, temperatures at stations. Nothing is assumed about the numbers — they may be negative, zero, huge, unrelated.</p>
+<p><strong>The edge ledger — an edge assignment.</strong> An edge assignment \(\omega\) assigns one number to each edge, <em>together with a chosen reference direction for each edge</em> — the bookkeeping arrow of Lecture 0. The number is read in the reference direction; walking the edge against the arrow reads the number's negative. The choice is free, and every statement in this page is independent of the choices made.</p>
+<p><strong>The rise operator.</strong> A potential manufactures an edge assignment by subtraction: traversing the edge \(u \to v\), the <em>rise</em> is</p>
+<p class="eq">\[\varphi(v) \;-\; \varphi(u).\]</p>
+<p><em>In plain words:</em> numbers on dots, and numbers on joins, are two ledgers of one bookkeeping; a column of dot-numbers writes a column of join-numbers by the rule <em>destination minus source</em>, each read with the sign of the direction walked. An edge assignment manufactured this way — \(\omega(u \to v) = \varphi(v) - \varphi(u)\) for some potential \(\varphi\) — is called a <em>rise table</em>. Lecture 0's road climbs were a rise table; the second surveyor's \(+1, +1, +1\) was not. Which edge assignments are rise tables is the question this page plants and the next page answers; the two laws every rise table obeys are Box B09.B's, and the shapes that walk the edges are Box B09.A's.</p>
+</div>
+<div class="pattern-box" id="box-b09a">
+<p><strong>Box B09.A — the shapes a graph can hold.</strong> The ledgers are read by travelling, and travelling has a vocabulary. Fix a graph.</p>
+<p><strong>Walk.</strong> A <em>walk</em> is a sequence of vertices, each consecutive pair joined by an edge — a trip that may revisit towns and re-walk roads. Repetition is legal: the point of a walk is only that its steps are real joins.</p>
+<p><strong>Path.</strong> A <em>path</em> is a walk with no repeated vertices — a trip with no revisits, hence no repeated roads either.</p>
+<p><strong>Cycle.</strong> A <em>cycle</em> is a path of at least three edges whose last vertex is its first — a closed trip through distinct towns. The triangle of Lecture 0 holds one cycle; a square with one diagonal holds three (two triangles and the square itself); the number line holds none.</p>
+<p><strong>Connected, trees, forests.</strong> A graph is <em>connected</em> if some walk joins every pair of its vertices. A <em>tree</em> is a connected graph with no cycles — the shape with exactly one route between any two vertices, proved as Claim 4's lemma. A graph with no cycles but several pieces is a <em>forest</em>: each piece is a tree, and each connected piece of any graph carries its own bookkeeping, with no travel and no comparison between pieces.</p>
+<p><em>Calibration, in one breath:</em> the number line \(k = 0, 1, 2, \ldots\) of <a href="b11-discrete-derivative.html">B11</a> is the path graph — dots joined in a single chain — and it is a tree: that is why B11's staircases never met a loop. Add one edge to a path, from \(k\) back to an earlier vertex, and the first cycle appears. Lecture 0's triangle is the smallest connected graph that is not a tree; the square with a diagonal is the smallest with two cycles sharing an edge; and the worked section runs the machine on a path, a square-with-diagonal, and a tree in turn.</p>
+</div>
+<div class="pattern-box" id="box-b09b">
+<p><strong>Box B09.B — the two laws every rise table obeys.</strong> Let \(\varphi\) be any potential on any graph. Then:</p>
+<p><strong>T1 — closed walks die.</strong> The total rise along any closed walk is \(0\).</p>
+<p><strong>T2 — routes agree.</strong> The total rise along any walk from vertex \(u\) to vertex \(v\) is \(\varphi(v) - \varphi(u)\) — every route, however long, however it wanders, gives the same total.</p>
+<p><em>In plain words:</em> a rise table has no free arithmetic in it — the sum along a trip is pinned by the trip's two ends, and a trip that ends where it began has nothing to say. Both laws are one telescope, proved in section 4 as Claim 1 and Claim 2; Lecture 0's cancellations were both of them, seen before being named. Running the ledgers by hand is three obligations, in order:</p>
+<p><strong>1. State the walk before summing.</strong> Write the sequence of vertices and, for each step, whether it walks with or against the edge's reference direction — the bookkeeping that decides each sign. Most errors of this subject are sign errors born here, and the honest habit is to write the walk out before any addition.</p>
+<p><strong>2. Compute every rise by subtraction.</strong> Each step's rise is destination minus source in the direction walked — \(\varphi(v) - \varphi(u)\) with the sign of the traversal — never recalled from a picture. A drawing is an aid, not a ledger.</p>
+<p><strong>3. Test with the census habit.</strong> A manufactured table must pass T1 on every closed walk — and testing all of them is cheaper than it sounds, a count the exploration at the end of this page makes precise. The small-case habit of <a href="p02-small-cases.html">P02</a> — check the smallest loops by hand first — is the guard that never sleeps.</p>
+</div>
+<ul>
+<li><em>New word: graph.</em> A finite collection of vertices and edges, each edge joining two distinct vertices — the join-data itself, not any drawing of it. The word is deliberately bare: school geometry trains the eye to measure drawings, and the first move of this subject is to stop looking at the picture and read the data. Two crossings in a drawing may be no edge at all; two far-apart dots may be joined. The data decides.</li>
+<li><em>New word: potential.</em> An assignment of one number to each vertex of a graph — the vertex ledger. Physics named the concept: altitude is gravitational potential, voltage is electric potential, and in both cases what the physics actually uses is the <em>differences</em> — the rise between two points — never the raw values, which depend on where the zero is set. The mathematical word keeps exactly that shape: a column of numbers whose differences carry the meaning.</li>
+<li><em>New word: edge assignment.</em> One number per edge, together with a chosen reference direction per edge — the edge ledger. The reference direction is bookkeeping, not physics: walking with the arrow reads the number, walking against reads its negative, and every theorem of this page is true for every choice of arrows. An edge assignment manufactured from a potential is a <em>rise table</em>; one that is not (Lecture 0's \(+1, +1, +1\)) is the subject of the next page.</li>
+<li><em>New word: tree.</em> A connected graph with no cycles: the shape with exactly one route between any two vertices. The name is the family tree's — one line of descent, no retangling — and the shape is the one where, as Claim 4 will show, every edge assignment whatsoever is a rise table: with no loop to set a test, nothing can refuse.</li>
+</ul>
+<p>Calibration, honest side first. What the definitions buy:</p>
+<ul>
+<li>The altitude triangle <em>is</em> a rise table: potential \(\varphi = (40, 90, 15)\) on the three towns, climbs \(+50, -75, +25\) manufactured by three subtractions — T1 verified on the loop in both directions in Lecture 0.</li>
+<li>The surveyors' second table, \(+1, +1, +1\), <em>is not</em> a rise table: the loop's total is \(3\), and T1 forces \(0\). The test used no altitudes — the shape of the graph alone, plus the edge numbers, refused.</li>
+<li>One graph, many drawings. Draw the triangle with straight roads or with roads that loop around valleys — as join-data, both drawings are the same graph, and both carry the same ledgers. Conversely, a crossing in a drawing is nothing: four towns drawn as a square with crossing diagonal-looking lines may hold only the four side-joins, the crossing being no road at all.</li>
+<li>A graph may fall into pieces. Two separate triangles carry six towns between them and no route from one piece to the other: T2 says nothing across the gap, and a potential on the whole graph is really two potentials, one per piece, with no relation between their zeroes. Connectedness is the page's quiet standing assumption from here on, revoked exactly once, honestly, where it matters (Claim 3).</li>
+<li>The number line of <a href="b11-discrete-derivative.html">B11</a> was the path graph all along: vertices \(k = 0, 1, 2, \ldots\), edges between consecutive integers, the discrete derivative \(\Delta f(k) = f(k{+}1) - f(k)\) exactly the rise along the edge \(k \to k{+}1\). B11's telescoping theorem — a run of steps sums to the difference of its two end values — is T2 on the line's one walk; the line being a tree, T1 had nothing to test there, and B11 said as much at its close: around any closed loop the sum of steps is zero. This page is where that promise becomes a theorem about shapes.</li>
+</ul>
+<p><strong>A short history, none of it load-bearing.</strong> The idea of join-data without geometry is old enough to have a founding puzzle: Euler's Königsberg bridges — whether a walk can cross each of seven bridges exactly once — which he presented to the St. Petersburg Academy in 1735 and published in 1741 as the <em>Solutio problematis ad geometriam situs pertinentis</em>: a problem belonging, as the title says, to the <em>geometry of position</em>, where what counts is which parts are connected, not how far apart they lie. The numbers-on-networks story begins with Kirchhoff, who as a student in 1845 found the circuit laws that bear his name — currents that balance at each junction, and potential differences that sum to zero around each loop of a circuit, which is T1 with voltage for altitude — and whose 1847 paper on the linear distribution of galvanic currents reduced a network's independent loops to its spanning trees, the same trees Claim 4 leans on. The trees got their name from Cayley, whose 1857 paper <em>On the theory of the analytical forms called trees</em> — an algebra paper, about the shapes of bracketed products — gave the acyclic graphs their family name. None of these dates carries any claim on this page; the ledgers here are proved from first principles in section 4.</p>
+</section>
+<section id="worked">
+<h2>3 · Worked by hand</h2>
+<p>Three workings, one per shape of Box B09.A's calibration: a square with a shortcut (cycles in quantity), a path (the line reborn), and a tree (the shape with no tests to fail). Each ends the way <a href="p78-reversible-steps.html">P78</a> teaches — computed one way, checked a genuinely different way before it is believed — and the numbers are small enough that the pencil can audit every claim this page makes.</p>
+<h3>(a) The square with a shortcut — four altitudes, five climbs, three loops</h3>
+<p>Four towns at a square's corners, roads along the four sides, and one diagonal shortcut. Altitudes: \(\varphi(\mathrm{A}) = 3\), \(\varphi(\mathrm{B}) = 7\), \(\varphi(\mathrm{C}) = -2\), \(\varphi(\mathrm{D}) = 5\). Reference directions: \(\mathrm{A} \to \mathrm{B}\), \(\mathrm{B} \to \mathrm{C}\), \(\mathrm{C} \to \mathrm{D}\), \(\mathrm{D} \to \mathrm{A}\) around the square, and \(\mathrm{A} \to \mathrm{C}\) along the shortcut. Five subtractions manufacture the whole edge ledger:</p>
+<table>
+<thead><tr><th>road</th><th>rise, by subtraction</th><th>value</th></tr></thead>
+<tbody>
+<tr><td>\(\mathrm{A} \to \mathrm{B}\)</td><td>\(7 - 3\)</td><td>\(+4\)</td></tr>
+<tr><td>\(\mathrm{B} \to \mathrm{C}\)</td><td>\(-2 - 7\)</td><td>\(-9\)</td></tr>
+<tr><td>\(\mathrm{C} \to \mathrm{D}\)</td><td>\(5 - (-2)\)</td><td>\(+7\)</td></tr>
+<tr><td>\(\mathrm{D} \to \mathrm{A}\)</td><td>\(3 - 5\)</td><td>\(-2\)</td></tr>
+<tr><td>\(\mathrm{A} \to \mathrm{C}\) (shortcut)</td><td>\(-2 - 3\)</td><td>\(-5\)</td></tr>
+</tbody>
+</table>
+<p>Now the loop tests — the graph holds three cycles, and every one of them must die. The low triangle: \(\mathrm{A} \to \mathrm{B} \to \mathrm{C} \to \mathrm{A}\) walks \(+4\), then \(-9\), then the shortcut backward (\(-(-5) = +5\)): total \(4 - 9 + 5 = 0\). The high triangle: \(\mathrm{A} \to \mathrm{C} \to \mathrm{D} \to \mathrm{A}\) walks the shortcut (\(-5\)), then \(+7\), then \(-2\): total \(-5 + 7 - 2 = 0\). The square itself: \(\mathrm{A} \to \mathrm{B} \to \mathrm{C} \to \mathrm{D} \to \mathrm{A}\) walks \(+4\), \(-9\), \(+7\), \(-2\): total \(0\). And the route agreement, T2, checked twice: from \(\mathrm{A}\) to \(\mathrm{C}\), the shortcut says \(-5\) and the route through \(\mathrm{B}\) says \(4 - 9 = -5\); from \(\mathrm{C}\) to \(\mathrm{B}\), the direct road is the backward read of \(\mathrm{B} \to \mathrm{C}\), so it says \(+9\), and the long way around, \(\mathrm{C} \to \mathrm{D} \to \mathrm{A} \to \mathrm{B}\), says \(7 + (-2) + 4 = 9\). Agreement both times — and note where the only work was: reading an edge against its arrow, the sign bookkeeping of obligation 1. Fig B09.2 draws the loaded square.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Fig B09.2 — a square of four towns A, B, C, D with altitudes 3, 7, minus 2 and 5, side roads and one diagonal shortcut from A to C, each road labelled with its rise: A to B plus 4, B to C minus 9, C to D plus 7, D to A minus 2, and the shortcut A to C minus 5; all three loops of the square cancel.">
+<line x1="85" y1="50" x2="255" y2="50" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="255" y1="50" x2="255" y2="200" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="255" y1="200" x2="85" y2="200" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="85" y1="200" x2="85" y2="50" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="85" y1="50" x2="255" y2="200" stroke="#3574d4" stroke-width="1.6"/>
+<circle cx="85" cy="50" r="3.4" fill="#3a4a5e"/>
+<circle cx="255" cy="50" r="3.4" fill="#3a4a5e"/>
+<circle cx="255" cy="200" r="3.4" fill="#3a4a5e"/>
+<circle cx="85" cy="200" r="3.4" fill="#3a4a5e"/>
+<text x="85" y="38" font-size="11" text-anchor="middle" fill="#3a4a5e">A (3)</text>
+<text x="255" y="38" font-size="11" text-anchor="middle" fill="#3a4a5e">B (7)</text>
+<text x="255" y="222" font-size="11" text-anchor="middle" fill="#3a4a5e">C (−2)</text>
+<text x="85" y="222" font-size="11" text-anchor="middle" fill="#3a4a5e">D (5)</text>
+<text x="170" y="42" font-size="10.5" text-anchor="middle" fill="#b3543f">+4</text>
+<text x="266" y="128" font-size="10.5" text-anchor="start" fill="#b3543f">−9</text>
+<text x="170" y="216" font-size="10.5" text-anchor="middle" fill="#b3543f">+7</text>
+<text x="74" y="128" font-size="10.5" text-anchor="end" fill="#b3543f">−2</text>
+<text x="180" y="115" font-size="10.5" text-anchor="start" fill="#b3543f">−5</text>
+<text x="170" y="244" font-size="10.5" text-anchor="middle" fill="#555f6e">five edge numbers from four vertex numbers — every loop cancels, every route agrees</text>
+</svg>
+<figcaption><strong>Fig B09.2.</strong> The square with a shortcut. Four altitudes manufacture five rises (the shortcut drawn in blue); the three cycles — two triangles and the square — each total zero, and the two routes from \(\mathrm{A}\) to \(\mathrm{C}\) agree at \(-5\). Five edge numbers from four vertex numbers, and the fifth datum was never free: the count is the exploration's to make precise.</figcaption>
+</figure>
+<p>One more reading before leaving the square. Add \(100\) to all four altitudes: not one rise moves — every subtraction cancels the constant. Four vertex numbers manufacture only <em>three</em> independent edge facts, and the fourth degree of freedom is the altitude of the zero — a fact Lecture 0 already knew (sea level is a convention) and Claim 3 will state as a theorem. The ledger overdetermines its raw values and underdetermines its differences, and the gap between the two counts is exactly the exploration's subject.</p>
+<h3>(b) The path — the number line reborn as a graph</h3>
+<p>Take the line out of Lecture 0's story and keep only its skeleton: five vertices \(\mathrm{v}_0, \mathrm{v}_1, \mathrm{v}_2, \mathrm{v}_3, \mathrm{v}_4\) in a row, edges \(\mathrm{v}_0 \to \mathrm{v}_1 \to \mathrm{v}_2 \to \mathrm{v}_3 \to \mathrm{v}_4\), rises \(+2, -3, +5, +1\). No cycles exist to test — the path is a tree — so the only freedom is the root's altitude, and every other potential is manufactured by accumulation from it. Root at \(\varphi(\mathrm{v}_0) = 0\) and climb:</p>
+<table>
+<thead><tr><th>vertex</th><th>route from the root</th><th>accumulated rise</th><th>potential</th></tr></thead>
+<tbody>
+<tr><td>\(\mathrm{v}_0\)</td><td>— (the root)</td><td>—</td><td>\(0\)</td></tr>
+<tr><td>\(\mathrm{v}_1\)</td><td>\(+2\)</td><td>\(+2\)</td><td>\(2\)</td></tr>
+<tr><td>\(\mathrm{v}_2\)</td><td>\(+2, -3\)</td><td>\(-1\)</td><td>\(-1\)</td></tr>
+<tr><td>\(\mathrm{v}_3\)</td><td>\(+2, -3, +5\)</td><td>\(+4\)</td><td>\(4\)</td></tr>
+<tr><td>\(\mathrm{v}_4\)</td><td>\(+2, -3, +5, +1\)</td><td>\(+5\)</td><td>\(5\)</td></tr>
+</tbody>
+</table>
+<p>The reader who has walked <a href="b11-discrete-derivative.html">B11</a> has seen this exact computation wearing different clothes. Index the vertices by position and the rise on edge \(k\) is nothing but the difference \(\varphi(k+1) - \varphi(k)\) — the rise operator \(\Delta\) of B11, now defined edge-by-edge on a graph that happens to be a line. And the accumulated column is the anti-difference \(\varphi(k) = \varphi(0) + \sum_{i=0}^{k-1} \omega_i\), manufacturing potentials from rises the way B11 manufactured the running sum from differences. Root instead at \(\varphi(\mathrm{v}_0) = 10\) and the whole column shifts to \(10, 12, 9, 14, 15\) — every rise untouched, the gauge freedom of the square example already visible on the smallest graph that has one.</p>
+<h3>(c) The tree — the shape that cannot fail a test</h3>
+<p>Now branch. Six towns: a source \(\mathrm{S}\) feeding \(\mathrm{A}\) and \(\mathrm{B}\); \(\mathrm{A}\) feeding \(\mathrm{C}\); \(\mathrm{B}\) feeding \(\mathrm{D}\); \(\mathrm{C}\) feeding \(\mathrm{E}\). Five roads, and — because the shape is a tree — no loops anywhere: between any two towns exactly one route exists. Assign rises freely: \(\mathrm{S} \to \mathrm{A}\): \(+3\), \(\mathrm{S} \to \mathrm{B}\): \(-4\), \(\mathrm{A} \to \mathrm{C}\): \(+5\), \(\mathrm{B} \to \mathrm{D}\): \(+2\), \(\mathrm{C} \to \mathrm{E}\): \(-1\). <em>Freely</em> is the point: on the square, five numbers could not be chosen independently (three loops sat in judgment); here no judge exists. Root at \(\varphi(\mathrm{S}) = 0\) and accumulate along each unique route:</p>
+<table>
+<thead><tr><th>town</th><th>route from \(\mathrm{S}\)</th><th>accumulated rise</th><th>potential</th></tr></thead>
+<tbody>
+<tr><td>\(\mathrm{S}\)</td><td>— (the root)</td><td>—</td><td>\(0\)</td></tr>
+<tr><td>\(\mathrm{A}\)</td><td>\(+3\)</td><td>\(+3\)</td><td>\(3\)</td></tr>
+<tr><td>\(\mathrm{B}\)</td><td>\(-4\)</td><td>\(-4\)</td><td>\(-4\)</td></tr>
+<tr><td>\(\mathrm{C}\)</td><td>\(+3, +5\)</td><td>\(+8\)</td><td>\(8\)</td></tr>
+<tr><td>\(\mathrm{D}\)</td><td>\(-4, +2\)</td><td>\(-2\)</td><td>\(-2\)</td></tr>
+<tr><td>\(\mathrm{E}\)</td><td>\(+3, +5, -1\)</td><td>\(+7\)</td><td>\(7\)</td></tr>
+</tbody>
+</table>
+<p>Check it the honest way — subtract back down and watch every rise return: \(\varphi(\mathrm{E}) - \varphi(\mathrm{C}) = 7 - 8 = -1\) ✓, \(\varphi(\mathrm{C}) - \varphi(\mathrm{A}) = 8 - 3 = +5\) ✓, \(\varphi(\mathrm{A}) - \varphi(\mathrm{S}) = 3 - 0 = +3\) ✓ — and the two longer reads agree with their sums: \(\varphi(\mathrm{C}) - \varphi(\mathrm{S}) = 8 = 3 + 5\) ✓, \(\varphi(\mathrm{E}) - \varphi(\mathrm{S}) = 7 = 3 + 5 - 1\) ✓. No loop test was passed because no loop test exists; the tree's verdict, which Claim 4 will state and prove, is that <em>every</em> assignment of numbers to its edges is a rise table of some potential — the tree cannot fail. Fig B09.3 draws it.</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Fig B09.3 — a tree of six towns S, A, B, C, D, E with five roads labelled with rises S to A plus 3, S to B minus 4, A to C plus 5, B to D plus 2, C to E minus 1; rooting potentials at S equals 0 gives A 3, B minus 4, C 8, D minus 2, E 7.">
+<line x1="170" y1="215" x2="90" y2="145" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="170" y1="215" x2="250" y2="145" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="90" y1="145" x2="90" y2="75" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="250" y1="145" x2="250" y2="75" stroke="#3a4a5e" stroke-width="2"/>
+<line x1="90" y1="75" x2="90" y2="25" stroke="#3a4a5e" stroke-width="2"/>
+<circle cx="170" cy="215" r="3.4" fill="#3a4a5e"/>
+<circle cx="90" cy="145" r="3.4" fill="#3a4a5e"/>
+<circle cx="250" cy="145" r="3.4" fill="#3a4a5e"/>
+<circle cx="90" cy="75" r="3.4" fill="#3a4a5e"/>
+<circle cx="250" cy="75" r="3.4" fill="#3a4a5e"/>
+<circle cx="90" cy="25" r="3.4" fill="#3a4a5e"/>
+<text x="170" y="235" font-size="11" text-anchor="middle" fill="#3a4a5e">S (0)</text>
+<text x="74" y="148" font-size="11" text-anchor="end" fill="#3a4a5e">A (3)</text>
+<text x="266" y="148" font-size="11" text-anchor="start" fill="#3a4a5e">B (−4)</text>
+<text x="74" y="78" font-size="11" text-anchor="end" fill="#3a4a5e">C (8)</text>
+<text x="266" y="78" font-size="11" text-anchor="start" fill="#3a4a5e">D (−2)</text>
+<text x="90" y="14" font-size="11" text-anchor="middle" fill="#3a4a5e">E (7)</text>
+<text x="134" y="186" font-size="10.5" text-anchor="middle" fill="#b3543f">+3</text>
+<text x="206" y="186" font-size="10.5" text-anchor="middle" fill="#b3543f">−4</text>
+<text x="101" y="114" font-size="10.5" text-anchor="start" fill="#b3543f">+5</text>
+<text x="261" y="114" font-size="10.5" text-anchor="start" fill="#b3543f">+2</text>
+<text x="101" y="54" font-size="10.5" text-anchor="start" fill="#b3543f">−1</text>
+<text x="170" y="248" font-size="10.5" text-anchor="middle" fill="#555f6e">five freely chosen rises — the tree has no loop to object, and the potentials exist by construction</text>
+</svg>
+<figcaption><strong>Fig B09.3.</strong> The tree of six towns. Five rises chosen freely (no loop sits in judgment), and rooting at \(\mathrm{S}\) manufactures all six potentials by accumulation — the construction Claim 4 proves always works, on every tree.</figcaption>
+</figure>
+<p>Three shapes, three verdicts, and the exploration's arithmetic is already circling: the square has \(5\) edges and \(4\) vertices and holds \(5 - 4 + 1 = 2\) independent loop tests (three cycles sit on it, but one is the sum of the other two); the tree has \(5\) edges and \(6\) vertices and holds \(5 - 6 + 1 = 0\) — no tests at all. The pattern is not a coincidence, and the exploration at the end of this page asks the pencil to tabulate it — the count that B10 will name.</p>
+</section>
+<section id="why">
+<h2>4 · Why it is true</h2>
+<p>Three claims, three short proofs, and every one of them is a telescoping sum in disguise — the mechanism of <a href="p69-telescoping.html">P69</a> doing structural work on a graph. A fourth claim, the tree's certificate, is the section's summit and gets its own subsection.</p>
+<p><strong>Claim 1 (routes agree).</strong> <em>Let \(\omega\) be the rise table of a potential \(\varphi\). Then every walk from \(u\) to \(v\) — every route, long or short, forward or backward through the arrows — totals \(\varphi(v) - \varphi(u)\). The total depends on the endpoints alone.</em></p>
+<p><em>Proof.</em> Walk \(v_0, v_1, \dots, v_k\) from \(v_0 = u\) to \(v_k = v\). Each step crosses one edge, and the arrow on it can point either way. With the walker, the arrow's tail is \(v_i\) and its head is \(v_{i+1}\): the entry is the rise, \(\omega = \varphi(v_{i+1}) - \varphi(v_i)\). Against the walker, the arrow's tail is \(v_{i+1}\) and its head is \(v_i\): the recorded rise is \(\varphi(v_i) - \varphi(v_{i+1})\), and obligation 1 negates it, so the entry is \(-[\varphi(v_i) - \varphi(v_{i+1})] = \varphi(v_{i+1}) - \varphi(v_i)\). Either way — and this is the whole trick — the \(i\)-th term equals \(\varphi(v_{i+1}) - \varphi(v_i)\), whichever way the arrow pointed. So the walk's total is
+\[\big(\varphi(v_1) - \varphi(v_0)\big) + \big(\varphi(v_2) - \varphi(v_1)\big) + \dots + \big(\varphi(v_k) - \varphi(v_{k-1})\big),\]
+and every middle term dies by cancellation, leaving \(\varphi(v_k) - \varphi(v_0)\). This is P69's collapsing sum verbatim, with the walk supplying the index. \(\square\)</p>
+<p><strong>Claim 2 (closed walks die).</strong> <em>A rise table totals zero on every closed walk.</em> <em>Proof.</em> A closed walk has \(v_k = v_0\), so Claim 1 hands back \(\varphi(v_0) - \varphi(v_0) = 0\). \(\square\)</p>
+<p>The two obligations T1 and T2 are therefore one fact seen from two sides: routes agreeing is the telescoping identity, loops dying is its special case \(u = v\). (The converse implication — a table that passes all loop tests has agreeing routes — needs no potential at all: paste two routes \(u \to v\) and \(v \to u\) into one closed walk and appeal to T1. The obligations are equivalent for <em>any</em> edge assignment. What they are not, without more, is a certificate that a potential exists — that question is the page's boundary and the next page's subject.)</p>
+<p><strong>Claim 3 (the gauge).</strong> <em>On a connected graph, two potentials with the same rise table differ by one constant: \(\psi = \varphi + c\).</em> <em>Proof.</em> Put \(\delta = \psi - \varphi\), a potential whose rise table is identically zero (the rise of a difference is the difference of the rises — subtraction is componentwise). Fix a vertex \(r\); for any other vertex \(v\), connectedness supplies a walk \(r \to v\), and Claim 1 totals it two ways: \(\delta(v) - \delta(r) =\) (the walk's total under \(\delta\)'s rise table) \(= 0\). So \(\delta(v) = \delta(r)\) for every \(v\) — one constant, \(c = \delta(r)\), on the whole graph. The square's \(+100\) experiment was this theorem in miniature. \(\square\)</p>
+<p>Read the three together and the shape of the theory appears. Claim 1 says potentials manufacture route-independent ledger arithmetic; Claim 3 says the manufacture is unique up to one gauge constant per connected piece; and the question Claim 1 does <em>not</em> answer is the converse — which edge assignments arise this way at all. On a tree, the answer is <em>all of them</em>, and that is Claim 4.</p>
+<h3>Claim 4 — the tree's certificate</h3>
+<p><strong>Claim 4 (trees always qualify).</strong> <em>On a tree, every edge assignment is a rise table. Whatever numbers the surveyor writes on the roads, some potential manufactures them.</em></p>
+<p>The proof is the construction §3(c) performed once in the abstract, and it leans on one structural fact about trees.</p>
+<p><em>Lemma (unique routes; sketch).</em> <em>In a tree, any two vertices are joined by exactly one route.</em> Sketch: more than one route from \(u\) to \(v\) would, pasted head-to-tail, close a circuit, and chasing the first place the two routes diverge and the first place they re-meet exhibits a cycle — impossible in an acyclic graph. The full divergence chase is mechanical but bookkeeping-heavy, and this page banks the lemma as a labeled sketch: it is standard, it is the only step kept off-stage, and nothing downstream depends on its details. \(\square\) (sketch)</p>
+<p><em>Proof of Claim 4.</em> Let \(\omega\) be any numbers on the edges of a tree \(T\). Choose a root \(r\), declare \(\varphi(r) = 0\), and for each vertex \(v\) define
+\[\varphi(v) \;=\; \text{the signed sum of rises along the unique route } r \to v \quad \text{(Lemma)}.\]
+This manufactures <em>some</em> potential; the work is checking that its rise table is the \(\omega\) we started with. Take any edge, arrow \(a \to b\), and ask what \(\varphi(b) - \varphi(a)\) is. Two cases. <em>Case 1:</em> the route \(r \to a\) does not visit \(b\). Then that route with the edge appended is a route \(r \to b\) (it cannot repeat a vertex), and the Lemma says it is <em>the</em> route — so its signed sum equals \(\varphi(b)\), and subtracting gives \(\varphi(b) - \varphi(a) = \omega(a \to b)\) exactly. <em>Case 2:</em> the route \(r \to a\) does visit \(b\). Then its tail from \(b\) onward is a route \(b \to a\), and by the Lemma that tail must be the single edge walked backward — any longer tail would give a second route \(b \to a\). Reading the sums, \(\varphi(a) = \varphi(b) - \omega(a \to b)\), which rearranges to the same equality. Either way the manufactured potential's rise on the edge is the assigned number — for every edge, so \(\varphi\)'s rise table is \(\omega\) throughout. \(\square\)</p>
+<p>Claim 4 is the converse direction Claims 1–3 never addressed, resolved for one class of graphs: trees consume <em>any</em> edge numbers, because with no cycle there is no second route to disagree with the first. And with Claim 3, the full picture on a tree is pinned: the potentials manufacturing \(\omega\) exist (Claim 4) and differ by exactly one constant (Claim 3) — §3(c)'s free choice of root altitude was the entire freedom.</p>
+<aside class="aside warn"><strong>Scope, honestly.</strong> Claim 4 is a theorem about trees, and this page says nothing — and can say nothing with the tools so far — about which edge assignments qualify once cycles exist. A triangle with rises \(+1, +1, +1\) on the three roads fails: any route around it totals \(+3\), a closed walk that refuses to die, so no potential manufactures it. The honest boundary is: a table of edge numbers is a rise table only if it passes every loop test — and a graph with a loop can set tests that fail. Which tests suffice, how many independent tests a graph holds (the exploration counts them), and why the failing tables are exactly those that fail — that converse is the Kirchhoff obstruction, and it is B10's page, not this one. The divergence-style bookkeeping that pins down the remaining direction lives there.</p>
+</aside>
+</section>
+<section id="practice">
+<h2>5 · Practice</h2>
+<p>Graded by fill: ●○○ comfortable · ●●○ a real step · ●●● a climb · ◐ open exploration. Hints and worked answers are collapsible. No ◆ exercise here — there is no pattern to diagnose yet, and the consumer pages ahead will set their own drills on this floor. Ex1 and Ex2 drill the two obligations on the two smallest cycle-bearing shapes; Ex3 makes the gauge freedom of Claim 3 tangible by re-rooting the tree of §3(c); the exploration opens outward and counts the freedom a graph leaves its edge numbers, and its last row plants a number the next page will name. Every answer below was itself checked two ways before it was written down.</p>
+<h3>Exercise 1 ●○○ — the triangular district</h3>
+<p>Three towns \(\mathrm{A}, \mathrm{B}, \mathrm{C}\) at altitudes \(\varphi(\mathrm{A}) = 60\), \(\varphi(\mathrm{B}) = 45\), \(\varphi(\mathrm{C}) = 80\), roads arrowed \(\mathrm{A} \to \mathrm{B}\), \(\mathrm{B} \to \mathrm{C}\), \(\mathrm{C} \to \mathrm{A}\). Manufacture the rise table, then verify the closed-walk obligation in <em>both</em> directions — clockwise and counterclockwise — and say in one sentence why the two verifications are not redundant.</p>
+<details><summary>Hint</summary>
+<p>Each rise is a subtraction, head minus tail in the reference direction. For the backward direction, obligation 1 does the work: walking an edge against its arrow negates the entry.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>Rises: \(\omega(\mathrm{A} \to \mathrm{B}) = 45 - 60 = -15\); \(\omega(\mathrm{B} \to \mathrm{C}) = 80 - 45 = +35\); \(\omega(\mathrm{C} \to \mathrm{A}) = 60 - 80 = -20\). Clockwise closed walk: \(-15 + 35 - 20 = 0\) ✓. Counterclockwise, every edge is walked against its arrow: \(+15 - 35 + 20 = 0\) ✓ — the negation of the first total, so as a <em>check of arithmetic</em> it adds nothing. What it checks is the <em>sign convention</em>: a surveyor who had fumbled obligation 1 would pass the first walk and fail the second. The two verifications test two different skills.</p>
+</details>
+<h3>Exercise 2 ●●○ — the square, loaded again</h3>
+<p>The square with a shortcut of §3(a), but new altitudes: \(\varphi(\mathrm{A}) = 1\), \(\varphi(\mathrm{B}) = 6\), \(\varphi(\mathrm{C}) = 4\), \(\varphi(\mathrm{D}) = 9\); the same five reference directions (\(\mathrm{A} \to \mathrm{B}\), \(\mathrm{B} \to \mathrm{C}\), \(\mathrm{C} \to \mathrm{D}\), \(\mathrm{D} \to \mathrm{A}\), shortcut \(\mathrm{A} \to \mathrm{C}\)). Manufacture all five rises, verify all three cycles die, then check route agreement twice: \(\mathrm{A} \to \mathrm{C}\) by shortcut and by \(\mathrm{B}\), and \(\mathrm{C} \to \mathrm{B}\) directly and the long way through \(\mathrm{D}\) and \(\mathrm{A}\).</p>
+<details><summary>Hint</summary>
+<p>Five subtractions first; then each cycle is a running total. For \(\mathrm{C} \to \mathrm{B}\) direct, read the road \(\mathrm{B} \to \mathrm{C}\) backward — obligation 1. For the long way, \(\mathrm{C} \to \mathrm{D}\), \(\mathrm{D} \to \mathrm{A}\), \(\mathrm{A} \to \mathrm{B}\) are all forward walks.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>Rises: \(\mathrm{A} \to \mathrm{B}\): \(6 - 1 = +5\); \(\mathrm{B} \to \mathrm{C}\): \(4 - 6 = -2\); \(\mathrm{C} \to \mathrm{D}\): \(9 - 4 = +5\); \(\mathrm{D} \to \mathrm{A}\): \(1 - 9 = -8\); shortcut: \(4 - 1 = +3\). Cycles: low triangle \(5 - 2 - 3 = 0\) ✓; high triangle \(3 + 5 - 8 = 0\) ✓; square \(5 - 2 + 5 - 8 = 0\) ✓. Routes: \(\mathrm{A} \to \mathrm{C}\) shortcut \(+3\), via \(\mathrm{B}\): \(5 - 2 = +3\) ✓; \(\mathrm{C} \to \mathrm{B}\) direct \(+2\) (backward read of \(-2\)), long way \(5 - 8 + 5 = +2\) ✓. All five edge numbers came from four vertex numbers — the fifth was never free, exactly as §3(a) counted.</p>
+</details>
+<h3>Exercise 3 ●●● — re-rooting the tree</h3>
+<p>Take the tree of §3(c) with its five rises (\(\mathrm{S} \to \mathrm{A}\): \(+3\), \(\mathrm{S} \to \mathrm{B}\): \(-4\), \(\mathrm{A} \to \mathrm{C}\): \(+5\), \(\mathrm{B} \to \mathrm{D}\): \(+2\), \(\mathrm{C} \to \mathrm{E}\): \(-1\)) — but refuse the root. Re-root at \(\mathrm{E}\) instead: declare \(\varphi'(\mathrm{E}) = 0\) and rebuild all six potentials from the rises. Then (i) list the new potentials next to the old ones, (ii) verify all five rises survive unchanged, and (iii) state the constant \(c\) that Claim 3 promises relates \(\varphi'\) to \(\varphi\), checking it on all six towns.</p>
+<details><summary>Hint</summary>
+<p>Claim 3 says \(\varphi' = \varphi + c\) for one constant \(c\) — and \(c\) is fixed the moment you fix the new root, because \(\varphi'(\mathrm{E}) = 0\). Compute \(c\) first, then rebuild, then verify; or rebuild by accumulation and let \(c\) fall out. Either order is a check on the other.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>From \(\varphi'(\mathrm{E}) = 0 = \varphi(\mathrm{E}) + c = 7 + c\), the constant is \(c = -7\). Rebuilt potentials: \(\varphi'(\mathrm{E}) = 0\); \(\varphi'(\mathrm{C}) = 0 + 1 = 1\) (the route \(\mathrm{E} \to \mathrm{C}\) walks the road \(\mathrm{C} \to \mathrm{E}\) against its arrow, entry \(-(-1) = +1\)); \(\varphi'(\mathrm{A}) = -4\); \(\varphi'(\mathrm{S}) = -7\); \(\varphi'(\mathrm{B}) = -11\); \(\varphi'(\mathrm{D}) = -9\). Rises: \(\mathrm{S} \to \mathrm{A}\): \(-4 - (-7) = +3\) ✓; \(\mathrm{S} \to \mathrm{B}\): \(-11 - (-7) = -4\) ✓; \(\mathrm{A} \to \mathrm{C}\): \(1 - (-4) = +5\) ✓; \(\mathrm{B} \to \mathrm{D}\): \(-9 - (-11) = +2\) ✓; \(\mathrm{C} \to \mathrm{E}\): \(0 - 1 = -1\) ✓. And \(\varphi' - \varphi = -7\) on every town: \(0-7\), \(1-8\), \(-4-3\), \(-7-0\), \(-11-(-4)\), \(-9-(-2)\), all \(-7\) ✓. The gauge did exactly what Claim 3 said — six numbers moved, not one rise noticed.</p>
+</details>
+<h3>Open exploration ◐ — how much freedom does a graph leave?</h3>
+<p>Assign a number to every edge of each graph below — no potential given, the numbers are <em>yours</em> to choose — and ask how many of them you may choose freely before the rest are forced. "Free" means: chosen so that no loop test has failed yet. Tabulate vertices \(V\), edges \(E\), free choices, and forced constraints:</p>
+<table>
+<thead><tr><th>graph</th><th>\(V\)</th><th>\(E\)</th><th>free choices</th><th>loop constraints</th></tr></thead>
+<tbody>
+<tr><td>the §3(c) tree</td><td>\(6\)</td><td>\(5\)</td><td>—</td><td>—</td></tr>
+<tr><td>triangle</td><td>\(3\)</td><td>\(3\)</td><td>—</td><td>—</td></tr>
+<tr><td>square with shortcut</td><td>\(4\)</td><td>\(5\)</td><td>—</td><td>—</td></tr>
+<tr><td>complete graph \(K_4\) (four towns, all six roads)</td><td>\(4\)</td><td>\(6\)</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+<p>Then conjecture a formula for each column in terms of \(V\) and \(E\), and test it on all four rows. The count of loop constraints is the number B10 will name the graph's <em>independent loop count</em>; the count of free choices is the dimension Claim 3–style gauge arguments measure freedom in. Both deserve an argument, not just a pattern.</p>
+<details><summary>Hint</summary>
+<p>Build each graph edge by edge. A new edge that reaches a brand-new town adds a free number and no loop (the town was unreachable, so no second route exists); a new edge between two already-connected towns adds a number — but also a brand-new loop, whose test the number must later survive. Which edges can "reach a new town" before running out of towns?</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>Counting in the hint's style: as long as new edges reach new towns, each is free; once a graph is connected, that well is dry (a connected graph on \(V\) vertices has already used at least \(V - 1\) edges, and those \(V-1\) are exactly a spanning tree's worth — free by Claim 4). Every further edge runs between connected towns and creates exactly one new loop with the tree's route, so it brings one new number and one new test. Free choices \(= V - 1\); loop constraints \(= E - (V - 1) = E - V + 1\). The table: tree \(5 = 6 - 1\) free, \(5 - 6 + 1 = 0\) tests; triangle \(2\) free, \(3 - 3 + 1 = 1\) test; square with shortcut \(3\) free, \(5 - 4 + 1 = 2\) tests; \(K_4\): \(3\) free, \(6 - 4 + 1 = 3\) tests. All four rows agree, and the exploration ends exactly where the page promised: the count of independent tests a graph holds is \(E - V + 1\), the number B10 names and needs.</p>
+</details>
+</section>
+<section id="where">
+<h2>6 · Where this goes</h2>
+<p><strong>Next door: the loop obstruction.</strong> This page proved that potentials manufacture well-behaved ledgers (Claims 1–3) and that trees impose no entry conditions at all (Claim 4). The question it fenced off — which edge assignments on a graph <em>with</em> cycles qualify — is <a href="b10-loop-obstruction.html">B10</a>'s entire subject: the Kirchhoff loop obstruction, the \(+1, +1, +1\) triangle as its smallest witness, and the converse that a table surviving every loop test does come from a potential. B10's spanning-tree argument reuses this page's root-and-accumulate construction verbatim — grow the potential along a spanning tree as in §3(c), and let each remaining edge sit a test — which is why this page spent its worked section building exactly that muscle. The exploration's count, \(E - V + 1\), is the number of tests B10 will show suffice.</p>
+<p><strong>The far consumer: P33.</strong> All of this — potentials, rise tables, loop tests — is the combinatorial skeleton of a story whose full telling is <a href="p33-sheaf-cohomology-bridge.html">P33</a>: locally consistent data need not glue globally, and the obstruction to gluing lives on loops. In P33's language this page built the simplest sheaf-like setting there is: assign a number to each edge (local data), ask whether the numbers come from vertex potentials (local-to-global), and watch the loops object. No topology, no open sets, no algebra beyond class-12 arithmetic — the loop obstruction in miniature, which is what a bridge page is for.</p>
+<p><strong>Looking back, the debts come due.</strong> <a href="b11-discrete-derivative.html">B11</a> drew its number line, and this page admits what B11 hinted: the line is a path graph, the simplest tree; the rise operator \(\Delta\) is a rise table on it; B11's fundamental identity — the sum of steps depends only on the two ends — is Claim 1 with the walk forced straight; and B11's anti-difference is §3(b)'s accumulation. B11 planted the seed — <em>a sum of steps depends only on its ends; around a closed loop it is zero</em> — and said the group grows it; this page is that growth, with the tree's half of the promise proved as Claim 4 and the loop's half left standing for B10. <a href="p69-telescoping.html">P69</a> supplied the mechanism — every proof in §4 is a collapsing sum — and <a href="p02-small-cases.html">P02</a>'s census discipline governed the worked section: count the degrees of freedom before trusting the ledger, and check by a genuinely different route, as <a href="p78-reversible-steps.html">P78</a> requires. This is the group C arc doing what bridge pages do: carrying one pattern's certainty across to a shape the pattern never met.</p>
+</section>
+<footer>
+<p><em>The Patterns Atlas</em> — B09 · Graphs and numbers on them (bridge page, group C). <a href="index.html">Return to the index</a>. The ledger is loaded and the loop is next: <a href="b10-loop-obstruction.html">B10 · Potential differences and the loop obstruction</a>.</p>
+</footer>
+</body>
+</html>
