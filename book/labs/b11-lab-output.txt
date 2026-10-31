@@ -1,0 +1,65 @@
+b11-lab.js output — The Patterns Atlas, B11 (The discrete derivative and telescoping), page lab, session S62.
+Every number on the page, machine-checked: exact rational arithmetic where the claim is exact,
+float with explicit tolerances where the claim is numeric, and every figure coordinate
+recomputed from its design formula. Run: node b11-lab.js
+
+PASS A1 — sixtieths 30,10,5,3,2 are whole and correct
+PASS A2 — total 50/60 = 5/6
+PASS A3 — split 1/k - 1/(k+1) = 1/(k(k+1)) exact, k = 1..100
+PASS A4 — survivors n/(n+1) equal the direct rational sum, n = 1..100
+PASS A5 — the n = 100 sum is exactly 100/101
+PASS A6 — counter-probe 1/2+1/3+1/5 = 31/30, no collapse
+PASS A7 — Fig B11.1: dot heights 40..165, drops 75/25/12.5/7.5/5 px, net 125 = 150*(5/6)
+PASS B1 — row 1: Delta k = 1, k = 1..50
+PASS B2 — row k: Delta k(k-1)/2 = k, exact, k = 1..50
+PASS B3 — row k+1: Delta k(k+1)/2 = k+1, exact, k = 1..50
+PASS B4 — row k^2: Delta k(k-1)(2k-1)/6 = k^2, whole and exact, k = 1..50
+PASS B5 — row 1/(k(k+1)): Delta(-1/k) = 1/(k(k+1)), exact, k = 1..50
+PASS B6 — row 2^k: Delta 2^k = 2^k (the fixed point), exact, k = 0..50
+PASS B7 — row r^k (r = 3): Delta 3^k/2 = 3^k, exact, k = 0..30
+PASS B8 — row r^k (r = 1/2): Delta r^k/(r-1) = r^k, float, k = 1..40
+PASS B9 — row k*k!: Delta k! = k*k!, exact, k = 1..15 (below 2^53)
+PASS B10 — seven survivors f(n+1) - f(1) equal direct sums, n = 1..25
+PASS B10b — factorial-row survivor (n+1)! - 1 equals the direct sum, n = 1..12 (exact below 2^53)
+PASS B11 — Gauss n = 5 gives 15; triangular landings 0,1,3,6,10,15
+PASS C1 — section 3(a): Delta F = (k+1)^2 for F = k(k+1)(2k+1)/6, whole and exact, k = 0..40
+PASS C2 — sum of squares 1^2+...+n^2 = n(n+1)(2n+1)/6, n = 1..25; n = 5 gives 55
+PASS C3 — n = 5 by hand and by formula both give 55
+PASS C4 — geometric r = 3, n = 5: both routes give 121
+PASS C5 — P74's load: sum of 1/2^k = 1 - 1/2^n, float, n = 1..40; n = 4 gives 15/16
+PASS C6 — n = 4 by hand: 1/2+1/4+1/8+1/16 = 15/16
+PASS C7 — Fig B11.2: x = 50..300, heights 220,208,184,148,100,40, risers 12/24/36/48/60 px, landings 0,1,3,6,10,15, net 180 = 12*15
+PASS C8 — found art: k*k! = (k+1)! - k!, exact, k = 1..12
+PASS C9 — sum k*k! = (n+1)! - 1, n = 1..12; n = 4: 1+4+18+96 = 119 both ways
+PASS C10 — two-slot split 1/(k(k+2)) = (1/2)(1/k - 1/(k+2)), exact, k = 1..50
+PASS C11 — two-slot survivors (1/2)(1 + 1/2 - 1/(n+1) - 1/(n+2)) equal the direct sum, n = 1..30
+PASS C12 — n = 4 two-slot by hand: 1/3+1/8+1/15+1/24 = 68/120 = 17/30, survivors agree
+PASS D1 — Claim 3: Delta falling(k,m) = m * falling(k,m-1), m = 1..6, k = 1..40, exact
+PASS D2 — powers table: k^2 = k__2 + k__1 and k^3 = k__3 + 3 k__2 + k__1, k = 1..40, exact
+PASS D3 — manufactured anti-difference: Delta((1/3)k__3 + (1/2)k__2) = k^2, exact (x6), k = 1..40
+PASS D4 — P23 pin: falling(k,m) = m! * C(k,m), m = 0..6, k = 1..30, exact
+PASS D5 — Claim 4 (i)+(ii): a zero-step sequence never moves; Delta f = f chains to f(k) = f(0) * 2^k
+PASS D6 — Claim 4 (iii): Delta(r^k) = (r-1) r^k for r in {2, 3, 1/2, 1/3, 3/2}, k = 0..30
+PASS D7 — Claim 4 (iii) uniqueness: (r-1) r^k = r^k forces r = 2, scanned r = 0.1..6.0
+PASS D8 — Claim 1 boundary: climb up then come home the same way — net zero, f = k^2, ten (m, n) pairs
+PASS E1 — term trap ln((k+1)/k) < 1/k < ln(k/(k-1)), strict, k = 2..10000
+PASS E2 — ln(n+1) <= H_n <= 1 + ln n, n = 1..10000; equality on the upper arm at n = 1
+PASS E3 — digit-table: H_n and both arms at n = 1,2,4,8,16,32 match all 18 printed decimals
+PASS E4 — Fig B11.3 dots: x = 40..315 step 25, y = 230 - 55 H_n rounded, all twelve match
+PASS E5 — Fig B11.3 arms: upper 1 + ln n and lower ln(n+1), all 24 polyline ordinates match
+PASS E6 — the crossing: H_12366 < 10 < H_12367 — first past 10 at n = 12367
+PASS E7 — the arms' fences: e^9 = 8103.08 and e^10 = 22026.47; the exact crossing sits inside 8103 <= n <= 22026
+PASS E8 — gamma: H_n - ln n at n = 10^6 is 0.5772 to four decimals (Euler-Mascheroni)
+PASS F1 — Exercise 1(a): n = 100 closed form 100/101, exact
+PASS F2 — Exercise 1(a) census: n = 5 returns Lecture 0's 5/6
+PASS F3 — Exercise 1(b): the four fractions add to 17/30 by hand, exact
+PASS F4 — Exercise 2(b) split: (1/2)(1/(k(k+1)) - 1/((k+1)(k+2))) = 1/(k(k+1)(k+2)), exact, k = 1..40
+PASS F5 — Exercise 2(b) survivors 1/4 - 1/(2(n+1)(n+2)) equal the direct sum, n = 1..30
+PASS F6 — Exercise 2(b) at n = 3: survivors 9/40, hand sum 27/120 = 9/40, both routes agree
+PASS F7 — Exercise 3(d) census: sums 1,5,14,30,55,91 equal n(n+1)(2n+1)/6 at n = 1..6
+PASS F8 — Exercise 3(d) rung: n(n+1)(2n+1)/6 + (n+1)^2 = (n+1)(n+2)(2n+3)/6, exact (x6), n = 1..40
+PASS F9 — exploration: x/(1+x) < ln(1+x) < x, strict, x = 0.001..5 and x = 8..4096
+PASS F10 — exploration: g and h increase strictly on x = 0.001..20 — both traps are monotone
+PASS F11 — Exercise 3(c) receipt: the manufactured anti-difference F satisfies F(1) = 0, so survivors sit at F(n+1)
+
+TOTAL: 58 PASS, 0 FAIL — 58 checks
