@@ -16,11 +16,11 @@ Unit: author B09 `b09-graphs-and-numbers.html` — "Graphs and numbers on them",
 ## Milestones
 
 - M1 design pinned (this file) — DONE at push.
-- M2 parts staged in topic wip/ (14-ish parts), assembly + hygiene gates.
-- M3 lab clean (split pieces <=4KB, no recursion, no BigInt, exact rationals; every figure coordinate recomputed; census).
-- M4 verifier clean (fresh engine, zero shared code, 26 fresh + 16 injections REJECTED target).
-- M5 style audit 13/13 vs McFee fingerprint.
-- M6 five publishes (page, lab, lab-output, verifier, verifier-output) + index flip B09 planned->published (bridge 11/12).
+- M2 parts staged + page FROZEN — DONE (2026-10-31): 14 parts in wip/; assembled page 52,847 B / 52,378 UTF-16 / 276 lines, md5 c4969df934ee059e678311d1e9bef452. Hygiene gates pass (408/408 inline + 4/4 display TeX, 8 details HWHWHWHW, 3 SVGs, moons ●○○ ●●○ ●●● ◐, 0 backticks/dollars/pipes). Pre-freeze audit: 9 defects caught+fixed (part-07 draft residue + wrong C→B number +2→+9; part-08 cyclomatic garble 4−5+3=2 → E−V+1=5−4+1; part-09 Claim-1 backward-read sign error, rewritten head/tail cases; part-12 Ex3 worked draft residue; part-13 fabricated B11 quote replaced by B11's real seed sentence + Ex4→exploration rename; cross-link slugs fixed vs live index: b11-discrete-derivative.html, p02-small-cases.html; B11 house convention aligned: stray </p> warn aside, one-line details+summary, Worked answer, Open exploration ◐ title, B11-style practice intro). Index row confirmed: one-liner is 'Dots, lines, and arithmetic you can do on both.', planned→published is the only flip needed.
+- M3 lab clean — NEXT: author b09-lab.js (model p69-lab), run, record output.
+- M4 verifier clean.
+- M5 style audit 13/13.
+- M6 five publishes + index flip B09 planned→published (bridge 11/12).
 - M7 page log + records close (S64 CLOSED row, standing to-do S65 = author B10) + mirror + KNOWLEDGE.md + wip cleanup + DELETE this marker.
 
-Receipts land here as they happen. Next step: author part-01 (head+header+onramp).
+Receipts land here as they happen. Next step: author b09-lab.js.
