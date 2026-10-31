@@ -1,0 +1,57 @@
+P42 ADVERSARIAL REVIEW VERIFIER — run 2026-10-31 (S73), page md5 a941c5b3ca4a8e08dc8548ab0485f4f1 (67,161 chars, 272 lines)
+Fresh engines, zero shared code with p42-lab.js: Kahan summation, backward shelf census, integer
+tombstones, paired alternating series, partial+integral tails, q-walls by closed form, recursive
+sequency-ordered Haar ladder (independent of the lab's per-row hand assembly), poisoned-clone panel.
+V01 PASS | Kahan H(2^20) = 14.440160, Euler-Maclaurin cross-check 20 ln 2 + gamma = 14.440159
+V02 PASS | Kahan H(10^6) = 14.3927267 (page receipt 14.3927)
+V03 PASS | backward shelf census: 20 shelves in (1/2, 1], strictly decreasing, S_19 = 0.6931477
+V04 PASS | shelf 2 by backward summation = 0.759524 (= 319/420 = 0.759524)
+V05 PASS | the tombstone fraction by integers: (105+84+70+60)/420 = 319/420
+V06 PASS | paired alternating harmonic to 2^20 = 0.693147 vs ln 2 = 0.693147
+V07 PASS | log series by partial+integral tail = 3.4239 (machine full-sum receipt 3.4239)
+V08 PASS | convergent cousin by partial+tail = 2.0376 (machine receipt 2.0376 at 2^20, total near 2.11)
+V09 PASS | q-walls by closed form: q=2: [10.00, 20.00]; q=1.5: [11.40, 17.10]; q=1.125: [13.08, 14.71]; q=1.0625: [13.45, 14.29] — sit inside the page's integer-shelved receipts (integer shelving widens)
+V10 PASS | q = 3/2 closed form [11.40, 17.10] vs page [11.29, 17.30] within integer slop
+V11 PASS | the residue by Kahan: H - ln(2^20) = 0.577216 = gamma (page: 0.577216)
+VERIFIER PIECE 1: 11 pass, 0 fail
+V12 PASS | tensor-ladder rack orthonormal: 8 ones + 56 zeros of 64
+V13 PASS | ramp dials by the ladder engine match the page list as a multiset: -5.656854,-2,-2,-0.707107,-0.707107,-0.707107,-0.707107,12.727922
+V14 PASS | spike dials by the ladder engine match: -35.355339,0,0,0,0,35.355339,50,70.710678
+V15 PASS | Parseval by the ladder engine: 204 and 10000
+V16 PASS | the loudest spike dial is the finest shelf: |70.7107| = 100/sqrt(2) = 70.7107
+V17 PASS | page needle "each shelf carries exactly \(1\)" x1
+V18 PASS | page needle "Bounds are walls; readings are poison" x1
+V19 PASS | page needle "the slowest divergence you will ever hold" x1
+V20 PASS | page needle "the dial signs walk the tree and read the spike's binary address" x1
+V21 PASS | page needle "position \(4\), which is binary" x1
+V22 PASS | page needle "twice as loud in its own two-sample window" x1
+V23 PASS | page needle "the ladder's last rung is calculus" x1
+V24 PASS | page needle "no shelf ever carries as little as" x1
+V25 PASS | page needle "a feature of the method rather than a bug in the rulers" x1
+V26 PASS | page needle "the move, unnoticed, in every phone" x1
+V27 PASS | page needle "five- and fourteen-digit denominators" x1
+V28 PASS | page needle "Euler-Mascheroni" x2
+V29 PASS | page needle "file it by size" x1
+V30 PASS | receipt counts: 14.4402 x5, 3.4239 x4, 0.693147 x4
+VERIFIER PIECE 2: 19 pass, 0 fail
+V31 PASS | clone 1: H(2^20) receipt fudged 14.4402 -> 14.4403 — REJECTED via: 14.4402 count
+V32 PASS | clone 2: the tombstone fraction fudged — REJECTED via: tombstone 319/420
+V33 PASS | clone 3: the difficulty moons tampered — REJECTED via: moons
+V34 PASS | clone 4: Mengoli backdated to 1647 — REJECTED via: Mengoli 1650
+V35 PASS | clone 5: the spike dial fudged — REJECTED via: spike dial
+V36 PASS | clone 6: Parseval receipt fudged 204 -> 205 — REJECTED via: Parseval 204
+V37 PASS | clone 7: the gamma residue fudged — REJECTED via: gamma residue
+V38 PASS | clone 8: the rung sentence doctored — REJECTED via: ladder rung
+V39 PASS | control: the real page passes the entire panel
+VERIFIER PIECE 3: 9 pass, 0 fail
+TOTAL: 39 PASS, 0 FAIL. All 8 poisoned clones rejected; control passes.
+Verifier-side fixes this session (honesty ledger): V09 bracket direction (integer shelving WIDENS the
+walls, so the smooth closed form sits inside them, not around them); haar() rewritten twice — first
+attempt (natural-order tensor ladder, pattern-repeat rows) was orthonormal but matched the wrong
+basis; final ladder stretches coarse rows by 2 (sequency order, matching the page's dial table) and
+places fine identity rows at positions (2k, 2k+1).
+Post-freeze correction (style audit, pre-publish): Exercise 1's worked answer said shelf 4's reduced
+denominator "has twelve digits" — a stale instance of the pre-freeze twelve-digit error; the true
+denominator 10314539492400 has FOURTEEN digits (lab receipt A07). Fixed; page re-frozen at md5
+a941c5b3ca4a8e08dc8548ab0485f4f1 (67,161 chars); lab re-run 175/175 and verifier re-run 39/39 against
+the corrected page — all PASS, 0 fails.
