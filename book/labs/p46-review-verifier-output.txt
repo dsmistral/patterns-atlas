@@ -1,0 +1,56 @@
+p46 adversarial verifier output — wip/p46-review-verifier.js (19,062 bytes) against wip/p46-spectral-sequences.html (58,802 bytes, 225 lines)
+Design: zero code shared with the lab. Vectors are integer bitmasks; every quotient is computed by enumerating ALL vectors of a cell and counting spans by XOR-basis insertion (no rref, no nullspace basis construction). The d2 knight is computed by brute-force preimage enumeration with an all-preimages well-definedness check. The flattening and the F^p H^n reassembly are computed from a per-diagonal D-mask table (source bit -> target mask, applied by XOR). Groups: T tower · R floor route + miniature + Ex1 · C brute-force census (all four routes, 2x2 through 3x3, joint knights, pinch) · P needle panel + 8 poison-injection clones + 1 control.
+
+RUN HISTORY (honest):
+- Run 1: crashed before any check — gridOf accessed cells[n+1] for the top diagonal n = maxn, which does not exist. Fixed (the top diagonal genuinely has no outgoing maps; its D is zero). No receipts were produced, so nothing was re-verified after the fix except by the full run below.
+- Run 2 (final): 42/42 PASS. Full output below.
+
+=== VERIFIER GROUP T: tower by brute-force enumeration ===
+T01 PASS | tower valid by fresh enumeration
+T02 PASS | E1 by enumeration = [[1,1],[0,0],[1,1]]
+T03 PASS | all d1 zero, E2 = E1
+T04 PASS | d2 ranks by enumeration: only (0,1)->(2,0)
+T05 PASS | E3 = stable page
+T06 PASS | flattened beta by enumeration = [1,0,0,1]
+T07 PASS | F-table by enumeration
+T08 PASS | E3 cell-by-cell = F-differences
+T09 PASS | H3 layer exactly 2
+T10 PASS | h01(f2) = k (mask 1)
+T11 PASS | unique preimage of k under v10 is g (mask 1)
+T12 PASS | h10(g) = w (mask 1)
+T13 PASS | alternating counts 0 and 0
+=== VERIFIER GROUP R: floor route and the miniature ===
+R01 PASS | transposed tower valid
+R02 PASS | floor E1 = {(0,0):2,(1,0):1,(1,2):1}
+R03 PASS | floor E2 = {(0,0):1,(1,2):1}
+R04 PASS | no floor knight, E3 = E2 stable
+R05 PASS | b=50 blueprint (0,id,0|0,id,id,0) valid
+R06 PASS | b=50 tables equal the tower tables
+R07 PASS | b=50 beta = (1,0,0,1)
+R08 PASS | all-zero 2x2: E1 all ones, beta (1,2,1)
+R09 PASS | all-zero 2x2 F-table
+=== VERIFIER GROUP C: brute-force census ===
+C01 PASS | 2x2: 10 valid, 10 agree, 0 knights
+C02 PASS | 2x2 E1!=E2 set = {4,8,12}
+C03 PASS | 3x2: 38 valid, 38 agree, 1 col-knight, 0 row
+C04 PASS | the 3x2 col-knight is b=50
+C05 PASS | 2x3: 38 valid, 38 agree, fires floor-first only
+C06 PASS | the 2x3 floor-knight is b=38
+C07 PASS | b=38 transposes to b=50 wiring
+C08 PASS | 3x3: 308 valid, all agree
+C09 PASS | 3x3: 12 wing, 12 floor, 0 both
+C10 PASS | 394 valid blueprints total
+C11 PASS | pinch: corner wing-knights v01=0, corner floor-knights v01=id
+=== VERIFIER GROUP P: needle panel, poison clones ===
+P00 PASS | control: unmutated page passes all 51 needles, missing=0
+P01 census cell per-reading count PASS | REJECTED, 1 needle(s) missing
+P02 census total PASS | REJECTED, 1 needle(s) missing
+P03 Leray capture date PASS | REJECTED, 1 needle(s) missing
+P04 knight direction PASS | REJECTED, 1 needle(s) missing
+P05 Hopf cell count PASS | REJECTED, 1 needle(s) missing
+P06 tower map label PASS | REJECTED, 1 needle(s) missing
+P07 zig-zag lift receipt PASS | REJECTED, 1 needle(s) missing
+P08 law-check count PASS | REJECTED, 1 needle(s) missing
+=== SUMMARY ===
+verifier checks: 42 pass, 0 fail
+VERIFIER P46: 42/42 PASS
