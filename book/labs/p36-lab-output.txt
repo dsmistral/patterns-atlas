@@ -1,0 +1,104 @@
+p36-lab — machine receipts for P36, Count with characters (S70)
+page: book/p36-character-counting.html — 63685 B / 221 lines / 63061 units
+engines: fresh census, characters, waves, quaternions — no constants borrowed
+A01 PASS — rotation group size 24
+A02 PASS — class sizes 1+1+1+1+1+1:1 2+2+1+1:3 2+2+2:6 3+3:8 4+1+1:6
+A03 PASS — orbit census k=1,2,3 -> 1,10,57
+A04 PASS — formula k=1..6 -> 1,10,57,240,800,2226
+A05 PASS — inventory polynomial 1,1,2,2,2,1,1
+A06 PASS — inventory by census 1,1,2,2,2,1,1
+A07 PASS — rotation char 3,1,-1,0,-1
+A08 PASS — <rot,rot> = 1
+A09 PASS — diagonal perm char 4,0,0,1,2
+A10 PASS — perm-1 irreducible, self = 1
+A11 PASS — sign char 1,-1,1,1,-1
+A12 PASS — 2-dim derived 2,0,2,-1,0
+A13 PASS — 2-dim self = 1
+A14 PASS — face paint char 6,2,2,0,0
+A15 PASS — face mults triv,rot,2dim,perm-1,sign 1,1,1,0,0
+A16 PASS — face self = 3
+A17 PASS — vertex orbits 23, Burnside 552/24
+A18 PASS — vertex paint char 256,4,16,16,16
+B01 PASS — perm char 3,1,0
+B02 PASS — perm self = 2 (not irreducible)
+B03 PASS — std = perm - 1 = 2,0,-1
+B04 PASS — sign char 1,-1,1
+B05 PASS — std, sign self 1,1
+B06 PASS — paint char k=2 8,4,2
+B07 PASS — bracelets 4 = <paint,1>
+B08 PASS — mults triv,sign,std 4,0,2
+B09 PASS — self 20 = 16 + 4
+B10 PASS — 3-color char 27,9,3
+B11 PASS — 3-color census 10 = <,1>
+B12 PASS — 3-color mults 10,1,8
+B13 PASS — dims 10 + 1 + 16 = 27
+B14 PASS — self 165 = 100 + 1 + 64
+B15 PASS — orbit count = multiplicity of the constant wave, k=1..4
+C01 PASS — C4 wave table (re,im) j=0..3
+C02 PASS — orthogonality: each wave self 1
+C03 PASS — orthogonality: distinct waves 0
+C04 PASS — necklaces n=1..12, three engines agree: 2,3,4,6,8,14,20,36,60,108,188,352
+C05 PASS — necklace sequence
+C06 PASS — C4 paint char 16,2,4,2, neck(4)=6
+C07 PASS — C4 split 6,3,4,3
+C08 PASS — Parseval 70
+C09 PASS — bracelets enum = Burnside formula: 2,3,4,6,8,13,18,30,46,78,126,224
+C10 PASS — achiral 6,12,24 at n=4,6,8
+C11 PASS — chiral pair 001011/110100: distinct necklaces, one bracelet
+C12 PASS — 2B = N + A for n=1..12
+C13 PASS — n=6 spot check: 14 necklaces, 13 bracelets, 12 achiral
+D01 PASS — D4 orders 1,2,2,2,2,2,4,4
+D02 PASS — D4 involutions 5
+D03 PASS — D4 2-dim traces -2,0,0,0,0,0,0,2
+D04 PASS — Q8 orders 1,2,4,4,4,4,4,4
+D05 PASS — Q8 involutions 1
+D06 PASS — quaternion table: ij=k, ji=-k, ii=kk=-1, (-i)j=-k
+D07 PASS — Q8 2-dim traces -2,0,0,0,0,0,0,2
+D08 PASS — same trace table, different order profile: not isomorphic
+D09 PASS — D4 class sizes 1,1,2,2,2
+D10 PASS — Q8 class sizes 1,1,2,2,2
+D11 PASS — F2 invariant lines: only span(1,1)
+D12 PASS — no invariant complement in F2^2
+D13 PASS — F3: span(1,1) and span(1,2) both invariant — Maschke restored
+E01 PASS — page 63685 B, 63061 units
+E02 PASS — 221 lines, ends </html> + newline
+E03 PASS — 8 h2
+E04 PASS — 11 h3
+E05 PASS — 10 details
+E06 PASS — 3 svg
+E07 PASS — 2 tables
+E08 PASS — 3 pattern boxes
+E09 PASS — 1 warn-box, 1 onramp
+E10 PASS — inline TeX 267 open / 267 close
+E11 PASS — display TeX 11 open / 11 close
+E12 PASS — no $$ anywhere
+E13 PASS — no backticks
+E14 PASS — MathJax 3.2.2 pin + integrity hash
+E15 PASS — title + stylesheet
+E16 PASS — moons line
+E17 PASS — footer: next P37, home P35
+E18 PASS — 8 sections balanced
+E19 PASS — figure blocks: 3
+F01 PASS — 3 svg blocks parsed
+F02 PASS — funnel bar widths 156/86 = 86.4·log10(64), 86.4·log10(10)
+F03 PASS — breed string, 240 = 24 × 10
+F04 PASS — class paint char 2^cycles, Burnside 240/24 = 10
+F05 PASS — S3 split bar: two blocks of 56, 8 = 4·1 + 2·2
+F06 PASS — 4 wave circles, 11 dots (4/11)
+F07 PASS — circle centers 95,225,355,485
+F08 PASS — every dot lies on its wave circle, r = 55
+F09 PASS — wave captions
+G01 PASS — Ex1 canonical forms 000 001 011 111
+G02 PASS — Ex1 <(8,4,2), sign> = 0
+G03 PASS — Ex3 x^3: (20 + 3·4 + 8·2)/24 = 2
+G04 PASS — Ex4 octahedron faces: 23 orbits, two engines agree
+H01 PASS — S3: 1 + 1 + 4 = 6 = |S3|
+H02 PASS — S4: 1 + 9 + 4 + 9 + 1 = 24 = |S4|
+H03 PASS — D4: four 1-dim chars + one 2-dim, 4 + 4 = 8
+H04 PASS — Q8: four 1-dim chars + one 2-dim, 4 + 4 = 8
+H05 PASS — C4: four waves, 1 + 1 + 1 + 1 = 4
+H06 PASS — lineage dates on page: 1845, 1896, 1899, 1904, 1927, 1937, 1979
+H07 PASS — Redfield 433–455, Conway–Norton 308–339
+H08 PASS — Monster 196,883 on page; 21296877 + 196883 = 21493760
+H09 PASS — vertex Burnside 552 = 24 × 23
+TOTAL: 100/100 PASS
