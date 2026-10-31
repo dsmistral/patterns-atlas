@@ -1,0 +1,82 @@
+p66-review-verifier-output.txt — verdicts of the P66 adversarial verifier (S60)
+Engine: deterministic JavaScript (float64), explicit stacks, no recursion,
+no BigInt. Fresh engines, zero shared code with the battery: every claim
+re-derived by a different route, plus sixteen poisoned injections that the
+gates must reject. Pieces were executed in the session sandbox via the
+Function constructor (the sandbox has no eval), with the page text passed in
+as a parameter; this file is the verbatim record of the final run.
+Verifier source: book/labs/p66-review-verifier.js (pieces A-H, exactly as run).
+Page under test: book/p66-induction.html, 74,027 bytes, FNV-1a (UTF-16 code
+units) 0x046465e4 over 73,394 units — checked independently by V25.
+
+RUN HISTORY (honest):
+- The verifier's headline find: F17/V25 DISAGREED on the page fingerprint.
+  The battery's original hash multiplied in float64 past 2^53, so its
+  "fingerprint" 0xd4d2f408 was a rounding artifact, not the true FNV-1a.
+  Both sides were rebuilt on Math.imul (exact 32-bit multiply) and validated
+  against the standard vectors ("" -> 811c9dc5, "a" -> e40c292c,
+  "foobar" -> bf9cf968); the true fingerprint is 0x046465e4, now pinned on
+  both sides, and the whole battery was re-run after the fix. The page
+  itself was never wrong — the lab's hash check was.
+- Three verifier-side check bugs were found and fixed before any verdict
+  was accepted: (1) V7/V8's cycle arrays put 0 where n mod 4 = 0 demands
+  1; (2) V10's first engine kept the 8x8 board in a single JS bitmask —
+  bitwise operators are 32-bit, so cells 32..63 wrapped and the engine
+  returned 0 — rebuilt on split lo/hi masks and then agreeing with the
+  battery (30,355 and 13,779); (3) V16 compared factor splices without
+  sorting the concatenation first.
+- After the fixes: all 26 fresh checks PASS, and all 16 poisoned
+  injections are correctly REJECTED — no gate is blind to any mutation
+  class it was built to catch.
+
+FRESH CHECKS (verbatim, 26 lines):
+
+PASS V1 staircase closed form by Gauss pairing, six n
+PASS V2 sum-of-squares spot values 10,17,33
+PASS V3 sum-of-cubes = (sum)^2 at n=10,12
+PASS V4 odd sums = n^2 at n=20,25,64
+PASS V5 step identity 2k^2+7k+6=(k+2)(2k+3) at three points
+PASS V6 7^4 = 2401 by repeated addition (7x7=49, 49x49=2401)
+PASS V7 7^n mod 10 = 7,9,3,1 cycle, MSB-first engine, n=1..60
+PASS V8 7^100 ends 1, 7^101 ends 7, 7^40 ends 01, mod 100
+PASS V9 all sixteen deficient 4x4 boards = 1, last-empty engine
+PASS V10 8x8 corner = 30,355 and center (4,4) = 13,779, last-empty engine — 30355/13779
+PASS V11 fresh queue-built quad-split tiles 5 boards, independently audited — 8:ok/21 tiles | 16:ok/85 tiles | 16:ok/85 tiles | 32:ok/341 tiles | 32:ok/341 tiles
+PASS V12 2xn = F(n+1) by matrix powers: t(12)=233, t(30)=1,346,269 — 233,1346269
+PASS V13 4xn transfer-matrix engine: P25's table a(1..12) and a(35) — a(35)=3901330906652795
+PASS V14 four-term recurrence: exact from matrix values to n=35, and mod 97 to n=120
+PASS V15 stamps: 18..40 all makeable, never-set below 18 exact — 1,2,3,5,6,9,10,13,17
+PASS V16 84 = 2,2,3,7 by smallest-prime-factor sieve; 120 splices agree
+PASS V17 Pell: five seeds norm 4, forward chain 8 steps stays whole and norm 4 — chain end 5778,2584
+PASS V18 exhibits: 2^n > n^2 exactly at n=1 and n>=5 (to 40); loaded rung at 7 powers of 2
+PASS V19 nine needles at pinned counts (counts, tromino and domino digits, recurrence, pid, title) — all nine
+PASS V20 MathJax block byte-exact, once
+PASS V21 exact tail bytes </footer></body></html> + newline
+PASS V22 kicker and <title> exact
+PASS V23 P74 next-link count = 5 (door + footer)
+PASS V24 structure: 8 h2, 9 h3, 10 summaries alternating Hint/Worked
+PASS V25 FNV-1a fingerprint, fresh do-while and Math.imul, pinned — 0x46465e4
+PASS V26 five digit tables, three figures, 78 paragraphs
+
+POISONED INJECTIONS (verbatim, 16 lines — each must be REJECTED):
+
+PASS I1 tromino corner count 30,355 -> 30,356 — poisoned page correctly REJECTED
+PASS I2 tromino center count 13,779 -> 13,780 — poisoned page correctly REJECTED
+PASS I3 domino a(35) last digit 5 -> 6 — poisoned page correctly REJECTED
+PASS I4 the wheel's constant 2401 -> 2402 — poisoned page correctly REJECTED
+PASS I5 recurrence coefficients 1, 5, 1, -1 -> 1, 5, 1, 1 — poisoned page correctly REJECTED
+PASS I6 pid line dropped (class="pid" -> class="pid2") — poisoned page correctly REJECTED
+PASS I7 section id the-move-at-work renamed — poisoned page correctly REJECTED
+PASS I8 New word -> New words (all three) — poisoned page correctly REJECTED
+PASS I9 title P66 · Prove by induction -> P66 · Prove by Induction — poisoned page correctly REJECTED
+PASS I10 MathJax integrity hash altered — poisoned page correctly REJECTED
+PASS I11 tail byte removed — poisoned page correctly REJECTED
+PASS I12 kicker ninth -> tenth — poisoned page correctly REJECTED
+PASS I13 footer next-link p74 -> p75 (one) — poisoned page correctly REJECTED
+PASS I14 one summary Hint -> Hint (trailing space) — poisoned page correctly REJECTED
+PASS I15 an h2 title altered (8 · Exercises -> 8 · Exercise) — poisoned page correctly REJECTED
+PASS I16 any-byte mutation (space before </footer>) — poisoned page correctly REJECTED
+
+TOTAL: 42 checks, 42 PASS (26 fresh + 16 injections), 0 FAIL. No gate
+accepted a poisoned page; the battery's one real defect (the float64 hash)
+was found by this verifier and fixed before either file was published.
