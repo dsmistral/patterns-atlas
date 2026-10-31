@@ -1,0 +1,44 @@
+
+<section id="worked">
+<h2>4 · The move at work — three encounters</h2>
+<h3>Example 1 · Two little worlds — commutativity on trial</h3>
+<p class="pid">Moves used: <a href="p01-pin-down-the-problem.html">P01</a> pinning axioms, statement, and world · <a href="p25-machine-cases.html">P25</a> the census that finds and certifies both worlds · <a href="p07-auxiliary-construction.html">P07</a> the rival world as the auxiliary object nobody supplied.</p>
+<p>Pin everything first — <a href="p01-pin-down-the-problem.html">P01</a>'s discipline, and Box P35.A's first obligation. The language has one symbol: a binary operation \\(\\cdot\\). A <em>world</em> is a multiplication table on a finite set. The axiom list \\(\\mathcal{A}\\) has two axioms: <em>associativity</em> — \\((u \\cdot v) \\cdot w = u \\cdot (v \\cdot w)\\) for all \\(u, v, w\\) — and <em>identity</em> — there is an element \\(e\\) with \\(e \\cdot u = u \\cdot e = u\\) for all \\(u\\). A world obeying both is a <em>monoid</em>. The statement on trial, \\(S\\): <em>commutativity</em>, \\(a \\cdot b = b \\cdot a\\) for all \\(a, b\\). The question: does \\(\\mathcal{A} \\vdash S\\)? Does associativity, with an identity to lean on, force the table to be symmetric?</p>
+<p>The census answers in two movements, both machine-run. At order 2 — two elements — the \\(2^4 = 16\\) candidate tables collapse to \\(4\\) monoids, and all four are abelian: \\(0\\) nonabelian witnesses exist. Order 2 is <em>too small to separate</em> — the census is silent here, and Exhibit A returns to that silence. At order 3 the separation arrives: \\(3^9 = 19{,}683\\) candidate tables collapse to \\(33\\) monoids — \\(27\\) abelian, \\(6\\) nonabelian. The machine has found the pair of worlds; here they are, side by side, with \\(\\mathbb{Z}/3\\) renamed \\(\\{e, a, b\\}\\) for the abelian witness \\(\\mathcal W_1\\), and the "right-pass" monoid for the nonabelian one \\(\\mathcal W_2\\):</p>
+<table>
+<tr><th>\\(\\mathcal W_1\\) · table</th><th>\\(e\\)</th><th>\\(a\\)</th><th>\\(b\\)</th><th>\\(\\mathcal W_2\\) · table</th><th>\\(e\\)</th><th>\\(a\\)</th><th>\\(b\\)</th></tr>
+<tr><th>\\(e\\)</th><td>\\(e\\)</td><td>\\(a\\)</td><td>\\(b\\)</td><th>\\(e\\)</th><td>\\(e\\)</td><td>\\(a\\)</td><td>\\(b\\)</td></tr>
+<tr><th>\\(a\\)</th><td>\\(a\\)</td><td>\\(b\\)</td><td>\\(e\\)</td><th>\\(a\\)</th><td>\\(a\\)</td><td>\\(a\\)</td><td>\\(b\\)</td></tr>
+<tr><th>\\(b\\)</th><td>\\(b\\)</td><td>\\(e\\)</td><td>\\(a\\)</td><th>\\(b\\)</th><td>\\(b\\)</td><td>\\(a\\)</td><td>\\(b\\)</td></tr>
+</table>
+<p>Both tables pass the same census — Box P35.A's second obligation, symmetrically applied. \\(\\mathcal W_1\\): identity row and column \\(e\\), all \\(27\\) associativity triples hold (it is \\(\\mathbb{Z}/3\\), addition renamed), and \\(a \\cdot b = e = b \\cdot a\\): abelian, \\(\\mathcal W_1 \\vDash S\\). \\(\\mathcal W_2\\): identity holds (\\(e\\)'s row and column read the element back), all \\(27\\) triples hold — and the disagreement sits at \\(S\\) itself, not near it: \\(a \\cdot b = b\\) while \\(b \\cdot a = a\\). \\(\\mathcal W_2 \\vDash \\neg S\\). Key 3's machine check, done: two entries read off one table, unequal.</p>
+<figure class="page-figure" aria-label="Funnel chart on a log scale: at order two, sixteen candidate tables pass to four monoids, all four abelian, none nonabelian; at order three, nineteen thousand six hundred eighty-three candidates pass to thirty-three monoids, twenty-seven abelian and six nonabelian.">
+<svg viewBox="0 0 560 250" role="img">
+<text x="90" y="18" font-size="13" fill="#555" font-weight="bold">order 2</text>
+<rect x="90" y="26" width="104" height="16" fill="#ccc"/>
+<text x="202" y="39" font-size="12" fill="#777">16 candidate tables</text>
+<rect x="90" y="44" width="52" height="16" fill="#555"/>
+<text x="150" y="57" font-size="12" fill="#777">4 monoids</text>
+<rect x="90" y="62" width="52" height="16" fill="#999"/>
+<text x="150" y="75" font-size="12" fill="#777">4 abelian</text>
+<text x="98" y="95" font-size="12" fill="#777">0 nonabelian — the census is silent</text>
+<text x="90" y="126" font-size="13" fill="#555" font-weight="bold">order 3</text>
+<rect x="90" y="134" width="371" height="16" fill="#ccc"/>
+<text x="469" y="147" font-size="12" fill="#777">19,683 candidate tables</text>
+<rect x="90" y="152" width="131" height="16" fill="#555"/>
+<text x="229" y="165" font-size="12" fill="#777">33 monoids</text>
+<rect x="90" y="170" width="124" height="16" fill="#999"/>
+<text x="222" y="183" font-size="12" fill="#777">27 abelian</text>
+<rect x="90" y="188" width="67" height="16" fill="#2a5"/>
+<text x="165" y="201" font-size="12" fill="#777">6 nonabelian — the witnesses</text>
+<line x1="90" y1="26" x2="90" y2="212" stroke="#555" stroke-width="1"/>
+<line x1="90" y1="212" x2="500" y2="212" stroke="#999" stroke-width="1"/>
+<text x="86" y="228" font-size="11" fill="#777">1</text>
+<text x="176" y="228" font-size="11" fill="#777">10</text>
+<text x="263" y="228" font-size="11" fill="#777">10²</text>
+<text x="349" y="228" font-size="11" fill="#777">10³</text>
+<text x="436" y="228" font-size="11" fill="#777">10⁴</text>
+</svg>
+<figcaption><strong>Fig P35.2</strong> — The census funnel. Order 2 is too small to separate — no nonabelian witness exists there, whatever the theorem needs. Order 3 splits \\(33 = 27 + 6\\), and the six green worlds are the certificate. The log scale is the honest one: candidate tables multiply by \\(n^{n^2}\\), and the funnel's job is to show the two worlds surviving inside the torrent.</figcaption>
+</figure>
+<p>Now close the move — and watch the two censuses play their different roles. \\(\\mathcal W_2\\) already proves \\(\\mathcal{A} \\nvdash S\\) forever, by soundness: any proof from \\(\\mathcal{A}\\) would hold in every monoid, and it fails in \\(\\mathcal W_2\\). But the machine can also be pointed at the proofs themselves, \\(P34\\)-style: over the pool of words in \\(\\{a, b\\}\\) of length at most \\(3\\) plus the empty word \\(E\\), the axioms license exactly \\(38\\) instances — \\(30\\) identity steps \\(wE = w\\), \\(Ew = w\\), and \\(8\\) associativity steps \\((uv)w = u(vw)\\) — and every one flattens to a triviality once brackets and \\(E\\) are dropped. One more derivational step, applied to everything: \\(290\\) size-\\(2\\) derivations — \\(38\\) by symmetry, \\(100\\) by transitivity, \\(152\\) by congruence — with \\(31\\) distinct conclusions, and every one of them a triviality too: the derived equations all collapse to word-equalities the bracket-drop already knew, and \\(ab = ba\\) is not among them, nor anything that could carry it — the machine-checked fact that at depth two, the statement on trial never even enters the record. The relation between the two receipts is the whole page in one line: the proof census says \\(S\\) is not provable <em>at size 2</em>; the witness world says it is not provable <em>at any size</em> — <a href="p25-machine-cases.html">P25</a>'s pond, and the ocean behind it, certified by one three-element table and the soundness ladder of Box P35.A's third obligation.</p>
