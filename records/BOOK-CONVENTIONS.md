@@ -48,6 +48,13 @@
 - A pass does not re-run the page's proof battery (no numeric content changes — the diff gate proves it); the labs and their recorded outputs stay in `book/labs/`.
 - New pages (B04 onward) are authored clean under the amended templates — no cleanup pass will ever be needed for them.
 
+## Improvement passes (owner directive 2026-10-31, S75b)
+
+- The third licensed exception to extend-never-rewrite, valid pre-release only: the license expires when the user opens repo visibility / GitHub Pages; thereafter extend-never-rewrite binds in full.
+- Trigger: an expansion-pass audit (external drafts, surveys, reviews) shows material genuinely missing from or better than the standing master. One pass per page per audit cycle — batch the incoming drafts for a page (all versions of a chapter) into ONE pass; the owner approves each pass.
+- Extend-preferred: additions are the default; a deletion or rewrite names what it replaces and why the replacement wins (comparison recorded in the page log).
+- Per-pass gates: fresh full battery (the page lab AND a fresh zero-shared-code adversarial verifier, honest run history in the outputs); style audit vs the presentation fingerprint; needle re-pins for all new text; banned-token sweep; every adopted number re-verified fresh in-session; adopted prose read-audited for semantic correctness against the P-index (the S75 door lesson: byte needles cannot catch semantic defects); structure/domain census re-grepped; two-gated push + fetch-back; index + records ALWAYS-SYNC; every adopted item and every rejection receipted in `page-logs/<page>.md`; pages still carry no revision section.
+
 ## Pattern page template (9 blocks, in order)
 
 1. **Recall bridge** — 2–4 sentences recalling the prerequisite patterns (linked), then the tension this page resolves.
