@@ -1,0 +1,48 @@
+b10-review-verifier-output — adversarial verification for book/b10-loop-obstruction.html
+page md5 37e9696e7e7fdb7e1951466b1eb99113 · 60764 bytes · 270 lines
+verifier b10-review-verifier.js md5 0b58926810c3d19f082f95f453f15efe · 15627 bytes · 156 lines
+fresh engine: BFS potential solver over adjacency lists; closed walks as signed arrow-multisets; arrowheads from 2x2 rotation matrices at +-25 degrees; label offsets along the 90-degree rotation; brute-force column searches over [-6,6]^3; no recursion, no BigInt, no Math.random
+contract: 26 fresh checks must PASS and 16 poisoned injections must come back false; a poison that reads true is INJECTION-ACCEPTED and fails review — all 16 came back false
+PASS V1 · lecture-0 triangle (+1,+1,-2): BFS column (0,1,2); CA demand -2 = table; loop total 0
+PASS V2 · (+1,+1,+1): same column; demand -2 against table +1 leaves mismatch -3; the loop totals +3
+PASS V3 · altitudes 40/90/15: the differences +50/-75/+25 are the table; the rooted BFS column (0,50,-25) manufactures it too — loop total 0
+PASS V4 · square: BFS on three sides gives column (0,4,-5,2); DA closes at -2; the square walk totals 0
+PASS V5 · low triangle +1, high triangle -1, and the two edge multisets add up to the square walk: 0
+PASS V6 · shortcut: demand -5 against table -6, mismatch +1; repaired to -5 both triangles die and the column verifies all five
+PASS V7 · 3(a) procedure: mismatch -3 = demand - table; repairing CA to -2 lands exactly on the lecture-0 table
+PASS V8 · gauge: the column (100,101,102) manufactures (+1,+1,-2) — the same table at different altitudes
+PASS V9 · the two trees {AB,BC,CD} and {AB,DA,CD} accumulate to the same column (0,4,-5,2); both refuse the shortcut by +1
+PASS V10 · square census: all 3125 tables on [-2,2]^5 judged by the two triangle walks — exactly 75 pass
+PASS V11 · brute-force column search over [-6,6]^3 agrees with the walk verdict on every one of the 3125
+PASS V12 · triangle census: 343 tables on [-3,3]^3, exactly 37 with loop total 0, each of the 37 verified against its own BFS column
+PASS V13 · K4 star tree: BFS column (0,3,-1,2); all six entries equal the column demands
+PASS V14 · the seven cycles of K4 as signed arrow-multisets: (0,0,0,0,0,0,0)
+PASS V15 · doctored CD = 4: totals (0,0,+1,+1,+1,0,-1); demand 3 against 4 leaves mismatch -1; the cycle A-C-D-A totals +1
+PASS V16 · assembly: BCD = F1-F2+F3, ABCD = F1+F3, ACBDA = -F1+F2, ABDCA = F2-F3 — holds on 40 deterministic tables; the page example (0,0,1) gives (1,1,0,-1)
+PASS V17 · single-entry repair census of the doctored table, deltas to +-8 on any entry: exactly one repair, CD-1
+PASS V18 · tilts: AC to -2 kills ACD but wakes ABC to +1; AD to +3 kills ACD but wakes ABD to -1
+PASS V19 · Ex1: the three one-entry repairs of (+3,-1,+5) are AB to -4, BC to -8, CA to -2; the column (0,3,2) manufactures the repaired table
+PASS V20 · E-V+1 by census on the edge lists: tree 0, triangle 1, square+shortcut 2, K4 3
+PASS V21 · every closed walk of length 10 from S on the six-town tree totals 0 under the rise table and under a second arbitrary table — 197 walks, none escaping
+PASS V22 · leaf-strip: each removal deletes exactly one road; five removals take all five roads and leave the last town bare
+PASS V23 · Fig B10.1 arrowheads by rotation matrices, tip 0.56, R 8.2, half-angle 25 degrees: all three page polygons reproduced to the printed digit
+PASS V24 · Fig B10.1 labels: the three +1s at 14 off the midpoints along the 90-degree rotation; the loop label at centroid-y minus 4; town labels and strip at the page positions
+PASS V25 · Fig B10.2: corner towns; A,B labelled 12 above and C,D 22 below; +4/-9/+7/-2 at the side midpoints with the page offsets; -6 at the shortcut midpoint plus (0.6,16.5); the red totals +1 and -1 are the two failing triangles
+PASS V26 · Fig B10.3: star lines out of A and blue exams B-C/B-D/C-D at the town coordinates; town labels with the page offsets; six value labels at 13 (10 on BC) off the midpoints along the 90-degree rotation; the star labels are the table entries and E-V+1 = 3
+REJECTED I01 · poisoned: the lecture-0 triangle (+1,+1,-2) has loop total +3
+REJECTED I02 · poisoned: the triangle (+1,+1,+1) has loop total 0
+REJECTED I03 · poisoned: the big square test fails on (4,-9,+7,-2)
+REJECTED I04 · poisoned: the low triangle through B totals -1
+REJECTED I05 · poisoned: the square accumulates to the column (0,4,-5,3)
+REJECTED I06 · poisoned: the shortcut mismatch is -1
+REJECTED I07 · poisoned: the repair leaves the shortcut at -6
+REJECTED I08 · poisoned: the 3(a) mismatch is +3
+REJECTED I09 · poisoned: the square census admits 74 tables
+REJECTED I10 · poisoned: the two trees accumulate to different columns
+REJECTED I11 · poisoned: the K4 star column is (0,3,-1,1)
+REJECTED I12 · poisoned: the doctored mismatch is +1
+REJECTED I13 · poisoned: the single-entry census finds two repairs
+REJECTED I14 · poisoned: tilting AC to -2 wakes ABD
+REJECTED I15 · poisoned: K4 has E-V+1 = 4 examinations
+REJECTED I16 · poisoned: some closed walk of length 10 on the tree nets nonzero
+b10-review-verifier: 26 fresh checks PASS, 16 poisoned injections REJECTED — 42/42, the page stands
