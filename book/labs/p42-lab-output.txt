@@ -1,0 +1,191 @@
+A01 PASS | 20 shelves each in (1/2, 1]: 1.0000 0.8333 0.7595 0.7254 0.7090 0.7010 0.6971 0.6951 0.6941 0.6936 0.6934 0.6933 0.6932 0.6932 0.6932 0.6932 0.6932 0.6931 0.6931 0.6931
+A02 PASS | shelves strictly decreasing: S_1 = 0.8333 < S_0 = 1, S_19 = 0.693148
+A03 PASS | shelf 19 within 1e-5 of ln 2: 0.6931477 vs 0.6931472
+A04 PASS | walls k/2 + 1/2^k <= H(2^k) <= k + 1/2^k for k = 0..20 (k shelves + the leftover term); H(2^20) = 14.4402
+A05 PASS | H(2^20) = 20 ln 2 + gamma + 1/(2*2^20) to 1e-6: 14.440160 vs 14.440159
+A06 PASS | H(10^6) = 14.3927 (the machine-friend receipt 14.3927)
+A07 PASS | exact shelves: 1, 5/6, 319/420, 52279/72072, 7313175618421/10314539492400
+A08 PASS | exact fractions equal the float shelves to 1e-12
+A09 PASS | poison audit: no shelf >= 1 from j = 1 on (S_1 = 5/6), no shelf <= 1/2 ever (S_2 = 0.7595 > 1/2)
+A10 PASS | per-octave growth H(2^(j+1)) - H(2^j) each in [1/2, 1): j = 0 reads exactly 0.5, j = 19 reads 0.693147
+A11 PASS | the walls at a million: 10 <= H(2^20) = 14.4402 <= 20
+GROUP A: 11 pass, 0 fail
+B01 PASS | sum 1/(n ln n) n=2..2^20 = 3.4239 — under 3.5 after a million terms, glacial divergence
+B02 PASS | log shelves inside walls: block_1 = 1.0248 in [0.3607, 1.4427]
+B03 PASS | lower-wall story-sum climbs to 1.8739 at j = 19 — unbounded, certified by walls alone
+B04 PASS | sum 1/(n ln^2 n) n=2..2^20 = 2.0376 — convergent, total near 2.11
+B05 PASS | shelf story of the convergent cousin: block_j <= (1/(j ln 2))^2, a 1/j^2 story — summable
+B06 PASS | blocks of 1/n^p geometric with ratio 2^-(p-1): p=2: ratio 0.5000 vs 2^-(p-1) = 0.5000; p=1.5: ratio 0.7071 vs 2^-(p-1) = 0.7071; p=1.01: ratio 0.9931 vs 2^-(p-1) = 0.9931
+B07 PASS | p = 1.01: machine partial to 2^20 = 13.52 inside walls [9.27, 18.67]; geometric story total 144.8 gives walls [71.6, 144.3] around borrowed zeta(1.01) ~ 100.58
+GROUP B: 7 pass, 0 fail
+C01 PASS | alternating harmonic to 2^20 = 0.693147 vs ln 2 = 0.693147
+C02 PASS | Leibniz bracket: odd partials above ln 2, even partials below, through n = 64
+C03 PASS | the condensed shadow: 2^j |a_2^j| = 1 at every shelf j = 0..19, partial = 20 and climbing by 1 per octave — the shelf machine fed signed terms lies
+C04 PASS | signed block [4,8) = 0.0738 < 1/2 while its absolute version = 0.7595 > 1/2 — the shelf obligation is a size statement, broken by signs
+C05 PASS | bracket steps shrink exactly as 1/n — the instrument that handles signs is the bracket, not the shelf
+GROUP C: 5 pass, 0 fail
+D01 PASS | orthonormal census: 64 dot products = 8 ones + 56 zeros
+D02 PASS | integer census: scaled rows have entries +-1, HH^T = diag(8,8,4,4,2,2,2,2)
+D03 PASS | ramp dials: [12.7279, -5.6569, -2.0000, -2.0000, -0.7071, -0.7071, -0.7071, -0.7071] = [36/sqrt8, -16/sqrt8, -2, -2, -1/sqrt2 x4]
+D04 PASS | ramp Parseval: 204 = 204.000000; energy ladder per shelf: 161.99999999999994 + 31.999999999999993 + 8 + 2
+D05 PASS | ramp energy quarters per octave: 32/8 = 4 and 8/2 = 4 — the smooth story, geometric decay
+D06 PASS | spike dials: [35.3553, -35.3553, 0.0000, 50.0000, 0.0000, 0.0000, 70.7107, 0.0000] = [100/sqrt8, -100/sqrt8, 0, 50, 0, 0, -100/sqrt2, 0]
+D07 PASS | spike Parseval: 10000 = 1249.9999999999995 + 1249.9999999999995 + 2500 + 4999.999999999998 = 10000.000000
+D08 PASS | spike detail energy doubles per octave: 2500/1250 = 2 and 5000/2500 = 2 — the rough story
+D09 PASS | the dial signs read the spike address: right half, first pair of it, positive lobe -> position 4 = binary 100
+D10 PASS | round trips exact for all three signals (transform + inverse to 1e-9)
+D11 PASS | signal (3,1,4,1,5,9,2,6) dials: [10.9602, -4.5962, -0.5000, 3.0000, 1.4142, 2.1213, -2.8284, -2.8284]
+D12 PASS | exercise Parseval: 173 = 173.000000
+D13 PASS | the spike reads exactly 2x louder in its own eighth than in the room: |70.7107 / 35.3553| = 2
+D14 PASS | integer ramp census: [36, -16, -4, -4, -1, -1, -1, -1.0000000000000007] — the rack before normalization is pure counting
+GROUP D: 14 pass, 0 fail
+E01 PASS | q = 2 walls at 2^20: [10.00, 20.00] contain H = 14.4402 (21 shelves incl. the leftover, the classic factor-2 gap)
+E02 PASS | q = 3/2 walls: [11.29, 17.30] contain H (33 shelves)
+E03 PASS | q = 9/8 walls: [12.81, 15.13] contain H (104 shelves)
+E04 PASS | q = 17/16 walls: [13.13, 14.77] contain H (192 shelves)
+E05 PASS | wall widths shrink with q: 10.00 -> 6.01 -> 2.32 -> 1.64
+E06 PASS | the lower walls stay below ln(2^20) = 13.8629 (best so far 13.13): the ladder closes onto ln N, never onto H
+E07 PASS | the residue: H - ln(2^20) = 0.577216 vs gamma = 0.577216 — the wall the shelf method cannot close
+E08 PASS | integral walls [13.8629, 14.8629] contain H; the q = 17/16 walls [13.13, 14.77] close toward them — the integral test is the q -> 1 limit of the shelf ladder
+GROUP E: 8 pass, 0 fail
+F01 PASS | h2 count = 8 (expect 8)
+F02 PASS | h3 count = 11 (expect 11)
+F03 PASS | details = 9, Hint = 4, Worked = 5 (Ex4 moon-free by design)
+F04 PASS | svg = 3
+F05 PASS | figures = 3, figcaption open+close = 6
+F06 PASS | pattern-box boxes = 3, div open/close balance 4/4
+F07 PASS | warn-box = 1, onramp = 1
+F08 PASS | pid lines = 3
+F09 PASS | moons line exactly once
+F10 PASS | zero dollar signs
+F11 PASS | zero backticks
+F12 PASS | inline TeX 466/466 balanced (>= 400 each)
+F13 PASS | display TeX 7/7 balanced (6 body + 1 config)
+F14 PASS | needle "sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxx..." count 1
+F15 PASS | needle "mathjax@3.2.2" count 1
+F16 PASS | needle "<title>P42 · Dyadic decomposition · The ..." count 1
+F17 PASS | needle "P42 · the fifth move of tier 4" count 1
+F18 PASS | needle "<h1>Dyadic decomposition</h1>" count 1
+F19 PASS | needle "href=\"p43-flow-with-surgery.html\">P43 · ..." count 1
+F20 PASS | needle "href=\"p24-waves.html\">P24 · Waves</a>" count 1
+F21 PASS | href whitelist exact: index 2, style 1, p15 4, p16 2, p24 3, p25 3, p43 1
+F22 PASS | doors P52/P56 named as text only, no forward hrefs to unpublished pages
+F23 PASS | tail closes cleanly: "</body>\n</html>\n"
+F24 PASS | needle "14.4402" count 5 (need >= 5)
+F25 PASS | needle "14.3927" count 3
+F26 PASS | needle "0.693147" count 4
+F27 PASS | needle "21.3" count 1
+F28 PASS | needle "3.4239" count 4
+F29 PASS | needle "2.0376" count 4
+F30 PASS | needle "2.11" count 3
+F31 PASS | needle "1.0248" count 1
+F32 PASS | needle "0.3607" count 1
+F33 PASS | needle "1.4427" count 1
+F34 PASS | needle "0.9931" count 3
+F35 PASS | needle "13.52" count 2
+F36 PASS | needle "9.27" count 2
+F37 PASS | needle "18.67" count 2
+F38 PASS | needle "100.58" count 3
+F39 PASS | needle "71.6" count 2
+F40 PASS | needle "144.3" count 2
+F41 PASS | needle "12.7279" count 1
+F42 PASS | needle "5.6569" count 1
+F43 PASS | needle "70.7107" count 2
+F44 PASS | needle "35.3553" count 2
+F45 PASS | needle "204" count 2 (need >= 2)
+F46 PASS | needle "10000" count 1
+F47 PASS | needle "1250" count 2
+F48 PASS | needle "2500" count 1
+F49 PASS | needle "5000" count 3
+F50 PASS | needle "52279" count 3
+F51 PASS | needle "72072" count 3
+F52 PASS | needle "0.577216" count 2
+F53 PASS | needle "13.8629" count 2
+F54 PASS | needle "11.29" count 3
+F55 PASS | needle "17.30" count 3
+F56 PASS | needle "12.81" count 2
+F57 PASS | needle "15.13" count 2
+F58 PASS | needle "13.13" count 2
+F59 PASS | needle "14.77" count 2
+F60 PASS | needle "6.01" count 1
+F61 PASS | needle "2.32" count 1
+F62 PASS | needle "1.64" count 1
+F63 PASS | needle "10.00" count 4
+F64 PASS | needle "20.0000" count 1
+F65 PASS | needle "173" count 3 (need >= 2)
+F66 PASS | needle "10.9602" count 2
+F67 PASS | needle "4.5962" count 2
+F68 PASS | needle "2.1213" count 2
+F69 PASS | needle "2.8284" count 4
+F70 PASS | needle "1.4142" count 2
+F71 PASS | content scope: zero build/session tokens
+F72 PASS | needle "<strong>Scope, honestly.</strong>" count 1
+F73 PASS | needle "id=\"box-p42\"" count 1
+F74 PASS | needle "id=\"box-p42a\"" count 1
+F75 PASS | needle "id=\"box-p42b\"" count 1
+F76 PASS | needle "id=\"scope-honestly\"" count 1
+F77 PASS | needle "Fig P42.1 ·" count 1
+F78 PASS | needle "Fig P42.2 ·" count 1
+F79 PASS | needle "Fig P42.3 ·" count 1
+GROUP F: 79 pass, 0 fail
+G01 PASS | Fig P42.1: all five bar rects verbatim at machine coordinates, y = 270-(v-0.4)*380 verified
+G02 PASS | Fig P42.1: shelf 0 bar rect verbatim (y 42, height 228)
+G03 PASS | Fig P42.1: walls dashed at y=42 (v=1) and y=232 (v=1/2), ln 2 line at y=158.6
+G04 PASS | Fig P42.1 recompute: y(1/2) = 232.0, y(ln 2) = 158.6
+G05 PASS | Fig P42.2: eight leaf tops at 280-22k: 258..104
+G06 PASS | Fig P42.2: tree x recompute: pairs 114,250,386,522, quarters 182,454, root 318
+G07 PASS | Fig P42.2: averages 1.5, 3.5, 5.5, 7.5, 2.5, 6.5, 4.5 each once (root = (2.5+6.5)/2 = 4.5)
+G08 PASS | Fig P42.2: integer split dials −1 x4, −4 x2, −16 x1
+G09 PASS | Fig P42.2 recompute: avgs 1.5,3.5,5.5,7.5 / 2.5,6.5 / 4.5, integer splits -1,-1,-1,-1,-4,-4,-16 = the D14 census
+G10 PASS | Fig P42.3: harmonic path verbatim from recompute (9 points, ends  L614.0,34.5)
+G11 PASS | Fig P42.3 recompute: y(H(2^20)) = 34.52 (page path ends y=34.5)
+G12 PASS | Fig P42.3: log path ends 614.0,221.8 and loglog ends 614.0,245.4 (recomputed 221.8 and 245.4)
+G13 PASS | Fig P42.3: axis ticks 2^4..2^20 once each
+G14 PASS | three aria-labels, one per figure
+G15 PASS | Fig P42.1: two dashed wall lines (dasharray 6,4 x2)
+GROUP G: 15 pass, 0 fail
+H01 PASS | lineage needle "Questiones super geometriam Euclidis"
+H02 PASS | lineage needle "1350"
+H03 PASS | lineage needle "Novæ quadraturæ arithmeticæ"
+H04 PASS | lineage needle "1650"
+H05 PASS | lineage needle "Tractatus de seriebus infinitis"
+H06 PASS | lineage needle "1689"
+H07 PASS | lineage needle "Johann"
+H08 PASS | lineage needle "Cours d'analyse"
+H09 PASS | lineage needle "1821"
+H10 PASS | lineage needle "condensation test"
+H11 PASS | lineage needle "Mathematische Annalen"
+H12 PASS | lineage needle "1910"
+H13 PASS | lineage needle "1923"
+H14 PASS | lineage needle "1931"
+H15 PASS | lineage needle "1938"
+H16 PASS | lineage needle "Proceedings of the London Mathematical Society"
+H17 PASS | lineage needle "Marcinkiewicz"
+H18 PASS | lineage needle "Zygmund"
+H19 PASS | lineage needle "1934"
+H20 PASS | lineage needle "Acta Mathematica"
+H21 PASS | lineage needle "1952"
+H22 PASS | lineage needle "1953"
+H23 PASS | lineage needle "Stochastic Processes"
+H24 PASS | lineage needle "1972"
+H25 PASS | lineage needle "129"
+H26 PASS | wrong-year absences: no 1647/1911/1954/1973
+H27 PASS | lineage needle "Oresme"
+H28 PASS | lineage needle "Mengoli"
+H29 PASS | lineage needle "Cauchy"
+H30 PASS | lineage needle "Haar"
+H31 PASS | lineage needle "Walsh"
+H32 PASS | lineage needle "Whitney"
+H33 PASS | lineage needle "Calderón"
+H34 PASS | lineage needle "Doob"
+H35 PASS | lineage needle "Fefferman"
+H36 PASS | lineage needle "higher dimensions by Stein"
+GROUP H: 36 pass, 0 fail
+
+LAB OUTPUT NOTE — 2026-10-31 (S73): the 175 lines above were produced against the page frozen at
+md5 90078451006cb03a514b1ca9a1834fc8 (67,159 chars). A style-audit correction (Exercise 1's worked
+answer: shelf 4's reduced denominator has fourteen digits, not twelve — a stale instance of a
+pre-freeze error; true denominator 10314539492400, 14 digits, receipt A07) re-froze the page at md5
+a941c5b3ca4a8e08dc8548ab0485f4f1 (67,161 chars). The lab was re-run against the corrected page:
+175/175 PASS, 0 fails — no check touches the corrected sentence, and all group outputs are identical
+to the lines above.
