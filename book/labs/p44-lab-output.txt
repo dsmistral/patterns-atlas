@@ -1,0 +1,115 @@
+p44-lab — machine receipts for P44, Formal verification (S71)
+page: book/p44-formal-verification.html — 67360 B / 299 lines / 66738 units
+engines: fresh arithmetic kernel, bounded closure, funnel, propositional kernel, closure, limbs — no constants borrowed
+A01 PASS — canon(2,2) reproduces the page certificate line by line, equations and justifications
+A02 PASS — kernel ACCEPTs the 7-line certificate in 7 reads
+A03 PASS — final line certifies (SS0+SS0)=SSSS0 exactly
+A04 PASS — doctored twin dies at line 5: A2 instance mismatch
+A05 PASS — poison 1: line 1 right side is not t
+A06 PASS — poison 2: line 4 cites 1 and 3, middles differ
+A07 PASS — poison 3: line 7 writes SSSSS0, conclusion mismatch
+A08 PASS — poison 4: line 7 cites line 9, never accepted
+A09 PASS — poison 5: line 3 claims S on line 1 but wraps the wrong side
+A10 PASS — single A1 line accepted
+A11 PASS — single A2 line accepted
+A12 PASS — canon(2,3) 10-line certificate ACCEPT, final line exact (2+3=5)
+A13 PASS — doctored 2+3 twin dies at line 8: A2 instance mismatch
+A14 PASS — canon(1,3) 10-line certificate ACCEPT, final line exact (1+3=4)
+A15 PASS — unknown justification refused by name
+A16 PASS — a line citing itself is an unaccepted citation
+A17 PASS — parser: swrap, bare numeral, parenthesized sum
+A18 PASS — parser refuses unparenthesized sums and malformed strings
+B01 PASS — census world: 5 x 5 x 9 = 225 well-formed equations (a+b)=c
+B02 PASS — exactly 25 true sums among the 225 (one true c per (a,b))
+B03 PASS — all 25 canonical certificates kernel-ACCEPTed, each ending in its own true sum
+B04 PASS — certificate length is 3b+1 for every sum (7 for 2+2, 10 for 2+3 and 1+3, 13 for 4+4)
+B05 PASS — A2-step count (dependency depth) equals the second addend b for every sum
+B06 PASS — bounded closure meets the world in exactly the 25 true sums, zero falsehoods
+B07 PASS — (SS0+SS0)=SSSSS0 (2+2=5) is in the world and absent from the closure
+B08 PASS — the world holds 200 false equations, none provable
+B09 PASS — the biggest sum 4+4=8: 13 lines, ACCEPT
+B10 PASS — bounded closure size over terms of value <= 10: 1287 equations (fixpoint reached)
+C01 PASS — A1 instances in the small world: 5 (one per addend t <= 4)
+C02 PASS — A2 instances: 20 (t <= 4, successor count 1..4)
+C03 PASS — funnel candidates per position: 25 + (k-1) S-apps + (k-1)(k-2) T-apps
+C04 PASS — product = 80,144,545,000, exact in float64
+C05 PASS — product below 2^53: exact integer arithmetic, no BigInt needed
+C06 PASS — log10(product) = 10.904 (the page receipt ~ 8.0 x 10^10)
+C07 PASS — asymmetry: > 10^9 candidate certificates per kernel read
+D01 PASS — all five certificate lines are well-formed
+D02 PASS — malformed strings refused by the worklist validator
+D03 PASS — line 1 is an A1 instance at a = p, b = (p>p)
+D04 PASS — line 2 is an A2 instance at a = p, b = (p>p), c = p
+D05 PASS — line 4 is an A1 instance at a = b = p
+D06 PASS — MP(2,1): line 2 is (line 1) -> (line 3)
+D07 PASS — MP(3,4): line 3 is (line 4) -> (line 5)
+D08 PASS — kernel ACCEPTs the 5-line p -> p certificate in 5 reads
+D09 PASS — poison: MP(2,4) dies at line 5, minor premise is not the antecedent
+D10 PASS — poison: wrong conclusion dies at line 5, MP conclusion mismatch
+D11 PASS — poison: citing line 6 dies, unaccepted citation
+D12 PASS — poison: ((p>p)>p) claimed as A1 dies at line 1
+E01 PASS — depth-<=1 pool: 3 atoms + 9 implications = 12
+E02 PASS — depth-<=2 pool: 12 + 144 = 156
+E03 PASS — axiom instances over the depth-<=1 pool: 1,872 distinct seeds (144 A1 + 1,728 A2)
+E04 PASS — subformula universe of the seeds: 5,115 formulas (finite, so the closure is decidable)
+E05 PASS — MP closure of the seeds: 2,082 provable formulas
+E06 PASS — closure contained in the subformula universe (every MP result is a subformula)
+E07 PASS — audit: all 2,082 closure formulas are tautologies, zero exceptions (soundness witnessed)
+E08 PASS — truth table over the 156: exactly 54 tautologies
+E09 PASS — the 54 by kind: 21 atomic-antecedent (incl. the 3 reflexives), 9 reflexive-antecedent, 24 mixed
+E10 PASS — Peirce byte: 255, all eight rows true (a tautology)
+E11 PASS — Peirce not among the seeds
+E12 PASS — Peirce absent from the MP closure (the bounded unprovability witness)
+E13 PASS — Peirce absent even from the subformula universe (absence is structural, not a search bound)
+E14 PASS — all five certificate lines are themselves in the closure (the certificate is real)
+E15 PASS — every pool member the closure reaches is a tautology (closure vs truth table agree)
+E16 PASS — cross-engine audit: byte method vs row-by-row method agree on the first 20 pool formulas
+F01 PASS — funnel candidates: 1,872 axiom instances + (k-1)^2 MP pairs per position
+F02 PASS — limb product (base 10^7): 23,359,698,942,547,968 (past 2^53, no BigInt)
+F03 PASS — product ~ 2.34 x 10^16 (the page receipt)
+F04 PASS — product divisible by 2^11 (1872, 1876, 1888 contribute 2^4, 2^2, 2^5)
+F05 PASS — log10(product) = 16.368
+F06 PASS — asymmetry: > 10^15 candidate certificates per kernel read
+G01 PASS — odd-order formalization: 2006 to 2012, six years
+G02 PASS — the move is fifty-nine years old (Automath 1967 to the 2026 soundness fire)
+G03 PASS — four-color: 29 years from the 1976 census to the 2005 certificate
+G04 PASS — Automath 1967 to Landau machine-checked 1976: nine years to the first book
+G05 PASS — LCF 1972 to Mizar 1973: the year the lineage branched
+G06 PASS — odd-order 2012 to Flyspeck complete 2014
+G07 PASS — liquid tensor: challenge December 2020, complete July 2022, eighteen months inside two years
+G08 PASS — six years times fifteen people: ninety person-years for the odd-order certificate
+G09 PASS — odd-order certificate: 4,000 definitions + 13,000 lemmas = 17,000 named objects
+G10 PASS — de Bruijn-style density: ~150,000 formal lines for 255 journal pages is 588 lines per page
+G11 PASS — seeds: 144 A1 instances + 1,728 A2 instances = 1,872
+G12 PASS — world arithmetic: 225, 156, 12, and 8 truth rows
+H01 PASS — eight numbered sections
+H02 PASS — eleven h3: three examples, three exhibits, five exercises
+H03 PASS — nine details (the ◆ diagnosis exercise ships no hint, by design)
+H04 PASS — four hints
+H05 PASS — five worked answers
+H06 PASS — three figures, each an svg with caption
+H07 PASS — three pattern boxes, one warn box, three pid lines
+H08 PASS — the difficulty moons line, exactly once
+H09 PASS — inline TeX delimiters balanced: 261 pairs
+H10 PASS — display TeX balanced: 3 pairs
+H11 PASS — zero dollar signs, zero backticks
+H12 PASS — the funnel product receipt, TeX form, exactly once
+H13 PASS — the propositional funnel receipt, exactly once
+H14 PASS — the closure receipt 2,082 appears exactly eleven times
+H15 PASS — the seed receipt 1,872 appears at least three times
+H16 PASS — the tautology census 54 present, the wrong 66 absent
+H17 PASS — the census world receipt 225, exactly once
+H18 PASS — lineage years all present: 1967 1972 1973 1976 1984 1986 2005 2009 2012 2013 2014 2017 2020 2022 2026
+H19 PASS — the odd-order receipts: 255 pages, 150,000 lines, six years
+H20 PASS — footer next-link P45 and atlas-home P36
+H21 PASS — MathJax pinned 3.2.2 with its integrity hash
+H22 PASS — the page ends </footer></body></html> with a trailing newline
+H23 PASS — every href in the whitelist of eight valid targets
+H24 PASS — kicker and title exact
+H25 PASS — de Bruijn named: the criterion, the factor, the man
+H26 PASS — Peirce load-bearing: census, boundary, exhibit, exercise
+H27 PASS — 2+2=5 written in certificates, dead on arrival
+H28 PASS — Peirce honestly placed outside the pool
+H29 PASS — the unaccepted-citation refusal in kernel and exercises
+H30 PASS — Gonthier receipt quoted exactly twice
+TOTAL: 111/111 PASS
