@@ -70,3 +70,32 @@ V7 Cole product base-1e4 route: 147573952589676412927 | matches published: true
 V8 40^2+40+41 = 1681 = 41^2: true
   injection CAUGHT: claim 40^2+40+41 is not 41^2
 VERDICT injections caught = 11, missed = 0 — ALL CAUGHT
+==============================================================================
+P03 PIECES 6-9 (S77 extension run) — 2026-10-31
+6a a=0: true I(0) = int_0^1 x dx = 1/2 | candidate (1/2)ln(1) = 0 -> kill: true
+6b midpoint 2e6 vs ln(1+a)/(2a): a=0.5: quad=0.4054651081 repair=0.4054651081 | a=1: quad=0.3465735903 repair=0.3465735903 | a=2: quad=0.2746530722 repair=0.2746530722 | a=10: quad=0.1198947636 repair=0.1198947636 | a=100: quad=0.0230756026 repair=0.0230756026 | worst |err| = 1.552e-14 (< 1e-9: true )
+6c I(a) strictly decreasing on (0, 6]: true
+6d a->0+: rep(1e-9) = 0.50000004 -> 1/2: true | a->inf: rep(1e12) = 1.382e-11 -> 0: true | candidate(1e12) = 13.8155 (grows without bound)
+6e a=1 blind spot: candidate = 0.34657359 | repair = 0.34657359 | exactly equal: true (= ln2/2 = 0.34657359 ) — a test at a=1 certifies the wrong answer
+7a n=1..5 all coprime: n=1: (4,7)->1 | n=2: (7,12)->1 | n=3: (12,19)->1 | n=4: (19,28)->1 | n=5: (28,39)->1
+7b 4(n^2+3)-(2n-1)(2n+1)=13, n=1..200 mismatches = 0
+7c kills in 1..100: 6(gcd 13), 19(gcd 13), 32(gcd 13), 45(gcd 13), 58(gcd 13), 71(gcd 13), 84(gcd 13), 97(gcd 13) | every kill gcd 13 and n = 6 mod 13: true
+7d n=6: n^2+3 = 39 = 3*13 = 39 | (n+1)^2+3 = 52 = 4*13 = 52 | gcd(39,52) = 13
+8a integers -10..10 all pass 2^(x^2) >= 2^x: true
+8b x=1/2: 2^(1/4) = 1.189207 < 2^(1/2) = 1.414214 -> fails: true
+8c grid (0,1) at k/100: passes 0 of 99 -> fails everywhere inside: true
+8d grid outside the open interval (0,1) ([-3,0] and [1,3] at 0.01): passes 502 of 502 -> passes everywhere outside: true
+8e 2^(x^2)>=2^x <=> x^2>=x on the 1001-point grid: true (base 2 > 1) -> true exactly off the open interval (0,1)
+9a a=b=1: true h = 0.707107 (= 1/sqrt(2) = 0.707107) | candidate = 0.5 -> dead: true
+9b candidate strictly below true h on the 12x12 grid (a+b > sqrt(a^2+b^2)): 144/144
+9c (a,b)=(3,4): intercept-form distance = 2.4 | area-relation h = 2.4 | both = 12/5 = 2.4: true | candidate = 12/7 = 1.7143
+9d b->inf: true h -> 3 (|h-3| = 0.00e+0) | candidate -> 3.000000 -> both pass the limit check; only the aimed case a=b=1 separates them
+Honest run history: piece 8d run 1 asserted an expected grid total of 401
+against a 402-point scan and its label said [-3,0] while the loop scanned
+[-3,-1]; the page's numbers were right, the check was wrong — fixed and
+re-run clean (the 502-point grid [-3,0] and [1,3], all passing). Pieces
+0-5 re-run byte-identical against their recorded values at the head of
+this file (15 recorded value needles re-checked, all present). Run by the
+S77 harness, which strips the artifact's TypeScript annotations textually
+at run time; the repo artifact keeps them. Constraints honored: split
+pieces, no recursion, no BigInt in the value path, deterministic.
