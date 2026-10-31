@@ -1,0 +1,147 @@
+p66-lab-output.txt — verdicts of the P66 lab battery (S60)
+Engine: deterministic JavaScript (float64), explicit stacks, no recursion,
+no BigInt. Pieces were executed in the session sandbox via the Function
+constructor (the sandbox has no eval), with the page text passed in as a
+parameter; this file is the verbatim record of the final runs.
+Lab source: book/labs/p66-lab.js (pieces A-F, exactly as run).
+Page under test: book/p66-induction.html, 74,027 bytes, FNV-1a fingerprint
+(UTF-16 code units) 0x046465e4 over 73,394 units — pinned by check F17.
+
+RUN HISTORY (honest):
+- Piece A (A1-A17): all seventeen passed on first run. A15's chain is capped
+  at 19 pairs so every norm-4 computation stays under 2^53 — exact integers
+  throughout; the last pair (87403803, 39088169) = (L_38, F_38) closes A17.
+- Piece B (B1-B9): both counting engines (broken-profile DP, first-empty-cell
+  DFS) agreed everywhere. One calling bug was found before any verdict was
+  accepted: the DFS engine takes (N, dr, dc), and an early four-argument
+  call put the defect off-board and produced false zeros — the engine itself
+  was never wrong. B8's constructive quad-split tilings (8x8, 16x16 corner
+  and interior, 32x32 corner and interior) passed the legality audit on
+  first run: 21/21, 85/85, 341/341 tiles — legal L-shapes, no overlap,
+  defect uncovered, full coverage.
+- Piece C (C1-C7): all seven passed on first run.
+- Piece D (D1-D9): two check bugs found and fixed before any verdict was
+  accepted (D5's two seed arrays; D6/D7's boundary arithmetic), and D9's
+  first dispatch went unseen and was re-run. Final: all nine PASS. D4-D7
+  confirm the page's float64 ceiling sentence exactly: a(35) =
+  3,901,330,906,652,795 < 2^53, and a(36) ~ 1.1082e16 > 1.2 x 2^53; D9
+  carries the recurrence against the same column DP run with mod-p entries
+  (all-linear, so exact mod p) to n=200 in two primes, agreeing everywhere.
+- Piece E (E1-E6): all six passed on first run.
+- Piece F1 (F1-F17): all seventeen passed. F17's FNV-1a fingerprint was
+  first disclosed, then pinned. THE ADVERSARIAL VERIFIER THEN CAUGHT A REAL
+  LAB DEFECT: F17's original hash multiplied in float64 past 2^53, so the
+  "fingerprint" it disclosed (0xd4d2f408) was a rounding artifact, not the
+  true FNV-1a. F17 was rebuilt on Math.imul (exact 32-bit multiply), the
+  true fingerprint 0x046465e4 was disclosed and pinned, and the entire
+  battery was re-run — the record above and below is that final run.
+- Piece F2 (FG1a-FG3e): one check bug found and fixed before any verdict
+  was accepted: the first number-scraper also captured the digits inside
+  SVG attribute names (x1, y1), producing false FAILs in FG1b, FG2b, FG2c.
+  Replaced with an explicit x1/y1/x2/y2 coordinate parser; all thirteen
+  then PASS on the unchanged page.
+
+PAGE DEFECTS FOUND: none. The P66 page shipped with zero defects — every
+numeric claim, table row, and figure coordinate survived the battery and
+the verifier. The only defect the session found was in the lab's own hash
+check, caught by the adversarial verifier and fixed before publishing.
+
+VERDICTS (final run, verbatim, 78 lines):
+
+PIECE A — identities, ladders, exhibits, Pell
+PASS A1 staircase k(k+1)/2 k=1..200
+PASS A2 sum-of-squares n(n+1)(2n+1)/6 k=1..200
+PASS A3 step identity 2k^2+7k+6=(k+2)(2k+3) k=0..100
+PASS A4 cube telescope T(k)^2-T(k-1)^2=k^3 k=1..200
+PASS A5 sum-of-cubes = (sum k)^2 k=1..100
+PASS A6 odd-sum = n^2 k=1..200
+PASS A7 Exhibit A values n=1..8 vs page table
+PASS A8 Exhibit A step row no,no,yes x6 — no,no,yes,yes,yes,yes,yes,yes
+PASS A9 2^n>n^2 exactly at n=1 and n>=5 (to 200)
+PASS A10 Exhibit C table values vs page — 1:1.0000 2:1.2500 3:1.3611 4:1.4236 5:1.4636 10:1.5498 100:1.6350
+PASS A11 loaded rung holds, slack >= toll, n<=1000
+PASS A12 Exhibit C base equality 1 = 2-1/1
+PASS A13 Pell seeds (3,1)..(123,55) norm 4 — 3^2-5*1^2=4 7^2-5*3^2=4 18^2-5*8^2=4 47^2-5*21^2=4 123^2-5*55^2=4
+PASS A14 Pell step identity, exact, s,y<=20 grid
+PASS A15 chain 19 pairs: parity, integrality, growth, norm — last:87403803,39088169
+PASS A16 chain matches seeds; 6th=(322,144) norm4
+PASS A17 chain = (L_2n, F_2n), B12 identity, n=1..10
+
+PIECE B — tromino counts and the constructive split
+PASS B1 base 2x2 minus one = 1 (both engines) — 1/1
+PASS B2 all sixteen 4x4 deficient boards = 1 (profile DP)
+PASS B3 same count, DFS engine
+PASS B4 8x8 minus corner = 30,355 (DP) — got 30355
+PASS B5 8x8 minus corner = 30,355 (DFS) — got 30355
+PASS B6 8x8 minus center (4,4) = 13,779 (DP) — got 13779
+PASS B7 8x8 minus center (4,4) = 13,779 (DFS) — got 13779
+PASS B8 constructive quad-split legal+covering, 5 boards incl. 32x32 — 8:ok tiles=21/21 | 16:ok tiles=85/85 | 32:ok tiles=341/341 | 16:ok tiles=85/85 | 32:ok tiles=341/341
+PASS B9 corner more than twice center (page's quotable number) — 30355 vs 2*13779=27558
+
+PIECE C — the units-digit wheel
+PASS C1 7^n mod 10 = cycle 7,9,3,1 for n=1..200
+PASS C2 7^4 = 2401
+PASS C3 7^n mod 100 = cycle 7,49,43,01 for n=1..200
+PASS C4 7^100 mod 10 = 1, 7^101 mod 10 = 7, 7^40 mod 100 = 1
+PASS C5 repeated-squaring engine agrees (mod 10 and mod 100)
+PASS C6 ladder rung 7^(4m) = 1 mod 10, m=1..50 (x2401 each step)
+PASS C7 7^(4m) = 1 mod 100, m=1..50 (the same fact, read in two bases)
+
+PIECE D — dominoes, exact and beyond float64
+PASS D1 2xn counts = F(n+1), n=1..30 (t(30)=1,346,269) — 1,2,3,5,8,13,21,34,55,89,144,233
+PASS D2 page's 2xn table n=1..12
+PASS D3 t(12)=233=t(11)+t(10) (Exhibit B's sampled witness)
+PASS D4 4xn exact to n=35, every count < 2^53 — a(35)=3901330906652795
+PASS D5 sequences: a(0..6)=1,1,5,11,36,95,281 and a(1..8)=P25's table
+PASS D6 four-term recurrence exact for n=4..35 — a(4)=11+25+1-1=36
+PASS D7 a(35)=3,901,330,906,652,795 < 2^53, and a(36) beyond with margin — 2^53=9,007,199,254,740,992; a(36)~1.1082e+16
+PASS D8 reachable masks = {0,3,6,9,12,15} — 0,3,6,9,12,15
+PASS D9 recurrence = DP in mod-prime arithmetic, n=1..200, primes 2^31-1 and 10^9+7 — both primes agree everywhere
+
+PIECE E — unique factorization and the stamp block
+PASS E1a never-makeable below 18 is exactly 1,2,3,5,6,9,10,13,17 (B04's census) — 1,2,3,5,6,9,10,13,17
+PASS E1b every amount 18..100 makeable; base block 18=(1,2),19=(3,1),20=(5,0),21=(0,3) in (4s,7s)
+PASS E2 84 = 2 · 2 · 3 · 7 by trial division, product exactly 84 — 2,2,3,7
+PASS E3 every divisor splice for n=2..120 yields the same prime multiset (the uniqueness ladder's splice step)
+PASS E4 Euclid's lemma census holds: p <= 31, x,y in 1..60, no exception
+PASS E5 7^12 ends in 1 — the wheel 7,9,3,1 witnessed twelve powers deep
+
+PIECE F1 — page-byte structural gates
+PASS F1 eight h2 with the exact P25-pattern titles
+PASS F2 nine h3
+PASS F3 eight section ids, in template order
+PASS F4 inline TeX 502 open / 502 close
+PASS F5 display TeX 6 / 6, zero dollars, zero backticks
+PASS F6 three pid lines
+PASS F7 three New-word definitions
+PASS F8 five digit tables
+PASS F9 three figures, fig-p66-1..3 once each
+PASS F10 ten details, summaries alternate Hint/Worked — Hint,Worked,Hint,Worked,Hint,Worked,Hint,Worked,Hint,Worked
+PASS F11 paragraph balance 78 open / 78 close
+PASS F12 exact tail bytes
+PASS F13 MathJax block byte-exact (tex-svg.js, integrity pinned)
+PASS F14 kicker names the ninth move of tier 2
+PASS F15 P74 next-link present five times (door + footer)
+PASS F16 page needles: 30,355 x2, 13,779 x2, a(35) digits x1, 2401 x4
+PASS F17 FNV-1a page fingerprint pinned, Math.imul exact (UTF-16 code units) — 0x046465e4 over 73394 units
+
+PIECE F2 — figure coordinates, re-derived
+PASS FG1a Fig P66.1 boards and lost cells drawn: 4x4 (30,20,160,160), lost (30,140,40,40); base 2x2 (228,60,80,80), lost (228,100,40,40)
+PASS FG1b dashed mid-cuts at x=110, y=100 — the board's exact center lines
+PASS FG1c center tromino: legal L in an 80x80 block, missing its bottom-left cell — bbox 70,60 to 150,140
+PASS FG1d base-case tromino: same L shape, missing cell = the drawn lost cell
+PASS FG1e the quad-split picture is honest: center tromino straddles both mid-cuts, missing cell in the lower-left quadrant, lost cell also lower-left
+PASS FG2a Fig P66.2 rungs: base (60,168), rung k (60,96), rung k+1 (60,24), stacked in order
+PASS FG2b solid step arrow from rung k to rung k+1, left of the rungs, never dashed
+PASS FG2c dashed never-checked segments fill exactly the two gaps between rungs
+PASS FG3a Fig P66.3 boards and dominoes: 2x5 board, 2x4 board, 1 vertical domino, 2 stacked horizontals
+PASS FG3b cell width 36 divides both boards (5 and 4 columns, 2 rows)
+PASS FG3c vertical domino sits in the last column and spans both rows
+PASS FG3d two horizontal dominoes stack in the last two columns, one per row, no overlap
+PASS FG3e dashed bijection seams: after column 5 on the left board, after column 2 on the right
+
+TOTAL: 78 checks, 78 PASS (A17 B9 C7 D9 E6 F17 FG13), 0 FAIL.
+Out of the lab's scope: §7's history dates (al-Karaji ~1000, al-Samaw'al
+~1150, Gersonides 1288-1344, Maurolico 1575, Pascal 1654/1665, De Morgan
+1838, Grassmann 1861, Dedekind 1888, Peano 1889, Golomb 1954, Polya 1954)
+are web-verified at close; sources are listed in records/page-logs/p66.md.
