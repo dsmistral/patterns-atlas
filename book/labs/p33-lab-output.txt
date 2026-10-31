@@ -1,0 +1,94 @@
+# p33-lab.js output — S67 run, fresh battery incl. 12 lineage date needles
+# run: new Function(content)() in sandbox; 88 checks
+
+PASS A01 surveyor triangle loop sum is +10
+PASS A02 edited table t_CA=-100 loops to 0
+PASS A03 altitude column predicts edited rises
+PASS A04 refused table sits off repairable plane
+PASS A05 edited table lies in repairable plane
+PASS A06 delta telescopes to 0 over 125 altitude columns
+PASS A07 dim H1 triangle 3-3+1 = 1
+PASS A08 dim H1 square 4-4+1 = 1
+PASS A09 dim H1 square+shortcut 4-5+1 = 2
+PASS A10 dim H1 K4 6-4+1 = 3
+PASS A11 dim H1 six-town tree 5-6+1 = 0
+PASS A12 dim H1 shared-vertex triangles 6-5+1 = 2
+PASS A13 dim H1 two islands 6-6+2 = 2
+PASS A14 census of 3125 shortcut tables: 75 pass
+PASS A15 census count is 3125 total
+PASS A16 exercise census: 7 of 27 glue
+PASS A17 exercise census: 20 of 27 refuse
+PASS A18 exercise census: classes are ±1 ±2 ±3
+PASS A19 bowtie triangle ABC sums to 0
+PASS A20 bowtie ABC altitudes (0,3,2) fit
+PASS A21 bowtie triangle CDE sums to +2
+PASS A22 bowtie has two classes 6-5+1
+PASS A23 K2 dim H1 = (n-1)(n-2)/2 = 0
+PASS A23 K3 dim H1 = (n-1)(n-2)/2 = 1
+PASS A23 K4 dim H1 = (n-1)(n-2)/2 = 3
+PASS A23 K5 dim H1 = (n-1)(n-2)/2 = 6
+PASS A23 K6 dim H1 = (n-1)(n-2)/2 = 10
+PASS A24 six-town tree: 2 locally-constant 0/1 assignments
+PASS A25 two islands: 4 locally-constant 0/1 assignments
+PASS A26 Euler echo dim H0 - dim H1 = V - E across family
+PASS B01 delta of shifts is overlap comparisons
+PASS B02 im delta inside plane sum=0 over 125 shifts
+PASS B03 ker delta = constants only over 125 shifts
+PASS B04 winding table (+1,+1,+1) has sum 3
+PASS B05 winding class off the repairable plane
+PASS B06 dim H1 = 3 - 2 = 1 by rank
+PASS B07 triple check reads 3 on the winding table
+PASS B08 filled triangle: all 125 plane tables repair
+PASS B09 class map additive over shifted pairs
+PASS B10 cover dim H0 = 1 component
+PASS C01 antiderivative of a+b cos+c sin
+PASS C02 lap of F equals 4*pi exactly for a=2
+PASS C03 4*pi receipt 12.5664 to 4 decimals
+PASS C04 Simpson integral = 4*pi within 1e-8
+PASS C05 a=0 antiderivative is periodic at 25 points
+PASS C06 a=0 obstruction integral vanishes
+PASS C07 a=2 lap advance is 4*pi not 0
+PASS C08 F' = 2+3cos+sin at 10 points
+PASS C09 integral of cos over full turn is 0
+PASS C10 lap depends only on a
+PASS D01 untwisted census over 27: 3 sections
+PASS D02 untwisted winners are (0,0,0),(1,1,1),(-1,-1,-1)
+PASS D03 twisted census over 27: 1 section only
+PASS D04 twisted winner is the zero assignment
+PASS D05 sign law holds over all 8 sign systems (4 each)
+PASS D06 product -1 forces g1 = -g1
+PASS D07 census total is 27 assignments
+PASS E01 big loop of shortcut table sums to 0
+PASS E02 low triangle reads +1
+PASS E03 high triangle reads -1
+PASS E04 triangle classes add to the big loop class
+PASS E05 shortcut graph carries 2 classes
+PASS E06 ex1 triangle class is +2
+PASS E07 ex1 square class is 0
+PASS E08 ex1 square altitude walk (0,2,5,1) fits
+PASS E09 delta-telescoping on the open 3-walk
+PASS G01 Kirchhoff states the loop law in 1845
+PASS G02 Kirchhoff publishes in 1847
+PASS G03 Poincare Analysis situs 1895
+PASS G04 de Rham thesis 1931
+PASS G05 Cech covers 1932
+PASS G06 Leray at Oflag XVII-A from 1940
+PASS G07 Leray sheaves published 1946
+PASS G08 Cartan seminar 1950-51 (start 1950)
+PASS G09 Serre FAC 1955
+PASS G10 Grothendieck Tohoku 1957
+PASS G11 Godement reference 1958
+PASS G12 lineage order is chronological
+PASS F01 surveyors triangle is a genuine triangle
+PASS F02 triangle base is horizontal (A,B same height)
+PASS F03 all six arc endpoints match page coordinates
+PASS F04 all six endpoints lie on the cover circle
+PASS F05 endpoint gaps alternate 40 and 80 degrees
+PASS F06 Mobius curve 1 midpoint is (150,90)
+PASS F07 Mobius curve 2 midpoint is (150,90)
+PASS F08 up-arrow at left end is vertical
+PASS F09 down-arrow at right end is vertical
+PASS F10 band end caps both span 60 units
+
+CHECKS: 88  PASS: 88  FAIL: 0
+LAB STATUS: ALL PASS
