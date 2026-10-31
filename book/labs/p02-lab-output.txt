@@ -72,3 +72,35 @@ V7 Simpson int x^4: 0.200000 vs 1/5 = 0.200000
 V8 chessboard 8x8 via 8*9*17/6: 204
   injection CAUGHT: claim chessboard squares = 200
 VERDICT injections caught = 10, missed = 0 — ALL CAUGHT
+==============================================================================
+S76 IMPROVEMENT PASS RUN NOTE (2026-10-31) — pieces 1–6 were re-run in full
+after the page adopted three audited fragments (the section-2 second look,
+Box P02.B's two extra readings, Exercise 6). All piece 1–6 values re-verified
+byte-identical to the recorded lines below (two console join spaces in the
+5d/5e lines differ cosmetically — the same numbers; the S03 recording had
+normalized " ," to ","). Piece 7 (below) is new and covers the adopted
+material. A separate adversarial review verifier (p02-review-verifier.js,
+zero shared code with this battery) was authored for the page in the same
+session; its record lives in p02-review-verifier-output.txt.
+==============================================================================
+P02 PIECE 7 (S76 improvement pass — adopted fragments) — 2026-10-31
+7a plane cousin, three routes (recurrence / Euler / static sort) n=0..60 mismatches = 0
+7a cousin table n=0..5 -> 1, 2, 4, 7, 11, 16 (the pancake's own table)
+7a static sort at n=10: C(10,2)+(10+1) = 56 | pancake(10) = 56
+7b units digits of 3^1..3^5 -> 3, 9, 7, 1, 3 | period-4 violations over n=1..56 = 0
+7b units digit of 3^2024 -> 1 (2024 = 4 x 506, the cycle's last seat)
+7b cube-sums n=1..5 -> 1, 9, 36, 100, 225 | squares of handshakes 1,3,6,10,15 -> 1, 9, 36, 100, 225 | equal: true
+7c corridor simulation: open lockers among 100 = 10 -> 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+7c divisor-count odd <=> perfect square, m=1..1000 mismatches = 0 | squares up to 1000 = 31
+7c first-ten table ->
+    locker 1: students 1 — 1 touch — open
+    locker 2: students 1, 2 — 2 touches — closed
+    locker 3: students 1, 3 — 2 touches — closed
+    locker 4: students 1, 2, 4 — 3 touches — open
+    locker 5: students 1, 5 — 2 touches — closed
+    locker 6: students 1, 2, 3, 6 — 4 touches — closed
+    locker 7: students 1, 7 — 2 touches — closed
+    locker 8: students 1, 2, 4, 8 — 4 touches — closed
+    locker 9: students 1, 3, 9 — 3 touches — open
+    locker 10: students 1, 2, 5, 10 — 4 touches — closed
+7c shrink-invariance: 10-locker corridor vs first ten of the 100, mismatches = 0
