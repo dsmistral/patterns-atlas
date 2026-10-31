@@ -1,0 +1,46 @@
+P03 — review verifier output (adversarial, zero shared code with the lab battery)
+Session S77, 2026-10-31. p03-review-verifier.js run against the page after
+the S75b improvement pass (the page's first adversarial review verifier).
+Axes of independence: Simpson quadrature (lab: midpoint), trapezoid on the
+linear boundary case, log1p and log-space comparisons (lab: direct log and
+Math.pow), subtraction-based Euclid and a residue-class route to the
+13-mechanism (lab: % gcd and the identity by value), parametric
+minimization of the squared distance on the segment (lab: closed form
+ab/sqrt(a^2+b^2)), exact-fraction and squared-magnitude comparisons (lab:
+floats and square roots), literal tables. Run history: run 1 verdict RED —
+V10's exact-fraction gap was assembled in reversed order (12*5 - 12*7 =
+-24/35 against the expected 24/35), a defect in the verifier's own check
+caught by its machine-counted verdict line; run 2 clean — numerics V01–V12,
+50 needles W01–W50 (two counted), 14 census fields, banned-token sweep, and
+12/12 poison clones rejected. Constraints honored: split pieces, no
+recursion, no BigInt in the value path, deterministic.
+==============================================================================
+V01 Simpson 20000 vs ln(1+a)/(2a), a in {0.5,1,2,10,100}: worst |err| = 8.882e-16 (< 1e-10: true)
+V02 I(0) by trapezoid (linear integrand, exact) = 0.5 (page: 1/2): true
+V03 I(a) strictly decreasing a=1..60 (Simpson vs Simpson): true
+V04 log1p route: I(1e-9) = 0.50000000 -> 1/2: true
+V05 subtraction-gcd kills in 1..100: 6, 19, 32, 45, 58, 71, 84, 97 | equals the expected residue list: true
+V06 residue route: (13k+6)^2+3 and (13k+7)^2+3 both 0 mod 13; no other kill residues in the sample: true
+V07 log-space: integers -10..10 pass: true | x=1/2 fails: true
+V08 (0,1) at k/128 fails: 127 of 127 -> everywhere inside: true
+V09 parametric min distance (3,0)-(0,4) from origin = 2.400000 (= 12/5 = 2.4): true
+V10 exact-fraction gap 12/5 - 12/7 = 24/35 = 0.685714 (nonzero: true)
+V11 squared-magnitude route: true h^2 = 0.5 candidate h^2 = 0.25 -> dead: true
+V12 Sophie at n=2: (2)(10) = 20 = 2^4+4 = 20 : true
+needles: 50 checked, failures: none
+census: all 14 match
+sweep: clean
+poison clones:
+  poison X01 (corrupts the section-2 concurrent table): REJECTED
+  poison X02 (corrupts the Mersenne kill): REJECTED
+  poison X03 (corrupts the Sophie Germain certificate): REJECTED
+  poison X04 (corrupts the exercise-5 kill): REJECTED
+  poison X05 (corrupts the new integral repair): REJECTED
+  poison X06 (corrupts the gcd mechanism constant): REJECTED
+  poison X07 (corrupts the kill's residue class): REJECTED
+  poison X08 (corrupts the coarse-grid kill value): REJECTED
+  poison X09 (removes the new example h3 — census must shift): REJECTED
+  poison X10 (corrupts the altitude spot check): REJECTED
+  poison X11 (unwraps the new hint — census must shift): REJECTED
+  poison X12 (injects a banned token): REJECTED
+VERDICT GREEN — numerics pass, page pass (needles + census + sweep), 12/12 poisons rejected
