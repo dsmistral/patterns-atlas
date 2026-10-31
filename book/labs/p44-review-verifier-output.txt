@@ -1,0 +1,46 @@
+p44-review-verifier — fresh adversarial verification for P44 (S71)
+independent engines: array-tree arithmetic kernel, worklist propositional engine, row-stack truth tables, prime-power and limb funnels
+V01 PASS — bytes 67360, units 66738, UTF-8 arithmetic exact
+V02 PASS — 299 lines, closes </html> + newline
+V03 PASS — eight h2
+V04 PASS — eleven h3
+V05 PASS — details 9, svg 3, pattern boxes 3, warn 1, pid 3
+V06 PASS — inline TeX 261/261
+V07 PASS — display TeX 3/3
+V08 PASS — no dollar signs, no backticks
+V09 PASS — pin, integrity, title, stylesheet
+V10 PASS — moons, footer next P45, home P36, kicker
+V11 PASS — independent 7-line derivation of (2+2)=4 accepted, justification sequence differs from the page
+V12 PASS — canonical certificates for all 25 sums accepted, length 3b+1, conclusions exact
+V13 PASS — soundness by evaluation: every line of every certificate is true in the standard model
+V14 PASS — tree closure meets the world in the 25 true sums, zero falsehoods, (2+2)=5 absent
+V15 PASS — world census: 225 equations, exactly 25 true, one true c per pair
+V16 PASS — funnel product rebuilt from prime factors in scrambled order: 80,144,545,000
+V17 PASS — log10 of the product = 10.904, magnitude 8.0 x 10^10
+V18 PASS — pools 12 and 156, seeds 144 A1 + 1,728 A2 = 1,872 distinct
+V19 PASS — subformula universe of the seeds: 5,115 formulas (finite, so bounded proofs are exhaustive)
+V20 PASS — modus ponens closure of the seeds: 2,082 formulas, all inside the universe
+V21 PASS — independent row-stack audit: all 2,082 closure formulas are tautologies
+V22 PASS — truth-table census over the 156 pool: exactly 54 tautologies
+V23 PASS — Peirce law: a tautology, absent from seeds, closure, and universe
+V24 PASS — p -> p certificate accepted by the tree kernel, every line inside the closure
+V25 PASS — limb funnel (base 10^4, scrambled order): 23,359,698,942,547,968 = 2.34 x 10^16, divisible by 2^11
+V26 PASS — the page certificate strings parse and pass the tree kernel (string engine and tree engine agree)
+V27 PASS — lineage arithmetic re-derived: six years, 59 years, 29 years, 90 person-years, 588 lines per page, 17,000 objects, names present
+V28 REJECTED — title corruption caught
+V29 REJECTED — MathJax version bump caught
+V30 REJECTED — dropped h2 caught
+V31 REJECTED — injected backtick caught
+V32 REJECTED — injected $ caught
+V33 REJECTED — moons corruption caught
+V34 REJECTED — doctored conclusion (2+2)=5 rejected at line 7
+V35 REJECTED — A1 forgery (2+2)=2 rejected at line 1
+V36 REJECTED — A2 claimed with c=0 rejected (that shape is A1 territory)
+V37 REJECTED — transitivity citing a future line rejected
+V38 REJECTED — propositional A1 forgery ((p>p)>p) rejected at line 1
+V39 REJECTED — modus ponens with swapped premises rejected at line 3
+V40 REJECTED — forged tautology census (55) rejected: the row-stack engine counts 54
+V41 REJECTED — claim that (p>q) is provable rejected: absent from the closure and not a tautology
+V42 REJECTED — funnel product with transposed digits rejected by the prime-factor route
+V43 REJECTED — claim that Peirce is provable from the seeds rejected: the closure witness says absent
+TOTAL: 43/43 PASS — 27 fresh checks, 16 injections rejected
