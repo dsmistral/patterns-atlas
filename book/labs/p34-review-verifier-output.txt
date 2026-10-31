@@ -1,0 +1,49 @@
+# p34-review-verifier.js output — S68 run, fresh engine, zero shared code with lab
+# run: new Function(content)() in sandbox; 26 fresh checks + 16 fault injections
+
+PASS V01 decodeFresh(7290000000) = 0=0
+PASS V02 encodeFresh of ')(' is 12
+PASS V03 decodeFresh(6750000) = arrow-neg-eq
+PASS V04 fresh string-number census 2..20000 = 190
+PASS V05 decodeFresh(2048) = x, decodeFresh(256) = S
+PASS V06 fresh terms length 5 = 14
+PASS V07 fresh formulas length 5 = 45
+PASS V08 fresh formulas length 6 = 109
+PASS V09 fresh formulas<=4 = 20 and list matches page
+PASS V10 fresh smallest formula number = 7290000000
+PASS V11 30030^3 = 27081081027000
+PASS V12 2*3*5*7*11*13*17^6 = 724851197070
+PASS V13 fresh pool = 81, axioms = 9
+PASS V14 fresh 2-line proofs = 81
+PASS V15 fresh 3-line proofs = 729
+PASS V16 fresh proofs of SS0=SS0 = 1,9,81
+PASS V17 fresh canonical chain R1-valid
+PASS V18 907 mod 9 = 7
+PASS V19 907 mod 17 = 6
+PASS V20 907 mod 25 = 7
+PASS V21 fresh (84,4) for (4,3,6)
+PASS V22 fresh census 0 survivors of 8
+PASS V23 fresh deaths 4/2/2
+PASS V24 fresh funnel bar L5 strings = 467
+PASS V25 Goedel 1931 codebook odd codes: 0->2, not->32, forall->512
+PASS V26 beta moduli 9,17,25 pairwise coprime (Goedel's own 1+(i+1)c shape)
+PASS V27 INJECT code(0=0)+1: rejected
+PASS V28 INJECT formulas length 5 = 49: rejected
+PASS V29 INJECT formulas length 6 = 141: rejected
+PASS V30 INJECT terms length 4 = 13: rejected
+PASS V31 INJECT string-numbers 2..20000 = 333: rejected
+PASS V32 INJECT 2-line proofs = 86 (R1 as string prefix): rejected
+PASS V33 INJECT beta smallest pair (711,7) passes the even-c gate: rejected
+PASS V34 INJECT bracketed bound equals 30030^3: rejected
+PASS V35 INJECT 30030^3 + 1: rejected
+PASS V36 INJECT census die@2 = 3: rejected
+PASS V37 INJECT census survivors = 2: rejected
+PASS V38 INJECT decode(12) = (): rejected
+PASS V39 INJECT code(x=x) = 7.29e12 (transcription): rejected
+PASS V40 INJECT funnel bar L5 = 460: rejected
+PASS V41 INJECT Hilbert radio address 7 September: rejected
+PASS V42 INJECT Chaitin year 1975: rejected
+
+FRESH CHECKS: 26   INJECTIONS REJECTED: 16
+VERIFIER TOTAL: 42  PASS: 42  FAIL: 0
+VERIFIER STATUS: ALL PASS
