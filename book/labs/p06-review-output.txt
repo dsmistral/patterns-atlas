@@ -1,0 +1,71 @@
+RECORDED OUTPUT — The Patterns Atlas, P06 "Compose with identity" adversarial
+verifier (session S83b, 2026-11-01). NEW file: p06 previously had no separate
+review output; the S21-era verifier's record was embedded in
+labs/p06-lab-output.txt and its engine is superseded by this fresh artifact.
+Source engine: labs/p06-review-verifier.js (11,344 bytes, md5
+4a9d258fb9191317164801e6ded5d902). Subject: the adopted material of the S83b
+improvement pass on book/p06-compose-identity.html (50,361 bytes, md5
+08729da0d2e2a0b323a2e0a9f8be9a53). Zero code shared with labs/p06-lab.js
+(different encodings: flat 2x2 matrices for the surd world; pair-state
+Fibonacci; the Chebyshev doubling route for the cos-cascade; a float route
+for the two-stage rationalization; deterministic non-grid points for the
+three-square defect; a registry-driven evaluator). Run by the sandbox textual
+collector over the artifact bytes.
+
+=== VERIFIER (final clean dispatch) ===
+
+PRE-DISPATCH BOOLEAN AUDIT: registry consistent — 14 must-fail injections, 8 positive controls
+C01 UPHELD (control): claim 'surd norm multiplicativity via flat matrices det(MN) = det(M)det(N) at five non-grid points' — witness: det(S3(2,3)) = -23, det(S3(5,7)) = -122, product composition det = 2806
+C02 UPHELD (control): claim '(2,1) star (2,-1) = (1,0): flat-matrix product is the identity' — witness: S3(2,1) * S3(2,-1) = [1, 0, 0, 1]
+C03 UPHELD (control): claim 'Pell ladder via flat-matrix powers: S3(2,1)^k = (2,1),(7,4),(26,15),(97,56), each det 1' — witness: [2,1]det=1 [7,4]det=1 [26,15]det=1 [97,56]det=1
+C04 UPHELD (control): claim 'cos20 cos40 cos80 = 1/8 via the Chebyshev doubling route' — witness: cos40 = 2cos^2(20)-1, cos80 = 2cos^2(40)-1, product = 1.250000e-1
+C05 UPHELD (control): claim 'two-stage rationalization, float route: (sqrt2+sqrt3-sqrt5)*(2sqrt3+3sqrt2+sqrt30) = 12, so the reciprocal is (2sqrt3+3sqrt2+sqrt30)/12' — witness: den*numRaw = 12.0000000000, ans vs 1/den gap = 2.220e-16
+C06 UPHELD (control): claim 'odd-index corollary F(2n+1) = F(n+1)^2 + F(n)^2 for n = 1..20 via pair-state Fibonacci' — witness: n=3: F(7) = 13 = 3^2 + 2^2 = 13
+C07 UPHELD (control): claim 'defect identity N(diamond) = N*N - (bf-ce)^2 at seven non-grid points' — witness: all seven points exact, e.g. (2,3,5,7,11,13): L = 12626
+C08 UPHELD (control): claim 'non-commutativity witness: A circ B = (2,7,6,4), B circ A = (2,7,4,6), both norms 105 = 7*15' — witness: A circ B = [2,7,6,4], B circ A = [2,7,4,6]
+J01 REFUTED (required): claim 'the recipe (a,b) star2 (c,d) = (ac + 2bd, ad + bc) is norm-multiplicative for a^2 - 3b^2' — witness: at (1,1,1,1): N(star2) = -3 but N*N = 4
+J02 REFUTED (required): claim 'the norm a^2 + 3b^2 (sign flipped) is multiplicative under the true star' — witness: at (1,1),(1,1): star = (4,2), N+ = 28 but N+*N+ = 16
+J03 REFUTED (required): claim 'the Pell ladder entries solve x^2 - 3y^2 = -1' — witness: (2,1): 4 - 3 = 1, not -1
+J04 REFUTED (required): claim 'the matrix door A(x,y) has determinant x^2 + 2y^2' — witness: A(1,1): det = -1, not 1 + 2 = 3
+J05 REFUTED (required): claim 'cos20 cos40 cos80 = 1/16' — witness: computed product = 1.250000e-1 = 1/8, not 1/16
+J06 REFUTED (required): claim 'the cascade 8 sin20 cos20 cos40 cos80 equals sin 140' — witness: cascade = 0.342020 = sin160, not sin140 = 0.642788
+J07 REFUTED (required): claim 'the odd-index law reads F(2n+1) = F(n+1)^2 - F(n)^2' — witness: n=2: F(5) = 5, but F(3)^2 - F(2)^2 = 3
+J08 REFUTED (required): claim 'the defect term enters with a plus: N(diamond) = N*N + (bf-ce)^2' — witness: (0,1,0) diamond (0,0,1) = (0,0,0), N = 0, not 1 + 1 = 2
+J09 REFUTED (required): claim 'the false line (0,1,0) diamond (0,0,1) has norm 1' — witness: actual norm 0
+J10 REFUTED (required): claim 'the rationalized denominator is 24' — witness: den*numRaw = 12.0000000000, not 24
+J11 REFUTED (required): claim 'the four-square composition is commutative: A circ B = B circ A' — witness: [2,7,6,4] vs [2,7,4,6] — third and fourth coordinates differ
+J12 REFUTED (required): claim 'A circ B = (2,6,6,4) (a q-index slip made during this pass's own drafting)' — witness: actual A circ B = [2,7,6,4]
+J13 REFUTED (required): claim '(2,1) star (2,-1) = (2,0)' — witness: flat-matrix product = [1,0,0,1] = the identity, not (2,0)
+J14 REFUTED (required): claim 'the surd identity element is (0,1)' — witness: (1,0) star (0,1) = (0,1), which changes (1,0)
+VERDICT: 22 registry lines — 22 PASS, 0 FAIL
+
+=== HONEST RUN HISTORY ===
+
+Dispatch 1 was not clean, and this record does not pretend otherwise:
+
+1. J01, caught pre-dispatch by the authoring read-through: the first draft
+   forced the verdict with "j1 && false" instead of computing the injection's
+   truth — exactly the dishonest shortcut this engine exists to catch. The
+   shipped J01 computes the counterfeit 2bd recipe over four points and lets
+   the witness fail it honestly.
+2. C03, dispatch 1: the flat matrix S3(a, b) = [a, 3b, b, a] stores the surd
+   coordinate at slot 2; the control read it from slot 3 and reported the
+   degenerate ladder (2,2),(7,7),(26,26),(97,97). Fixed to read slot 2;
+   dispatch 2 clean.
+3. C05, dispatch 1: the control divided the numerator by 12 (making it the
+   final answer) and then required den * ans = 12 — a wrong construction that
+   measured 1 instead. Fixed to numRaw = 2sqrt3 + 3sqrt2 + sqrt30 with
+   den*numRaw = 12 and ans = numRaw/12 = 1/den; the dependent injection J10
+   was rebuilt on numRaw in the same repair. Dispatch 2 clean.
+4. Harness note (not an artifact defect): the sandbox runner's first
+   evaluation captured its output array before calling main() — an
+   evaluation-order bug in the harness wrapper, repaired before any verdict
+   was recorded.
+
+The verdict above counts the final clean dispatch only: 14 must-fail
+injections refuted with computed witnesses, 8 positive controls upheld.
+
+Receipts: session log records/BOOK-PROJECT.md S83b; page log
+records/page-logs/p06.md entry R1.
+
+End of recorded verifier output.
