@@ -1,4 +1,4 @@
-p59-lab.js output — run 3 (PASS 46/46). Fresh deterministic engine; exact rational arithmetic,
+p59-lab.js output — run 4 (PASS 46/46). Fresh deterministic engine; exact rational arithmetic,
 floats only as a third opinion at 1e-9 and at the page-quoted figure precision. Checks: A01-A12 entropy core,
 B01-B08 the brackets, C01-C13 the census, D01-D04 the exercises, E01-E04 the manifest, F01-F05 independent recomputes.
 
@@ -10,7 +10,7 @@ PASS A05 Shearer on the triangle cover, independent bits: 2*3 = 6 <= 2+2+2 = 6 �
 PASS A06 Shearer on the triangle cover, the parity triple: 2*2 = 4 <= 2+2+2 = 6 — strict by exactly 2 bits, LP route agrees
 PASS A07 Shearer on the triangle cover, X = Y = Z: 2*1 = 2 <= 1+1+1 = 3 — strict by exactly 1 bit, LP route agrees
 PASS A08 Shearer on the 4-cover {{A,B},{B,C},{C,D},{A,D}} of the parity-4 chain (C = A xor B, D = C): 2*2 = 4 <= 2+2+1+2 = 7 — strict by exactly 3, LP route agrees
-PASS A09 the LP route on the non-uniform table (1/2, 1/8, 1/8, 1/4): H(X,Y) = 7/4 <= H(X) + H(Y) certified by clearing denominators — the residual comparison is 2^26 = 67108864 >= 5^5*3^9 = 61509375
+PASS A09 the LP route on the page non-uniform table (0,0)=1/2, (0,1)=1/8, (1,0)=1/4, (1,1)=1/8: H(X,Y) = 7/4 <= H(X) + H(Y) certified by clearing denominators — 2^{8H(X)} = (8/5)^5 (8/3)^3 and 2^{8H(Y)} = (4/3)^6 * 2^4, the residual comparison is 2^26 = 67108864 >= 5^5*3^9 = 61509375
 PASS A10 the false-r exhibit: the cover {{X},{X,Y}} is not regular (X covered twice, Y once); claiming r = 2 gives 2*2 = 4 > 3 = H(X) + H(X,Y), a certified violation, while the honest r = 1 restores 2 <= 3
 PASS A11 the K_{3,3} hard-core split: the census reads [8,1,1,1,1,1,1,1]/15 by left part; H(I_R|I_L) = (8/15)*3 = 8/5 exact; the split H(I) = H(I_L) + 8/5 with H(I) = log2 15 is certified by the LP equality (15/8)^8 * 15^7 * 2^24 = 15^15
 PASS A12 the triangle proof as receipts: H <= H(X,Y)+H(X,Z)-H(X), 3H <= 2*sum(pairs) - (HX+HY+HZ), H <= HX+HY+HZ and 2H <= sum(pairs) all hold exactly on the parity, equal and independent triples

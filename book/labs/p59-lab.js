@@ -181,12 +181,15 @@ function shearerLP(joint, cover, r) { // general cells; compares 2^{K r H} vs 2^
 }
 // A09: the LP route on a non-uniform table — entropy inequalities by clearing denominators
 {
-  const T = [{v:[0,0],p:fHalf()},{v:[0,1],p:fr(1,8)},{v:[1,0],p:fr(1,8)},{v:[1,1],p:fQuarter()}];
+  const T = [{v:[0,0],p:fHalf()},{v:[0,1],p:fr(1,8)},{v:[1,0],p:fQuarter()},{v:[1,1],p:fr(1,8)}];
   const HXY = exactH(marg(T,[0,1]));
   const cmp = shearerLP(T, [[0],[1]], 1);
+  const hx = lpCmp([[fr(8,5),5],[fr(8,3),3],[fr(5,1),5],[fr(3,1),3]], [[F2,24]]) === 0; // 2^{8H(X)} = (8/5)^5 (8/3)^3 = 2^24/(5^5 3^3)
+  const hy = lpCmp([[fr(4,3),6],[fr(3,1),6],[F2,4]], [[F2,16]]) === 0; // 2^{8H(Y)} = (4/3)^6 * 2^4 = 2^16/3^6
+  const fin = lpCmp([[F2,14],[fr(5,1),5],[fr(3,1),9]], [[F2,40]]) <= 0; // the residual: 2^14 * 5^5 * 3^9 <= 2^40
   const rec = Math.pow(2,26) === 67108864 && Math.pow(5,5) * Math.pow(3,9) === 61509375 && 67108864 >= 61509375;
-  ck('A09', 'the LP route on the non-uniform table (1/2, 1/8, 1/8, 1/4): H(X,Y) = 7/4 <= H(X) + H(Y) certified by clearing denominators — the residual comparison is 2^26 = 67108864 >= 5^5*3^9 = 61509375',
-    fEq(HXY, fr(7,4)) && cmp <= 0 && rec);
+  ck('A09', 'the LP route on the page non-uniform table (0,0)=1/2, (0,1)=1/8, (1,0)=1/4, (1,1)=1/8: H(X,Y) = 7/4 <= H(X) + H(Y) certified by clearing denominators — 2^{8H(X)} = (8/5)^5 (8/3)^3 and 2^{8H(Y)} = (4/3)^6 * 2^4, the residual comparison is 2^26 = 67108864 >= 5^5*3^9 = 61509375',
+    fEq(HXY, fr(7,4)) && cmp <= 0 && hx && hy && fin && rec);
 }
 // A10: the false-r exhibit — the cover must be regular
 {
