@@ -3,13 +3,10 @@
 **Unit:** S88 — author and close P60 `book/p60-group-completion.html` (Group completion — universal invariants; tier 5, ninth move of tier 5; prereq P31 published; standing to-do at records/BOOK-PROJECT.md; P59 footer next-link; P60 footer next = P62 `p62-sheafify-on-site.html`).
 
 **Done so far:**
-1. OPEN: ACTIVE-SESSION pushed commit b27d4d51 (blob ad0c5859, 1,906 B, verified); this push installs the BOOK-PROJECT S88 IN-PROGRESS row and updates this file. js-sha1 route validated (vectors + live oracle 7eca13f3 on book/index.html). Labs naming confirmed: book/labs/p60-lab.js, p60-lab-output.txt, p60-review-verifier.js, p60-review-verifier-output.txt.
+1. OPEN: ACTIVE-SESSION commit b27d4d51 (blob ad0c5859, 1,906 B); BOOK-PROJECT S88 IN-PROGRESS row push executed in a call that then hit the 16 MiB MemoryLimitError, verified post-hoc (commit ff597ee8, 577,792 B, blob 99302a95). js-sha1 route validated (vectors + oracle 7eca13f3 on book/index.html).
+2. PAGE AUTHORED in five staged parts (session-state/wip/p60-page-1..5.html). Defects caught at staging review and disclosed: (i) part-1 authoring artifact ("wait —" + broken formula + wrong ledger arithmetic), fixed at e875b047; (ii) house-style class list from compaction was wrong — true classes re-extracted live from style.css and published P59 (div.exhibit, div.warn-box, p.ex, p.sketch-marker, p.moons, p.eq, pattern-box, onramp); (iii) P16 misattribution — P16 is the isomorphism page (p16-isomorphism.html), not unique factorization; wrong link removed at e473124f.
+3. P60 PAGE PUBLISHED: commit 86d2317249cbd2556904bec28b9439e180c45ec1, 56,160 B / 55,664 chars, blob a05d8faaf2bf4d51d2d578572b540eb60cfdc314 (js-sha1 predicted = fetch-back). Census: 8 h2 / 0 h3 / 9 details / 3 svg / 3 pattern-box / 3 exhibit / 1 warn-box / 1 eq / 1 sketch-marker / 1 moons / 6 doors / 390 inline TeX / 2 display TeX / 0 $ / 7 href targets / MathJax pin byte-exact.
+4. REVIEW CORRECTION (P59 pattern): post-publish review found Exercise 2 claiming "[(1,1)] is the zero" — true in the one-column ledger, FALSE for the two-point space. Part 5 corrected, page re-assembled from repo bytes, re-gated (census + js-sha1 two-gate) and pushed as correction commit (receipt in this push: corrCommit below, corrected blob/sha). Same confusion fixed in lab piece 2 C2/C3 before lab assembly.
+5. LAB: pieces 1-2 staged at bab33465; piece 2 re-pushed corrected (C2/C3 honest page-level checks, B1/B5 cleaned); piece 3 staged this push (Groups D/F/S, runner). 46 checks total. Assembly into book/labs/p60-lab.js + run + output next.
 
-**Plan (crash-resume map):**
-2. Page parts authored and staged to session-state/wip/ (p60-page-1..N.html), each pushed with byte+sha gates.
-3. Lab engine pieces staged (p60-lab-piece-N.js); assembled book/labs/p60-lab.js; battery runs; output book/labs/p60-lab-output.txt.
-4. Fresh adversarial verifier book/labs/p60-review-verifier.js + p60-review-verifier-output.txt (zero shared code, must-fail injections).
-5. PUBLISH: page + engine + outputs (two-gated push, fetch-back); index flip P60 planned-to-published (class AND text; census published 59 / planned 39 incl. 2 legend spans each); page log records/page-logs/p60.md.
-6. CLOSE: BOOK-PROJECT S88 CLOSED row replaces IN-PROGRESS; standing to-do = S89; delete session-state/; close report.
-
-**Next step:** author page part 1 (head/header/bridge).
+**Next:** assemble lab, run 46/46, push engine + book/labs/p60-lab-output.txt; adversarial verifier + output; index flip P60 planned-to-published (class AND text; census published 59 / planned 39); page log records/page-logs/p60.md; BOOK-PROJECT S88 CLOSED row + standing to-do S89; delete session-state/; honest close report.
