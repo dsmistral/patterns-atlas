@@ -9,6 +9,14 @@
 // Piece contract: p00..p13 take no arguments; p14/p15 take the page text.
 // (S20's identical-artifact lab was destroyed pre-push; this is a fresh
 // authoring to the same specification — every check re-derived from scratch.)
+// S83b extension (2026-11-01): pieces p16..p23 added for the improvement pass
+// on the page (adopted external-draft material: the surd world a+b*sqrt3,
+// the Pell ladder, the matrix door, the cos-cascade telescope, the odd-index
+// Fibonacci corollary, the three-square defect identity, the two-stage
+// rationalization, the non-commutativity witness). p15's structure census
+// updated to the post-C9 page (8 sections — the stale 9-pins repaired) and
+// the href whitelist repaired (p66-induction left the page at C9; 15
+// distinct targets). p00..p14 byte-identical to the S21 authoring.
 
 function p00() {
   const lines = [];
@@ -390,28 +398,226 @@ function p15(pageText) {
   const count = (s) => (pageText.split(s).length - 1);
   const mj = "<script>window.MathJax={tex:{inlineMath:[['\\\\(','\\\\)']],displayMath:[['\\\\[','\\\\]']]},svg:{fontCache:'global'}};</script>";
   lines.push(pageText.indexOf(mj) !== -1 ? "PASS MathJax config block byte-exact (120 bytes)" : "FAIL MathJax block");
-  lines.push(count("<section") === 9 ? "PASS structure: 9 sections" : "FAIL sections " + count("<section"));
-  lines.push(count("<h2>") === 9 ? "PASS structure: 9 h2" : "FAIL h2 " + count("<h2>"));
+  lines.push(count("<section") === 8 ? "PASS structure: 8 sections (C9-stale 9-pin repaired this pass)" : "FAIL sections " + count("<section"));
+  lines.push(count("<h2>") === 8 ? "PASS structure: 8 h2 (C9-stale 9-pin repaired this pass)" : "FAIL h2 " + count("<h2>"));
+  lines.push(count("<h3>") === 10 ? "PASS structure: 10 h3 (4 example + 6 exercise)" : "FAIL h3 " + count("<h3>"));
   const svg = count("<svg"), fig = count("<figure"), figc = count("<figcaption>");
   lines.push(svg === 3 && fig === 3 && figc === 3 ? "PASS structure: 3 svg / 3 figure / 3 figcaption" : "FAIL figures " + svg + "/" + fig + "/" + figc);
   const det = count("<details>"), summ = count("<summary>");
-  lines.push(det === 8 && summ === 8 ? "PASS structure: details/summary 8/8" : "FAIL details " + det + "/" + summ);
+  lines.push(det === 10 && summ === 10 ? "PASS structure: details/summary 10/10 (8 + the new Exercise 3 pair)" : "FAIL details " + det + "/" + summ);
   const pOpen = (pageText.match(/<p>|<p /g) || []).length, pClose = count("</p>");
   lines.push(pOpen === pClose ? "PASS structure: p open/close balanced (" + pOpen + "/" + pClose + ")" : "FAIL p balance " + pOpen + "/" + pClose);
   const inl = (pageText.match(/\\\(/g) || []).length, inr = (pageText.match(/\\\)/g) || []).length;
   const do1 = (pageText.match(/\\\[/g) || []).length, do2 = (pageText.match(/\\\]/g) || []).length;
-  lines.push(inl === inr && do1 === do2 ? "PASS TeX balance: inline " + inl + "/" + inr + ", display " + do1 + "/" + do2 : "FAIL TeX balance " + inl + "/" + inr + " " + do1 + "/" + do2);
+  lines.push(inl === inr && do1 === do2 ? "PASS TeX balance: inline " + inl + "/" + inr + " (301 legacy double spans + 92 pass single spans = 393 prose + 1 pin), display " + do1 + "/" + do2 + " (6 legacy + 1 pass + pin)" : "FAIL TeX balance " + inl + "/" + inr + " " + do1 + "/" + do2);
   lines.push(pageText.indexOf("$$") === -1 ? "PASS zero dollar-delimiters" : "FAIL dollar delimiters present");
   const pid = count('class="pid"'), eq = count('class="eq"');
-  lines.push(pid === 3 ? "PASS structure: 3 pid spans" : "FAIL pid " + pid);
-  lines.push(eq === 6 ? "PASS structure: 6 eq paragraphs" : "FAIL eq " + eq);
-  const canon = ["index.html", "p01-pin-down-the-problem.html", "p02-small-cases.html", "p03-special-cases.html", "p04-complete-the-square.html", "p05-canonical-form.html", "p07-auxiliary-construction.html", "p09-invariant.html", "p16-isomorphism.html", "p66-induction.html", "b01-remainders.html", "b02-congruence-classes.html", "b05-coordinates-basis.html", "b08-diagonalization.html", "b12-brahmagupta-fibonacci.html", "assets/style.css"];
+  lines.push(pid === 4 ? "PASS structure: 4 pid spans (3 + Example 4)" : "FAIL pid " + pid);
+  lines.push(eq === 7 ? "PASS structure: 7 eq paragraphs (6 + the surd recipe)" : "FAIL eq " + eq);
+  lines.push(count("<table") === 1 && count("<tbody>") === 1 && count("<tr>") === 6 ? "PASS structure: 1 table, 1 tbody, 6 tr (header + the five composition rows)" : "FAIL table " + count("<table") + "/" + count("<tbody>") + "/" + count("<tr>"));
+  const canon = ["index.html", "p01-pin-down-the-problem.html", "p02-small-cases.html", "p03-special-cases.html", "p04-complete-the-square.html", "p05-canonical-form.html", "p07-auxiliary-construction.html", "p09-invariant.html", "p16-isomorphism.html", "b01-remainders.html", "b02-congruence-classes.html", "b05-coordinates-basis.html", "b08-diagonalization.html", "b12-brahmagupta-fibonacci.html", "assets/style.css"];
   const hrefs = pageText.match(/href="[^"]*"/g) || [];
-  const bad = hrefs.filter((h) => canon.indexOf(h.slice(6, -1)) === -1);
-  lines.push(bad.length === 0 ? "PASS hrefs: all " + hrefs.length + " canonical (" + new Set(hrefs).size + " distinct)" : "FAIL hrefs " + JSON.stringify(bad));
+  const badh = hrefs.filter((h) => canon.indexOf(h.slice(6, -1)) === -1);
+  const distinct = new Set(hrefs).size;
+  lines.push(badh.length === 0 && distinct === 15 ? "PASS hrefs: all " + hrefs.length + " canonical, " + distinct + " distinct (p66-induction left the page at C9; stale whitelist entry repaired this pass)" : "FAIL hrefs " + JSON.stringify(badh) + " distinct=" + distinct);
   lines.push(pageText.indexOf("<title>P06 · Compose with identity · The Patterns Atlas</title>") !== -1 ? "PASS title exact" : "FAIL title");
   lines.push(pageText.indexOf("P06 · the sixth move of the spine") !== -1 ? "PASS kicker exact" : "FAIL kicker");
   lines.push(pageText.indexOf("Next up the spine") !== -1 ? "PASS footer nav present" : "FAIL footer nav");
+  return lines;
+}
+
+function p16() {
+  const lines = [];
+  const st = (a, b, c, d) => [a*c + 3*b*d, a*d + b*c];
+  const nS = (x, y) => x*x - 3*y*y;
+  let idBad = 0, parkBad = 0, idCases = 0;
+  for (let a = 0; a <= 12; a++) for (let b = 0; b <= 12; b++) {
+    idCases++;
+    const r = st(a, b, 1, 0);
+    if (!(r[0] === a && r[1] === b)) idBad++;
+    const p = st(a, b, a, -b);
+    if (!(p[0] === a*a - 3*b*b && p[1] === 0)) parkBad++;
+  }
+  lines.push(idBad === 0 ? "PASS surd identity probe (a,b) star (1,0) = (a,b) over " + idCases + " pairs (13^2 = 169), 0 exceptions" : "FAIL surd identity exceptions=" + idBad);
+  lines.push(parkBad === 0 ? "PASS surd conjugate parking (a,b) star (a,-b) = (a^2 - 3b^2, 0) over " + idCases + " pairs" : "FAIL surd parking exceptions=" + parkBad);
+  let multBad = 0, cases = 0;
+  for (let a = 0; a <= 10; a++) for (let b = 0; b <= 10; b++) for (let c = 0; c <= 10; c++) for (let d = 0; d <= 10; d++) {
+    cases++;
+    const L = nS(st(a, b, c, d)[0], st(a, b, c, d)[1]);
+    if (L !== nS(a, b) * nS(c, d)) multBad++;
+  }
+  lines.push(multBad === 0 ? "PASS surd norm multiplicativity N = a^2 - 3b^2 over " + cases + " quadruples (11^4 = 14641), 0 mismatches" : "FAIL surd multiplicativity mismatches=" + multBad);
+  lines.push(nS(1, 1) === -2 && nS(1, 0) === 1 ? "PASS the surd norm can be negative: N(1,1) = -2 while N(1,0) = 1 (the point of Example 4)" : "FAIL surd negative norm");
+  const inv = st(2, 1, 2, -1);
+  lines.push(inv[0] === 1 && inv[1] === 0 ? "PASS (2,1) star (2,-1) = (1,0): norm-1 objects are inverse partners, 1/(2+sqrt3) = 2 - sqrt3" : "FAIL inverse " + JSON.stringify(inv));
+  return lines;
+}
+
+function p17() {
+  const lines = [];
+  const st = (p, q) => [p[0]*q[0] + 3*p[1]*q[1], p[0]*q[1] + p[1]*q[0]];
+  let x = [2, 1];
+  const ladder = [];
+  let bad = 0;
+  for (let k = 0; k < 4; k++) {
+    ladder.push(x.slice());
+    if (x[0]*x[0] - 3*x[1]*x[1] !== 1) bad++;
+    x = st(x, [2, 1]);
+  }
+  const okLadder = bad === 0 && ladder[0][0] === 2 && ladder[0][1] === 1 && ladder[1][0] === 7 && ladder[1][1] === 4 && ladder[2][0] === 26 && ladder[2][1] === 15 && ladder[3][0] === 97 && ladder[3][1] === 56;
+  lines.push(okLadder ? "PASS Pell ladder (2,1)->(7,4)->(26,15)->(97,56), each x^2 - 3y^2 = 1 (4-3, 49-48, 676-675, 9409-9408)" : "FAIL Pell ladder " + JSON.stringify(ladder));
+  const A = (x, y) => [[x, 2*y], [y, x]];
+  const detA = (m) => m[0][0]*m[1][1] - m[0][1]*m[1][0];
+  const mul = (a, b) => [[a[0][0]*b[0][0] + a[0][1]*b[1][0], a[0][0]*b[0][1] + a[0][1]*b[1][1]], [a[1][0]*b[0][0] + a[1][1]*b[1][0], a[1][0]*b[0][1] + a[1][1]*b[1][1]]];
+  let shapeBad = 0, detBad = 0, cases = 0;
+  for (let x1 = 0; x1 <= 4; x1++) for (let y1 = 0; y1 <= 4; y1++) for (let x2 = 0; x2 <= 4; x2++) for (let y2 = 0; y2 <= 4; y2++) {
+    cases++;
+    const pr = mul(A(x1, y1), A(x2, y2));
+    if (!(pr[0][0] === pr[1][1] && pr[0][1] === 2*pr[1][0])) shapeBad++;
+    if (detA(pr) !== detA(A(x1, y1)) * detA(A(x2, y2))) detBad++;
+  }
+  lines.push(shapeBad === 0 && detBad === 0 ? "PASS matrix door: shape closure A(x1,y1)A(x2,y2) = A(x1x2+2y1y2, x1y2+y1x2), det = x^2 - 2y^2 multiplicative, over " + cases + " cases (5^4 = 625)" : "FAIL matrix door shape=" + shapeBad + " det=" + detBad);
+  let m = A(1, 1);
+  const powers = [];
+  const wantDets = [-1, 1, -1, 1];
+  let pBad = 0;
+  for (let k = 0; k < 4; k++) {
+    powers.push([m[0][0], m[1][0]]);
+    if (detA(m) !== wantDets[k]) pBad++;
+    m = mul(m, A(1, 1));
+  }
+  const okPowers = pBad === 0 && powers[0][0] === 1 && powers[0][1] === 1 && powers[1][0] === 3 && powers[1][1] === 2 && powers[2][0] === 7 && powers[2][1] === 5 && powers[3][0] === 17 && powers[3][1] === 12;
+  lines.push(okPowers ? "PASS A(1,1) powers (1,1),(3,2),(7,5),(17,12) solving x^2 - 2y^2 = -1,+1,-1,+1 alternately" : "FAIL A(1,1) powers " + JSON.stringify(powers) + " detBad=" + pBad);
+  return lines;
+}
+
+function p18() {
+  const lines = [];
+  const rad = (deg) => deg * Math.PI / 180;
+  const P = Math.cos(rad(20)) * Math.cos(rad(40)) * Math.cos(rad(80));
+  lines.push(Math.abs(P - 0.125) < 1e-12 ? "PASS cos20 cos40 cos80 = 1/8 to 1e-12 (computed " + P.toExponential(3) + ")" : "FAIL cos product " + P);
+  const casc = 8 * Math.sin(rad(20)) * Math.cos(rad(20)) * Math.cos(rad(40)) * Math.cos(rad(80));
+  lines.push(Math.abs(casc - Math.sin(rad(160))) < 1e-12 ? "PASS cascade 8 sin20 cos20 cos40 cos80 = sin160 to 1e-12" : "FAIL cascade " + casc);
+  const step1 = 4 * Math.sin(rad(40)) * Math.cos(rad(40)) * Math.cos(rad(80));
+  const step2 = 2 * Math.sin(rad(80)) * Math.cos(rad(80));
+  lines.push(Math.abs(step1 - casc) < 1e-12 && Math.abs(step2 - casc) < 1e-12 ? "PASS cascade intermediate steps 4 sin40 cos40 cos80 and 2 sin80 cos80 equal the full cascade" : "FAIL cascade steps " + step1 + " " + step2);
+  lines.push(Math.abs(Math.sin(rad(160)) - Math.sin(rad(20))) < 1e-15 ? "PASS sin160 = sin(180-20) = sin20 to 1e-15 (the catalyst cancels at the finish line)" : "FAIL sin160 vs sin20");
+  return lines;
+}
+
+function p19() {
+  const lines = [];
+  const F = [0, 1];
+  for (let n = 2; n <= 62; n++) F[n] = F[n - 1] + F[n - 2];
+  let bad = 0;
+  for (let n = 1; n <= 30; n++) if (F[2*n + 1] !== F[n + 1]*F[n + 1] + F[n]*F[n]) bad++;
+  lines.push(bad === 0 ? "PASS odd-index corollary F(2n+1) = F(n+1)^2 + F(n)^2 for every n = 1..30, 0 mismatches (F(61) ~ 2.5e12 < 2^53, exact)" : "FAIL odd-index corollary mismatches=" + bad);
+  lines.push(F[7] === 13 && 3*3 + 2*2 === 13 ? "PASS instance F(7) = 13 = 3^2 + 2^2" : "FAIL F(7) instance");
+  let bad2 = 0, cases = 0;
+  for (let m = 1; m <= 25; m++) for (let n = 1; n <= 25; n++) {
+    cases++;
+    if (F[m + n + 1] !== F[m + 1]*F[n + 1] + F[m]*F[n]) bad2++;
+  }
+  lines.push(bad2 === 0 ? "PASS top-left comparison F(m+n+1) = F(m+1)F(n+1) + F(m)F(n) over " + cases + " pairs (25x25), 0 mismatches" : "FAIL top-left comparison mismatches=" + bad2);
+  return lines;
+}
+
+function p20() {
+  const lines = [];
+  const di = (a, b, c, d, e, f) => [a*d - b*e - c*f, a*e + b*d, a*f + c*d];
+  const nT = (p) => p[0]*p[0] + p[1]*p[1] + p[2]*p[2];
+  const probe = di(5, 3, 2, 1, 0, 0);
+  lines.push(probe[0] === 5 && probe[1] === 3 && probe[2] === 2 ? "PASS three-square candidate passes the identity probe at (1,0,0)" : "FAIL identity probe " + JSON.stringify(probe));
+  let bad = 0, cases = 0;
+  for (let a = 0; a <= 5; a++) for (let b = 0; b <= 5; b++) for (let c = 0; c <= 5; c++) for (let d = 0; d <= 5; d++) for (let e = 0; e <= 5; e++) for (let f = 0; f <= 5; f++) {
+    cases++;
+    const lhs = nT(di(a, b, c, d, e, f));
+    const rhs = (a*a + b*b + c*c) * (d*d + e*e + f*f) - (b*f - c*e) * (b*f - c*e);
+    if (lhs !== rhs) bad++;
+  }
+  lines.push(bad === 0 ? "PASS defect identity N(diamond) = N*N - (bf - ce)^2 over " + cases + " sextuples (5^6 = 15625), 0 mismatches — the defect is exactly one negative square" : "FAIL defect identity mismatches=" + bad);
+  const z = di(0, 1, 0, 0, 0, 1);
+  lines.push(z[0] === 0 && z[1] === 0 && z[2] === 0 ? "PASS false line (0,1,0) diamond (0,0,1) = (0,0,0): norms 1*1 in, 0 out" : "FAIL false line " + JSON.stringify(z));
+  return lines;
+}
+
+function p21() {
+  const lines = [];
+  // exact arithmetic in Q(sqrt2, sqrt3, sqrt5): 8 coordinates over the basis
+  // [1, sqrt2, sqrt3, sqrt6, sqrt5, sqrt10, sqrt15, sqrt30]; index bit 0 = sqrt2,
+  // bit 1 = sqrt3, bit 2 = sqrt5. Product lands at i XOR j (symmetric
+  // difference of the radical sets); shared bits square out to 2, 3, 5.
+  // (An OR-index version was authored and caught during design: OR collides
+  // sqrt2*sqrt6 into index 3 instead of 2 — XOR is load-bearing here.)
+  const mulQ = (u, v) => {
+    const w = [0, 0, 0, 0, 0, 0, 0, 0];
+    for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) {
+      let c = u[i] * v[j];
+      if ((i & j) & 1) c *= 2;
+      if ((i & j) & 2) c *= 3;
+      if ((i & j) & 4) c *= 5;
+      w[i ^ j] += c;
+    }
+    return w;
+  };
+  const only = (w, idx, val) => w.every((x, i) => (i === idx ? x === val : x === 0));
+  const den = [0, 1, 1, 0, -1, 0, 0, 0];       // sqrt2 + sqrt3 - sqrt5
+  const conj1 = [0, 1, 1, 0, 1, 0, 0, 0];      // sqrt2 + sqrt3 + sqrt5
+  const s6 = [0, 0, 0, 1, 0, 0, 0, 0];         // sqrt6
+  const stage1 = mulQ(den, conj1);
+  lines.push(only(stage1, 3, 2) ? "PASS stage 1: (sqrt2+sqrt3-sqrt5)(sqrt2+sqrt3+sqrt5) = 2*sqrt6 exactly (the 2+3=5 grouping kills every rational part)" : "FAIL stage 1 " + JSON.stringify(stage1));
+  const num = mulQ(conj1, s6);
+  const okNum = num[1] === 3 && num[2] === 2 && num[7] === 1 && num[0] === 0 && num[3] === 0 && num[4] === 0 && num[5] === 0 && num[6] === 0;
+  lines.push(okNum ? "PASS stage 2 numerator: (sqrt2+sqrt3+sqrt5)*sqrt6 = 3*sqrt2 + 2*sqrt3 + sqrt30 exactly (sqrt12 = 2 sqrt3, sqrt18 = 3 sqrt2)" : "FAIL numerator " + JSON.stringify(num));
+  const den2 = mulQ(stage1, s6);
+  lines.push(only(den2, 0, 12) ? "PASS stage 2 denominator: 2*sqrt6 * sqrt6 = 12" : "FAIL den2 " + JSON.stringify(den2));
+  const verify = mulQ(den, num);
+  lines.push(only(verify, 0, 12) ? "PASS verification: (sqrt2+sqrt3-sqrt5)(2*sqrt3+3*sqrt2+sqrt30) = 12 exactly, all surd parts die in pairs" : "FAIL verification " + JSON.stringify(verify));
+  return lines;
+}
+
+function p22() {
+  const lines = [];
+  const e4 = (p, q) => [
+    p[0]*q[0] - p[1]*q[1] - p[2]*q[2] - p[3]*q[3],
+    p[0]*q[1] + p[1]*q[0] + p[2]*q[3] - p[3]*q[2],
+    p[0]*q[2] - p[1]*q[3] + p[2]*q[0] + p[3]*q[1],
+    p[0]*q[3] + p[1]*q[2] - p[2]*q[1] + p[3]*q[0]
+  ];
+  const n4 = (p) => p[0]*p[0] + p[1]*p[1] + p[2]*p[2] + p[3]*p[3];
+  const Aq = [2, 1, 1, 1], Bq = [3, 2, 1, 1];
+  const AB = e4(Aq, Bq), BA = e4(Bq, Aq);
+  lines.push(AB[0] === 2 && AB[1] === 7 && AB[2] === 6 && AB[3] === 4 ? "PASS A circ B = (2,7,6,4) — the 105-quadruple the exploration uses" : "FAIL A circ B " + JSON.stringify(AB));
+  lines.push(BA[0] === 2 && BA[1] === 7 && BA[2] === 4 && BA[3] === 6 ? "PASS B circ A = (2,7,4,6) — same first two coordinates, last two swapped" : "FAIL B circ A " + JSON.stringify(BA));
+  const differ = AB[2] !== BA[2] || AB[3] !== BA[3];
+  lines.push(differ && n4(Aq) === 7 && n4(Bq) === 15 && n4(AB) === 105 && n4(BA) === 105 ? "PASS both outputs carry norm 105 = 7*15 while the outputs differ (honest non-commutativity)" : "FAIL norms " + n4(AB) + "/" + n4(BA) + " differ=" + differ);
+  return lines;
+}
+
+function p23(pageText) {
+  const lines = [];
+  const once = (needle, label) => {
+    const n = pageText.split(needle).length - 1;
+    lines.push(n === 1 ? "PASS needle exact-once: " + label : "FAIL needle " + label + " count=" + n);
+  };
+  once("Four worked examples across the domains", "section-4 joint, four examples");
+  once("the catalyst cancels at the finish line", "cos-product cascade close");
+  once("every odd-indexed Fibonacci number is a sum of two consecutive Fibonacci squares", "odd-index corollary");
+  once("the defect is exactly one negative square", "three-square defect term");
+  once("Example 4 (a second number system)", "Example 4 heading");
+  once("Five compositions this book has already licensed", "Box P06.B five-row lead");
+  once("can be negative (Example 4)", "surd catalogue row");
+  once("Rationalize the denominator of", "Exercise 3, two-stage rationalization");
+  once("name the two stages the sketch still owes", "Exercise 6 Lagrange sketch part");
+  once("compare the two outputs coordinate by coordinate and by norm", "Exercise 6 non-commutativity part");
+  once("Exercise 5 below diagnoses exactly this move", "Example 4 to Exercise 5 cross-reference");
+  const bad = ["session", "receipt", "battery", "verifier", "planned", "block 9"];
+  const hits = bad.filter((t) => pageText.toLowerCase().indexOf(t) !== -1);
+  lines.push(hits.length === 0 ? "PASS banned tokens zero on the page (session/receipt/battery/verifier/planned/block 9)" : "FAIL banned tokens " + JSON.stringify(hits));
+  const labs = (pageText.match(/lab/g) || []).length;
+  lines.push(labs === 3 ? "PASS lab substring exactly 3 (the three figure aria-labels)" : "FAIL lab count " + labs);
+  const mach = (pageText.match(/machin/g) || []).length;
+  lines.push(mach === 17 ? "PASS machin keepers exactly 17 (16 C9 keepers + the pass's Example-4 use)" : "FAIL machin count " + mach);
   return lines;
 }
 
@@ -424,6 +630,8 @@ function main(pageText) {
   for (const f of pieces) all = all.concat(f());
   all = all.concat(p14(pageText));
   all = all.concat(p15(pageText));
+  for (const f of [p16, p17, p18, p19, p20, p21, p22]) all = all.concat(f());
+  all = all.concat(p23(pageText));
   let pass = 0, fail = 0;
   for (const ln of all) {
     console.log(ln);
