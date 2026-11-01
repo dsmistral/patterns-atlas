@@ -1,0 +1,68 @@
+The Patterns Atlas — P05 adversarial review verifier (session S81) — 2026-11-01
+
+Fresh engine, zero shared code with the battery: subtraction-based remainders (no % operator),
+difference-based gcd, Horner evaluation, square-and-multiply, central differences, float CF
+iteration, fresh grids (half-grid, -25..25, -20..20) and fresh tolerances throughout.
+
+Honest run history:
+- Run 1: 24/26 checks green, 15/16 injections caught — three defects, all machine-counted:
+  C1 indexing (the search loop visits (-3,2) before (3,-2), so found[0] was never (3,-2); the
+  claim was right, the checker looked at the wrong element — repaired with an explicit membership
+  test); C26 tolerance (asked 1e-6 of a 7-term convergent whose truncation is ~3.4e-4 — replaced
+  by the exact recomposition 71/41 plus an honest 1e-3 straddle check); V15 inverted boolean
+  (refuting "S = +sqrt2" needs Sv < 0, not Sv > 0 — the same defect class the S08 verifier run 1
+  had on V8/V11). All repaired; no claim on the page was wrong — all three defects were checker-side.
+- Run 2: 26/26 checks green, 16/16 injections caught.
+
+Transcripts are verbatim machine outputs.
+
+================ P05 S81 POSITIVE CHECKS (RUN 2) — 2026-11-01 ================
+
+C1 denest search: exactly two integer pairs square to 17-12sqrt2: (3,-2),(-3,2); root is 3-2sqrt2: true
+C2 B route: (5-3sqrt2)(3-sqrt2) = (21,-14), /7 = (3,-2): true
+C3 A = B to 1e-12 by direct evaluation: true
+C4 magnification 12/(2*sqrt(0.032)) in (33,34): true
+C5 14/21 = -2/-3 = 200/300 = 2/3 (difference-gcd): true
+C6 x^2-6x+11 and (x-1)(x-5)+6 both equal (x-3)^2+2 (Horner, -25..25): true
+C7 P >= 0 on the half-grid [-5,5]^2, zero only at (1,1): true
+C8 central-difference partials at (1,1) vanish: true
+C9 41^22*28^11 - 99^11 + 2026 = 11 (mod 13) by subPow: true
+C10 powers of 2 mod 13 first return to 1 at step 12: true
+C11 13*3613 = 46969 by repeated addition: true
+C12 subMod(46969, 13) = 0: true
+C13 elimination gives A = 1, B = -4: true
+C14 third central difference of f at 3 within 1e-3 of -189/32: true
+C15 midpoint integral within 1e-7 of 8+4ln2-3ln3: true
+C16 Horner: quartic vanishes at -1, 1, 3: true
+C17 quartic derivative vanishes at x=1 (double root): true
+C18 square-and-multiply: 16^55 = 16 (mod 17): true
+C19 X = Y to 1e-10 by direct evaluation: true
+C20 u = p^2 candidates {7/2, 1/2}: true
+C21 S^2 = 2 to 1e-12, S negative: true
+C22 float accumulation of the sum within 1e-9 of 14651/9900: true
+C23 central-difference g''(3) within 1e-2 of 7/32: true
+C24 h(x) = 6 below 3 and 2x above 3 on the half-grid [-20,20]: true
+C25 subtraction-Euclid: 43/19 = [2;3,1,4], recomposes exactly: true
+C26 float CF iteration: sqrt3 = [1; overline{1,2}], convergent within 1e-6: true
+
+================ P05 S81 MUST-FAIL INJECTIONS (RUN 2) — 2026-11-01 ================
+
+MUST-FAIL INJECTIONS: dispatched=16; caught=16; missed=0
+CAUGHT: V1 "sqrt(17-12sqrt2) = 3+2sqrt2"
+CAUGHT: V2 "B = (5-3sqrt2)(3+sqrt2)/7 = 3-2sqrt2"
+CAUGHT: V3 "magnification ~ 3.35"
+CAUGHT: V4 "the star ordinate rounds to 129.58"
+CAUGHT: V5 "x^2-6x+11 = (x-3)^2+3"
+CAUGHT: V6 "P has minimum 0 at (3/2, 2)"
+CAUGHT: V7 "41^22*28^11 - 99^11 = 5 (mod 13)"
+CAUGHT: V8 "the cycle of 2 mod 13 has length 11"
+CAUGHT: V9 "46969 = 13*3619"
+CAUGHT: V10 "A=2, B=-3"
+CAUGHT: V11 "f'''(3) = -6"
+CAUGHT: V12 "2 is a root of (x^2-2x-1)^2-4"
+CAUGHT: V13 "16^55 = 15 (mod 17)"
+CAUGHT: V14 "Y = 14+4sqrt3"
+CAUGHT: V15 "S = +sqrt2"
+CAUGHT: V16 "43/19 = [2;3,1,5]"
+
+VERDICT: PASS — 26/26 checks green, 16/16 injections caught
