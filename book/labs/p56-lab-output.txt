@@ -1,0 +1,53 @@
+p56-lab.js output — run 3 (PASS 48/48). Fresh deterministic engine; exact rational arithmetic,
+floats only at the page-quoted figure precision. Checks: A01-A08b census, B01-B05 the wall,
+C01-C12 the recipes, D01-D05 the exercises, E01 the needle manifest, F01-F15 independent recomputes.
+
+PASS A01 the c-b=1 Pythagorean family: a^2+b^2=c^2 and c-b=1 exact for (3,4,5),(5,12,13),(7,24,25),(9,40,41),(11,60,61)
+PASS A02 the sag: (c-b)/c equals the conjugate x^2/(1+sqrt(1-x^2)) = a^2/(c(c+b)) — receipts 1/5, 1/13, 1/25, 1/41, 1/61
+PASS A03 the closing ratios sag/(x^2/2) = 10/9, 26/25, 50/49, 82/81, 122/121 = exactly 1 + 1/a^2 (integer witness 2c = a^2+1)
+PASS A04 Fig P56.1 receipts: at x=3/5 depths 1/5 vs 9/50, ratio 10/9 = 1+1/9; at x=7/25 depths 1/25 vs 49/1250, ratio 50/49 = 1+1/49
+PASS A05 the series coefficients by recurrence a_{k+1} = a_k(2k-1)/(2k+2): 1/2, 1/8, 1/16, 5/128, 7/256, 21/1024
+PASS A06 truncating after x^4/8 at x=3/5: gap exactly 19/5000, wall x^6/(16(1-x^2)) = 729/160000, gap <= wall
+PASS A07 the walls at (eps,u) = (1/2,1): 8/15 <= v <= 4/7 width 4/105; at (1/4,1): 32/63 <= v <= 16/31 width 16/1953; identities exact (r^2/4 = 1/64, 1/1024)
+PASS A08 the ray: Y(eps u)/eps = eps*v_eps(u) = 1/3 and Y(eps u)/eps^3 = v_eps(u)/eps = 25/27 at the exact witness eps=3/5 — collapse and explosion are the same identity read twice
+PASS A08b the pi^3/2 column: n^2*gap at n = 6,12,24,48,96,192 reads 16.708, 15.777, 15.570, 15.520, 15.507, 15.504 — decreasing, all above pi^3/2 = 15.5031
+PASS B01 the node parametrization (t^2-1, t(t^2-1)): y^2 = x^2(1+x) exact over 17 half-integer t; the crossing is visited twice (x = 0 at t = 1 and t = -1)
+PASS B02 the marked branch points (9/16,45/64), (5/4,15/8), (3,6) sit on the parametrization at t = 5/4, 3/2, 2 with chord slopes exactly 5/4, 3/2, 2
+PASS B03 the node under (eps,eps): v^2 = u^2(1+eps u) with error |v^2/u^2 - 1| = eps u exactly — 1/2 at eps=1/2, 1/4 at eps=1/4
+PASS B03b the node has no self-similarity family: the zoomed equation reads v^2 = u^2(1 + lam u) — the factor at u=1 equals the original 2 only at lam = 1
+PASS B04 the cusp under (eps,eps): v^2 = eps u^3 exact over 17 grid points; |v|^2 <= eps for |u| <= 1, band height sqrt(1/4) = 1/2 at eps = 1/4
+PASS B05 the cusp self-similar: (lam^2, lam^3) maps (t^2,t^3) to ((lam t)^2,(lam t)^3), on the curve for lam = 2, 3, 1/2, 5, 1/10 (25 witnesses); the (eps^2, eps^3) point sits on the cusp for every eps — the zoom is eps-free
+PASS C01 Cantor levels 1..8: 2^N intervals of length 3^-N, endpoints k/3^N, total (2/3)^N — built by honest interval refinement
+PASS C02 ternary address of 1/4: the digit loop never emits a 1 over 8 iterations
+PASS C03 the word 020 pins 1/4 into [6/27,7/27] and the geometric sum 2*(1/9)/(1-1/9) lands exactly on 1/4
+PASS C04 heat kernel G(lam x, lam^2 t) = lam^-1 G(x,t): 27 (x,t,lam) combos, exponent and prefactor identities exact with cleared denominators
+PASS C05 the isotropic zoom (lam,lam) breaks the heat exponent while the parabolic zoom (lam,lam^2) preserves it, lam = 2, 3, 1/2
+PASS C06 boundary layer: f_eps(eps) = 1/2 and f_eps(2eps) = 2/3 for every eps; 1-f_eps(1) = 1/3, 1/5, 1/11 at eps = 1/2, 1/4, 1/10
+PASS C07 the (3,4) curve under (eps,eps,eps): v^3 = eps u^4(1+eps u) exact over 17 grid points; |v|^3 <= eps(1+eps) <= 2eps — the picture collapses onto the u-axis
+PASS C08 the (3,4) weighted zoom: v^3 = u^4 + eps^3 u^5 with the eps^3 u^5 correction strictly below u^4 at eps = 1/2, 1/4, 1/10
+PASS C09 tacnode parametrization (s^2-1, s(s^2-1)^2): y^2 = x^4(1+x) exact and slope y/x^2 = s at s = 5/4, 3/4, 9/8, 7/8, -9/8, -7/8 (the page s = 1+-1/4, 1+-1/8, -1+-1/8)
+PASS C10 tacnode balance (1,2): v^2 = u^4(1+eps u) over 9 grid points; the total error past the cone (v-u^2)(v+u^2) is exactly eps u^5
+PASS C11 Exhibit B: at eps=1/2 the node correction reads eps u = 1/2 while the squared-cone correction reads eps^2 u^2 = 1/4 — both share the cone v^2 = u^2
+PASS C12 the r-dial at r=2/5: 2^N pieces per level, 1/2 outside at all levels 1..6, nesting holds; the central gap 1-2r = 1/5 never refills, while r=1/2 fills [0,1] in one step (transition 1-r <= r)
+PASS D01 Ex1: parabola self-similar at lam = 2, 3, 1/2 over x = 1, 1/2, 3/2 (9 page images on-curve); circle image (6/5,16/5) with 292/25 != 1; walls 8/15..4/7 and 32/63..16/31 with widths 4/105 and 16/1953; v = 4-2sqrt3 bracketed by 196>=192 and 36<=48; width ratio 1953/420
+PASS D02 Ex2: isotropic collapse |v|^3 <= 2eps on a fresh 13-point grid; weight table 3b=4a<5a has smallest solution (3,4); the balance zoom gives v^3 = u^4 + eps^3 u^5 with correction coefficient eps^3
+PASS D03 Ex3: tacnode identity on a fresh 9-point grid, slope y/x^2 = s toward +-1 on the two branches; weight table 2b=4a<5a smallest (1,2); v^2 = u^4(1+eps u) with initial-form error exactly eps u^5
+PASS D04 Ex4: f_eps(0) = 0 for every eps (the layer the limit deletes); 1-f_eps(1) = 1/3, 1/5, 1/11; f_eps(eps) = 1/2 and f_eps(2eps) = 2/3 exactly; profile f_eps(eps u) = u/(u+1) for eps = 1/2, 1/4, 1/10 over five u
+PASS D05 Ex5: r=1/3 level 3 starts {0,2,6,8,18,20,24,26}/27 total 8/27, 1/4 in [6/27,7/27] and inside every level 1..8 by interval census, digit census 0.0202.._3 = 1/4; r=2/5 receipts L1/L2, nesting through level 6, 1/2 outside forever, gap 1-2r = 1/5; r=1/2 one-step collapse, transition 1-r <= r
+PASS E01 manifest census: 373 byte-true needles from the page, 0 duplicates, 0 poisons
+PASS F01 sag integer route: a^2 = (c-b)(c+b) and 2c = a^2+1 over the family (3,4,5)..(11,60,61), sag 1/c each
+PASS F02 series coefficients: the recurrence a_{k+1} = a_k(2k-1)/(2k+2) equals the binomial closed form C(2k-2,k-1)/(2^{2k-1}k) and the page literals 1/2..21/1024
+PASS F03 tangent slopes at the marked points: (3t^2-1)/(2t) = 59/40, 23/12, 11/4 at t = 5/4, 3/2, 2 — above the chord slopes and, like them, closing on 1 as t -> 1+
+PASS F04 blow-up chart (u, uv): the cusp transforms to v^2 = u and the node to v^2 = 1 + u, exact over four t each
+PASS F05 weight tables: node 2,2,3 vs 6,4,6 and cusp 2,3 vs 6,6 (shared vs isolated minima), plus the invariance identities eps^6(v^2-u^3) and eps^2(v^2-u^2-eps u^3)
+PASS F06 the full 3^6 grid: interval-tree descent and ternary-digit test agree on exactly 128 grid points of the 730-point k/729 grid (64 level-6 intervals)
+PASS F07 heat kernel integer cross-mults: lam^2 x^2 . 4t = x^2 . 4 lam^2 t over five integer combos while (lam,lam) breaks it, prefactor 4 lam^2 t = lam^2 . 4t
+PASS F08 boundary layer integer cross-mults: eps u (u+1) = u(eps u + eps) over four integer pairs; the page gaps 1/3, 1/5, 1/11 clear to gap(1+eps) = eps
+PASS F09 r-dial at 2/5: merged-union census keeps the 1/2-straddling gap at all levels 1..6, and enumerated totals equal (2r)^N = (4/5)^N
+PASS F10 Exhibit A cleared: the node under (eps^2,eps^3) at eps=1/2, x=1/4 reads v^2 = 5 = eps^-2 u^2 + u^3 (blow-up) while the cusp reads v^2 = u^3 = 1 (eps-free)
+PASS F11 Exhibit B: node correction eps u^3 = 1/2 vs squared-cone correction eps^2 u^4 = 1/4 at eps=1/2, u=1 — both cones v^2 = u^2, different identity documents
+PASS F12 closed-form gap: Y - x^2/2 = x^4/(2(1+sqrt(1-x^2))^2) = 1/50 at x=3/5, inside [x^4/8, x^4/2]; T2 gap 19/5000 under wall 729/160000; widths 4/105 and 16/1953 with ratio 1953/420; wall identity r^2/4 = 1/64, 1/1024
+PASS F13 affine composition: over all 64 level-6 words, f_I(1/2)-f_I(0) = 1/1458 and f_I(2)-f_I(1) = 1/729 exactly — seeds wash out at the contraction rate
+PASS F14 level totals: 2^N words each of length 3^-N give exactly (2/3)^N for N = 1..8 — 2/3, 4/9, 8/27, 16/81, ..., 64/729 at level six
+PASS F15 figure pixels: Fig P56.1 markers 220/40/39.8/80/75, ticks 90 and 94, control 225.6, samples 111.80 and 144.16; Fig P56.2 node 148.4375/99.453/120.547/158.75/81.875/185/20/200, cusp 435/85/466.25/25.625; Fig P56.3 starts and widths 13.333/4.444, red point 140 — all recomputed and byte-matched
+TOTAL: 48/48
