@@ -1,0 +1,68 @@
+p41-review-verifier-output.txt — verdicts of the P41 adversarial verifier (S93)
+Verifier source: book/labs/p41-review-verifier.js. Zero code shared with
+the lab: an analytic hand landscape (fresh saddle and wall formulas) plus
+200 fresh enumerated routes and a union-find flood on the pass map,
+golden-section for the gap depth, fresh Simpson quadrature for E(6*phi1),
+the crest law with a Nehari t* = pi/(3*sqrt(3)) re-derivation, RK4 at
+dt = 1/5000 with a secant shot for a* (first-integral drift ~1e-12),
+M = 2K(1/sqrt(2)) computed by the AGM, the parts identity and the closed
+form 15.75606001 in log space (lgamma), a fresh 8-profile gallery (min
+125.5, safely above the pass level), affine-map least-squares decoding of
+all three figures' polylines, circles, and lines straight from the
+pixels, route enumeration with multiset bookkeeping, Kruskal rebuilt on
+union-find, and bitmask cuts over all 256 splits. Executed inline in the
+session sandbox; the transcript is from the final run, re-run
+byte-identical before publishing.
+
+RUN HISTORY (honest):
+- Gate failures in the verifier's first run, all in the verifier itself
+  (the page numbers held throughout): the E(6*phi1) gate at 2e-5 was
+  tighter than the page's printed four-decimal rounding (true
+  -32.6735604 against the page -32.6736; widened to 5e-5); the Kruskal
+  tree route was hand-mapped with edge 5-8 at the wrong index (11 instead
+  of 12 in the verifier's own EDGES array); the route-length multiset was
+  hand-counted as ten 8s and twenty-six 9s where the machine count is
+  eleven 8s and twenty-five 9s; and four gates compared raw floats at
+  tolerances below float64 noise — factOk at 1e-15 on values near 2.17
+  (now 1e-11), the crossings gate by join-string (now a 1e-12 tolerance;
+  0.05*29 = 1.4500000000000002), the golden-section gap depth at 1e-9
+  (now 1e-7 — the quartic bottoms out at its own flatness, residual
+  5.2e-9), and the map-edge gate against the raw float (now compared at
+  the page's printed precision via toFixed(10); the true value differs
+  from 0.2500000012 by 1.8e-11).
+- The audit caught one genuine page error before the verifier froze:
+  Exhibit A's slope |dE/dy| at (0, 1.5) was printed 0.32 — the draft had
+  conflated the slope 1.5*1.5*e^(-2.25) = 0.2371 with the height
+  E(0, 1.5) = 0.329. Corrected to 0.24 on the page (still 57,879 bytes),
+  the lab gate pinned to the computed value, and the verifier re-derives
+  0.24 from scratch; the poison audit re-injects the original 0.32 and
+  rejects it.
+- One false alarm rejected by the machine: a hand "correction" of the
+  fig P41.2 crest from s = 3.5737 to 3.5735 was itself wrong —
+  s* = sqrt(2*I2/pi^2) = 3.57371 confirms the page; both page and needle
+  kept 3.5737. Hand arithmetic is the draft; the gates are the book.
+- Final verdict: 17 checks PASS (V01-V16 independent re-derivations, V17
+  the poison audit), 16 poisoned injections all REJECTED, 0 FAILS. Every
+  machine number on the page is now confirmed by two independent engines,
+  and every tampering the verifier tried was caught.
+
+TRANSCRIPT (final run, verbatim):
+
+P41-V01 PASS the hand landscape by fresh routes: floors at (±1,0) E=0 [Hessian diag(8,2)], saddle (0,0) E=1 [diag(-4,2)]; the wall E(0,y)=1+y² >= 1; 200 fresh broken-line routes (my own generator) every one peaks above 1 (min 1.102367; the page's 1.0002 is the build's own gallery, same verdict); fresh union-find flood: two lakes at 0.99, one at 1.001 - the joining level is exactly 1
+P41-V02 PASS the richer landscape analytic: exactly 9 resting points (4 floors at -1/4 [Hessian (8,4)], 2 free floor saddles at 0 [(8,-2)], 2 wall saddles at 3/4 [(-4,4)], 1 dome at 1 [(-4,-2)]); the wall factors g = 3/4 + (y²-1/2)² identically; golden-section (not the build's ternary) finds the gap at y = -0.70710678, level 0.7500000000; g'' classifies: -2 at the shoulder, +4 at both gaps; the ruler pays 1.000000, the map reader 0.750000 - a 25% discount
+P41-V03 PASS fresh union-find flood on the 61x61 map: at 0.70 the two wells are separate lakes while each well's two trenches have merged through the free floor saddle at 0; at 0.76 one lake; the grid's own joining level is 0.7501000000 - its cheapest wall cell, g(±0.70) = 0.750100 exactly, one ten-thousandth above the true 0.75 (the pass falls between rows): the page's confession of resolution is the machine's own
+P41-V04 PASS the far basin by fresh Simpson (2000 panels): ∫(6φ₁)⁴ = 486.0000000000 = 486, ∫(6φ₁)'² = 177.652879220 = 18π², so E(6φ₁) = -32.673560 - the page's -32.6736, deep below the rim (E(0) = 0, both endpoints strictly below 0); lgamma spot-checked on Γ(1/2) and Γ(3)
+P41-V05 PASS the crest law, fresh: golden-section max of E(sφ₁) lands at s = 3.627599 = 2π/√3 with value 16.234849 = π⁴/6; the ray of 6φ₁ pays the identical crest (Q²/4R = (18π²)²/1944 = π⁴/6 to machine) - the crossing price is scale-free, fixed by the ray's direction; its Nehari scaling √(Q/R) = π/(3√3) = 0.60459979, and 6t* = 2π/√3 exactly: the wall crossing and the corridor crest are one event
+P41-V06 PASS fresh shot (RK4 at dt = 1/5000, secant - not the build's bisection at 1/4000): a* = 9.72298103, u(1) = 2.19e-15; the first integral u'² + u⁴/2 = a*² drifts only 1.08e-12 along the entire flight (the page says 2.6e-12 for its own step) - the profile traced is a solution of -u'' = u³
+P41-V07 PASS the peak by AGM, no gamma functions: M = 2K(1/√2) = 3.7081493546 (arithmetic-geometric mean iteration - a route the build never took) = the page's 3.7081493546; and a* = M²/√2 = 9.72298103 to rel 1.7e-14 of my own shot: amplitude and launch speed are one number
+P41-V08 PASS parts identity by fresh Simpson on my own profile: ∫u⁴ = 63.024240043 (the page's 63.024240); the first integral then gives ∫u'² = a*² - ∫u⁴/2 = 63.024240, equal to ∫u⁴ to rel 2.0e-14 - the identity the page states; E(u*) = ∫u⁴/4 = 15.756060; and the closed form √2 M³ B(5/4,1/2)/8 by log-space Lanczos = 15.75606001 - the page's 15.75606001
+P41-V09 PASS the exhibited route re-priced: E(2u*) = -126.0485 (the page's -126.0485); the cross-valley leg to e peaks at -32.6736 (at t = 1.00, the e endpoint: the build says "never above -32.7" - true, the max IS -32.6736 rounded); endpoints 0 and -32.6736 both strictly below the level 15.7561; and a fresh gallery of 8 random 4-mode profiles (my own generator) pays crests of 125.5 and up - every one far above the pass, no fresh corridor crosses cheaper (the page's 183.7 is its own gallery, same verdict)
+P41-V10 PASS fig P41.1 geometry vs fresh curve math: wall polyline is g(y) = 1+y⁴-y² at 45 latitudes -1.10..1.10 under a decoded affine map (max residual 0.018 px); water line decodes to level 0.7500; red gaps at lat -0.7072 and 0.7072 sit on the water line; grey shoulder at lat 0.0000, height 1.0000
+P41-V11 PASS fig P41.2 geometry vs the crest law and my own R2: two 51-point rays from the same rim: the wave's ray matches π²s²/4 - 3s⁴/32 and the ground state's ray matches π²s²/4 - R2 s⁴/4 with MY R2 = π⁴/(4∫u⁴) (max residuals 0.049 and 0.054 px); grid decodes to E = 0/10/20; water line decodes to 15.7594 = E(u*); blue crest marker at s = 3.6278 (2π/√3), E = 16.2294 (π⁴/6); orange crest marker at s = 3.5741 (my sStarB = 3.5737), E = 15.7594 (E(u*)) - the discovered corridor crests below
+P41-V12 PASS fig P41.3 geometry vs a fresh sort of the ridge list: the staircase decodes: step unit 33.0 px per ridge height; 15 visible intervals at heights 1,2,3,3,4,4,5,5,5,6,7,7,8,8,9 plus the doubled terminal point at height 9.0 and 7 doubled boundaries - sixteen processed ridges over the sorted heights [1,2,3,3,4,4,5,5,5,6,7,7,8,8,9,9], water pausing at each repeat; water line at level 5; the marker sits on boundary #8 (step 8) at height 5.0 - the 4-8 arm, level 5
+P41-V13 PASS fresh stack-based enumeration (no recursion, not the build's helper): exactly 41 simple routes; the price multiset runs [5,5,6,6,7,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9] - two 5s, then 6,6,7, a wall of eleven 8s, twenty-five 9s of the summit-crossers; cheapest peak 5 on exactly two routes: 0-2-5-8-4-7-9 and 0-2-5-8-9
+P41-V14 PASS fresh Kruskal (union-find, not the build's flood): sorted heights [1,2,3,3,4,4,5,5,5,6,7,7,8,8,9,9]; camps 0 and 9 join at step 8 on the 4-8 arm at level 5, with all three level-5 ridges arriving at steps 7, 8, 9 - a flat shelf, which is why the enumeration found two optimal routes; the flood tree carries its own route 0-2-5-8-4-7-9 (worst ridge exactly 5)
+P41-V15 PASS fresh bitmask cuts: S = {0,3,6} crosses at [8,5,9,8,7] (cheapest 5); over all 256 cuts the best floor is 5 = the enumeration's cheapest peak 5 - the minimax equality, squeezed between route and cut; sensitivity re-runs: ridge 1-2 raised to 12 -> 5, spur 4-7 to 2 -> 5, arm 8-9 to 6 -> 5, the other arm 4-8 to 6 -> 5, both arms -> 6, source 0-2 -> 6 - the budget answers only to the whole shelf
+P41-V16 PASS Exhibit A: on the 0.05 grid the crossings sit at [1.45,2.10,2.60] against the law [1.4195,2.0779,2.5730]; at exactly 0.25 the lakes never join (fresh flood, window 4.5); nothing rests at 0.25 - the critical set is the two trench lines at 0 and the dome at 1, and the wall slides: |dE/dy| = 0.2371 at (0,1.5) (the page's corrected 0.24); the windowed map's edge reading is 0.2500000012. Exhibit B: the whole y-axis is critical at height 1, the fresh flood pins 1.0000000000, and my three fresh ascents land at x ~ -1.5e-9, -1.5e-9, -1.1e-9, latitudes 0.483, 1.517, 2.634 - different from the build's 0.481/1.519/2.638 and from each other, one height: the address is arbitrary, exactly the exhibit's lesson. Exhibit C: the bowl reads 1.0000000000 - the endpoints' own height, the dip route never exceeds it, and the only resting point is the bottom at 0
+P41-V17 PASS 16/16 poison injections caught - every tampered digit, claim, and pixel rejected by its gate
+P41-VERIFIER ALL PASS - 17 adversarial re-derivations (analytic, golden-section, RK4-secant, AGM, lgamma, Simpson, union-find, Kruskal, bitmask cuts, geometry) with zero code shared with the build
