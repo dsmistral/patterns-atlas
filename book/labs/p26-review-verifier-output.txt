@@ -1,0 +1,87 @@
+p26-review-verifier-output.txt — verdicts of the P26 adversarial verifier (S91)
+Verifier source: book/labs/p26-review-verifier.js. Zero code shared with the
+lab: independent k from ln 7 - ln 6, the quadratic re-derived by Gaussian
+elimination, RK4 mug audit, a flux-array rod scheme, Pascal-product and
+halving-DP walk routes, a midpoint (not RK4) Exhibit A integrator at h = 0.01,
+Lax-Friedrichs traffic at lambda = 0.4 on 800 cells (the lab used 0.5/400),
+and full figure-geometry parsing of the injected page (bars, five polylines,
+dots, all coordinates re-derived from first principles). Executed inline in
+the session sandbox; the transcript is from the final run, re-run
+byte-identical before publishing.
+
+RUN HISTORY (honest):
+- Draft bugs found and fixed before any verdict was accepted: V10's first
+  flux scheme had the diffusion sign flipped (a backward heat equation:
+  values blew up and the drift read NaN); V16 initially demanded a page
+  needle "0.079788" the page never prints (the page states the Gaussian
+  overshoot as 0.501/0.250/0.125 percent at n = 50/100/200) and was
+  rewritten as the overshoot-halving audit against the page's real
+  needles; I05's first condition was a vacuous tautology with a wrong
+  href count; I06/I07 first tested the untampered page (vacuous by
+  construction) and were rewritten tamper-then-check; V33's href census
+  was drafted as 42 where the page has 41 (a planning slip, not a page
+  defect).
+- The verifier found two real page defects, both fixed before publishing:
+  the 60-degree prediction dot (cx 267.4663 against the exact
+  60 + t*40/7 = 267.4467) and Exercise 3's swapped recursion weights
+  (0.4/0.6, contradicting the stated mean +200; the lab's D03 convention
+  was right). Both fixes kept the page at exactly 54,859 bytes.
+- Final verdict: 36 checks PASS, 16 poisoned injections all REJECTED,
+  0 FAILS. Every machine number on the page is now confirmed by two
+  independent engines, and every tampering the verifier tried was caught.
+
+TRANSCRIPT (final run, verbatim):
+
+V01 PASS k = (ln7-ln6)/10 gives exp(-10k) = 6/7
+V02 PASS T(20) = 20 + 70*36/49 = 71.4286, page needle 71.43 x2
+V03 PASS t(60C) = 36.3032, round trip exact
+V04 PASS T(30) = 64.0816, needle x2
+V05 PASS elimination: a = 1/140, b = -15/14
+V06 PASS quadratic fits all three measurements
+V07 PASS quadratic receipts 51.43 / 49.82 / 161.43
+V08 PASS RK4 agrees with closed form to 1e-8
+V09 PASS fresh forward Euler h=0.5 at t=36.5 reads 59.792
+I01 REJECTED tampered 71.43 -> 71.53 kills the needle (count drops to 0)
+I02 REJECTED deleted trailing zeros kill both 36.30 needles
+I03 REJECTED kicker rank tamper detected
+I04 REJECTED MathJax pin tamper detected
+V10 PASS 17-slab insulated rod (flux-array scheme): drift -1.14e-13
+V11 PASS FTCS midpoint: 100 cells reads 50.4303 (page 50.43), 200 cells converges toward 50
+V12 PASS copper half-time 158.18 s; 1 m rod 632.71 s (page 158.2 / 632.7)
+V13 PASS triangle-profile energy 83328 -> 57605 monotone (ends at zero)
+I05 REJECTED foreign href injected: whitelist census flags it
+V14 PASS P(X_100=0): Pascal-product 0.0795892 = halving-DP 0.0795892; page needle 0.0796 x1
+V15 PASS parity: odd positions carry 0, all mass on even (P(odd) = 0)
+V16 PASS Stirling (1-1/400)/sqrt(50*pi) = 0.0795890; Gaussian overshoot 0.501%/0.250%/0.125% at n=50/100/200, halving like 1/n
+V17 PASS walk bars: 31 rects, x = 56.5+18j, y+height = 330, height = 3500*P (max dev 0.00005)
+V18 PASS coffee polyline: 15 points on 60+t*40/7 vs 330-3*T(t), no drift (last pt 460,198.6175)
+V19 PASS rod polylines: 3 arches, 21 pts each, amplitudes 100 / 70.7107 / 50 at x = 60..600
+V20 PASS gaussian overlay: 31 pts, y = 330 - 3500*2*exp(-k^2/200)/sqrt(200*pi) (peak 50.7404)
+V21 PASS mug dots at t=0,10,20 and the 60-degree prediction dot (267.4467,150); linear guess line (60,60)-(460,270)
+I06 REJECTED details tamper: one tag broken, census no longer finds 10
+I07 REJECTED rect tamper: first bar lifted off the axis, y+height no longer 330
+V22 PASS world midpoint h=0.01: T(10) = 80.0594, T(240) = 29.0764 vs model 21.7313 (off 7.3451)
+V23 PASS creep 2.0%/4.9%/13.9% at t=5.5/6/7 as page says
+V24 PASS t=10: 1200.6 vs 599.9; t=15: 13,155 vs 948; t=20: 144,145 vs 995.5 (145x)
+V25 PASS mode-20 factor: forward 7.157e-18, backward 1.397e17; 1e-6 error -> 1.397e11; slowest of fifty = 0.9060
+V26 PASS LF lam=0.4/800 cells: jam tail -0.300 road-lengths/s (exact -0.30), standing queue 0.000 (exact 0)
+V27 PASS q'(1/2) = 0 with q max 1/4; Rankine-Hugoniot s = 1 - rho_l - rho_r as page states
+V28 PASS Ex1: k = 0.03083, T(30) = 52.7599, t(40C) = 49.9656, round trip lands exactly on 40
+V29 PASS Ex3 DP: mean 200.0 = (2p-1)n, Var 960.0 = 4p(1-p)n; recursion weights 0.6/0.4 as fixed
+V30 PASS mug needles: k=0.0154 x3, 36.30 x2, 71.43 x2, 64.08 x2, 47.76 x3, Euler 59.79/exact 59.88
+V31 PASS rod/walk needles: 158.2 x4, 632.7 x2, 50.43, 2.61 x2, 28,092 x2, 2.3e-13, 1.11e-4, 0.906
+V32 PASS parabola/population needles: 51.43 x2, 49.8 x3, 161.4 x3, 109.57
+V33 PASS structure: 8 sections in order, 8 h2, 41 whitelisted hrefs, 3 boxes, 3 pid, 10 details (5+5), 3 svg
+V34 PASS identity: title, kicker, pinned MathJax, 5 moons, onramp + scope asides
+V35 PASS footer routes to P27/P25, tail intact, TeX balanced 283/283, no $ and no backtick anywhere
+V36 PASS lineage dates present: 1701, 1747, 1807, 1822, 1855, 1900, 1905, 1955, 1956, 1973
+I08 REJECTED coffee polyline tamper: second point off the model curve
+I09 REJECTED rod amplitude tamper: middle arch no longer 70.7107 sine
+I10 REJECTED walk return-chance needle tampered away
+I11 REJECTED tail tamper: page no longer closes body and html
+I12 REJECTED moon tamper: Exercise 3 difficulty badge altered
+I13 REJECTED scope aside deleted: the honesty contract removed
+I14 REJECTED title tamper: page identity broken
+I15 REJECTED backward-amplification needle tampered: 10^17 becomes 10^16
+I16 REJECTED tail-error needle tampered: 2.61% becomes 2.71%
+VERIFIER 36 PASS, 16 REJECTED, FAILS 0
