@@ -1,0 +1,51 @@
+p59-lab.js output — run 3 (PASS 46/46). Fresh deterministic engine; exact rational arithmetic,
+floats only as a third opinion at 1e-9 and at the page-quoted figure precision. Checks: A01-A12 entropy core,
+B01-B08 the brackets, C01-C13 the census, D01-D04 the exercises, E01-E04 the manifest, F01-F05 independent recomputes.
+
+PASS A01 dyadic entropy exact: H(1/2,1/4,1/8,1/8) = 7/4, H(uniform 8) = 3, H(1/2,1/2) = 1; the 3/8+5/8 table returns null (its cells are not powers of 1/2)
+PASS A02 chain rule on the uniform pair: H(X,Y) = H(X) + H(Y|X) = 1 + 1 = 2, with H(Y|X) = H(Y) because the bits are independent
+PASS A03 subadditivity: the independent pair gives H(X,Y) = 2 = 1 + 1 (equality) while the equal pair X = Y gives H(X,Y) = 1 < 2 = H(X) + H(Y), slack exactly 1
+PASS A04 conditioning reduces entropy on the parity triple: H(Z|X,Y) = 2-2 = 0 <= H(Z|X) = 2-1 = 1 <= H(Z) = 1 — the parity bit is determined by the pair but hidden from either single coordinate
+PASS A05 Shearer on the triangle cover, independent bits: 2*3 = 6 <= 2+2+2 = 6 — TIGHT, and the LP route agrees (cmp = 0)
+PASS A06 Shearer on the triangle cover, the parity triple: 2*2 = 4 <= 2+2+2 = 6 — strict by exactly 2 bits, LP route agrees
+PASS A07 Shearer on the triangle cover, X = Y = Z: 2*1 = 2 <= 1+1+1 = 3 — strict by exactly 1 bit, LP route agrees
+PASS A08 Shearer on the 4-cover {{A,B},{B,C},{C,D},{A,D}} of the parity-4 chain (C = A xor B, D = C): 2*2 = 4 <= 2+2+1+2 = 7 — strict by exactly 3, LP route agrees
+PASS A09 the LP route on the non-uniform table (1/2, 1/8, 1/8, 1/4): H(X,Y) = 7/4 <= H(X) + H(Y) certified by clearing denominators — the residual comparison is 2^26 = 67108864 >= 5^5*3^9 = 61509375
+PASS A10 the false-r exhibit: the cover {{X},{X,Y}} is not regular (X covered twice, Y once); claiming r = 2 gives 2*2 = 4 > 3 = H(X) + H(X,Y), a certified violation, while the honest r = 1 restores 2 <= 3
+PASS A11 the K_{3,3} hard-core split: the census reads [8,1,1,1,1,1,1,1]/15 by left part; H(I_R|I_L) = (8/15)*3 = 8/5 exact; the split H(I) = H(I_L) + 8/5 with H(I) = log2 15 is certified by the LP equality (15/8)^8 * 15^7 * 2^24 = 15^15
+PASS A12 the triangle proof as receipts: H <= H(X,Y)+H(X,Z)-H(X), 3H <= 2*sum(pairs) - (HX+HY+HZ), H <= HX+HY+HZ and 2H <= sum(pairs) all hold exactly on the parity, equal and independent triples
+PASS B01 limb bignum sanity: 2^10 = 1024 > 1000 = 10^3, 4^2 = 16 = 2^4, 3^2 = 9 < 16 = 2^4
+PASS B02 log2 3 in (19/12, 27/17): 3^12 = 531441 > 524288 = 2^19 and 3^17 = 129140163 < 134217728 = 2^27, both direct integers below 2^53
+PASS B03 log2 3 = 1.585 to 3 dp: 2^3169 <= 3^2000 < 2^3171 by limb bignum (3169/2000 = 1.5845, 3171/2000 = 1.5855)
+PASS B04 log2 15 = 3.907 to 3 dp: 2^7813 <= 15^2000 < 2^7815 (7813/2000 = 3.9065, 7815/2000 = 3.9075) — the bracket that prices H(I_L) = log2 15 - 8/5 = 2.307
+PASS B05 the C6 Kahn rung: 18^2 = 324 <= 343 = 7^3 so 18 <= 7^{3/2}, and 7^{3/2} = sqrt(343) = 18.520 to 3 dp (18520^2 = 342990400 <= 343*10^6 < 343027441 = 18521^2)
+PASS B06 the Zhao rungs: 35^3 = 42875 <= 50625 = 15^4 (the cube Q3) and 76^3 = 438976 <= 759375 = 15^5 (the Petersen graph)
+PASS B07 15^{5/3} = 91.23 to 2 dp: 9123^3 = 759299343867 < 759375*10^6 < 759549058624 = 9124^3 — the Petersen dial rung
+PASS B08 the K_{d,d} family constants 2^{d+1}-1 = 3, 7, 15 at d = 1, 2, 3, and the C5 Kahn rung 11^4 = 14641 <= 16807 = 7^5
+PASS C01 the census by honest 2^n bitmask scan: i(C4) = 7, i(C6) = 18, i(C8) = 47, i(P4) = 8, i(K_{1,3}) = 9, i(K_{1,4}) = 17
+PASS C02 complete bipartite: i(K_{2,2}) = 7 (the same count as C4 — they are the same graph) and i(K_{3,3}) = 15
+PASS C03 the harder censuses: i(Q3) = 35, i(Petersen) = 76, i(K3) = 4, i(C5) = 11
+PASS C04 two routes for the cycles: the bitmask scans equal the Lucas formula i(C_n) = F_{n-1}+F_{n+1} = 7, 11, 18, 47 at n = 4, 5, 6, 8
+PASS C05 the edge traces of C6: each of the six edges sees exactly the 3 states {}, {u}, {v} — never both endpoints
+PASS C06 Shearer's counting corollary on edge covers: 18^2 = 324 <= 729 = 3^6 (C6), 49 <= 81 (C4), 35^2 = 1225 <= 531441 (Q3), 76^2 = 5776 <= 14348907 (Petersen)
+PASS C07 the C6 dial: singleton cover 2^6 = 64, edge cover 3^3 = 27, Kahn 7^{3/2} with 18^2 = 324 <= 343 = 7^3, truth 18 — every rung above the truth, each one closer (27 >= sqrt(343) since 729 >= 343)
+PASS C08 the Kahn-Zhao receipts: C4 7 <= 7^1 TIGHT, K_{3,3} 15 <= 15^1 TIGHT, C6 18^2 = 324 <= 343, C5 11^4 = 14641 <= 16807, Q3 35^3 = 42875 <= 50625, Petersen 76^3 = 438976 <= 759375
+PASS C09 the K_{d,d} family: enumeration gives 3, 7, 15 = 2^{d+1}-1 at d = 1, 2, 3, and Kahn's bound (2^{d+1}-1)^{n/2d} has exponent n/2d = 1 there — bound = truth, the family is extremal
+PASS C10 the doubled triangle: K3's bipartite double cover is a 6-cycle (every degree 2, one greedy walk visits all six nodes and closes), and i(K3)^2 = 16 <= 18 = i(double cover) = i(C6)
+PASS C11 fractional cover of P4: weights (1, 0, 1) on the three edges cover all four vertices, sum 2, bound 3^2 = 9 >= 8 = i(P4) — honest, not tight
+PASS C12 the star punished: a grid search over dyadic edge weights finds the least edge-cover of K_{1,3} costs 3 (each leaf touches only its own edge) — bound 3^3 = 27 >= 9 — while the singleton cover reads 2^4 = 16 >= 9; the star's best dial rung is 16
+PASS C13 the hard-core census by bitmask projection: K_{3,3} reads [8,1,1,1,1,1,1,1] by left part (empty left leaves 8 right choices, nonempty left forces the empty right) and K_{2,2} reads [4,1,1,1]
+PASS D01 Ex1: i(C5) = 11 = 1 empty + 5 singles + 5 non-adjacent pairs; the dials read 11^2 = 121 <= 243 = 3^5 and 11^4 = 14641 <= 16807 = 7^5
+PASS D02 Ex2: the parity slack: the joint holds H = 2 bits, each pair slice reads 2, so 2H = 4 <= 6 with slack exactly 2 — the third slice re-reads what the first two already contain
+PASS D03 Ex3: the least P4 edge-cover costs 2 (bound 3^2 = 9 >= 8, honest) while the star's costs 3 (bound 27 >= 9) and the singleton cover reads 16 >= 9 — the center sits in every edge, so no edge-slicing shares its constraint
+PASS D04 Ex4: i(K_{d,d}) = 2^{d+1}-1: either side of the bipartition is empty or all of the other side is excluded — 3, 7, 15 at d = 1, 2, 3 — exactly Kahn's constant, so the bound is tight on the family
+PASS E01 the manifest: 134 needles, all distinct, none empty — every receipt, figure pixel, door, lineage entry and exercise needle the page under review must carry
+PASS E02 lineage and disclosure receipts in the manifest: Shearer 1985 (Combinatorica 5(3), 241-245), Chung-Graham-Frankl-Shearer 1986 (JCT A 43, 23-37 with doi), Galvin 2014 (arXiv:1406.7872), the sketch-marker, and the Kahn 2001 / Zhao 2010 not-source-verified disclosure
+PASS E03 the figure pixels, re-derived: Fig P59.1 bars drawn at 64, 27, 18.52 and 18 under 2.2 px per unit give heights 140.8, 59.4, 40.744, 39.6 and tops 59.2, 140.6, 159.256, 160.4 (exact fractions, byte-matched); Fig P59.2 circles at (170,85), (350,85), (260,205) with r 75 (byte-matched); Fig P59.3 heights 36, 84, 180 at 12 px per unit with tops 164, 116, 20 (byte-matched)
+PASS E04 the page furniture: the moons row, the five exercise labels with their grades, the P60 next-link and the atlas-home links are all in the manifest
+PASS F01 fresh routes: the path recurrence i(P_n) = i(P_{n-1})+i(P_{n-2}) = 2, 3, 5, 8, 13, 21, 34, 55 and the star formula i(K_{1,k}) = 2^k+1 = 3, 5, 9, 17 both match the bitmask scans
+PASS F02 floats as a third opinion: 2H vs the slice sum agrees with the exact route to 1e-9 on the parity, equal and independent triples
+PASS F03 repeated squaring agrees with the linear route: 3^2000 and 15^2000 give identical limb arrays, and the 2^3169/2^3171 and 2^7813/2^7815 brackets hold on both routes
+PASS F04 the walk relabeling certifies the isomorphism: the double cover's edges map exactly onto C6's edge list (0-1, 1-2, 2-3, 3-4, 4-5, 5-0)
+PASS F05 the dial decimals re-derived: 18.520 by 18520^2 <= 343*10^6 < 18521^2, 91.23 by 9123^3 < 759375*10^6 < 9124^3, and H(I_L) = log2 15 - 8/5 pinned between 7813/2000 - 8/5 = 2.3065 and 7815/2000 - 8/5 = 2.3075
+TOTAL: 46/46
