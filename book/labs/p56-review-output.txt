@@ -1,0 +1,57 @@
+p56-review-verifier.js output — run 2 (PASS 52/52), session S86.
+Adversarial review of book/p56-asymptotic-rescaling.html ("Rescale for asymptotic geometry").
+Fresh engine: zero code shared with p56-lab.js — different harness (OK/BAD/OUT, T()), different
+fraction representation ({n,d} objects, qAdd/qMul family), different computational routes.
+PASS I01 excerpt "head MathJax pin 3.2.2": 175 chars / 175 bytes byte-true, 3 needles in, 2 poisons out
+PASS I02 excerpt "tagline": 440 chars / 446 bytes byte-true, 2 needles in, 1 poisons out
+PASS I03 excerpt "onramp": 1407 chars / 1417 bytes byte-true, 3 needles in, 2 poisons out
+PASS I04 excerpt "P15 bridge": 1408 chars / 1414 bytes byte-true, 3 needles in, 1 poisons out
+PASS I05 excerpt "sagitta identity": 564 chars / 568 bytes byte-true, 5 needles in, 2 poisons out
+PASS I06 excerpt "zoom-fail paragraph": 1022 chars / 1024 bytes byte-true, 2 needles in, 1 poisons out
+PASS I07 excerpt "Fig P56.1 caption": 762 chars / 768 bytes byte-true, 5 needles in, 2 poisons out
+PASS I08 excerpt "pattern box": 1262 chars / 1276 bytes byte-true, 5 needles in, 1 poisons out
+PASS I09 excerpt "Box P56.A weight table": 1422 chars / 1430 bytes byte-true, 5 needles in, 1 poisons out
+PASS I10 excerpt "Box P56.B appearances": 1380 chars / 1393 bytes byte-true, 5 needles in, 2 poisons out
+PASS I11 excerpt "Encounter 1 closed form": 731 chars / 739 bytes byte-true, 4 needles in, 2 poisons out
+PASS I12 excerpt "Encounter 1 ladder/walls/column": 1623 chars / 1633 bytes byte-true, 9 needles in, 4 poisons out
+PASS I13 excerpt "Encounter 2 node/cusp": 2413 chars / 2437 bytes byte-true, 12 needles in, 3 poisons out
+PASS I14 excerpt "Encounter 3 operator": 1486 chars / 1502 bytes byte-true, 4 needles in, 2 poisons out
+PASS I15 excerpt "seeds wash out": 835 chars / 843 bytes byte-true, 4 needles in, 2 poisons out
+PASS I16 excerpt "r-dial paragraph": 880 chars / 886 bytes byte-true, 4 needles in, 2 poisons out
+PASS I17 excerpt "heat kernel scaling": 939 chars / 947 bytes byte-true, 4 needles in, 2 poisons out
+PASS I18 excerpt "Exhibit A wrong zoom": 979 chars / 991 bytes byte-true, 3 needles in, 2 poisons out
+PASS I19 excerpt "Exhibit B corrections": 685 chars / 695 bytes byte-true, 3 needles in, 1 poisons out
+PASS I20 excerpt "scope box": 1002 chars / 1002 bytes byte-true, 4 needles in, 2 poisons out
+PASS I21 excerpt "Ex1 worked answer": 1450 chars / 1458 bytes byte-true, 10 needles in, 2 poisons out
+PASS I22 excerpt "Ex5 worked answer": 2137 chars / 2157 bytes byte-true, 8 needles in, 3 poisons out
+PASS I23 excerpt "lineage Hironaka entry": 296 chars / 302 bytes byte-true, 2 needles in, 2 poisons out
+PASS I24 excerpt "footer next-link": 394 chars / 399 bytes byte-true, 2 needles in, 3 poisons out
+PASS I25 excerpt "atlas-home footer": 196 chars / 200 bytes byte-true, 4 needles in, 2 poisons out
+PASS I99 excerpt census: 25 lines embedded, total 26102 bytes of the page
+PASS R01 Pythagorean family: c-b=1, a^2+b^2=c^2, sag=(c-b)/c=1/c = 1/5, 1/13, 1/25, 1/41
+PASS R02 closing ratios 2c/a^2 = 1 + 1/a^2 = 10/9, 26/25, 50/49, 82/81 (three fresh routes)
+PASS R03 series ladder (2k-1)/(2k+2): 1/2 -> 1/8, 1/16, 5/128, 7/256, 21/1024
+PASS R04 closed form C(2k-2,k-1)/(k*2^(2k-1)) via Pascal rows reproduces the ladder (routes agree)
+PASS R05 truncation gap at x=3/5 exactly 19/5000, and 19/5000 < 729/160000 (cross-multiplied)
+PASS R06 walls 8/15<=v<=4/7 (width 4/105), 32/63<=v<=16/31 (width 16/1953), tightening ratio 1953/420
+PASS R07 v=4-2*sqrt(3) inside the walls: fresh squarings 2704>2700, 576<588 agree with page 196>=192, 36<=48
+PASS R08 node marked points (9/16,45/64), (5/4,15/8), (3,6) with exact slope y/x = t = 5/4, 3/2, 2
+PASS R09 node isotropic zoom: |v^2/u^2 - 1| = eps*u = 1/2 at eps=1/2, 1/4 at eps=1/4 (exact substitution)
+PASS R10 cusp parametrization (t^2,t^3): (9/4,27/8) at t=3/2; zoom (l^2,l^3) is (lt)^2,(lt)^3 — self-carried
+PASS R11 zoom substitutions: cusp (1,1) collapses v^2=eps u^3, (2,3) exact v^2=u^3; node (1,1) v^2=u^2(1+eps u), (2,3) blows up v^2=eps^-2 u^2+u^3
+PASS R12 Cantor level 3 by nested {0,2}^3 loops: starts {0,2,6,8,18,20,24,26}/27, total 8/27=(2/3)^3
+PASS R13 1/4 = 0.020202..._3 by fresh digit algorithm; 27/4 in [6/27,7/27] by integers (24<=27<=28); (2/9)/(8/9)=1/4
+PASS R14 r-dial integer grid x2000: L2 = [0,320]u[480,800]u[1200,1520]u[1680,2000], 1000 outside forever, nesting holds, r=1/2 covers in one step
+PASS R15 heat identities at (x,t,l)=(3,7,4),(5,2,3): (lx)^2*4t = x^2*4l^2 t and 4l^2 t = l^2*4t; lambda^3 fails
+PASS R16 seed wash-out at N=6: 64 points, 3^-6/2 = 1/1458 from C; doubled-seed overshoot 3^-6 = 1/729
+PASS R17 Exhibit B corrections at integer witnesses: v^2=u^2+eps u^3 (252=252) vs v^2=u^2+eps^2 u^4 (1332=1332)
+PASS R18 weight tables fresh w(i,j)=ia+jb: circle 2,2,4; node (1,1) 2,2,3 tie / (2,3) 6,4,6 min isolated (wrong balance); cusp (2,3) 6,6 whole equation; tacnode 4,4,5; (3,4)-curve 12,12,15
+PASS R19 P15 column 16.708..15.504 strictly decreasing, every entry above pi^3/2 = 15.503138 (computed fresh), closing from above
+PASS R20 word collapse is a dial fact: at r=1/2 addresses 0.1 and 0.0111... both name 1/2; at r=2/5 they name 3/5 and 4/15 — different points
+PASS J01 injection: swapping the walls gives lower 4/7 > upper 8/15 — rejected (bracket invalid)
+PASS J02 injection: the factor-12 claim fails — 1953/420 != 12 (the defect caught pre-publication, enshrined)
+PASS J03 injection: word 202 for 1/4 rejected — the true digits are 0,2,0,2 (1/4 is not 0.202..._3)
+PASS J04 injection: node at (2,3) rejected — weights 6,4,6 leave the x^2 term isolated (not a balance)
+PASS J05 injection: cusp at (1,1) rejected — weights 2,3 leave y^2 isolated, and v^2 = eps u^3 collapses to v=0
+PASS J06 injection: "quarters the gap" rejected — the ratio is 1953/420, strictly between 4 and 5
+TOTAL: 52/52
