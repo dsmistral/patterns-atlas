@@ -1,0 +1,79 @@
+p29-lab-output.txt — verbatim record of the P29 lab battery (session S92)
+Engine: deterministic JavaScript (float64), no recursion, no BigInt; the
+battery was assembled from pieces A-H, X (figure receipts) and S (page
+census) and executed inline in the session sandbox (Function constructor
+with a __log sink; no eval). Lab source: book/labs/p29-lab.js. The
+transcript below is from the final run; a fresh re-run in the same sandbox
+reproduced it byte-for-byte before publishing.
+
+RUN HISTORY (honest):
+- The battery passed 51/51 on its final assembly run. The first assembly
+  run caught three design defects in the earliest pieces, all fixed
+  before anything was licensed: A04 monotonicity test initially tested a
+  constant (not monotone) factor and was rewritten to scan dt = 30, 1/k
+  and 100; B01 hand identity was wrong (the half-sum identity gives
+  sum sin^2 = n/2, so the grid arch holds E0 = 65,000, not the 60,000 I
+  had by hand - the machine corrected me); B06 measured the perturbed
+  profile energy instead of the perturbation one, and now prices the
+  1-degree start error against the envelope.
+- Piece X was extended mid-session with X05 (damped-string tail rates at
+  gamma = 0.5 and gamma = 20 against the slow-root floor 2*omega1^2/gamma)
+  once the page Exhibit B discussion settled; re-run 5/5 identical.
+- The census piece S pins the page at exactly 53,515 utf-8 bytes; the
+  transcript below is the assembled book/labs/p29-lab.js run against the
+  frozen page, twice, byte-identical both times.
+
+TRANSCRIPT (final run, verbatim: 51 checks, then the TOTAL line):
+
+P29-A01 PASS mug ledger dE/dt=-2kE: E(t*)/E(0)=0.326530612245 = (6/7)^7.260633; t*=36.3032 min, E(0)=4900
+P29-A02 PASS energy half-life 22.4828 min = amplitude half-life 44.9656 / 2
+P29-A03 PASS difference mug w(0)=3 deg: w(t*)=1.714286 deg = sqrt(E_w(t*)); the gap never grows
+P29-A04 PASS Euler mug (1-2k dt)^n: dt=30.000 fac=0.0750959: mono; dt=64.872 fac=-1.00000: alt; dt=100.00 fac=-2.08301: grow (one-sidedness survives the scheme only while 2k dt <= 1)
+P29-A05 PASS E(100min): Euler=224.4160155 vs its own closed form=224.4160155 rel=3.29e-15; scheme-vs-physics error=4.75e-4 (disclosed price of dt=0.01)
+P29-B01 PASS grid arch E0=65000.0000000 (10000*6.5: the half-sum identity sum sin^2 = n/2, walls at 0 and 13)
+P29-B02 PASS mode-1 exactness: profile(50) vs C^50 v maxdiff=2.49e-14; E(200)=0.48999968 = 65000 cos^400(pi/13) rel=1.13e-14
+P29-B03 PASS mixed start: E(n) <= E0 cos^{2n}(pi/13) for 500 steps, violations=0; E(100)/envelope(100)=0.919940 (strict: faster than the worst case)
+P29-B04 PASS exact identity E1-E0 = -1/2[sum (du)^2 + sum du du_next] on 50 random profiles, worst rel dev=7.38e-16
+P29-B05 PASS audit: difference solution from zero start stays machine-zero 100 steps (E=0); truth slab-6 at step 100 = 5.2016666 deg; rival bump 0.5 deg there forces E_w=0.25>0, contradiction
+P29-B06 PASS 1-deg start error: E_w(100)=8.3253e-4 <= cos^200(pi/13)=2.7456e-3; pointwise budget sqrt(E_w(100))=0.0288537 deg
+P29-B07 PASS fig receipts: truth bars [1.2540 2.4351 3.4747 4.3123 4.8994 5.2017 5.2017 4.8994 4.3123 3.4747 2.4351 1.2540] claim bars [1.2540 2.4351 3.4747 4.3123 4.8994 5.7017 5.2017 4.8994 4.3123 3.4747 2.4351 1.2540]; ledger E(n) 0:65000.0000 25:14878.9972 50:3405.9163 75:779.6403 100:178.4656 125:40.8521 150:9.3514 175:2.1406 200:0.4900 225:0.1122 250:0.0257 275:0.0059 300:0.0013
+P29-C01 PASS discrete Poincare: 2(1-cos(pi/13))=0.05811636515 = 4 sin^2(pi/26)=0.05811636515; empirical asymptotic E(n+1)/E(n) after 3000 steps=0.9427280128 = cos^2(pi/13)
+P29-C02 PASS mode 12 quotient=0.05811636515 = mode 1 quotient: the ledger cannot tell sin(pi x/13) from its sign-alternating twin (sizes, not shapes)
+P29-C03 PASS copper 0.5 m: amplitude half-time 158.2 s (P26 receipt 158.2); energy half-time 79.1 s = half
+P29-C04 PASS settling time t = ln(100) L^2/(2 alpha pi^2) = 525.5 s; simulated 100-cell copper rod at t: E/E0=0.009996 <= 0.01 plus half-percent grid/scheme slack
+P29-C05 PASS continuum Poincare int u^2 <= (1/pi^2) int u_x^2: 20 random sine-mixture profiles, worst grid ratio=0.4839 (profile 15), worst exact ratio=0.4838; the arch saturates it: ratio=1.00100
+P29-D01 PASS meeting ledger identity sum p^2 = C(2n,n)/4^n exact n=1..12: 1:0.5000000000/0.5000000000 2:0.3750000000/0.3750000000 3:0.3125000000/0.3125000000 4:0.2734375000/0.2734375000 5:0.2460937500/0.2460937500 6:0.2255859375/0.2255859375 7:0.2094726563/0.2094726563 8:0.1963806152/0.1963806152 9:0.1854705811/0.1854705811 10:0.1761970520/0.1761970520 11:0.1681880951/0.1681880951 12:0.1611802578/0.1611802578
+P29-D02 PASS M(50)=0.079589237 (P26: the walker returns at step 100 with 0.0796 - same number, one identity); M(100)=0.056348479; M(200)=0.039869302
+P29-D03 PASS Stirling 1/sqrt(pi n) overshoots by 0.250%, 0.125%, 0.063% at n=50/100/200 (the error halves, then halves again)
+P29-D04 PASS expected meetings by N=200: exact sum=14.987590 vs leading 2 sqrt(N/pi)=15.957691 and corrected 2 sqrt(N/pi) - 0.824=15.133691 (ratio to corrected 0.9903)
+P29-D05 PASS the meeting count grows without bound: S(50)=7.03851, S(100)=10.3260, S(200)=14.9876, S(400)=21.5887; doubling N multiplies meetings by 1.451 and 1.440 (sqrt 2 = 1.414)
+P29-D06 PASS dictionary receipt: two walkers meeting at step 50 = one difference walker at 0 after 50 lazy steps: 0.079589237 = M(50), the same number as a single walker returning at step 100 (the P26 echo)
+P29-E01 PASS world-eater u_t = u^2 solved exactly per point: u(t) = u0/(1 - u0 t); the 100-degree arch blows up at T* = 1/max u0 = 0.01 s; at t = 0.0099 the top reads 10000.0 degrees, and at t = 0.005 the differential law u_t = u^2 holds to 4.0e-8 relative
+P29-E02 PASS Jensen guarantee dE/dt = 2 int u^3 >= 2 E^(3/2) integrates to E(t) >= E0/(1 - sqrt(E0) t)^2: grid arch at t = 0.3, 0.6, 0.9 x T* (all below both T* and T_E) sits at 1.13164, 1.52094, 5.49672 times the floor (never below); the floor is infinite by T_E = 0.0141 s, the truth by T* = 0.01 s
+P29-E03 PASS on a constant field the guarantee is sharp: E0 = c^2, T_E = 1/sqrt(E0) = T* = 0.02 s, ratio exactly 1 (c = 50)
+P29-E04 PASS the 100-degree arch: E0 = A^2/2, so T_E = 1/sqrt(E0) = 0.0141421 s vs T* = 0.01 s: the guarantee overshoots by exactly sqrt(2) = 1.414213562373095
+P29-E05 PASS gallery of 1000 profiles, ratio T_E/T* = max/rms >= 1 always (Jensen): nearest-constant noise 2% -> min ratio 1.00695, noise 10% -> 1.03795, noise 50% -> 1.16136 (max seen 1.317): the guarantee tightens to equality as profiles flatten
+P29-E06 PASS diffusion braking: with u_t = u_xx + u^2 the cool rod (a = 0.5) falls to E/E0 = 0.6897 while the hot rod (a = 20) climbs to 1.436 after 0.02 s: the same ledger separates a dying field from one that eats the plate
+P29-F01 PASS run the ledger backward (solve the un-smoothing recurrence): after ten undo-steps the mode-2 ledger reads 11.3936 times its start, matching cos(2 pi/13)^(-20) = 11.3936, and it rises at every single step
+P29-F02 PASS a ten-step forward-then-backward round trip on a random field returns with error 5.5e-9 (the solve really inverts the step) - but those lost digits ARE the exhibit: undoing the averaging is ill-conditioned by 8.3x per step at worst, and no amount of care undoes a second, let alone a century
+P29-F03 PASS the continuum receipt: a mode-2 iron rod (alpha = 1) read one second in the past has amplitude multiplied by e^(4 pi^2) = 1.397e+17, energy by 1.952e+34; two presents differing by a millionth of a degree differed by 1.397e+11 degrees a second ago - the audit premise (the ledger only falls) dies in reverse
+P29-G01 PASS the naive ledger sum u^2 on the undamped string is two-sided: over 2000 steps it rises 996 times and falls 1004 times - it certifies nothing
+P29-G02 PASS the full staggered energy 1/2 sum v^2 + 1/2 u^T(-L)u_prev is conserved: worst deviation over 2000 leapfrog steps is 9.99e-16 of E (machine roundoff) - the scheme trades the naive ledger for a true one
+P29-G03 PASS damped string (gamma = 0.01): at every 200-step checkpoint the staggered energy is lower than the one before (20/20 windows fall), tail rate measured -0.01001 per second vs the ledger prediction -gamma = -0.01: conservation alone buys stability, only damping buys decay
+P29-H01 PASS tent spikes of half-width 0.1/0.01/0.001 all top out at max = 1.000000 while the ledger reads eps 0.1: E = 0.06700 vs exact 2 eps/3 = 0.06667, eps 0.01: E = 0.006700 vs exact 2 eps/3 = 0.006667, eps 0.001: E = 0.0006700 vs exact 2 eps/3 = 0.0006667 - the ledger goes to zero, the thermometer does not
+P29-H02 PASS same-ledger pair: the flat field (u = 1 everywhere) and a spike of half-width 0.001 both read E = 1.000, yet their maxima are 1.0 and 38.7 degrees - identical budgets, wildly different worst cases (sizes, not locations)
+P29-H03 PASS on a fixed grid the ledger buys one bound: E >= max^2 dx gives max <= sqrt(E/dx) - honored by all 200 random profiles (worst ratio to the bound 0.0564718), saturated exactly by the one-cell spike (ratio 1.000000), slack 0.0100 for the flat field - a coarser grid is a blinder ledger
+P29-X01 PASS 3-slab (2,4,2): profiles 2,4,2 -> 2,2,2 -> 1,2,1 -> 1,1,1 -> 0.5,1,0.5 -> 0.5,0.5,0.5; ledger 24 -> 12 -> 6 -> 3 -> 1.5 -> 0.75 - exactly halving every step (both even-symmetric modes carry energy quotient cos^2(pi/4) = 1/2)
+P29-X02 PASS fig P29.3 data: truth cliff polyline [60.0,292.5 76.9,290.5 93.8,288.3 110.6,285.9 127.5,283.1 144.4,280.0 161.3,276.4 178.1,272.3 195.0,267.5 211.9,261.8 228.8,255.0 245.6,246.7 262.5,236.3 279.4,222.9 296.3,205.0 313.1,180.0 330.0,142.5 346.9,80.0]; guarantee floor polyline [60.0,303.5 76.9,302.5 93.8,301.5 110.6,300.3 127.5,299.1 144.4,297.8 161.3,296.3 178.1,294.8 195.0,293.0 211.9,291.1 228.8,289.0 245.6,286.6 262.5,283.9 279.4,280.9 296.3,277.5 313.1,273.5 330.0,268.9 346.9,263.5 363.8,257.1 380.6,249.2 397.5,239.5 414.4,227.0 431.3,210.7 448.1,188.1 465.0,154.9 481.9,101.6]; truth asymptote px 397.5 (T* = 0.0100), guarantee asymptote px 537.3 (T_E = 0.0141)
+P29-X03 PASS fig P29.2 data: mixed start E0=94331.92; ledger polyline [60.0,31.0 105.0,56.3 150.0,80.3 195.0,104.3 240.0,128.4 285.0,152.4 330.0,176.4 375.0,200.4 420.0,224.4 465.0,248.4 510.0,272.4 555.0,296.4 600.0,320.5]; envelope polyline [60.0,31.0 105.0,55.0 150.0,79.0 195.0,103.0 240.0,127.0 285.0,151.0 330.0,175.0 375.0,199.0 420.0,223.1 465.0,247.1 510.0,271.1 555.0,295.1 600.0,319.1]; ledger/envelope at n=100 = 0.919940 (never above)
+P29-X04 PASS fig P29.1 data: truth bar tops [70,272.3 115,218.0 160,170.2 205,131.6 250,104.6 295,90.7 340,90.7 385,104.6 430,131.6 475,170.2 520,218.0 565,272.3]; claim bar tops [87,272.3 132,218.0 177,170.2 222,131.6 267,104.6 312,67.7 357,90.7 402,104.6 447,131.6 492,170.2 537,218.0 582,272.3]; slab 6 reads 5.2016666 deg truth vs 5.7016666 claimed
+P29-X05 PASS damped-string tail rates: gamma = 0.5 measures -0.4970 per second (the damping coefficient itself); gamma = 20 measures -1.016 against the slow-root floor 2*omega1^2/gamma = 0.9822 - forty times the damping buys about twice the decay: past critical, more damping means slower decay
+P29-S01 PASS structure: 8 h2 exact titles, 8 section ids in order, title/h1/kicker/tagline present
+P29-S02 PASS boxes and asides: 3 pattern-box ids in order, onramp once, warn/scope-warn once, 3 pid lines
+P29-S03 PASS tex balance 260/260 inline, 8/8 display; zero dollars/backticks; MathJax pin once; banned tokens: none
+P29-S04 PASS hrefs: 26 all whitelisted; every one of the 15 canonical targets used
+P29-S05 PASS figures and exercises: 3 svg (viewBox 640x360, role img), figcaptions 1/2/3, 24 rects, 4 polylines, 5 ex with 5 Hint + 5 Worked details, moons once each
+P29-S06 PASS numeric needles: all 47 present
+P29-S07 PASS footer: exercises then footer then body/html close, Next to P30 once, atlas-home with index + P26, page ends </html>
+P29-S08 PASS page utf-8 byte length 53515 matches the assembled file (53515)
+TOTAL 51 checks, FAILS 0
