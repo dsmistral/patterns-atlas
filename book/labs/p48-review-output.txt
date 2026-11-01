@@ -1,0 +1,97 @@
+p48-review-output.txt — adversarial verification transcript for book/labs/p48-review-verifier.js
+Page: book/p48-representable-functor.html (P48, The representable functor trick)
+Engine: fresh adversarial verifier, ZERO shared code with the lab. Maps are
+"src>tgt>img" strings (the lab builds them as function tables); tables carry
+their restriction data as index arrays (the lab uses image strings); the
+census odometer, the chimera builder, the iso search and the Cayley census are
+all rebuilt from scratch here. 26 positive checks recompute every page claim;
+16 injections plant false page-level claims and must be caught.
+
+RUN HISTORY (honest)
+- build: the verifier was drafted twice. The first engine used image strings
+  throughout; it was refactored to index arrays when the 16-element Pair(2,2)
+  table broke the string encoding (multi-digit indices, arity 16 vs 2-digit
+  strings). One drafting accident mid-rebuild: the file truncated at line 337
+  once and the run() body was re-appended; the tables section lost in that
+  truncation was rewritten fresh against the frozen lab receipts.
+- run 1 (pre-refactor): crashed. compose() looped over mTgt(f) instead of
+  mSrc(f): empty-set composites got wrong image lengths, findMap returned
+  null, and the split crashed. Fixed by looping over the source.
+- run 2 (pre-refactor): crashed. The Cayley offset table offs[] was indexed
+  before it was filled (offs[t2] undefined for t2 > t1), and two checks were
+  tautologies (comparing survivors to themselves). Replaced with a real
+  16-pair composition check.
+- run 3 (pre-refactor): 14/26 positive, 16/16 injections caught. The run
+  exposed THREE checker-side defects:
+  (a) restriction is PRE-composition compose(m, g), not compose(g, m) — the
+      pair tables and repr had the arguments swapped;
+  (b) C1 counted source-target pairs (7) instead of distinct objects (3);
+  (c) the Cayley odometer emitted its digits in reverse order.
+- run 4 (pre-refactor): 24/26, 16/16. The two survivors: C25 failed because
+  image STRINGS broke on the 16-element Pair(2,2) (the refactor this engine is
+  the result of); C26 failed on the offset-add check keying 2-char group
+  elements by their single-char digit — fixed by keying offsets by the full
+  2-char element.
+- run 5 (this run, rebuilt array engine): 26/26 positive checks PASS,
+  16/16 injections CAUGHT. S82 review verifier PASS. No engine changes
+  between run 4 and run 5 beyond the two named repairs and the array refactor.
+
+WORLD RECEIPTS (recomputed here, agreeing with the lab)
+- world: 3 objects, 11 maps, 47 composable pairs, 211 composable triples,
+  0 composition failures; associativity and identity laws: 0 violations.
+- nine-pair census: [[1,1,1],[0,1,2],[0,1,4]], sum 11, every entry the honest
+  map count (Yoneda arithmetic); pools: 8 for (h1,h2), 1024 for (h2,h2),
+  and 0 candidates at all for the empty-set targets.
+- census of claimants: 96 candidates (12 placements x 4 retractions x 2 swap
+  behaviours), all 96 genuine; 24 isomorphic to the coin, 72 chimeras,
+  4 isomorphism classes of 24 each.
+- Cayley shadow: 256 candidate functions, 4 equivariant (the translations),
+  all 16 composition pairs add offsets, element-to-translation injective.
+
+=== positive checks (C1..C26) ===
+C1: PASS — world: 3 objects, 11 maps, 47 composable pairs, 211 triples, 0 failures
+C2: PASS — honest tallies (1,0,0), (1,1,1), (1,2,4)
+C3: PASS — associativity: 0 violations among composable triples
+C4: PASS — identity laws: 0 violations
+C5: PASS — u.f_a = u.f_b = id1, f_a.u = c_a, s.f_a = f_b, s.s = id2
+C6: PASS — census table [[1,1,1],[0,1,2],[0,1,4]]
+C7: PASS — census sum = 11
+C8: PASS — Nat(h1,h2) = 2 of 8
+C9: PASS — Nat(h2,h1) = 1 and Nat(h2,h0) = 0: refusal to receive mirrors refusal to send
+C10: PASS — Nat(h2,h2) = 4 of 1024
+C11: PASS — Nat(h1,h0) = 0: no candidate existed at all
+C12: PASS — Yoneda arithmetic: every census entry is the honest map count
+C13: PASS — the four naturals are post-composition with four distinct self-maps
+C14: PASS — post-composition with the swap: id->s, s->id, c_a->c_b, c_b->c_a
+C15: PASS — post-composition with a constant crushes all four answers to it
+C16: PASS — the subsets table is genuine
+C17: PASS — Nat(h2,P) = 4 of 1024, exactly the four subsets
+C18: PASS — each natural acts as preimage of its subset; the Ex3 square on u with S={a} gives {a,b} on both routes
+C19: PASS — the membership-function dictionary commutes with all eleven squares and is bijective
+C20: PASS — the empty display is genuine but fails the empty-question law: E(0) = 0
+C21: PASS — five-answer and (1,2,3) are genuine, pass the empty-question law, die on the multiplying law; honest coin-answers are 0, 1, 4
+C22: PASS — the census of claimants: 12 x 4 x 2 = 96 candidates, every one genuine
+C23: PASS — 24 are the coin, 72 are chimeras, and the 96 fall into 4 isomorphism classes of 24
+C24: PASS — the named chimera: genuine, not isomorphic to the coin, conjugating an identity never yields a swap
+C25: PASS — Pair(1,2) is the coin renamed (2 of 8, 4 of 1024); Pair(2,2) tallies (1,4,16), genuine, 16 of 1048576, and no honest case answers the point-probe with 4
+C26: PASS — Cayley shadow: 256 candidates, 4 equivariant translations, all 16 pairs add offsets, injective
+
+=== must-fail injections (V1..V16) ===
+V1: CAUGHT — page misprints Nat(h1,h2) as 3 (claim=3, actual=2)
+V2: CAUGHT — page miscounts the coin-claimants as 25 (claim=25, actual=24)
+V3: CAUGHT — page claims the five-answer table obeys the multiplying law (claim=1, actual=5)
+V4: CAUGHT — page claims the four self-comparisons differ already at the empty probe (claim=4, actual=1)
+V5: CAUGHT — page claims the empty display answers the empty probe with one way (claim=1, actual=0)
+V6: CAUGHT — page claims 8 of the 256 Cayley candidates are equivariant (claim=8, actual=4)
+V7: CAUGHT — page miscounts the claimant space as 88 (claim=88, actual=96)
+V8: CAUGHT — page claims some honest case answers the point-probe with 4 ways (claim=true, actual=false)
+V9: CAUGHT — page claims the Pair(2,2) census draws from 1024 candidates (claim=1024, actual=1048576)
+V10: CAUGHT — a verifier that composes in the wrong order still closes the world (claim=true, actual=false)
+V11: CAUGHT — page gives the empty set the point tally (1,1,1) (claim=[1,1,1], actual=[1,0,0])
+V12: CAUGHT — page claims the transposed-preimage subsets table still receives 4 naturals (claim=4, actual=2)
+V13: CAUGHT — page says the world fails to close exactly once (claim=1, actual=0)
+V14: CAUGHT — page claims the named chimera is the coin under a renaming (claim=true, actual=false)
+V15: CAUGHT — page row claims the swap fixes the constant (claim=2>2>00, actual=2>2>11)
+V16: CAUGHT — page claims some comparison into the chimera is bijective at the coin probe (claim=true, actual=false)
+
+VERDICT: S82 review verifier PASS (26/26 positive checks, 16/16 injections caught, run 5)
