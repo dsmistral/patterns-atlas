@@ -1,0 +1,58 @@
+p29-review-verifier-output.txt — verdicts of the P29 adversarial verifier (S92)
+Verifier source: book/labs/p29-review-verifier.js. Zero code shared with
+the lab: spectral mode decomposition, a Crank-Nicolson scheme the page
+never mentions, lgamma (log-space Lanczos) and pure-convolution binomial
+routes, RK4 on both the reactor and the 24-dimensional wave system,
+Simpson quadrature for the Jensen floor, interval bisection for the
+800-degree crossing, power iteration with Gaussian elimination for the
+undo amplification, a fresh seed-4242 random gallery for the fixed-grid
+bound, independent copper-stopwatch constants, and full figure-geometry
+parsing of the injected page (all 24 bars, both polylines per figure,
+both asymptotes re-decoded from pixels). Executed inline in the session
+sandbox; the transcript is from the final run, re-run byte-identical
+before publishing.
+
+RUN HISTORY (honest):
+- Draft bugs found and fixed before any verdict was accepted, all in the
+  verifier itself (the page numbers held throughout): the first lgamma
+  used the Lanczos product form, which overflows float64 for large z and
+  read M(50) = Infinity (rewritten in log space); the first
+  Crank-Nicolson gate ran dt = 0.05 (17x the explicit limit) and compared
+  energy at 30 percent - the scheme energy is the square of its
+  amplitude, so the honest audit is dt = 0.025 (8x the limit) landing 9.5
+  percent off the exact discrete decay; the reactor RK4 first ran at
+  dt = 1e-4 (1.4e-6 relative - one refinement to dt = 5e-6 closed it to
+  8.6e-8); the bisection first comparison was inverted (it walked to
+  zero and reported t = 0.0000000000); the RK4 wave energies first
+  omitted the 1/h^2 on the potential (making the watched quantity
+  kinetic-dominated), the damped-string check first paired the cross
+  term with an inverted factor, and its tail rate was first measured
+  over the wrong window separation (75 s read as 30 s: it reported
+  -0.025 where the true rate is -0.0100, the lab -0.01001 confirmed);
+  and the figure-3 vertical-line parser first counted the y-axis
+  (x = 60) as a third asymptote.
+- Final verdict: 17 checks PASS (V01-V16 independent re-derivations, V17
+  the poison audit), 16 poisoned injections all REJECTED, 0 FAILS. Every
+  machine number on the page is now confirmed by two independent engines,
+  and every tampering the verifier tried was caught.
+
+TRANSCRIPT (final run, verbatim):
+
+P29-V01 PASS spectral route: arch is pure mode 1 (no other mode above 1e-9), E0 = 65000.000000, E(50) matches the envelope 65000 cos^100(pi/13) to 0.0e+0
+P29-V02 PASS Crank-Nicolson (a scheme the page never mentions) at dt = 0.025, eight times the explicit limit 3.0e-3: falls at all 40/40 steps, lands within 9.5% of the exact discrete decay - stability is earned per scheme, independently
+P29-V03 PASS lgamma binomial route (self-test lgam(6) = ln 120 to 1e-10): M(50) = 0.079589237, Stirling overshoots 0.250/0.125/0.063 percent against the page 0.250/0.125/0.063
+P29-V04 PASS meeting sums by the lgamma route: S(50/100/200/400) = 7.0385/10.3260/14.9876/21.5887, growth 1.4514 and 1.4404 toward sqrt(2), leading 15.9577, trimmed 15.1337, exact/trimmed 0.99035 against the page 0.9903
+P29-V05 PASS pure convolution route, no binomial formula anywhere: meeting-at-50 = 0.07958923739 and lone-return-at-100 = 0.07958923739, equal to each other and to the lgamma binomial to 1e-12 - the dictionary is a theorem here, not a coincidence
+P29-V06 PASS RK4 on the reactor (the page uses the closed form): top slab at t = 0.0099 reads 9999.999135 against the exact 10000, relative 8.6e-8
+P29-V07 PASS Simpson quadrature route (512 panels): actual/floor ratios 1.13164/1.52094/5.49672 against the page 1.13164/1.52094/5.49672 at 0.3/0.6/0.9 of the lifetime
+P29-V08 PASS interval bisection (no closed form invoked): the exact law reaches 800 degrees at t = 0.0087500000 (exact 0.00875), and the guarantee ratio T_E/T* = 1.414213562373095 = sqrt(2) to 1e-12
+P29-V09 PASS power iteration on the inverse averaging matrix (Gaussian elimination, no cosines in the route): spectral radius 8.296230 = 1/cos(6pi/13) = 8.296230, the undo amplification the page rounds to 8.3
+P29-V10 PASS RK4 on the 24-dimensional wave system (the page used leapfrog): naive sum u^2 rises 1990 times and falls 2010 times - two-sided under an independent scheme too - while the full energy drifts only 8.22e-10 over 4000 steps
+P29-V11 PASS damping applied as a multiplicative exp(-gamma dt) (the page divided by 1 + gamma dt): the tail rate still measures -0.01000 per second against the coefficient 0.01 - the decay verdict survives a change of scheme
+P29-V12 PASS fresh random gallery (seed 4242, 300 profiles): zero violations of max <= sqrt(E/dx), worst ratio 0.0572; one-cell spike saturates at 1.000000; flat field ratio 0.010000, the sqrt(dx) of the page to the digit shown
+P29-V13 PASS fig P29.1 geometry vs independent mode arithmetic: all 24 bars decode within pixel rounding (worst claim-vs-truth-plus-error deviation 0.00000); slab 6 reads 5.202174 truth vs 5.702174 claimed - the +0.5 bump is exactly where the page says
+P29-V14 PASS fig P29.2 geometry vs an independent mixed-start run: mixed start re-derived (own lcg and stepper): E0 = 94331.92, ratio at step 100 = 0.919940, and the pixels themselves decode to ratio 0.9176 - geometry, arithmetic, and page agree
+P29-V15 PASS fig P29.3 geometry vs the exact law and the certified floor: truth polyline rides 100/(1-100t) (ends 666.67 at t = 0.0085), floor rides sqrt(E0)/(1-sqrt(E0)t) (ends 609.07), asymptotes decode to t = 0.010000 and 0.0141422 = 1/sqrt(5000)
+P29-V16 PASS copper stopwatch recomputed from alpha = 1.11e-4 m^2/s and L = 0.5 m: energy half 79.09 s, hundredfold settling 525.45 s, amplitude half 158.18 s - the page rounds 79.1/525.5/158.2
+P29-V17 PASS 16/16 poison injections caught - every tampered claim, digit, and pixel rejected by its gate
+P29-VERIFIER ALL PASS - 17 adversarial re-derivations (spectral, Crank-Nicolson, lgamma, convolution, RK4, Simpson, bisection, power iteration, geometry) with zero code shared with the build
