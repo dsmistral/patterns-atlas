@@ -1,0 +1,32 @@
+PASS 1. V1 covers census (bitmask unions) — covers per open [0,E,W,X] = 2/2/2/10
+PASS 2. V2 raw assignments (pair-counting) — 458 raw size+map tuples (expected 458)
+PASS 3. V3 presheaves respect composition — 190 presheaves among 458 (expected 190)
+PASS 4. V4 empty-stretch law — 34 single-record / 156 double-record; all 156 fail the empty cover
+PASS 5. V5 sheaf census — 5 sheaves; shapes (1,1,1,1)x1 (1,1,2,2)x2 (1,2,1,2)x2
+PASS 6. V6 sheaves are locally constant — s_X = s_E * s_W for all 5 sheaves
+PASS 7. V7 almanac verdict — the (1,2,2,2) constant presheaf: separated, and the report (E:0, W:1) is matching but unwitnessed
+PASS 8. V8 round census empty law — F+(empty) = 1 for all 190 presheaves; pairwise-overlap classes = common-refinement classes for all 190 x 4 regions
+PASS 9. V9 rounds census — rounds needed [0,1,2] = 5/97/88; F++ sheaf for all; third round identical (sizes, eta bijection, restriction squares)
+PASS 10. V10 failure census recheck — 165 locality failures, 25 pass locality, 20 separated-not-gluing — matches the page census 156+9 / 25 / 20
+PASS 11. V11 universality by exhaustion — 2974 natural maps into the 5 sheaves; every one extends uniquely along eta (2974 checked)
+PASS 12. V12 diamond iso receipt — diamond meet table = two-island meet table under {m,b,c,a} relabeling; raw census repeats: 458/190
+PASS 13. V13 trivial site J0 — all 190 presheaves are J0-sheaves
+PASS 14. V14 declared site J1 — 47 sheaves / 84 separated-not-gluing / 59 locality failures (same census on naive and pullback-closed sites); rounds 0/1 = 47/143, one round always suffices
+PASS 15. V15 named receipts — two-island: almanac (1,2,2,2)->(1,2,2,4) x16, merge (1,1,1,2)->(1,1,1,1) x1, merge (2,1,1,1)->(1,1,1,1) x2; diamond (a,b,c,m order): growth (1,2,2,1)->(4,2,2,1) x4, merge (2,1,1,1)->(1,1,1,1) x1
+PASS 16. V16 Sierpinski census — 36 presheaves, covers 2/2/4, 8 sheaves (all 8 with honest empty stretch), sections over X = F(X) for all 36
+PASS 17. V17 etale route cross-check — stalks (germ closure at the atoms E and W) = F(E), F(W) for all 190; and germ count s_E * s_W = F++(X) for all 190
+PASS 18. V18 eta receipt (almanac) — F++(X) = 4; eta embeds the constants; the new records restrict to (0,1) and (1,0)
+PASS 19. W1 page bytes — 58079 bytes / 200 split-lines (expected 58079/200)
+PASS 20. W2 repaired needles present — all 6 repaired texts present (counts 1,1,1,1,1,1)
+PASS 21. W3 artifact needles absent — all 4 pre-correction artifacts absent (country-of-4, 84-wart, single-backslash cdot, identity-restriction almanac)
+PASS 22. W4 must-fail injections — all 6 injected artifacts/mutations caught (111111); clean page scores 0 violations
+PASS 23. W5 structure census — h2:8 svg:3 figure:3 patternbox:3 eq:1 sketch:1 moons:1 exhibit:3 warnbox:1 details:9 li:9
+PASS 24. W6 links and footer — href set exact (8 targets); footer Next -> P61; kicker says tenth move of tier 5
+PASS 25. W7 canon numbers on page — all 19 census figures quoted on the page; key counts 458x4 190x27 156x7 2974x4
+PASS 26. S1 MathJax cfg line identical — byte-identical config line in P62 and P60
+PASS 27. S2 moons line identical — <p class="moons">Difficulty: ●○○ ●●○ ●●● ◆ ◐</p>
+PASS 28. S3 kicker pattern — P62: <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P62 · the tenth move of tier 5</p> / P60: <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P60 · the ninth move of tier 5</p>
+PASS 29. S4 MathJax loader line identical — identical script/integrity line (sha256-1CldwzdE...)
+PASS 30. S5 footer cross-links — P62 footer -> P61 and P60 footer -> P62 (cross-footers); atlas-home on both
+PASS 31. S6 page skeleton matches the house pattern — both pages: 8 sections, 9 details, one scope box, one onramp; P62 warn-box x1 (its census), P60 warn-box x2 (its own published design, disclosed)
+p62-review-verifier: 31/31 checks passed
