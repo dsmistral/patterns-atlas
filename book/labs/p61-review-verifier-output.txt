@@ -1,0 +1,36 @@
+P61 review verifier -- Straighten and unstraighten -- The Patterns Atlas (tier 5, move 11)
+Fresh adversarial verifier: zero code shared with p61-lab.js; every axis re-derived by an independent route.
+V01 PASS  published page 58,611 bytes, title needle present
+V02 PASS  fresh per-denominator enumeration: 47 reduced slopes |a|<=6, 1<=b<=6
+V03 PASS  direct integer solutions (p^2+q^2=r^2) match the t-parametrization point-for-point 47/47
+V04 PASS  Pythagorean census: (m,n) route and direct odd-even leg-scan route both 63, sets equal, t = B/(A+C) round trips 63/63
+V05 PASS  rotation-matrix route: M(t1)M(t2) = M(t3) on 2163 internal pairs, = -I on the 46 anchor pairs, 0 bad (2209 total)
+V06 PASS  associativity dyadic window: 259 internal + 84 excluded + 0 bad = 343 (fresh star)
+V07 PASS  on-circle x^2+y^2=1 exact for all 47 window points (fresh rational sum)
+V08 PASS  blow-up fresh: total transform u^2 v and s^2 t 961/961 per chart, homogeneous incidence x*v - y = 0 961/961, branch directions [1:0] vs [0:1] distinct (20+20 points)
+V09 PASS  delta over F3 and F11 (fresh fields, column-echelon): node gap 4-3 = 1, smooth gap 4-4 = 0
+V10 PASS  signature census via evaluation sampling with determinant-sign tiebreak (fresh route): (1,1):16 (1,0):4 (0,1):4 (2,0):1 (0,2):1 (0,0):1 of 27
+V11 PASS  signature survives 7 fresh unimodular congruence paths x 27 forms = 189/189; determinant transport det(P^T A P) = det(P)^2 det(A) 189/189
+V12 PASS  must-fail injection: projection (keep only a) disagrees with the true signature on 20/27 forms; non-injectivity witness: (1,1,0) and (1,0,0) collapse together
+V13 PASS  hyperbola: composition identity (ac+bd)^2-(ad+bc)^2 = (a^2-b^2)(c^2-d^2) on 2401/2401 grid quadruples; census 45 slopes, 1981 agree + 44 infinity + 0 bad = 2025
+V14 PASS  two-chart transition s = y/(x-1) = -1/t on 46/46 slopes, round trip 46/46; wrong transition s = 1/t agrees 0/46
+V15 PASS  must-fail injection: sign-flipped law t3 = (t1+t2)/(1+t1t2) agrees with the circle product on only 137/2163 internal pairs (< 2163)
+V16a PASS  Fig P61.1 fresh: 5 points exact from 150+100*cos, 130-100*sin, all dist^2 = 10^4; anchor on circle; chord slope -1/2 exact; ticks 480+60t exact
+V16b PASS  Fig P61.2 fresh: crossing contained in both branch segments; E segment contains both meeting points; (490,190) != (490,90)
+V16c PASS  Fig P61.3 fresh: 12 offsets with dx^2+dy^2 = 1600; 6 offsets with dx^2-dy^2 = 1600; degenerate lines at 550 +/- 40
+V17 PASS  page census: h2 8, svg 3, figures 3, boxes 3, exhibits 3, warn 1, eq 2, sketch 1, moons 1, li 9, details 9, sections 8/8 balanced, h1 1, exercises 5
+V18 PASS  href set exactly the 11 declared targets, sorted, no strays
+V19 PASS  MathJax config and loader lines byte-exact (built from char codes)
+V20 PASS  kicker: P61 eleventh, P62 tenth, no cross-contamination
+V21 PASS  moons line byte-identical between P61 and P62
+V22 PASS  footer: P61 Next -> index with corridor note; P62 footer already points to P61 (forward link); P61 links back to P62 (backward link)
+V23 PASS  TeX hygiene fresh charCode scan: 0 lone backslashes (all pairs), 0 dollar signs
+V24 PASS  MathJax config and loader lines byte-identical across P61 and P62
+V25 PASS  no authoring artifacts, no staging markers, byte count distinct from P62 (poison scan clean)
+V26 PASS  style audit vs published P62: P61 58,611 chars vs P62 57504 chars; eq 2 vs 1; warn-box 1 vs 1; P62 skeleton pinned from the live published page (h2 8, svg 3, sections 8/7 -- the known unclosed section, li 9, details 9, exhibits 3, boxes 3, figures 3, sketch 1)
+V27 PASS  fresh needle set 15/15 present
+V28 PASS  moons line exactly: three one-dot-through-three-dot exercises plus diamond and half (5 exercises)
+V29 PASS  reflection P(-t) = (x,-y) 47/47; matrix route M(t)M(-t) = I (t star -t = 0) 47/47; mirror P(1/t) = (-x,y) 46/46
+V30 PASS  smooth contrast: 30/30 round trips (v = 1/x^2 recomputes y), 11/11 probes fail u^2 v = 1; branch slopes 20 + 20 all zero; unimodular census 40
+VERIFIER PASS 32/32 -- ALL FRESH-AXIS CHECKS PASS
+exit 0
