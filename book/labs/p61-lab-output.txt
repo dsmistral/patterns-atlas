@@ -1,0 +1,44 @@
+P61 lab -- Straighten and unstraighten -- The Patterns Atlas (tier 5, move 11)
+Engine-first receipts: every page number recomputed from exact rational arithmetic. 40 checks.
+A01 PASS  47/47 -- 47-slope window: on-circle exact
+A02 PASS  47/47 -- round trips t -> P(t) -> t
+A03 PASS  distinct 47/47, anchor 0, identity 1/1 -- distinct points; anchor never hit; t=0 is (1,0)
+A04 PASS  2163 internal + 46 anchor + 0 bad = 2209 -- product law: t-route vs complex route, all ordered pairs
+A05 PASS  259 internal + 84 excluded + 0 bad = 343 -- associativity on the 7-slope dyadic window (343 triples)
+A06 PASS  63/63 on-circle, 63/63 t = B/(A+C) recovers (A/C, B/C) with t = n/m -- Pythagorean correspondence, both directions (C <= 400)
+B01 PASS  1922/1922 (U1: xy = u^2 v; U2: xy = s^2 t) -- blow-up chart identities + total transform, 31-point grid x both charts
+B02 PASS  20/20 slope 0 + 20/20 slope inf, meeting points distinct -- branch separation: y=0 -> slope 0 in U1 (v=0); x=0 -> slope inf in U2 (t=0); [1:0] != [0:1]
+B03 PASS  30/30 round trips, 0/11 probes satisfy u^2 v = 1 (all fail: no meeting) -- smooth contrast xy=1: round trip through U1; never meets E
+B04 PASS  rank 5 of 6 over F5 and F7: delta = 6 - 5 = 1 -- delta(node) = 1: normalization rank census over F5 and F7
+B05 PASS  rank 3 of 3 over F5 and F7: delta = 0 -- delta(smooth y - x^2) = 0: identity census
+B06 PASS  40/40 integer unimodular charts keep the two branches distinct lines -- no linear chart un-crosses the crossing: unimodular census
+B07 PASS  mult_0(xy) = 2 = I(v=0,E) + I(t=0,E) = 1 + 1; quotient k[[u,v]]/(u,v) has dim 1 (only the constant survives) -- multiplicity conservation at the node
+C01 PASS  27/27 (congruence elimination vs eigenvalue logic) -- signature two independent routes agree
+C02 PASS  (1,1):16 (1,0):4 (0,1):4 (2,0):1 (0,2):1 (0,0):1 -- signature census of the 27 forms
+C03 PASS  189/189 -- signature survives all unimodular congruence round trips
+C04 PASS  189/189 -- determinant transport det(P^T A P) = det(P)^2 det(A)
+C05 PASS  collapsed signature disagrees on 20/27 forms -- must-fail injection: the projection is not a chart
+C06 PASS  18/18 -- P04 bridge: a * (c - b^2/a) = det A on the pivot forms
+D01 PASS  t3 = -1 -> (0,-1) both routes; t3 = 1 -> (0,1) both routes -- exercise 1 receipts: (2 star 3) and (1/2 star 1/3) by both routes
+D02 PASS  (1,1), 7/7 congruence paths -- exercise 2 form Q = x^2 + 4xy + y^2: signature (1,1), all 7 paths
+D03 PASS  u^2(v^2 - u) = 0 identity 961/961; I = 2 (basis {1, v}); gaps {1}, delta = 1 -- exercise 3 cusp y^2 = x^3: proper transform, intersection 2, semigroup gap
+D04 PASS  45/45 charted; 2025 pairs = 1981 agree + 44 infinity + 0 bad -- exercise 4 hyperbola world x^2 - y^2 = 1: chart, law, honest edges
+D05 PASS  46/46 transition exact, 46/46 round trips -- two-chart cover: transition s = -1/t and round trip
+E02 PASS  47/47 + 47/47 -- reflection receipt P(-t) = (x, -y) and t star (-t) = 0
+E04 PASS  46/46 + 46/46 -- mirror receipt P(1/t) = (-x, y) and reciprocal product lands on the anchor
+F01 PASS  5/5 points exact (dist^2 = 10^4), chord A -> P(1/2) slope 1/2, anchor on circle, ticks 480+60t, SVG needles present -- Fig P61.1 coordinates: circle, five points, honest chord, ticks
+F02 PASS  lines cross at (150,130); branches meet E at (490,190) and (490,90): distinct -- Fig P61.2 coordinates: node crossing, exceptional line, two distinct meeting points
+F03 PASS  12/12 dist^2 = 40^2; 6/6 x^2 - y^2 = 1600; lines x = 550 +/- 40 -- Fig P61.3 coordinates: 12 exact lattice points on the circle, 6 on the hyperbola, degenerate pair
+S01 PASS  58611 bytes -- page byte count
+S02 PASS  h2 8, svg 3, figures 3, boxes 3, exhibits 3, warn 1, eq 2, sketch 1, moons 1, li 9, details 9, sections 8/8 balanced -- page census counts
+S03 PASS  11 targets, all present, no others -- href set exact (11 targets, no strays)
+S04 PASS  both lines byte-exact -- MathJax config and loader pins byte-exact
+S05 PASS  kicker present -- kicker: eleventh move of tier 5
+S06 PASS  moons line present -- moons line
+S07 PASS  footer and atlas-home present -- footer: Next -> index (tier-5 corridor ends), atlas-home links
+S08 PASS  no single-backslash TeX, no $, delimiters balanced -- TeX hygiene: double backslashes only, no dollar delimiters
+S09 PASS  13/13 needles -- receipt needles present on the page
+S10 PASS  artifact scan clean -- no authoring artifacts
+S11 PASS  wrong transition agrees 0/46; sign-flipped law agrees 137/2163 (must be < 2163) -- must-fail injections caught: s = 1/t and the sign-flipped law both fail the census
+PASS 40/40 -- ALL CHECKS PASS
+exit 0
