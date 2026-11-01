@@ -95,3 +95,52 @@ V8 cross-term negatives over [-10,10]^2: 0 | (x+2y)^2+2y^2 mismatches: 420 (at (
   injection CAUGHT: claim x^2+4xy+5y^2 takes negative values
   injection CAUGHT: claim x^2+4xy+5y^2 = (x+2y)^2+2y^2 (mismatches: 420; the true completion is (x+2y)^2+y^2)
 VERDICT injections caught = 10, missed = 0 — ALL CAUGHT
+
+==============================================================================
+S79 IMPROVEMENT-PASS EXTENSION — 2026-11-01 (recorded verbatim)
+Session S79 (improvement pass on the published master, adopting the audited
+chapter-4 draft material: Example 4 calculus; two new §5 failure bullets;
+the cubics boundary extension; Exercises 7-9).
+Constraints honored: split pieces, no recursion, no BigInt, deterministic.
+
+GATE 1 — pieces 1-5 re-executed fresh in-session, all 41 output lines
+byte-identical to the receipts above:
+  PIECE 1: byte-identical (5 lines)
+  PIECE 2: byte-identical (7 lines)
+  PIECE 3: byte-identical (6 lines)
+  PIECE 4: byte-identical (12 lines)
+  PIECE 5: byte-identical (5 lines)
+
+GATE 2 — new piece 6 (Example 4, calculus):
+6a denominator identity x^2-4x+7 = (x-2)^2+3 over [-20,20] step 0.5: mismatches=0 | discriminant 16-28 = -12 (never zero)
+6b f = 6/den over [-50,50] step 0.01: max = 2 at x=2.00 | values above 2: 0 | all values > 0: true
+6c fp(x) = -12(x-2)/((x-2)^2+3)^2 vs central diff x=-10..14 step 0.5: max |err| = 1.12e-10 | zero only at x=2: true
+6d int_2^{2+sqrt3} 6/den dx: Simpson(1200) = 2.720699046 | pi*sqrt3/2 = 2.720699046 | diff = 3.55e-15
+6e u-shift route int_0^{sqrt3} 6/(u^2+3) du = 2*sqrt3*(arctan 1 - arctan 0) = 2.720699046 | equals pi*sqrt3/2: true
+
+GATE 2 — new piece 7 (the two new failure bullets):
+7a g=(x-3)^2+2 on [4,7] step 0.001: min = 3.000000 at x=4.000 | below 3: 0 | <= 2.5: 0 (promised 2 at x=3 is unreachable)
+7b (3n-1)^2+5 over integers [-30,30]: min = 6 at n=0 | value 5 wants n=1/3, not an integer
+7c H = 2cos^2-8cos+11 vs 2(cos-2)^2+3 over [0,4pi] 8001 pts: mismatches=0 | H min = 5.000000000 (5, at cos=1) | (cos-2)^2 range [1.000000, 9.000000] not [0,9]
+7d split (x-1)^2+4 + (x-3)^2+1: identity mismatches=0 | split min = 7.000000 at x=2.000 (per-piece bound 5 never attained) | consolidation 2(x-2)^2+7 mismatches=0
+7e H at theta = 0, 2pi, 4pi, 6pi: 5.000000000 5.000000000 5.000000000 5.000000000 (all 5)
+
+GATE 2 — new piece 8 (Exercises 7-9 numbers + cubics boundary + Apollonius):
+8a 12Q = (6x-7)^2+23 mismatches over [-30,30]: 0 | exact at vertex: 36*Q(7/6) = 69 = 69, so Q(7/6) = 69/36 = 23/12 and 12Q = 23
+8b R = 57/Q over [-10,10] step 1/1200 (24001 pts, hits 7/6): max = 29.739130435 at x=1.166667 | 684/23 = 29.739130435 | diff = 3.55e-15
+8c N(n) = (n^2-n+2)(n^2+n+2) mismatches n=1..300: 0 | smaller-factor min = 2 at n=1 (>= 2 everywhere: the compositeness certificate)
+8d N(1)=8 N(2)=32 N(3)=112 | u-route stall: u^2+3u+4 = (u+3/2)^2 + 7/4, a sum: nothing factors
+8e n^4+4 = (n^2-2n+2)(n^2+2n+2) mismatches n=1..300: 0 | at n=1 smaller factor = 1 (certificate fails) | 1+4 = 5 prime: true
+8f x^3+6x^2+12x+3 = (x+2)^3-5 mismatches over [-20,20] step 0.25: 0 | root cbrt(5)-2 = -0.290024053323 | |P(root)| = 4.44e-16 (< 1e-9: true)
+8g shift u = x + b/3 kills the u^2 term (5 cases, u grid [-15,15] step 0.5): mismatches=0 | b=6,c=12: p=0 q=-5 | b=6,c=9: p=-3 q=1 | b=3,c=1: p=-2 q=2 | b=-9,c=4: p=-23 q=-35 | b=12,c=-5: p=-53 q=150
+8h collapse boundary: p = c - b^2/3 vanishes exactly when c = b^2/3 — case b=6,c=12: p=0 (pure cube (x+2)^3-5); case b=6,c=9: p=-3 (depressed u^3-3u+1, no collapse)
+8i run 1 (DEFECTIVE, kept for the record): identity asserted with the sign flipped — 437 mismatches over [-10,10]^2. The machine caught the hand-written evidence line; the page's equation (PA^2 = 4PB^2 -> ... = 0) was never wrong.
+8i run 2 PA^2 - 4PB^2 = -(3x^2+3y^2-30x+12y+63) mismatches over [-10,10]^2: 0 (run 1 had the sign flipped: 437) | zero-sets agree: 441/441 | /3: x^2+y^2-10x+4y+21 = 0
+8j (x-5)^2+(y+2)^2 = 8 round-trip mismatches: 0 | D1(3,0) on circle: 8 | D2(7,-4) on circle: 8 | midpoint (5,-2) = C | D2-D1 squared = 32 = (2R)^2 = 32
+8k ratio at D1: PA^2/PB^2 = 4 | at D2: 4 | collinear x+y: A=3 B=3 C=3 D1=3 D2=3
+8l run 1 (DEFECTIVE, kept for the record): demanded grid extremes within 1e-9 of sqrt29±2sqrt2; observed gaps 2.40e-6 / 7.46e-7 — a 2401-point grid only approaches its extrema.
+8l run 2 exact extremal points: near = (2.373871,-0.949549) on circle: true | OP there = 2.556737682 = sqrt29-2sqrt2 = 2.556737682 | far = (7.626129,-3.050451) on circle: true | OP there = 8.213591932 | all 2401 samples within [sqrt29-2sqrt2, sqrt29+2sqrt2]: true (run 1 wrongly demanded grid extremes within 1e-9; a grid only approaches)
+
+All adopted numbers verified fresh this session (and previously by the S78
+draft battery, 75/75). Verdict: extension battery GREEN — 34 output lines,
+2 honest run-1 defects caught and re-run, 0 unresolved.
