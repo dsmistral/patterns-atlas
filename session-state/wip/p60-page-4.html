@@ -1,0 +1,79 @@
+<section id="exhibits">
+<h2>5 · Exhibits: when the completion forgets</h2>
+<p>Every pattern earns its keep by failing. Three exhibits — a monoid that forgets everything, an element that absorbs the world, and a completion built from the wrong relations — with the mitigation, the price, and the default.</p>
+<div class="exhibit">
+<p><em>Exhibit A — the monoid that forgets everything.</em> Take the counting numbers with \(a \oplus b = \max(a, b)\): associative, zero \(0\), and \(2 \oplus 5 = 5 = 3 \oplus 5\) while \(2 \neq 3\) — cancellation fails at the smallest honest example. Run the construction anyway, honestly: the witness relation \((a,b) \sim (c,d)\) reads \(\max(a, d, k) = \max(b, c, k)\) for some \(k\), and \(k = \max(a,b,c,d)\) makes both sides \(k\) — every page is the same position as every other. The completion is the one-element group: not a defect of the construction but its verdict, delivered twice. Once by the collapse itself, Fig P60.3; once by universality: \(k \oplus k = k\) forces \(f(k) \cdot f(k) = f(k)\) in any group receiving the monoid, and a group's only idempotent is its identity — every additive invariant of the max monoid is trivial, so no group bigger than a point could have done the job. Difference-questions about max-addition are not merely hard; they are meaningless, and the completion says so by collapsing.</p>
+<figure class="page-figure" aria-label="The collapse of the max monoid: eight dots labeled 0 through 7, every one with an arrow to a single red point labeled K of M, one point.">
+<svg viewBox="0 0 520 300" role="img" aria-label="Diagram: eight blue dots labeled 0 through 7 at x=120 and y=40, 70, 100, 130, 160, 190, 220, 250, each with a gray arrow to a single red dot at (400,160) labeled K(M), one point.">
+<defs><marker id="arr-p60-3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#999"/></marker></defs>
+<circle cx="120" cy="40" r="5" fill="#2e5aa8"/>
+<circle cx="120" cy="70" r="5" fill="#2e5aa8"/>
+<circle cx="120" cy="100" r="5" fill="#2e5aa8"/>
+<circle cx="120" cy="130" r="5" fill="#2e5aa8"/>
+<circle cx="120" cy="160" r="5" fill="#2e5aa8"/>
+<circle cx="120" cy="190" r="5" fill="#2e5aa8"/>
+<circle cx="120" cy="220" r="5" fill="#2e5aa8"/>
+<circle cx="120" cy="250" r="5" fill="#2e5aa8"/>
+<text x="100" y="44" text-anchor="end" font-size="12" fill="#333">0</text>
+<text x="100" y="74" text-anchor="end" font-size="12" fill="#333">1</text>
+<text x="100" y="104" text-anchor="end" font-size="12" fill="#333">2</text>
+<text x="100" y="134" text-anchor="end" font-size="12" fill="#333">3</text>
+<text x="100" y="164" text-anchor="end" font-size="12" fill="#333">4</text>
+<text x="100" y="194" text-anchor="end" font-size="12" fill="#333">5</text>
+<text x="100" y="224" text-anchor="end" font-size="12" fill="#333">6</text>
+<text x="100" y="254" text-anchor="end" font-size="12" fill="#333">7</text>
+<line x1="128" y1="40" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<line x1="128" y1="70" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<line x1="128" y1="100" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<line x1="128" y1="130" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<line x1="128" y1="160" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<line x1="128" y1="190" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<line x1="128" y1="220" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<line x1="128" y1="250" x2="388" y2="160" stroke="#999" stroke-width="1.3" marker-end="url(#arr-p60-3)"/>
+<circle cx="400" cy="160" r="7" fill="#c33"/>
+<text x="400" y="188" text-anchor="middle" font-size="14" fill="#333">K(M)</text>
+<text x="400" y="206" text-anchor="middle" font-size="12" fill="#777">one point</text>
+</svg>
+<figcaption>Fig P60.3 — the collapse of the max monoid: the eight counting numbers \(0\) through \(7\), all mapping to a single point in the completion. The witness is one line of arithmetic — for any \(a, b\), the witness \(k = \max(a,b)\) gives \(\max(a, 0, k) = k = \max(0, b, k)\) — so every page is every other page, and the completed world is a point. Universality delivers the same verdict independently: \(k \oplus k = k\) forces every image to be a group idempotent, hence the identity, so the completion could not have been anything else.</figcaption>
+</figure>
+<p><em>Mitigation:</em> check cancellation before completing — the check is a search for \(a, k, b\) with \(a \oplus k = b \oplus k\) and \(a \neq b\), and at desk size it is a table scan. If the monoid fails, believe the collapse: it says the monoid has no nontrivial additive invariants, which is itself a theorem in disguise, and the honest invariant for max-addition is order-theoretic, not additive — no completion will conjure one.</p>
+<p><em>Price:</em> the collapse is total, and it is honest: "net worth" is a fiction for max-bookkeeping, and the completion is the fiction's auditor, returning zero.</p>
+<p><em>Default:</em> cancellation is the pre-flight check of the whole move; run it first, and if it fails, trust the one-element group — it is a verdict, not a malfunction.</p>
+</div>
+<div class="exhibit">
+<p><em>Exhibit B — the absorbing element.</em> Multiply the whole numbers \(0, 1, 2, \ldots\): associative, identity \(1\), and \(0 \times n = 0\) for every \(n\) — zero absorbs. The witness relation on this multiplicative monoid reads \(a \cdot d \cdot k = b \cdot c \cdot k\), and the witness \(k = 0\) makes both sides \(0\): every page is every other page, and the completion is again the one-element group. The absorbing element drags the whole world to a point — not because division is unnatural, but because "what times \(0\) gives \(1\)" deserves silence, and the construction, honest, gives it. Encounter 2 excised the zero and completed the positive whole numbers instead; the repair is exactly that: the completion of a monoid with an absorbing element is trivial, and the only honest completion is of the punctured world.</p>
+<p><em>Mitigation:</em> remove absorbing elements before completing — say which world the differences are about, and complete that world.</p>
+<p><em>Price:</em> the punctured monoid answers questions about the punctured world; anything phrased with the absorbing element in it is outside the completion's jurisdiction, honestly.</p>
+<p><em>Default:</em> an absorbing element is a certificate of collapse: if some \(z\) satisfies \(z \cdot a = z\) for every \(a\), the witness \(k = z\) merges all classes — banish \(z\) or accept the point.</p>
+</div>
+<div class="exhibit">
+<p><em>Exhibit C — the wrong relations.</em> Suppose the questions are not "this object minus that object" but "what remains when this cancels along that": \(X\) built from \(Y\) and its quotient \(X/Y\) wants the relation \([X] = [Y] + [X/Y]\) — an exact-sequence relation, not a direct-sum one. The direct-sum completion does not impose it: the pair world prices only sums, so the completed group comes out too big, carrying distinctions the questions never wanted, classes that should have merged. The honest object is a further quotient, imposing the exact-sequence relations on top of the completion; and the two quotients agree in well-behaved worlds — the resolution theorem says that when every object has a finite resolution by the nice ones, the direct-sum completion already satisfies the exact-sequence relations. Named here, proved nowhere on this page. In badly-behaved worlds the disagreement is not noise; it is the invariant that made non-regular rings a subject.</p>
+<p><em>Mitigation:</em> ask which relations the invariants you care about actually satisfy — direct-sum-additive, exact-sequence-additive, or both — and complete against the honest list.</p>
+<p><em>Price:</em> the further quotient is harder to compute (its elements are differences <em>and</em> relations), and in the well-behaved case the price was paid for nothing; the resolution theorem is the refund.</p>
+<p><em>Default:</em> "additive" is not one word: say direct-sum or exact-sequence before completing, and let the say-so be checked like any other promise.</p>
+</div>
+<div class="warn-box">
+<p><strong>Scope, honestly.</strong> What this page establishes, it establishes by exact receipts, machine-checked: the ledger's identities, normal forms, and witness arithmetic by exhaustive bounded search over pages with small entries; the two-routes bijection of Encounter 1 over words and pages with entries at most 6; the fraction arithmetic and prime-exponent vectors of Encounter 2, including the cross-relation's transitivity over \(\mathbb{Z} \setminus \{0\}\) at bounded digits; the two-point space's \(K_0 \cong \mathbb{Z}^2\) by componentwise bookkeeping; the Euler characteristic receipts \(\chi(\mathrm{pt}) = 1\), \(\chi(S^1) = 0\), \(\chi(S^2) = 2\), \(\chi(S^2 \times S^2) = 4\) by cell counts and the product rule; the naive relation's transitivity failure on the max monoid at the witness \((2,3), (3,3), (3,2)\); the collapse of the max monoid and of the absorbing-zero monoid by explicit witnesses; and the triviality of every hom from the max monoid to a group — the idempotent argument, cross-checked on the multiplication tables of \(\mathbb{Z}/5\), \(\mathbb{Z}/6\), and \(S_3\). What this page does not establish: the Barratt–Priddy–Quillen theorem and the group-completion theorem of McDuff and Segal (1976) are quoted as consistent with the literature and are <em>not source-verified here</em>; the resolution theorem is named, not proved; \(K_0\) beyond the two-point space is sketched, not computed. The verification this page performed directly covered the Grothendieck group construction and its universal property, the 1957 manuscript's publication history (written up by Borel and Serre, published 1958), \(K_0(k) \cong \mathbb{Z}\) for a field by dimension, and the Barratt–Priddy–Quillen statement as the lineage phrases it. Where the literature and this page ever disagree, the literature wins and this page's lab gets corrected.</p>
+</div>
+</section>
+<section id="doors">
+<h2>6 · Doors out</h2>
+<ul>
+<li><strong>Door — sheafify on a site</strong> (<a href="p62-sheafify-on-site.html">P62</a>): the nearest door, and this page's footer. The completion answered for one monoid, in one place; a sheaf answers for a whole space of monoids at once — local answers that must agree on overlaps, gluing laws where local data is forced to assemble into global structure. The next move is this page's demand — the most economical honest world, and a proof it was not a choice — run point by point over a space.</li>
+<li><strong>Door — representable functor</strong> (<a href="p48-representable-functor.html">P48</a>): the universal property, one language up. Box P60.A proved that additive maps \(M \to G\) correspond exactly to homomorphisms \(K(M) \to G\); that correspondence is a functor in \(G\), and the completion is what represents it. P48 taught that an object is its maps; this page's group is the representing object for the additive-invariant functor — "forced, not chosen", made functorial.</li>
+<li><strong>Door — virtual classes</strong> (<a href="p64-virtual-classes.html">P64</a>): the completed world's citizens, with their own geometry. This page built virtual bundles as classes of pages; the next move gives differences of geometric objects a life beyond bookkeeping — intersection theory, where virtual classes earn their keep as the honest currency of excess and defect.</li>
+<li><strong>Door — the universal property argument</strong> (<a href="p31-universal-property.html">P31</a>): the prerequisite read backward. This page ran P31 forward: define by the job, build, prove existence and uniqueness. Read backward, the lesson generalizes: wherever many receivers share one job, expect a representing object and a dashed arrow — and expect the dashed arrow to be the theorem.</li>
+<li><strong>Door — Shearer entropy counting</strong> (<a href="p59-shearer-entropy.html">P59</a>): the tier sibling, read backward. P59 counted a family by discarding its arrangement; this page refused the census and completed instead. Both moves are strategic retreats down the same road — from listing, to bounding, to adjoining — and the road continues through the footer below.</li>
+<li><strong>Door — the literature</strong>: the lineage below lists the classical entries this page verified and the two it quoted as literature-consistent — the Barratt–Priddy–Quillen statement, and the McDuff–Segal group-completion theorem of 1976, this page's one open source-verification debt. The honest route in is the lineage, read with the scope box open; the reader who opens the 1976 door first should come back with the receipt Exercise 5 asks for.</li>
+</ul>
+</section>
+<section id="lineage">
+<h2>7 · Lineage</h2>
+<ul>
+<li><strong>1957 — Grothendieck; 1958 — Borel–Serre.</strong> The Riemann–Roch manuscript: formulas about differences of vector bundles, \([E] - [F]\), priced by a completed monoid — its \(K\) from the German <em>Klasse</em>, "class". Grothendieck wrote the 1957 manuscript; Borel and Serre wrote it up and published it in 1958. For a field \(k\), \(K_0(k) \cong \mathbb{Z}\) by dimension; for the integers of a number field, the same construction refines the classical class group; and the same \(K_0\), transported from algebraic bundles to topological ones by Atiyah and Hirzebruch, became topological K-theory.</li>
+<li><strong>Early 1970s — Barratt, Priddy, Quillen.</strong> \(\mathbb{Z} \times B\Sigma_\infty^{+} \simeq \Omega^\infty S^\infty\): the group completion of the monoid of the symmetric groups' classifying spaces under block sum is the infinite loop space of the sphere spectrum — so the stable homotopy groups of spheres are a group completion, and the homotopy groups of the left-hand side are the stable stems. The "K-theory of \(\mathbb{F}_1\)" — the field with one element's would-be K-groups — is this page's honest metaphor for that statement.</li>
+<li><strong>1976 — McDuff, Segal.</strong> The group-completion theorem: the engine that makes group completions of topological monoids computable, behind the Barratt–Priddy–Quillen door and many since. Quoted on this page as consistent with the literature, not source-verified — the scope box and Exercise 5 hold the receipt and the debt.</li>
+</ul>
+<p>None of this history is load-bearing for the pattern; the receipts above are internal to this page, and the lineage is a map of doors, not a proof.</p>
+</section>
+
