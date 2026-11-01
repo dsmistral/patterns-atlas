@@ -1,0 +1,80 @@
+S84 P52 — lab output record (book/labs/p52-lab-output.txt)
+Engine: book/labs/p52-lab.js (38,440 B, assembled from 14 pieces, deterministic).
+Run history (honest, complete):
+  runs 1-4  FAIL — design errors in groups A-E, fixed in-session (pre-compaction).
+  run 5    PASS 27/27 — groups A-E only (21,572 B pre-F assembly).
+  run 6    FAIL at parse — F manifest pieces (gF1/gF2) had authoring defects:
+            unescaped inner quotes (id/href/attr needles) and single instead of
+            double backslashes on TeX needles; manifest regenerated from
+            page-needles.txt with uniform JS escaping (60+55 = 115 needles).
+  run 7    FAIL 44/45 — F07 off-by-one ratio pairing (pre-compaction authoring in
+            gF4): compared rs[m+1] against the page ratios; fixed to rs[m].
+  run 8    PASS 45/45 — final, full text below.
+Independent recomputes in group F: closed-form corners/apex/supports (no stepping),
+spectral heat-melt route (no stepping), exact step/kink shelf series (no DFT),
+closed-form Snell/TIR trigonometry, pixel-mapping arithmetic for all three figures,
+lattice d'Alembert identity spot-check, manifest/pin/href/lineage census.
+
+---
+
+(total output of run 8, verbatim)
+
+== A. the string — exact lattice d'Alembert (CFL=1) ==
+PASS A01 scheme equals d'Alembert exactly (n<=40, 361 cells) — maxdiff=0
+PASS A02 corner positions at t=10 forced to characteristics — corners=[6,22,26,38,42,58]
+PASS A03 apex pair at 22/42, each half the pluck — apexL=16 apexR=16 orig=32
+PASS A04 figure split: corners [12,28,44,52,68,84], half-height tents — corners=[12,28,44,52,68,84] peaks=16,16 orig=32
+PASS A05 kink sharpness splits and never decays: 4 = 2 + 2 — sharp(0)=4 sharp(200)=2
+PASS A06 each half at t=30 equals the original tent exactly (rest zero) — supports [254,286]+[314,346], profile intact
+PASS A07 heat melts the same tent (sharpness ratio < 0.05) — ratio=2.8764e-2
+
+== B. the shelf audit — P42 hinge (N=128 DFT) ==
+PASS B01 step: even shelves empty, k|c_k| ~ 1/pi — maxEven=6.67e-16 dev1=3.20e-5 dev3=2.88e-4
+PASS B02 step shelves hold per octave (roughly constant) — ratios=1.031,1.019,1.046,1.202
+PASS B03 kink coefficients match exact series 2/(pi(4m^2-1)) (3.5% sampling band) — maxOdd=1.23e-15 maxSerDev=2.92e-2 c2=0.212334
+PASS B04 kink shelves halve per octave (approaching 1/2) — ratios=0.287,0.407,0.486
+PASS B05 smooth bump shelves collapse (strictly, octave by octave) — ratios(m=2..5)=8.45e-1,1.25e-1,4.30e-4,8.24e-10
+PASS B06 band-limited: shelves above k=8 are machine-zero — max=2.11e-15
+
+== C. direction — the 2D census (64x64 DFT, separable) ==
+PASS C01 line singularity: energy entirely on the conormal axis — axisShare=1.0000000000000000
+PASS C02 rotated step: energy exactly in the conormal cone — coneShare=1.0000000000000000
+PASS C03 point spike: flat census, all 4096 magnitudes equal — max-min=0.00e+0 mag=2.4414e-4
+PASS C04 windowed kink: axis share rises every octave 1-4 — shares(octaves 1-5)=0.206,0.223,0.381,0.719,0.369
+
+== D. the rays — Hamilton flow of the wave symbol ==
+PASS D01 rays straight, tau/xi invariants held (10 combos, RK4) — maxErr=8.88e-14
+PASS D02 ray speed exactly c=1 (all combos) — maxSpeedDev=8.22e-15
+PASS D03 light cone: |x(t)|=ct for all 32 directions — maxDev=1.08e-14
+PASS D04 Snell: sin(theta)/c invariant across the interface — sin1=0.866025404 sin2=0.433012702 invariant=0.866025404
+PASS D05 crossing point (0, 5.196152): 3*tan(60 deg) — yCross=5.196152
+PASS D06 TIR detected: transmitted discriminant negative — disc=-1.5600 sin(theta1)=0.800000 (critical 0.5)
+
+== E. the elliptic wall — no characteristic directions, smoothing by symbol division ==
+PASS E01 u"=f exact on the interval; Laplacian multiplies shelves by its symbol exactly — maxRel=1.50e-13
+PASS E02 Laplace symbol ~ k^2 (within 6% for k=2..8) — maxDev=0.0504
+PASS E03 zero census: wave symbol 4 directions, Laplace min = 1 — waveZeros=4 lapMin=1.000000
+PASS E04 elliptic wall: interior Laplacian energy drops > 100x — ratio=2.1833e-10
+
+== F. page needles + figure data + structure census ==
+PASS F01 corner census, closed form (characteristics alone) — [12, 28, 44, 52, 68, 84]
+PASS F02 apex pair phrases, recomputed from the tent — feet at \(12\) and \(44\) with peak \(16\) at \(28\)
+PASS F03 kink sharpness splits, never decays (4 = 2 + 2) — sharp0=4 sharpHalf=2
+PASS F04 riding supports, recomputed from center 300 and halfwidth 16 — [254, 286] [314, 346]
+PASS F05 heat melt, spectral route (no stepping) agrees with the engine — ratio=2.8764e-2
+PASS F06 step shelves, exact closed form c_k = 1/(N sin(pi k/N)) — ratios=1.031,1.019,1.046,1.202
+PASS F07 kink shelves, exact series route: halving law, within the sampling band — ratios=0.286,0.400,0.452,0.476 worstDev=0.071
+PASS F08 gaussian collapse, band limit, and k|c_k| deviation needles — gauss=8.45 \times 10^{-1}, 1.25 \times 10^{-1}, 4.30 \times 10^{-4}, 8.24 \times 10^{-10}
+PASS F09 Snell invariant and crossing point, recomputed — s1=0.866025404 s2=0.433012702 yc=5.196152
+PASS F10 total internal reflection: discriminant and critical angle — disc=-1.5600 sin=0.8
+PASS F09x ray and elliptic precision needles, formatted from the engine values — 8.88 \times 10^{-14} | 8.22 \times 10^{-15} | 1.08 \times 10^{-14} | 1.50 \times 10^{-13} | 2.1833 \times 10^{-10}
+PASS F11 Fig P52.1 pixel data, recomputed from the 96-cell config — 69,140 141,84 213,140 / 249,140 321,84 393,140
+PASS F12 Fig P52.3 pixel data: crossing, refraction slope, reflection slope — py88=88 drawn=0.2444 expect=0.2402
+PASS F13 light cone drawing and census shares, geometry and formatting — slopes=1,1,1
+PASS F14 equation and scheme needles; d'Alembert identity spot-checked — worst=0
+PASS F15 structure census: 115 needles, 8 h2, 3 boxes, 3 figs, pin anatomy — FM=115 dups=0 pinLen=116
+PASS F16 exhibits, four door quotes, panel captions, dated lineage — years=1831 < 1923 < 1969 < 1972 < 2006
+PASS F17 title, kicker, and eleven pattern-door hrefs — hrefs=11
+
+total: 45 checks, 0 FAIL
+VERDICT: S84 P52 battery PASS 45/45 run 8
