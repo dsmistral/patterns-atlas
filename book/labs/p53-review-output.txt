@@ -1,0 +1,88 @@
+S85 P53 — review verifier output record (book/labs/p53-review-output.txt)
+Engine: book/labs/p53-review-verifier.js (35,288 B, assembled from 4 pieces,
+deterministic). Fresh engine: zero code shared with p53-lab.js on any axis —
+modular elimination over GF(101), GF(103), GF(107) with field inverses vs the
+lab's Bareiss exact-rank engine; explicit fraction arithmetic vs integer
+residuals; fresh frame families (triangle, square, braced, house, fanned) with
+rowsOf/trivVecs row generators vs the lab's own frame tables; polynomial
+multiplication, subtraction, division and evaluation vs Pythagorean routes;
+permutation arithmetic (permMul, permPow, permOrder, lcmI) and a heap
+generator driving the full 8! bijection census vs the lab's closed-form orders
+and generator-image homomorphisms; circle censuses by exact d^2 comparison vs
+the lab's integer circles and extProd tables.
+Run history (honest, complete):
+  run 1  FAIL 42/43 — R28 check-design bug: the lattice-shear check compared
+          the Lambda_{s+1} generators against the next half-step checkpoint
+          instead of applying the shear matrix (x, y) -> (x + y, y); fixed by
+          routing the check through applyShear().
+  run 2  PASS 43/43 — final, full text below.
+Independent confirmation highlights: the modular ranks agree with the page's
+rank and H^1 census over three independent primes; the full 8! bijection
+census independently recovers H^2 = Z/2 (8 isomorphisms within the split
+class, 4 within the cyclic class, 0 across the wall); permutation order
+censuses match the four extension tables and the quaternion pair census
+matches neither; the class witness (x, g) -> (x - g, g) is confirmed over all
+64 pairs; R13 pins the page's rotation claim to the origin (the pinned hand),
+the page defect caught during verifier design and fixed in page, needle set,
+and lab before publication; all 14 needle/poison injection pairs discriminate
+(byte-true needle found in the excerpt, single-token poison rejected).
+
+---
+
+(total output of run 2, verbatim)
+
+== V. injections — page needles vs poison mutations ==
+PASS I1 needle found in excerpt, poison rejected -- sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4
+PASS I2 needle found in excerpt, poison rejected -- are counted by \(H^1\); the walls that stop th
+PASS I3 needle found in excerpt, poison rejected -- (-1, 0, 1, 0, 0, 0, 0, 0)
+PASS I4 needle found in excerpt, poison rejected -- H^1 = 4 - 3 = 1
+PASS I5 needle found in excerpt, poison rejected -- ranks \(3, 4, 5, 5, 7\), kernels \(3, 4, 3, 5,
+PASS I6 needle found in excerpt, poison rejected -- ride Pythagorean triples
+PASS I7 needle found in excerpt, poison rejected -- demanded of nothing and paid by no one
+PASS I8 needle found in excerpt, poison rejected -- meet in \(2, 2, 2, 1, 0, 0\) points
+PASS I9 needle found in excerpt, poison rejected -- That quotient is \(H^2 = \mathbb{Z}/2\)
+PASS I10 needle found in excerpt, poison rejected -- with exactly four elements of order \(8\)
+PASS I11 needle found in excerpt, poison rejected -- elbow-lift plus twice the hand-lift is a rotat
+PASS I12 needle found in excerpt, poison rejected -- dimensioned a century before deformation theor
+PASS I13 needle found in excerpt, poison rejected -- Publications Mathématiques de l'IHÉS
+PASS I14 needle found in excerpt, poison rejected -- zoom the problem until the space becomes its o
+PASS I15 injection census: 14 pairs over 13 excerpt lines, all discriminating -- pairs=14 excerptLines=13
+
+== P. the census re-verified — modular elimination over three primes ==
+PASS R01 modular rank over GF(101): triangle 3, square 4, braced 5, house 5, fanned 7 -- ranks=3,4,5,5,7
+PASS R02 kernel dims over GF(101): 3, 4, 3, 5, 3 — H1 census 0, 1, 0, 2, 0 -- kdims=3,4,3,5,3 H1=0,1,0,2,0
+PASS R03 rank agreement over GF(103) and GF(107) -- GF(103)=true GF(107)=true
+PASS R04 the house flex (-1,0, -1,1, 0,0, 0,0, 0,0) in the house kernel mod all three primes -- primes=101,103,107
+PASS R05 square shear in kernel mod three primes, outside the trivial span mod 101 -- span=3 span+shear=4
+PASS R06 the shear strains the braced diagonal by exactly -1; the triangle kernel is exactly the trivial span -- strain=-1 trank=3 triv=3
+
+== Q. the families re-verified — polynomial identities and cancelled quotients ==
+PASS R07 circle parametrization: (1-s^2)^2 + (2s)^2 - (1+s^2)^2 is the zero polynomial -- identity exact
+PASS R08 rhombus corners at s=2 and s=1/2: all four bar lengths squared exactly 1 -- s=2:1,1,1,1 | s=1/2:1,1,1,1
+PASS R09 velocity at the square by cancelled difference quotient: (-1, 0) -- v=(-1, 0)
+PASS R10 the wall by substitution: demand gap exactly s^2, zero only at s = 0 -- gaps=1, 4, 9, 1/4, 1, 0
+PASS R11 chain hand pivots at s=1 and s=1/2 at unit distance; the other bar holds -- pivots=(1,1),(8/5,4/5) lensq=1,1
+PASS R12 chain velocity by cancelled quotient at s=0: (0, 2), proportional to the counted lift (0, 1) -- v=(0, 2)
+PASS R13 elbow-lift plus twice the hand-lift is the rotation about the origin (the pinned hand), not about the elbow -- sum=(0,0, 0,2, 0,1); about-elbow=(0,-1, 0,1, 0,0)
+PASS R14 half-grid uniqueness: exactly one point at distance 1 from both centers — (1, 0) -- hits=[[2,0]]
+PASS R15 circle-pair census by exact comparison d^2 vs 4: intersections 2, 2, 2, 1, 0, 0 -- census=2,2,2,1,0,0
+
+== E. the extensions re-verified — product tables, permutation groups, full bijection census ==
+PASS R16 associativity census by direct table test over all 64 triples: exactly 16 of 256 pass, the law forcing f(0,0) = f(0,1) = f(1,0) -- cocycles=16 forced=true
+PASS R17 normalizing the identity pins the first three values to zero: 4 recipes, one per a = f(1,1) in {0, 1, 2, 3} -- normalized=4 a=0,1,2,3
+PASS R18 coboundary shifts are {0, 2}: exactly two classes {0, 2} and {1, 3} — H^2 = Z/2 -- shifts={0,2} classes={0,2},{1,3}
+PASS R19 order censuses by repeated multiplication: split class 1, 3, 4, 0; cyclic class 1, 1, 2, 4 (a = 2, 3 match their partners) -- a=0:1,3,4,0 a=1:1,1,2,4
+PASS R20 permutation route: the 8-cycle censuses 1, 1, 2, 4; (1 2 3 4) with (5 6) censuses 1, 3, 4, 0 -- cyclic=1,1,2,4 split=1,3,4,0
+PASS R21 Q8 by quaternion pairs censuses 1, 1, 6, 0 — matching neither extension class -- Q8=1,1,6,0
+PASS R22 full 8! bijection census: isomorphisms only within classes (split 8, cyclic 4), zero across the wall -- E0toE2=8 E1toE3=4 cross=0
+PASS R23 the class witness (x, g) -> (x - g, g) is a homomorphism E_0 to E_2 and E_1 to E_3, over all 64 pairs each -- witness=true
+PASS R24 fiber slides: exactly 8 of 16 are automorphisms — the derivations t = 0, 2 per table -- autos=8 (a0t0,a0t2,a1t0,a1t2,a2t0,a2t2,a3t0,a3t2)
+PASS R25 smallest case: both Z/2-by-Z/2 tables associative; censuses match the permutation Klein (1,3,0) and the 4-cycle (1,1,2); both crossing shifts fail -- Klein=1,3,0 Z4=1,1,2
+
+== M. the moduli receipts re-verified — determinants and lattice shears ==
+PASS R26 Riemann receipts: 3g - 3 = 3, 6, 9 at g = 2, 3, 4 (and 3g - 3 = 0 at g = 1) -- g=2,3,4: 3,6,9
+PASS R27 torus receipts: the shear basis (1, 0), (s, 1) has det exactly 1 and second generator squared length s^2 + 1: 1, 5/4, 2, 13/4, 5 -- lensq=1,5/4,2,13/4,5
+PASS R28 the shear (x, y) -> (x + y, y) maps the Lambda_s generators onto the Lambda_{s+1} generators exactly (det 1, invertible) -- second generator images: 1,3/2,2,5/2,3
+
+total: 43 checks, 0 FAIL
+VERDICT: S85 P53 review PASS 43/43 run 2
