@@ -1,0 +1,52 @@
+PASS 1. A1 raw assignments — 458 enumerated: sizes and 4 free restriction maps
+PASS 2. A2 presheaves — 190 respect composition (the two X→∅ paths agree)
+PASS 3. A3 sheaves — 5 sheaves on the two-island site
+PASS 4. A4 sheaf shapes — (1,1,1,1)x1, (1,1,2,2)x2, (1,2,1,2)x2
+PASS 5. A5 separated census — 25 pass locality on every cover (5 sheaves + 20 more)
+PASS 6. A6 gluing failures — 20 fail gluing with locality intact
+PASS 7. A7 empty-law failures — 156 carry two records on the empty stretch and fail instantly
+PASS 8. A8 one-record empty stretch — 34 presheaves with F(∅) = 1 record
+PASS 9. A9 the 34, accounted — 5 sheaves + 20 gluing failures + 9 locality failures
+PASS 10. A10 covers — covers of ∅: 2, E: 2, W: 2, X: 10
+PASS 11. A11 the almanac, pinned — constant (1,2,2,2): a presheaf, separated, not gluing
+PASS 12. A12 the unwitnessed report — East 0, West 1: matching on the empty overlap, witnessed by no record
+PASS 13. A13 the sheaf law — every sheaf satisfies s_X = s_E · s_W
+PASS 14. B1 plus once separates — F⁺ passes locality for all 190
+PASS 15. B2 plus twice sheafifies — F⁺⁺ passes locality and gluing for all 190
+PASS 16. B3 plus stabilizes — F⁺⁺⁺ = F⁺⁺ (sizes) for all 190
+PASS 17. B4 the country grows — |F⁺⁺(X)| = s_E · s_W for all 190
+PASS 18. B5 the empty stretch heals — |F⁺⁺(∅)| = 1 for all 190
+PASS 19. B6 rounds census — 5 need none, 97 repaired in one round, 88 need both
+PASS 20. B7 natural maps — 2974 natural maps from the 190 into the 5 sheaves
+PASS 21. B8 existence — every one extends along η = η₂∘η₁
+PASS 22. B9 uniqueness — every extension is unique
+PASS 23. B10 almanac receipt — F⁺ = (1,2,2,4) = F⁺⁺, η_X = [0,3]
+PASS 24. C1 Sierpinski census — 36 presheaves: sizes and 2 free maps, the single composite path automatic
+PASS 25. C2 Sierpinski sheaves — 8 sheaves, all with F(∅) = 1
+PASS 26. C3 Sierpinski failures — 28 fail instantly on the empty cover
+PASS 27. C4 Sierpinski covers — covers: 2, 2, 4
+PASS 28. C5 Sierpinski sections — sections over X stay F(X) for all 36: the closed point only lives in X
+PASS 29. E1 diamond census — 458 raw, 190 presheaves (poset isomorphic to the two-island world)
+PASS 30. E2 trivial topology — all 190 are J₀-sheaves
+PASS 31. E3 declared topology — 47 sheaves under J₁
+PASS 32. E4 J₁ separated — 84 separated-not-gluing
+PASS 33. E5 J₁ locality — 59 locality failures
+PASS 34. E6 J₁ rounds — 47 zero, 143 one, 0 two; F⁺⁺ = F⁺ for all 190
+PASS 35. E7 growth receipt — (1,2,2,1) → (4,2,2,1): the patch-pairs get a home
+PASS 36. E8 merge receipt — (2,1,1,1) → (1,1,1,1): the indistinguishable pair becomes one
+PASS 37. D1 stalks — stalk at e ≅ F(E), stalk at w ≅ F(W), for all 190
+PASS 38. D2 etale sections — s_E · s_W for all 190: any pair of germs is continuous
+PASS 39. D3 empty sections — exactly 1 for all 190
+PASS 40. D4 etale shapes — (1,1,1,1)x6, (1,1,2,2)x26, (1,2,1,2)x26, (1,2,2,4)x132
+PASS 41. D5 etale merge — (1,1,1,2) → (1,1,1,1): the etale repair merges the pair
+PASS 42. D6 sheaves fixed — for all 5 sheaves the germ-pair map F(U) → F~(U) is a bijection
+PASS 43. S1 sections — 8 h2 sections (§1–§8)
+PASS 44. S2 figures — 3 svg, 3 page-figure (Fig P62.1–P62.3)
+PASS 45. S3 boxes — 3 pattern-box, 1 eq display, 1 sketch-marker, 1 moons
+PASS 46. S4 exhibits and warnings — 3 exhibit, 1 warn-box, 9 details
+PASS 47. S5 MathJax pin — MathJax 3.2.2 pin byte-identical to P60; double-backslash delimiters
+PASS 48. S6 links — hrefs exactly: style, index, P31, P33, P47, P48, P60, P61
+PASS 49. S7 no raw TeX — 0 raw dollars, 0 \begin
+PASS 50. S8 doors and next — 6 doors, footer Next = P61 · Straighten and unstraighten
+PASS 51. S9 corrections enshrined — review corrections enshrined: census parenthetical, law-not-coincidence, eq block, double-backslash cdot, one empty record
+p62-lab: 51/51 checks passed
