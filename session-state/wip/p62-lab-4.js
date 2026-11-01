@@ -70,13 +70,13 @@ check('S9', 'corrections enshrined',
   PAGE.indexOf(String.raw`forcing a two-record country`) >= 0 &&
   PAGE.indexOf(String.raw`and that is law, not coincidence`) >= 0 &&
   PAGE.indexOf(String.raw`<p class="eq">`) >= 0 &&
-  PAGE.indexOf(String.raw`s_E \\\\cdot s_W = 2\\\\) — and two shaped`) >= 0 &&
-  PAGE.indexOf(String.raw`P(\\\\varnothing) = \\\\{\\\\ast\\\\}`) >= 0 &&
+  PAGE.indexOf(String.raw`s_E \\cdot s_W = 2\\) — and two shaped`) >= 0 &&
+  PAGE.indexOf(String.raw`P(\\varnothing) = \\{\\ast\\}`) >= 0 &&
   PAGE.indexOf(String.raw`the matching is free`) >= 0 &&
-  PAGE.indexOf(String.raw`country of \\\\(4\\\\)? no`) < 0 &&
-  PAGE.indexOf(String.raw`\\\\(84\\\\>)`) < 0 &&
-  PAGE.indexOf(String.raw`s_E \\cdot s_W`) < 0 &&
-  PAGE.indexOf(String.raw`for every \\\\(U\\\\), every restriction the identity`) < 0,
+  PAGE.indexOf(String.raw`country of \\(4\\)? no`) < 0 &&
+  PAGE.indexOf(String.raw`\\(84\\>)`) < 0 &&
+  PAGE.indexOf(String.raw`s_E \cdot s_W`) < 0 &&
+  PAGE.indexOf(String.raw`for every \\(U\\), every restriction the identity`) < 0,
   'review corrections enshrined: census parenthetical, law-not-coincidence, eq block, double-backslash cdot, one empty record');
 
 /* ---------- runner ---------- */
