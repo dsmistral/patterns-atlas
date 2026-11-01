@@ -1,0 +1,48 @@
+PASS 1. A1 ledger law transitive on (N,+) over all tuples <= 6 — 1225 chained tuples, 0 violations
+PASS 2. A2 class addition well-defined on (N,+) <= 6 — 11319 instances, 0 violations
+PASS 3. A3 normal form exists: every page <= 8 reaches (n,0) or (0,n) — 81 pages, all reduced
+PASS 4. A4 normal form unique: (m,0) ~ (0,n) only at m = n = 0 — no overlap outside zero
+PASS 5. A5 [(4,4)] is the zero: (4,4) ~ (0,0) — 4 + 0 = 4 + 0
+PASS 6. A6 [(2,0)] + [(0,2)] = 0: (2,2) ~ (0,0) — (2,0)+(0,2) = (2,2), and 2 + 0 = 2 + 0
+PASS 7. A7 (2,5) ~ (3,6) — same position, both net -3 — 2 + 6 = 5 + 3 = 8
+PASS 8. A8 [(3,7)] + [(5,2)] = [(0,1)] — Exercise 1(b) — 3+5 = 8, 7+2 = 9; (8,9) ~ (0,1) since 8 + 1 = 9 + 0
+PASS 9. A9 (3,5) ~ (0,2) and (8,5) ~ (3,0) — encounter receipts — 3 + 2 = 5 + 0 and 8 + 0 = 5 + 3
+PASS 10. A10 factoring into Z/5: fbar([(a,b)]) = a - b mod 5 is the unique extension — well-defined on all equivalent pages <= 8; eta(n) = n mod 5
+PASS 11. A11 factoring into Z/6: fbar is a homomorphism on classes — fbar(x+y) = fbar(x)+fbar(y) on all 1296 page pairs
+PASS 12. A12 factoring into Z/8: fbar circ eta = f — fbar([(n,0)]) = f(n) for n = 0..20
+PASS 13. A13 two-routes bijection: pages <= 6 group by net exactly — 49 pages, 13 classes, equivalence = equal net
+PASS 14. B1 18/12 = 3/2 by prime-exponent vectors — 18 = 2^1*3^2, 12 = 2^2*3^1; quotient 2^-1*3^1 = 3/2; 18*2 = 36 = 12*3
+PASS 15. B2 [(5,3)]*[(3,1)] = [(15,3)] ~ [(5,1)]: 15*1 = 3*5 — 15*1 = 15 = 3*5
+PASS 16. B3 cross-relation transitive on Z\{0} at digits <= 5 (cancellation) — 2512 chains, 0 violations (cancelling cd does it)
+PASS 17. B4 exponent vectors add under products: vec(a*c) = vec(a) + vec(c) — multiplication is vector addition, prime by prime
+PASS 18. B5 whole numbers sit inside as [(n,1)]: the class reads n — n*1 = 1*n = n for n = 1..30; [(6,1)] carries exactly vec(6)
+PASS 19. C1 N^2 cancels componentwise: all instances <= 4 — 625 cancelling instances, 0 failures (bounded scan)
+PASS 20. C2 [(3,1)] - [(1,1)] = [(2,0)]: page ((3,1),(1,1)) ~ ((2,0),(0,0)) — columns: 3 = 1+2 and 1 = 1+0, witness k = (0,0)
+PASS 21. C3 dimension vector of [(3,1)] - [(2,0)] is (1,1) — dims (1,1); page ((3,1),(2,0)) at the position of ((1,1),(0,0))
+PASS 22. C4 eta embeds N^2: pages ((x),(0)) ~ ((y),(0)) iff x = y (bounded) — no merges: K0({p,q}) embeds N^2 into Z^2
+PASS 23. E1 chi(pt) = 1 — one 0-cell: 1
+PASS 24. E2 chi(S^1) = 0 — 1 - 1 = 0
+PASS 25. E3 chi(S^2) = 2 — 1 + 1 = 2
+PASS 26. E4 chi(torus) = 0 — 1 - 2 + 1 = 0
+PASS 27. E5 chi(S^2 x S^2) = 4 by cells and by product — 1 + 2 + 1 = 4 = 2*2
+PASS 28. E6 product rule chi(A x B) = chi(A)chi(B) on the receipt pairs — pt*pt = 1, pt*S2 = 2, S1*S1 = 0 = torus, S2*S2 = 4
+PASS 29. D1 max is associative on all triples <= 8 — 729 triples, 0 violations
+PASS 30. D2 2+5 = 3+5 = 5 under max — max(2,5) = max(3,5) = 5 while 2 != 3
+PASS 31. D3 naive law non-transitive on max at ((2,3),(3,3),(3,2)) — max(2,3)=3=max(3,3), max(3,2)=3=max(3,3), but max(2,2)=2 != 3=max(3,2)
+PASS 32. D4 witness repairs: (2,3) ~ (3,2) via k = 3 — max(2,2,3) = 3 = max(3,3,3)
+PASS 33. D5 total collapse: (a,0) ~ (b,0) for all a,b <= 8 via k = max(a,b) — 81 pairs all merge: completion is the one-element group
+PASS 34. D6 Z/5 additive table: only idempotent is 0 — 25 products scanned, x+x = x only at x = 0
+PASS 35. D7 Z/6 additive table: only idempotent is 0 — 36 products scanned, x+x = x only at x = 0
+PASS 36. D8 S3 table: only idempotent is the identity (36 products) — closure verified, 36 products, only [0,1,2] is idempotent
+PASS 37. D9 zero absorbs in {0..4} under x — 0*n = n*0 = 0 and 1*n = n for n = 0..4
+PASS 38. D10 absorbing collapse: all pages of {0..4} under x merge via k = 0 — 625 page pairs all merge via witness 0: completion trivial
+PASS 39. F1 witness transitivity on (N,+) via K = d+k1+k2 (bounded) — 2176 chains, K = d+k1+k2 always witnesses
+PASS 40. F2 witness transitivity on (N,max) via K = max(d,k1,k2) (bounded) — 20872 chains, K = max(d,k1,k2) always witnesses
+PASS 41. S1 Fig P60.1 grid: marked points at (50+40a, 50+40b) — all four marked points sit on the grid formula
+PASS 42. S2 Fig P60.1 class lines hit their marked endpoints — blue (2,0)-(6,4) net +2; red (0,3)-(3,6) net -3; both slope 1
+PASS 43. S3 Fig P60.2 arrows connect source to target (tolerance 15px) — eta: M to K(M); f: M to G; fbar: K(M) to G, all within tolerance
+PASS 44. S4 Fig P60.3 dots at (120, 40+30k), k = 0..7 — eight dots, y = 40..250 step 30, x = 120
+PASS 45. S5 Fig P60.3 arrows: all eight end at the single target — eight arrows, every end within 15px of (400,160), every start at its dot
+PASS 46. S6 Fig P60.3: one target only — the collapse picture — eight source dots, one target: the completion of (N,max) is one point
+
+p60-lab: 46/46 checks passed
