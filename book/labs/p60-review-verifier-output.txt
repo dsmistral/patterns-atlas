@@ -15,7 +15,7 @@ PASS 14. T14 MathJax integrity attribute present — integrity sha256 present
 PASS 15. T15 section ids in canonical order — bridge..exercises in order
 PASS 16. T16 inline TeX count is 392 — 392 inline TeX
 PASS 17. T17 display TeX count is 2 — 2 display TeX
-PASS 18. T18 page byte length is 56503 (state after pin correction 325193573) — 56503 bytes
+PASS 18. T18 page byte length is 56502 (state after the eq-artifact correction at close-out) — 56502 bytes
 PASS 19. T19 no lab references, no staging references, no placeholder text — clean
 PASS 20. T20 no P16 link and no P16 mention — P16 mentions: 0, p16- links: 0
 PASS 21. M1 ledger receipt 5 + 0 = 3 + 2 — needle present
@@ -46,25 +46,26 @@ PASS 45. F5 integrity-strip injection is caught — pin check fails on mutant
 PASS 46. F6 false-content injection chi(S1) = 1 is caught (all occurrences) — false receipt detected
 PASS 47. F7 old-defect injection [(1,1)] is the zero is caught — defect-absence check fails on mutant
 PASS 48. F8 details-block removal is caught — details census check fails on mutant
-PASS 49. S1 kicker line present on P60 — kicker present
-PASS 50. S2 tagline present on P60 — tagline present
-PASS 51. S3 onramp aside present on P60 — onramp present
-PASS 52. S4 exactly one h1 on P60 — 1 h1
-PASS 53. S5 h2 numbered 1 · through 8 · — all eight numbered sections
-PASS 54. S6 pattern boxes carry ids box-p60, box-p60a, box-p60b — box ids present
-PASS 55. S7 exhibits are div.exhibit divs, three of them — 3 exhibit divs
-PASS 56. S8 scope box is a warn-box, one only — 1 warn-box
-PASS 57. S9 difficulty moons line present — moons present
-PASS 58. S10 footer Next points to P62 sheafify — footer next correct
-PASS 59. S11 atlas-home footer present — atlas-home present
-PASS 60. S12 P60 and P59 both pin the house MathJax config and link the shared stylesheet — both pages carry house pin + stylesheet
-PASS 61. S13 P60 matches the P59 structural family (8 h2, 0 h3, 9 details, 3 svg, 0 dollars) — P60 [8,0,9,3,0] vs P59 [8,0,9,3,0]
-PASS 62. C1 scope box discloses not source-verified — disclosure present
-PASS 63. C2 McDuff-Segal 1976 named as quoted — needle present
-PASS 64. C3 Barratt-Priddy-Quillen named — needle present
-PASS 65. C4 K from Klasse disclosed — needle present
-PASS 66. C5 Borel-Serre 1958 publication history present — needle present
-PASS 67. C6 no problem-solving-canon misattribution (no Polya/Engel/Zeitz) — Polya 0, Engel 0, Zeitz 0
-PASS 68. C7 Grothendieck named in lineage — needle present
+PASS 49. F9 literal backslash-n text artifact is caught (state after artifact correction) — artifact detection fails on mutant
+PASS 50. S1 kicker line present on P60 — kicker present
+PASS 51. S2 tagline present on P60 — tagline present
+PASS 52. S3 onramp aside present on P60 — onramp present
+PASS 53. S4 exactly one h1 on P60 — 1 h1
+PASS 54. S5 h2 numbered 1 · through 8 · — all eight numbered sections
+PASS 55. S6 pattern boxes carry ids box-p60, box-p60a, box-p60b — box ids present
+PASS 56. S7 exhibits are div.exhibit divs, three of them — 3 exhibit divs
+PASS 57. S8 scope box is a warn-box, one only — 1 warn-box
+PASS 58. S9 difficulty moons line present — moons present
+PASS 59. S10 footer Next points to P62 sheafify — footer next correct
+PASS 60. S11 atlas-home footer present — atlas-home present
+PASS 61. S12 P60 and P59 both pin the house MathJax config and link the shared stylesheet — both pages carry house pin + stylesheet
+PASS 62. S13 P60 matches the P59 structural family (8 h2, 0 h3, 9 details, 3 svg, 0 dollars) — P60 [8,0,9,3,0] vs P59 [8,0,9,3,0]
+PASS 63. C1 scope box discloses not source-verified — disclosure present
+PASS 64. C2 McDuff-Segal 1976 named as quoted — needle present
+PASS 65. C3 Barratt-Priddy-Quillen named — needle present
+PASS 66. C4 K from Klasse disclosed — needle present
+PASS 67. C5 Borel-Serre 1958 publication history present — needle present
+PASS 68. C6 no problem-solving-canon misattribution (no Polya/Engel/Zeitz) — Polya 0, Engel 0, Zeitz 0
+PASS 69. C7 Grothendieck named in lineage — needle present
 
-p60-review-verifier: 68/68 checks passed
+p60-review-verifier: 69/69 checks passed

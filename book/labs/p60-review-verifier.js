@@ -6,7 +6,11 @@
  * Run history: run 1 = 65/68 (F1/F6 verifier technique errors — String.replace replaces
  * first occurrence only, fixed here with split/join; S12 caught a genuine page defect —
  * the MathJax pin had single backslashes where the house pin needs doubles — fixed by
- * page review correction 325193573). run 2 = this output.
+ * page review correction 325193573). run 2 = 68/68 (published at a7a5bcdf). run 3 = this output:
+ * page review correction 3 at close-out — a literal backslash-n text artifact sat between the
+ * Box P60.A paragraph and the eq block, caught by direct page reading at close-out, invisible to
+ * the run-2 manifest because the manifest was transcribed from the same page; the page is now
+ * 56,502 bytes, T18 updated, F9 added to enshrine the defect.
  * Deterministic ES5: no recursion, no randomness, no dates, no network.
  * Usage: require('./p60-review-verifier.js').verify(pageHtml, p59Html)
  */
@@ -76,7 +80,7 @@ var P60_VERIFY = (function () {
   });
   add('T16 inline TeX count is 392', function (p) { var n = cnt(p, '\\('); return [n === 392, n + ' inline TeX']; });
   add('T17 display TeX count is 2', function (p) { var n = cnt(p, '\\['); return [n === 2, n + ' display TeX']; });
-  add('T18 page byte length is 56503 (state after pin correction 325193573)', function (p) { var n = utf8bytes(p); return [n === 56503, n + ' bytes']; });
+  add('T18 page byte length is 56502 (state after the eq-artifact correction at close-out)', function (p) { var n = utf8bytes(p); return [n === 56502, n + ' bytes']; });
   add('T19 no lab references, no staging references, no placeholder text', function (p) {
     var bad = [];
     if (p.indexOf('p60-lab') >= 0) { bad.push('lab reference'); }
@@ -151,6 +155,12 @@ var P60_VERIFY = (function () {
     return [cnt(mut, '<details>') === 8, 'details census check fails on mutant'];
   });
 
+  add('F9 literal backslash-n text artifact is caught (state after artifact correction)', function (p) {
+    var bad = "</p>\\n<p class=\"eq\">";
+    if (p.indexOf(bad) >= 0) { return [false, 'artifact present in published page']; }
+    var mut = p.replace("construction.</p>\n<p class=\"eq\">", "construction.</p>\\n<p class=\"eq\">");
+    return [mut.indexOf(bad) >= 0, 'artifact detection fails on mutant'];
+  });
   // ===== Group S: style audit against the published P59 house fingerprint =====
   add('S1 kicker line present on P60', function (p) { return [p.indexOf('class="kicker"') >= 0, 'kicker present']; });
   add('S2 tagline present on P60', function (p) { return [p.indexOf('class="tagline"') >= 0, 'tagline present']; });
