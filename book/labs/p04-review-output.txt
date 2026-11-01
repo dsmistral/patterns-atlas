@@ -1,0 +1,39 @@
+P04 S79 improvement-pass adversarial verifier — recorded output, 2026-11-01
+Fresh engine, zero shared code with p04-lab.js. Independent routes: LCG cloud,
+ternary search, midpoint quadrature, antiderivative round-trip, modular
+arithmetic, vertex formula, trial division, binomial coefficients, finite
+differences, textbook circle formula, direct square-root distances,
+Cauchy-Schwarz. 11 must-fail injections, all caught.
+Honest run history: W2b run 1 (raw JS % vs floor-mod) and W4 run 1 (needle
+class, UTF-units vs wc bytes, substring vs word) each had evidence-line or
+expectation defects — caught and re-run (run-2 outputs recorded below; the
+defective lines are described in the run-2 lines themselves).
+
+W1a LCG cloud (20000 pts, seed 20261101): values above 2: 0 | best sample = 1.999998943 (within 1e-3 of 2: true)
+W1b ternary search for max on [1.5,2.5] (60 halvings): x* = 1.999999985108 | f(x*) = 2.000000000000 (want 2 at 2)
+W1c midpoint rule (2e6) for int_2^{2+sqrt3}: 2.720699046 | pi*sqrt3/2 = 2.720699046 | diff = 1.74e-13
+W1d antiderivative route F(x) = 2*sqrt3*arctan((x-2)/sqrt3): F' vs f max |err| = 3.98e-10 | A = F(b)-F(a) = 2.720699046 | equals pi*sqrt3/2: true
+W1 injections: claim max is 6/3.5 = 1.714286 — CAUGHT (ternary + cloud both give 2) | claim A = pi*sqrt3/4 = 1.360350 — CAUGHT (midpoint gives 2.720699)
+W2a 21-point rational grid on [4,7]: min = 3 at x=4 | endpoints: g(4) = 3, g(7) = 18
+W2b run 2 modular route (floor-mod): (3n-1) mod 3 = 2 for all n in [-100,100]: true (run 1 used raw JS % which returns -1 for negative operands — evidence-line defect, caught and re-run) | 3n-1 = 0 never happens: true
+W2c reduced-dimension route (no trig): H(u) = 2u^2-8u+11, vertex u* = 2 outside [-1,1]: true | min at endpoint u=1: 5 | max at u=-1: 21 (the promised 3 needs u=2, forbidden)
+W2d integer grid x in [-50,50]: split-form min = 7 (bound 5 unattained) | symmetric about x=2: true | split(2+t) = split(2-t)
+W2 injections: claim g min on [4,7] is 2 — CAUGHT (21-point grid: min 3 at x=4) | claim H min is 3 — CAUGHT (vertex u=2 unreachable, min is 5) | claim the split bound 5 is attained — CAUGHT (integer grid min 7)
+W3a vertex-formula route: x* = -b/2a = 1.1666666666666667 | min = (4ac-b^2)/4a = 1.9166666666666667 | Q(7/6) = 1.916666666666666
+W3b R route: 57/min = 29.73913043478261 | integer certificate: 57*12 = 684, 684 = 23*29 + 17 -> 684/23 lowest terms | R decreasing away from 7/6: true
+W3c trial-division route: N(n) composite for n=1..60: 60/60 | N(1)=8 smallest divisor: 2 | n^4+4 at n=1: 5 smallest divisor: 0 (none: prime — the certificate gap, independently confirmed)
+W3d binomial route (x+2)^3-5 coeffs: 1,6,12,3 vs x^3+6x^2+12x+3: 1,6,12,3 | match: true | finite-difference route: s(-1)+s(1) = 2s(0) for all 5 shifted cubics (no u^2 term): true
+W3e circle-formula route on x^2+y^2-10x+4y+21=0: center = (5,-2) | R^2 = 25+4-21 = 8 | R = 2*sqrt2 = 2.828427125
+W3f direct-distance route (square roots, not squares): PA/PB at D1 = 2.000000000000 | at D2 = 2.000000000000 (both exactly 2) | D1D2 = 5.656854249 = 2R = 5.656854249
+W3g Cauchy-Schwarz route: OP^2 = 37 + 4*sqrt2*(5cos t - 2 sin t) extremes 37 ± 4*sqrt58 -> OP extremes 2.556737682 / 8.213591932 | sqrt29 ∓ 2sqrt2: 2.556737682 / 8.213591932 | match: true
+W3 injections: claim R_max = 685/23 = 29.782609 — CAUGHT (57/min gives 29.739130) | claim center (5,2) — CAUGHT (formula gives (5,-2)) | claim OP_min = sqrt29-2*sqrt3 = 1.921063 — CAUGHT (Cauchy-Schwarz gives 2.556738) | claim N(3) = 116 — CAUGHT (N(3) = 112)
+W4a run 2 needles exactly-once (20): ALL PASS | presence needles: al-Khwārizmī 4->4 (run 1 wrongly demanded exactly-1 for a name the master itself uses 4x)
+W4b run 2 census (UTF-16 units, cross-checked vs bash wc: 35168 bytes / 34800 chars / 208 newlines): units=34800 split-chunks=209 trailing-newline=true | details=15 summary=15 svg=2 href=17 h3=13 sections=8 li=15 inline=250 display=7 dollars=0 mathjaxPin=1 | ALL EXPECTATIONS MET
+W4c poison-absence (8 mutated constants): ALL ABSENT
+W4d injection demo: poisoned copy (684/23 -> 685/23) flagged by the needle counter: CAUGHT
+W4e run 2 banned-token sweep: session:0->0 battery:0->0 verifier:0->0 audit:0->0 receipt:0->0 draft:0->0 adopt:0->0 machin:3->3 registry:0->0 planned:0->0 pass:0->0 | no new process-words: true | lab-as-WORD: 0->0 (the run-1 substring hit was "syllabus", a book word; word-boundary count is 0 in both)
+W4 VERDICT: run 1 flagged three verifier expectation defects (needle class, UTF-units vs bytes, substring vs word); all corrected in run 2. Page itself: CLEAN.
+
+VERDICT: injections caught = 11, missed = 0 — ALL CAUGHT. Every adopted
+number re-verified by a second engine on independent routes. Page census
+and needle checks CLEAN.
