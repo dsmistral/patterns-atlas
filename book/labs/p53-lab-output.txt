@@ -1,0 +1,91 @@
+S85 P53 — lab output record (book/labs/p53-lab-output.txt)
+Engine: book/labs/p53-lab.js (56,209 B, assembled from 13 pieces, deterministic).
+Run history (honest, complete):
+  runs 1-2  FAIL — groups A-D design errors: C05 order-census array bug
+            ([0,0,4,4] read off a transposed table instead of [0,4,0,4] over
+            a = 0..3); chain trivial-motion bookkeeping (B04) fixed, B04b added.
+  run 3     PASS 39/39 — groups A-D only, pre-manifest assembly.
+  run 4     PASS 55/55 by count, but the record was rejected: the assembly
+            kept p09's subtotal line (sed -e '$d' -e '$d' strips only one
+            line), leaving a stray "TOTAL: 39/39" mid-battery; reassembled
+            with both tail lines stripped.
+  run 5     PASS 55/55 — first clean full-battery run.
+  run 6     FAIL 54/55 — a page defect caught during verifier design forced a
+            phrase fix: the class identity "elbow-lift plus twice the
+            hand-lift" is the rotation field about the ORIGIN (the pinned
+            hand, where the velocity field vanishes), not "about the elbow"
+            as the page claimed. Fixed in page, needle manifest, and lab;
+            F04's FMhas literal lagged one edit behind and failed.
+  run 7     PASS 55/55 — final, full text below.
+Group E was regenerated twice: the first manifest piece was built with inline
+sed escaping, which the bash command transport mangles (backslashes eaten) —
+unescaped quotes and single backslashes made it a SyntaxError. The final piece
+is generated programmatically (JS escaping by transform, no shell), 169
+needles, byte-true against the page.
+Independent recomputes in group F: fresh Bareiss integer elimination for all
+five frameworks, Pythagorean/parametric routes for the rhombus and the chain,
+integer-residual route for the wall, symbolic cocycle law with union-find,
+closed-form element orders, brute-force homomorphism census over generator
+images, integer circle census, closed-form moduli receipts, structure census.
+
+---
+
+(total output of run 7, verbatim)
+PASS A01 square rigidity row for bar 12 is [-1,0, 1,0, 0,0, 0,0]
+PASS A02 square kernel dim 4; translations, rotation and the shear flex all in kernel
+PASS A03 the shear flex is NOT a trivial motion: H1(square) = 4 - 3 = 1
+PASS A04 the rhombus family: 6 rational shears, all four bar lengths squared exactly 1
+PASS A05 the family velocity at the square (s=1) is (-1, 0) — exactly the shear flex
+PASS A06 square+diagonal: kernel exactly 3 (trivial only), H1 = 0; the flex strains the diagonal by exactly 1
+PASS A07 the H1 census: triangle 0, square 1, square+diagonal 0, house pentagon 2, house+fan 0
+PASS A08 translations and rotation sit in every kernel (5 frameworks x 3 motions)
+PASS A08b the house pentagon flex (vertex 2 lifts as vertex 1 slides) is a genuine kernel vector
+PASS B01 the collinear triangle is degenerate: rank 2 (not 3), kernel 4, H1 = 1
+PASS B02 the lift-off flex v = (0,0, 0,0, 0,s) is a first-order motion, never trivial
+PASS B03 the wall: the second-order system is inconsistent at every s != 0 (5 witnesses), consistent at s = 0
+PASS B03b the two bars demand w2x - w0x = -s^2/2 and w2x - w1x = +s^2/2; the gap is exactly s^2
+PASS B04 the flat two-link arm (bars 12, 23 only) also has kernel 4, H1 = 1 — same census as the collinear triangle
+PASS B04b elbow-lift + 2 x hand-lift = rotation about the origin (a trivial motion): one class, two witnesses
+PASS B05 but the chain extends: the second-order system is consistent at s = 1, 2, 3
+PASS B06 the chain really moves: 5 rational circle points, both bar lengths squared exactly 1
+PASS B06b the chain family velocity at s -> 0 is (0, 2), proportional to the flex (0, 1)
+PASS B07 global position unique: on the half-grid {-3..3}^2 exactly one point is at distance 1 from BOTH centers: (1, 0)
+PASS B07b the two tangent circles meet only at their tangency: x = 1, y^2 = 0 exactly
+PASS B08 circle-pair census at d = 1/2, 1, 3/2, 2, 5/2, 3: intersections 2, 2, 2, 1, 0, 0
+PASS C01 cocycle census over all 256 functions G x G -> Z/4: exactly 16 cocycles, exactly 4 normalized
+PASS C02 coboundaries: delta phi(1,1) = 2 t in {0, 2}; classes {0,2} and {1,3}; H^2 = Z/2
+PASS C03 all four extensions are associative: 64 triples x 4 tables, no exception
+PASS C04 identity (0,0) and inverses exist in every extension (8 elements x 4 tables)
+PASS C05 order census: order-8 elements per table a = 0,1,2,3 are 0, 4, 0, 4 — cyclic tables a = 1,3 have four
+PASS C06 equivalence witness (x - g, g): E_0 = E_2 AND E_1 = E_3 (64 pairs each)
+PASS C07 the wall: all 16 crossing attempts (a in {0,2} -> a' in {1,3}, 4 fiber shifts each) fail as homomorphisms
+PASS C07b and no isomorphism of any kind exists: the split tables have no order-8 element, the cyclic ones have four
+PASS C08 H1 census: derivations are t in {0, 2} — H1(G, A) = Z/2, the moves of the extension
+PASS C09 automorphism census: exactly 8 of 16 fiber relabelings are automorphisms (t in {0,2} per table)
+PASS C10 smallest wall G = Z/2, A = Z/2: both tables associative; E_0 has no order-4 element (Klein), E_1 has two (Z/4); both crossing shifts fail
+PASS C10b there the coboundaries vanish (2 t = 0 mod 2 always): H^2 = Z/2, two genuine classes
+PASS C11 Riemann receipts: 3g - 3 = 3, 6, 9 for g = 2, 3, 4
+PASS D01 Ex1: triangle kernel dim 3 = trivial span; the vertex slide strains bar 12 by exactly -1
+PASS D02 Ex2: the two order-4 tables differ in their order census — hence non-isomorphic; count = |H^2| = 2
+PASS D03 Ex3: the collinear wall holds at s = 1, 2, 3, 1/2, -1 and breaks only at s = 0
+PASS D04 Ex4: the diagnosis trail: nontrivial flex + second-order wall + unique global position
+PASS D05 Ex5: the torus family Lambda_s has area exactly 1 and second-generator length^2 = s^2 + 1 (5 tori)
+PASS E01 the manifest: 169 byte-true page needles, no duplicates, no poisons
+PASS F01 fresh Bareiss integer elimination: ranks 3,4,5,5,7, kernels 3,4,3,5,3, H1 census 0,1,0,2,0 — needle matched
+PASS F01b the house flex passes all five bars (integer dots); the shear strains the braced diagonal by exactly 1
+PASS F02 the rhombus family: six Pythagorean triples exact; s=2 and s=1/2 corners; Fig P53.1 pixels; velocity (-1, 0) by closed form
+PASS F03 the wall by integer residuals: the demand-built candidate passes bars 13 and 12, and bar 23 reads 4 n^2 — zero only at s = 0; gap exactly s^2
+PASS F04 the chain family: Pythagorean hand pivots; (1,1) at s=1, (8/5,4/5) at s=1/2; velocity (0, 2) by closed-form derivative at s=0
+PASS F05 the cocycle law, symbolic route: all eight triple equations cancel to pairwise equalities forcing f(0,0)=f(0,1)=f(1,0), leaving f(1,1) free — 16 of 256
+PASS F06 order censuses by closed form: split class [1,3,4,0], cyclic class [1,1,2,4] — the Fig P53.3 dot columns
+PASS F07 the class witness psi(x,g) = (x - g, g) is a hom E_a -> E_{a+2}: identity holds on all 16 combos, anchored on a concrete pair
+PASS F08 the wall by brute force: 16 ordered table pairs, 64 generator-image candidates each — isomorphisms only within classes (8 split, 4 cyclic), none crossing
+PASS F09 the unique legal position, integer route: both circle equations force a = 2, b = 0 — one half-grid hit; circle-pair census 2,2,2,1,0,0
+PASS F10 Riemann receipts 3g-3 = 3, 6, 9; torus area exactly 1 at five checkpoints; second-generator length^2 = 1, 5/4, 2, 13/4, 5
+PASS F11 structure census: 169 needles, 8 h2, 3 boxes, 3 figures, 3 keys, pin anatomy
+PASS F12 exhibits, four doors, literature, dated lineage in order
+PASS F13 title, kicker, nine pattern doors, index and assets, five exercises, footer next-link
+PASS F14 Ex1 rows recomputed from the unit triangle and matched; Ex2 wall clause and the Q3 census needle
+TOTAL: 55/55
+total: 55 checks, 0 FAIL
+VERDICT: S85 P53 battery PASS 55/55 run 7
