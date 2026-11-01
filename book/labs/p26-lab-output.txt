@@ -1,0 +1,104 @@
+p26-lab-output.txt — verbatim record of the P26 lab battery (session S91)
+Engine: deterministic JavaScript (float64), no recursion, no BigInt; the
+battery was assembled from pieces A-F-S and executed inline in the session
+sandbox (Function constructor with a __log sink; no eval). Lab source:
+book/labs/p26-lab.js. The transcript below is from the final run; a fresh
+re-run in the same sandbox reproduced it byte-for-byte before publishing.
+
+RUN HISTORY (honest):
+- The battery passed 70/70 on its first full assembly run. During the
+  adversarial verifier's construction, its independent figure-geometry
+  route exposed an internal inconsistency the lab itself had licensed:
+  F02's prediction dot used a hardcoded t = 36.3066 (0.0034 min off the
+  exact t(60 deg) = ln(7/4)/k = 36.3032 that group A computes), which had
+  placed the page's red dot 0.019 px off the curve it names. Fixed in the
+  lab (the dots array now uses LN(7/4)/kA) and on the page (cx 267.4663
+  -> 267.4467, same byte count); re-run 70/70. The transcript below is
+  the post-fix run, F02 dot now reading 267.4467.
+- The verifier also found Exercise 3's worked answer displaying the
+  recursion with swapped weights (0.4 from x-1, 0.6 from x+1),
+  contradicting its own stated mean +200; the lab's D03 convention was
+  correct all along and the page was fixed (same byte count). No lab
+  check was affected; D03's receipts are unchanged.
+
+TRANSCRIPT (final run, verbatim: 70 checks, then the figure-coordinate
+prints the page's SVGs were assembled from):
+
+p26 lab — piece p00 harness ready
+A01 PASS k = ln(7/6)/10 = 0.015415 per min reproduces the calibration point
+A02 PASS the calibration is exact algebra: exp(-10k) = 6/7
+A03 PASS model predictions T(20) = 71.4286, T(30) = 64.0816
+A04 PASS time to 60 C: t = 10 ln(7/4)/ln(7/6) = 36.3032 min
+A05 PASS round trip: T(t60) = 60 exactly
+A06 PASS linear guess hits 60 C at t=30 (6.3 min early), reaches room 20 C at t=70, and 0 C at t=90
+A07 PASS quadratic through the three points has a = 0.007143 (=1/140), b = -1.071429 (=-15/14)
+A08 PASS the quadratic fits every measurement we own (t=0,10,20 back-check)
+A09 PASS at t=60: quadratic says 51.4286 C, model says 47.7599 C
+A10 PASS the quadratic's coffee reaches its coldest at t = 75 min, T = 49.8214 C, then warms
+A11 PASS at t=200 the quadratic reads 161.4286 C - the coffee boils at room temperature
+A12 PASS forward Euler h=0.5 at t=36.5: T = 59.792 vs exact 59.8788 (scheme error disclosed)
+B01 PASS insulated rod: total heat drift after 2000 steps = 2.274e-13
+B02 PASS 100-cell FTCS, alpha=1/pi^2, t=ln 2: midpoint T = 50.4303 (exact 50; discretization + scheme error disclosed)
+B03 PASS copper rod half-time (L/PI)^2 * ln 2 / alpha = 158.1768 s
+B04 PASS the half-time receipt checks: after thalf the mode amplitude is exactly half
+B05 PASS double the rod, quadruple the wait: 1 m rod needs 632.7071 s
+B06 PASS ends at zero: energy sum u^2 never increases over 500 steps (starts 2000000)
+C01 PASS walk n=100: mean = 3.97e-16, Var = 100 = n exactly
+C02 PASS P(X_100=0): DP = 0.079589, C(100,50)/2^100 = 0.079589
+C03 PASS Gaussian sqrt(2/(100 PI)) = 0.079788 vs exact 0.079589: rel err 0.250%
+C04 PASS parity-corrected density, |k|<=30: worst rel err 2.61% | k=0: exact 0.07959 vs 2phi 0.07979 (0.25%) | k=10: exact 0.04847 vs 2phi 0.04839 (0.17%) | k=20: exact 0.01084 vs 2phi 0.01080 (0.42%) | k=30: exact 0.00086 vs 2phi 0.00089 (2.61%)
+C05 PASS recursion p_(n+1)(x) = (p_n(x-1)+p_n(x+1))/2 holds to 0.00e+0
+C06 PASS rel err at x=0: n=50: 0.501%, n=100: 0.250%, n=200: 0.125% (halves as n doubles)
+C07 PASS at n=100 every odd site has probability exactly 0
+D01 PASS Ex1: k = ln(7/6)/5 = 0.03083, T(30) = 52.7599 C, t(40 C) = 49.9656 min
+D02 PASS Ex2: 2 x 0.5 m copper rod: half-time = 4 x 158.1768 = 632.7072 s
+D03 PASS Ex3: biased walk p=0.6 at n=1000: mean = 200 (= 0.2n), Var = 960 (= 0.96n)
+D04 PASS worked Ex: quadratic vs model at t=60: 51.4286 vs 47.7599
+D05 PASS Ex5: LF interface (0.4 -> 0.9) moves -0.3 cells/step vs exact s = 1-0.9-0.4 = -0.30
+D06 PASS Ex5: stationary shock (0.1 -> 0.9): interface speed 0 (exact s = 0)
+E01 PASS world vs model at t=10: 80.0594 vs 80 C (agree: the fit is honest)
+E02 PASS at t=240: world 29.0765 C vs model 21.7313 C - off by 7.3452 degrees
+E03 PASS both models read x(5) = 109.5721 (fit is exact by construction)
+E04 PASS predictions t=10: 599.8596 vs 1200.6034 (2.0x), t=15: 948.0872 vs 13155.2583 (13.9x), t=20: 995.5255 vs 144144.864 (145x)
+E05 PASS the divergence creeps: at t=5.5 the exponential is 2.0% high, t=6: 4.9%, t=7: 13.9%
+E06 PASS mode 20, t=0.01: forward factor = 7.157e-18 (the problem forgets)
+E07 PASS backward factor = 1.397e+17: a 1e-6 error becomes 1.397e+11
+E08 PASS every mode decays forward (slowest factor 0.9060) and amplifies backward - no filtering can save it
+F01 PASS coffee curve sampled at t=0,5,...,70: first 60,60 last 460,198.6
+F02 PASS data dots (px,py): [[60,60],[117.1429,90],[174.2857,115.7142],[267.4467,150]]
+F03 PASS linear guess line runs (60,60) to (460,270) - hits room temperature at t=70
+F04 PASS rod curves t=0, t=(ln 2)/2, t=ln 2 with amplitudes 100, 70.7107, 50
+F05 PASS walk bars drawn at 31 even sites, peak height at k=0: 51.4377 -> py, gaussian peak 50.7404
+F05 BARS (60,326.9765) (78,324.5409) (96,320.5573) (114,314.3449) (132,305.1124) (150,292.0465) (168,274.4582) (186,251.9771) (204,224.7598) (222,193.666) (240,160.34) (258,127.1456) (276,96.9333) (294,72.6555) (312,56.8997) (330,51.4377) (348,56.8997) (366,72.6555) (384,96.9333) (402,127.1456) (420,160.34) (438,193.666) (456,224.7598) (474,251.9771) (492,274.4582) (510,292.0465) (528,305.1124) (546,314.3449) (564,320.5573) (582,324.5409) (600,326.9765) 
+F05 GAUSS (60,326.8977) (78,324.4592) (96,320.4919) (114,314.3238) (132,305.1678) (150,292.2063) (168,274.7349) (186,252.3554) (204,225.1908) (222,194.0698) (240,160.6205) (258,127.2159) (276,96.7428) (294,72.2109) (312,56.2701) (330,50.7404) (348,56.2701) (366,72.2109) (384,96.7428) (402,127.2159) (420,160.6205) (438,194.0698) (456,225.1908) (474,252.3554) (492,274.7349) (510,292.2063) (528,305.1678) (546,314.3238) (564,320.4919) (582,324.4592) (600,326.8977) 
+F06 CURVE 60,60 88.5714,75.5778 117.1429,90 145.7143,103.3524 174.2857,115.7143 202.8571,127.1592 231.4286,137.7551 260,147.565 288.5714,156.6472 317.1429,165.0557 345.7143,172.8405 374.2857,180.0478 402.8571,186.7204 431.4286,192.8981 460,198.6175 
+F07 ROD0 60,330 87,283.0697 114,237.2949 141,193.8029 168,153.6644 195,117.868 222,87.2949 249,62.698 276,44.683 303,33.6935 330,30 357,33.6935 384,44.683 411,62.698 438,87.2949 465,117.868 492,153.6644 519,193.8029 546,237.2949 573,283.0697 600,330 
+F07 ROD1 60,330 87,296.8152 114,264.4476 141,233.6941 168,205.3119 195,180 222,158.3816 249,140.989 276,128.2504 303,120.4797 330,117.868 357,120.4797 384,128.2504 411,140.989 438,158.3816 465,180 492,205.3119 519,233.6941 546,264.4476 573,296.8152 600,330 
+F07 ROD2 60,330 87,306.5348 114,283.6475 141,261.9014 168,241.8322 195,223.934 222,208.6475 249,196.349 276,187.3415 303,181.8467 330,180 357,181.8467 384,187.3415 411,196.349 438,208.6475 465,223.934 492,241.8322 519,261.9014 546,283.6475 573,306.5348 600,330 
+S01 PASS 8 h2 sections, got 8
+S02 PASS 6 h3 (3 exemplars + 3 exhibits), got 6
+S03 PASS 10 details (5 hints + 5 worked), got 10
+S04 PASS 5 Hint + 5 Worked summaries
+S05 PASS 3 SVG figures, got 3
+S06 PASS 3 pattern boxes + 2 asides (onramp + warn), got 3/2
+S07 PASS 3 pid lines, got 3
+S08 PASS title needle
+S09 PASS kicker: fourth move of tier 3
+S10 PASS MathJax 3.2.2 integrity pin, pinned once
+S11 PASS all 17 href targets present and none outside the whitelist: 
+S12 PASS exercise moons u25CFu25CBu25CB u25CFu25CFu25CB u25CFu25CFu25CF u25C6 u25D0
+S13 PASS 8 section ids each once
+S14 PASS 3 box ids box-p26, box-p26a, box-p26b
+S15 PASS scope-warn aside once
+S16 PASS onramp new-word aside once
+S17 PASS three figcaptions P26.1-3
+S18 PASS footer: next-link P27 + atlas-home P25
+S19 PASS page ends cleanly
+S20 PASS no dollar signs, no backticks, no $$
+S21 PASS TeX delimiters balanced (inline net 0, display net 0)
+S22 PASS 24 numeric needles at their exact counts: 
+S23 PASS walk figure: 31 bars (rects), got 31
+S24 PASS 5 polylines (coffee curve, 3 rod curves, gaussian)
+S25 PASS h1 present once
+S26 PASS lines: the page has no stray double blank runs in body sections
+TOTAL 70 checks, FAILS 0
