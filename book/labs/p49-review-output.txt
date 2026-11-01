@@ -1,0 +1,103 @@
+p49-review-output.txt — adversarial verification transcript for book/labs/p49-review-verifier.js
+Page: book/p49-ultraproduct-transfer.html (P49, The ultraproduct transfer trick)
+Engine: fresh adversarial verifier, ZERO shared code with the lab. Coalitions
+are '0'/'1' strings and charters are verdict strings indexed by coalition
+(the lab uses integer bitmasks); clock arithmetic is rebuilt by repeated
+addition (the lab builds operation tables); the composite's verdicts are
+recomputed by brute thread enumeration against the winning rule (the lab
+builds union-find classes and class arithmetic); primes come by trial
+division (the lab: a sieve); and "every function on a finite world is
+polynomial" is re-proved by enumerating p^p coefficient tuples (the lab:
+Lagrange basis reconstruction). 26 positive checks recompute every page
+claim; 16 injections plant false page-level claims and must be caught.
+
+RUN HISTORY (honest)
+- build: the verifier was assembled from 4 piece files and ran on the first
+  attempt with one defect, caught immediately by the tally.
+- run 1: 25/26 positive, 16/16 injections caught. The one failure was
+  checker-side, not engine-side: C1's sanity values fed out-of-range
+  arguments to mulV (mulV(3,3,2) and mulV(4,4,3) violate the engine contract
+  a < n, since mulV adds a to a partial sum n times). The engine was correct
+  on every in-range input; the check was rewritten with valid inputs
+  (mulV(2,2,3), mulV(4,4,5), mulV(2,2,5)).
+- run 2: 26/26 positive checks PASS, 16/16 injections CAUGHT.
+  S83 review verifier PASS. No engine changes between runs 1 and 2.
+- run 3 (this run): 26/26 positive checks PASS, 16/16 injections CAUGHT.
+  S83 review verifier PASS. One conceptual repair, tracked with the lab's
+  run-3 defect (6): the old C20 verified the "giant" omega = (p-1) by
+  comparing integers p-1 > m outside the world's arithmetic — but
+  (p-1) + 1 = 0 on every prime clock, so the thread (p-1) IS the numeral -1
+  in the composite, and the ring language has no order. C20 now verifies
+  the honest receipts (omega = (n) over the Q-copies: 200 - m yes-coordinates
+  for m <= 60, 199 - m for omega - 1; (p-1) + 1 = 0 on all 46 clocks) and
+  V9 now plants the false page claim "(p-1) is not the numeral -1".
+
+WORLD RECEIPTS (recomputed here, agreeing with the lab)
+- charter census (string engine): 16 -> 2 charters on 2 islands, 256 -> 3 on
+  3, 65,536 -> 4 on 4; every survivor a dictatorship; every census charter
+  has a unique minimal winning coalition and it is a singleton.
+- identification and composite: reflexivity, symmetry (2,700 ordered pairs),
+  transitivity (81,000 triples) all clean; the composite has 2, 3, 5 classes
+  under the three charters, and sum and product classes are well defined
+  (independent of the representatives summed or multiplied).
+- the transfer census (thread enumeration vs the vote): 324 atomic + 324
+  negation + 17,658 conjunction verdicts = 18,306, zero disagreements.
+- prime ocean (trial division): 46 primes up to 200, last 199; -1 camps 22/24
+  with the mod-4 law clean; 2 camps 21/25 with the mod-8 law clean; all 46
+  prime clocks fields; char-zero worst case 3 prime divisors at 30, 42, 60;
+  the would-be giant (p-1) is the numeral -1 ((p-1) + 1 = 0 on all 46 clocks);
+  over the Q-copies omega = (n) gives 200 - m yes-coordinates for all 60
+  numerals and omega - 1 gives 199 - m for m <= 59; eps
+  gives 200 - m yes-coordinates for all 60 numerals; slope numerator 6n + 1
+  for all 200 n; 21 abstention rounds and 242 extension meetings all clean.
+- showcase: self-map censuses 4/27/256/3125 with injective iff surjective
+  (2/6/24/120, no exceptions); p^p polynomials of degree < p give p^p distinct
+  functions on Z/2, Z/3, Z/5 (4/27/3,125) — every function is polynomial.
+
+=== positive checks (C1..C26) ===
+C1: PASS — ocean = Z/2, Z/3, Z/5; on the 5-clock 4*3 = 2 (repeated addition)
+C2: PASS — 2-, 3-, 5-clocks are fields; the 4-clock is not (2 has no inverse)
+C3: PASS — is -1 a square? yes, no, yes on the ocean
+C4: PASS — prime window: 46 primes up to 200, last 199 (trial division)
+C5: PASS — 2 islands: 16 candidate families -> 2 charters, dictators at 0 and 1
+C6: PASS — 3 islands: 256 -> 3 charters, dictators at 0, 1, 2
+C7: PASS — 4 islands: 65,536 -> 4 charters, every one a dictator
+C8: PASS — forgeries: unanimity breaks only L5; majority of 5 breaks only L4; everyone-wins breaks L4 and L5
+C9: PASS — majority collapse: {1,2,3}&{3,4,5}={3} loses; the three majorities meet pairwise in {1},{2},{4,5}, jointly in empty
+C10: PASS — Boolean algebra of the 16 coalitions: De Morgan and distributivity, 4,096 triples, 0 failures
+C11: PASS — identification laws: reflexivity, symmetry (2,700 pairs), transitivity (81,000 triples): 0 failures
+C12: PASS — composite sizes 2, 3, 5 classes; sum and product classes well defined
+C13: PASS — atomic transfer: 108 questions x 3 charters = 324, thread enumeration agrees with the vote everywhere
+C14: PASS — negation: 324 more verdicts, 0 disagreements
+C15: PASS — conjunction: 5,886 pairs x 3 = 17,658 verdicts, 0 disagreements (total 18,306)
+C16: PASS — -1 camps: 22 yes, 24 no; on odd clocks -1 square iff p = 1 mod 4
+C17: PASS — 2 camps: 21 yes, 25 no; on odd clocks 2 square iff p = +-1 mod 8
+C18: PASS — field law: all 46 prime clocks are fields
+C19: PASS — characteristic zero: worst numerals m <= 60 have 3 prime divisors, exactly at 30, 42, 60
+C20: PASS — omega = (n) over the Q-copies beats every numeral (200 - m for m <= 60; 199 - m for omega - 1); (p-1) + 1 = 0 on all 46 clocks: the would-be giant is the numeral -1
+C21: PASS — eps and the derivative: 200 - m yes-coordinates for all 60 numerals; slope numerator 6n + 1 for all 200 n
+C22: PASS — self-maps: totals 4/27/256/3125; injective iff surjective: 2/6/24/120, no exceptions
+C23: PASS — every function on Z/2, Z/3, Z/5 is polynomial: p^p polynomials give p^p distinct functions (4/27/3,125)
+C24: PASS — abstention: 21 removal rounds, both camps alive; extensions: 242 meetings all nonempty
+C25: PASS — the two 2-island charters crown exactly {{1},{1,2}} and {{2},{1,2}}
+C26: PASS — every census charter has a unique minimal winning coalition, and it is a singleton
+
+=== must-fail injections (V1..V16) ===
+V1: CAUGHT — page misprints the 2-island census as 3 charters (claim=3, actual=2)
+V2: CAUGHT — page misprints the 4-island census as 5 charters (claim=5, actual=4)
+V3: CAUGHT — page claims majority of 5 passes L4 (claim=true, actual=false)
+V4: CAUGHT — page claims unanimity breaks L3 (claim=true, actual=false)
+V5: CAUGHT — page misprints the -1 camps as 23 yes / 23 no (claim=23, actual=22)
+V6: CAUGHT — page claims the transfer census totals 18,330 (claim=18330, actual=18306)
+V7: CAUGHT — page claims eps is below 1/m for every numeral up to 300 (window n <= 200) (claim=true, actual=false)
+V8: CAUGHT — page claims the slope numerator at n = 7 is 6n = 42 (claim=42, actual=43)
+V9: CAUGHT — page claims the thread (p-1) is NOT the numeral -1 in the prime-clock composite (claim=false, actual=true)
+V10: CAUGHT — page miscounts injective self-maps of Z/5 as 121 (claim=121, actual=120)
+V11: CAUGHT — page claims only 3,124 distinct polynomial functions on Z/5 (claim=3124, actual=3125)
+V12: CAUGHT — page claims the worst char-zero numeral has 4 prime divisors (claim=4, actual=3)
+V13: CAUGHT — page counts 240 extension meetings (claim=240, actual=242)
+V14: CAUGHT — page counts 20 abstention rounds (claim=20, actual=21)
+V15: CAUGHT — page claims the two charters crown {{1}} and {{2}} only (claim=[["10"],["01"]], actual=[["01","11"],["10","11"]])
+V16: CAUGHT — page claims some census charter has a 2-island minimal winner (claim=true, actual=false)
+
+VERDICT: S83 review verifier PASS (26/26 positive checks, 16/16 injections caught, run 3)
