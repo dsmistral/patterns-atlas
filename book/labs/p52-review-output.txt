@@ -1,0 +1,80 @@
+S84 P52 — review verifier output record (book/labs/p52-review-output.txt)
+Engine: book/labs/p52-review-verifier.js (27,798 B, assembled from 13 pieces,
+deterministic). Fresh engine: zero code shared with p52-lab.js on any axis —
+iterative radix-2 FFT vs direct DFT tables; closed-form rays vs RK4; Gauss-Seidel
+in-place sweeps vs Jacobi full-copy; direct heat stepping vs spectral melt; full
+2D FFT vs separable census; corner detection by second-difference scan vs
+characteristic feed-in; integration ladder on a fresh 96-grid.
+Run history (honest, complete):
+  run 1  FAIL 35/38 — three verifier-side bugs: anti-rotation census targeted
+          45 deg instead of the aliased 135 deg; spike check asserted the
+          normalized magnitude against the unnormalized FFT; windowed-kink
+          shares used an 8-degree aliased-angle window instead of the page's
+          raw-bin 10-degree convention (shares dipped at octave 2).
+  run 2  FAIL 37/38 — assertion string compared five octaves against the
+          page's four (octave-5 value 0.369 is page-info only); shares
+          themselves matched the page exactly.
+  run 3  PASS 38/38 — final, full text below.
+Independent confirmation highlights: the FFT route reproduces the lab's
+receipts digit-for-digit (step dev1=3.20e-5, dev3=2.88e-4; kink maxSerDev=2.92e-2,
+c2=0.212334; all shelf-ratio strings identical), the windowed-kink shares match
+the page's 0.206, 0.223, 0.381, 0.719 exactly, and all 14 needle/poison
+injection pairs discriminate (byte-true needle found in the excerpt,
+single-token poison rejected).
+
+---
+
+(total output of run 3, verbatim)
+
+== V. injections — page needles vs poison mutations ==
+PASS I1 needle found in excerpt, poison rejected -- sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2
+PASS I2 needle found in excerpt, poison rejected -- each a customer of the same cochain bookkeep
+PASS I3 needle found in excerpt, poison rejected -- what arrives must have been sent
+PASS I4 needle found in excerpt, poison rejected -- [12, 28, 44, 52, 68, 84]
+PASS I5 needle found in excerpt, poison rejected -- feet at \(12\) and \(44\) with peak \(16\) a
+PASS I6 needle found in excerpt, poison rejected -- 1.0000000000000000
+PASS I7 needle found in excerpt, poison rejected -- 2.88 \times 10^{-2}
+PASS I8 needle found in excerpt, poison rejected -- 4 = 2 + 2
+PASS I9 needle found in excerpt, poison rejected -- 8.88 \times 10^{-14}
+PASS I10 needle found in excerpt, poison rejected -- 0.866025404
+PASS I11 needle found in excerpt, poison rejected -- (0, 5.196152)
+PASS I12 needle found in excerpt, poison rejected -- 1831 — Hamilton
+PASS I13 needle found in excerpt, poison rejected -- the apex rides two rays
+PASS I14 needle found in excerpt, poison rejected -- P53 · Deformation cohomology
+PASS I15 injection census: 14 pairs over 11 excerpt lines, all discriminating -- pairs=14 excerptLines=11
+
+== R. the string re-verified — fresh leapfrog, scans, direct heat stepping ==
+PASS R01 fresh leapfrog (row-swap) equals lattice d'Alembert exactly, n<=40 -- maxdiff=0
+PASS R02 corners at t=10 found by second-difference scan (no characteristics fed in) -- [64, 80, 84, 96, 100, 116]
+PASS R03 pluck splits: apexes 16 and 16 of 32; sharpness 4 carried as 2 + 2 -- peak0=32 peak10=16 sharp0=4 sharp10=2
+PASS R04 at t=30 the support is two translated half-tents, profiles bit-equal -- [45, 75] [105, 135]
+PASS R05 heat melts the same pluck by direct stepping (ratio < 0.05) -- ratio=1.332e-2
+
+== Q. the shelf audit re-verified — iterative radix-2 FFT, no DFT tables ==
+PASS R06 FFT step: even shelves empty, k|c_k| ~ 1/pi at k=1,3 -- maxEven=0.00e+0 d1=3.20e-5 d3=2.88e-4
+PASS R07 FFT step shelves hold per octave (1.031, 1.019, 1.046, 1.202) -- ratios=1.031,1.019,1.046,1.202
+PASS R08 FFT kink: odd shelves empty, coefficients follow 2/(pi(4m^2-1)) within 3.5% -- maxOdd=2.92e-17 maxSerDev=2.92e-2 c2=0.212334
+PASS R09 FFT kink shelves halve per octave (0.287, 0.407, 0.486) -- ratios=0.287,0.407,0.486
+PASS R10 FFT smooth bump: shelves collapse strictly, octave by octave -- ratios(m=2..5)=8.45e-1,1.25e-1,4.30e-4,3.09e-11
+PASS R11 FFT band-limited combo: only shelves 2, 7, 11 live, rest machine-zero -- c2=0.500000 c7=0.250000 c11=0.125000 maxAbove12=2.52e-16
+
+== W. the direction census re-verified — full 2D FFT with angular windows ==
+PASS R12 2D FFT axis step: all energy within 8 degrees of the conormal axis -- axisShare=1.0000000000000000
+PASS R13 2D FFT rotated steps: both torus rotations land on their conormal cone (aliased angles) -- coneShare=1.0000000000000000 antiShare=1.0000000000000000
+PASS R14 2D FFT point spike: all 4096 magnitudes equal; normalized value 2.4414e-4 -- max-min=0.00e+0 normMag=2.4414e-4
+PASS R15 2D FFT windowed kink (page convention): shares 0.206, 0.223, 0.381, 0.719 rising -- shares(octaves 1-5)=0.206,0.223,0.381,0.719,0.369
+
+== X. the rays re-verified — closed form, no integrator ==
+PASS R16 closed-form rays: speed exactly c, |x(t)| = ct for 8 characteristic combos -- maxDev=0.00e+0
+PASS R17 light cone in 2D: |x(t)| = ct for all 64 directions -- maxDev=8.88e-16
+PASS R18 Snell: sin(theta)/c invariant; crossing (0, 5.196152) = 3 tan 60 deg -- sin1=0.866025404 sin2=0.433012702 y=5.196152
+PASS R19 TIR from the slow side: discriminant -1.56, sin(theta1) = 0.8 > critical 0.5 -- disc=-1.5600 sin=0.8
+
+== Y. the elliptic wall re-verified — fresh zero census, ladder, Gauss-Seidel ==
+PASS R20 symbol zero census: wave (c=1, c=2) has 4 ray directions each, Laplace has none -- z1=4 z2=4 lapMin=1.000000
+PASS R21 Laplace symbol ~ k^2 on the fresh 128-grid (within 2% for k=2..8) -- maxDev=0.0128
+PASS R22 integration ladder exact (delta^2 u1[j] = f[j-2]); Laplacian multiplies every shelf by its symbol -- ladder=true maxRel=0.00e+0
+PASS R23 Gauss-Seidel smoothing (in-place sweeps): Laplacian energy drops > 100x -- ratio=2.3151e-21
+
+total: 38 checks, 0 FAIL
+VERDICT: S84 P52 review PASS 38/38 run 3
