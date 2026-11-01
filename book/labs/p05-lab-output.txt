@@ -74,3 +74,111 @@ CAUGHT: V13: "sqrt(7+4√3) = 1+2√3"
 CAUGHT: V14: "x²+3xy+y²=1 is bounded"
 POSITIVE CONTROLS: 2/2
 VERDICT: PASS — 14/14 injections caught, 0 missed, 2/2 positive controls
+
+================ P05 S81 EXTENSION (RUN 2) — the improvement pass — 2026-11-01 ================
+
+Session S81 (P05 improvement pass) — 2026-11-01. Pieces S81-1..S81-10 verify every numeric
+claim the pass added to the page. The R0 engine (pieces 1-8 of S08) is re-executed unchanged.
+
+Honest run history (S81 pieces):
+- Build, run 0: the lab splice cut the S08 header comment mid-block, leaving the comment's tail
+  ("value path ... */") as raw code — immediate parse error, no execution; splice rebuilt at the
+  comment's closing line. Not a value defect.
+- Run 1: two defects, both caught by the machine: (a) S81-2 starBad=6 — the basins SVG carried six
+  mis-rounded ordinates (129.58 where the true 5-star points at centers y=132 round to 129.57);
+  fixed in the SVG itself, not the checker. (b) S81-8 derBad=6 — the raw-quotient differentiation
+  loop applied one quotient-rule step too few (it compared g' against the g'' formula); also the
+  n=4/x=4 cell would have needed 15^16, past the 2^53 exact-integer range — loop restructured to
+  n=1..4 with comparisons from n>=2 and x=4 dropped at n=4. Comments corrected (strandedAt, census
+  sizes). Run 2 clean.
+- R0 re-run: all 10 R0 output keys byte-identical to the S08 receipts.
+
+Transcripts are verbatim machine outputs (rendered per piece as in S08).
+
+================ P05 PIECE S81-1 (RUN 2) — Problem three, Q(sqrt2) — 2026-11-01 ================
+
+S81.1 (3-2sqrt2)^2 = (17,-12): true
+S81.1 B route (5-3sqrt2)(3-sqrt2) = (21,-14), /7 = (3,-2): true
+S81.1 magnification 12/(2*sqrt(0.032)) = 33.5 (page: "about 33"): true
+S81.1 true value 0.1716; three-digit route gives 0.172; approximation never settles equality: true
+
+================ P05 PIECE S81-2 (RUN 2) — the basins figure — 2026-11-01 ================
+
+S81.2 (sqrt2-1)^2 = (3,-2): true; 3-sqrt8 = (3,-2) (sqrt8 = 2sqrt2): true
+S81.2 14/21 = -2/-3 = 200/300 = 2/3 (gcd-reduced, sign-normalized): true
+S81.2 x^2-6x+11 = (x-1)(x-5)+6 = (x-3)^2+2 on x=-20..20: mismatches=0
+S81.2 all 30 star points match the recomputed 5-point stars (outer r=7, inner r=3, centers (60|170|280,132), top (c,125)): mismatches=0 (6 SVG ordinates corrected 129.58->129.57 in run 1)
+
+================ P05 PIECE S81-3 (RUN 2) — Example 4, coupled quadratic — 2026-11-01 ================
+
+S81.3 P = (x+y-2)^2 + (x-1)^2 on the 23x23 grid x,y in [-10,12]: identity mismatches=0, negatives=0
+S81.3 P = 0 at exactly one grid point: (1,1): true
+S81.3 false start 2(x-3/2)^2 + (y-2)^2 + 2xy - 7/2 = P on [-6,6]^2: mismatches=0 (the identity holds; the stranded 2xy at (3/2,2) contributes 6, not 0; fs(3/2,2) = 2.5)
+S81.3 partials at (1,1): dP/dx = 0, dP/dy = 0, P(1,1) = 0: true
+
+================ P05 PIECE S81-4 (RUN 2) — Ex2 extension, two-stage reduction — 2026-11-01 ================
+
+S81.4 bases: 41 -> 2, 28 -> 2, 99 -> 8, 2026 -> 11 (mod 13): true
+S81.4 41^22 * 28^11 via 2^22 * 2^11 = 2^33 -> 5 (mod 13): true; 99^11 via (2^3)^11 = 2^33 -> 5: true
+S81.4 direct route: 41^22 * 28^11 - 99^11 + 2026 = 11 (mod 13): true
+S81.4 cycle of 2 mod 13: 2,4,8,3,6,12,11,9,5,10,7,1; length 12, first return of 1 at step 12: true
+S81.4 exponent stage: 33 = 2*12+9, 2^9 = 5 (mod 13): true
+S81.4 confirmation: X = 41^2*28 = 47068, Y = 99; X-Y = 46969 = 13*3613: true; X^11 - Y^11 = 0 (mod 13): true
+S81.4 verdict: all seven checks true: true
+
+================ P05 PIECE S81-5 (RUN 2) — Example 5, rational functions — 2026-11-01 ================
+
+S81.5 f = x + 1/(x-2) - 4/(x+1) recombinates to the raw quotient on x=-30..30: mismatches=0
+S81.5 A=1, B=-4 matching: A(x+1)+B(x-2) = -3x+9 on the grid: mismatches=0; division identity: mismatches=0
+S81.5 f'''(3) = -6 + 24/4^4 = -189/32 = -5.90625, exact in binary: true
+S81.5 f(3) = 3 both routes: true; f'(3) = 1/4 both routes (quotient rule on raw, single terms on canonical): true
+S81.5 integral: exact 8+4ln2-3ln3 = 7.4767519; Simpson n=2000 on the RAW form = 7.4767519; |delta| < 1e-8: true
+
+================ P05 PIECE S81-6 (RUN 2) — the two failure bullets — 2026-11-01 ================
+
+S81.6 (x^2-2x-1)^2 - 4 = (x-3)(x+1)(x-1)^2 = x^4-4x^3+2x^2+4x-3 on x=-30..30: mismatches=0
+S81.6 roots exactly {-1, 1, 3}: true
+S81.6 16^55 = 16 (mod 17); centered: 16 = -1, (-1)^55 = -1 = 16 (mod 17): true
+
+================ P05 PIECE S81-7 (RUN 2) — Exercises 6 and 7 — 2026-11-01 ================
+
+S81.7 Ex6 denest: (2-sqrt3)^2 = (7,-4): true; 6/(2-sqrt3) = (12,6): true; X = (14,5): true
+S81.7 Ex6 Y: (29+19sqrt3)(sqrt3-1) = (28,10), /2 = (14,5) = X: true — X = Y
+S81.7 Ex7 4p^4-16p^2+7 = 0 gives p^2 in {7/2, 1/2}: true
+S81.7 Ex7 no a/b in lowest terms, a,b <= 300, with 2a^2 = 7b^2 or b^2 = 2a^2: true (bounded search)
+S81.7 Ex7 descent step verified on all residues: 7 | 2a^2 iff 7 | a: true
+S81.7 Ex7 repair: ((sqrt7 -/+ 1)^2)/2 = 4 -/+ sqrt7 (1.354249, 6.645751): true
+S81.7 Ex7 S = -1.414214 = -sqrt2, S < 0: true; S^2 = 8 - 2*sqrt(9) = 2 exact: true
+
+================ P05 PIECE S81-8 (RUN 2) — Exercise 8 — 2026-11-01 ================
+
+S81.8 g = 2x+1+1/(x-1)-1/(x+1) recombinates to the raw quotient on x=-30..30: mismatches=0
+S81.8 division identity (2x+1)(x^2-1)+2 = 2x^3+x^2-2x+1: mismatches=0; split identity 1/(x-1)-1/(x+1) = 2/(x^2-1): true
+S81.8 g^(n)(x) = (-1)^n n! ((x-1)^-(n+1) - (x+1)^-(n+1)) for n=2,3,4 vs exact raw-quotient differentiation (integer polynomial arithmetic, n=4 checked at x=3 only — 15^16 at x=4 passes 2^53): mismatches=0
+S81.8 sum k=2..99 (g(k) - 2k - 1): canonical telescoping route = 14651/9900; raw per-term route = 14651/9900: true
+S81.8 gcd(14651, 9900) = 1, lowest terms: true
+
+================ P05 PIECE S81-9 (RUN 2) — Exercise 9 — 2026-11-01 ================
+
+S81.9 the cancellation is legal away from 3: |x-3| + (x^2-9)/(x-3) = |x-3| + x + 3 on [-40,40]: mismatches=0
+S81.9 branch structure: x < 3 -> 6, x > 3 -> 2x: mismatches=0
+S81.9 h(x) = 6 in [-40,40]: 43 integer solutions, all below 3 (the ray (-inf, 3)): true
+S81.9 the student's 2x at x=0 claims 0; the truth is 6 (break 1); x = 3 is outside the domain (break 2): true
+
+================ P05 PIECE S81-10 (RUN 2) — Exercise 10, the CF address system — 2026-11-01 ================
+
+S81.10 43/19 = [2;3,1,4] by the division loop; recompose = 43/19: true
+S81.10 second representation [2;3,1,3,1] recomposes to the same 43/19 (trailing-1 expansion): true
+S81.10 rational census, q <= 30, 0 <= p <= 100, gcd 1: 1840 fractions; failures (non-termination, last entry < 2, recompose mismatch) = 0
+S81.10 sqrt3 exact-state engine: a = [1, 1, 2], period 2 — [1; overline{1,2}]: true
+S81.10 sqrt2: a = [1, 2], period 1 — [1; overline{2}]: true
+S81.10 sqrt3 convergents, exact: 1/1, 2/1, 5/3, 7/4, 19/11, 26/15, 71/41, 97/56
+S81.10 Pell pairs p^2-3q^2 = 1 among the convergents: (2,1), (7,4), (26,15), (97,56): true
+S81.10 straddling: p^2-3q^2 alternates sign across the convergents and is never 0: true
+S81.10 phi = (1+sqrt5)/2 by direct iteration: 20/20 quotients equal 1 — [1; overline{1}]: true
+S81.10 census: non-square d in 2..30: 25 of 25 periodic addresses, 0 failures (census, not a proof — Lagrange stays unproved, as the page says)
+
+================ P05 S81 R0 RE-RUN — 2026-11-01 ================
+
+R0 re-run: the extended engine re-executes all R0 pieces; every R0 output key byte-identical to the S08 receipts: mismatches=0
+VERDICT: S81 battery PASS — 10 new pieces, all checks green; R0 engine unperturbed; two run-1 defects (SVG ordinates, differentiation off-by-one) caught and fixed, recorded above.
