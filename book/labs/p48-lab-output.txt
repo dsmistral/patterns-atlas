@@ -1,0 +1,131 @@
+p48-lab-output.txt — verification transcript for book/labs/p48-lab.js
+Page: book/p48-representable-functor.html (P48, The representable functor trick)
+Engine: fresh deterministic census engine (this file's parent lab). No recursion,
+no BigInt in the value path. Every check below is a brute-force enumeration or a
+construction verified against the full composition table of the world W
+(3 objects: the empty set, the point, the coin; 11 maps).
+
+RUN HISTORY (honest)
+- build: lab assembled from 11 piece files; two drafting defects caught before
+  the first run (identity maps mis-selected in Group A — allFns' last element is
+  the constant map, not the identity; a broken placeholder isNatural in the
+  census machinery) and repaired.
+- run 1: 59/63. Four checker-side defects, all caught by the run:
+  A2: the expected hom table was written transposed (rows by probe instead of
+      rows by target) — the engine's table was correct;
+  B5: composition table order misused (comp[a][b] = b o a; u o s is
+      comp[s][u], not comp[u][s]);
+  I2: isoTo indexed the component bijections by packed element ids instead of
+      positions — Pair's elements are packed pairs, chimera elements are 0..3;
+  K2: the expectation was wrong, not the engine: post-composition by a constant
+      map gives a constant row, not a permutation. Receipt restated honestly
+      (4 distinct rows; identity row is the identity; constant rows collapse).
+- run 2: 63/63. S82 battery PASS. No engine changes between runs 1 and 2
+  beyond the four checker repairs above.
+
+RECEIPTS THAT DECIDE PAGE PROSE (machine answers to design questions)
+- The chimera census (Group H): among presheaves with the coin's tally
+  (1,2,4), the laws leave a complete parameter space of 96 candidates and ALL
+  96 are genuine functors. Classified up to natural isomorphism: 24 answer
+  exactly like the coin (h_2 in disguise), 72 are chimeras no object answers,
+  in 4 isomorphism classes of 24 each. The tally is cheap; the table is the
+  object.
+- The pairing table (Group I): Pair(2,2) = (1,4,16) has no representor in the
+  world (the census fails all three objects), but the product 2x2 — an object
+  one world bigger — answers it at every probe. The biggest census:
+  1,048,576 candidates for Nat(h_2, Pair(2,2)), 16 survive, exactly
+  Pair(2,2)(2): the correspondence does not care that no object holds the
+  table.
+- The nine Yoneda censuses (Group C) total 11 natural transformations — the
+  world's own 11 maps, relocated one level up.
+
+FULL CHECK LIST (run 2)
+
+=== A world ===
+A1: PASS — world has 11 maps (expect 11)
+A2: PASS — hom table rows by target: [1,0,0],[1,1,1],[1,2,4]
+A3: PASS — identity maps present
+A4: PASS — composition: 47 composable pairs, 211 associativity triples, 0 violations
+
+=== B representables ===
+B1: PASS — tallies h_0=(1,0,0), h_1=(1,1,1), h_2=(1,2,4)
+B2: PASS — empty-question law: h_R(0)=1 for all three R
+B3: PASS — multiplying law h_0(2)=0=0^2; h_1(2)=1=1^2; h_2(2)=4=2^2
+B4: PASS — h_2(u): f_a|->c_a, f_b|->c_b
+B5: PASS — u o s = u, s o s = id (composition table order: comp[a][b] = b o a)
+
+=== C Yoneda census ===
+C1: PASS — Nat(h_X,h_Y) = |Hom(X,Y)| for all 9 pairs: [[1,1,1],[0,1,2],[0,1,4]]
+C2: PASS — biggest census: 1024 candidates -> 4 natural (h_2 -> h_2)
+C3: PASS — the 9 censuses total 11 natural transformations = the 11 maps of W
+C4: PASS — Nat(h_1,h_0)=0: the empty case refuses every component (1 -> 0 impossible)
+C5: PASS — Nat(h_2,h_1)=1 of 1 candidate
+C6: PASS — Nat(h_1,h_2)=2 of 8 candidates
+
+=== D correspondence ===
+D1: PASS — for all 11 natural transformations: alpha_Z(g) = s o g with s = alpha_X(id_X)
+D2: PASS — the 4 natural transformations give 4 distinct maps 2->2
+D3: PASS — every map 2->2 arises: alpha |-> s is a bijection Nat(h_2,h_2) = Hom(2,2)
+D4: PASS — each of the 4 maps s: 2->2 builds a natural alpha by alpha_Z(g) = s o g
+
+=== E vertical composition ===
+E1: PASS — 8 composites Nat(h_1,h_2) x Nat(h_2,h_2): extracted map of composite = s_B o s_A
+E2: PASS — 16 self-composites of Nat(h_2,h_2) reproduce the composition table of the 4 maps 2->2
+
+=== F powerset ===
+F1: PASS — P tallies (1,2,4) — same as h_2
+F2: PASS — census Nat(h_2, P): 1024 candidates -> 4 natural = P(2)
+F3: PASS — every natural alpha acts by preimage: alpha_Z(g) = g^{-1}(S) with S = alpha_2(id_2)
+F4: PASS — the 4 natural transformations answer with the 4 distinct subsets of 2
+F5: PASS — characteristic functions give a natural iso P = h_2 over all 11 maps (the subsets table is the coin in disguise)
+F6: PASS — Nat(h_1,P) = 2 = P(1)
+F7: PASS — Nat(h_0,P) = 1 = P(0)
+
+=== G fakes ===
+G1: PASS — the empty presheaf is a genuine functor (all composable-pair laws hold)
+G2: PASS — E(0) = 0: the empty-question law fails (a representable must answer 1 at 0)
+G3: PASS — no representor for E: all three h_R answer 1 at the empty question
+G4: PASS — the five-answer fake (tally 1,1,5) is a genuine functor (F(s)=id, F(c_x) constant)
+G5: PASS — multiplying law broken: |F(2)| = 5 but |F(1)|^2 = 1
+G6: PASS — no representor for F: the three honest tallies at 2 are 0, 1, 4 — never 5
+G7: PASS — honest note: F passes the empty-question law — one law passing certifies nothing
+
+=== H chimera census ===
+H1: PASS — parameter space: 12 injections x 4 retractions x 2 swap-behaviours = 96
+H2: PASS — all 96 candidates pass every functoriality law (genuine tables, coin tally)
+H3: PASS — 24 genuine tables answer exactly like the coin (natural iso to h_2)
+H4: PASS — 72 genuine tables carry the coin tally but NO object answers them — chimeras
+H5: PASS — the named chimera (tally of the coin, swap-behaviour of the point) is genuine and not the coin
+H6: PASS — up to relabeling there are 4 kinds of genuine coin-tally table, sizes [24,24,24,24]
+H7: PASS — every genuine table: G(u) injective and r_a o G(u) = id (the laws forced the parameter space)
+H8: PASS — the standard instance (im G(u) = constants, swap swaps the odd points) IS the coin
+
+=== I pairing ===
+I1: PASS — Pair(1,2) tallies (1,2,4) — the point-and-coin table
+I2: PASS — Pair(1,2) is the coin in disguise: g |-> (*, g) is a natural iso
+I3: PASS — Pair(2,2) tallies (1,4,16) — the wanted table
+I4: PASS — no world object holds the wanted table: honest answers at probe 1 are 0, 1, 2 — never 4
+I5: PASS — one world bigger: |Set(Z, 2x2)| = 1, 4, 16 — the product answers the wanted table at every probe
+I6: PASS — Nat(h_2, Pair(1,2)): 1024 candidates -> 4 = Pair(1,2)(2)
+I7: PASS — Nat(h_1, Pair(1,2)): 8 candidates -> 2 = Pair(1,2)(1)
+I8: PASS — Nat(h_2, Pair(2,2)): 1048576 candidates -> 16 = Pair(2,2)(2) — the census does not care that no object holds this table
+
+=== J Cayley shadow ===
+J1: PASS — census of all 256 functions V -> V: exactly 4 respect the right action (the 4 translations)
+J2: PASS — each equivariant function is the translation by its value at the identity
+J3: PASS — all 16 composition pairs: composing translations adds the offsets — the census sees the group itself
+J4: PASS — the offsets are distinct: g |-> (x |-> x+g) is injective (Cayley)
+
+=== K figures ===
+K1: PASS — Fig P48.1 cells: probe rows 0,1,2 vs targets h_0,h_1,h_2
+K2: PASS — Fig P48.2: 4 distinct post-composition rows; identity row is the identity; the constant row collapses
+K3: PASS — Fig P48.3: wanted tally (1,4,16) answers 4 and 16 at probes 1,2; the product 2x2 matches at all probes
+
+=== L exercises ===
+L1: PASS — Ex3 by-hand square: alpha_2(g o u) = P(u)(alpha_1(g)) for both g with S = {a}
+L2: PASS — Ex4: the tally-(1,2,3) table IS a genuine functor — the student is right about that
+L3: PASS — Ex4: but the multiplying law fails: |F(2)| = 3 while |F(1)|^2 = 4
+L4: PASS — Ex4: no object answers 3 at probe 2 — honest answers are 0, 1, 4
+L5: PASS — Ex5 tallies: Pair(1,2)(1) = 2; Pair(2,2)(2) = 16 (censuses in I6-I8)
+
+VERDICT: S82 battery PASS (63/63 checks, run 2)
