@@ -1,0 +1,94 @@
+p41-lab-output.txt — verbatim record of the P41 lab battery (session S93)
+Engine: deterministic JavaScript (float64), no recursion, no BigInt; the
+battery was assembled from pieces H (helpers), A-D, E, X (figure receipts),
+Q (exercises) and S (page census) and executed inline in the session sandbox
+(Function constructor with a log sink; no eval). Lab source:
+book/labs/p41-lab.js. The transcript below is from the final run; a fresh
+re-run in the same sandbox reproduced it byte-for-byte before publishing.
+
+RUN HISTORY (honest):
+- The battery passed 51/51 on its final assembly run. Earlier draft runs
+  caught defects, all in the battery's design rather than the page's math,
+  all fixed before anything was licensed: the helpers were initially scoped
+  inside a wrapper IIFE invisible to the pieces (moved to piece H as __H);
+  __H.bottlenecks sorted by the wrong key; D02 asserted a unique optimal
+  route, but the graph has two (0-2-5-8-9 and 0-2-5-8-4-7-9, both total 17),
+  so the check was rewritten to demand both; D03 hardcoded the grid step
+  instead of deriving it; D06 was redesigned to isolate the claim it
+  licenses; E04's grid was raised to n=61 after a coarser grid blurred the
+  corridor crest; Q02's factorization tolerance sat below float noise (1e-14,
+  now 1e-12); Q04's expected-string join needed a "; " separator; X01 carried
+  dead code (removed); X02's gates were loose (2e-3) from the draft era.
+- A pre-publish adversarial audit then tightened the loose gates, and the
+  page paid for one of them: E01's wall-slide claim on the rimless landscape
+  said |dE/dy| = 0.32 at (0, 1.5), but the true slope there is 0.2371 (the
+  draft had conflated the slope with the height, E(0, 1.5) = 0.329). The
+  page now says 0.24, and E01 pins the machine value to two decimals.
+  The same audit briefly "corrected" X02's crest scale from 3.5737 to a
+  hand-computed 3.5735 — the tightened gate rejected the re-run, the machine
+  recomputed sqrt(2*I2/pi^2) = 3.57371, and the page's 3.5737 was right all
+  along; the gate now pins it at 5e-5, with the ray endpoints pinned at
+  3.0913 and 1.3108 to 1e-4. The lesson is the point of the battery: hand
+  arithmetic is the draft, the gates are the book.
+- The three figure datasets on the page (wall, dual corridors, staircase)
+  were regenerated deterministically from the same formulas as piece X
+  after a hand-transcribed corridor polyline was found garbled; the
+  regenerated values are the authoritative ones the page now carries.
+- The census piece S pins the page at exactly 57,879 utf-8 bytes; the
+  transcript below is the assembled book/labs/p41-lab.js run against the
+  frozen page, twice, byte-identical both times.
+
+TRANSCRIPT (final run, verbatim: 51 checks, then the TOTAL line):
+
+P41-H00 PASS helpers resident: stack-BFS flood fill (no recursion), water-level bisection, route enumeration, LCG
+P41-A01 PASS catalog exact: minima (±1,0) E=0 [Hessian diag(8,2)], saddle (0,0) E=1 [diag(-4,2)]; gradients zero to 1e-12
+P41-A02 PASS water level: bisection + flood fill on the 101x101 map reads the pass at 1.0000000000 - exactly 1, because the pass point (0,0) sits on a grid crossing
+P41-A03 PASS straight route over the wall: max E = 1.000000000000 at the midpoint - the route pays exactly the pass level
+P41-A04 PASS 200 random broken routes, 603 samples each: every one peaks at 1.000222 or above - none beats the wall (E(0,y) = 1+y^2 >= 1 for every crossing y; the deficit is sampling resolution, the wall itself is exact)
+P41-A05 PASS lakes: at 0.99 two lakes; at exactly 1.000 they join (the pass cell itself admits the water); at 1.001 one lake - the threshold is sharp and exact
+P41-B01 PASS Newton census from 49 seeds: exactly 9 resting points - four valley floors (±1,±1/√2) at E=−1/4, two floor saddles (±1,0) at E=0, two wall saddles (0,±1/√2) at E=3/4, one dome (0,0) at E=1; all values exact to 1e-12
+P41-B02 PASS the lower pair's pass: the map reads 0.750100 - its own cheapest wall reading (the pass point y=−0.70711 falls between rows; the wall cell at y=−0.70 reads 0.750100, one ten-thousandth above the true 0.75 that B06 pins)
+P41-B03 PASS the in-well pass (lower left to upper left, same x): level -0.0000000000 - exactly 0; the floor saddle (−1,0) sits on a grid crossing and the two trenches of one well divide by a crossing you pay nothing for
+P41-B04 PASS the diagonal pair (lower left to upper right): level 0.750100 - the SAME reading as the lower pair, to the last bisection digit: same wall, same gap; the route is longer, the level is not
+P41-B05 PASS ruler vs water: the straight diagonal pays 1.000000 (it crosses the wall at the dome's shoulder, y=0); the valley-floor route (down to the lower valley, along it, up the far trench) pays exactly 0.750000 - a 25% discount for reading the map
+P41-B06 PASS the continuous wall search: ternary search on g(y) = 1+y⁴−y² finds the gap at y = -0.70710678 = −1/√2, level 0.7500000000 - the pass address is the wall's argmin
+P41-B07 PASS lake census: at 0.70 two lakes (each well's pair merged through its free floor saddle at 0); at 0.76 one lake - the wall gap at 0.75 did it
+P41-C01 PASS the obvious corridor: E(sφ₁) = π²s²/4 − 3s⁴/32 crests at s = 3.6280 (exact 2π/√3 = 3.6276) with value 16.234848 = π⁴/6 = 16.234849 - the crest is scale-free: every multiple of φ₁ pays the same crossing
+P41-C02 PASS the far valley: e = 6φ₁ sits at E = 9π² − 121.5 = -32.673560 (Simpson agrees to 4.35e-15) - deep below the rim and below the start
+P41-C03 PASS shooting the ground state: RK4 (dt = 1/4000) brackets u(1) on a ∈ [1,20] and bisects to a* = 9.72298103 with u(1) = 0; the first integral u'² + u⁴/2 = a*² holds to 2.57e-12 along the whole shot
+P41-C04 PASS closed forms (log-space Lanczos lgamma, spot-checked on Γ(1/2), Γ(3)): the shot peaks at M = 3.7081493546 = Γ(1/4)√π/(√2·Γ(3/4)) = 3.7081493546 (rel 2.18e-14); and a* = M²/√2 = 9.72298103 (rel 3.42e-14) - amplitude and launch speed are one number
+P41-C05 PASS parts identity: ∫u'² = 63.024240 = ∫u⁴ = 63.024240 (multiply −u'' = u³ by u, integrate, walls at 0 kill the boundary) to rel 3.51e-14 - so the ground state's energy is E = ∫u⁴/4 = 15.756060
+P41-C06 PASS closed form for the pass: E = √2·M³·B(5/4,1/2)/8 = 15.75606001 = the Simpson value 15.75606001 (rel 3.39e-14) - the ground state's 15.756060 in gamma functions
+P41-C07 PASS the crest law: along ANY ray v the crossing peaks at ‖v'‖⁴/(4∫v⁴) at the Nehari scaling √(Q/R) - 8 random 4-mode profiles confirm to rel 4.30e-16 (the scan grid includes the Nehari scaling exactly, so this is float noise on an exact law)
+P41-C08 PASS the ground state sits at its own crest: E(s·u*) peaks at s = 1.0000 with value 15.756060 = E(u*) - the ray's Nehari scaling is s = 1 because ∫u*'² = ∫u*⁴
+P41-C09 PASS the exhibited route: out along the ground state's ray (leg max 15.756060 = E(u*)), down the far side to E(2u*) = -126.0485, across the valley floor to e (leg max -3.27e+1, below zero) - the whole route peaks at E(u*) = 15.756060: the pass level c ≤ 15.756060
+P41-C10 PASS the wall gallery: every ray crosses Q = R exactly once (IVT) and pays its crest; the obvious corridor pays 16.234849 = π⁴/6, 0.4788 above the pass; 8 random profiles pay 183.7331 and up - the ground state's ray is the wall's cheapest crossing
+P41-C11 PASS the wall crossing is one IVT bisection on Q − R (which reads +18π²t² at the rim and −486t⁴ at e): it lands at t* = 0.60459979 = π/(3√3) - and 6t* = 3.627599 = 2π/√3, exactly the corridor's crest point: the Nehari crossing IS the crest, one dimension up
+P41-D01 PASS the map: 10 camps, 16 ridges, integer heights 1..9, one connected landmass
+P41-D02 PASS all 41 routes enumerated; bottleneck multiset [5,5,6,6,7,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]; cheapest peak = 5 on exactly two routes (0-2-5-8-9 and 0-2-5-8-4-7-9) - both leave through ridge 0-2, then split into the two level-5 arms 8-9 and 4-8
+P41-D03 PASS Kruskal water level: ridges sorted 1,2,3,3,4,4,5,5,5,...; camps 0 and 9 join when the water reaches 5 (the 8th ridge processed, 4-8; all three level-5 ridges sit at the pass) - the same level the enumeration and the cut found
+P41-D04 PASS cut duality: best s-t cut S = {0,3,6} holds every crossing ridge >= 5, one at exactly 5; max over cuts of the cheapest crossing = min over routes of the highest ridge = 5
+P41-D05 PASS the flood tree carries its own route 0-2-5-8-4-7-9 with highest ridge 5 - the spanning-tree route is bottleneck-optimal
+P41-D06 PASS sensitivity: raising the never-used ridge (1,2) from 9 to 12: pass 5; raising the low spur (4,7) from 1 to 2: pass 5; raising one arm (8,9) from 5 to 6: pass 5; raising the other arm (4,8) from 5 to 6: pass 5; raising both arms (8,9) and (4,8) to 6: pass 6; raising the source crossing (0,2) from 5 to 6: pass 6 - the level is carried redundantly through the two arms and answers only to the source crossing or to both arms rising together
+P41-E01 PASS the rimless wall: the map reads the pass at 0.2500000012 - its own edge reading 0.25 + 0.75e^{−4.5²} (the map cannot see below it); at exactly 0.25 the lakes NEVER join; the only critical heights are 0 (the two trench lines x=±1) and 1 (the dome at the origin) - nothing critical at 0.25, and the wall's own points slide (|∂E/∂y| = 0.24 at (0,1.5)): the level c is real and no point of the terrain pays for it
+P41-E02 PASS the latitude law: ε=1e−1: cross at y = 1.45 (law √(ln(0.75/ε)) = 1.4195); ε=1e−2: cross at y = 2.10 (law √(ln(0.75/ε)) = 2.0779); ε=1e−3: cross at y = 2.60 (law √(ln(0.75/ε)) = 2.5730) - each power of ten of slack buys a crossing latitude that grows like √ln(1/ε): the route walks north forever, ever slower, and never finishes: c is an infimum no route attains
+P41-E03 PASS the flat shelf: the water level is pinned at 1.0000000000; the ENTIRE line x=0 is critical at height 1 (the whole y-axis stands still); three hikers climb from the valley side at latitudes 0.4, 1.6, 2.8 and stop at x≈0, latitudes 0.481, 1.519, 2.638 - three different addresses, one height 1.000000: the budget exists, the address does not
+P41-E04 PASS the missing valley: in the bowl x²+y² the "pass" between (−1,0) and (1,0) reads 1.0000000000 - exactly the endpoints' own height: the crossing is free, the optimal route DIPS through the bowl's only critical point (the bottom, height 0) - there is no interior crest and nothing critical at level 1: the "valleys" were hilltops all along
+P41-E05 PASS the symptom table, machine-read: Exhibit A - level attained: NO (at 0.25 the lakes never join), critical point at the level: NONE; Exhibit B - attained: YES, critical set: A WHOLE LINE; Exhibit C - attained: TRIVIALLY (at the endpoints), critical at the level: NONE (the only critical point is the bottom) - three different diseases, one lesson: the hypotheses (a rim that closes, a shelf that is not flat, valleys that actually dip) are load-bearing
+P41-X01 PASS fig P41.1 data: the wall profile g(y) = 1+y⁴−y² sampled at 45 points y = −1.10..1.10 (clipped at the window top E = 1.30), every point on the curve to rounding; water line at py = 313.3 (E = 0.75); pass markers at px = 192.7 and 447.3 (y = ±0.70711)
+P41-X02 PASS fig P41.2 data: two corridors from the same rim: E(sφ₁) = π²s²/4 − 3s⁴/32 (crest 16.2348 = π⁴/6 at s = 3.6276, marker 451.8,67.7) and the ground-state ray normalized to the same rim (crest 15.756060 = E(u*) at s = 3.5737, marker 446.0,72.4); both curves run s = 0..5 (51 points), ending at 3.0913 and 1.3108 - the discovered corridor crests lower
+P41-X03 PASS fig P41.3 data: the Kruskal staircase over the sorted ridge heights [1,2,3,3,4,4,5,5,5,6,7,7,8,8,9,9] (31 step points); the camps join at step 8 (the 4-8 ridge), marker at (307.0,165.0), water line at py = 165 (level 5); the three level-5 ridges sit at steps 7, 8, 9
+P41-Q01 PASS exercise 1 by machine: resting points (±1,0) Hessian diag(8,2) at E=0 and (0,0) diag(−4,2) at E=1, all gradients zero to 1e-12; the wall readings E(0,y) = 1+y² dip to exactly 1.0000000000 at y=0 alone; the straight route peaks at 1.0000000000 at its midpoint; the water joins between 0.99 (two lakes) and 1.001 (one) - the crossing argument and the census agree
+P41-Q02 PASS exercise 2 by machine: (y²−½)² = y⁴−y²+¼ identically on 1001 points (so g = ¾ + (y²−½)² and the level is exact); g″(0) = −2 (the shoulder hump at 1), g″(±1/√2) = +4 (the two dips at exactly ¾); the diagonal ruler pays 1.0000000000 (it crosses the wall at the shoulder), the valley-floor route pays 0.7500000000 - the factorization IS the wall search
+P41-Q03 PASS exercise 3 by machine: the exhibit route 0-2-5-8-9 pays bottleneck 5; the exhibit cut {0,3,6} is crossed exactly by ridges [0-1:8, 0-2:5, 3-5:9, 5-6:8, 6-9:7], cheapest 5; and the inequality half holds on ALL 10496 route-cut pairs (every route's worst ridge >= every cut's cheapest crossing) - min over routes = max over cuts = 5: the squeeze is the equality
+P41-Q04 PASS exercise 4 by machine: Dijkstra's shortest route is 0-3-6-9, total 12 (brute force over all 41 routes agrees: no route is cheaper) - but its worst ridge is 7; the two pass routes pay worst ridge 5 at totals 0-2-5-8-9:17 and 0-2-5-8-4-7-9:22 - the two objectives rank the routes differently, and neither is wrong
+P41-Q05 PASS exercise 5 by machine: k=1: Q = 4.934802 (= k²π²/2 to 5.4e-16), R = 0.375000 = 3/8, crest 16.234849 = k⁴π⁴/6 (grid scan 1.1e-7); k=2: Q = 19.739209 (= k²π²/2 to 1.8e-16), R = 0.375000 = 3/8, crest 259.757576 = k⁴π⁴/6 (grid scan 1.1e-7); k=3: Q = 44.413220 (= k²π²/2 to 6.4e-16), R = 0.375000 = 3/8, crest 1315.022729 = k⁴π⁴/6 (grid scan 2.2e-8) - the crest grows by exactly the factor k⁴ (16, 81): steepening without deepening, the higher waves are hopeless corridors
+P41-S01 PASS structure: 8 h2 exact titles, 8 section ids in order, title/h1/kicker/tagline present
+P41-S02 PASS boxes and asides: 3 pattern-box ids in order, onramp once, warn/scope-warn once, 3 pid lines
+P41-S03 PASS tex balance 461/461 inline, 5/5 display; zero dollars/backticks; MathJax pin once; banned tokens: none
+P41-S04 PASS hrefs: 31 all whitelisted; every one of the 12 canonical targets used
+P41-S05 PASS figures and exercises: 3 svg (viewBox 640x360, role img), figcaptions 1/2/3, 4 polylines, 6 circles, 5 ex with 5 Hint + 5 Worked details, moons once each
+P41-S06 PASS numeric needles: all 37 present
+P41-S07 PASS footer: exercises then footer then body/html close, Next to P43 (three links: two doors + footer), atlas-home with index + P29, page ends </html>
+P41-S08 PASS page utf-8 byte length 57879 matches the assembled file (57879)
+TOTAL 51 checks, FAILS 0
