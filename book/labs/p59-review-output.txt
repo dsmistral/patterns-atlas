@@ -1,0 +1,121 @@
+S87 P59 — review verifier output record (book/labs/p59-review-output.txt)
+Engine: book/labs/p59-review-verifier.js (32914 utf-8 bytes, assembled from 4 inline pieces, deterministic).
+Fresh engine: zero code shared with p59-lab.js on any axis — decimal digit-array bignums
+(base 10, repeated small-multiplier powering) vs the lab's base-10^7 limb squaring;
+adjacency-matrix pairwise enumeration vs the lab's adjacency-mask vertex scans; modular,
+Kneser and tensor-product graph constructions vs literal edge lists; direct integer
+products vs the lab's prime-factor log-product comparisons; floats only as a third
+opinion. The object under review is the corrected published page
+(book/p59-shearer-entropy.html, 51,638 chars / 52,088 utf-8 bytes, blob
+9fef953503706d9a4c84a552bfa7f85f6bf3938f, commit 5f1db472), fetched live from the
+repository and injected as the string PAGE. The 134-needle manifest is not retyped
+here: the verifier's RVM is the needle array extracted verbatim from the published
+p59-lab.js (its three FM.push groups, read as string literals by the JS engine itself),
+the same manifest the lab's own PASS 46/46 run verified against the page.
+Correction record (honest): the page as first pushed (commit 03de35ec) displayed the
+non-uniform table as (0,0): 1/2, (0,1): 1/8, (1,0): 1/8, (1,1): 1/4 — symmetric
+marginals (5/8, 3/8) on both coordinates, whose honest cleared residual is
+2^34 >= 5^10 * 3^6, not the quoted 2^26 >= 5^5 * 3^9. The correction (commit 5f1db472)
+swapped the two displayed cells to (1,0): 1/4, (1,1): 1/8 — marginals (5/8, 3/8) and
+(3/4, 1/4) — so the displayed derivation now carries exactly the residual it quotes;
+lab A09 was corrected to verify the full chain (2^{8H(X)} = 8^8/(5^5 3^3),
+2^{8H(Y)} = 4^8/3^6, cross-multiplied to 2^26 = 67108864 >= 5^5 * 3^9 = 61509375),
+lab run 4 PASS 46/46. This review ran against the corrected page only.
+Run history (honest, complete):
+  run 1  60/61 — first assembly, gate dry-run: FAIL at S04 only, the structure census
+         expecting 15 <a href> occurrences where the corrected page carries 14 (its
+         full honest wiring: kicker 1, onramp 2, bridge 3, doors 4, footer 4). The
+         expectation was wrong, not the page; S04 was corrected to 14, no other byte
+         touched.
+  run 2  60/61 — second assembly: FAIL at I16 only, exactly one of the 134 manifest
+         needles missing — a transcription drift in the hand-re-emitted manifest, not a
+         page defect (the page is byte-identical across runs, gated at 51,638 chars /
+         52,088 bytes every time). From run 3 on the manifest is sourced mechanically:
+         RVM is extracted verbatim from the published p59-lab.js needle array, which
+         eliminates hand transcription of the 134 needles entirely.
+  run 3  PASS 61/61 — final assembly with the mechanically-sourced manifest, gate dry-run
+         (output byte-identical to run 4 below).
+  run 4  PASS 61/61 — final, full text below.
+Independent confirmation highlights: all 134 needles byte-true in the corrected page
+and all 15 single-token injections discriminate; the fresh adjacency-matrix census
+reproduces every count (7, 11, 18, 29, 47, 35, 76, 3, 7, 15) on modular, Kneser and
+tensor builds; the digit-array walls reproduce the 2^3169/2^3171 and 2^7813/2^7815
+brackets without limbs or squaring; the figure-pixel re-derivations byte-match the
+page's SVG attributes; the three J-mutations (false r, corrupted Kahn receipt,
+corrupted dial) are rejected.
+
+---
+
+(total output of run 4, verbatim)
+
+== V. injections — page needles vs single-token poisons ==
+PASS I01 needle #2 found in page, single-token poison rejected -- the eighth move of tier 5
+PASS I02 needle #17 found in page, single-token poison rejected -- r \cdot H(X) \le \sum_{j=1}^{m} H(X_{S_j})
+PASS I03 needle #19 found in page, single-token poison rejected -- every coordinate is read exactly \(r\) times
+PASS I04 needle #14 found in page, single-token poison rejected -- 18^2 = 324 \le 343 = 7^3
+PASS I05 needle #12 found in page, single-token poison rejected -- i(C_6) \le 27
+PASS I06 needle #23 found in page, single-token poison rejected -- 2 \cdot 2 = 4 > 3 = H(X) + H(X, Y)
+PASS I07 needle #44 found in page, single-token poison rejected -- 18520^2 = 342990400 \le 343 \cdot 10^6 < 343...
+PASS I08 needle #48 found in page, single-token poison rejected -- 9123^3 = 759299343867 < 759375 \cdot 10^6 < ...
+PASS I09 needle #51 found in page, single-token poison rejected -- (15/8)^8 \cdot 15^7 \cdot 2^{24} = 15^{15}
+PASS I10 needle #52 found in page, single-token poison rejected -- 2^{7813} \le 15^{2000} < 2^{7815}
+PASS I11 needle #72 found in page, single-token poison rejected -- 2^{26} = 67108864 \ge 5^5 \cdot 3^9 = 615093...
+PASS I12 needle #78 found in page, single-token poison rejected -- i(K_{1,3}) = 9
+PASS I13 needle #85 found in page, single-token poison rejected -- Door — group completion
+PASS I14 needle #94 found in page, single-token poison rejected -- 2010 — Zhao.
+PASS I15 needle #103 found in page, single-token poison rejected -- Difficulty: ●○○ ●●○ ●●● ◆ ◐
+PASS I16 manifest census: 134 needles, 0 dups, 0 missing from the page, 0 poison strings in the page
+PASS I17 pair census: 15 injection pairs over the manifest, all discriminating (needle in, poison out)
+== J. injections — known-false mutations must be rejected ==
+PASS J01 injection: the cover {{X},{X,Y}} claimed at r = 2 is rejected — the audit reads [2,1], the claimed 4 > 3 is a certified violation, the honest r = 1 restores 2 <= 3
+PASS J02 injection: the corrupted Kahn receipt 324 <= 363 is rejected — 7^3 = 343 recomputed on the digit array
+PASS J03 injection: the dial corrupted to 18.6 is rejected — 186^2 = 34596 > 34300, while the honest bracket pins sqrt(343) in [18.520, 18.521)
+== S. the page itself — byte audit ==
+PASS S01 the corrected page under review: 51638 chars, 52088 utf-8 bytes
+PASS S02 delimiters: 0 dollar signs, 353 inline TeX opens == 353 closes, 3 display opens == 3 closes
+PASS S03 furniture: trailing newline, the MathJax 3.2.2 pin and its integrity hash present
+PASS S04 structure census: 8 h2, 9 details, 14 links, 3 pattern-box, 3 exhibit, 1 warn-box, 3 svg, 1 sketch-marker
+PASS S05 footer wiring: the P60 next-link, the P10/P19/P56 door links and the atlas-home index all present
+PASS S06 figure wiring: three figcaptions, the P59.1/2/3 captions byte-true
+== Q. the census re-verified — adjacency matrices, modular and Kneser builds ==
+PASS Q01 cycles by modular matrix census: i(C4..C8) = 7, 11, 18, 29, 47 — C7 = 29 fresh — and the Lucas route F(n-1)+F(n+1) agrees on all five
+PASS Q02 paths by matrix census: i(P1..P5) = 2, 3, 5, 8, 13, agreeing with the recurrence i(P_n) = i(P_{n-1}) + i(P_{n-2}); the page receipts i(P_4) = 8 and i(P_5) = 13
+PASS Q03 stars and cliques by matrix census: i(K_{1,3}) = 9, i(K_{1,4}) = 17, i(K_3) = 4, the star formula 2^k + 1 holding at k = 1..4
+PASS Q04 complete bipartite by matrix census: i(K_{2,2}) = 7, i(K_{3,3}) = 15, the family 2^(d+1) - 1 = 3, 7, 15 at d = 1..3, and the K_{3,3} split by left part reads [8,1,1,1,1,1,1,1]
+PASS Q05 the harder censuses: i(Q_3) = 35 by the 3-bit-string Hamming build, i(Petersen) = 76 by the Kneser build KG(5,2)
+PASS Q06 the edge traces: every edge of C6 and of C4 sees exactly the three states {}, {u}, {v} — never both endpoints
+PASS Q07 the K_{3,3} split on fresh axes: H(I_R | I_L) = (8/15)*3 = 24/15 = 8/5 exact, the LP equality 15^8 * 15^7 * 2^24 = 15^15 * 8^8 holds on digit arrays, and H(I_L) = log2 15 - 8/5 is pinned to 2.307 by (4613, 4615)/2000
+== W. the inequality re-verified — direct integer products and digit-array walls ==
+PASS W01 log2 3 in (19/12, 27/17): 3^12 = 531441 > 524288 = 2^19 and 3^17 = 129140163 < 134217728 = 2^27, both direct integers
+PASS W02 log2 3 = 1.585 to 3 dp: the digit-array wall 2^3169 <= 3^2000 < 2^3171
+PASS W03 log2 15 = 3.907 to 3 dp: the digit-array wall 2^7813 <= 15^2000 < 2^7815
+PASS W04 sqrt(343) = 18.520 to 3 dp: 18520^2 = 342990400 <= 343*10^6 < 343027441 = 18521^2
+PASS W05 15^(5/3) = 91.23 to 2 dp: 9123^3 = 759299343867 < 759375*10^6 < 759549058624 = 9124^3
+PASS W06 the corrected table chain in integers: 2^{8H(X)} = 8^8/(5^5 3^3) = 2^24/(5^5 3^3), 2^{8H(Y)} = 4^8/3^6 = 2^16/3^6, and subadditivity H(X,Y) <= H(X) + H(Y) clears to the residual 2^26 = 67108864 >= 5^5*3^9 = 61509375
+PASS W07 the parity triple both ways: counting 4^2 = 16 <= 64 = 4^3 (strict) and entropy 2*2 = 4 <= 6 (strict, slack 2)
+PASS W08 tight and slack worlds: independent bits 64 = 64 (tight), X=Y=Z 4 <= 8 (slack 1), and the parity-4 chain slices 2+2+1+2 = 7 >= 2H = 4 (slack 3)
+PASS W09 the K_{3,3} LP equality on digit arrays: 15^8 * 15^7 * 2^24 = 15^15 * 8^8 (the 2^24 of (15/8)^8 cancels 8^8 exactly)
+PASS W10 the false-r counting violation: claiming r = 2 on the cover {{X},{X,Y}} reads 4^2 = 16 > 8 = 2*4 — a certified violation; the honest r = 1 reads 4 <= 8
+PASS W11 the false-r entropy violation: 2*2 = 4 > 3 = H(X) + H(X,Y) on uniform bits; the honest r = 1 restores 2 <= 3
+== X. the Kahn-Zhao receipts re-verified — dials, tightness, and the blob ==
+PASS X01 the edge dials as direct products: 49 <= 81 (C4), 121 <= 243 (C5), 324 <= 729 (C6), 1225 <= 531441 (Q3), 5776 <= 14348907 (Petersen)
+PASS X02 Kahn receipts cleared: C6 18^2 = 324 <= 343 = 7^3 and C5 11^4 = 14641 <= 16807 = 7^5
+PASS X03 Zhao receipts cleared: Q3 35^3 = 42875 <= 50625 = 15^4 and Petersen 76^3 = 438976 <= 759375 = 15^5
+PASS X04 K_{d,d} tightness fresh: the exponent n/2d reads exactly 1 at n = 2d, so Kahn equals the census 3, 7, 15 at d = 1, 2, 3 — and C4 = K_{2,2} shows 7 <= 7 tight
+PASS X05 the C6 ladder cleared: 64 >= 27 (since 729 >= 343), 27 >= 7^{3/2} >= 18 (343 >= 324), every rung above the truth 18
+PASS X06 the fractional cover of P4: weights (1, 0, 1) cover all four vertices at sum 2, the dial reads 3^2 = 9 >= 8 = i(P4), the middle edge priced at exactly 0
+PASS X07 the star punished on a fresh quarter-grid: the least edge-cover of K_{1,3} costs 3, the edge dial reads 27, the singleton dial reads 16, and the best rung 16 sits 7 above the census 9
+PASS X08 the blob on the triangle: the tensor double K3 x K2 is 2-regular and connected (a 6-cycle by degree and components), i = 18, and i(K3)^2 = 16 <= 18
+PASS X09 the blob on the four-cycle: C4 x K2 has two components (each a 4-cycle) and i = 49 = 7^2 — i(C4)^2 = 49 tight, the bipartite case
+PASS X10 the Petersen dial: 76^3 = 438976 <= 759375 = 15^5 clears to 76 <= 15^(5/3), and 15^(5/3) is pinned in (91.23, 91.24) by the W05 cubes
+PASS X11 Kahn on the cycles at d = 2: C4 7 <= 7^1 tight, C6 18 <= 7^{3/2} (324 <= 343), C8 47 <= 7^2 (2209 <= 2401)
+== Y. floats, figure pixels, and the re-derivations ==
+PASS Y01 floats on the corrected table (1/2, 1/8, 1/4, 1/8): H(X,Y) = 1.750000 (exact 1.75), subadditivity margin H(X)+H(Y)-H(X,Y) = 0.015712 bits, strictly positive
+PASS Y02 dial decimals computed fresh: sqrt(343) = 18.520, 15^(5/3) = 91.23, log2 15 = 3.907, log2 3 = 1.585
+PASS Y03 Fig P59.1 pixels re-derived at 2.2 px/unit: heights 140.8, 59.4, 40.744, 39.6 and tops 59.2, 140.6, 159.256, 160.4 — the rect attributes byte-match the page
+PASS Y04 Fig P59.2 geometry: centers (170,85), (350,85), (260,205) at r 75 — pairwise 180, 150, 150 (the 90-120-150 triangle), the two lower pairs tangent at 150 = 2r, frame 425 <= 520 and 280 <= 290
+PASS Y05 Fig P59.3 pixels re-derived at 12 px/unit: heights 36, 84, 180 and tops 164, 116, 20 — the rect attributes byte-match the page
+PASS Y06 the dial ladder as floats: 64 >= 27 >= sqrt(343) = 18.5203 >= 18, strictly decreasing and every rung above the census
+TOTAL: 61/61
+total: 61 checks, 0 FAIL
+VERDICT: S87 P59 review PASS 61/61 run 4
