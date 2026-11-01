@@ -16,6 +16,16 @@
      of at -2 (true value -9). Fixed in run 2 (recorded).
    - Verifier VB run 1: syntax error (unclosed parenthesis), no rows executed;
      fixed in run 2 (recorded). Verdict: 18/18 must-fail injections caught.
+   S79 improvement pass, 2026-11-01 (adopting the audited chapter-4 draft
+   material into the published master): pieces 1-5 re-executed fresh
+   in-session — all 41 output lines byte-identical to the receipts. New
+   pieces 6-8 verify every adopted number (Example 4 calculus range/area;
+   the two new failure bullets; Exercises 7-9 and the cubics boundary).
+   Honest run history, S79: piece 8 run 1 had two evidence-line defects —
+   8i asserted the sign of the PA^2-4PB^2 identity backwards (437 mismatches;
+   the page equation was never wrong), and 8l demanded grid extremes within
+   1e-9 of the analytic values where a 2401-point grid can only approach
+   them (observed gap 2.4e-6). Both fixed in run 2 (recorded in the output).
    ============================================================================*/
 
 /* ---- Piece 0: pre-flight smoke probe ---- */
@@ -318,6 +328,174 @@ function verifyB(): void {
 }
 
 /* ---- run ---- */
+
+/* ---- S79 extension piece 6: Example 4 (calculus) — the rational range ---- */
+function extExample4(): void {
+  const den = (x: number) => x * x - 4 * x + 7;
+  let mism = 0;
+  for (let x = -20; x <= 20; x += 0.5) { if (Math.abs(den(x) - ((x - 2) * (x - 2) + 3)) > 1e-12) mism++; }
+  console.log('6a denominator identity x^2-4x+7 = (x-2)^2+3 over [-20,20] step 0.5: mismatches=' + mism + ' | discriminant 16-28 = ' + (16 - 28) + ' (never zero)');
+  let mx = -Infinity, at = 0, over = 0;
+  for (let x = -50; x <= 50; x += 0.01) {
+    const v = 6 / den(x);
+    if (v > mx) { mx = v; at = x; }
+    if (v > 2 + 1e-12) over++;
+  }
+  console.log('6b f = 6/den over [-50,50] step 0.01: max = ' + mx + ' at x=' + at.toFixed(2) + ' | values above 2: ' + over + ' | all values > 0: ' + (mx > 0));
+  const f = (x: number) => 6 / den(x);
+  const fp = (x: number) => -12 * (x - 2) / (((x - 2) * (x - 2) + 3) * ((x - 2) * (x - 2) + 3));
+  const hh = 1e-6;
+  let maxErr = 0;
+  for (let x = -10; x <= 14; x += 0.5) {
+    const d = (f(x + hh) - f(x - hh)) / (2 * hh);
+    if (Math.abs(d - fp(x)) > maxErr) maxErr = Math.abs(d - fp(x));
+  }
+  console.log('6c fp(x) = -12(x-2)/((x-2)^2+3)^2 vs central diff x=-10..14 step 0.5: max |err| = ' + maxErr.toExponential(2) + ' | zero only at x=2: ' + (Math.abs(fp(2)) < 1e-12));
+  const g = (x: number) => 6 / ((x - 2) * (x - 2) + 3);
+  const n = 1200, lo = 2, hi = 2 + Math.sqrt(3), w = (hi - lo) / n;
+  let s = g(lo) + g(hi);
+  for (let i = 1; i < n; i++) { const v = g(lo + i * w); s += (i % 2 === 1 ? 4 : 2) * v; }
+  const simp = (w / 3) * s;
+  const exact = Math.PI * Math.sqrt(3) / 2;
+  const uroute = 2 * Math.sqrt(3) * (Math.atan(Math.sqrt(3) / Math.sqrt(3)) - Math.atan(0));
+  console.log('6d int_2^{2+sqrt3} 6/den dx: Simpson(1200) = ' + simp.toFixed(9) + ' | pi*sqrt3/2 = ' + exact.toFixed(9) + ' | diff = ' + Math.abs(simp - exact).toExponential(2));
+  console.log('6e u-shift route int_0^{sqrt3} 6/(u^2+3) du = 2*sqrt3*(arctan 1 - arctan 0) = ' + uroute.toFixed(9) + ' | equals pi*sqrt3/2: ' + (Math.abs(uroute - exact) < 1e-12));
+}
+
+/* ---- S79 extension piece 7: the two new §5 failure bullets ---- */
+function extFailureBullets(): void {
+  let mn = Infinity, at = 0, below3 = 0, below25 = 0;
+  for (let x = 4; x <= 7 + 1e-9; x += 0.001) {
+    const v = (x - 3) * (x - 3) + 2;
+    if (v < mn) { mn = v; at = x; }
+    if (v < 3 - 1e-9) below3++;
+    if (v <= 2.5) below25++;
+  }
+  console.log('7a g=(x-3)^2+2 on [4,7] step 0.001: min = ' + mn.toFixed(6) + ' at x=' + at.toFixed(3) + ' | below 3: ' + below3 + ' | <= 2.5: ' + below25 + ' (promised 2 at x=3 is unreachable)');
+  let m2 = Infinity, a2 = 0;
+  for (let n = -30; n <= 30; n++) {
+    const v = (3 * n - 1) * (3 * n - 1) + 5;
+    if (v < m2) { m2 = v; a2 = n; }
+  }
+  console.log('7b (3n-1)^2+5 over integers [-30,30]: min = ' + m2 + ' at n=' + a2 + ' | value 5 wants n=1/3, not an integer');
+  let hMism = 0, hMin = Infinity, sqMin = Infinity, sqMax = -Infinity;
+  for (let i = 0; i <= 8000; i++) {
+    const th = (i * 4 * Math.PI) / 8000;
+    const c = Math.cos(th);
+    const H = 2 * c * c - 8 * c + 11;
+    const Hc = 2 * (c - 2) * (c - 2) + 3;
+    if (Math.abs(H - Hc) > 1e-9) hMism++;
+    if (H < hMin) hMin = H;
+    const sq = (c - 2) * (c - 2);
+    if (sq < sqMin) sqMin = sq;
+    if (sq > sqMax) sqMax = sq;
+  }
+  console.log('7c H = 2cos^2-8cos+11 vs 2(cos-2)^2+3 over [0,4pi] 8001 pts: mismatches=' + hMism + ' | H min = ' + hMin.toFixed(9) + ' (5, at cos=1) | (cos-2)^2 range [' + sqMin.toFixed(6) + ', ' + sqMax.toFixed(6) + '] not [0,9]');
+  let splitMism = 0, splitMin = Infinity, splitAt = 0, consMism = 0;
+  for (let x = -20; x <= 20; x += 0.001) {
+    const orig = 2 * x * x - 8 * x + 15;
+    const split = (x * x - 2 * x + 5) + (x * x - 6 * x + 10);
+    if (Math.abs(orig - split) > 1e-9) splitMism++;
+    if (split < splitMin) { splitMin = split; splitAt = x; }
+    if (Math.abs(orig - (2 * (x - 2) * (x - 2) + 7)) > 1e-9) consMism++;
+  }
+  console.log('7d split (x-1)^2+4 + (x-3)^2+1: identity mismatches=' + splitMism + ' | split min = ' + splitMin.toFixed(6) + ' at x=' + splitAt.toFixed(3) + ' (per-piece bound 5 never attained) | consolidation 2(x-2)^2+7 mismatches=' + consMism);
+  const vals = [0, 1, 2, 3].map((k: number) => 2 * Math.cos(2 * k * Math.PI) * Math.cos(2 * k * Math.PI) - 8 * Math.cos(2 * k * Math.PI) + 11);
+  console.log('7e H at theta = 0, 2pi, 4pi, 6pi: ' + vals.map((v: number) => v.toFixed(9)).join(' ') + ' (all 5)');
+}
+
+/* ---- S79 extension piece 8a-e: Exercises 7-8 numbers (doubled form, quartic) ---- */
+function extExercisesA(): void {
+  let mism = 0;
+  for (let x = -30; x <= 30; x++) {
+    if (12 * (3 * x * x - 7 * x + 6) !== (6 * x - 7) * (6 * x - 7) + 23) mism++;
+  }
+  const num36 = 3 * 49 - 42 * 7 + 216;
+  console.log('8a 12Q = (6x-7)^2+23 mismatches over [-30,30]: ' + mism + ' | exact at vertex: 36*Q(7/6) = ' + num36 + ' = 69, so Q(7/6) = 69/36 = 23/12 and 12Q = ' + (num36 / 3));
+  let rMax = -Infinity, at = 0;
+  for (let i = 0; i <= 24000; i++) {
+    const x = -10 + i / 1200;
+    const Q = 3 * x * x - 7 * x + 6;
+    const R = 57 / Q;
+    if (R > rMax) { rMax = R; at = x; }
+  }
+  console.log('8b R = 57/Q over [-10,10] step 1/1200 (24001 pts, hits 7/6): max = ' + rMax.toFixed(9) + ' at x=' + at.toFixed(6) + ' | 684/23 = ' + (684 / 23).toFixed(9) + ' | diff = ' + Math.abs(rMax - 684 / 23).toExponential(2));
+  let qMism = 0, minSmall = Infinity, smallAt = 0;
+  for (let n = 1; n <= 300; n++) {
+    const N = n * n * n * n + 3 * n * n + 4;
+    const f1 = n * n - n + 2, f2 = n * n + n + 2;
+    if (N !== f1 * f2) qMism++;
+    if (f1 < minSmall) { minSmall = f1; smallAt = n; }
+  }
+  console.log('8c N(n) = (n^2-n+2)(n^2+n+2) mismatches n=1..300: ' + qMism + ' | smaller-factor min = ' + minSmall + ' at n=' + smallAt + ' (>= 2 everywhere: the compositeness certificate)');
+  console.log('8d N(1)=' + (1 + 3 + 4) + ' N(2)=' + (16 + 12 + 4) + ' N(3)=' + (81 + 27 + 4) + ' | u-route stall: u^2+3u+4 = (u+3/2)^2 + 7/4, a sum: nothing factors');
+  let gMism = 0;
+  for (let n = 1; n <= 300; n++) {
+    if (n * n * n * n + 4 !== (n * n - 2 * n + 2) * (n * n + 2 * n + 2)) gMism++;
+  }
+  let prime5 = true;
+  for (let d = 2; d <= 4; d++) { if (5 % d === 0) prime5 = false; }
+  console.log('8e n^4+4 = (n^2-2n+2)(n^2+2n+2) mismatches n=1..300: ' + gMism + ' | at n=1 smaller factor = ' + (1 - 2 + 2) + ' (certificate fails) | 1+4 = 5 prime: ' + prime5);
+}
+
+/* ---- S79 extension piece 8f-l: cubics boundary + Apollonius.
+   Run 1 defects (recorded in output): 8i sign flip caught by the machine;
+   8l tolerance mis-stated for a grid. Both corrected here (run 2). ---- */
+function extExercisesB(): void {
+  const P1 = (x: number) => x * x * x + 6 * x * x + 12 * x + 3;
+  let cMism = 0;
+  for (let x = -20; x <= 20; x += 0.25) {
+    if (Math.abs(P1(x) - (Math.pow(x + 2, 3) - 5)) > 1e-9) cMism++;
+  }
+  const root = Math.cbrt(5) - 2;
+  console.log('8f x^3+6x^2+12x+3 = (x+2)^3-5 mismatches over [-20,20] step 0.25: ' + cMism + ' | root cbrt(5)-2 = ' + root.toFixed(12) + ' | |P(root)| = ' + Math.abs(P1(root)).toExponential(2) + ' (< 1e-9: ' + (Math.abs(P1(root)) < 1e-9) + ')');
+  const cases = [[6, 12, 3], [6, 9, 3], [3, 1, 1], [-9, 4, 7], [12, -5, 2]] as number[][];
+  let sMism = 0;
+  const ps: string[] = [];
+  for (const t of cases) {
+    const b = t[0], c = t[1], d = t[2];
+    const p = c - (b * b) / 3, q = d - (b * c) / 3 + (2 * b * b * b) / 27;
+    ps.push('b=' + b + ',c=' + c + ': p=' + p + ' q=' + q);
+    for (let u = -15; u <= 15; u += 0.5) {
+      const x = u - b / 3;
+      const orig = x * x * x + b * x * x + c * x + d;
+      if (Math.abs(orig - (u * u * u + p * u + q)) > 1e-8) sMism++;
+    }
+  }
+  console.log('8g shift u = x + b/3 kills the u^2 term (5 cases, u grid [-15,15] step 0.5): mismatches=' + sMism + ' | ' + ps.join(' | '));
+  console.log('8h collapse boundary: p = c - b^2/3 vanishes exactly when c = b^2/3 — case b=6,c=12: p=0 (pure cube (x+2)^3-5); case b=6,c=9: p=-3 (depressed u^3-3u+1, no collapse)');
+  let aMism = 0, zAgree = 0;
+  for (let x = -10; x <= 10; x++) for (let y = -10; y <= 10; y++) {
+    const pa2 = (x - 1) * (x - 1) + (y - 2) * (y - 2);
+    const pb2 = (x - 4) * (x - 4) + (y + 1) * (y + 1);
+    if (pa2 - 4 * pb2 !== -(3 * x * x + 3 * y * y - 30 * x + 12 * y + 63)) aMism++;
+    if ((pa2 === 4 * pb2) === (3 * x * x + 3 * y * y - 30 * x + 12 * y + 63 === 0)) zAgree++;
+  }
+  console.log('8i run 2 PA^2 - 4PB^2 = -(3x^2+3y^2-30x+12y+63) mismatches over [-10,10]^2: ' + aMism + ' (run 1 had the sign flipped: 437) | zero-sets agree: ' + zAgree + '/441 | /3: x^2+y^2-10x+4y+21 = 0');
+  let cMism2 = 0;
+  for (let x = -10; x <= 10; x++) for (let y = -10; y <= 10; y++) {
+    if ((x * x + y * y - 10 * x + 4 * y + 21) !== ((x - 5) * (x - 5) + (y + 2) * (y + 2) - 8)) cMism2++;
+  }
+  console.log('8j (x-5)^2+(y+2)^2 = 8 round-trip mismatches: ' + cMism2 + ' | D1(3,0) on circle: ' + ((3 - 5) * (3 - 5) + 4) + ' | D2(7,-4) on circle: ' + (4 + 4) + ' | midpoint (' + ((3 + 7) / 2) + ',' + ((0 - 4) / 2) + ') = C | D2-D1 squared = ' + (16 + 16) + ' = (2R)^2 = ' + 4 * 8);
+  console.log('8k ratio at D1: PA^2/PB^2 = ' + (8 / 2) + ' | at D2: ' + (72 / 18) + ' | collinear x+y: A=' + (1 + 2) + ' B=' + (4 - 1) + ' C=' + (5 - 2) + ' D1=' + (3 + 0) + ' D2=' + (7 - 4));
+  const cx = 5, cy = -2, R = 2 * Math.SQRT2, OC = Math.sqrt(29);
+  const sc = R / OC;
+  const nx = cx - sc * cx, ny = cy - sc * cy;
+  const fx = cx + sc * cx, fy = cy + sc * cy;
+  const onNear = Math.abs((nx - cx) * (nx - cx) + (ny - cy) * (ny - cy) - 8) < 1e-12;
+  const onFar = Math.abs((fx - cx) * (fx - cx) + (fy - cy) * (fy - cy) - 8) < 1e-12;
+  let allAbove = true, allBelow = true;
+  for (let i = 0; i <= 2400; i++) {
+    const th = (i * 2 * Math.PI) / 2400;
+    const px = cx + R * Math.cos(th), py = cy + R * Math.sin(th);
+    const d = Math.sqrt(px * px + py * py);
+    if (d < OC - R - 1e-9) allAbove = false;
+    if (d > OC + R + 1e-9) allBelow = false;
+  }
+  console.log('8l run 2 exact extremal points: near = (' + nx.toFixed(6) + ',' + ny.toFixed(6) + ') on circle: ' + onNear + ' | OP there = ' + Math.sqrt(nx * nx + ny * ny).toFixed(9) + ' = sqrt29-2sqrt2 = ' + (OC - R).toFixed(9) + ' | far = (' + fx.toFixed(6) + ',' + fy.toFixed(6) + ') on circle: ' + onFar + ' | OP there = ' + (OC + R).toFixed(9) + ' | all 2401 samples within [sqrt29-2sqrt2, sqrt29+2sqrt2]: ' + (allAbove && allBelow) + ' (run 1 wrongly demanded grid extremes within 1e-9; a grid only approaches)');
+}
+
+/* ---- run (S79: extension pieces join the original five) ---- */
 export function runAll(): void {
   probe();
   alkhwarizmiAndIdentity();
@@ -325,6 +503,10 @@ export function runAll(): void {
   circleExemplar();
   diophantineAndBabylonian();
   integralAndExercises();
+  extExample4();
+  extFailureBullets();
+  extExercisesA();
+  extExercisesB();
   verifyA();
   verifyB();
 }
