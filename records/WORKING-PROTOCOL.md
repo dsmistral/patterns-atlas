@@ -12,7 +12,8 @@ same session it is found.
 
 | File | Role |
 |---|---|
-| `records/BOOK-PROJECT.md` | Project record: charter, Master Pattern Index (P01–P65), chapter map, session log, standing to-do |
+| `records/BOOK-PROJECT.md` | Project record: charter, Master Pattern Index (P01–P78), chapter map, standing to-do, the ACTIVE session row (closed rows archived to `records/session-log/`, owner directive 2026-11-02) |
+| `records/session-log/` | Session-log archive: frozen batches `s01-s25.md` … `s76-s95.md` (rows S01–S95, moved verbatim 2026-11-02) and one file per session from S96 on, written at that session's close |
 | `records/BOOK-CONVENTIONS.md` | Page types, the 9-block pattern-page template, multi-pattern page template, verification rules, style gate, governance |
 | `records/WORKING-PROTOCOL.md` | This file: the operating rules |
 | `records/DISCOVERY-ENGINE-ANALYSIS.md` | Evidence base: machine-measured analysis of the source knowledge graph (why these 65 patterns) |
@@ -32,7 +33,8 @@ same session it is found.
   `session-state/ACTIVE-SESSION.md` naming the unit and its gates.
 - Session close: pass all gates, sync every record edit to this repo in the same
   session, delete the session-state file, mark the row **closed** with an honest
-  verdict. A session interrupted mid-work leaves the session-state file in place
+  verdict, then move the closed row to `records/session-log/` (one file per session from
+  S96 on; owner directive 2026-11-02) so this protocol's master record stays small. A session interrupted mid-work leaves the session-state file in place
   as the crash-resume map; the next session resumes from it, then continues.
 
 ## Gates (all must pass before a unit closes)
@@ -72,6 +74,11 @@ same session it is found.
   (an S20 environment reset destroyed a completed, machine-verified P06
   authoring before any push). Staging is a durability measure, not a publication:
   final placement, all gates and receipts are unchanged.
+- **Gate 3 — returned path check (S96 lesson, 2026-11-02).** The push response must name
+  the intended path exactly; a mistyped path silently CREATES a new file and forks the
+  master (the S94–S95 session-log surgery landed at a root-level `BOOK-PROJECT.md`
+  duplicate for three sessions before the S96 split caught it). An "added" status on a
+  file that should be "modified" is the tell.
 - **Clean and reuse (owner directive, S20 close, binding).** Do not create new
   folders or files for work sessions — no per-session scratch directories, no
   new bookkeeping files. The two stages above are the only working areas,
