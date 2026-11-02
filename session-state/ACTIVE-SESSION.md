@@ -1,0 +1,8 @@
+# ACTIVE SESSION — S96 (2026-11-02)
+
+**Goal:** author + publish P65 (`book/p65-floer-homology.html`) — Floer homology from holomorphic strips: count the strips between Lagrangians; the count is an invariant (tier 5, the research frontier; prereqs P43 + P33 both published; the S95 standing to-do; pays P55's footer next-link and its far door — the existence theorems of P55 hand P65 its first honest job: minima, not just infima, with honest compactness; after P65: P54 on P21 + P33, and P37/P57/P58 all on P26 also open).
+
+**Done so far (receipts):**
+- BOOK-PROJECT.md S96 IN-PROGRESS row pushed (commit pending at this write; splice = one new row after the S95 CLOSED row, nothing else touched).
+
+**Plan (S93/S94/S95 protocol):** the lineage web-verification pass first (Floer 1988 CPAM; Witten 1982; Gromov 1985; the Arnold conjecture; Floer's vertex-counting origin story; Salamon's notes), then the page design against the orientation-page template (8 sections, 3 encounters, 3 pattern boxes, 2 asides, 3 pid lines, 3 machine-verified SVG figures, 10 details, moons ●○○ ●●○ ●●● ◆ ◐), then the engine-first authoring: lab pieces (Morse complex on the circle by exact two-line sign cancellation; the torus census — critical points, Hessian indices, the Morse polynomial against the Betti polynomial (1+t)²; the generic-perturbation shooting runs with the separable-function degeneracy disclosed; the Arnold-conjecture machine — RK4 Hamiltonian flow on T², fixed-point root-finding, nondegeneracy Jacobians, the count ≥ Σbetti check; the broken-trajectory compactness exhibit), then the page parts, the census, the fresh adversarial verifier with a poison battery, style audit, publishes, index flip, page log, close surgery.
