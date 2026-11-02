@@ -8,8 +8,9 @@ project from this file alone — no outside session state is required or assumed
 
 ## Read in this order before doing anything
 
-1. `records/BOOK-PROJECT.md` — charter, Master Pattern Index (P01–P65), chapter
-   map, session log, and the standing to-do.
+1. `records/BOOK-PROJECT.md` — charter, Master Pattern Index (P01–P78), chapter
+   map, the standing to-do and the active session row; closed session rows are
+   archived in `records/session-log/` (owner directive 2026-11-02).
 2. `records/BOOK-CONVENTIONS.md` — audience floor, page types, the 9-block
    pattern-page template, the multi-pattern page template, verification rules,
    style gate, governance.
@@ -28,7 +29,8 @@ project from this file alone — no outside session state is required or assumed
   are the canonical page-slug map** — never invent a slug the index does not list.
 - P-index: append-only. P-IDs and slugs immutable once assigned; patterns may be
   appended (P66+) or demoted, never rewritten.
-- 65 patterns, tiers 1–5; tier-5 pages are orientation pages (rule in conventions).
+- 78 patterns (P01–P78), tiers 1–5; tier-5 pages are orientation pages (rule in
+  conventions).
 - Class-12 math (CBSE/ISC, India) is the **entry level, not the ceiling**: every
   beyond-syllabus idea needs an honest on-ramp ladder built from pages in this
   book; nothing is deferred by difficulty, only ordered by it.
@@ -41,11 +43,10 @@ gates (machine-verification battery, style audit, adversarial review, canon
 cross-check), a two-gated push with fetch-back verification, session-state deleted
 at close.
 
-**Current standing to-do (next unit, S02):** canon audit — cross-check the P-index
-against Polya (*How to Solve It*), Engel (*Problem-Solving Strategies*), Zeitz
-(*The Art and Craft of Problem Solving*); append canon additions as P66+ with tier
-placement in the chapter map — then author P01, `book/p01-pin-down-the-problem.html`,
-following the 9-block template in the conventions. P-IDs lock at S02 start.
+**Current standing to-do:** always read the Standing to-do section of
+`records/BOOK-PROJECT.md` — the authoritative, always-current source naming the next
+unit and its prerequisites (older pointers in this file are historical; the S02
+canon audit and the spine pages were completed long ago).
 
 ## Hard rules
 
