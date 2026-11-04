@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P51 · The Koszul dual swap · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P51 · the sixth move of tier 5</p>
+  <h1>The Koszul dual swap</h1>
+  <p class="tagline">When an infinite-dimensional quadratic algebra makes resolutions explode, flip its degree-2 relations to their orthogonal complement in the dual space — trading commuting variables for anticommuting ones and infinite towers for finite complexes.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Quadratic algebras \(T(V)/(R)\), the orthogonal annihilator \(R^\perp\), and Hilbert series \(h_A(t)\).</strong>
+  Given a \(d\)-dimensional vector space of generators \(V = \operatorname{Span}\{x_1, \dots, x_d\}\), the <em>tensor algebra</em> \(T(V) = \bigoplus_{k \ge 0} V^{\otimes k}\) is the algebra of all non-commuting words in \(x_1, \dots, x_d\). A <em>quadratic algebra</em> \(A = T(V)/(R)\) imposes degree-\(2\) relations spanned by a subspace \(R \subset V \otimes V\). In the dual tensor square \(V^* \otimes V^*\) (with dual basis \(\xi_1, \dots, \xi_d\)), the <em>orthogonal annihilator</em> \(R^\perp = \{\phi \in V^* \otimes V^* : \phi(r) = 0 \text{ for all } r \in R\}\) defines the <em>quadratic dual algebra</em> \(A^! = T(V^*)/(R^\perp)\). The <em>Hilbert series</em> \(h_A(t) = \sum_{k=0}^\infty (\dim A_k)\,t^k\) records the dimension of each graded piece \(A_k\).
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p17-duality.html"><span class="pid">P17</span></a> taught us how flipping a space \(V\) to its linear dual \(V^*\) reverses arrows and turns subspaces into annihilators. <a href="p36-character-counting.html"><span class="pid">P36</span></a> and <a href="p50-double-centralizer.html"><span class="pid">P50</span></a> decomposed the two-slot tensor square \(V \otimes V = \operatorname{Sym}^2(V) \oplus \bigwedge^2(V)\) into symmetric and skew-symmetric pieces under the swap \(\tau = (12) \in S_2\), and <a href="p33-sheaf-cohomology-bridge.html"><span class="pid">P33</span></a> showed us how cochain complexes \(d \circ d = 0\) measure global obstructions.</p>
+  <p>Here is the tension that arises when we combine graded algebras with cohomology. Suppose we want to resolve a module or compute cohomology (relations among relations, called <em>syzygies</em>) over the ordinary polynomial ring \(A = \mathbb{C}[x_1, x_2, x_3]\) in three commuting variables. Because \(A\) is infinite-dimensional (\(\dim A_k = \binom{k+2}{2} = 1, 3, 6, 10, 15, \dots\)), the standard universal bar complex \(A \otimes A_+^{\otimes m}\) has infinitely many generators in every degree and never terminates! Yet in 1890 David Hilbert discovered that the minimal free resolution of \(\mathbb{C}\) over \(\mathbb{C}[x_1, x_2, x_3]\) stops dead after <strong>three steps</strong>, with ranks \(1, 3, 3, 1\). Why do three commuting variables with infinitely many monomials produce a finite \(3\)-step resolution with binomial ranks \(\binom{3}{m}\)? Because sitting in the orthogonal shadow of the commuting polynomial ring \(A = \operatorname{Sym}(V)\) is the finite-dimensional <em>exterior algebra</em> \(A^! = \bigwedge(V^*)\), and each algebra builds the minimal resolution of the other!</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: how the finite sequence \(1, 3, 3, 1\) annihilates the infinite sequence \(1, 3, 6, 10, 15, \dots\)</h2>
+  <p>Take a \(3\)-dimensional space \(V = \operatorname{Span}\{x_1, x_2, x_3\}\) and its dual \(V^* = \operatorname{Span}\{\xi_1, \xi_2, \xi_3\}\). Look at the \(9\)-dimensional space of two-letter words \(V \otimes V\), which splits under the swap \(\tau(x_i \otimes x_j) = x_j \otimes x_i\) (<a href="p50-double-centralizer.html"><span class="pid">P50</span></a>, Exercise 1) into a \(3\)-dimensional skew-symmetric subspace and a \(6\)-dimensional symmetric subspace:</p>
+  <ul>
+    <li><strong>The Polynomial Algebra \(A = \operatorname{Sym}(V) = \mathbb{C}[x_1, x_2, x_3]\):</strong> To make variables commute (\(x_i x_j = x_j x_i\)), we quotient \(T(V)\) by the \(3\)-dimensional skew-symmetric subspace \(R = \bigwedge^2(V) = \operatorname{Span}\{x_i \otimes x_j - x_j \otimes x_i : 1 \le i &lt; j \le 3\}\). Its graded pieces \(A_k = \operatorname{Sym}^k(V)\) have dimensions \(\dim A_k = \binom{k+2}{2} = 1, 3, 6, 10, 15, 21, \dots\) with Hilbert series
+      <p class="eq">\[h_A(t) = \sum_{k=0}^{\infty} \binom{k+2}{2} t^k = \frac{1}{(1 - t)^3}.\]</p>
+    </li>
+    <li><strong>The Exterior Algebra \(A^! = \bigwedge(V^*) = \bigwedge(\xi_1, \xi_2, \xi_3)\):</strong> What is the orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\) of all functionals vanishing on \(x_i \otimes x_j - x_j \otimes x_i\)? It is the \(6\)-dimensional symmetric subspace \(R^\perp = \operatorname{Sym}^2(V^*) = \operatorname{Span}\{\xi_i \otimes \xi_i,\; \xi_i \otimes \xi_j + \xi_j \otimes \xi_i\}\)! Quotienting \(T(V^*)\) by \(R^\perp\) forces \(\xi_i^2 = 0\) and \(\xi_i \xi_j = -\xi_j \xi_i\). Its graded pieces \(A^!_m = \bigwedge^m(V^*)\) have dimensions \(\dim A^!_m = \binom{3}{m} = 1, 3, 3, 1, 0, 0, \dots\) with Hilbert polynomial
+      <p class="eq">\[h_{A^!}(t) = 1 + 3t + 3t^2 + t^3 = (1 + t)^3.\]</p>
+    </li>
+  </ul>
+  <p>Now watch what happens when we multiply \(h_A(t)\) by \(h_{A^!}(-t)\): \((1 - t)^{-3} \cdot (1 - t)^3 = 1\)! Expanding the coefficient of \(t^N\) in \(h_{A^!}(-t)\,h_A(t) = 1\) shows that for <em>every</em> total weight \(N = m + k \ge 1\), the alternating sum of dimensions of the tensor boxes \(K_{m,k} = \bigwedge^m V \otimes \operatorname{Sym}^k V\) is identically zero:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Total Weight \(N = m + k\)</th>
+        <th>\(m = 0\)<br>\(\dim \bigwedge^0 \cdot \dim A_N\)</th>
+        <th>\(m = 1\)<br>\(-\dim \bigwedge^1 \cdot \dim A_{N-1}\)</th>
+        <th>\(m = 2\)<br>\(+\dim \bigwedge^2 \cdot \dim A_{N-2}\)</th>
+        <th>\(m = 3\)<br>\(-\dim \bigwedge^3 \cdot \dim A_{N-3}\)</th>
+        <th>Alternating Euler Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(N = 0\)</td>
+        <td>\(+1 \times 1 = +1\)</td>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td>\(\mathbf{+1}\) (ground field \(\mathbb{C}\))</td>
+      </tr>
+      <tr>
+        <td>\(N = 1\)</td>
+        <td>\(+1 \times 3 = +3\)</td>
+        <td>\(-3 \times 1 = -3\)</td>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td>\(3 - 3 = \mathbf{0}\)</td>
+      </tr>
+      <tr>
+        <td>\(N = 2\)</td>
+        <td>\(+1 \times 6 = +6\)</td>
+        <td>\(-3 \times 3 = -9\)</td>
+        <td>\(+3 \times 1 = +3\)</td>
+        <td>\(0\)</td>
+        <td>\(6 - 9 + 3 = \mathbf{0}\)</td>
+      </tr>
+      <tr>
+        <td>\(N = 3\)</td>
+        <td>\(+1 \times 10 = +10\)</td>
+        <td>\(-3 \times 6 = -18\)</td>
+        <td>\(+3 \times 3 = +9\)</td>
+        <td>\(-1 \times 1 = -1\)</td>
+        <td>\(10 - 18 + 9 - 1 = \mathbf{0}\)</td>
+      </tr>
+      <tr>
+        <td>\(N = 4\)</td>
+        <td>\(+1 \times 15 = +15\)</td>
+        <td>\(-3 \times 10 = -30\)</td>
+        <td>\(+3 \times 6 = +18\)</td>
+        <td>\(-1 \times 3 = -3\)</td>
+        <td>\(15 - 30 + 18 - 3 = \mathbf{0}\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>That exact cancellation at every weight \(N \ge 1\) is not an accident of binomial coefficients — it is the shadow of a canonical boundary operator \(d : \bigwedge^m V \otimes A_k \to \bigwedge^{m-1} V \otimes A_{k+1}\) that strips one exterior wedge \(e_i\) from the left factor and multiplies it as a commuting variable \(x_i\) onto the right factor:</p>
+  <p class="eq">\[d\bigl(e_{i_1} \wedge \cdots \wedge e_{i_m} \otimes f\bigr) = \sum_{j=1}^m (-1)^{j-1} e_{i_1} \wedge \cdots \wedge \widehat{e_{i_j}} \wedge \cdots \wedge e_{i_m} \otimes (x_{i_j} f).\]</p>
+  <p>Why does \(d \circ d = 0\)? Because stripping \(e_a\) then \(e_b\) vs. stripping \(e_b\) then \(e_a\) picks up opposite signs from the exterior wedge on the left while producing the <em>same</em> commuting product \(x_a x_b = x_b x_a\) on the right! The anticommutativity of \(A^!\) cancels the commutativity of \(A\) term by term.</p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 205" role="img" aria-label="Fig P51.1: Top: orthogonal decomposition of V (x) V into R (dim r) and R^perp (dim d^2 - r). Bottom: the 4-term Koszul complex for d=3 where stripping an exterior wedge from A^!^* and multiplying onto A satisfies d^2 = 0.">
+      <defs>
+        <marker id="arr-p51" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+
+      <!-- Top half: Orthogonal Split of V (x) V (dim d^2 = 9) vs V^* (x) V^* -->
+      <text x="300" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Orthogonal Swap of Quadratic Relations in  V ⊗ V  (dim d² = 9)</text>
+      <rect x="65" y="30" width="160" height="44" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.8"/>
+      <rect x="225" y="30" width="310" height="44" fill="#f7e6d4" stroke="#8a4b08" stroke-width="1.8"/>
+      <text x="145" y="49" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">R = ⋀²V  (dim = 3)</text>
+      <text x="145" y="64" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">Relations of A:  xᵢ xⱼ − xⱼ xᵢ = 0</text>
+      <text x="380" y="49" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">R^⊥ = Sym²(V*)  (dim = 9 − 3 = 6)</text>
+      <text x="380" y="64" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">Relations of A^!:  ξᵢ² = 0,  ξᵢ ξⱼ + ξⱼ ξᵢ = 0</text>
+
+      <!-- Bottom half: The 4-step Koszul Resolution at d=3 -->
+      <text x="300" y="102" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · The Finite Koszul Resolution  (A^!)^* ⊗ A ⟶ ℂ   (Ranks  1 → 3 → 3 → 1)</text>
+
+      <rect x="25" y="116" width="96" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
+      <text x="73" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀³V ⊗ A</text>
+      <text x="73" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 1</text>
+
+      <rect x="155" y="116" width="96" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
+      <text x="203" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀²V ⊗ A</text>
+      <text x="203" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 3</text>
+
+      <rect x="285" y="116" width="96" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
+      <text x="333" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀¹V ⊗ A</text>
+      <text x="333" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 3</text>
+
+      <rect x="415" y="116" width="82" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
+      <text x="456" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀⁰V ⊗ A</text>
+      <text x="456" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 1</text>
+
+      <rect x="528" y="116" width="48" height="50" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="3"/>
+      <text x="552" y="145" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ℂ</text>
+
+      <!-- Arrows -->
+      <line x1="121" y1="141" x2="153" y2="141" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51)"/>
+      <text x="137" y="133" font-family="Georgia, serif" font-size="10.5" font-style="italic" fill="#0f5c57" text-anchor="middle">d₃</text>
+      <line x1="251" y1="141" x2="283" y2="141" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51)"/>
+      <text x="267" y="133" font-family="Georgia, serif" font-size="10.5" font-style="italic" fill="#0f5c57" text-anchor="middle">d₂</text>
+      <line x1="381" y1="141" x2="413" y2="141" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51)"/>
+      <text x="397" y="133" font-family="Georgia, serif" font-size="10.5" font-style="italic" fill="#0f5c57" text-anchor="middle">d₁</text>
+      <line x1="497" y1="141" x2="526" y2="141" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr-p51)"/>
+      <text x="511" y="133" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ε</text>
+
+      <text x="300" y="188" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">d² = 0  because  R^⊥ (in A^!)  is orthogonal to  R (in A)  under the Casimir contraction ∑ xᵢ ⊗ ξᵢ</text>
+    </svg>
+    <figcaption><strong>Fig P51.1.</strong> <strong>(A)</strong> Inside the \(9\)-dimensional space of degree-2 words, the \(3\) relations \(R = \bigwedge^2 V\) of the polynomial ring \(A\) and the \(6\) relations \(R^\perp = \operatorname{Sym}^2 V^*\) of the exterior algebra \(A^!\) are orthogonal complements. <strong>(B)</strong> Tensoring \((A^!)^*\) with \(A\) builds the 4-term Koszul resolution of \(\mathbb{C}\).</figcaption>
+  </figure>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>Stewart Priddy (1970) discovered that the symmetry between \(\operatorname{Sym}(V)\) and \(\bigwedge(V^*)\) holds for a huge class of quadratic algebras \(A = T(V)/(R)\) — and Victor Ginzburg and Mikhail Kapranov (1994) showed that the exact same quadratic dual swap works for <em>operads</em> (<a href="p63-operad-algebra.html"><span class="pid">P63</span></a>, types of algebras defined by binary operations and three-variable quadratic identities).</p>
+
+  <div class="pattern-box" id="box-p51">
+    <p><strong>Pattern P51 — The Koszul dual swap.</strong> Given a quadratic algebra \(A = T(V)/(R)\) generated by a finite-dimensional space \(V\) with relations \(R \subset V \otimes V\), define its <strong>quadratic dual algebra</strong> by passing to the orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\):</p>
+    <p class="eq">\[A^! = \frac{T(V^*)}{(R^\perp)}, \qquad \dim R + \dim R^\perp = (\dim V)^2.\]</p>
+    <p>Equip the tensor product \(K_\bullet(A) = (A^!)^* \otimes A\) with the differential \(d\) given by contracting with the identity Casimir element \(\sum_{i=1}^d x_i \otimes \xi_i \in V \otimes V^*\). Because \(R^\perp\) annihilates \(R\), \(d \circ d = 0\) holds automatically. When \(K_\bullet(A) \to \mathbb{C}\) is exact (\(A\) is <em>Koszul</em>), the cohomology algebra \(\operatorname{Ext}_A^\bullet(\mathbb{C}, \mathbb{C})\) is canonically isomorphic to \(A^!\), and their Hilbert series satisfy the reciprocity identity:</p>
+    <p class="eq">\[h_A(t)\,h_{A^!}(-t) = 1.\]</p>
+    <p class="words"><strong>Or, in words:</strong> When a quadratic algebra has too many words to resolve directly, build its twin algebra in the dual generators using the orthogonal complement of its relations; the dual algebra is the cohomology ring of the original, and tensoring the two together produces a minimal resolution whose alternating dimension sum cancels to \(1\).</p>
+  </div>
+
+  <div class="pattern-box" id="box-p51a">
+    <p><strong>Box P51.A — The three obligations of a Koszul dual swap.</strong></p>
+    <ol>
+      <li><strong>Homogeneous Quadratic Presentation:</strong> Present the algebra \(A = T(V)/(R)\) (or quadratic operad \(\mathcal{P} = \mathcal{F}(E)/(R)\)) with generators in weight \(1\) and relations \(R\) purely in weight \(2\) (\(R \subset V \otimes V\)). If inhomogeneous terms \(v_1 v_2 - v_3\) appear (as in a Lie enveloping algebra \(U(\mathfrak{g})\)), filter by degree first and pass to the associated graded quadratic algebra.</li>
+      <li><strong>Orthogonal Annihilator Check (\(\dim R + \dim R^\perp = d^2\)):</strong> Compute \(R^\perp \subset V^* \otimes V^*\) under the canonical pairing \(\langle \xi_i \otimes \xi_j,\, x_a \otimes x_b \rangle = \delta_{ia}\delta_{jb}\) (twisted by the sign representation for operads), and verify that \(\sum_{i,j} (x_i x_j) \otimes (\xi_i \xi_j) = 0 \in A_2 \otimes A^!_2\), which guarantees \(d^2 = 0\).</li>
+      <li><strong>Koszul Exactness &amp; Reciprocity Test:</strong> Check the necessary numerical gate \(h_A(t)\,h_{A^!}(-t) = 1\) (or \(f_{\mathcal{P}}(-f_{\mathcal{P}^!}(-t)) = t\) for operads) — ensuring all coefficients of \(h_A(t) = 1/h_{A^!}(-t)\) are non-negative integers matching \(\dim A_k\) — and verify acyclicity of \(K_\bullet(A)\) (for instance via a quadratic Gröbner / Poincaré–Birkhoff–Witt basis).</li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p51b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>Minimal free resolutions, \(\operatorname{Ext}\) / deformation cohomology algebras (<span class="pid">P53</span>), or inversion of generating series \(h_A(t)\).</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>A graded algebra or operad defined by quadratic relations \(R \subset V \otimes V\) where the naive bar resolution is intractably infinite.</td>
+        </tr>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>Linear duality \(R \leftrightarrow R^\perp\) (<span class="pid">P17</span>), Casimir differential \(d = \sum L_{x_i} \otimes R_{\xi_i}^*\), and generating function inversion (<span class="pid">P73</span>).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P51</span> whenever you need a small resolution, cohomology ring, or dimension series for an algebra or operad governed by degree-2 relations.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P51.2: The bigraded staircase of the Koszul complex K_{m,k} = (A^!)_m^* (x) A_k where the differential d steps right by +1 in k and down by -1 in m along constant total weight diagonals m+k = N.">
+      <defs>
+        <marker id="arr-p51-diag" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+      <text x="300" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Weight-Preserving Diagonal Strands  N = m + k  in the Koszul Complex  (d = 3)</text>
+
+      <!-- Grid headers: k = 0, 1, 2, 3 horizontally; m = 3, 2, 1, 0 vertically -->
+      <text x="165" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 0 (dim 1)</text>
+      <text x="275" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 1 (dim 3)</text>
+      <text x="385" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 2 (dim 6)</text>
+      <text x="495" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 3 (dim 10)</text>
+
+      <text x="95" y="68" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 3 (dim 1)</text>
+      <text x="95" y="98" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 2 (dim 3)</text>
+      <text x="95" y="128" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 1 (dim 3)</text>
+      <text x="95" y="158" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 0 (dim 1)</text>
+
+      <!-- Highlight the N = 3 diagonal strand: (m=3,k=0)[1] -> (m=2,k=1)[9] -> (m=1,k=2)[18] -> (m=0,k=3)[10] -->
+      <rect x="135" y="53" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
+      <text x="165" y="68" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">1 × 1 = 1</text>
+
+      <rect x="245" y="83" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
+      <text x="275" y="98" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">3 × 3 = 9</text>
+
+      <rect x="355" y="113" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
+      <text x="385" y="128" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">3 × 6 = 18</text>
+
+      <rect x="465" y="143" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
+      <text x="495" y="158" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">1 × 10 = 10</text>
+
+      <!-- Other cells in faint outline -->
+      <rect x="135" y="83" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
+      <text x="165" y="98" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">3 × 1 = 3</text>
+      <rect x="245" y="113" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
+      <text x="275" y="128" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">3 × 3 = 9</text>
+      <rect x="355" y="143" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
+      <text x="385" y="158" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">1 × 6 = 6</text>
+
+      <rect x="135" y="113" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
+      <text x="165" y="128" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">3 × 1 = 3</text>
+      <rect x="245" y="143" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
+      <text x="275" y="158" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">1 × 3 = 3</text>
+
+      <rect x="135" y="143" width="60" height="22" fill="#fdf6f0" stroke="#8a4b08"/>
+      <text x="165" y="158" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">1 × 1 = 1</text>
+
+      <!-- Diagonal arrows for N=3 strand -->
+      <line x1="196" y1="71" x2="243" y2="87" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51-diag)"/>
+      <line x1="306" y1="101" x2="353" y2="117" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51-diag)"/>
+      <line x1="416" y1="131" x2="463" y2="147" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51-diag)"/>
+
+      <text x="330" y="180" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">Highlighted strand N = 3:   0 → ℂ¹ → ℂ⁹ → ℂ¹⁸ → ℂ¹⁰ → 0   (1 − 9 + 18 − 10 = 0)</text>
+    </svg>
+    <figcaption><strong>Fig P51.2.</strong> Because the Koszul differential \(d\) removes one exterior generator (\(m \mapsto m - 1\)) and multiplies by one polynomial generator (\(k \mapsto k + 1\)), the infinite Koszul complex splits into finite, independent diagonal strands of constant total weight \(N = m + k\), each exact for \(N \ge 1\).</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · The non-commutative quantum plane \(A_q\) and its quantum exterior dual \(A_q^!\)</h3>
+  <p>Koszul duality is not restricted to commutative polynomials. Let \(V = \operatorname{Span}\{x, y\}\) have dimension \(d = 2\) and fix a non-zero complex parameter \(q \in \mathbb{C}^*\). The <em>quantum plane</em> \(A_q = \mathbb{C}\langle x, y \rangle / (xy - q\,yx)\) replaces ordinary commutativity with \(xy = q\,yx\). Here the relation subspace \(R = \operatorname{Span}\{x \otimes y - q\,y \otimes x\} \subset V \otimes V\) has dimension \(r = 1\) inside the \(2^2 = 4\)-dimensional tensor square.</p>
+  <p>Let us compute the quadratic dual \(A_q^! = T(V^*)/(R^\perp)\) using Obligation 2 of Box P51.A. Let \(\{\xi, \eta\}\) be the dual basis of \(V^*\). A general degree-\(2\) functional \(\phi = \alpha(\xi\otimes\xi) + \beta(\xi\otimes\eta) + \gamma(\eta\otimes\xi) + \delta(\eta\otimes\eta) \in V^* \otimes V^*\) annihilates the generator \(x \otimes y - q\,y \otimes x \in R\) if and only if</p>
+  <p class="eq">\[\langle \phi,\; x \otimes y - q\,y \otimes x \rangle = \beta - q\,\gamma = 0 \quad\Longleftrightarrow\quad \beta = q\,\gamma.\]</p>
+  <p>Therefore \(R^\perp\) has dimension \(4 - 1 = 3\), spanned by the three relations</p>
+  <p class="eq">\[\xi \otimes \xi = 0, \qquad \eta \otimes \eta = 0, \qquad \eta \otimes \xi + q\,\xi \otimes \eta = 0.\]</p>
+  <p>Thus \(A_q^! = \mathbb{C}\langle \xi, \eta \rangle / (\xi^2,\, \eta^2,\, \eta\xi + q\,\xi\eta)\) is the \(4\)-dimensional <em>quantum exterior plane</em> with basis \(\{1, \xi, \eta, \xi\eta\}\) and Hilbert polynomial \(h_{A_q^!}(t) = 1 + 2t + t^2 = (1 + t)^2\). Checking the Casimir element in \(A_q \otimes A_q^!\), we have \((x\otimes\xi + y\otimes\eta)^2 = x^2\otimes\xi^2 + xy\otimes\xi\eta + yx\otimes\eta\xi + y^2\otimes\eta^2 = (q\,yx)\otimes\xi\eta + yx\otimes(-q\,\xi\eta) = 0\), so the \(3\)-step quantum Koszul complex resolves \(A_q\) cleanly and confirms \(h_{A_q}(t) = 1/h_{A_q^!}(-t) = (1-t)^{-2}\).</p>
+
+  <h3>Exemplar 2 · Inhomogeneous Lie brackets \(U(\mathfrak{g})\) and the Chevalley–Eilenberg complex</h3>
+  <p>What if an algebra's defining relations mix degree \(2\) with degree \(1\)? In a Lie algebra \(\mathfrak{g}\) of dimension \(d\), the universal enveloping algebra \(U(\mathfrak{g}) = T(\mathfrak{g}) / (xy - yx - [x,y] : x, y \in \mathfrak{g})\) has relations \(xy - yx = [x,y]\) that equate a degree-\(2\) commutator to a degree-\(1\) vector \([x,y] \in \mathfrak{g}\).</p>
+  <p>Follow Obligation 1 of Box P51.A: filter \(U(\mathfrak{g})\) by word length \(\mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2 \subset \cdots\). In the associated graded algebra \(\operatorname{gr} U(\mathfrak{g}) = \bigoplus \mathcal{F}_k / \mathcal{F}_{k-1}\), the lower-degree term \([x,y] \in \mathcal{F}_1\) drops out of the degree-\(2\) quotient \(\mathcal{F}_2/\mathcal{F}_1\), leaving the purely quadratic commutative polynomial algebra \(\operatorname{gr} U(\mathfrak{g}) \cong \operatorname{Sym}(\mathfrak{g})\) (the Poincaré–Birkhoff–Witt theorem)! Its Koszul dual is the finite-dimensional exterior algebra \(A^! = \bigwedge(\mathfrak{g}^*)\).</p>
+  <p>When we lift the Koszul resolution \(\bigwedge^\bullet \mathfrak{g} \otimes \operatorname{Sym}(\mathfrak{g})\) back to the filtered algebra \(U(\mathfrak{g})\), the linear bracket \([x,y]\) adds a second term to the Koszul differential (and dualizes on \(\bigwedge^\bullet \mathfrak{g}^*\) to the <em>Chevalley–Eilenberg differential</em> \((d_{\text{CE}}\alpha)(x,y) = -\alpha([x,y])\)), whose square \(d_{\text{CE}}^2 = 0\) is equivalent to the Jacobi identity! Instead of computing Lie algebra cohomology \(H^\bullet(\mathfrak{g}; \mathbb{C}) = \operatorname{Ext}_{U(\mathfrak{g})}^\bullet(\mathbb{C}, \mathbb{C})\) via an infinite bar complex over \(U(\mathfrak{g})\), <span class="pid">P51</span> computes it inside the \(2^d\)-dimensional exterior algebra \(\bigwedge^\bullet(\mathfrak{g}^*)\).</p>
+
+  <h3>Exemplar 3 · Operadic Koszul duality: why \(\mathcal{C}om^! = \mathcal{L}ie\) and \(\mathcal{A}ss^! = \mathcal{A}ss\)</h3>
+  <p>In 1994 Victor Ginzburg and Mikhail Kapranov discovered that <span class="pid">P51</span> applies not only to individual algebras, but to <strong>entire species of algebras</strong> (operads, <a href="p63-operad-algebra.html"><span class="pid">P63</span></a>). Consider binary operations on three labeled inputs \((a, b, c)\). When a binary operation is symmetric (\(ab = ba\)) or skew-symmetric (\([a,b] = -[b,a]\)), there are exactly \(3\) distinct two-step parenthesizations of three variables: \(((ab)c)\), \(((bc)a)\), and \(((ca)b)\). Inside this \(3\)-dimensional space of degree-\(2\) tree compositions:</p>
+  <ul>
+    <li><strong>The Commutative Operad \(\mathcal{C}om\):</strong> Associativity \((ab)c = (bc)a = (ca)b\) requires all three trees to be equal, cutting out a \(2\)-dimensional relation subspace \(R_{\mathcal{C}om} = \operatorname{Span}\{((ab)c) - ((bc)a),\; ((bc)a) - ((ca)b)\}\) and leaving a \(3 - 2 = 1\)-dimensional space of \(3\)-ary operations (\(\dim \mathcal{C}om(n) = 1\) for all \(n \ge 1\)).</li>
+    <li><strong>The Lie Operad \(\mathcal{L}ie = \mathcal{C}om^!\):</strong> What is the orthogonal annihilator \(R_{\mathcal{C}om}^\perp\) (twisted by the sign of permutations) of the vectors whose coefficients sum to zero? It is the \(1\)-dimensional line where all three trees have <em>equal</em> coefficients \(1 : 1 : 1\) — which is the <strong>Jacobi identity</strong>!
+      <p class="eq">\[R_{\mathcal{L}ie} = R_{\mathcal{C}om}^\perp = \operatorname{Span}\bigl\{\,[[a,b],c] + [[b,c],a] + [[c,a],b]\,\bigr\} \qquad (\dim R_{\mathcal{L}ie} = 3 - 2 = 1),\]</p>
+      leaving a \(3 - 1 = 2\)-dimensional space of \(3\)-ary Lie brackets (\(\dim \mathcal{L}ie(n) = (n-1)!\) for all \(n \ge 1\)).</li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Operad \(\mathcal{P}\)</th>
+        <th>Arity Dimension \(\dim \mathcal{P}(n)\)</th>
+        <th>Exponential Series \(f_{\mathcal{P}}(t) = \sum_{n\ge 1} \dim \mathcal{P}(n)\frac{t^n}{n!}\)</th>
+        <th>Koszul Dual \(\mathcal{P}^!\)</th>
+        <th>Reciprocity Check \(f_{\mathcal{P}}\bigl(-f_{\mathcal{P}^!}(-t)\bigr) = t\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Commutative \(\mathcal{C}om\)</strong></td>
+        <td>\(1\)</td>
+        <td>\(e^t - 1\)</td>
+        <td><strong>Lie \(\mathcal{L}ie\)</strong></td>
+        <td>\(\exp\bigl(\ln(1+t)\bigr) - 1 = t\)</td>
+      </tr>
+      <tr>
+        <td><strong>Lie \(\mathcal{L}ie\)</strong></td>
+        <td>\((n-1)!\)</td>
+        <td>\(-\ln(1 - t)\)</td>
+        <td><strong>Commutative \(\mathcal{C}om\)</strong></td>
+        <td>\(-\ln\bigl(1 - (1 - e^{-t})\bigr) = t\)</td>
+      </tr>
+      <tr>
+        <td><strong>Associative \(\mathcal{A}ss\)</strong></td>
+        <td>\(n!\)</td>
+        <td>\(\frac{t}{1 - t}\)</td>
+        <td><strong>Associative \(\mathcal{A}ss\)</strong></td>
+        <td>\(\frac{t/(1+t)}{1 - t/(1+t)} = t\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><em>How you could have found this:</em> Just as polynomial algebras have Hilbert series \(h_A(t)\) that invert multiplicatively via \(h_A(t)h_{A^!}(-t) = 1\), tree-composition operads compose functions inside one another, so their exponential generating series invert compositionally via \(f_{\mathcal{P}}(-f_{\mathcal{P}^!}(-t)) = t\)!</p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P51.3: The Operadic Trinity under Koszul duality: Com and Lie swap roles (2 relations vs 1 Jacobi relation inside the 3-dimensional space of 3-leaf binary trees), while Ass is self-dual.">
+      <defs>
+        <marker id="arr-p51-bi" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+
+      <!-- Left box: Commutative Operad Com -->
+      <rect x="28" y="36" width="168" height="118" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
+      <text x="112" y="58" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Commutative  𝓒om</text>
+      <text x="112" y="80" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">ab = ba,  (ab)c = a(bc)</text>
+      <text x="112" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">dim 𝓒om(n) = 1</text>
+      <text x="112" y="124" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">f(t) = eᵗ − 1</text>
+      <text x="112" y="143" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">2 relations in 3-tree space</text>
+
+      <!-- Double arrow between Com and Lie -->
+      <line x1="204" y1="86" x2="262" y2="86" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p51-bi)"/>
+      <line x1="262" y1="104" x2="204" y2="104" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p51-bi)"/>
+      <text x="233" y="76" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">R ↔ R^⊥</text>
+      <text x="233" y="122" font-family="Georgia, serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">f(−g(−t)) = t</text>
+
+      <!-- Middle box: Lie Operad Lie -->
+      <rect x="270" y="36" width="168" height="118" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="4"/>
+      <text x="354" y="58" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Lie  𝓛ie = 𝓒om^!</text>
+      <text x="354" y="80" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">[a,b]=−[b,a],  Jacobi = 0</text>
+      <text x="354" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">dim 𝓛ie(n) = (n−1)!</text>
+      <text x="354" y="124" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">g(t) = −ln(1 − t)</text>
+      <text x="354" y="143" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">1 relation in 3-tree space</text>
+
+      <!-- Right box: Associative Operad Ass (Self-Dual) -->
+      <rect x="456" y="36" width="124" height="118" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.8" rx="4"/>
+      <text x="518" y="58" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Associative  𝓐ss</text>
+      <text x="518" y="80" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">𝓐ss^! ≅ 𝓐ss</text>
+      <text x="518" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">dim 𝓐ss(n) = n!</text>
+      <text x="518" y="124" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">h(t) = t / (1 − t)</text>
+      <text x="518" y="143" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Self-dual (Hochschild)</text>
+    </svg>
+    <figcaption><strong>Fig P51.3.</strong> Under the Koszul dual swap on binary operads, the Commutative operad \(\mathcal{C}om\) and the Lie operad \(\mathcal{L}ie\) are orthogonal partners inside the \(3\)-dimensional space of cyclic binary trees, while the Associative operad \(\mathcal{A}ss\) is self-dual.</figcaption>
+  </figure>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>Every quadratic algebra \(A = T(V)/(R)\) has a well-defined quadratic dual \(A^! = T(V^*)/(R^\perp)\), but three sharp failure modes govern when \(A^!\) fails to resolve \(A\):</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Higher-degree relations (cubic or quartic equations) are invisible to the quadratic dual \(A^!\).</strong> Suppose you take \(A = \mathbb{C}[x]/(x^3)\) (a single variable truncated at a <em>cubic</em> relation \(x^3 = 0\)). Because \(A\) has <em>zero</em> degree-2 relations (\(R = 0 \subset V \otimes V\)), its quadratic dual \(A^! = T(V^*)/(V^* \otimes V^*) = \mathbb{C}[\xi]/(\xi^2)\) thinks \(A\) is the full polynomial ring \(\mathbb{C}[x]\)! The Koszul complex \(K_\bullet(A)\) fails to be exact at weight \(3\), and the true cohomology algebra \(\operatorname{Ext}_A^\bullet(\mathbb{C}, \mathbb{C})\) requires an additional degree-2 generator (or an \(A_\infty\) higher multiplication \(m_3\) on \(A^!\)).</p>
+    <p><em>Mitigation:</em> Introduce auxiliary variables (<a href="p07-build-auxiliary-object.html"><span class="pid">P07</span></a>, e.g. \(y = x^2\)) to quadraticize the presentation, or equip \(A^!\) with higher \(A_\infty\) / \(L_\infty\) operations.</p>
+    <p><em>Price:</em> Enlarging the generator space \(V\) or tracking higher Massey products.</p>
+    <p><em>Default:</em> Always verify Obligation 1 (relations generated in weight \(2\)) before constructing \(K_\bullet(A)\).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Quadratic algebras that fail the Hilbert-series positivity gate \(h_A(t)h_{A^!}(-t) = 1\) (non-Koszul quadratic algebras).</strong> Even when \(A = T(V)/(R)\) is purely quadratic, the Koszul complex \(K_\bullet(A)\) can fail to be exact! Worse, you can often detect this failure purely from the power series \(1 / h_{A^!}(-t)\): if expanding \(1 / h_{A^!}(-t)\) produces a <strong>negative coefficient</strong> (as discovered by Christer Lech and Jan-Erik Roos on specific 4-generator quadratic algebras), then \(h_A(t) = 1/h_{A^!}(-t)\) is impossible because \(\dim A_k \ge 0\) cannot be negative!</p>
+    <p><em>Mitigation:</em> Always run the numerical gate \(h_A(t)h_{A^!}(-t) = 1\) first, and verify that the defining relations \(R\) admit a quadratic Gröbner basis (Poincaré–Birkhoff–Witt property).</p>
+    <p><em>Price:</em> Checking the diamond lemma / overlap ambiguities in weight \(3\).</p>
+    <p><em>Default:</em> Never assume a quadratic algebra is Koszul without verifying weight-3 overlap consistency (or checking a PBW basis).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Positivity of the Hilbert test \(h_A(t)h_{A^!}(-t) = 1\) is necessary, not sufficient (the Positselski–Polishchuk counterexamples).</strong> There exist cunningly crafted quadratic algebras where the dimensions \(\dim A_k\) and \(\dim A^!_m\) satisfy the formal series identity \(h_A(t)h_{A^!}(-t) = 1\) to all orders, yet in weight \(N = 3\) or \(4\) the Koszul differential \(d\) has a non-zero kernel balanced by an equal-dimensional cokernel in the next spot (so the alternating Euler characteristic is \(0\) even though the homology \(H_m(K_\bullet) \ne 0\))!</p>
+    <p><em>Mitigation:</em> Supplement the Hilbert-series check with a quadratic PBW basis check or explicit rank verification on the weight-3 strand \((R^\perp \otimes V^*) \cap (V^* \otimes R^\perp)\).</p>
+    <p><em>Price:</em> One linear-algebra rank check in degree \(3\).</p>
+    <p><em>Default:</em> Treat \(h_A(t)h_{A^!}(-t) = 1\) as a fast diagnostic sieve, and lock exactness via a PBW ordering.</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this orientation page.</strong> We worked over a field \(\mathbb{C}\) of characteristic \(0\) with finite-dimensional weight spaces \(A_k\). When Koszul duality is extended to differential graded algebras, curved algebras (as in <a href="p65-floer-homology.html"><span class="pid">P65</span></a> when disk bubbles appear), or geometric sheaves on dual projective bundles (Beilinson–Ginzburg–Soergel derived Koszul duality), the equivalence is a derived-category equivalence \(D^b(A\text{-mod}) \simeq D^b(A^!\text{-mod})\) that swaps simple modules for indecomposable projective modules.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When you want to use \(\mathcal{C}om^! = \mathcal{L}ie\) and \(\mathcal{A}ss^! = \mathcal{A}ss\) to build deformation complexes and homotopy algebras (\(A_\infty, L_\infty, C_\infty\)):</strong> Step directly to <a href="p63-operad-algebra.html"><span class="pid">P63</span> · Recognize the operad algebra</a>, which packages multi-input operations into tree-composition operads and resolves them via their Koszul duals.</li>
+    <li><strong>When you want to compute the first-order deformations \(H^1\) and obstructions \(H^2\) of an associative or commutative algebra:</strong> Feed the Koszul dual resolution from this page directly into <a href="p53-deformation-cohomology.html"><span class="pid">P53</span> · Deformation cohomology</a>.</li>
+    <li><strong>When you need to invert power series \(h_A(t) = 1/h_{A^!}(-t)\) or compositional series \(f(-g(-t)) = t\) to count graded dimensions:</strong> Pair <span class="pid">P51</span> with <a href="p73-generating-functions.html"><span class="pid">P73</span> · Generating functions</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Hilbert's 1890 syzygy theorem and Koszul's 1950 homology complex to Priddy's 1970 quadratic duality and Ginzburg–Kapranov operads.</strong> In 1890 David Hilbert (<em>Mathematische Annalen</em> 36, 473–534) shocked invariant theorists by proving that every chain of syzygies over \(\mathbb{C}[x_1, \dots, x_d]\) terminates in at most \(d\) steps. Sixty years later, Jean-Louis Koszul (<em>Bulletin de la Société Mathématique de France</em> 78, 1950, 65–127) extracted the algebraic engine behind both Hilbert's syzygy theorem and Lie algebra cohomology (\(\bigwedge^\bullet \mathfrak{g} \otimes \operatorname{Sym}(\mathfrak{g})\)). In 1970 Stewart Priddy (<em>Transactions of the American Mathematical Society</em> 152, 39–60) generalized Koszul's construction to arbitrary homogeneous quadratic algebras \(A = T(V)/(R)\) and their orthogonal duals \(A^! = T(V^*)/(R^\perp)\). In 1988–1996 Alexander Beilinson, Victor Ginzburg, and Wolfgang Soergel (<em>Journal of the American Mathematical Society</em> 9, 1996, 473–527) discovered that Koszul duality governs the representation theory of perverse sheaves and Category \(\mathcal{O}\), while Victor Ginzburg and Mikhail Kapranov (<em>Duke Mathematical Journal</em> 76, 1994, 203–272) extended Koszul duality to quadratic operads (\(\mathcal{C}om^! = \mathcal{L}ie\), \(\mathcal{A}ss^! = \mathcal{A}ss\)).</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — The Dual of a Free Algebra vs. a Zero-Square Algebra</h3>
+  <p>Let \(V = \operatorname{Span}\{x_1, \dots, x_d\}\) be a \(d\)-dimensional generator space.<br>
+  (a) Suppose \(A = T(V)\) is the <em>free associative algebra</em> on \(d\) generators, with <strong>zero</strong> relations (\(R = \{0\} \subset V \otimes V\)). Find its orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\), write down the quadratic dual algebra \(A^!\), compute both Hilbert series \(h_A(t)\) and \(h_{A^!}(t)\), and verify \(h_A(t)h_{A^!}(-t) = 1\).<br>
+  (b) Using your answer to (a), write down the minimal free resolution of the ground field \(\mathbb{C}\) over the free algebra \(A = \mathbb{C}\langle x_1, \dots, x_d \rangle\). How many steps long is it?</p>
+  <details><summary>Hint</summary><p>In (a), if \(R = \{0\}\), then \(R^\perp = V^* \otimes V^*\) kills <em>all</em> words of length \(2\) or higher in \(T(V^*)\)!</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Quadratic dual and Hilbert series:</strong> In \(A = T(V)\), the number of words of length \(k\) is \(d^k\), so \(h_A(t) = \sum_{k=0}^\infty d^k t^k = \frac{1}{1 - dt}\). Since \(R = \{0\}\), its annihilator is the entire degree-2 space \(R^\perp = V^* \otimes V^*\). Therefore</p>
+    <p class="eq">\[A^! = \frac{T(V^*)}{(V^* \otimes V^*)} = \mathbb{C} \oplus V^*,\]</p>
+    <p>where the product of any two generators is zero (\(\xi_i \xi_j = 0\) for all \(i, j\)). Thus \(\dim A^!_0 = 1\), \(\dim A^!_1 = d\), and \(\dim A^!_m = 0\) for all \(m \ge 2\), giving \(h_{A^!}(t) = 1 + dt\). Multiplying gives</p>
+    <p class="eq">\[h_A(t)\,h_{A^!}(-t) = \frac{1}{1 - dt}\cdot(1 - dt) = 1.\]</p>
+    <p><strong>(b) One-step resolution of a free algebra:</strong> Because \(A^!_m = 0\) for \(m \ge 2\), the Koszul complex \(K_\bullet(A) = (A^!)^* \otimes A\) has only <strong>two</strong> non-zero terms (\(m = 1\) and \(m = 0\)):</p>
+    <p class="eq">\[0 \longrightarrow V \otimes A \xrightarrow{\;d_1\;} A \xrightarrow{\;\varepsilon\;} \mathbb{C} \longrightarrow 0, \qquad d_1(x_i \otimes w) = x_i w.\]</p>
+    <p>Every free algebra has global dimension \(1\)!</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — The Jordan Plane \(A = \mathbb{C}\langle x, y \rangle / (yx - xy - x^2)\) and its Dual</h3>
+  <p>Consider the non-commutative <em>Jordan plane</em> generated by \(V = \operatorname{Span}\{x, y\}\) (\(\dim V = 2\)) with the single homogeneous quadratic relation</p>
+  <p class="eq">\[r = y \otimes x - x \otimes y - x \otimes x = 0.\]</p>
+  <p>(a) In the dual basis \(\{\xi, \eta\}\) of \(V^*\), compute the \(3\)-dimensional orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\) and write down the defining relations of \(A^!\).<br>
+  (b) Verify that \(\dim A^!_0 = 1\), \(\dim A^!_1 = 2\), \(\dim A^!_2 = 1\) (spanned by \(\xi\eta\)), and \(\dim A^!_3 = 0\) (by proving \(\xi\eta\xi = 0\) and \(\eta\xi\eta = 0\) from the relations of \(A^!\)), confirming \(h_{A^!}(t) = (1+t)^2\).</p>
+  <details><summary>Hint</summary><p>A dual functional \(\alpha(\xi\otimes\xi) + \beta(\xi\otimes\eta) + \gamma(\eta\otimes\xi) + \delta(\eta\otimes\eta)\) annihilates \(r = -x\otimes x - x\otimes y + y\otimes x\) iff \(-\alpha - \beta + \gamma = 0 \iff \gamma = \alpha + \beta\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Orthogonal annihilator \(R^\perp\):</strong> Pairing \(\phi = \alpha(\xi\otimes\xi) + \beta(\xi\otimes\eta) + \gamma(\eta\otimes\xi) + \delta(\eta\otimes\eta)\) against \(r = -x\otimes x - x\otimes y + y\otimes x\) gives \(-\alpha - \beta + \gamma = 0\), or \(\gamma = \alpha + \beta\). Setting \((\alpha,\beta,\delta) = (0,0,1), (1,0,0), (0,1,0)\) gives the three basis relations of \(R^\perp\):</p>
+    <p class="eq">\[\eta^2 = 0, \qquad \xi^2 + \eta\xi = 0 \;\;(\eta\xi = -\xi^2), \qquad \xi\eta + \eta\xi = 0 \;\;(\eta\xi = -\xi\eta).\]</p>
+    <p>Combining the second and third relations shows that in \(A^!\), \(\xi^2 = \xi\eta = -\eta\xi\) and \(\eta^2 = 0\).</p>
+    <p><strong>(b) Vanishing in degree \(3\):</strong> In degree \(2\), all four monomials reduce to multiples of \(\xi\eta\) (\(\xi^2 = \xi\eta\), \(\eta\xi = -\xi\eta\), \(\eta^2 = 0\)), so \(\dim A^!_2 = 1\). In degree \(3\), use associativity and \(\eta^2 = 0\):</p>
+    <p class="eq">\[\xi\eta\eta = \xi(\eta^2) = 0, \qquad \xi^2\eta = (\xi\eta)\eta = \xi\eta^2 = 0, \qquad \xi\eta\xi = \xi(-\xi\eta) = -\xi^2\eta = 0, \qquad \xi^3 = \xi(\xi^2) = \xi(\xi\eta) = 0.\]</p>
+    <p>Every degree-\(3\) word vanishes identically! Thus \(\dim A^!_m = (1, 2, 1, 0, \dots)\) and \(h_{A^!}(t) = 1 + 2t + t^2 = (1+t)^2\).</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Explicit matrices of the weight-\(2\) Koszul strand for \(\mathbb{C}[x, y]\)</h3>
+  <p>Let \(A = \mathbb{C}[x, y]\) (\(d = 2\)) and consider the weight \(N = 2\) diagonal strand of the Koszul complex \(K_\bullet(A)\):</p>
+  <p class="eq">\[0 \longrightarrow \textstyle\bigwedge^2 V \otimes A_0 \xrightarrow{\;d_2\;} \bigwedge^1 V \otimes A_1 \xrightarrow{\;d_1\;} \bigwedge^0 V \otimes A_2 \longrightarrow 0.\]</p>
+  <p>(a) Using ordered bases \(\{e_1 \wedge e_2 \otimes 1\}\) (dimension \(1\)), \(\{e_1 \otimes x,\, e_1 \otimes y,\, e_2 \otimes x,\, e_2 \otimes y\}\) (dimension \(4\)), and \(\{1 \otimes x^2,\, 1 \otimes xy,\, 1 \otimes y^2\}\) (dimension \(3\)), write down the explicit \(4 \times 1\) matrix of \(d_2\) and the \(3 \times 4\) matrix of \(d_1\).<br>
+  (b) Verify by matrix multiplication that \(d_1 d_2 = 0\) and that \(\operatorname{rank}(d_2) = 1\) and \(\operatorname{rank}(d_1) = 3\), proving exactness (\(\ker d_1 = \operatorname{im} d_2\)) at weight \(N = 2\).</p>
+  <details><summary>Hint</summary><p>Apply the Koszul boundary formula: \(d_2(e_1 \wedge e_2 \otimes 1) = e_2 \otimes x - e_1 \otimes y\), and \(d_1(e_1 \otimes f) = 1 \otimes xf\), \(d_1(e_2 \otimes f) = 1 \otimes yf\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Explicit matrices of \(d_2\) and \(d_1\):</strong> By the boundary formula of Section 2, \(d_2(e_1 \wedge e_2 \otimes 1) = e_2 \otimes x - e_1 \otimes y = 0(e_1\otimes x) - 1(e_1\otimes y) + 1(e_2\otimes x) + 0(e_2\otimes y)\). Meanwhile, \(d_1\) sends the four basis vectors of \(\bigwedge^1 V \otimes A_1\) to \(x^2, xy, yx = xy, y^2\). Thus:</p>
+    <p class="eq">\[M(d_2) = \begin{pmatrix} 0 \\ -1 \\ 1 \\ 0 \end{pmatrix}, \qquad M(d_1) = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{pmatrix}.\]</p>
+    <p><strong>(b) Exactness check (\(\ker d_1 = \operatorname{im} d_2\)):</strong> Multiplying the two matrices gives</p>
+    <p class="eq">\[M(d_1)\,M(d_2) = \begin{pmatrix} 0 \\ -1 + 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}.\]</p>
+    <p>Clearly \(M(d_2)\) has rank \(1\) (non-zero column) and \(M(d_1)\) has rank \(3\) (three pivot columns \(1, 2, 4\)). By the rank–nullity theorem, \(\dim \ker(d_1) = 4 - 3 = 1 = \dim \operatorname{im}(d_2)\), so \(\ker d_1 = \operatorname{im} d_2\) and the weight-\(2\) strand is exact.</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: passes the Hilbert gate or fails positivity?</h3>
+  <p>Diagnose each candidate algebra below:</p>
+  <ol>
+    <li>A quadratic algebra \(A\) has dual \(A^!\) with Hilbert polynomial \(h_{A^!}(t) = 1 + 2t + 2t^2\). Can \(A\) be a Koszul algebra?</li>
+    <li>You want to resolve the ground field \(\mathbb{C}\) over \(A = \mathbb{C}[x, y] / (x^2, xy, y^2)\) (where every degree-2 monomial vanishes).</li>
+    <li>You want to compute the cohomology of the 3-dimensional Lie algebra \(\mathfrak{su}_2 \cong \mathfrak{so}_3\) (\([e_1, e_2] = e_3\) cyclic).</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>Impossible — fails the Hilbert positivity gate (Exhibit B)!</strong> If \(A\) were Koszul with \(h_{A^!}(t) = 1 + 2t + 2t^2\), then \(h_A(t) = \frac{1}{h_{A^!}(-t)} = \frac{1}{1 - 2t + 2t^2} = 1 + 2t + 2t^2 + 0t^3 - 4t^4 - 8t^5 + \cdots\)! Because the coefficient of \(t^4\) is \(-4 &lt; 0\) and \(\dim A_4\) cannot be negative, \(A\) cannot be Koszul!</li>
+      <li><strong>Genuine <span class="pid">P51</span> (Dual of a zero-square algebra is the free algebra, Exercise 1 in reverse!):</strong> Since \(A = \mathbb{C}[x,y]/(x^2,xy,y^2)\) kills <em>all</em> degree-2 products (\(R = V \otimes V\)), its dual has \(R^\perp = \{0\}\), so \(A^! = T(V^*) = \mathbb{C}\langle \xi, \eta \rangle\) is the free algebra with \(h_{A^!}(t) = \frac{1}{1-2t}\) and \(h_A(t) = 1 + 2t\)!</li>
+      <li><strong>Genuine <span class="pid">P51</span> (Filtered PBW Koszul dual / Chevalley–Eilenberg complex, Exemplar 2):</strong> Instead of an infinite resolution over \(U(\mathfrak{su}_2)\), compute on the \(2^3 = 8\)-dimensional exterior algebra \(\bigwedge^\bullet(\mathfrak{su}_2^*)\), where \(d\xi_1 = -\xi_2\wedge\xi_3\) cyclic gives \(H^0 = \mathbb{C}\), \(H^1 = H^2 = 0\), and \(H^3 = \mathbb{C}\langle\xi_1\wedge\xi_2\wedge\xi_3\rangle\) (matching \(H^\bullet(S^3)\)).</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: Dualizing a Graph Algebra (Right-Angled Artin Commutation vs. Independence Polynomials)</h3>
+  <p>Let \(\Gamma = (V_\Gamma, E_\Gamma)\) be a finite simple graph with \(d\) vertices \(x_1, \dots, x_d\). Define the <em>partially commutative quadratic algebra</em> \(A(\Gamma)\) generated by \(x_1, \dots, x_d\) where two generators commute if and only if they are connected by an edge \(\{i, j\} \in E_\Gamma\), and their product is zero if they are not connected? Even cleaner: consider the <em>Frobenius graph exterior algebra</em> \(A^!(\Gamma)\) generated by \(\xi_1, \dots, \xi_d\) with relations \(\xi_i^2 = 0\), \(\xi_i \xi_j + \xi_j \xi_i = 0\) for all \(i, j\), and \(\xi_i \xi_j = 0\) whenever \(\{i, j\} \notin E_\Gamma\).<br>
+  (a) Show that \(\dim A^!(\Gamma)_m\) equals the number \(c_m(\Gamma)\) of \(m\)-cliques (complete subgraphs on \(m\) vertices) in \(\Gamma\), so \(h_{A^!(\Gamma)}(t) = \sum_{m=0}^d c_m(\Gamma)\,t^m\) is the <em>clique polynomial</em> of \(\Gamma\).<br>
+  (b) Find the quadratic dual algebra \(A(\Gamma) = (A^!(\Gamma))^!\) and use <span class="pid">P51</span> to express its Hilbert series \(h_{A(\Gamma)}(t)\) in terms of the clique polynomial of \(\Gamma\).</p>
+  <details><summary>Hint</summary><p>In \(A^!(\Gamma)\), a wedge product \(\xi_{i_1} \cdots \xi_{i_m}\) with \(i_1 &lt; \cdots &lt; i_m\) is non-zero if and only if every pair \(\{i_a, i_b\}\) is an edge of \(\Gamma\) (an \(m\)-clique). For \(A(\Gamma)\), take the orthogonal complement of the relations of \(A^!(\Gamma)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Clique polynomial as the Hilbert series of \(A^!(\Gamma)\):</strong> Because \(\xi_i^2 = 0\) and \(\xi_i \xi_j = -\xi_j \xi_i\), any monomial in \(A^!(\Gamma)_m\) can be sorted into strictly increasing order \(\xi_{i_1}\xi_{i_2}\cdots\xi_{i_m}\) (\(i_1 &lt; \cdots &lt; i_m\)). Since \(\xi_a\xi_b = 0\) whenever \(\{a,b\} \notin E_\Gamma\), this basis monomial survives if and only if every pair of vertices in \(\{i_1, \dots, i_m\}\) is joined by an edge in \(\Gamma\) — that is, \(\{i_1, \dots, i_m\}\) is an \(m\)-clique! Thus \(\dim A^!(\Gamma)_m = c_m(\Gamma)\) and \(h_{A^!(\Gamma)}(t) = \sum_{m=0}^d c_m(\Gamma)\,t^m\).</p>
+    <p><strong>(b) The dual partially commutative algebra \(A(\Gamma)\):</strong> In \(A^!(\Gamma)\), for an edge \(\{i,j\} \in E_\Gamma\) only the symmetric sum \(\xi_i\otimes\xi_j + \xi_j\otimes\xi_i\) is zero, whereas for a non-edge \(\{i,j\} \notin E_\Gamma\) both \(\xi_i\otimes\xi_j\) and \(\xi_j\otimes\xi_i\) are zero. Taking the orthogonal annihilator \(R^\perp \subset V \otimes V\) gives</p>
+    <p class="eq">\[A(\Gamma) = \mathbb{C}\langle x_1, \dots, x_d \rangle / \bigl(\,x_i x_j - x_j x_i = 0 \text{ for } \{i,j\} \in E_\Gamma\,\bigr),\]</p>
+    <p>the <em>Cartier–Foata partially commutative monoid algebra</em> (where generators commute along edges of \(\Gamma\) and are completely free along non-edges!). By <span class="pid">P51</span>, \(A(\Gamma)\) is Koszul and its word-growth series is the exact reciprocal of the alternating clique polynomial:</p>
+    <p class="eq">\[h_{A(\Gamma)}(t) = \frac{1}{h_{A^!(\Gamma)}(-t)} = \frac{1}{1 - c_1(\Gamma)t + c_2(\Gamma)t^2 - c_3(\Gamma)t^3 + \cdots}.\]</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P51 · The Koszul dual swap. <a href="index.html">Return to the index</a> · Previous: <a href="p50-double-centralizer.html">P50 · Double centralizer decomposition</a> · Next: <a href="p52-microlocal-propagation.html">P52 · Microlocal propagation of singularities →</a></p>
+</footer>
+
+</body>
+</html>

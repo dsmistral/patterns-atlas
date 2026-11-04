@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P75 · Coloring arguments — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Tier 2 · Canon Foundations</p>
+  <h1><span class="pid">P75</span> · Coloring arguments</h1>
+  <p class="lede">Paint an uncolored grid or graph with periodic colors or numerical weights tailored to the shape of a tile or step — turning a geometric packing mystery into a one-line color census.</p>
+  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p09-invariant.html">P09 · Find the invariant</a>, <a href="p12-obstruction.html">P12 · Name the obstruction</a></p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — Coloring as a spatial invariant.</strong> When you are asked whether a region \(\mathcal{B}\) of \(N\) unit squares can be tiled by tiles of size \(k\), checking that \(k \mid N\) (the <em>area test</em>) only counts total squares. A <strong>coloring argument</strong> splits that single equation into \(k\) simultaneous equations by painting every cell \((i, j) \in \mathcal{B}\) with one of \(k\) colors \(c(i, j) \in \{0, 1, \dots, k-1\}\). If every legal placement of a tile covers a fixed quota of each color (say, \(1\) cell of each color), then the board \(\mathcal{B}\) must also contain the exact same total number of cells of each color!</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — Beyond two colors: stripes, anchors, and numeric weights.</strong> Do not stop at a \(2\)-color checkerboard! Depending on the tile shape \(T\), you can paint:</p>
+  <ul>
+    <li><strong>Diagonal \(k\)-color stripes</strong> \(c(i, j) = (i + j) \bmod k\) (every \(1 \times k\) bar covers \(k\) consecutive diagonals, hitting each of the \(k\) colors once).</li>
+    <li><strong>Spaced anchor dots</strong> \(c(i, j) = 1\) when \(i\) and \(j\) are both even (every \(2 \times 2\) square or L-tromino covers at most \(1\) anchor dot).</li>
+    <li><strong>Real or complex weights</strong> \(w(i, j) \in \mathbb{R}\) or \(\mathbb{C}\) chosen so that \(\sum_{(i,j) \in T} w(i, j) = 0\) on every tile \(T\).</li>
+  </ul>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>In <a href="p09-invariant.html"><span class="pid">P09</span> · Find the invariant</a>, we proved that certain states of a \(4 \times 4\) sign-flipping game were unreachable because every legal move preserved the parity of minus signs. And in <a href="p12-obstruction.html"><span class="pid">P12</span> · Name the obstruction</a>, we saw how naming a single conserved feature (vertex degree parity in Königsberg) cuts through millions of failed trial paths.</p>
+  <p>What if the problem has no time steps at all — just a static board \(\mathcal{B}\) and a supply of tiles? <strong>Coloring arguments (<span class="pid">P75</span>)</strong> turn static geometry into an invariant problem: you imagine laying down the tiles one by one, and design a coloring of \(\mathcal{B}\) so that each tile consumes a rigid color recipe.</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: when two colors succeed — and when you need four</h2>
+  <p>Consider two famous tiling puzzles side by side:</p>
+  <ol>
+    <li><strong>Puzzle 1 (Max Black, 1946):</strong> Remove two opposite corner squares \((1, 1)\) and \((8, 8)\) from an \(8 \times 8\) board, leaving \(62\) squares. Can you tile the remaining \(62\) squares with \(31\) dominoes (\(1 \times 2\) tiles)?</li>
+    <li><strong>Puzzle 2:</strong> Can you tile an intact \(10 \times 10\) board (\(100\) squares) with \(25\) straight tetrominoes (\(1 \times 4\) tiles)?</li>
+  </ol>
+
+  <p>In Puzzle 1, paint cell \((i, j)\) <strong>Black</strong> if \(i + j\) is even and <strong>White</strong> if \(i + j\) is odd (Fig P75.1, left). Because adjacent cells differ by \(\pm 1\) in \(i + j\), every \(1 \times 2\) domino covers <strong>\(1\) Black and \(1\) White square</strong>, so \(31\) dominoes must cover \(31\) Black and \(31\) White squares. Yet \((1, 1)\) (\(1+1=2\)) and \((8, 8)\) (\(8+8=16\)) are <em>both Black</em>! Removing them leaves \(30\) Black and \(32\) White squares — impossible.</p>
+
+  <p>Now try that same \(2\)-color checkerboard on Puzzle 2 (\(10 \times 10\) board with \(1 \times 4\) tiles): the \(10 \times 10\) board has \(50\) Black and \(50\) White squares, and every \(1 \times 4\) tile covers \(2\) Black and \(2\) White squares (\(25 \times 2 = 50\)). The \(2\)-coloring sees <em>no obstruction at all</em>!</p>
+  <p>Does that mean Puzzle 2 is solvable? <strong>No — our \(2\)-color brush was too coarse for a length-\(4\) tile!</strong> Paint cell \((i, j)\) (\(1 \le i, j \le 10\)) with <strong>four colors</strong> according to the diagonal stripe formula</p>
+  \[
+    c(i, j) \;:=\; (i + j) \bmod 4 \;\in\; \{0, 1, 2, 3\} \qquad (\text{Fig P75.1, right}).
+  \]
+  <p>Whether a \(1 \times 4\) tile is placed horizontally — covering \((i, j), (i, j+1), (i, j+2), (i, j+3)\) — or vertically — covering \((i, j), (i+1, j), (i+2, j), (i+3, j)\) — the sum \(i + j\) steps through <strong>four consecutive integers</strong>, which hit all four residues \(\{0, 1, 2, 3\}\) modulo \(4\)! Thus every \(1 \times 4\) tile covers <em>exactly \(1\) square of each of the \(4\) colors</em>, so \(25\) tiles require \((25, 25, 25, 25)\) squares of colors \((0, 1, 2, 3)\). Now count the actual diagonal stripes on the \(10 \times 10\) board:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Stripe color \(r = (i+j) \bmod 4\)</th>
+        <th>Diagonals \(s = i + j \in \{2, \dots, 20\}\) with \(s \equiv r \pmod 4\)</th>
+        <th>Diagonal lengths on \(10 \times 10\)</th>
+        <th>Total squares on \(10 \times 10\)</th>
+        <th>Required by \(25\) tiles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Color \(0\)</strong></td>
+        <td>\(s \in \{4, 8, 12, 16, 20\}\)</td>
+        <td>\(3 + 7 + 9 + 5 + 1\)</td>
+        <td>\(25\)</td>
+        <td>\(25\) (matches)</td>
+      </tr>
+      <tr>
+        <td><strong>Color \(1\)</strong></td>
+        <td>\(s \in \{5, 9, 13, 17\}\)</td>
+        <td>\(4 + 8 + 8 + 4\)</td>
+        <td><strong>\(24\)</strong></td>
+        <td>\(25\) (<strong>short by 1!</strong>)</td>
+      </tr>
+      <tr>
+        <td><strong>Color \(2\)</strong></td>
+        <td>\(s \in \{2, 6, 10, 14, 18\}\)</td>
+        <td>\(1 + 5 + 9 + 7 + 3\)</td>
+        <td>\(25\)</td>
+        <td>\(25\) (matches)</td>
+      </tr>
+      <tr>
+        <td><strong>Color \(3\)</strong></td>
+        <td>\(s \in \{3, 7, 11, 15, 19\}\)</td>
+        <td>\(2 + 6 + 10 + 6 + 2\)</td>
+        <td><strong>\(26\)</strong></td>
+        <td>\(25\) (<strong>excess of 1!</strong>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Because the \(10 \times 10\) board has \(24\) cells of Color \(1\) and \(26\) cells of Color \(3\) instead of \(25\) of each, no tiling by \(1 \times 4\) tetrominoes can ever exist!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+
+  <div class="pattern-box" id="box-p75">
+    <h3>Box P75 · The Coloring Argument Move</h3>
+    <p>To prove that a board or graph \(\mathcal{B}\) cannot be tiled by a family of shapes \(\mathcal{T}\) (or cannot be traversed by a walk of step type \(S\)), assign to each cell \(x \in \mathcal{B}\) a color \(c(x) \in \{0, 1, \dots, k-1\}\) or a numerical weight \(w(x) \in \mathbb{C}\) adapted to \(\mathcal{T}\):</p>
+    <ul>
+      <li><strong>Exact-Quota / Zero-Sum Coloring:</strong> Every tile \(T \in \mathcal{T}\) covers exactly \(q_r\) cells of color \(r\) (or satisfies \(\sum_{x \in T} w(x) = 0\)). If the board census \(|\{x \in \mathcal{B} : c(x) = r\}|\) is not an integer multiple of \(q_r\) (or \(\sum_{x \in \mathcal{B}} w(x) \neq 0\)), no tiling exists!</li>
+      <li><strong>Parity / Modular Coloring:</strong> Every tile \(T \in \mathcal{T}\) covers an odd (or \(\equiv a \pmod m\)) number of Black cells. If \(m\) tiles cannot sum to the board's Black cell count modulo \(2\) (or \(m\)), no tiling exists!</li>
+      <li><strong>Anchor / Bottleneck Coloring:</strong> Every tile \(T \in \mathcal{T}\) covers <em>at most \(1\)</em> (or <em>at least \(1\)</em>) anchor cell \(x \in A \subseteq \mathcal{B}\), bounding the number of tiles by \(\le |A|\) (or \(\ge |A|\)).</li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 220" width="100%" role="img" aria-label="Left: Mutilated 8x8 chessboard missing two Black corners (30 Black, 32 White). Right: 10x10 board with 4-color diagonal stripes (i+j) mod 4 showing 24 cells of Color 1 and 26 of Color 3">
+      <rect x="0" y="0" width="600" height="220" fill="#ffffff"/>
+      <!-- Left panel: Mutilated 8x8 Board (18px per cell, 144x144 at x=55..199, y=32..176) -->
+      <text x="145" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Mutilated 8×8 Board: 30 Black ≠ 32 White</text>
+      <rect x="55" y="32" width="144" height="144" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Draw representative 4x4 schematic with missing opposite corners (1,1) and (8,8) -->
+      <!-- Let's draw an exact 6x6 or 4x4 grid with missing opposite corners, or 8x8 with 18px cells:
+           Instead of 64 rect tags, we can use SVG pattern for the 8x8 checkerboard and mask out the 2 corners! -->
+      <defs>
+        <pattern id="chk" width="36" height="36" patternUnits="userSpaceOnUse" x="55" y="32">
+          <rect x="0" y="0" width="18" height="18" fill="#8b2635"/>
+          <rect x="18" y="0" width="18" height="18" fill="#faf8f5"/>
+          <rect x="0" y="18" width="18" height="18" fill="#faf8f5"/>
+          <rect x="18" y="18" width="18" height="18" fill="#8b2635"/>
+        </pattern>
+      </defs>
+      <rect x="55" y="32" width="144" height="144" fill="url(#chk)" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Cut out top-left (1,1) at (55,32) and bottom-right (8,8) at (181,158) — both crimson! -->
+      <rect x="54" y="31" width="19" height="19" fill="#ffffff" stroke="#b85d19" stroke-width="2" stroke-dasharray="2,2"/>
+      <rect x="181" y="158" width="19" height="19" fill="#ffffff" stroke="#b85d19" stroke-width="2" stroke-dasharray="2,2"/>
+      <text x="63" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">×</text>
+      <text x="190" y="171" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">×</text>
+      <!-- Sample 1x2 domino overlay -->
+      <rect x="91" y="68" width="36" height="18" fill="none" stroke="#3a6073" stroke-width="2.8"/>
+      <text x="145" y="194" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635" font-weight="bold" text-anchor="middle">Both removed corners were Crimson (i+j even)!</text>
+      <text x="145" y="208" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Each 1×2 domino covers 1 Crimson + 1 Ivory</text>
+
+      <!-- Right panel: 10x10 Diagonal 4-Coloring Census -->
+      <text x="445" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">10×10 Board: 4-Color Stripes c(i,j) = (i+j) mod 4</text>
+      <rect x="310" y="32" width="270" height="144" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- 4-cell strip showing a 1x4 tetromino covering {0, 1, 2, 3} -->
+      <text x="445" y="52" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Every 1×4 Tetromino Covers 4 Consecutive Stripes:</text>
+      <rect x="353" y="62" width="46" height="28" fill="#8b2635" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="399" y="62" width="46" height="28" fill="#3a6073" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="445" y="62" width="46" height="28" fill="#b85d19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="491" y="62" width="46" height="28" fill="#5a5550" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="376" y="80" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">0</text>
+      <text x="422" y="80" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+      <text x="468" y="80" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+      <text x="514" y="80" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+      <!-- Census bar comparison on 10x10 -->
+      <text x="445" y="112" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">10×10 Board Census vs. 25-Tile Quota (25 each):</text>
+      <text x="376" y="135" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Col 0: 25</text>
+      <text x="422" y="135" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Col 1: 24!</text>
+      <text x="468" y="135" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Col 2: 25</text>
+      <text x="514" y="135" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#5a5550" text-anchor="middle">Col 3: 26!</text>
+      <text x="445" y="160" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Mismatch: 24 ≠ 25 ≠ 26 ⟹ Tiling Impossible!</text>
+      <text x="445" y="194" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" font-weight="bold" text-anchor="middle">Match the period k of the coloring to the length k of the tile</text>
+    </svg>
+    <figcaption><strong>Fig P75.1.</strong> Two classic coloring obstructions. <em>Left:</em> On the mutilated \(8 \times 8\) chessboard, the two opposite corners \((1,1)\) and \((8,8)\) have the same parity \(i + j \equiv 0 \pmod 2\), leaving \(30\) crimson and \(32\) ivory squares. <em>Right:</em> On a \(10 \times 10\) board, a \(2\)-coloring is balanced (\(50\) and \(50\)), but the \(4\)-coloring \(c(i,j) = (i+j) \bmod 4\) forces every \(1 \times 4\) tile to cover \(\{0, 1, 2, 3\}\) once while the board has \((25, 24, 25, 26)\) squares of each color.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p75a">
+    <h3>Box P75.A · The Four Verification Obligations of a Coloring Argument</h3>
+    <ol>
+      <li><strong>Explicit Coordinate Rule:</strong> Define the coloring \(c(i, j)\) or weight \(w(i, j)\) by an explicit formula on the grid or graph coordinates so there is zero ambiguity at boundaries.</li>
+      <li><strong>Tile Orientation Audit:</strong> Check the color census of a tile \(T\) across <em>every</em> allowed rotation, reflection, and translation on the board.</li>
+      <li><strong>Exact Board Census:</strong> Count the total number of cells of each color (or total weight) on the target region \(\mathcal{B}\).</li>
+      <li><strong>Direction of Implication Audit:</strong> Remember that a coloring mismatch is a <strong>necessary condition</strong> (<a href="p67-contrapositive.html"><span class="pid">P67</span></a>): Tileable \(\implies\) Color-Balanced, so Color-Imbalanced \(\implies\) Not Tileable. Never claim that passing a coloring check alone proves a board <em>is</em> tileable without constructing a tiling!</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 190" width="100%" role="img" aria-label="Three standard coloring templates: Checkerboard (i+j) mod 2 for dominoes, knights, and T-tetrominoes; Column/Row bands for rectangular bricks; and Spaced Anchor Dots (i even, j even) for 2x2 and L-tromino packing">
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <!-- Card 1: Checkerboard -->
+      <rect x="15" y="18" width="175" height="156" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="102" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">1. Checkerboard (i+j) mod 2</text>
+      <text x="102" y="62" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• 1×2 Domino: 1 Black + 1 White</text>
+      <text x="102" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Chess Knight: flips B ↔ W</text>
+      <text x="102" y="106" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• T-tetromino: 3B+1W or 1B+3W</text>
+      <text x="102" y="124" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">(always ODD Black count!)</text>
+      <text x="102" y="154" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Use for bipartite parity &amp; T-shapes</text>
+
+      <!-- Card 2: Cyclic Stripes -->
+      <rect x="212" y="18" width="175" height="156" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="300" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2. Stripes (i+j) mod k</text>
+      <text x="300" y="62" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• 1×k bar: hits {0,1,…,k−1}</text>
+      <text x="300" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Row bands (i mod a): tests</text>
+      <text x="300" y="102" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">whether a | m or a | n</text>
+      <text x="300" y="126" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">Weight ωⁱ⁺ʲ (ωᵏ=1): tile sum = 0</text>
+      <text x="300" y="154" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Use for 1×k bars &amp; a×b bricks</text>
+
+      <!-- Card 3: Spaced Anchor Dots -->
+      <rect x="410" y="18" width="175" height="156" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="497" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">3. Anchor Dots (2i, 2j)</text>
+      <text x="497" y="62" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Color only cells with i, j even:</text>
+      <text x="497" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Every 2×2 block hits ≤ 1 dot</text>
+      <text x="497" y="106" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Every L-tromino hits ≤ 1 dot</text>
+      <text x="497" y="128" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">Bounds max # of tiles ≤ # dots!</text>
+      <text x="497" y="154" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Use for packing upper bounds</text>
+    </svg>
+    <figcaption><strong>Fig P75.2.</strong> Choosing the right brush for the tile. (1) Standard \(2\)-coloring detects \(1 \times 2\) dominoes, knight walks, and T-tetrominoes. (2) Cyclic stripes \((i+j) \bmod k\) (or complex roots of unity \(\omega^{i+j}\)) detect \(1 \times k\) bars and \(a \times b\) bricks. (3) Spaced anchor dots at \((2i, 2j)\) bound how many \(2 \times 2\) blocks or L-trominoes can fit on an odd-sided board.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p75b">
+    <h3>Box P75.B · Three-Key Recognition Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> "Can board \(\mathcal{B}\) be tiled by shape \(T\)?", "Can a knight/king/rook visit every square of \(\mathcal{B}\) exactly once?", or "What is the maximum number of shapes \(T\) that can be packed into \(\mathcal{B}\) without overlapping?"</li>
+      <li><strong>Problem shape:</strong> A discrete grid, honeycomb, or cube lattice where the total area is divisible by the tile size, yet small experiments (<a href="p02-small-cases.html"><span class="pid">P02</span></a>) leave awkward gaps near the corners.</li>
+      <li><strong>Tools at hand:</strong> Modular arithmetic \((i + c j) \bmod k\), bipartite graph parity, spaced anchor cells, and polynomial/root-of-unity grid weights.</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 (Parity of Color Quotas) · Why twenty-five T-tetrominoes cannot tile a \(10 \times 10\) board</h3>
+  <p><strong>Problem.</strong> A <strong>T-tetromino</strong> consists of \(4\) unit squares arranged as a row of \(3\) squares with \(1\) square attached to the middle cell (forming the letter T). Can a \(10 \times 10\) chessboard (\(100\) squares) be tiled by \(25\) T-tetrominoes (allowing all \(4\) rotations of the T)?</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Audit the color quota of a T-tetromino on a \(2\)-color checkerboard).</strong> Paint the \(10 \times 10\) board with the standard \(2\)-coloring \(c(i, j) = (i + j) \bmod 2\) (\(50\) Black squares and \(50\) White squares). Every T-tetromino has a unique central "junction" square \((i, j)\) together with \(3\) of its \(4\) orthogonal neighbors \((i \pm 1, j), (i, j \pm 1)\):</p>
+  <ul>
+    <li><strong>Type A (Center is White):</strong> All \(3\) attached neighbors are orthogonal to the White center, so all \(3\) are Black! This T-tetromino covers <strong>\(3\) Black and \(1\) White</strong> square.</li>
+    <li><strong>Type B (Center is Black):</strong> All \(3\) attached neighbors are White! This T-tetromino covers <strong>\(1\) Black and \(3\) White</strong> squares.</li>
+  </ul>
+
+  <p><strong>Step 2 (Compare parity across \(25\) tiles).</strong> Suppose \(a\) tiles of Type A and \(b\) tiles of Type B tiled the \(10 \times 10\) board. Then the total number of tiles is \(a + b = 25\), and the total number of Black squares covered is \(3a + b = 50\). Subtracting the first equation from the second gives</p>
+  \[
+    (3a + b) - (a + b) \;=\; 50 - 25 \quad\implies\quad 2a \;=\; 25,
+  \]
+  <p>which has no integer solution! More simply: every T-tetromino covers an <strong>odd</strong> number (\(1\) or \(3\)) of Black squares, so \(25\) T-tetrominoes must cover an odd total number of Black squares (\(25 \times \text{odd} = \text{odd}\)), whereas the \(10 \times 10\) board has \(50\) (even) Black squares!</p>
+
+  <h3>Exemplar 2 (Graph Traversal &amp; Custom Colorings) · Knight's tours on \(5 \times 5\) and \(4 \times 4\) boards</h3>
+  <p><strong>Problem.</strong> A chess knight moves by jumping \(2\) squares in one cardinal direction and \(1\) square perpendicular to it (\((\Delta i, \Delta j) \in \{\pm 1, \pm 2\} \times \{\pm 2, \pm 1\}\)).</p>
+  <ol>
+    <li>Prove that no closed knight's tour (visiting all \(25\) squares and returning to its start) exists on a \(5 \times 5\) board, and that any open knight's tour (\(24\) jumps visiting all \(25\) squares) must start and end on the majority color.</li>
+    <li>On a \(4 \times 4\) board, there are \(8\) Black and \(8\) White squares, so standard checkerboard parity does not rule out a knight's tour. Construct a <strong>custom \(2\)-coloring</strong> of the \(4 \times 4\) board into \(8\) Red and \(8\) Blue squares that proves <em>no</em> knight's tour (open or closed) exists on a \(4 \times 4\) board!</li>
+  </ol>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Part 1 (\(5 \times 5\) board via bipartite checkerboard parity).</strong> Under \(c(i, j) = (i + j) \bmod 2\), every knight move changes \(i + j\) by \(\pm 1 \pm 2 \in \{-3, -1, +1, +3\}\), which is always odd! Thus a knight strictly alternates colors \(B \to W \to B \to W \to \cdots\) at every jump. A \(5 \times 5\) board has \(13\) Black squares (including all \(4\) corners) and \(12\) White squares. Any path of \(25\) squares alternating colors must have \(13\) squares of one color and \(12\) of the other, so it <em>must</em> follow the pattern \(B \to W \to B \to \cdots \to W \to B\), starting and ending on Black (and since the last square is Black, it cannot jump back to the Black starting square to form a closed tour!).</p>
+
+  <p><strong>Part 2 (\(4 \times 4\) board via Corner–Center Red/Blue coloring).</strong> On a \(4 \times 4\) board (Fig P75.3, left), forget the standard checkerboard and paint:</p>
+  <ul>
+    <li><strong>Red (\(8\) squares):</strong> the \(4\) corner squares \(\{(1,1), (1,4), (4,1), (4,4)\}\) and the \(4\) central squares \(\{(2,2), (2,3), (3,2), (3,3)\}\).</li>
+    <li><strong>Blue (\(8\) squares):</strong> the remaining \(8\) non-corner border squares.</li>
+  </ul>
+  <p>Inspect the legal knight jumps from any of the \(4\) corner squares: from \((1, 1)\), a knight can only jump to \((2, 3)\) or \((3, 2)\) — <em>both of which are central Red squares</em>! Thus in any knight's tour, every visit to one of the \(4\) corner squares must be immediately preceded and followed by a central Red square (except possibly if the tour starts or ends at a corner). Even if the tour both starts and ends at corners, visiting the \(4\) corners requires at least \(3\) distinct central Red squares exclusively to bridge between the \(4\) corners, and the remaining \(2\) corners still must connect to the \(4\)-th central Red square — trapping all \(4\) corners and all \(4\) center squares in a closed Red-only loop of \(8\) squares that can never visit a single Blue square!</p>
+
+  <h3>Exemplar 3 (Anchor Coloring for Packing Bounds) · Maximum \(2 \times 2\) tiles and non-attacking kings on a \(9 \times 9\) board</h3>
+  <p><strong>Problem.</strong></p>
+  <ol>
+    <li>What is the maximum number of non-overlapping \(2 \times 2\) tiles that can be placed on a \(9 \times 9\) board? (Note that area alone allows \(\lfloor 81 / 4 \rfloor = 20\).)</li>
+    <li>What is the maximum number of non-attacking chess kings (no two sharing a vertex or edge) that can be placed on a \(9 \times 9\) board?</li>
+  </ol>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Part 1 (Anchor dots at even coordinates for \(2 \times 2\) tiles).</strong> Paint an <strong>anchor dot</strong> on cell \((i, j)\) of the \(9 \times 9\) board (\(1 \le i, j \le 9\)) if and only if <em>both \(i\) and \(j\) are even</em>: \(i, j \in \{2, 4, 6, 8\}\). There are exactly \(4 \times 4 = 16\) anchor dots on the board. Every \(2 \times 2\) tile spans two consecutive rows \(\{r, r+1\}\) (exactly one of which is even) and two consecutive columns \(\{c, c+1\}\) (exactly one of which is even), so <strong>every \(2 \times 2\) tile covers exactly \(1\) anchor dot</strong>! Since \(k\) disjoint \(2 \times 2\) tiles must cover \(k\) distinct anchor dots, at most <strong>\(16\)</strong> tiles can fit (achieved by placing sixteen \(2 \times 2\) tiles in the top-left \(8 \times 8\) subboard).</p>
+
+  <p><strong>Part 2 (Dual \(2 \times 2\) regions for non-attacking kings).</strong> Conversely, to bound non-attacking kings on a \(9 \times 9\) board, partition the rows \(\{1,2\}, \{3,4\}, \{5,6\}, \{7,8\}, \{9\}\) and columns \(\{1,2\}, \{3,4\}, \{5,6\}, \{7,8\}, \{9\}\) into \(5 \times 5 = 25\) blocks of size at most \(2 \times 2\). Because any two cells in the same \(2 \times 2\) block touch at an edge or corner, <strong>each of the \(25\) blocks can contain at most \(1\) king</strong>! Thus at most <strong>\(25\)</strong> non-attacking kings can be placed — and placing \(25\) kings on the odd-coordinate cells \((2r-1, 2c-1)\) for \(1 \le r, c \le 5\) achieves the bound.</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — The Sufficiency Fallacy: equal color counts do NOT guarantee that a tiling exists!</strong> Consider the \(6\)-square "claw" polyomino formed by a central White square \((2, 2)\) attached to three Black squares \((1, 2), (2, 1), (3, 2)\) and two additional White squares \((1, 1), (3, 1)\) (Fig P75.3, right). It has \(3\) Black and \(3\) White squares — completely color-balanced! Yet it <strong>cannot be tiled by \(3\) dominoes</strong>, because the two degree-\(1\) Black squares \((2, 1)\) and \((2, 3)\)? Wait: in a \(3\)-leaf star with center \((2, 2)\) (White) and three degree-\(1\) Black leaves \((1,2), (2,1), (2,3)\) (plus a separate \(1 \times 2\) piece), all three Black leaves have \((2, 2)\) as their <em>only</em> neighbor, so by Pigeonhole (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>) one domino covers \((2, 2)\) and strands the other two leaves!</p>
+    <p><em>Mitigation:</em> Remember Obligation 4 of Box P75.A: coloring gives a <strong>necessary</strong> condition (an obstruction to rule out impossible boards); proving a board <em>is</em> tileable requires an explicit construction or Hall's Marriage Theorem.</p>
+    <p><em>Price:</em> Providing an explicit tiling whenever the answer is "Yes".</p>
+    <p><em>Default:</em> Use coloring to prove "No" (or to prove an upper bound \(\le K\)), and pair it with an explicit placement to prove \(= K\).</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Custom Corner-Center Red/Blue coloring of the 4x4 board for Exemplar 2 showing corners only jump to center cells. Right: A color-balanced 6-square polyomino with 3 Black and 3 White cells that still cannot be tiled by 3 dominoes">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: 4x4 Corner-Center Coloring (Exemplar 2) -->
+      <text x="150" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4×4 Knight Obstruction: Corner + Center = Red</text>
+      <!-- 4x4 grid at x=78..222 (36px per cell), y=30..174 -->
+      <!-- Row 1: R B B R -->
+      <rect x="78" y="30" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="114" y="30" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="150" y="30" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="186" y="30" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <!-- Row 2: B R R B -->
+      <rect x="78" y="66" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="114" y="66" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="150" y="66" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="186" y="66" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <!-- Row 3: B R R B -->
+      <rect x="78" y="102" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="114" y="102" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="150" y="102" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="186" y="102" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <!-- Row 4: R B B R -->
+      <rect x="78" y="138" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="114" y="138" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="150" y="138" width="36" height="36" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="186" y="138" width="36" height="36" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <!-- Knight jump arrows from corner (1,1) at (96, 48) to (2,3) at (168, 84) and (3,2) at (132, 120) -->
+      <line x1="96" y1="48" x2="168" y2="84" stroke="#8b2635" stroke-width="2.5"/>
+      <line x1="96" y1="48" x2="132" y2="120" stroke="#8b2635" stroke-width="2.5"/>
+      <circle cx="96" cy="48" r="4.5" fill="#8b2635"/>
+      <circle cx="168" cy="84" r="4.5" fill="#8b2635"/>
+      <circle cx="132" cy="120" r="4.5" fill="#8b2635"/>
+      <text x="150" y="192" font-family="system-ui, sans-serif" font-size="9" fill="#8b2635" font-weight="bold" text-anchor="middle">4 Corners only reach the 4 Center cells (Red → Red)!</text>
+
+      <!-- Right panel: Exhibit A — Color-Balanced 6-Square Board That Cannot Be Domino-Tiled -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Exhibit A: 3 Black + 3 White, Yet Untileable!</text>
+      <rect x="315" y="30" width="265" height="144" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- Draw the 6-cell tree: center (2,2) White at (415, 95), 3 Black neighbors at (415, 59), (379, 95), (415, 131), plus 1 White cell (451, 59) and 1 White cell (451, 131)?
+           Wait: if (2,1) Black is a leaf, (1,2) Black is a leaf, and (3,2) Black is connected to (3,3) White and (2,3) White:
+           Even simpler: central White cell W1 at (415, 95) has THREE degree-1 Black leaves B1(415, 59), B2(379, 95), B3(415, 131),
+           and B3(415, 131)? Wait: if B1 and B2 are degree-1 leaves whose ONLY neighbor in the board is W1(415, 95),
+           then W1 cannot cover both B1 and B2! Attach W2(451, 95)--B3(487, 95)--W3(523, 95) to the right of W1:
+           Total cells: B1(Black), B2(Black), W1(White), W2(White)? Wait: neighbors of W1 must be Black!
+           If W1=(2,2) is White, its 3 neighbors B1=(1,2), B2=(2,1), B3=(2,3) are ALL Black!
+           Then attach W2=(1,3) (White) and W3=(3,3) (White) to B3=(2,3)!
+           Check colors:
+             W1=(2,2) White, W2=(1,3) White, W3=(3,3) White -> 3 White squares!
+             B1=(1,2) Black (only neighbor in board is W1? Wait: (1,2) is adjacent to (1,3)=W2 too!).
+           Let's make B1=(3,2) and B2=(2,1) degree-1 leaves of W1=(2,2) by putting W2=(1,4) and W3=(2,3) and B3=(1,3):
+             Cells:
+               B1=(2,1) [Black, degree 1, only neighbor is W1=(2,2)]
+               B2=(3,2) [Black, degree 1, only neighbor is W1=(2,2)]
+               W1=(2,2) [White]
+               W2=(2,3) [White, neighbor of W1? No, (2,3) is Black!]
+           Wait: on a grid, just make a 3x3 cross or a 6-cell tree where steps are length 1:
+             W1=(2,2) [White]
+             B1=(1,2) [Black, leaf!]
+             B2=(2,1) [Black, leaf!]
+             B3=(2,3) [Black, connected to W1=(2,2), W2=(2,4), W3=(3,3)]!
+           Check coordinates of those 6 cells:
+             (1,2): 1+2=3 (Black), neighbors in set: ONLY (2,2)!
+             (2,1): 2+1=3 (Black), neighbors in set: ONLY (2,2)!
+             (2,2): 2+2=4 (White), neighbors: (1,2), (2,1), (2,3)
+             (2,3): 2+3=5 (Black), neighbors: (2,2), (2,4), (3,3)
+             (2,4): 2+4=6 (White), neighbor: ONLY (2,3)!
+             (3,3): 3+3=6 (White), neighbor: ONLY (2,3)!
+           Look at that 6-cell hexomino {(1,2), (2,1), (2,2), (2,3), (2,4), (3,3)}:
+             - 3 Black cells: (1,2), (2,1), (2,3)
+             - 3 White cells: (2,2), (2,4), (3,3)
+             - Both (1,2) and (2,1) have degree 1 and their ONLY neighbor is (2,2)!
+             - Both (2,4) and (3,3) have degree 1 and their ONLY neighbor is (2,3)! -->
+      <!-- Draw this exact 6-cell hexomino {(1,2), (2,1), (2,2), (2,3), (2,4), (3,3)} with 32px cells! -->
+      <!-- (1,2) at (415, 42) [Black] -->
+      <rect x="415" y="42" width="32" height="32" fill="#8b2635" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Row 2: (2,1) at (383, 74) [B], (2,2) at (415, 74) [W], (2,3) at (447, 74) [B], (2,4) at (479, 74) [W] -->
+      <rect x="383" y="74" width="32" height="32" fill="#8b2635" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="415" y="74" width="32" height="32" fill="#faf8f5" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="447" y="74" width="32" height="32" fill="#8b2635" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="479" y="74" width="32" height="32" fill="#faf8f5" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Row 3: (3,3) at (447, 106) [W] -->
+      <rect x="447" y="106" width="32" height="32" fill="#faf8f5" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="431" y="62" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">B₁</text>
+      <text x="399" y="94" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">B₂</text>
+      <text x="431" y="94" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">W₁</text>
+      <text x="463" y="94" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">B₃</text>
+      <text x="495" y="94" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">W₂</text>
+      <text x="463" y="126" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">W₃</text>
+      <text x="447" y="156" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">Leaves B₁ and B₂ both demand W₁ (bottleneck!)</text>
+      <text x="447" y="192" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Color balance (3B = 3W) is necessary, NOT sufficient</text>
+    </svg>
+    <figcaption><strong>Fig P75.3.</strong> <em>Left (Exemplar 2):</em> On a \(4 \times 4\) board, coloring the \(4\) corners and \(4\) center cells Red and the \(8\) edge cells Blue reveals that corner knights can only jump to center Red cells, preventing any knight's tour. <em>Right (Exhibit A):</em> The \(6\)-cell double-star hexomino \(\{(1,2), (2,1), (2,2), (2,3), (2,4), (3,3)\}\) has \(3\) Black and \(3\) White cells, yet cannot be tiled by \(3\) dominoes because the two degree-\(1\) leaves \(B_1 = (1,2)\) and \(B_2 = (2,1)\) have \(W_1 = (2,2)\) as their sole neighbor.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Using a coloring period \(k\) that divides the tile unevenly or misses one dimension.</strong> Suppose you want to test whether an \(m \times n\) rectangle can be tiled by \(a \times b\) bricks. Coloring with \((i + j) \bmod (a + b)\) does not work when \(a, b &gt; 1\)! Instead, you must test rows and columns separately: coloring rows by \(i \bmod a\) proves that a horizontal \(a \times b\) brick covers every residue modulo \(a\) exactly \(b\) times, while coloring columns by \(j \bmod a\) handles vertical \(b \times a\) bricks.</p>
+    <p><em>Mitigation:</em> Match the coloring formula to the exact geometry of the tile (stripes \((i+j) \bmod k\) for \(1 \times k\) bars; row/column bands or roots of unity \(\zeta_a^i \zeta_b^j\) for \(a \times b\) bricks).</p>
+    <p><em>Price:</em> Testing all allowed rotations of the tile under your chosen coloring (Obligation 2 of Box P75.A).</p>
+    <p><em>Default:</em> Always check whether rotating the tile by \(90^\circ\) preserves its color quota before counting the board.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Overlooking Gomory's Theorem when \(1\) Black and \(1\) White cell are removed from an \(8 \times 8\) board.</strong> After seeing the mutilated \(8 \times 8\) chessboard in Section 2, students often guess that removing one Black cell and one White cell far apart might still disconnect or bottleneck the board. Surprisingly, <strong>Ralph Gomory (1973)</strong> proved that removing <em>any</em> \(1\) Black cell and <em>any</em> \(1\) White cell from an \(8 \times 8\) board <em>always</em> leaves a domino-tileable board! Why? Thread a single closed Hamiltonian cycle of length \(64\) through the \(8 \times 8\) board; removing \(1\) Black and \(1\) White square cuts the cycle into two even-length paths, each of which tiles immediately with dominoes along the path!</p>
+    <p><em>Mitigation:</em> When color counts match, look for a Hamiltonian path/cycle decomposition to construct the tiling explicitly.</p>
+    <p><em>Price:</em> Drawing one snake-like Hamiltonian cycle on the even board.</p>
+    <p><em>Default:</em> Pair coloring obstructions ("No") with Hamiltonian path constructions ("Yes").</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> Elementary \(k\)-colorings and polynomial weights \((x^i y^j)\) capture all <em>additive</em> and <em>abelian</em> tiling obstructions (such as De Bruijn's theorem that an \(a_1 \times \cdots \times a_d\) box can be packed with \(b_1 \times \cdots \times b_d\) bricks iff the dimensions pair up by divisibility). For general simply-connected polyominoes where abelian colorings pass, <strong>John Conway and Jeff Lagarias (1990)</strong> discovered non-abelian <em>tiling groups</em> (such as the Thurston height function for lozenge and domino tilings) that detect topological winding obstructions invisible to any finite coloring.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When regions or properties on your board overlap and you need to count elements avoiding all forbidden colors or properties:</strong> Step forward to the next chapter, <a href="p76-inclusion-exclusion.html"><span class="pid">P76</span> · Inclusion-exclusion</a>.</li>
+    <li><strong>When an anchor-coloring bound uses the Pigeonhole Principle to force two items into the same colored block:</strong> Connect <span class="pid">P75</span> with <a href="p10-pigeonhole.html"><span class="pid">P10</span> · Force a collision</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Euler's knight tours and Max Black's mutilated chessboard to De Bruijn's roots of unity and Chvátal–Fisk's art gallery theorem (1759 – 1990).</strong></p>
+    <ul>
+      <li><strong>Leonhard Euler (1759):</strong> In his memoir <em>Solution d'une question curieuse que ne paraît soumise à aucune analyse</em>, Euler analyzed knight's tours on chessboards of various sizes and used bipartite square-color alternation to explain why closed tours cannot exist on odd-by-odd boards.</li>
+      <li><strong>Max Black (1946) &amp; Martin Gardner (1957):</strong> The philosopher Max Black introduced the mutilated \(8 \times 8\) chessboard in his book <em>Critical Thinking</em> as a paradigm of how changing representation (remembering that a chessboard is already two-colored!) replaces brute-force search with a one-sentence insight; Martin Gardner's <em>Scientific American</em> column turned polyomino coloring obstructions into a worldwide mathematical pastime.</li>
+      <li><strong>Nicolaas Govert de Bruijn (1969):</strong> Studying when an \(A_1 \times \cdots \times A_d\) box can be packed by \(a_1 \times \cdots \times a_d\) bricks, De Bruijn replaced discrete colorings with complex <strong>roots-of-unity weights</strong> \(w(x_1, \dots, x_d) = \omega_1^{x_1}\cdots \omega_d^{x_d}\), showing that a single algebraic vanishing condition subsumes every periodic stripe coloring.</li>
+      <li><strong>Václav Chvátal (1975) &amp; Steve Fisk (1978):</strong> When Victor Klee asked how many camera guards are needed to watch an \(n\)-vertex museum gallery, Chvátal proved \(\lfloor n/3 \rfloor\) by a long inductive dissection; three years later, Steve Fisk gave a ten-line proof in <em>Journal of Combinatorial Theory</em> by \(3\)-coloring the vertices of a triangulation (<a href="p70-double-counting.html"><span class="pid">P70</span></a>) and applying the Pigeonhole Principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>) — immortalized as the opening chapter of Aigner and Ziegler's <em>Proofs from THE BOOK</em>.</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise P75.1 (●○○ — Tiling a corner-mutilated \(8 \times 8\) board with \(1 \times 3\) trominoes).</strong> Remove the top-left corner square \((1, 1)\) from an \(8 \times 8\) chessboard, leaving \(63\) squares. Since \(63 = 21 \times 3\), can the remaining \(63\) squares be tiled by twenty-one \(1 \times 3\) straight trominoes?</p>
+    <ol>
+      <li>Color each cell \((i, j)\) (\(1 \le i, j \le 8\)) with \(c(i, j) = (i + j) \bmod 3 \in \{0, 1, 2\}\). How many cells of each color does a single \(1 \times 3\) tromino cover?</li>
+      <li>Count the exact number of cells of colors \(0, 1, 2\) on the full \(8 \times 8\) board, determine which color is lost when \((1, 1)\) is removed, and conclude whether the tiling is possible.</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Notice that the \(60\) cells outside the top-left \(2 \times 2\) block \(\{1, 2\} \times \{1, 2\}\) partition into twenty \(1 \times 3\) bars, contributing \((20, 20, 20)\) to the color census. Then inspect the \(4\) cells in \(\{1, 2\} \times \{1, 2\}\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Tile quota under \(c(i, j) = (i + j) \bmod 3\).</strong> Every horizontal or vertical \(1 \times 3\) straight tromino spans three consecutive values of \(i + j\), so it covers <strong>\(1\) cell of Color \(0\), \(1\) cell of Color \(1\), and \(1\) cell of Color \(2\)</strong>. Thus \(21\) trominoes must cover \((21, 21, 21)\) cells of colors \((0, 1, 2)\).</p>
+      <p><strong>2. Board census and removed corner.</strong> Partition the \(8 \times 8\) board into twenty \(1 \times 3\) bars plus the top-left \(2 \times 2\) block \(\{1, 2\} \times \{1, 2\}\). In \(\{1, 2\} \times \{1, 2\}\), \((1, 2)\) and \((2, 1)\) have \(i + j = 3 \equiv 0 \pmod 3\), \((2, 2)\) has \(i + j = 4 \equiv 1 \pmod 3\), and \((1, 1)\) has \(i + j = 2 \equiv 2 \pmod 3\). Thus the full \(8 \times 8\) board has census</p>
+      \[
+        \bigl(\#\{\text{Color } 0\},\; \#\{\text{Color } 1\},\; \#\{\text{Color } 2\}\bigr)_{8 \times 8} \;=\; (20 + 2,\; 20 + 1,\; 20 + 1) \;=\; (22,\; 21,\; 21).
+      \]
+      <p>To leave \((21, 21, 21)\), the removed square <em>must</em> have Color \(0\). Since the corner \((1, 1)\) has Color \(1 + 1 = 2 \neq 0\), removing \((1, 1)\) leaves \((22, 21, 20) \neq (21, 21, 21)\) — so <strong>no tiling exists</strong>!</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P75.2 (●●○ — Packing \(1 \times 2 \times 4\) bricks into a \(6 \times 6 \times 6\) cube).</strong> A \(6 \times 6 \times 6\) cube has volume \(216\), and a \(1 \times 2 \times 4\) brick has volume \(8\). Since \(216 = 27 \times 8\), can twenty-seven \(1 \times 2 \times 4\) bricks pack a \(6 \times 6 \times 6\) cube?</p>
+    <p><em>(Hint: Partition the \(6 \times 6 \times 6\) cube into twenty-seven \(2 \times 2 \times 2\) sub-cubes, and color those \(27\) sub-cubes Black and White like a \(3 \times 3 \times 3\) checkerboard!)</em></p>
+    <details>
+      <summary>Hint</summary>
+      <p>How many unit cubes of Black \(2 \times 2 \times 2\) sub-cubes and White \(2 \times 2 \times 2\) sub-cubes are there in total on the \(3 \times 3 \times 3\) macro-grid (\(14\) vs. \(13\) sub-cubes)? And how many unit cubes of each color does a single \(1 \times 2 \times 4\) brick cover along its length-\(4\) side?</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Block-checkerboard coloring.</strong> Divide each coordinate axis \(\{1,2\}, \{3,4\}, \{5,6\}\) into \(3\) intervals of length \(2\), partitioning the \(6 \times 6 \times 6\) cube into \(3 \times 3 \times 3 = 27\) sub-cubes of size \(2 \times 2 \times 2\) (each containing \(8\) unit cubes). Color these \(27\) sub-cubes alternately Black and White like a \(3 \times 3 \times 3\) checkerboard: \(14\) sub-cubes are Black (\(14 \times 8 = 112\) Black unit cubes) and \(13\) sub-cubes are White (\(13 \times 8 = 104\) White unit cubes).</p>
+      <p><strong>2. Quota of a \(1 \times 2 \times 4\) brick.</strong> Regardless of how a \(1 \times 2 \times 4\) brick is oriented, its length-\(4\) edge runs parallel to one of the three axes. Any \(4\) consecutive coordinates in \(\{1, 2, 3, 4, 5, 6\}\) — namely \(\{1,2,3,4\}\), \(\{2,3,4,5\}\), or \(\{3,4,5,6\}\) — contain <em>exactly \(2\) coordinates</em> from the middle block \(\{3, 4\}\) and <em>\(2\) coordinates</em> from the outer blocks \(\{1, 2\} \cup \{5, 6\}\)! Thus along its length-\(4\) axis, every \(1 \times 2 \times 4\) brick is split \(50\text{–}50\) into two \(1 \times 2 \times 2\) halves lying in adjacent (oppositely colored) sub-cubes along that axis. Consequently, <strong>every \(1 \times 2 \times 4\) brick covers \(4\) Black unit cubes and \(4\) White unit cubes</strong>! Twenty-seven bricks would cover \(27 \times 4 = 108\) Black and \(108\) White unit cubes, contradicting \(112 \neq 104\). Thus the packing is impossible.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P75.3 (●●● — Chvátal's Art Gallery Theorem via Fisk's \(3\)-coloring).</strong> Let \(P\) be a simple polygon in the plane with \(n\) vertices (and no interior holes). A stationary camera guard placed at a vertex \(v\) can see every point \(x \in P\) such that the line segment \(\overline{vx}\) lies entirely inside \(P\).</p>
+    <ol>
+      <li>Triangulate \(P\) into \(n - 2\) triangles using \(n - 3\) non-crossing interior diagonals (so every vertex of every triangle is one of the \(n\) vertices of \(P\)). Prove by induction (<a href="p66-induction.html"><span class="pid">P66</span></a>) that the \(n\) vertices of the triangulated polygon can be properly \(3\)-colored with colors \(\{1, 2, 3\}\) so that every triangle has one vertex of each color.</li>
+      <li>Use the Pigeonhole Principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>) and the convexity of triangles to prove that \(\lfloor n / 3 \rfloor\) vertex guards always suffice to watch the entire polygon \(P\)!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Every triangulated polygon with \(n \ge 4\) has an "ear" (a triangle with two boundary edges and one interior diagonal). Remove the ear, \(3\)-color the remaining \((n-1)\)-gon by induction, and assign the ear's tip the third color not used on its diagonal!</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Proper \(3\)-coloring of the triangulated vertices.</strong> For \(n = 3\), \(P\) is a single triangle and its \(3\) vertices receive colors \(1, 2, 3\). For \(n \ge 4\), the dual graph of the \(n - 2\) triangles is a tree, which has at least two leaf triangles ("ears"). Removing an ear vertex \(v\) (which touches only the two endpoints \(u, w\) of a single diagonal) leaves a triangulated \((n-1)\)-gon; by the induction hypothesis, we can properly \(3\)-color the \((n-1)\)-gon, and then color \(v\) with the unique color in \(\{1, 2, 3\}\) different from the colors of \(u\) and \(w\). Thus every triangle in the triangulation has vertices of all three colors \(\{1, 2, 3\}\).</p>
+      <p><strong>2. Selecting the smallest color class.</strong> Partition the \(n\) vertices into the three color classes \(C_1 \sqcup C_2 \sqcup C_3\) with \(|C_1| + |C_2| + |C_3| = n\). By the Pigeonhole Principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>), the smallest color class — say \(C_1\) — satisfies</p>
+      \[
+        |C_1| \;\le\; \left\lfloor \frac{n}{3} \right\rfloor.
+      \]
+      <p>Place a guard at every vertex in \(C_1\). Because every triangle \(T\) of the triangulation has one vertex of color \(1\), one of color \(2\), and one of color \(3\), every triangle \(T\) has a guard at one of its three corners! Since every triangle is convex, that guard sees the entire triangle \(T\); since the \(n - 2\) triangles cover \(P\), the \(\le \lfloor n / 3 \rfloor\) guards watch all of \(P\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P75.4 (◆ — Pattern-unknown diagnosis).</strong> An <strong>L-tetromino</strong> consists of \(4\) unit squares arranged as a \(1 \times 3\) bar with \(1\) extra unit square attached to one of its two end squares (forming the letter L). Can a \(6 \times 6\) chessboard (\(36\) squares) be tiled by \(9\) L-tetrominoes (allowing all rotations and reflections of the L-tetromino)?</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern diagnosis (<a href="p75-coloring-arguments.html"><span class="pid">P75</span> · Coloring arguments</a> — why standard checkerboard coloring fails and row-stripe coloring succeeds).</strong> On a standard \(2\)-color checkerboard \(c(i, j) = (i + j) \bmod 2\), every L-tetromino covers \(2\) Black and \(2\) White squares, which does not rule out \(9\) tiles on a \(6 \times 6\) board. Instead, paint the \(6 \times 6\) board with <strong>horizontal row stripes</strong>:</p>
+      \[
+        c(i, j) \;:=\; i \bmod 2 \;\in\; \{0 \text{ (White)},\; 1 \text{ (Black)}\}.
+      \]
+      <p>That is, all \(3\) odd rows (\(i = 1, 3, 5\)) are painted Black (\(3 \times 6 = 18\) Black cells), and all \(3\) even rows (\(i = 2, 4, 6\)) are painted White (\(18\) White cells).</p>
+      <p><strong>2. Auditing both orientations of an L-tetromino under row-stripe coloring.</strong></p>
+      <ul>
+        <li><strong>Horizontal spine (\(1 \times 3\) bar lying in a single row \(r\), plus \(1\) square in row \(r \pm 1\)):</strong> The \(3\) squares in row \(r\) all have the <em>same</em> color, while the \(1\) attached square in row \(r \pm 1\) has the <em>opposite</em> color. Thus the tile covers either \((3\text{ Black}, 1\text{ White})\) or \((1\text{ Black}, 3\text{ White})\).</li>
+        <li><strong>Vertical spine (\(3 \times 1\) bar spanning rows \(r, r+1, r+2\), plus \(1\) square in row \(r\) or \(r+2\)):</strong> Notice that the two end rows \(r\) and \(r + 2\) have the <em>same</em> parity, and the \(4\)-th square is attached to one of those ends (so it also lies in row \(r\) or \(r + 2\))! Thus \(3\) squares of the tile lie in rows of the same parity as \(r\), and only the middle square \(r + 1\) lies in the opposite parity — again covering \((3\text{ Black}, 1\text{ White})\) or \((1\text{ Black}, 3\text{ White})\)!</li>
+      </ul>
+      <p><strong>3. Parity contradiction.</strong> In all \(8\) rotations and reflections, every L-tetromino covers an <strong>odd</strong> number (\(1\) or \(3\)) of Black cells! Therefore \(9\) L-tetrominoes must cover an odd total number of Black cells (\(9 \times \text{odd} = \text{odd}\)), whereas the \(6 \times 6\) board has \(18\) (even) Black cells. No tiling can exist!</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P75.5 (◐ — Exploration: De Bruijn's root-of-unity weights and \(m \times n\) boards tiled by \(1 \times k\) bars).</strong> Let \(\omega = e^{2\pi i / k}\) be a primitive \(k\)-th root of unity, so \(1 + \omega + \omega^2 + \cdots + \omega^{k-1} = 0\). Assign to each cell \((r, c)\) of an \(m \times n\) board (\(0 \le r \le m-1,\; 0 \le c \le n-1\)) the complex weight</p>
+    \[
+      w(r, c) \;:=\; \omega^{r + c}.
+    \]
+    <ol>
+      <li>Verify that <em>every</em> \(1 \times k\) bar (horizontal or vertical) placed anywhere on the board has total weight \(\sum_{(r,c) \in T} w(r, c) = 0\).</li>
+      <li>Compute the total weight of the entire \(m \times n\) board as a factored product \(\bigl(\sum_{r=0}^{m-1} \omega^r\bigr)\bigl(\sum_{c=0}^{n-1} \omega^c\bigr)\), and deduce that an \(m \times n\) board can be tiled by \(1 \times k\) bars if and only if \(k \mid m\) or \(k \mid n\)!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>A horizontal \(1 \times k\) bar starting at \((r, c)\) has weight \(\omega^{r+c}(1 + \omega + \cdots + \omega^{k-1}) = 0\). On the full board, a product of two complex numbers is \(0\) if and only if at least one factor is \(0\), and \(\sum_{r=0}^{m-1} \omega^r = \frac{\omega^m - 1}{\omega - 1} = 0 \iff \omega^m = 1 \iff k \mid m\)!</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Zero weight on every \(1 \times k\) tile.</strong> A horizontal \(1 \times k\) bar starting at \((r, c)\) covers \((r, c+d)\) for \(d = 0, \dots, k-1\), so its weight sum is</p>
+      \[
+        \sum_{d=0}^{k-1} \omega^{r + c + d} \;=\; \omega^{r+c} \bigl(1 + \omega + \omega^2 + \cdots + \omega^{k-1}\bigr) \;=\; \omega^{r+c} \cdot 0 \;=\; 0,
+      \]
+      <p>and identically for a vertical \(k \times 1\) bar. Therefore, if the \(m \times n\) board can be tiled by \(1 \times k\) bars, the sum of \(w(r, c)\) over the entire board must equal \(0\).</p>
+      <p><strong>2. Factoring the board sum.</strong> Because \(w(r, c) = \omega^r \cdot \omega^c\) separates variables (<a href="p73-generating-functions.html"><span class="pid">P73</span></a>), the total board weight factors into</p>
+      \[
+        \sum_{r=0}^{m-1} \sum_{c=0}^{n-1} \omega^{r+c} \;=\; \left(\sum_{r=0}^{m-1} \omega^r\right)\left(\sum_{c=0}^{n-1} \omega^c\right) \;=\; \left(\frac{\omega^m - 1}{\omega - 1}\right)\left(\frac{\omega^n - 1}{\omega - 1}\right).
+      \]
+      <p>For this product to vanish, either \(\omega^m = 1\) (which means \(k \mid m\)) or \(\omega^n = 1\) (which means \(k \mid n\)). Conversely, if \(k \mid m\) we can tile each column with \(m/k\) vertical bars, and if \(k \mid n\) we can tile each row with \(n/k\) horizontal bars!</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p74-strengthen-the-claim.html">← Previous: P74 · Strengthen the claim</a> ·
+    <a href="p76-inclusion-exclusion.html">Next: P76 · Inclusion-exclusion →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>

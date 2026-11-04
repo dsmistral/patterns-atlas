@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P38 · Major and minor arcs · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P38 · the fourth move of tier 4</p>
+  <h1>Major and minor arcs</h1>
+  <p class="tagline">When an integral around the frequency circle counts additive solutions, carve out the narrow rational spikes that carry the structured signal and bound the wide irrational sea as cancelling noise.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Exponential sums \(S(\alpha)\), orthogonality on \(\mathbb{R}/\mathbb{Z}\), and the major/minor split \(\mathfrak{M} \sqcup \mathfrak{m}\).</strong>
+  Using the shorthand \(e(\theta) = e^{2\pi i\theta}\), the unit circle \(\alpha \in [0, 1)\) satisfies the wave-orthogonality filter \(\int_0^1 e(k\alpha)\,d\alpha = 1\) if \(k = 0\) and \(0\) if \(k \in \mathbb{Z}\setminus\{0\}\). Given a finite set of integers \(A \subset [0, X]\), its <em>exponential sum</em> \(S(\alpha) = \sum_{a \in A} e(a\alpha)\) turns the additive equation \(a_1 + \cdots + a_s = N\) into the circle integral \(\int_0^1 S(\alpha)^s e(-N\alpha)\,d\alpha\). The <em>major arcs</em> \(\mathfrak{M}\) are narrow neighborhoods around fractions \(a/q\) with small denominator \(q \le Q\) where the phases \(e(a\alpha)\) align in arithmetic progressions; the <em>minor arcs</em> \(\mathfrak{m} = [0,1) \setminus \mathfrak{M}\) are the remaining frequencies where phases scatter and cancel.
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p24-waves.html"><span class="pid">P24</span></a> taught us how to build a complicated signal out of simple harmonics and extract individual dial settings by orthogonality (as on the electric-organ square wave \(\sin x + \frac{1}{3}\sin 3x + \frac{1}{5}\sin 5x + \cdots\)). <a href="p27-complex-for-integers.html"><span class="pid">P27</span></a> applied contour and Fourier integrals to turn discrete counting problems into continuous wave integrals, and <a href="p15-squeeze.html"><span class="pid">P15</span></a> showed us how to trap an intractable quantity between computable upper and lower walls.</p>
+  <p>Here is the obstacle that stops naive Fourier inversion cold on nonlinear number theory problems like Waring's problem (\(N = m_1^k + \cdots + m_s^k\)) or Goldbach's ternary prime problem (\(N = p_1 + p_2 + p_3\)). Writing the solution count as \(\int_0^1 S(\alpha)^s e(-N\alpha)\,d\alpha\) is a one-line identity — <em>evaluating</em> that integral is another matter entirely! Unlike a smooth function whose Fourier modes decay at high frequency, the exponential sum \(S(\alpha) = \sum_{m \le M} e(m^2\alpha)\) of squares or primes erupts into violent, needle-sharp spikes near every rational fraction \(\alpha \approx a/q\) with small denominator \(q\), because \(m^2 \bmod q\) repeats periodically! You cannot expand \(S(\alpha)^s\) around \(\alpha = 0\) alone, and you cannot bound \(|S(\alpha)|\) uniformly everywhere. How do you evaluate an integral whose integrand is a forest of arithmetic needles rising out of a choppy sea?</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: counting \(30 = m_1^2 + m_2^2 + m_3^2 + m_4^2\) from six rational needles</h2>
+  <p>Take the first six squares \(\{0^2, 1^2, 2^2, 3^2, 4^2, 5^2\} = \{0, 1, 4, 9, 16, 25\}\) and form their six-wave sum on the frequency circle \(\alpha \in [0, 1)\):</p>
+  <p class="eq">\[f(\alpha) = \sum_{m=0}^5 e^{2\pi i m^2 \alpha} = 1 + e^{2\pi i\alpha} + e^{8\pi i\alpha} + e^{18\pi i\alpha} + e^{32\pi i\alpha} + e^{50\pi i\alpha}.\]</p>
+  <p>When we raise \(f(\alpha)\) to the fourth power, every product of four terms adds their exponents: \(e^{2\pi i(m_1^2 + m_2^2 + m_3^2 + m_4^2)\alpha}\). Multiplying by \(e^{-2\pi i(30)\alpha}\) and integrating around \(\alpha \in [0,1)\) kills every quadruple except those summing to \(30\):</p>
+  <p class="eq">\[R_4(30) = \int_0^1 f(\alpha)^4\,e^{-2\pi i(30)\alpha}\,d\alpha = 48,\]</p>
+  <p>corresponding to the \(4! = 24\) permutations of \(25 + 4 + 1 + 0 = 30\) plus the \(4! = 24\) permutations of \(16 + 9 + 4 + 1 = 30\). Now inspect the fourth-power intensity \(|f(\alpha)|^4\) at specific frequencies around the circle:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Frequency \(\alpha\)</th>
+        <th>Residue Pattern of \(m^2 \bmod q\) (\(m=0..5\))</th>
+        <th>Wave Sum \(f(\alpha)\)</th>
+        <th>Amplitude \(|f(\alpha)|\)</th>
+        <th>Fourth Power \(|f(\alpha)|^4\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(\alpha = 0/1\) (Major)</td>
+        <td>All \(6\) residues \(\equiv 0 \pmod 1\)</td>
+        <td>\(6\)</td>
+        <td>\(6.0000\)</td>
+        <td>\(\mathbf{1296.00}\)</td>
+      </tr>
+      <tr>
+        <td>\(\alpha = 1/4,\, 3/4\) (Major)</td>
+        <td>\(0, 1, 0, 1, 0, 1 \pmod 4\) (even \(\to 1\), odd \(\to \pm i\))</td>
+        <td>\(3 \pm 3i\)</td>
+        <td>\(3\sqrt{2} \approx 4.2426\)</td>
+        <td>\(\mathbf{324.00}\)</td>
+      </tr>
+      <tr>
+        <td>\(\alpha = 1/3,\, 2/3\) (Major)</td>
+        <td>\(0, 1, 1, 0, 1, 1 \pmod 3\) (two \(0\)'s, four \(1\)'s)</td>
+        <td>\(\pm 2\sqrt{3}\,i\)</td>
+        <td>\(2\sqrt{3} \approx 3.4641\)</td>
+        <td>\(\mathbf{144.00}\)</td>
+      </tr>
+      <tr>
+        <td>\(\alpha = 1/2\) (Major)</td>
+        <td>\(0, 1, 0, 1, 0, 1 \pmod 2\) (three \(+1\)'s, three \(-1\)'s)</td>
+        <td>\(0\) (destructive!)</td>
+        <td>\(0.0000\)</td>
+        <td>\(\mathbf{0.00}\)</td>
+      </tr>
+      <tr>
+        <td>\(\alpha = 1/\sqrt{2}\) (Minor)</td>
+        <td>Incommensurable irrational phases</td>
+        <td>\(-0.278 - 1.068i\)</td>
+        <td>\(1.1037\)</td>
+        <td>\(\mathbf{1.48}\) (\(\approx 10^{-3}\) of peak!)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Look at the contrast between the rational peaks and the irrational sea in <strong>Fig P38.1</strong>. At \(\alpha = 0, \frac{1}{4}, \frac{1}{3}, \frac{2}{3}, \frac{3}{4}\), modular arithmetic locks the six unit vectors into a repeating pattern so they reinforce constructively (\(|f|^4 = 1296, 324, 144\)). At \(\alpha = 1/\sqrt{2}\), the phases scatter around the unit circle and cancel down to \(|f|^4 = 1.48\). If we carve out narrow <strong>major arcs \(\mathfrak{M}\)</strong> of half-width \(\delta = 0.02\) around the fractions with denominator \(q \le 4\) — covering just <strong>\(24\%\) of the circle</strong> — the integral over \(\mathfrak{M}\) already yields \(\mathbf{45.72}\) out of \(\mathbf{48.00}\) (\(95.2\%\) of the exact answer!), while the remaining \(76\%\) of the circle (the <strong>minor arcs \(\mathfrak{m}\)</strong>) contributes only \(+2.28\). As the cutoff \(M \to \infty\), the major arcs shrink to \(0\%\) of the circle's length while carrying \(100\%\) of the asymptotic main term!</p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 215" role="img" aria-label="Fig P38.1: Left: the unit frequency circle partitioned into narrow green Major Arcs M around a/q (q <= 4) and wide Minor Arcs m. Right: intensity profile |f(alpha)|^4 showing towering spikes over 0, 1/4, 1/3, 2/3, 3/4 and flat minor-arc noise.">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+
+      <!-- Left panel: The Circle Method Partition M sqcup m on R/Z -->
+      <text x="140" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Frequency Circle  α ∈ ℝ/ℤ = 𝔐 ⊔ 𝔪</text>
+      <!-- Base minor-arc circle -->
+      <circle cx="140" cy="112" r="64" fill="none" stroke="#d8d4cc" stroke-width="8"/>
+      <!-- Highlighted Major Arc patches around 0 (top), 1/4 (right), 1/3 (120 deg), 1/2 (bottom), 2/3 (240 deg), 3/4 (left) -->
+      <!-- 0/1 at top (140, 48) -->
+      <path d="M 126,49.5 A 64,64 0 0,1 154,49.5" fill="none" stroke="#0f5c57" stroke-width="10"/>
+      <!-- 1/4 at right (204, 112) -->
+      <path d="M 202.5,98 A 64,64 0 0,1 202.5,126" fill="none" stroke="#0f5c57" stroke-width="10"/>
+      <!-- 3/4 at left (76, 112) -->
+      <path d="M 77.5,126 A 64,64 0 0,1 77.5,98" fill="none" stroke="#0f5c57" stroke-width="10"/>
+      <!-- 1/3 at angle +30 deg below horizontal: (140 + 55.4, 112 + 32) = (195.4, 144) -->
+      <circle cx="195.4" cy="144" r="6" fill="#0f5c57"/>
+      <!-- 2/3 at (84.6, 144) -->
+      <circle cx="84.6" cy="144" r="6" fill="#0f5c57"/>
+      <!-- 1/2 at bottom (140, 176) -->
+      <circle cx="140" cy="176" r="5" fill="#8a4b08"/>
+
+      <text x="140" y="36" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">0/1 (|f|⁴=1296)</text>
+      <text x="214" y="115" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57">1/4 (324)</text>
+      <text x="66" y="115" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="end">3/4 (324)</text>
+      <text x="206" y="156" font-family="Georgia, serif" font-size="10" fill="#0f5c57">1/3 (144)</text>
+      <text x="74" y="156" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="end">2/3 (144)</text>
+      <text x="140" y="194" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">1/2 (parity zero)</text>
+      <text x="140" y="110" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Green = Major 𝔐</text>
+      <text x="140" y="124" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a94a3" text-anchor="middle">Grey = Minor 𝔪</text>
+
+      <!-- Divider -->
+      <line x1="285" y1="18" x2="285" y2="198" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Unrolled spectrum |f(alpha)|^4 on [0, 1] -->
+      <text x="442" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Resonance Spikes vs. Minor-Arc Floor</text>
+      <!-- Axes: alpha in [0, 1] -> x in [315, 575] (width 260) -->
+      <line x1="315" y1="168" x2="575" y2="168" stroke="#8a94a3" stroke-width="1.2"/>
+      <line x1="315" y1="35" x2="315" y2="172" stroke="#8a94a3" stroke-width="1.2"/>
+
+      <!-- Shaded Major Arc windows at x = 315 (0), 380 (1/4), 401.7 (1/3), 488.3 (2/3), 510 (3/4), 575 (1) -->
+      <rect x="315" y="38" width="10" height="130" fill="#e1f0ee"/>
+      <rect x="374" y="110" width="12" height="58" fill="#e1f0ee"/>
+      <rect x="396" y="135" width="12" height="33" fill="#e1f0ee"/>
+      <rect x="482" y="135" width="12" height="33" fill="#e1f0ee"/>
+      <rect x="504" y="110" width="12" height="58" fill="#e1f0ee"/>
+      <rect x="565" y="38" width="10" height="130" fill="#e1f0ee"/>
+
+      <!-- Spikes curve -->
+      <path d="M 315,40 L 323,164 L 345,166 L 372,165 L 380,115 L 388,165 L 395,165 L 401.7,140 L 408,165 L 445,168 L 482,165 L 488.3,140 L 495,165 L 502,165 L 510,115 L 518,165 L 545,166 L 567,164 L 575,40" fill="none" stroke="#0f5c57" stroke-width="2"/>
+
+      <!-- Minor arc ceiling line -->
+      <line x1="325" y1="158" x2="565" y2="158" stroke="#8a4b08" stroke-width="1.3" stroke-dasharray="4,3"/>
+      <text x="445" y="153" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Minor-arc supremum ceiling  sup_𝔪 |f(α)|</text>
+
+      <text x="315" y="182" font-family="Georgia, serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+      <text x="380" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">1/4</text>
+      <text x="402" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">1/3</text>
+      <text x="445" y="182" font-family="Georgia, serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">1/2</text>
+      <text x="488" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">2/3</text>
+      <text x="510" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">3/4</text>
+      <text x="575" y="182" font-family="Georgia, serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+      <text x="445" y="198" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Major arcs (24% of length) carry 95.2% of the integral R₄(30) = 48</text>
+    </svg>
+    <figcaption><strong>Fig P38.1.</strong> <strong>(A)</strong> The Hardy–Littlewood circle partition splits \(\alpha \in \mathbb{R}/\mathbb{Z}\) into narrow major arcs \(\mathfrak{M}\) around low-denominator fractions \(a/q\) and the complementary minor arcs \(\mathfrak{m}\). <strong>(B)</strong> On \(\mathfrak{M}\), modular periodicity produces towering resonance peaks; on \(\mathfrak{m}\), phase cancellation keeps \(|f(\alpha)|^4\) trapped beneath a tiny ceiling.</figcaption>
+  </figure>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>G. H. Hardy, J. E. Littlewood, and I. M. Vinogradov turned this split into a universal machine for additive number theory. Whenever we integrate an exponential sum \(S(\alpha)^s e(-N\alpha)\) over \(\alpha \in [0, 1)\), we choose a denominator cutoff \(Q\) and a width \(\delta = Q / (N \text{ or } M^k)\) so that the intervals \(\mathfrak{M}(a, q) = \left[\frac{a}{q} - \delta,\, \frac{a}{q} + \delta\right]\) around coprime fractions \(1 \le a \le q \le Q\), \(\gcd(a,q) = 1\), are pairwise disjoint.</p>
+
+  <aside class="onramp">
+    <strong>Local Gauss sums \(S(a,q)\), the singular series \(\mathfrak{S}(N)\), and the singular integral \(\mathfrak{J}(N)\).</strong>
+    Near a rational point \(\alpha = \frac{a}{q} + \beta\) (with \(|\beta| \le \delta\) tiny), sorting the summation index \(m = qk + r\) by its remainder \(r \bmod q\) (<a href="b01-remainders.html"><span class="pid">B01</span></a>) factors the exponential sum \(S\bigl(\frac{a}{q} + \beta\bigr) \approx \frac{S(a,q)}{q} V(\beta)\) into a <em>local arithmetic factor</em> \(S(a,q) = \sum_{r=1}^q e(a r^k / q)\) (measuring congruence obstructions modulo \(q\)) times a <em>smooth archimedean integral</em> \(V(\beta) = \int_0^M e(\beta x^k)\,dx\) (measuring real density). Summing the \(s\)-th powers of the local factors over all \(q \ge 1\) builds the <em>singular series</em> \(\mathfrak{S}(N) = \sum_{q=1}^\infty \sum_{(a,q)=1} \left(\frac{S(a,q)}{q}\right)^s e(-Na/q)\), while integrating \(V(\beta)^s e(-N\beta)\,d\beta\) builds the <em>singular integral</em> \(\mathfrak{J}(N)\).
+  </aside>
+
+  <div class="pattern-box" id="box-p38">
+    <p><strong>Pattern P38 — Major and minor arcs.</strong> To evaluate or bound the number of solutions \(R(N) = \int_0^1 S(\alpha)^s e(-N\alpha)\,d\alpha\) to an additive problem, partition the unit circle \([0,1) = \mathfrak{M} \sqcup \mathfrak{m}\) into <strong>major arcs</strong> \(\mathfrak{M} = \bigsqcup_{q \le Q} \bigsqcup_{(a,q)=1} \mathfrak{M}(a,q)\) (narrow neighborhoods of low-denominator rationals) and <strong>minor arcs</strong> \(\mathfrak{m} = [0,1) \setminus \mathfrak{M}\):</p>
+    <p class="eq">\[R(N) = \underbrace{\int_{\mathfrak{M}} S(\alpha)^s e(-N\alpha)\,d\alpha}_{\text{Structured main term } \mathfrak{S}(N)\,\mathfrak{J}(N)} \;+\; \underbrace{\int_{\mathfrak{m}} S(\alpha)^s e(-N\alpha)\,d\alpha}_{\text{Pseudorandom error bounded by } \bigl(\sup_{\mathfrak{m}}|S|\bigr)^{s-2}\int_0^1 |S|^2}.\]</p>
+    <p class="words"><strong>Or, in words:</strong> Do not treat all frequencies on the circle equally. Isolate the rational resonances \(\alpha \approx a/q\) where modular arithmetic creates constructive spikes and integrate them to get the main term; bound the rest of the circle by combining a supremum bound with an \(L^2\) energy identity.</p>
+  </div>
+
+  <div class="pattern-box" id="box-p38a">
+    <p><strong>Box P38.A — The three obligations of a circle-method proof.</strong></p>
+    <ol>
+      <li><strong>Disjoint Farey / Dirichlet Calibration (<span class="pid">P10</span>):</strong> Choose denominator threshold \(Q\) and arc half-width \(\delta\) so that distinct major arcs \(\mathfrak{M}(a,q)\) and \(\mathfrak{M}(a',q')\) do not overlap (\(\left|\frac{a}{q} - \frac{a'}{q'}\right| \ge \frac{1}{qq'} &gt; 2\delta\), requiring \(2Q^2 \delta &lt; 1\)), while Dirichlet's pigeonhole approximation guarantees every \(\alpha \in \mathfrak{m}\) lies near a fraction with denominator \(q &gt; Q\).</li>
+      <li><strong>Major-Arc Local-to-Global Factorization:</strong> On each major arc \(\alpha = \frac{a}{q} + \beta\), factor \(S(\alpha) = \frac{S(a,q)}{q}V(\beta) + O(q + q|\beta|X)\) into its mod-\(q\) Gauss sum and real integral, and check that the singular series \(\mathfrak{S}(N) = \prod_p \sigma_p(N)\) is strictly positive (no local mod-\(p\) congruence obstruction).</li>
+      <li><strong>Minor-Arc Hybrid Squeeze (Supremum \(\times\) Parseval \(L^2\), <span class="pid">P15</span> + <span class="pid">P24</span>):</strong> Never bound \(\int_{\mathfrak{m}} |S(\alpha)|^s\,d\alpha\) by \(\sup_{\mathfrak{m}} |S(\alpha)|^s\) alone! Pull out \(s - 2\) (or \(s - 2r\)) powers via the supremum on \(\mathfrak{m}\) and spend the remaining \(2\) (or \(2r\)) powers on a full-circle Parseval energy integral:
+        <p class="eq">\[\left|\int_{\mathfrak{m}} S(\alpha)^s e(-N\alpha)\,d\alpha\right| \;\le\; \left(\sup_{\alpha \in \mathfrak{m}} |S(\alpha)|\right)^{s-2} \int_0^1 |S(\alpha)|^2\,d\alpha.\]</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p38b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>An asymptotic count \(R(N) \sim \mathfrak{S}(N)\mathfrak{J}(N) + o(\text{main})\) for representations of a large integer \(N\) as a sum of \(s\) elements from a structured set \(A\) (squares, \(k\)-th powers, primes), or \(k\)-AP counts in dense sets.</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>An additive condition \(a_1 + \cdots + a_s = N\) whose multiplicative constraints (primality or \(k\)-th powers) become spiky exponential sums in Fourier space.</td>
+        </tr>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>Dirichlet's pigeonhole theorem (<span class="pid">P10</span>), Weyl differencing / van der Corput bounds on \(\sup_{\mathfrak{m}}|S|\), and Parseval/Hua mean-value theorems \(\int_0^1 |S|^{2r}\,d\alpha\) (<span class="pid">P24</span>).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P38</span> whenever Fourier inversion turns an additive counting problem into a circle integral with sharp spikes at rational frequencies.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P38.2: Anatomy of a single Major Arc alpha = a/q + beta: factoring S(a/q + beta) into the arithmetic Gauss sum S(a,q)/q (local congruence phase) times the smooth archimedean envelope V(beta).">
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+      <text x="300" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Local-to-Global Factorization Inside a Single Major Arc  α = a/q + β   (|β| ≤ δ)</text>
+
+      <!-- Left box: Full Sum S(a/q + beta) -->
+      <rect x="24" y="46" width="164" height="104" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="4"/>
+      <text x="106" y="70" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S(a/q + β)</text>
+      <text x="106" y="94" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">∑_{m ≤ M} e(mᵏ a/q) e(mᵏ β)</text>
+      <text x="106" y="120" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Split m = q j + r  (B01)</text>
+      <text x="106" y="136" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Fast mod-q × Slow real β</text>
+
+      <text x="206" y="102" font-family="Georgia, serif" font-size="16" font-weight="bold" fill="#0f5c57" text-anchor="middle">≈</text>
+
+      <!-- Middle box: Local Arithmetic Factor S(a,q)/q -->
+      <rect x="224" y="46" width="168" height="104" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
+      <text x="308" y="68" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Arithmetic Factor (mod q)</text>
+      <text x="308" y="92" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S(a, q) / q</text>
+      <text x="308" y="114" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">S(a,q) = ∑_{r=1}^q e(a rᵏ / q)</text>
+      <text x="308" y="136" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Sums over q to Singular Series 𝔖(N)</text>
+
+      <text x="406" y="102" font-family="Georgia, serif" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">×</text>
+
+      <!-- Right box: Archimedean Envelope V(beta) -->
+      <rect x="422" y="46" width="154" height="104" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="4"/>
+      <text x="499" y="68" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Archimedean Factor (ℝ)</text>
+      <text x="499" y="92" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V(β) = ∫₀^M e(β xᵏ) dx</text>
+      <text x="499" y="114" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Smooth real-density wave</text>
+      <text x="499" y="136" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Integrates over β to 𝔍(N)</text>
+    </svg>
+    <figcaption><strong>Fig P38.2.</strong> Inside each major arc \(\alpha = \frac{a}{q} + \beta\), the fast oscillation \(e(a m^k/q)\) depends only on the remainder \(r = m \bmod q\) (<span class="pid">B01</span>), while the slow oscillation \(e(\beta m^k)\) varies smoothly across blocks of length \(q\). Factoring the two scales separates the mod-\(p\) singular series \(\mathfrak{S}(N)\) from the real volume integral \(\mathfrak{J}(N)\).</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · Weyl differencing: squaring a quadratic sum to linearize its phase</h3>
+  <p>How do we prove that the quadratic sum \(S(\alpha) = \sum_{m=1}^M e(\alpha m^2)\) is small on the minor arcs \(\mathfrak{m}\)? Because the exponent \(\alpha m^2\) is quadratic in \(m\), \(S(\alpha)\) is not a geometric series. Hermann Weyl discovered in 1916 that multiplying \(S(\alpha)\) by its complex conjugate \(\overline{S(\alpha)}\) and changing variables to the step difference \(h = m_1 - m_2\) (<a href="b11-discrete-derivative.html"><span class="pid">B11</span></a>) lowers the degree of the phase from \(2\) to \(1\):</p>
+  <p class="eq">\[|S(\alpha)|^2 = \sum_{m_1=1}^M \sum_{m_2=1}^M e\bigl(\alpha(m_1^2 - m_2^2)\bigr) = \sum_{h=-(M-1)}^{M-1} e(\alpha h^2) \sum_{m \in I_h} e(2\alpha h\,m),\]</p>
+  <p>where \(I_h = [1, M] \cap [1-h, M-h]\) is an interval of length at most \(M\). Look at the inner sum over \(m\): the \(m^2\) term has canceled completely, leaving a pure <strong>geometric progression</strong> with common ratio \(e(2\alpha h)\)! Summing the geometric series (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) and squeezing (<a href="p15-squeeze.html"><span class="pid">P15</span></a>) by \(|\sin(\pi\theta)| \ge 2\|\theta\|_{\mathbb{Z}}\) gives</p>
+  <p class="eq">\[|S(\alpha)|^2 \;\le\; M + \sum_{h=1}^{M-1} 2\min\!\left(M,\; \frac{1}{2\|2\alpha h\|_{\mathbb{Z}}}\right).\]</p>
+  <p>By Dirichlet's pigeonhole theorem (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>), any \(\alpha \in [0,1)\) lies within \(\frac{1}{qQ}\) of a reduced fraction \(\frac{a}{q}\) with \(q \le Q\); on the minor arcs \(\mathfrak{m}\), we know \(q &gt; Q\) (or \(|\alpha - a/q| &gt; \delta\)), so as \(h\) runs through blocks of length \(q\), the fractional parts \(\{2\alpha h\}\) spread evenly across the \(q\) pigeonholes of width \(1/q\), yielding Weyl's bound</p>
+  <p class="eq">\[|S(\alpha)| \;\ll\; M^{1+\varepsilon}\!\left(\frac{1}{q} + \frac{1}{M} + \frac{q}{M^2}\right)^{1/2}.\]</p>
+  <p>Choosing \(Q = M\) guarantees \(M \le q \le M\) on the boundary of \(\mathfrak{m}\), saving a power \(M^{-1/2 + \varepsilon}\) across the entire minor-arc sea!</p>
+
+  <h3>Exemplar 2 · Quadratic Gauss sums (\(|S(a,q)| = \sqrt{q}\)) and the singular series \(\mathfrak{S}(N)\)</h3>
+  <p>Now step onto a major arc \(\alpha = \frac{a}{q} + \beta\) around a fraction with odd denominator \(q\) and \(\gcd(a,q) = 1\). By <strong>Fig P38.2</strong>, the size of the rational spike is controlled by the normalized Gauss sum \(\frac{S(a,q)}{q}\), where \(S(a,q) = \sum_{r=1}^q e(a r^2 / q)\). Apply the exact same squaring trick as in Exemplar 1, this time modulo \(q\) (<a href="b02-congruence-classes.html"><span class="pid">B02</span></a>), setting \(r_1 \equiv r_2 + h \pmod q\):</p>
+  <p class="eq">\[|S(a,q)|^2 = \sum_{r_1=1}^q \sum_{r_2=1}^q e\!\left(\frac{a(r_1^2 - r_2^2)}{q}\right) = \sum_{h=1}^q e\!\left(\frac{ah^2}{q}\right) \sum_{r_2=1}^q e\!\left(\frac{2ah\,r_2}{q}\right).\]</p>
+  <p>Because \(q\) is odd and \(\gcd(a,q) = 1\), we have \(\gcd(2a, q) = 1\). Therefore, by character orthogonality on \(\mathbb{Z}/q\mathbb{Z}\) (<a href="p36-character-counting.html"><span class="pid">P36</span></a>), the inner sum \(\sum_{r_2=1}^q e(2ah r_2 / q)\) vanishes for every \(h \not\equiv 0 \pmod q\), and equals \(q\) when \(h \equiv 0 \pmod q\)! Consequently:</p>
+  <p class="eq">\[|S(a,q)|^2 = 1 \cdot q = q \quad\Longrightarrow\quad \bigl|S(a,q)\bigr| = \sqrt{q}, \qquad \left|\frac{S(a,q)}{q}\right| = \frac{1}{\sqrt{q}}.\]</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Odd Modulus \(q\)</th>
+        <th>Residues \(r^2 \bmod q\) (\(r = 0..q-1\))</th>
+        <th>Exact Gauss Sum \(S(1, q)\)</th>
+        <th>Magnitude \(|S(1,q)| = \sqrt{q}\)</th>
+        <th>Normalized Spike \(|S(1,q)/q|^4\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(q = 3\) (\(\equiv 3 \bmod 4\))</td>
+        <td>\(0, 1, 1\)</td>
+        <td>\(1 + 2e(1/3) = +i\sqrt{3}\)</td>
+        <td>\(\sqrt{3} \approx 1.732051\)</td>
+        <td>\(1 / 9 \approx 0.1111\)</td>
+      </tr>
+      <tr>
+        <td>\(q = 5\) (\(\equiv 1 \bmod 4\))</td>
+        <td>\(0, 1, 4, 4, 1\)</td>
+        <td>\(1 + 2e(1/5) + 2e(4/5) = +\sqrt{5}\)</td>
+        <td>\(\sqrt{5} \approx 2.236068\)</td>
+        <td>\(1 / 25 = 0.0400\)</td>
+      </tr>
+      <tr>
+        <td>\(q = 7\) (\(\equiv 3 \bmod 4\))</td>
+        <td>\(0, 1, 4, 2, 2, 4, 1\)</td>
+        <td>\(+i\sqrt{7}\)</td>
+        <td>\(\sqrt{7} \approx 2.645751\)</td>
+        <td>\(1 / 49 \approx 0.0204\)</td>
+      </tr>
+      <tr>
+        <td>\(q = 9\) (\(\equiv 1 \bmod 4\))</td>
+        <td>\(0, 1, 4, 0, 7, 7, 0, 4, 1\)</td>
+        <td>\(+3\)</td>
+        <td>\(\sqrt{9} = 3.000000\)</td>
+        <td>\(1 / 81 \approx 0.0123\)</td>
+      </tr>
+      <tr>
+        <td>\(q = 11\) (\(\equiv 3 \bmod 4\))</td>
+        <td>\(0, 1, 4, 9, 5, 3, 3, 5, 9, 4, 1\)</td>
+        <td>\(+i\sqrt{11}\)</td>
+        <td>\(\sqrt{11} \approx 3.316625\)</td>
+        <td>\(1 / 121 \approx 0.0083\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Summing the \(s\)-th powers \(\left(\frac{S(a,q)}{q}\right)^s e(-Na/q)\) over all \(q \ge 1\) and \(\gcd(a,q) = 1\), the \(q\)-th term is bounded by \(\phi(q)\,q^{-s/2} \le q^{1 - s/2}\), which converges absolutely whenever \(s \ge 5\). Even better, by the Chinese Remainder Theorem (<a href="b04-bezout.html"><span class="pid">B04</span></a>, <a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>), \(\mathfrak{S}(N) = \prod_p \sigma_p(N)\) factors into an Euler product of local \(p\)-adic solution densities! If \(N\) violates a congruence condition modulo \(p^r\) (such as \(N \equiv 7 \pmod 8\) for \(s = 3\) squares), the local factor \(\sigma_2(N) = 0\) kills the main term automatically.</p>
+
+  <h3>Exemplar 3 · Vinogradov's three-primes theorem (\(N = p_1 + p_2 + p_3\)) and the \(L^\infty \times L^2\) minor-arc squeeze</h3>
+  <p>To count representations of a large odd integer \(N\) as a sum of three primes \(N = p_1 + p_2 + p_3\), I. M. Vinogradov formed the prime exponential sum weighted by \(\ln p\):</p>
+  <p class="eq">\[S_P(\alpha) = \sum_{p \le N} (\ln p)\,e(p\alpha), \qquad R_3(N) = \int_0^1 S_P(\alpha)^3 e(-N\alpha)\,d\alpha.\]</p>
+  <p>On the major arcs \(\mathfrak{M}\) (around \(a/q\) with \(q \le (\ln N)^A\)), primes distribute evenly among the \(\phi(q)\) coprime residue classes, so \(S_P(\frac{a}{q}+\beta) \approx \frac{\mu(q)}{\phi(q)}\int_2^N e(\beta x)\,dx\), producing the major-arc main term</p>
+  <p class="eq">\[\int_{\mathfrak{M}} S_P(\alpha)^3 e(-N\alpha)\,d\alpha = \frac{1}{2}\mathfrak{S}_3(N)\,N^2 + o(N^2), \qquad \mathfrak{S}_3(N) = \prod_{p \mid N}\left(1 - \frac{1}{(p-1)^2}\right)\prod_{p \nmid N}\left(1 + \frac{1}{(p-1)^3}\right) &gt; 1.\]</p>
+  <p>How do we prove that the minor-arc integral \(\int_{\mathfrak{m}} S_P(\alpha)^3 e(-N\alpha)\,d\alpha\) is \(o(N^2)\)? Apply Obligation 3 of Box P38.A: pull out <em>one</em> power of \(|S_P(\alpha)|\) via the minor-arc supremum, and evaluate the remaining <em>two</em> powers over the whole circle by Parseval's identity (<a href="p24-waves.html"><span class="pid">P24</span></a>):</p>
+  <p class="eq">\[\left|\int_{\mathfrak{m}} S_P(\alpha)^3 e(-N\alpha)\,d\alpha\right| \;\le\; \left(\sup_{\alpha \in \mathfrak{m}} |S_P(\alpha)|\right) \int_0^1 |S_P(\alpha)|^2\,d\alpha = \left(\sup_{\alpha \in \mathfrak{m}} |S_P(\alpha)|\right) \sum_{p \le N} (\ln p)^2.\]</p>
+  <p>Look at the exponent miracle: by the Prime Number Theorem, \(\sum_{p \le N} (\ln p)^2 \sim N\ln N\) has size only \(O(N\ln N)\), not \(N^2\)! Therefore, to beat the main term \(\sim c N^2\), we only need \(\sup_{\alpha \in \mathfrak{m}} |S_P(\alpha)| \ll N / (\ln N)^2\) — a tiny logarithmic saving over the trivial bound \(N\)! Vinogradov achieved \(\sup_{\mathfrak{m}} |S_P(\alpha)| \ll N(\ln N)^{-A}\) for every \(A &gt; 0\), proving that every sufficiently large odd number is the sum of three primes.</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>The circle method is exact as an integral identity, but three famous barriers govern where major-and-minor arc estimates break down:</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — The binary square-root barrier (\(s = 2\) Goldbach and twin primes: why \(L^2\) energy is too big!).</strong> Why did Exemplar 3 succeed for \(s = 3\) primes (\(N = p_1 + p_2 + p_3\)) but fail for \(s = 2\) primes (\(N = p_1 + p_2\), binary Goldbach)? For \(s = 2\), the expected main term is of size \(\sim \mathfrak{S}_2(N)\frac{N}{(\ln N)^2} \ll N\). Yet on the minor arcs, the best possible cancellation for a sum of \(\sim N/\ln N\) primes is square-root cancellation \(|S_P(\alpha)| \sim \sqrt{N\ln N}\), and by Parseval's identity (<a href="p24-waves.html"><span class="pid">P24</span></a>) the \(L^2\) integral over the circle is</p>
+    <p class="eq">\[\int_0^1 |S_P(\alpha)|^2\,d\alpha = \sum_{p \le N} (\ln p)^2 \sim N\ln N \;\gg\; N\,!\]</p>
+    <p>When \(s = 2\), you have zero spare powers of \(S_P(\alpha)\) to pull out in front of the \(L^2\) integral, and the triangle inequality \(\int_{\mathfrak{m}} |S_P(\alpha)|^2\,d\alpha \sim N\ln N\) is strictly <strong>larger</strong> than the main term \(N\)!</p>
+    <p><em>Mitigation:</em> Switch from the circle method to sieve methods (<a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a>, proving Chen's theorem \(N = p + P_2\)) or average over a family of targets \(N\) (showing almost all even numbers are sums of two primes).</p>
+    <p><em>Price:</em> Replacing exact two-prime equality with almost-primes or statistical density.</p>
+    <p><em>Default:</em> Always check the Parseval \(L^2\) energy \(\int_0^1 |S|^2\) against the expected main term before launching <span class="pid">P38</span>; you need \(s \ge 3\) (or \(s &gt; 2k\) for \(k\)-th powers) for \(L^\infty \times L^2\) to win.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P38.3: Comparison of Ternary Goldbach (s=3, where Main Term ~ N^2 easily beats Minor L^infty x L^2 ~ N^2 / (ln N)^A) versus Binary Goldbach (s=2, where Parseval L^2 ~ N ln N swamps Main Term ~ N).">
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+
+      <!-- Left panel: Ternary Goldbach s = 3 (Circle Method Wins!) -->
+      <text x="150" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Ternary Problem (s = 3 Primes:  Main ≫ Minor)</text>
+      <rect x="35" y="38" width="230" height="118" fill="#f9f8f4" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- Main term bar (height 88) -->
+      <rect x="68" y="54" width="64" height="86" fill="#0f5c57"/>
+      <text x="100" y="48" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Main ~ c N²</text>
+      <text x="100" y="102" font-family="system-ui, sans-serif" font-size="9.5" fill="#ffffff" text-anchor="middle">Major 𝔐</text>
+
+      <!-- Minor bound bar (height 26) -->
+      <rect x="168" y="114" width="64" height="26" fill="#d9ece9" stroke="#0f5c57" stroke-width="1.5"/>
+      <text x="200" y="106" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="middle">sup|S| · ∫|S|²</text>
+      <text x="200" y="131" font-family="Georgia, serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">≪ N²/(ln N)ᴬ</text>
+      <text x="150" y="172" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">1 spare factor of |S| crushes Parseval L²!</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="178" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Binary Goldbach s = 2 (Parseval Wall!) -->
+      <text x="450" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Binary Problem (s = 2 Primes:  L² Energy Barrier!)</text>
+      <rect x="335" y="38" width="230" height="118" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.2"/>
+      <!-- Main term bar (height 42) -->
+      <rect x="368" y="98" width="64" height="42" fill="#0f5c57"/>
+      <text x="400" y="90" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Main ~ c N</text>
+
+      <!-- Minor L^2 bar (height 88 - TALLER than main term!) -->
+      <rect x="468" y="52" width="64" height="88" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2"/>
+      <text x="500" y="46" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">∫|S|² ~ N ln N</text>
+      <text x="500" y="98" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Swamps Main!</text>
+      <text x="450" y="172" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">0 spare factors: triangle inequality loses to L² noise</text>
+    </svg>
+    <figcaption><strong>Fig P38.3.</strong> Why the circle method requires at least three summands (or \(s &gt; 2k\) for \(k\)-th powers): <strong>(A)</strong> at \(s = 3\), factoring out \(\sup_{\mathfrak{m}}|S|\) in front of the Parseval integral \(\int_0^1 |S|^2 \sim N\ln N\) beats the \(N^2\) main term; <strong>(B)</strong> at \(s = 2\), the Parseval integral \(\int |S|^2 \sim N\ln N\) already exceeds the \(O(N)\) main term, so bounding \(|\int_{\mathfrak{m}} S^2 e(-N\alpha)| \le \int_{\mathfrak{m}} |S|^2\) cannot prove positivity.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Overlapping major arcs when the cutoff \(Q\) is chosen too large (\(2Q^2 \delta \ge 1\)).</strong> To make the minor-arc supremum \(\sup_{\mathfrak{m}} |S(\alpha)|\) as small as possible, it is tempting to push the major-arc denominator cutoff \(Q\) as high as \(M\). But if \(Q^2 \delta \ge 1\), the intervals \(\mathfrak{M}(a, q)\) and \(\mathfrak{M}(a', q')\) around distinct fractions overlap (\(\left|\frac{a}{q} - \frac{a'}{q'}\right| = \frac{1}{qq'} \le 2\delta\)), double-counting the spikes!</p>
+    <p><em>Mitigation:</em> Enforce the Farey disjointness lock \(2Q^2\delta &lt; 1\) (typically \(Q = M^\theta\) with \(\theta &lt; 1\)), or use the <strong>Kloosterman refinement</strong> (exact Farey dissection where each arc ends precisely at the mediant \(\frac{a+a'}{q+q'}\), harnessing cancellation in the sum over \(a \bmod q\)).</p>
+    <p><em>Price:</em> Tracking incomplete Kloosterman sums along variable-width Farey intervals.</p>
+    <p><em>Default:</em> Always check \(2Q^2\delta &lt; 1\) in Obligation 1 before summing over \((a,q) = 1\).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Vanishing singular series \(\mathfrak{S}(N) = 0\) due to hidden local congruence obstructions.</strong> Even when the minor-arc error is tiny (\(o(M^{s-k})\)) and the real integral \(\mathfrak{J}(N) &gt; 0\) is positive, the coefficient \(\mathfrak{S}(N) = \prod_p \sigma_p(N)\) can vanish identically if a single prime power \(p^r\) blocks the equation modulo \(p^r\) (for instance, sums of \(4\)th powers modulo \(16\), where \(x^4 \equiv 0 \text{ or } 1 \pmod{16}\), requiring \(s \ge 16\) fourth powers locally at \(p = 2\) even though \(s = 5\) suffices globally at all other primes!).</p>
+    <p><em>Mitigation:</em> Localize at every prime \(p\) (<a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>) and verify Hensel's lemma lifting \(\sigma_p(N) &gt; 0\) for all \(p\), paying special attention to \(p = 2\) and primes dividing the exponent \(k\).</p>
+    <p><em>Price:</em> Checking finite congruence tables modulo small prime powers.</p>
+    <p><em>Default:</em> Never declare \(R(N) \to \infty\) until you have proved \(\sigma_p(N) &gt; 0\) for every prime \(p\).</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> In Waring's problem for \(k\)-th powers, elementary Weyl differencing + Hua's lemma proves the asymptotic formula for \(s \ge 2^k + 1\) variables (\(s \ge 5\) for squares, \(s \ge 9\) for cubes). Reaching \(s = 4\) squares requires the Kloosterman circle refinement (or Jacobi's modular theta identity), and reaching \(G(k) \sim k\ln k\) for large \(k\) requires Vinogradov's mean-value theorem (proved in full generality via Bourgain–Demeter–Guth \(\ell^2\) decoupling, <a href="p42-dyadic-decomposition.html"><span class="pid">P42</span></a>).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When \(s = 2\) (binary problems like twin primes or \(N = p_1 + p_2\)) hits the Parseval \(L^2\) barrier of Exhibit A:</strong> Switch from the frequency circle to <a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a>, which replaces exact prime indicators with a non-negative quadratic divisor form \(\bigl(\sum_{d \mid n} \lambda_d\bigr)^2\).</li>
+    <li><strong>When you need to test whether individual local factors \(\sigma_p(N)\) of the singular series vanish or survive:</strong> Use <a href="p30-localize-at-prime.html"><span class="pid">P30</span> · Localize at a prime</a> (Hensel's lemma and \(p\)-adic valuations).</li>
+    <li><strong>When you want to separate structured low-complexity signals from pseudorandom noise in a combinatorial set without periodic group structure:</strong> Compare <span class="pid">P38</span> with its dynamical twin <a href="p58-ergodic-correspondence.html"><span class="pid">P58</span> · Ergodic correspondence</a> (and the Green–Tao transference principle).</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Ramanujan and Hardy's 1918 partition asymptotic to Littlewood's Waring machine and Vinogradov's trigonometric sums.</strong> In 1918 G. H. Hardy and Srinivasa Ramanujan (<em>Proceedings of the London Mathematical Society</em> 17, 75–115) invented the circle method to compute the number of integer partitions \(p(n)\) by integrating its generating function along a circle \(|z| = r &lt; 1\) and isolating the Farey-arc singularities at roots of unity \(e^{2\pi i a/q}\). Between 1920 and 1925, Hardy and J. E. Littlewood (<em>Acta Mathematica</em> 44, "Some problems of 'Partitio Numerorum'") reshaped the method for Waring's problem and conditional prime-sum asymptotics, naming the <em>major arcs</em> (German <em>große Bögen</em>) and <em>minor arcs</em> (<em>kleine Bögen</em>). In 1928–1937 Ivan Matveyevich Vinogradov replaced infinite power series inside the unit disk with finite trigonometric sums \(\sum_{n \le X} e(f(n)\alpha)\) on \(\mathbb{R}/\mathbb{Z}\) and proved his unconditional minor-arc estimates for primes, settling the ternary Goldbach conjecture for all sufficiently large odd integers (completed for all odd \(N \ge 7\) by Harald Helfgott in 2013).</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — Parseval's \(L^2\) energy identity on the six-square sum \(f(\alpha)\)</h3>
+  <p>Return to the six-square exponential sum \(f(\alpha) = \sum_{m=0}^5 e(m^2\alpha) = 1 + e(\alpha) + e(4\alpha) + e(9\alpha) + e(16\alpha) + e(25\alpha)\) from Section 2.<br>
+  (a) Compute the full-circle \(L^2\) energy integral \(\int_0^1 |f(\alpha)|^2\,d\alpha\) and the \(L^4\) energy integral \(\int_0^1 |f(\alpha)|^4\,d\alpha\) exactly by counting solutions to \(m_1^2 = m_2^2\) and \(m_1^2 + m_2^2 = m_3^2 + m_4^2\) with \(m_j \in \{0, 1, 2, 3, 4, 5\}\).<br>
+  (b) Using your exact value of \(\int_0^1 |f(\alpha)|^2\,d\alpha\) and the minor-arc supremum \(\sup_{\alpha \in \mathfrak{m}} |f(\alpha)|^2 = 5.0\) on a minor-arc set \(\mathfrak{m}\), state the upper bound on \(\int_{\mathfrak{m}} |f(\alpha)|^4\,d\alpha\) given by Obligation 3 of Box P38.A.</p>
+  <details><summary>Hint</summary><p>In (a), expanding \(|f(\alpha)|^2 = f(\alpha)\overline{f(\alpha)}\) and integrating picks out pairs \(m_1^2 = m_2^2\) (\(6\) diagonal pairs). Expanding \(|f(\alpha)|^4 = |f(\alpha)^2|^2\) counts ordered quadruples \((m_1, m_2, m_3, m_4) \in \{0..5\}^4\) with \(m_1^2 + m_2^2 = m_3^2 + m_4^2\); remember the Pythgorean triple \(3^2 + 4^2 = 5^2 + 0^2 = 25\)!</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Exact \(L^2\) and \(L^4\) integrals by orthogonality (<span class="pid">P24</span>):</strong> Since the six squares \(0, 1, 4, 9, 16, 25\) are distinct, \(m_1^2 = m_2^2\) holds only for the \(6\) diagonal pairs \(m_1 = m_2\), so</p>
+    <p class="eq">\[\int_0^1 |f(\alpha)|^2\,d\alpha = 6.\]</p>
+    <p>For \(\int_0^1 |f(\alpha)|^4\,d\alpha\), we count quadruples with \(m_1^2 + m_2^2 = m_3^2 + m_4^2\):</p>
+    <ul>
+      <li>The \(6\) diagonal sums \(2m^2\) (\(0, 2, 8, 18, 32, 50\)) each have \(1^2 = 1\) representation (contributing \(6 \times 1 = 6\)).</li>
+      <li>The \(\binom{6}{2} - 2 = 13\) off-diagonal sums \(m_1^2 + m_2^2 \ne 25\) (\(m_1 \ne m_2\)) each have \(2\) ordered pairs \((m_1, m_2)\) and \((m_2, m_1)\), so \(2^2 = 4\) quadruples (contributing \(13 \times 4 = 52\)).</li>
+      <li>The special sum \(25 = 5^2 + 0^2 = 0^2 + 5^2 = 3^2 + 4^2 = 4^2 + 3^2\) has \(4\) ordered pairs, contributing \(4^2 = 16\) quadruples!</li>
+    </ul>
+    <p>Summing gives \(\int_0^1 |f(\alpha)|^4\,d\alpha = 6 + 52 + 16 = 74\).</p>
+    <p><strong>(b) Hybrid \(L^\infty \times L^2\) bound:</strong> By Obligation 3 of Box P38.A,</p>
+    <p class="eq">\[\int_{\mathfrak{m}} |f(\alpha)|^4\,d\alpha \;\le\; \left(\sup_{\alpha \in \mathfrak{m}} |f(\alpha)|^2\right) \int_0^1 |f(\alpha)|^2\,d\alpha = 5.0 \times 6 = 30.\]</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — Evaluating the Even-Modulus Gauss Sum \(S(a, 2^r)\) and the \(\bmod\;8\) Obstruction for Three Squares</h3>
+  <p>Let \(S(a, q) = \sum_{r=0}^{q-1} e(ar^2/q)\) be the quadratic Gauss sum.<br>
+  (a) Compute \(S(1, 2)\), \(S(1, 4)\), and \(S(a, 8)\) for all odd \(a \in \{1, 3, 5, 7\}\). Why does \(S(1, 2) = 0\), while \(|S(1, 4)| = 2 = \sqrt{2\cdot 4}\) and \(|S(a, 8)| = 2\sqrt{2} = \sqrt{2\cdot 8}\)?<br>
+  (b) For \(s = 3\) squares, evaluate the \(q = 8\) local contribution \(\sum_{a \in \{1,3,5,7\}} \left(\frac{S(a,8)}{8}\right)^3 e(-Na/8)\) when \(N \equiv 7 \pmod 8\), and verify that combining \(q = 1, 2, 4, 8\) gives zero \(2\)-adic density \(\sigma_2(N) = 0\) whenever \(N \equiv 7 \pmod 8\).</p>
+  <details><summary>Hint</summary><p>Modulo \(8\), the squares of \(r = 0, 1, \dots, 7\) are \(0, 1, 4, 1, 0, 1, 4, 1\) (two \(0\)'s, two \(4\)'s, and four \(1\)'s!). Since \(e(a\cdot 0/8) + e(a\cdot 4/8) = 1 + e(a/2) = 1 - 1 = 0\) for odd \(a\), only the four odd residues \(r^2 \equiv 1 \pmod 8\) survive in \(S(a, 8)\)!</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Gauss sums at \(q = 2, 4, 8\):</strong></p>
+    <ul>
+      <li>For \(q = 2\): \(S(1, 2) = e(0/2) + e(1/2) = 1 + (-1) = 0\) (because \((r+1)^2 \equiv r^2 + 1 \pmod 2\) shifts every term by \(-1\)).</li>
+      <li>For \(q = 4\): \(r^2 \bmod 4 = 0, 1, 0, 1\), so \(S(1, 4) = 2(1 + i)\), with \(|S(1, 4)| = 2\sqrt{2} = \sqrt{2q}\).</li>
+      <li>For \(q = 8\) and odd \(a\): \(r^2 \bmod 8 = 0, 1, 4, 1, 0, 1, 4, 1\). The two \(0\)'s give \(2e(0) = 2\), and the two \(4\)'s give \(2e(4a/8) = 2(-1) = -2\), which cancel! Only the four odd squares \(r^2 \equiv 1 \pmod 8\) remain:
+        <p class="eq">\[S(a, 8) = 4\,e(a/8), \qquad |S(a, 8)| = 4 = \sqrt{2\cdot 8}.\]</p>
+      </li>
+    </ul>
+    <p><strong>(b) Vanishing modulo \(8\) for \(N \equiv 7 \pmod 8\):</strong> Since \(S(a, 8)/8 = \frac{1}{2}e(a/8)\), its cube is \(\left(\frac{S(a,8)}{8}\right)^3 = \frac{1}{8}e(3a/8)\). When \(N \equiv 7 \equiv -1 \pmod 8\), we have \(e((3 - N)a/8) = e(4a/8) = e(a/2) = -1\) for every odd \(a \in \{1, 3, 5, 7\}\)! Summing over the \(4\) odd residues gives</p>
+    <p class="eq">\[\sum_{a \in \{1,3,5,7\}} \left(\frac{S(a,8)}{8}\right)^3 e(-7a/8) = \frac{1}{8}\bigl((-1) + (-1) + (-1) + (-1)\bigr) = -\frac{1}{2}.\]</p>
+    <p>Meanwhile, at \(q = 1\) the term is \(+1\), at \(q = 2\) it is \(0\) (since \(S(1,2)=0\)), and at \(q = 4\) (\(\pm 1 \bmod 4\)) we have \(\frac{1}{8}\bigl((1+i)^3(-i) + (1-i)^3(i)\bigr) = \frac{1}{8}\bigl(2(-1+i)(-i) + 2(-1-i)(i)\bigr) = -\frac{1}{2}\). Summing \(q = 1, 2, 4, 8\) gives</p>
+    <p class="eq">\[\sigma_2(7) = 1 + 0 - \frac{1}{2} - \frac{1}{2} = 0,\]</p>
+    <p>reflecting the elementary congruence obstruction that \(m_1^2 + m_2^2 + m_3^2 \in \{0,1,4\} + \{0,1,4\} + \{0,1,4\} \not\equiv 7 \pmod 8\).</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Computing the Singular Integral \(\mathfrak{J}_s(N)\) via Euler's Beta and Gamma Functions</h3>
+  <p>On the major arc around \(\alpha = 0\) for \(k\)-th powers up to \(M = N^{1/k}\), the smooth archimedean approximation is \(V(\beta) = \int_0^{N^{1/k}} e(\beta x^k)\,dx = \frac{1}{k}\int_0^N u^{\frac{1}{k}-1} e(\beta u)\,du\) (under \(u = x^k\)).<br>
+  (a) By Fourier inversion (<a href="p24-waves.html"><span class="pid">P24</span></a>), show that the singular integral \(\mathfrak{J}_s(N) = \int_{-\infty}^{\infty} V(\beta)^s e(-N\beta)\,d\beta\) equals the \((s-1)\)-fold convolution volume</p>
+  <p class="eq">\[\mathfrak{J}_s(N) = \frac{1}{k^s}\idotsint_{\substack{u_1, \dots, u_{s-1} &gt; 0 \\ u_1 + \cdots + u_{s-1} &lt; N}} (u_1 u_2 \cdots u_{s-1})^{\frac{1}{k}-1}\bigl(N - u_1 - \cdots - u_{s-1}\bigr)^{\frac{1}{k}-1} du_1\cdots du_{s-1}.\]</p>
+  <p>(b) Rescale \(u_j = N v_j\) (<a href="p56-rescale-asymptotic.html"><span class="pid">P56</span></a>) and use Euler's Dirichlet simplex integral \(\idotsint_{v_j &gt; 0, \sum v_j &lt; 1} v_1^{a-1}\cdots v_{s-1}^{a-1}(1-\sum v_j)^{a-1}\,dv = \frac{\Gamma(a)^s}{\Gamma(sa)}\) (with \(a = \frac{1}{k}\)) to prove Hardy and Littlewood's singular integral formula:</p>
+  <p class="eq">\[\mathfrak{J}_s(N) = \frac{\Gamma(1 + 1/k)^s}{\Gamma(s/k)}\,N^{\frac{s}{k} - 1}.\]</p>
+  <details><summary>Hint</summary><p>In (b), substituting \(u_j = N v_j\) pulls out \(N^{(1/k - 1)s}\) from the integrand and \(N^{s-1}\) from the differentials \(du_1 \cdots du_{s-1}\), giving total power \(N^{s/k - 1}\). Then use \(\frac{1}{k}\Gamma(1/k) = \Gamma(1 + 1/k)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Convolution representation:</strong> Since \(V(\beta) = \int_0^\infty \frac{1}{k}u^{\frac{1}{k}-1}\mathbf{1}_{(0,N]}(u) e(\beta u)\,du\) is the Fourier transform of the density \(\rho(u) = \frac{1}{k}u^{\frac{1}{k}-1}\) on \((0, N]\), the inverse Fourier transform \(\int_{-\infty}^{\infty} V(\beta)^s e(-N\beta)\,d\beta\) evaluates the \(s\)-fold convolution \((\rho * \cdots * \rho)(N)\), which is the exact integral over the simplex \(u_1 + \cdots + u_s = N\), \(u_j &gt; 0\).</p>
+    <p><strong>(b) Rescaling and Gamma evaluation:</strong> Setting \(u_j = N v_j\) for \(j = 1, \dots, s-1\) factors out \(N^{s(1/k - 1) + (s - 1)} = N^{\frac{s}{k} - 1}\), leaving</p>
+    <p class="eq">\[\mathfrak{J}_s(N) = \frac{N^{\frac{s}{k}-1}}{k^s}\idotsint_{\substack{v_j &gt; 0 \\ \sum v_j &lt; 1}} (v_1\cdots v_{s-1})^{\frac{1}{k}-1}\Bigl(1 - \sum_{j=1}^{s-1} v_j\Bigr)^{\frac{1}{k}-1} dv_1\cdots dv_{s-1} = \frac{N^{\frac{s}{k}-1}}{k^s}\frac{\Gamma(1/k)^s}{\Gamma(s/k)}.\]</p>
+    <p>Applying the functional equation \(\frac{1}{k}\Gamma(1/k) = \Gamma(1 + 1/k)\) across all \(s\) factors in the numerator yields \(\mathfrak{J}_s(N) = \frac{\Gamma(1 + 1/k)^s}{\Gamma(s/k)}\,N^{\frac{s}{k}-1}\).</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: circle method, sieve, or elementary modular obstruction?</h3>
+  <p>Diagnose the right tool for each additive problem below:</p>
+  <ol>
+    <li>You want an asymptotic formula as \(N \to \infty\) for the number of ways to write \(N = m_1^3 + m_2^3 + \cdots + m_9^3\) as a sum of \(s = 9\) non-negative cubes.</li>
+    <li>You want to prove that \(N = 8{,}000{,}007\) cannot be written as a sum of three integer squares \(m_1^2 + m_2^2 + m_3^2\).</li>
+    <li>You want to prove that there are infinitely many primes \(p\) such that \(p + 2\) has at most two prime factors (\(P_2\)).</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>Genuine <span class="pid">P38</span> (Major and minor arcs for Waring's problem):</strong> Here \(k = 3\) and \(s = 9 = 2^3 + 1 &gt; 2k\); Weyl differencing (twice, lowering degree \(3 \to 2 \to 1\)) combined with Hua's \(L^8\) mean-value bound crushes the minor arcs, while the singular series and singular integral (Exercise 3) give the exact asymptotic main term \(\frac{\Gamma(4/3)^9}{\Gamma(3)}\mathfrak{S}(N)N^2\).</li>
+      <li><strong>Elementary local obstruction suffices (<a href="b02-congruence-classes.html"><span class="pid">B02</span></a> / <a href="p12-obstruction.html"><span class="pid">P12</span></a> / <a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>):</strong> Since \(8{,}000{,}007 = 8 \times 1{,}000{,}000 + 7 \equiv 7 \pmod 8\), and squares modulo \(8\) belong to \(\{0, 1, 4\}\), no three squares can sum to \(7 \pmod 8\). No circle integral is needed to rule out a locally obstructed target.</li>
+      <li><strong>Fails the binary \(L^2\) barrier (Exhibit A) — use <a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a> instead:</strong> Twin primes (\(p' - p = 2\)) is a binary (\(s = 2\)) prime problem where the Parseval \(L^2\) energy \(\sim N\ln N\) exceeds the \(O(N/(\ln N)^2)\) main term by three powers of \(\ln N\). Chen's theorem (\(p + 2 = P_2\)) is proved via optimized linear/quadratic sieves (<span class="pid">P39</span>).</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: Roth's theorem on 3-term arithmetic progressions via Fourier major and minor modes</h3>
+  <p>Show how Klaus Roth (1953) transferred <span class="pid">P38</span> from infinite number theory to finite combinatorics on \(\mathbb{Z}/M\mathbb{Z}\) (compare <a href="p58-ergodic-correspondence.html"><span class="pid">P58</span></a>, Exemplar 3). Let \(A \subset \{1, \dots, M\}\) (for odd \(M\)) have density \(\delta = |A|/M &gt; 0\), and define its discrete Fourier transform \(\widehat{A}(r) = \sum_{a \in A} e(ar/M)\) for \(r \in \mathbb{Z}/M\mathbb{Z}\).<br>
+  (a) Verify by orthogonality that the number of \(3\)-term arithmetic progressions \((a, a+d, a+2d) \in A^3\) (meaning \(a_1 + a_3 = 2a_2\)) equals</p>
+  <p class="eq">\[T_3(A) = \frac{1}{M}\sum_{r=0}^{M-1} \widehat{A}(r)^2\,\widehat{A}(-2r) = \underbrace{\frac{|A|^3}{M}}_{\text{Major mode } r=0} \;+\; \underbrace{\frac{1}{M}\sum_{r=1}^{M-1} \widehat{A}(r)^2\,\widehat{A}(-2r)}_{\text{Minor modes } r \ne 0}.\]</p>
+  <p>(b) Apply the hybrid \(L^\infty \times L^2\) bound (Obligation 3 of Box P38.A) to the minor modes \(r \ne 0\) using Parseval's identity \(\frac{1}{M}\sum_{r=0}^{M-1} |\widehat{A}(r)|^2 = |A| = \delta M\). Show that if \(\sup_{r \ne 0} |\widehat{A}(r)| \le \frac{1}{2}\delta^2 M\), then \(T_3(A) \ge \frac{1}{2}\delta^3 M^2\) (forcing non-trivial 3-APs when \(\delta^3 M^2 &gt; 2\delta M\)); and explain what happens in the opposite case when a single minor mode \(r_0 \ne 0\) is large (\(|\widehat{A}(r_0)| &gt; \frac{1}{2}\delta^2 M\)).</p>
+  <details><summary>Hint</summary><p>In (b), bound \(\frac{1}{M}\sum_{r \ne 0} |\widehat{A}(r)|^2 |\widehat{A}(-2r)| \le \bigl(\sup_{r \ne 0}|\widehat{A}(-2r)|\bigr)\frac{1}{M}\sum_{r} |\widehat{A}(r)|^2\) (since \(M\) is odd, \(-2r \ne 0 \bmod M\) for \(r \ne 0\)).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Major mode \(r = 0\) vs. Minor modes \(r \ne 0\):</strong> Since \(\frac{1}{M}\sum_{r=0}^{M-1} e(r(a_1 + a_3 - 2a_2)/M) = \mathbf{1}_{a_1 + a_3 \equiv 2a_2}\), expanding \(\widehat{A}(r)^2\widehat{A}(-2r)\) counts solutions to \(a_1 + a_3 \equiv 2a_2 \pmod M\). At the major mode \(r = 0\), \(\widehat{A}(0) = |A| = \delta M\), giving the random prediction \(\frac{|A|^3}{M} = \delta^3 M^2\).</p>
+    <p><strong>(b) The dichotomy between pseudorandomness and density increment:</strong> Because \(M\) is odd, \(r \ne 0 \implies -2r \not\equiv 0 \pmod M\). Applying Obligation 3 of Box P38.A gives</p>
+    <p class="eq">\[\left|\frac{1}{M}\sum_{r=1}^{M-1} \widehat{A}(r)^2\,\widehat{A}(-2r)\right| \;\le\; \left(\max_{s \ne 0} |\widehat{A}(s)|\right)\frac{1}{M}\sum_{r=0}^{M-1} |\widehat{A}(r)|^2 = \left(\max_{s \ne 0} |\widehat{A}(s)|\right)\delta M.\]</p>
+    <p>If \(\max_{s \ne 0} |\widehat{A}(s)| \le \frac{1}{2}\delta^2 M\) (minor modes are small / \(A\) is pseudorandom), then the minor sum is at most \(\frac{1}{2}\delta^3 M^2\), so \(T_3(A) \ge \delta^3 M^2 - \frac{1}{2}\delta^3 M^2 = \frac{1}{2}\delta^3 M^2\). Conversely, if some mode \(r_0 \ne 0\) has \(|\widehat{A}(r_0)| &gt; \frac{1}{2}\delta^2 M\) (a major-arc resonance!), then \(A\) correlates with the wave \(e(r_0 x / M)\); partitioning \(\mathbb{Z}/M\mathbb{Z}\) into sub-progressions where \(e(r_0 x / M)\) is nearly constant increases the density of \(A\) from \(\delta\) to \(\delta + c\delta^2\), which can happen at most \(O(1/\delta)\) times before \(\delta\) exceeds \(1\)!</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P38 · Major and minor arcs. <a href="index.html">Return to the index</a> · Previous: <a href="p37-ito-calculus.html">P37 · Itô calculus (differentiating randomness)</a> · Next: <a href="p39-optimized-sieve.html">P39 · The optimized sieve →</a></p>
+</footer>
+
+</body>
+</html>

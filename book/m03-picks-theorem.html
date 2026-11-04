@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M03 · Pick's theorem — Patterns of Math</title>
+<style>
+/* Patterns of Math — shared stylesheet.
+   Target: clean, readable textbook-page feel. Light mode default,
+   dark mode supported via prefers-color-scheme. MathJax-friendly. */
+
+:root {
+  --bg: #faf8f4;
+  --fg: #1a1a1a;
+  --muted: #5a5550;
+  --accent: #8b2635;        /* deep crimson — sparingly */
+  --accent-2: #3a6073;      /* slate blue for secondary markers */
+  --box-bg: #f2eee6;
+  --box-border: #d4cbbf;
+  --onramp-bg: #eef3f7;
+  --onramp-border: #b8cad6;
+  --warn-bg: #f8ece8;
+  --warn-border: #d8a99c;
+  --code-bg: #f0ece4;
+  --rule: #dcd4c6;
+  --maxw: 44rem;            /* ~700px — comfortable reading measure */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161513;
+    --fg: #e8e4dc;
+    --muted: #9b948a;
+    --accent: #e06c75;
+    --accent-2: #7aa6be;
+    --box-bg: #211f1c;
+    --box-border: #3a3630;
+    --onramp-bg: #1c2227;
+    --onramp-border: #34434f;
+    --warn-bg: #281e1b;
+    --warn-border: #5a3a32;
+    --code-bg: #221f1b;
+    --rule: #2e2a24;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html {
+  font-size: 17px;
+  line-height: 1.65;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Charter", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* Header / identity bar */
+header.chapter-header {
+  border-bottom: 2px solid var(--fg);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.tier-label {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.4rem;
+}
+
+h1 {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+
+h1 .pid {
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 0.35rem;
+}
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0.4rem 0 0;
+}
+
+.prereqs {
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.9rem;
+}
+
+.prereqs a {
+  color: var(--accent-2);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent-2);
+}
+
+/* Section headings */
+section {
+  margin: 2.5rem 0;
+}
+
+h2 {
+  font-size: 1.35rem;
+  line-height: 1.3;
+  margin: 2.2rem 0 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 1.08rem;
+  margin: 1.5rem 0 0.4rem;
+  color: var(--fg);
+}
+
+p { margin: 0 0 1rem; }
+
+/* The Pattern Box — centerpiece of each chapter */
+.pattern-box {
+  background: var(--box-bg);
+  border-left: 4px solid var(--accent);
+  border-top: 1px solid var(--box-border);
+  border-right: 1px solid var(--box-border);
+  border-bottom: 1px solid var(--box-border);
+  padding: 1.1rem 1.35rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.pattern-box h3 {
+  margin-top: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pattern-box ol, .pattern-box ul {
+  margin-bottom: 0.25rem;
+}
+
+/* On-ramp / aside / warning boxes */
+.onramp, .aside, .warn {
+  padding: 0.95rem 1.2rem;
+  margin: 1.35rem 0;
+  border-radius: 4px;
+  font-size: 0.96rem;
+}
+
+.onramp {
+  background: var(--onramp-bg);
+  border: 1px solid var(--onramp-border);
+}
+
+.aside {
+  background: var(--box-bg);
+  border: 1px solid var(--box-border);
+}
+
+.warn {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+}
+
+.onramp > strong:first-child,
+.aside > strong:first-child,
+.warn > strong:first-child {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--accent-2);
+}
+
+.warn > strong:first-child { color: var(--accent); }
+
+/* Exercises & collapsible solutions */
+.exercise {
+  margin: 1.25rem 0;
+  padding: 0.9rem 1.15rem;
+  background: var(--box-bg);
+  border: 1px solid var(--box-border);
+  border-radius: 4px;
+}
+
+details {
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--rule);
+}
+
+summary {
+  cursor: pointer;
+  font-family: system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: var(--accent-2);
+  font-weight: 600;
+  user-select: none;
+}
+
+summary:hover { color: var(--accent); }
+
+/* Figures & SVG */
+figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+figure svg {
+  max-width: 100%;
+  height: auto;
+}
+
+figcaption {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 0.45rem;
+  font-style: italic;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.45rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  border-bottom: 2px solid var(--fg);
+}
+
+code {
+  background: var(--code-bg);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+a { color: var(--accent); }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+
+<header class="chapter-header">
+  <p class="tier-label">Multi-Pattern Synthesis · Landmark Theorems</p>
+  <h1><span class="pid">M03</span> · Pick's theorem</h1>
+  <p class="lede">Why the continuous area of any simple lattice polygon equals \(I + \frac{B}{2} - 1\) — synthesizing small-case discovery (<span class="pid">P02</span>) with additive invariants (<span class="pid">P09</span>) and triangulation double counting (<span class="pid">P70</span>).</p>
+  <p class="prereqs"><strong>Moves Combined:</strong> <a href="p02-small-cases.html">P02 · Try small cases</a> + <a href="p09-invariant.html">P09 · Find the invariant</a> (with <a href="p70-double-counting.html">P70 · Double counting</a> &amp; <a href="p05-canonical-form.html">P05 · Canonical form</a>)</p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — Lattice polygons, interior points \(I\), and boundary points \(B\).</strong> The <strong>integer lattice</strong> \(\mathbb{Z}^2\) is the grid of points \((x, y)\) in the plane whose coordinates \(x\) and \(y\) are both integers. A <strong>simple lattice polygon</strong> \(P\) is a non-self-intersecting polygon whose vertices all lie in \(\mathbb{Z}^2\). Associated to \(P\) are two discrete counts:</p>
+  <ul>
+    <li><strong>\(I(P)\):</strong> the number of lattice points lying <em>strictly inside</em> \(P\).</li>
+    <li><strong>\(B(P)\):</strong> the number of lattice points lying <em>on the boundary perimeter</em> \(\partial P\) (including all vertices). Along a straight segment from \((x_1, y_1)\) to \((x_2, y_2)\), a step between consecutive lattice points changes coordinates by \(\bigl(\frac{x_2-x_1}{g},\, \frac{y_2-y_1}{g}\bigr)\) where \(g = \gcd(|x_2 - x_1|, |y_2 - y_1|)\), so that edge contributes exactly \(g\) boundary intervals (and \(g - 1\) intermediate lattice points between its two endpoints).</li>
+  </ul>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — Elementary lattice triangles have area \(1/2\).</strong> A lattice triangle \(\Delta\) is called <strong>elementary</strong> (or <strong>primitive</strong>) if its only lattice points are its three vertices: \(I(\Delta) = 0\) and \(B(\Delta) = 3\). Placing one vertex at the origin \((0, 0)\) and the other two at \(\mathbf{u} = (x_1, y_1)\) and \(\mathbf{v} = (x_2, y_2)\), the parallelogram spanned by \(\mathbf{u}\) and \(\mathbf{v}\) tiles the plane \(\mathbb{R}^2\) with fundamental domains of area \(|\det(\mathbf{u}, \mathbf{v})| = |x_1 y_2 - x_2 y_1|\). Because \(\Delta\) has no interior or edge lattice points, no non-vertex lattice point lies inside the parallelogram either, so \(\mathbf{u}, \mathbf{v}\) generate the entire lattice \(\mathbb{Z}^2\) — forcing \(|x_1 y_2 - x_2 y_1| = 1\) and \(\operatorname{Area}(\Delta) = \frac{1}{2}|x_1 y_2 - x_2 y_1| = \frac{1}{2}\)!</p>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>At first sight, the area \(A(P)\) of a tilted, jagged polygon \(P\) seems like a continuous geometric quantity requiring trigonometry, determinants, or integration, whereas counting grid dots \(I(P)\) inside \(P\) and \(B(P)\) along its boundary \(\partial P\) is purely discrete. How could a single linear formula link \(A(P)\), \(I(P)\), and \(B(P)\) for <em>every</em> simple lattice polygon?</p>
+  <p>In 1899, Georg Alexander Pick proved that \(A(P) = I(P) + \frac{1}{2}B(P) - 1\) always holds. In this synthesis chapter, we first <em>discover</em> Pick's formula from small cases (<a href="p02-small-cases.html"><span class="pid">P02</span></a>), and then prove it by two complementary multi-pattern bridges:</p>
+  <ol>
+    <li><strong>The Additive Valuation Bridge (<a href="p02-small-cases.html"><span class="pid">P02</span></a> + <a href="p09-invariant.html"><span class="pid">P09</span></a>):</strong> Show that both \(A(P)\) and \(v(P) = I(P) + \frac{1}{2}B(P) - 1\) are <strong>additive invariants</strong> under gluing two lattice polygons along a shared edge (\(v(P_1 \cup P_2) = v(P_1) + v(P_2)\)), and check that they agree on axis-aligned rectangles and right triangles.</li>
+    <li><strong>The Triangulation Double-Counting Bridge (<a href="p70-double-counting.html"><span class="pid">P70</span></a> + <a href="p09-invariant.html"><span class="pid">P09</span></a> + <a href="p05-canonical-form.html"><span class="pid">P05</span></a>):</strong> Decompose \(P\) into \(T\) elementary lattice triangles, double-count interior angles (or edges via Euler's formula) to prove \(T = 2I + B - 2\), and multiply by the universal area \(\frac{1}{2}\) of each elementary triangle!</li>
+  </ol>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: discovering the coefficients from small cases</h2>
+  <p>Suppose we suspect that the area \(A\) of a simple lattice polygon is a linear combination \(A = \alpha I + \beta B + \gamma\) of its interior count \(I\), its boundary count \(B\), and a constant \(\gamma\). Before trying to prove anything in general, let us apply <a href="p02-small-cases.html"><span class="pid">P02</span> · Try small cases</a> to three tiny polygons whose areas we already know:</p>
+  <ol>
+    <li><strong>Case 1 — A \(1 \times 1\) unit square:</strong> Its area is \(A = 1\), it has \(I = 0\) interior lattice points, and its \(4\) corners give \(B = 4\) boundary points:
+      \[
+        0\alpha + 4\beta + \gamma \;=\; 1.
+      \]</li>
+    <li><strong>Case 2 — An elementary triangle with vertices \((0,0), (1,0), (0,1)\):</strong> Half of the unit square has area \(A = \frac{1}{2}\), \(I = 0\) interior points, and \(B = 3\) boundary points:
+      \[
+        0\alpha + 3\beta + \gamma \;=\; \frac{1}{2}.
+      \]
+      Subtracting Case 2 from Case 1 immediately pins down <strong>\(\beta = \frac{1}{2}\)</strong> and <strong>\(\gamma = -1\)</strong>!</li>
+    <li><strong>Case 3 — A \(2 \times 2\) square:</strong> Its area is \(A = 4\), it has \(I = 1\) interior point \((1,1)\) at its center, and \(B = 8\) boundary points:
+      \[
+        1\alpha + 8\bigl(\tfrac{1}{2}\bigr) - 1 \;=\; 4 \quad\Longrightarrow\quad \alpha + 3 \;=\; 4 \quad\Longrightarrow\quad \mathbf{\alpha = 1}!
+      \]</li>
+  </ol>
+  <p>Our three small cases force the unique candidate formula \(A = I + \frac{B}{2} - 1\). Now test it on a genuinely non-trivial polygon — the skewed pentagon \(P_{\text{enc}}\) with vertices \((0,0),\; (4,1),\; (5,4),\; (2,5),\; (0,3)\):</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Lattice Polygon \(P\)</th>
+        <th>Vertices</th>
+        <th>Interior points \(I\)</th>
+        <th>Boundary points \(B = \sum \gcd(|\Delta x|, |\Delta y|)\)</th>
+        <th>Pick's Formula \(I + \frac{B}{2} - 1\)</th>
+        <th>Direct Geometric Area \(A(P)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Unit square</strong></td>
+        <td>\((0,0),(1,0),(1,1),(0,1)\)</td>
+        <td>\(0\)</td>
+        <td>\(1 + 1 + 1 + 1 = 4\)</td>
+        <td>\(0 + \frac{4}{2} - 1 = \mathbf{1}\)</td>
+        <td>\(1 \times 1 = \mathbf{1}\)</td>
+      </tr>
+      <tr>
+        <td><strong>\(3 \times 2\) rectangle</strong></td>
+        <td>\((0,0),(3,0),(3,2),(0,2)\)</td>
+        <td>\(2\)</td>
+        <td>\(3 + 2 + 3 + 2 = 10\)</td>
+        <td>\(2 + \frac{10}{2} - 1 = \mathbf{6}\)</td>
+        <td>\(3 \times 2 = \mathbf{6}\)</td>
+      </tr>
+      <tr>
+        <td><strong>Right triangle</strong></td>
+        <td>\((0,0),(4,0),(0,3)\)</td>
+        <td>\(3\)</td>
+        <td>\(4 + \gcd(4,3) + 3 = 8\)</td>
+        <td>\(3 + \frac{8}{2} - 1 = \mathbf{6}\)</td>
+        <td>\(\frac{1}{2}(4)(3) = \mathbf{6}\)</td>
+      </tr>
+      <tr>
+        <td><strong>Skewed pentagon \(P_{\text{enc}}\)</strong></td>
+        <td>\((0,0),(4,1),(5,4),(2,5),(0,3)\)</td>
+        <td><strong>\(14\)</strong></td>
+        <td>\(1 + 1 + 1 + 2 + 3 = \mathbf{8}\)</td>
+        <td>\(14 + \frac{8}{2} - 1 = \mathbf{17}\)</td>
+        <td>\(5^2 - 2 - \frac{3}{2} - \frac{3}{2} - 3 = \mathbf{17}\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Look at the last row: along the slanted edge from \((5,4)\) to \((2,5)\), \(\gcd(|-3|, |1|) = 1\) so there are no intermediate boundary points, whereas along the edge from \((2,5)\) to \((0,3)\), \(\gcd(|-2|, |-2|) = 2\) so \((1,4)\) is an extra boundary point. Counting the \(14\) interior lattice points and \(8\) boundary lattice points gives \(14 + 4 - 1 = 17\), matching the exact area obtained by subtracting the four corner right triangles (areas \(2,\; \frac{3}{2},\; \frac{3}{2},\; 1\)) and corner \(2 \times 1\) rectangle (area \(2\)) from the \(5 \times 5\) bounding box!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the synthesis</h2>
+
+  <div class="pattern-box" id="box-m03">
+    <h3>Box M03 · The Multi-Pattern Synthesis for Pick's Theorem</h3>
+    <p>For any simple lattice polygon \(P \subset \mathbb{R}^2\) with \(I(P)\) interior lattice points and \(B(P)\) boundary lattice points, the Euclidean area \(A(P)\) is given by</p>
+    \[
+      A(P) \;=\; I(P) \,+\, \frac{B(P)}{2} \,-\, 1.
+    \]
+    <p>Proving this identity synthesizes four core patterns from the Atlas:</p>
+    <ol>
+      <li><strong>Small-Case Determination (<span class="pid">P02</span>):</strong> Evaluating \(A = \alpha I + \beta B + \gamma\) on a unit square, a unit right triangle, and a \(2 \times 2\) square forces the unique weights \(\alpha = 1,\; \beta = \frac{1}{2},\; \gamma = -1\).</li>
+      <li><strong>Additive Gluing Invariant (<span class="pid">P09</span>):</strong> When \(P = P_1 \cup P_2\) is glued along a shared lattice segment containing \(k \ge 2\) lattice points, the \(k - 2\) interior points of that segment move from the boundaries \(\partial P_1, \partial P_2\) into the strict interior of \(P\), while the \(2\) endpoints merge from \(4\) boundary counts into \(2\):
+        \[
+          \Delta I = +(k - 2), \qquad \Delta B = -2(k - 2) - 2 = -2k + 2 \quad\Longrightarrow\quad \Delta\Bigl(I + \frac{B}{2} - 1\Bigr) = 0,
+        \]
+        making \(v(P) = I(P) + \frac{1}{2}B(P) - 1\) strictly additive: \(v(P_1 \cup P_2) = v(P_1) + v(P_2)\).</li>
+      <li><strong>Triangulation Angle/Edge Double Counting (<span class="pid">P70</span>):</strong> Partitioning \(P\) into \(T\) elementary lattice triangles and double-counting the sum of all triangle angles (\(180^\circ T = 360^\circ I + 180^\circ(B - 2)\)) proves \(T = 2I + B - 2\).</li>
+      <li><strong>Canonical Area of Elementary Triangles (<span class="pid">P05</span>):</strong> Every elementary triangle has area \(\frac{1}{2}\), so \(A(P) = \frac{1}{2}T = I + \frac{B}{2} - 1\).</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 220" width="100%" role="img" aria-label="Left: The skewed pentagon P_enc with vertices (0,0), (4,1), (5,4), (2,5), (0,3) on a 5x5 lattice grid showing I=14 crimson interior dots and B=8 slate boundary dots. Right: Gluing P_1 and P_2 along a shared segment with k=4 lattice points">
+      <rect x="0" y="0" width="600" height="220" fill="#ffffff"/>
+      <!-- Left panel: Skewed pentagon P_enc on 5x5 grid -->
+      <text x="135" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Skewed Pentagon P_enc: I = 14, B = 8, A = 17</text>
+      <rect x="45" y="35" width="150" height="150" fill="#f9f7f2" stroke="#d4cbbf" stroke-width="1"/>
+      <!-- Grid lines -->
+      <line x1="75" y1="35" x2="75" y2="185" stroke="#e5dfd3" stroke-width="1"/>
+      <line x1="105" y1="35" x2="105" y2="185" stroke="#e5dfd3" stroke-width="1"/>
+      <line x1="135" y1="35" x2="135" y2="185" stroke="#e5dfd3" stroke-width="1"/>
+      <line x1="165" y1="35" x2="165" y2="185" stroke="#e5dfd3" stroke-width="1"/>
+      <line x1="45" y1="65" x2="195" y2="65" stroke="#e5dfd3" stroke-width="1"/>
+      <line x1="45" y1="95" x2="195" y2="95" stroke="#e5dfd3" stroke-width="1"/>
+      <line x1="45" y1="125" x2="195" y2="125" stroke="#e5dfd3" stroke-width="1"/>
+      <line x1="45" y1="155" x2="195" y2="155" stroke="#e5dfd3" stroke-width="1"/>
+      <!-- Pentagon (0,0)->(45,185), (4,1)->(165,155), (5,4)->(195,65), (2,5)->(105,35), (0,3)->(45,95) -->
+      <polygon points="45,185 165,155 195,65 105,35 45,95" fill="#f3e6e8" fill-opacity="0.65" stroke="#8b2635" stroke-width="2.2"/>
+      <!-- B = 8 boundary lattice points (slate blue) -->
+      <circle cx="45" cy="185" r="4.2" fill="#3a6073"/>
+      <circle cx="165" cy="155" r="4.2" fill="#3a6073"/>
+      <circle cx="195" cy="65" r="4.2" fill="#3a6073"/>
+      <circle cx="105" cy="35" r="4.2" fill="#3a6073"/>
+      <circle cx="75" cy="65" r="4.2" fill="#3a6073"/>
+      <circle cx="45" cy="95" r="4.2" fill="#3a6073"/>
+      <circle cx="45" cy="125" r="4.2" fill="#3a6073"/>
+      <circle cx="45" cy="155" r="4.2" fill="#3a6073"/>
+      <!-- I = 14 interior lattice points (crimson) -->
+      <circle cx="75" cy="155" r="3.8" fill="#8b2635"/>
+      <circle cx="75" cy="125" r="3.8" fill="#8b2635"/>
+      <circle cx="75" cy="95" r="3.8" fill="#8b2635"/>
+      <circle cx="105" cy="155" r="3.8" fill="#8b2635"/>
+      <circle cx="105" cy="125" r="3.8" fill="#8b2635"/>
+      <circle cx="105" cy="95" r="3.8" fill="#8b2635"/>
+      <circle cx="105" cy="65" r="3.8" fill="#8b2635"/>
+      <circle cx="135" cy="155" r="3.8" fill="#8b2635"/>
+      <circle cx="135" cy="125" r="3.8" fill="#8b2635"/>
+      <circle cx="135" cy="95" r="3.8" fill="#8b2635"/>
+      <circle cx="135" cy="65" r="3.8" fill="#8b2635"/>
+      <circle cx="165" cy="125" r="3.8" fill="#8b2635"/>
+      <circle cx="165" cy="95" r="3.8" fill="#8b2635"/>
+      <circle cx="165" cy="65" r="3.8" fill="#8b2635"/>
+      <text x="135" y="205" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Crimson = 14 interior (weight 1); Slate = 8 boundary (weight 1/2)</text>
+
+      <!-- Right panel: Additive Gluing Invariant along shared segment e with k = 4 points -->
+      <text x="430" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Gluing P₁ and P₂ Along Shared Edge e (k Lattice Points)</text>
+      <polygon points="300,110 420,40 420,175" fill="#eef3f7" stroke="#3a6073" stroke-width="2"/>
+      <polygon points="420,40 545,105 420,175" fill="#f2eee6" stroke="#8b2635" stroke-width="2"/>
+      <line x1="420" y1="40" x2="420" y2="175" stroke="#8b2635" stroke-width="3" stroke-dasharray="5,3"/>
+      <circle cx="420" cy="40" r="5" fill="#3a6073"/>
+      <circle cx="420" cy="175" r="5" fill="#3a6073"/>
+      <circle cx="420" cy="85" r="5" fill="#8b2635"/>
+      <circle cx="420" cy="130" r="5" fill="#8b2635"/>
+      <text x="365" y="112" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#3a6073" text-anchor="middle">P₁</text>
+      <text x="475" y="112" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8b2635" text-anchor="middle">P₂</text>
+      <text x="435" y="88" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#8b2635">k−2 become interior</text>
+      <text x="435" y="44" font-family="system-ui, sans-serif" font-size="8.8" fill="#3a6073">2 endpoints stay on ∂P</text>
+      <text x="430" y="205" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I = I₁ + I₂ + (k−2),  B = B₁ + B₂ − 2k + 2  ⇒  v(P₁ ∪ P₂) = v(P₁) + v(P₂)!</text>
+    </svg>
+    <figcaption><strong>Fig M03.1.</strong> <em>Left:</em> Testing Pick's formula on our skewed pentagon \(P_{\text{enc}}\) (\(I = 14,\; B = 8 \implies A = 14 + 4 - 1 = 17\)). <em>Right:</em> Why \(v(P) = I + \frac{B}{2} - 1\) is an additive gluing invariant (<span class="pid">P09</span>): the \(k - 2\) interior points along the shared cut \(e\) switch from being counted twice at weight \(\frac{1}{2}\) (on \(\partial P_1\) and \(\partial P_2\)) to being counted once at weight \(1\) (inside \(P\))!</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m03a">
+    <h3>Box M03.A · Why Each Term in \(I + \frac{B}{2} - 1\) Has a Geometric Meaning (Solid-Angle Weights)</h3>
+    <p>Imagine placing a tiny circle of area \(1\) centered at every lattice point in \(\mathbb{Z}^2\). How much of each circle's area lies inside \(P\)?</p>
+    <ul>
+      <li><strong>Each interior point (\(\times I\)):</strong> Lies completely inside \(P\), contributing a full \(360^\circ / 360^\circ = \mathbf{1}\) unit of angle.</li>
+      <li><strong>Each non-vertex boundary point:</strong> Lies on a straight edge of \(\partial P\), contributing a half-disk \(180^\circ / 360^\circ = \mathbf{\frac{1}{2}}\).</li>
+      <li><strong>The vertices of \(\partial P\):</strong> A vertex with interior angle \(\theta_i\) contributes \(\theta_i / 360^\circ\). Because the sum of exterior turn angles around any simple polygon is \(360^\circ\), the sum of all vertex deficits from \(180^\circ\) is \(\sum (180^\circ - \theta_i) / 360^\circ = \mathbf{1}\)! Thus all \(B\) boundary points together contribute \(\frac{B}{2} - 1\).</li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 195" width="100%" role="img" aria-label="Solid-angle interpretation of Pick's formula and primitive triangulation of a polygon into T = 2I + B - 2 elementary triangles">
+      <rect x="0" y="0" width="600" height="195" fill="#ffffff"/>
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Angle Accounting at Lattice Points (P70)</text>
+      <rect x="20" y="28" width="270" height="145" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- Interior point 360 deg -->
+      <circle cx="75" cy="85" r="22" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.8"/>
+      <circle cx="75" cy="85" r="3.5" fill="#8b2635"/>
+      <text x="75" y="125" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#8b2635" text-anchor="middle">Interior point</text>
+      <text x="75" y="139" font-family="system-ui, sans-serif" font-size="8.5" fill="#1a1a1a" text-anchor="middle">360° / 360° = 1</text>
+      <!-- Edge point 180 deg -->
+      <path d="M 133,85 A 22,22 0 0,1 177,85 Z" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <line x1="128" y1="85" x2="182" y2="85" stroke="#1a1a1a" stroke-width="1.8"/>
+      <circle cx="155" cy="85" r="3.5" fill="#3a6073"/>
+      <text x="155" y="125" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#3a6073" text-anchor="middle">Edge point</text>
+      <text x="155" y="139" font-family="system-ui, sans-serif" font-size="8.5" fill="#1a1a1a" text-anchor="middle">180° / 360° = 1/2</text>
+      <!-- Vertex point theta_i -->
+      <path d="M 235,85 L 257,85 A 22,22 0 0,0 235,63 Z" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <circle cx="235" cy="85" r="3.5" fill="#3a6073"/>
+      <text x="235" y="125" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#3a6073" text-anchor="middle">Corner θᵢ</text>
+      <text x="235" y="139" font-family="system-ui, sans-serif" font-size="8.5" fill="#1a1a1a" text-anchor="middle">∑(1/2 − θᵢ/360°) = 1</text>
+      <text x="155" y="162" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Total angle sum = I·360° + B·180° − 360° = T·180°!</text>
+
+      <!-- Right panel: Primitive Triangulation of 2x1 rectangle with 1 interior point -> I=1, B=6, T = 2(1)+6-2 = 6 -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Primitive Triangulation: T = 2I + B − 2</text>
+      <rect x="330" y="38" width="240" height="110" fill="#eef3f7" stroke="#3a6073" stroke-width="2"/>
+      <line x1="450" y1="93" x2="330" y2="38" stroke="#8b2635" stroke-width="1.5"/>
+      <line x1="450" y1="93" x2="450" y2="38" stroke="#8b2635" stroke-width="1.5"/>
+      <line x1="450" y1="93" x2="570" y2="38" stroke="#8b2635" stroke-width="1.5"/>
+      <line x1="450" y1="93" x2="570" y2="148" stroke="#8b2635" stroke-width="1.5"/>
+      <line x1="450" y1="93" x2="450" y2="148" stroke="#8b2635" stroke-width="1.5"/>
+      <line x1="450" y1="93" x2="330" y2="148" stroke="#8b2635" stroke-width="1.5"/>
+      <circle cx="450" cy="93" r="4.5" fill="#8b2635"/>
+      <circle cx="330" cy="38" r="4" fill="#3a6073"/>
+      <circle cx="450" cy="38" r="4" fill="#3a6073"/>
+      <circle cx="570" cy="38" r="4" fill="#3a6073"/>
+      <circle cx="570" cy="148" r="4" fill="#3a6073"/>
+      <circle cx="450" cy="148" r="4" fill="#3a6073"/>
+      <circle cx="330" cy="148" r="4" fill="#3a6073"/>
+      <text x="450" y="172" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">I = 1, B = 6 ⇒ T = 2(1) + 6 − 2 = 6 triangles of area 1/2 ⇒ A = 3!</text>
+    </svg>
+    <figcaption><strong>Fig M03.2.</strong> <em>Left:</em> Double-counting interior angles at lattice points (<span class="pid">P70</span>) explains the exact coefficients \(1,\; \frac{1}{2},\; -1\). <em>Right:</em> Every primitive triangulation of a polygon with \(I\) interior and \(B\) boundary lattice points has exactly \(T = 2I + B - 2\) elementary triangles, each of area \(\frac{1}{2}\).</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m03b">
+    <h3>Box M03.B · Three-Key Synthesis Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> Exact identity relating a continuous geometric measure (area \(A(P)\)) to discrete lattice-point counts (\(I(P)\) and \(B(P)\)).</li>
+      <li><strong>Problem shape:</strong> Any simple lattice polygon \(P\) can be built inductively by gluing/subtracting simpler lattice polygons along shared segments, or decomposed into elementary lattice triangles.</li>
+      <li><strong>Tools at hand:</strong> Small-case coefficient determination (<span class="pid">P02</span>), additive valuation invariance under edge gluing (<span class="pid">P09</span>), angle/Euler-characteristic double counting (<span class="pid">P70</span>), and unimodular \(2 \times 2\) determinants (<span class="pid">P05</span>).</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked synthesis exemplars</h2>
+  <p>We now present the two complete proofs of Pick's Theorem — the inductive valuation proof and the triangulation double-counting proof — followed by an unexpected number-theoretic application to Farey sequences.</p>
+
+  <h3>Exemplar 1 · The Additive Valuation Proof (<span class="pid">P02</span> + <span class="pid">P09</span>)</h3>
+  <p><strong>Theorem (Pick's Theorem via Additive Invariance).</strong> <em>For every simple lattice polygon \(P\), the combinatorial valuation \(v(P) = I(P) + \frac{1}{2}B(P) - 1\) equals the Euclidean area \(A(P)\).</em></p>
+  <p><strong>Synthesis proof (Gluing Invariant <span class="pid">P09</span> + Small-Case Ladder <span class="pid">P02</span>):</strong></p>
+  <ol>
+    <li><strong>Step 1 — Prove that \(v(P)\) is additive under gluing/splitting along a lattice segment (<a href="p09-invariant.html"><span class="pid">P09</span></a>):</strong> Suppose a simple lattice polygon \(P = P_1 \cup P_2\) is partitioned into two simple lattice polygons \(P_1\) and \(P_2\) by a diagonal or chord \(e\) whose endpoints lie on \(\partial P\). Suppose the closed segment \(e\) contains \(k \ge 2\) lattice points: its \(2\) endpoints on \(\partial P\), and \(k - 2\) lattice points strictly inside \(P\). Then:
+      <ul>
+        <li>Every interior lattice point of \(P\) lies either strictly inside \(P_1\), strictly inside \(P_2\), or among the \(k - 2\) interior lattice points of the cut \(e\):
+          \[
+            I(P) \;=\; I(P_1) \,+\, I(P_2) \,+\, (k - 2).
+          \]</li>
+        <li>Every boundary point of \(P_1\) and \(P_2\) either lies on \(\partial P\) or lies on the shared cut \(e\). The \(k - 2\) interior points of \(e\) are counted on \(\partial P_1\) and on \(\partial P_2\) (\(2(k-2)\) times) but not on \(\partial P\); the \(2\) endpoints of \(e\) are counted on both \(\partial P_1\) and \(\partial P_2\) (\(4\) times total) but only \(2\) times on \(\partial P\):
+          \[
+            B(P) \;=\; B(P_1) \,+\, B(P_2) \,-\, 2(k - 2) \,-\, 2 \;=\; B(P_1) \,+\, B(P_2) \,-\, 2k \,+\, 2.
+          \]</li>
+      </ul>
+      Combining these two relations shows that the \(k\)-dependent terms cancel completely:
+      \[
+        v(P_1) + v(P_2) \;=\; \bigl(I(P_1) + I(P_2)\bigr) + \frac{B(P_1) + B(P_2)}{2} - 2 \;=\; \bigl(I(P) - k + 2\bigr) + \frac{B(P) + 2k - 2}{2} - 2 \;=\; I(P) + \frac{B(P)}{2} - 1 \;=\; v(P).
+      \]
+      Because Euclidean area is also additive (\(A(P) = A(P_1) + A(P_2)\)), if Pick's formula holds for any two of \(\{P_1, P_2, P\}\), it automatically holds for the third!</li>
+    <li><strong>Step 2 — Climb the four-rung polygon ladder (<a href="p02-small-cases.html"><span class="pid">P02</span></a>):</strong>
+      <ul>
+        <li><strong>Rung 1 (Axis-aligned \(w \times h\) rectangles \(R\)):</strong> Here \(A(R) = wh\), \(I(R) = (w - 1)(h - 1)\), and \(B(R) = 2w + 2h\). Substituting gives
+          \[
+            v(R) \;=\; (w - 1)(h - 1) + \frac{2w + 2h}{2} - 1 \;=\; (wh - w - h + 1) + (w + h) - 1 \;=\; wh \;=\; A(R).
+          \]</li>
+        <li><strong>Rung 2 (Axis-aligned right triangles \(T_{\text{right}}\)):</strong> Cutting a \(w \times h\) rectangle \(R\) along its diagonal splits \(R\) into two congruent right triangles \(T_1 \cong T_2\). By symmetry, \(A(T_1) = A(T_2) = \frac{1}{2}A(R)\) and \(v(T_1) = v(T_2) = \frac{1}{2}v(R)\), so \(v(T_{\text{right}}) = A(T_{\text{right}})\).</li>
+        <li><strong>Rung 3 (Arbitrary lattice triangles \(\Delta\)):</strong> Enclose \(\Delta\) inside its tightest axis-aligned bounding rectangle \(R\). Then \(R\) is partitioned into \(\Delta\) together with at most three axis-aligned right triangles (and possibly one small rectangle). Since \(v = A\) holds for \(R\) and for each right-triangular/rectangular corner piece, additivity (Step 1) forces \(v(\Delta) = A(\Delta)\)!</li>
+        <li><strong>Rung 4 (Arbitrary simple lattice polygons \(P\)):</strong> Every simple \(n\)-gon (\(n \ge 4\)) has an interior diagonal cutting it into two polygons with fewer vertices. By induction on \(n\) and Step 1, \(v(P) = A(P)\) for all simple lattice polygons! \(\blacksquare\)</li>
+      </ul></li>
+  </ol>
+
+  <h3>Exemplar 2 · The Triangulation &amp; Double-Counting Proof (<span class="pid">P70</span> + <span class="pid">P09</span> + <span class="pid">P05</span>)</h3>
+  <p><strong>Theorem (Pick's Theorem via Elementary Triangulation).</strong> <em>Every simple lattice polygon \(P\) with \(I\) interior and \(B\) boundary lattice points can be triangulated into \(T = 2I + B - 2\) elementary lattice triangles, each of area \(\frac{1}{2}\), yielding \(A(P) = \frac{1}{2}T = I + \frac{B}{2} - 1\).</em></p>
+  <p><strong>Synthesis proof (Double Counting <span class="pid">P70</span> + Unimodular Determinant <span class="pid">P05</span>):</strong></p>
+  <ol>
+    <li><strong>Step 1 — Refine to a primitive triangulation:</strong> First triangulate \(P\) using diagonals between its vertices. As long as any triangle \(\Delta\) contains a lattice point \(p\) in its interior (or on one of its edges), connect \(p\) to the vertices of \(\Delta\) (and of the adjacent triangle if \(p\) lies on a shared edge), splitting \(\Delta\) into smaller lattice triangles. Because the total number of unused lattice points decreases by \(1\) at each split, this refinement halts with a triangulation of \(P\) into \(T\) <strong>elementary lattice triangles</strong> whose vertex set is all \(V = I + B\) lattice points of \(P \cap \mathbb{Z}^2\).</li>
+    <li><strong>Step 2 — Double-count the sum of all interior angles (<a href="p70-double-counting.html"><span class="pid">P70</span></a>):</strong> Let \(\Sigma\) be the sum of all \(3T\) interior angles of the \(T\) elementary triangles:
+      <ul>
+        <li><strong>Count 1 (by triangles):</strong> Each of the \(T\) triangles has angle sum \(\pi\) (\(180^\circ\)), so \(\Sigma = T\pi\).</li>
+        <li><strong>Count 2 (by lattice vertices):</strong> Around each of the \(I\) interior lattice points, the triangles form a full circle of angle \(2\pi\). Along the perimeter \(\partial P\), the \(B\) boundary lattice points form a polygon with \(B\) sides (some with \(180^\circ\) straight angles), whose interior angle sum is \((B - 2)\pi\). Thus \(\Sigma = 2\pi I + (B - 2)\pi\).</li>
+      </ul>
+      Equating the two counts of \(\Sigma\) and dividing by \(\pi\) yields the invariant triangle count:
+      \[
+        T\pi \;=\; 2\pi I + (B - 2)\pi \quad\Longrightarrow\quad T \;=\; 2I + B - 2.
+      \]
+      <em>(Alternative edge double-count via Euler's formula: If there are \(E_{\text{int}}\) interior edges and \(B\) boundary edges, double-counting triangle sides gives \(3T = 2E_{\text{int}} + B\), while Euler's planar formula \(V - E + F_{\text{bounded}} = 1\) gives \((I + B) - (E_{\text{int}} + B) + T = 1 \implies E_{\text{int}} = I + T - 1\); substituting \(E_{\text{int}}\) again gives \(3T = 2(I + T - 1) + B \implies T = 2I + B - 2\)!)</em></li>
+    <li><strong>Step 3 — Canonical area \(\frac{1}{2}\) of an elementary triangle (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>):</strong> Why does every elementary lattice triangle \(\Delta\) have area \(\frac{1}{2}\)? Translate \(\Delta\) so one vertex is at \((0,0)\) and the other two are at \(\mathbf{u} = (x_1, y_1)\) and \(\mathbf{v} = (x_2, y_2)\). By the Shoelace/determinant formula, \(2A(\Delta) = |x_1 y_2 - x_2 y_1|\) is a positive integer (\(\ge 1\)). Conversely, the parallelogram \(Q\) spanned by \(\mathbf{u}\) and \(\mathbf{v}\) is the union of \(\Delta\) and its reflection \(\mathbf{u} + \mathbf{v} - \Delta\); since \(\Delta\) is elementary, \(Q\) has \(I(Q) = 0\) and \(B(Q) = 4\), and tiling the plane by translates of \(Q\) shows there is exactly \(1\) lattice point per fundamental parallelogram \(Q\), so \(\operatorname{Area}(Q) = 2A(\Delta) = 1 \implies A(\Delta) = \frac{1}{2}\). Summing over all \(T = 2I + B - 2\) triangles gives \(A(P) = \frac{1}{2}(2I + B - 2) = I + \frac{B}{2} - 1\). \(\blacksquare\)</li>
+  </ol>
+
+  <h3>Exemplar 3 · Farey Sequences &amp; Visible Lattice Points via Pick's Theorem (<span class="pid">P05</span> + <span class="pid">P09</span>)</h3>
+  <p><strong>Theorem (The Farey Determinant Property \(bc - ad = 1\)).</strong> <em>The <strong>Farey sequence</strong> \(\mathcal{F}_n\) is the ascending list of reduced fractions \(\frac{a}{b} \in [0, 1]\) with denominator \(1 \le b \le n\) and \(\gcd(a, b) = 1\) (for example, \(\mathcal{F}_4 = \bigl\{\frac{0}{1}, \frac{1}{4}, \frac{1}{3}, \frac{1}{2}, \frac{2}{3}, \frac{3}{4}, \frac{1}{1}\bigr\}\)). If \(\frac{a}{b} &lt; \frac{c}{d}\) are consecutive terms in \(\mathcal{F}_n\), then</em></p>
+  \[
+    b c \,-\, a d \;=\; 1, \qquad\text{and their mediant is}\qquad \frac{a + c}{b + d}.
+  \]
+  <p><strong>Synthesis proof (Translating reduced fractions to visible lattice rays <span class="pid">P05</span> + Pick's Theorem):</strong></p>
+  <ol>
+    <li><strong>Step 1 — Bijection with visible lattice points:</strong> Map each reduced fraction \(\frac{a}{b} \in \mathcal{F}_n\) (\(\gcd(a, b) = 1\)) to the lattice point \(P_{a/b} = (b, a)\) in the strip \(1 \le x \le n,\; 0 \le y \le x\). Because \(\gcd(a, b) = 1\), the ray from the origin \(O = (0,0)\) to \((b, a)\) passes through <em>no</em> intermediate lattice points; its slope is \(a/b\).</li>
+    <li><strong>Step 2 — Consecutive Farey rays form an elementary triangle:</strong> As a ray rotates counterclockwise around \(O = (0,0)\) from slope \(0/1\) to \(1/1\), it sweeps across the points \(\{(b, a) : \frac{a}{b} \in \mathcal{F}_n\}\) in increasing order of slope! Therefore, if \(\frac{a}{b} &lt; \frac{c}{d}\) are consecutive in \(\mathcal{F}_n\), the triangle \(\Delta\) with vertices \(O(0,0),\; A(b, a),\; C(d, c)\) contains <em>no</em> lattice points in its interior (\(I(\Delta) = 0\)) and no lattice points on its three edges except its three vertices (\(B(\Delta) = 3\), since \(\gcd(a, b) = \gcd(c, d) = 1\), and any lattice point on segment \(AC\) would lie in \(\mathcal{F}_n\) with slope strictly between \(a/b\) and \(c/d\)).</li>
+    <li><strong>Step 3 — Apply Pick's formula:</strong> Since \(I(\Delta) = 0\) and \(B(\Delta) = 3\), Pick's theorem gives
+      \[
+        \operatorname{Area}(\Delta) \;=\; 0 + \frac{3}{2} - 1 \;=\; \frac{1}{2}.
+      \]
+      On the other hand, the determinant area of \(\Delta = O(0,0)A(b,a)C(d,c)\) with \(a/b &lt; c/d \iff bc - ad &gt; 0\) is \(\operatorname{Area}(\Delta) = \frac{1}{2}(bc - ad)\). Equating the two gives \(bc - ad = 1\)! \(\blacksquare\)</li>
+  </ol>
+</section>
+
+<section id="fails">
+  <h2>5 · Where Pick's formula breaks — and how topology and Ehrhart theory repair it</h2>
+  <p>Testing the hypotheses of Pick's theorem against three boundary cases reveals deep connections to topology and higher-dimensional algebraic combinatorics:</p>
+  <ul>
+    <li><strong>Exhibit A — Polygons with \(g\) holes (Euler characteristic correction):</strong> Suppose \(P\) is a lattice polygon with \(g \ge 1\) polygonal lattice holes punched out of its interior. For example, take a \(3 \times 3\) square \([0,3]^2\) (area \(9\)) and punch out the central \(1 \times 1\) square \([1,2]^2\) (area \(1\)), leaving a square annulus of area \(A = 9 - 1 = 8\). Every lattice point of this frame lies on either the outer boundary (\(12\) points) or the inner hole boundary (\(4\) points), so \(I = 0\) and \(B = 12 + 4 = 16\). Naive Pick gives \(I + \frac{B}{2} - 1 = 0 + 8 - 1 = \mathbf{7 \ne 8}\)! Why? Because cutting open a closed loop to make the region simply connected adds \(1\) to the valuation. For a connected region with \(g\) holes (Euler characteristic \(\chi(P) = 1 - g\)), the exact topological Pick formula is
+      \[
+        A(P) \;=\; I(P) \,+\, \frac{B(P)}{2} \,-\, \chi(P) \;=\; I(P) \,+\, \frac{B(P)}{2} \,+\, g \,-\, 1.
+      \]</li>
+    <li><strong>Exhibit B — Failure in 3D: Reeve's Tetrahedron (1957):</strong> Can we find a 3D formula \(\operatorname{Vol}(P) = \alpha I + \beta F + \gamma E + \delta V + \epsilon\) in \(\mathbb{R}^3\) using only the lattice points inside a polyhedron \(P\) and on its faces, edges, and vertices? <strong>No!</strong> In 1957, John Reeve constructed the family of lattice tetrahedra \(T_r \subset \mathbb{R}^3\) (\(r \in \mathbb{Z}_{\ge 1}\)) with the four vertices
+      \[
+        (0, 0, 0), \qquad (1, 0, 0), \qquad (0, 1, 0), \qquad (1, 1, r).
+      \]
+      For <em>every</em> positive integer \(r \ge 1\), \(T_r\) contains <strong>zero interior lattice points (\(I = 0\))</strong> and <strong>only its four vertices on the boundary (\(B = 4\))</strong>! Yet its 3D volume is
+      \[
+        \operatorname{Vol}(T_r) \;=\; \frac{1}{6}\left|\det\begin{pmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 1 &amp; 1 &amp; r \end{pmatrix}\right| \;=\; \frac{r}{6},
+      \]
+      which can be arbitrarily large while \((I, B) = (0, 4)\) remains completely frozen! In 1962, Eugène Ehrhart discovered how to rescue Pick's theorem in \(\mathbb{R}^d\): instead of looking only at \(P\) itself, count the lattice points \(L_P(t) = |tP \cap \mathbb{Z}^d|\) inside integer dilates \(tP\) (\(t = 1, 2, 3, \dots\)); then \(L_P(t)\) is a polynomial of degree \(d\) in \(t\) whose leading coefficient is \(\operatorname{Vol}(P)\)!</li>
+    <li><strong>Exhibit C — Non-lattice vertices or self-intersecting boundaries:</strong> Even a tiny shift off the lattice breaks Pick's formula: the square \([\frac{1}{4}, \frac{3}{4}]^2\) has \(I = 0,\; B = 0 \implies I + \frac{B}{2} - 1 = -1 \ne \frac{1}{4}\). And for a self-intersecting "bowtie" polygon \((0,0)\text{–}(2,0)\text{–}(0,2)\text{–}(2,2)\), the Shoelace integral computes <em>signed</em> winding-number area (\(0\)) while geometric area is \(2\).</li>
+  </ul>
+
+  <figure>
+    <svg viewBox="0 0 600 190" width="100%" role="img" aria-label="Left: A 3x3 lattice frame with a 1x1 hole (g=1, I=0, B=16, Area=8 = I + B/2 + g - 1). Right: Reeve's 3D tetrahedron with vertices (0,0,0), (1,0,0), (0,1,0), (1,1,r) having I=0 and B=4 for all r >= 1 but volume r/6">
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <!-- Left panel: Square Annulus (g = 1 hole) -->
+      <text x="150" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Exhibit A: Polygon with g = 1 Hole (χ = 0)</text>
+      <path d="M 90,35 L 210,35 L 210,155 L 90,155 Z M 130,75 L 130,115 L 170,115 L 170,75 Z" fill="#f3e6e8" fill-rule="evenodd" stroke="#8b2635" stroke-width="2"/>
+      <circle cx="90" cy="35" r="3.8" fill="#3a6073"/><circle cx="130" cy="35" r="3.8" fill="#3a6073"/><circle cx="170" cy="35" r="3.8" fill="#3a6073"/><circle cx="210" cy="35" r="3.8" fill="#3a6073"/>
+      <circle cx="90" cy="75" r="3.8" fill="#3a6073"/><circle cx="130" cy="75" r="3.8" fill="#3a6073"/><circle cx="170" cy="75" r="3.8" fill="#3a6073"/><circle cx="210" cy="75" r="3.8" fill="#3a6073"/>
+      <circle cx="90" cy="115" r="3.8" fill="#3a6073"/><circle cx="130" cy="115" r="3.8" fill="#3a6073"/><circle cx="170" cy="115" r="3.8" fill="#3a6073"/><circle cx="210" cy="115" r="3.8" fill="#3a6073"/>
+      <circle cx="90" cy="155" r="3.8" fill="#3a6073"/><circle cx="130" cy="155" r="3.8" fill="#3a6073"/><circle cx="170" cy="155" r="3.8" fill="#3a6073"/><circle cx="210" cy="155" r="3.8" fill="#3a6073"/>
+      <text x="150" y="177" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">I = 0, B = 16, g = 1 ⇒ A = 0 + 16/2 + 1 − 1 = 8!</text>
+
+      <!-- Right panel: Reeve's Tetrahedron T_r in R^3 -->
+      <text x="445" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Exhibit B: Reeve's 3D Tetrahedron T_r</text>
+      <polygon points="370,145 470,155 515,38" fill="#eef3f7" fill-opacity="0.7" stroke="#3a6073" stroke-width="1.8"/>
+      <polygon points="370,145 415,115 515,38" fill="#f3e6e8" fill-opacity="0.55" stroke="#8b2635" stroke-width="1.8"/>
+      <line x1="470" y1="155" x2="415" y2="115" stroke="#5a5550" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <circle cx="370" cy="145" r="4.2" fill="#3a6073"/>
+      <circle cx="470" cy="155" r="4.2" fill="#3a6073"/>
+      <circle cx="415" cy="115" r="4.2" fill="#3a6073"/>
+      <circle cx="515" cy="38" r="4.5" fill="#8b2635"/>
+      <text x="342" y="148" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a">(0,0,0)</text>
+      <text x="478" y="160" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a">(1,0,0)</text>
+      <text x="380" y="112" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a">(0,1,0)</text>
+      <text x="523" y="42" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635">(1, 1, r)</text>
+      <text x="445" y="177" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">For every r ≥ 1: I = 0 and B = 4, yet Vol(T_r) = r / 6!</text>
+    </svg>
+    <figcaption><strong>Fig M03.3.</strong> <em>Left (Exhibit A):</em> A square annulus with \(g = 1\) hole has Euler characteristic \(\chi = 1 - g = 0\), shifting Pick's constant from \(-1\) to \(g - 1 = 0\). <em>Right (Exhibit B):</em> Reeve's tetrahedron \(T_r \subset \mathbb{R}^3\) has \(I = 0\) and \(B = 4\) for every integer height \(r \ge 1\), proving that 3D volume cannot be determined from \((I, B)\) of \(T_r\) alone without dilation (\(t T_r\)).</figcaption>
+  </figure>
+
+  <aside class="aside warn">
+    <p><strong>Scope note — How Ehrhart polynomials recover Pick's Theorem as the \(d = 2\) case:</strong> For any \(d\)-dimensional lattice polytope \(P \subset \mathbb{R}^d\) and positive integer dilation factor \(t \in \mathbb{Z}_{\ge 1}\), Eugène Ehrhart proved that \(L_P(t) = |tP \cap \mathbb{Z}^d|\) is a degree-\(d\) polynomial in \(t\):
+      \[
+        L_P(t) \;=\; \operatorname{Vol}_d(P)\,t^d \,+\, \frac{1}{2}\operatorname{Vol}_{d-1}(\partial P)\,t^{d-1} \,+\, \cdots \,+\, \chi(P).
+      \]
+      When \(d = 2\) and \(P\) is a simple lattice polygon (\(\chi(P) = 1\), boundary lattice length \(\operatorname{Vol}_1(\partial P) = B(P)\)), evaluating at \(t = 1\) gives \(I(P) + B(P) = L_P(1) = A(P) + \frac{1}{2}B(P) + 1 \implies A(P) = I(P) + \frac{1}{2}B(P) - 1\)! In \(d = 3\), Reeve's tetrahedron \(T_r\) has Ehrhart polynomial \(L_{T_r}(t) = \frac{r}{6}t^3 + t^2 + \bigl(2 - \frac{r}{6}\bigr)t + 1\), where the \(r/6\) terms cancel at \(t = 1\) (\(L_{T_r}(1) = 4\)) but separate at \(t = 2\) (\(L_{T_r}(2) = r + 9\))!</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong><a href="p02-small-cases.html">P02 · Try small cases</a> &amp; <a href="p09-invariant.html">P09 · Find the invariant</a>:</strong> Review how small-case coefficient determination pairs with additive gluing invariants.</li>
+    <li><strong><a href="p70-double-counting.html">P70 · Double counting</a>:</strong> Explore more incidence and angle double-counting proofs, including Euler's polyhedral formula \(V - E + F = 2\) and Sperner's Lemma.</li>
+    <li><strong><a href="m04-ramsey-3-3.html">M04 · Six people at a party</a>:</strong> Continue to our fourth and final synthesis chapter, where we prove \(R(3, 3) = 6\) and Goodman's Theorem by combining vertex symmetry (<span class="pid">P08</span>), WLOG (<span class="pid">P68</span>), the Pigeonhole Principle (<span class="pid">P10</span>), and monochromatic cherry double counting (<span class="pid">P70</span>).</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Georg Pick (1899) to Steinhaus, Reeve, and Ehrhart.</strong> Georg Alexander Pick (1859–1942) published his theorem in 1899 in a concise eight-page note, <em>"Geometrisches zur Zahlenlehre"</em>, in the <em>Sitzungsberichte des deutschen naturwissenschaftlich-medicinischen Vereines für Böhmen "Lotos" in Prag</em>, using it to give a visual geometric proof of properties of Farey series and continued fractions. For half a century the result remained relatively little known outside Central Europe until Hugo Steinhaus featured it in his 1950 classic <em>Mathematical Snapshots</em>.</p>
+    <p>In 1957, John Reeve discovered his counterexample tetrahedra \(T_r \subset \mathbb{R}^3\), dashing hopes for a naive 3D Pick formula and inspiring Eugène Ehrhart (1962), a high-school mathematics teacher in Strasbourg who earned his doctorate at age 59, to develop the theory of <strong>Ehrhart polynomials</strong> \(L_P(t) = |tP \cap \mathbb{Z}^d|\) and Ehrhart–Macdonald reciprocity — a cornerstone of modern toric geometry and algebraic combinatorics.</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise M03.1 (●○○) — Counting Interior Points of a Tilted Lattice Triangle.</strong> Consider the lattice triangle \(\Delta\) with vertices \(A(0, 0),\; B(6, 2),\; C(2, 8)\).</p>
+    <ol>
+      <li>Compute the exact area \(A(\Delta)\) using the determinant (or bounding box) formula, and compute the number of boundary lattice points \(B(\Delta)\) using \(\gcd(|\Delta x|, |\Delta y|)\) on each edge.</li>
+      <li>Use Pick's Theorem to find the exact number of interior lattice points \(I(\Delta)\) without plotting and counting them by hand.</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>The area of \(\Delta\) with one vertex at the origin is \(\frac{1}{2}|x_1 y_2 - x_2 y_1|\), and the boundary count is \(\gcd(6, 2) + \gcd(4, 6) + \gcd(2, 8)\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Area and boundary count:</strong> Using the determinant formula with \(\mathbf{u} = (6, 2)\) and \(\mathbf{v} = (2, 8)\):
+          \[
+            A(\Delta) \;=\; \frac{1}{2}\,|6(8) - 2(2)| \;=\; \frac{1}{2}(48 - 4) \;=\; \mathbf{22}.
+          \]
+          Along the three edges \(AB,\; BC,\; CA\), the boundary interval counts are
+          \[
+            B(\Delta) \;=\; \gcd(|6-0|, |2-0|) + \gcd(|2-6|, |8-2|) + \gcd(|0-2|, |0-8|) \;=\; 2 + 2 + 2 \;=\; \mathbf{6}.
+          \]</li>
+        <li><strong>Interior point count via Pick's formula:</strong> Solving \(A = I + \frac{B}{2} - 1\) for \(I\) gives
+          \[
+            I(\Delta) \;=\; A(\Delta) \,-\, \frac{B(\Delta)}{2} \,+\, 1 \;=\; 22 - \frac{6}{2} + 1 \;=\; \mathbf{20}\text{ interior lattice points.} \quad \blacksquare
+          \]</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M03.2 (●●○) — Why No Equilateral Triangle Exists on the Square Lattice \(\mathbb{Z}^2\).</strong> Use Pick's Theorem (or determinant parity <span class="pid">P09</span>) together with the irrationality of \(\sqrt{3}\) (<span class="pid">M01</span>) to prove that <em>no</em> equilateral triangle in the plane \(\mathbb{R}^2\) can have all three of its vertices in the integer lattice \(\mathbb{Z}^2\).</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Compare two expressions for the area \(A\) of a hypothetical lattice equilateral triangle of side length \(s\): Pick's formula \(A = I + \frac{B}{2} - 1\) vs. the geometric formula \(A = \frac{\sqrt{3}}{4}s^2\), noting that \(s^2 = \Delta x^2 + \Delta y^2\) is a positive integer.</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p>Assume for contradiction (<span class="pid">P11</span>) that an equilateral triangle \(\Delta\) has vertices \((x_1, y_1),\; (x_2, y_2),\; (x_3, y_3) \in \mathbb{Z}^2\):</p>
+      <ol>
+        <li><strong>Rational area from Pick's Theorem:</strong> Because \(\Delta\) is a simple lattice polygon, Pick's Theorem states that its area is
+          \[
+            A(\Delta) \;=\; I(\Delta) \,+\, \frac{B(\Delta)}{2} \,-\, 1 \;\in\; \frac{1}{2}\mathbb{Z} \;\subset\; \mathbb{Q},
+          \]
+          which is a positive <strong>rational number</strong> (a half-integer).</li>
+        <li><strong>Irrational area from equilateral geometry:</strong> By Pythagoras's theorem on the integer coordinates, the squared side length of \(\Delta\) is a non-zero integer:
+          \[
+            s^2 \;=\; (x_2 - x_1)^2 + (y_2 - y_1)^2 \;\in\; \mathbb{Z}_{\ge 1}.
+          \]
+          Therefore the Euclidean area of the equilateral triangle is \(A(\Delta) = \frac{\sqrt{3}}{4}s^2\). Equating the two area expressions yields
+          \[
+            \sqrt{3} \;=\; \frac{4 A(\Delta)}{s^2} \;=\; \frac{4I + 2B - 4}{s^2} \;\in\; \mathbb{Q},
+          \]
+          contradicting the irrationality of \(\sqrt{3}\) proved in <a href="m01-root-two-irrational.html"><span class="pid">M01</span></a>! \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M03.3 (●●●) — Lattice Polygons with \(g\) Holes and Disconnected Components.</strong> Let \(P\) be a lattice region formed by taking a \(6 \times 5\) lattice rectangle \([0,6] \times [0,5]\) and punching out two disjoint \(1 \times 1\) lattice square holes \([1,2] \times [1,2]\) and \([4,5] \times [2,3]\).</p>
+    <ol>
+      <li>Count the strict interior lattice points \(I(P)\) and the total boundary lattice points \(B(P)\) (across the outer perimeter and both inner hole perimeters).</li>
+      <li>Verify that the generalized topological Pick formula \(A(P) = I(P) + \frac{1}{2}B(P) + g - 1\) gives the exact area \(A(P) = 28\) for \(g = 2\) holes.</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>The \(6 \times 5\) rectangle has \(5 \times 4 = 20\) interior lattice points before punching out the two \(1 \times 1\) squares; all \(4\) corners of each \(1 \times 1\) hole were interior points of the \(6 \times 5\) rectangle that now become boundary points of \(P\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Counting \(I(P)\) and \(B(P)\):</strong>
+          <ul>
+            <li>The outer \(6 \times 5\) rectangle has \(2(6 + 5) = 22\) boundary lattice points and \((6 - 1)(5 - 1) = 20\) interior lattice points.</li>
+            <li>Each \(1 \times 1\) square hole has \(0\) strict interior points and \(4\) boundary vertices. Because the two holes are strictly inside the \(6 \times 5\) rectangle and disjoint from each other, their \(4 + 4 = 8\) vertices convert from interior points of the rectangle into boundary points of \(P\).</li>
+          </ul>
+          Hence
+          \[
+            I(P) \;=\; 20 - 8 \;=\; \mathbf{12}, \qquad B(P) \;=\; 22 + 4 + 4 \;=\; \mathbf{30}.
+          \]</li>
+        <li><strong>Verifying the \(g = 2\) Pick formula:</strong> With \(g = 2\) holes (Euler characteristic \(\chi(P) = 1 - g = -1\)), we obtain
+          \[
+            I(P) \,+\, \frac{B(P)}{2} \,+\, g \,-\, 1 \;=\; 12 + \frac{30}{2} + 2 - 1 \;=\; 12 + 15 + 1 \;=\; \mathbf{28},
+          \]
+          which matches the geometric area \(6 \times 5 - 1 - 1 = 28\)! \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M03.4 (◆) — Pattern-Unknown Synthesis Diagnosis: Minimum Area of a Convex Lattice \(n\)-gon.</strong> Prove that every simple lattice polygon \(P\) has area at least \(\frac{1}{2}\), and that any lattice polygon with at least \(1\) interior lattice point and \(B\) boundary points has area at least \(\frac{B}{2}\). Then find the minimum possible area of a lattice polygon with \(I = 3\) interior lattice points.</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>Diagnosis:</strong> Apply <strong>Pick's Invariant Identity (<span class="pid">M03</span> / <span class="pid">P09</span>)</strong> combined with <strong>Extremal Bounding (<span class="pid">P15</span> / <span class="pid">P71</span>)</strong> on \(I \ge 0\) and \(B \ge 3\):</p>
+      <ol>
+        <li><strong>Absolute minimum area:</strong> Every non-degenerate polygon has at least \(3\) vertices, so \(B(P) \ge 3\) and \(I(P) \ge 0\). By Pick's formula,
+          \[
+            A(P) \;=\; I(P) + \frac{B(P)}{2} - 1 \;\ge\; 0 + \frac{3}{2} - 1 \;=\; \frac{1}{2},
+          \]
+          attained if and only if \(I = 0\) and \(B = 3\) (an elementary lattice triangle).</li>
+        <li><strong>When \(I \ge 1\):</strong> Substituting \(I \ge 1\) gives \(A(P) = I + \frac{B}{2} - 1 \ge 1 + \frac{B}{2} - 1 = \frac{B}{2}\).</li>
+        <li><strong>Minimum area with \(I = 3\):</strong> Since \(B \ge 3\) for any polygon, \(I = 3\) implies
+          \[
+            A(P) \;=\; 3 + \frac{B}{2} - 1 \;\ge\; 2 + \frac{3}{2} \;=\; \mathbf{\frac{7}{2} = 3.5}.
+          \]
+          This minimum is achieved by the lattice triangle with vertices \((0, 0),\; (1, 0),\; (0, 7)\) (Wait: \((0,0),(1,0),(0,7)\) has \(I=0, B=9\)! Instead, take the triangle with vertices \((0, 0),\; (2, 1),\; (1, 4)\), which has \(2A = |8 - 1| = 7 \implies A = 3.5\), \(B = \gcd(2,1) + \gcd(1,3) + \gcd(1,4) = 1 + 1 + 1 = 3\), and \(I = 3.5 - 1.5 + 1 = 3\) interior points \((1,1), (1,2), (1,3)\)!). \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M03.5 (◐) — Exploration: Ehrhart Polynomial of a Lattice Polygon via Pick's Theorem.</strong> Let \(P \subset \mathbb{R}^2\) be a simple lattice polygon with area \(A\) and \(B\) boundary lattice points. For any positive integer dilation factor \(t \in \mathbb{Z}_{\ge 1}\), consider the dilated lattice polygon \(tP = \{(tx, ty) : (x, y) \in P\}\).</p>
+    <ol>
+      <li>Express the area \(A(tP)\) and boundary lattice point count \(B(tP)\) in terms of \(t,\; A,\; B\).</li>
+      <li>Use Pick's Theorem on \(tP\) to derive the exact <strong>Ehrhart polynomial</strong> \(L_P(t) = |tP \cap \mathbb{Z}^2| = I(tP) + B(tP)\), and verify that \(L_P(-1) = (-1)^2 I(P)\) (Ehrhart–Macdonald reciprocity!).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Scaling a planar figure by \(t\) multiplies areas by \(t^2\) and multiplies every edge vector \((\Delta x, \Delta y)\) by \(t\), so \(\gcd(|t\Delta x|, |t\Delta y|) = t\gcd(|\Delta x|, |\Delta y|)\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Scaling \(A(tP)\) and \(B(tP)\):</strong> Under dilation by \(t \in \mathbb{Z}_{\ge 1}\), Euclidean area scales quadratically as \(A(tP) = t^2 A\), while the boundary lattice count along each edge scales linearly as \(B(tP) = t B\).</li>
+        <li><strong>Deriving \(L_P(t)\) and reciprocity:</strong> By Pick's Theorem applied to \(tP\),
+          \[
+            I(tP) \;=\; A(tP) \,-\, \frac{B(tP)}{2} \,+\, 1 \;=\; A t^2 \,-\, \frac{B}{2}t \,+\, 1.
+          \]
+          Adding \(B(tP) = tB\) gives the total number of lattice points in the closed polygon \(tP\):
+          \[
+            L_P(t) \;=\; I(tP) + B(tP) \;=\; A t^2 \,+\, \frac{B}{2}t \,+\, 1.
+          \]
+          Evaluating this polynomial formally at \(t = -1\) gives
+          \[
+            L_P(-1) \;=\; A(-1)^2 \,+\, \frac{B}{2}(-1) \,+\, 1 \;=\; A \,-\, \frac{B}{2} \,+\, 1 \;=\; I(P),
+          \]
+          confirming the \(2\)-dimensional case of Ehrhart–Macdonald reciprocity! \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <p><a href="index.html">← Back to the Patterns Atlas Index</a> · <a href="m02-two-squares.html">← Previous: M02 · Sums of two squares</a> · <a href="m04-ramsey-3-3.html">Next: M04 · Six people at a party →</a></p>
+</footer>
+
+</main>
+</body>
+</html>

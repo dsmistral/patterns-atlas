@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P77 · Work backwards — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Tier 2 · Canon Foundations</p>
+  <h1><span class="pid">P77</span> · Work backwards</h1>
+  <p class="lede">When the starting state branches into a maze of possibilities while the destination is a single known target, stand at the finish line and invert each step back to the start.</p>
+  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p01-pin-down-the-problem.html">P01 · Pin down the problem</a>, <a href="p67-contrapositive.html">P67 · Prove the contrapositive</a></p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — Why the backward funnel is narrower than the forward tree.</strong> Imagine trying to thread a maze where the entrance splits into \(3\) corridors, each of which splits into \(3\) more, while only <em>one</em> corridor reaches the exit. Searching forward from the entrance explores \(3^k\) dead ends; walking <strong>backwards from the exit</strong> follows a single forced path back to the entrance! The same asymmetry occurs in arithmetic and games: from \(x = 1\), the operations "multiply by \(2\)" and "add \(1\)" branch in \(2\) directions at every step; from \(x = 100\), only <em>one</em> inverse operation ("divide by \(2\)" if even, "subtract \(1\)" if odd) is natural.</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — \(\mathbf{P}\)-positions and \(\mathbf{N}\)-positions in two-player games (Backward Induction).</strong> In any finite impartial two-player game with no ties where the last player to move wins (<em>normal play</em>), working backwards from the terminal state \(T\) partitions every state into two types:</p>
+  <ul>
+    <li><strong>\(\mathbf{P}\)-position (<em>Previous</em> player wins / Cold target):</strong> Every legal move from this state lands on an \(\mathbf{N}\)-position. (Whoever is forced to move from a \(\mathbf{P}\)-position loses; your goal is to <em>hand</em> your opponent a \(\mathbf{P}\)-position!)</li>
+    <li><strong>\(\mathbf{N}\)-position (<em>Next</em> player wins / Hot state):</strong> There exists <em>at least one</em> legal move from this state that lands on a \(\mathbf{P}\)-position.</li>
+  </ul>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>In <a href="p01-pin-down-the-problem.html"><span class="pid">P01</span> · Pin down the problem</a>, we learned to write down the exact target condition before calculating. And in <a href="p67-contrapositive.html"><span class="pid">P67</span> · Prove the contrapositive</a>, we saw how reversing the arrow of an implication turns an obstructed start into a constructive forward path.</p>
+  <p><strong>Work backwards (<span class="pid">P77</span>)</strong> applies that same directional flip to multi-step processes, games, and geometric constructions. Ancient Greek geometers called it <strong>Analysis</strong> (Pappus of Alexandria, c. 320 CE): assume the desired point, figure, or terminal state \(S_{\text{goal}}\) is already in hand, ask <em>"What state \(S_{T-1}\) immediately precedes \(S_{\text{goal}}\)?"</em>, and step backward until you meet the given starting state \(S_0\).</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: the three toll bridges and Bachet's game of \(21\)</h2>
+  <p>Let us watch working backwards dissolve two classic puzzles — one deterministic and one strategic:</p>
+
+  <h3>Encounter A (Deterministic Inverse) · Fibonacci's three toll bridges (1202)</h3>
+  <p>A merchant crosses \(3\) magic toll bridges. At each bridge, the river spirit <strong>doubles</strong> the coins currently in his pouch, and then the bridge keeper collects a fixed toll of <strong>\(24\) coins</strong> (\(x_{t+1} = 2x_t - 24\)). After paying the toll at the \(3\)-rd bridge, the merchant's pouch is <strong>completely empty (\(x_3 = 0\))</strong>. How many coins \(x_0\) did he have at the start?</p>
+  <p>Instead of writing \(2(2(2x_0 - 24) - 24) - 24 = 0\), invert the single-bridge rule \(x_{t+1} = 2x_t - 24\):</p>
+  \[
+    \text{Forward: } \xrightarrow{\;\times 2\;} \xrightarrow{\;- 24\;}
+    \qquad\Longleftrightarrow\qquad
+    \text{Backward: } x_t \;=\; \frac{x_{t+1} + 24}{2} \quad (\text{add } 24, \text{ then halve!}).
+  \]
+  <p>Stepping backward from \(x_3 = 0\) takes three mental operations: \(x_2 = \frac{0 + 24}{2} = 12 \;\longrightarrow\; x_1 = \frac{12 + 24}{2} = 18 \;\longrightarrow\; x_0 = \frac{18 + 24}{2} = \mathbf{21}\) coins!</p>
+
+  <h3>Encounter B (Strategic Backward Induction) · Bachet's game of \(21\) stones (1612)</h3>
+  <p>A pile contains \(21\) stones. Alice and Bob alternate turns, with Alice moving first. On each turn, a player must remove \(1\), \(2\), or \(3\) stones from the pile. The player who takes the <strong>last stone</strong> (leaving \(0\) stones) wins. Does Alice have a guaranteed winning strategy?</p>
+  <p>If Alice tries to look forward from \(21\), she has \(3\) choices (\(20, 19, 18\)), to each of which Bob has \(3\) replies, creating thousands of branches. Instead, stand at the winning destination <strong>\(0\) stones</strong> and label states backwards using On-ramp 2:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Stones left \(n\)</th>
+        <th>\(0\)</th>
+        <th>\(1, 2, 3\)</th>
+        <th>\(4\)</th>
+        <th>\(5, 6, 7\)</th>
+        <th>\(8\)</th>
+        <th>\(\cdots\)</th>
+        <th>\(16\)</th>
+        <th>\(17, 18, 19\)</th>
+        <th>\(20\)</th>
+        <th>\(21\) (Start)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Status (\(\mathbf{P}\) or \(\mathbf{N}\))</strong></td>
+        <td><strong>\(\mathbf{P}\)</strong></td>
+        <td>\(\mathbf{N}\)</td>
+        <td><strong>\(\mathbf{P}\)</strong></td>
+        <td>\(\mathbf{N}\)</td>
+        <td><strong>\(\mathbf{P}\)</strong></td>
+        <td>\(\cdots\)</td>
+        <td><strong>\(\mathbf{P}\)</strong></td>
+        <td>\(\mathbf{N}\)</td>
+        <td><strong>\(\mathbf{P}\)</strong></td>
+        <td>\(\mathbf{N}\) (Alice wins!)</td>
+      </tr>
+      <tr>
+        <td><strong>Winning move to \(\mathbf{P}\)</strong></td>
+        <td>(Terminal)</td>
+        <td>Take \(1,2,3 \to 0\)</td>
+        <td><em>All moves \(\to 1,2,3\) (\(\mathbf{N}\))!</em></td>
+        <td>Take \(1,2,3 \to 4\)</td>
+        <td><em>None!</em></td>
+        <td>\(\cdots\)</td>
+        <td><em>None!</em></td>
+        <td>Take \(1,2,3 \to 16\)</td>
+        <td><em>None!</em></td>
+        <td><strong>Take \(1 \to 20\)!</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Working backwards from \(0\) reveals the entire game in one line: the cold target states (\(\mathbf{P}\)-positions) are the multiples of \(4\), namely \(\{0, 4, 8, 12, 16, 20\}\). Starting at \(21\), Alice takes \(1\) stone to leave Bob at \(20\); thereafter, whenever Bob takes \(k \in \{1, 2, 3\}\) stones, Alice takes \(4 - k\) stones, stepping down the ladder \(20 \to 16 \to 12 \to 8 \to 4 \to 0\) to victory!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+
+  <div class="pattern-box" id="box-p77">
+    <h3>Box P77 · The Work Backwards Move</h3>
+    <p>When a problem asks how to reach a known target \(S_{\text{goal}}\) from a starting state \(S_0\) (or asks whether an algebraic/geometric target \(S_{\text{goal}}\) holds):</p>
+    <ul>
+      <li><strong>Inverse-Operator Chain (Deterministic &amp; Reachability Problems):</strong> Invert each forward transition \(S_{t+1} = F(S_t)\) into its predecessor map \(S_t \in F^{-1}(S_{t+1})\) and trace \(S_{\text{goal}} \mapsto F^{-1}(S_{\text{goal}}) \mapsto \cdots\) back to \(S_0\).</li>
+      <li><strong>Zermelo Backward Induction (Combinatorial Games &amp; Dynamic Programming):</strong> Mark all terminal winning targets as \(\mathbf{P}\)-positions, then recursively label \(S \in \mathbf{N}\) if some move from \(S\) lands in \(\mathbf{P}\), and \(S \in \mathbf{P}\) if <em>all</em> moves from \(S\) land in \(\mathbf{N}\).</li>
+      <li><strong>Pappus's Analysis \(\to\) Synthesis (Proofs &amp; Constructions):</strong> Assume \(S_{\text{goal}}\) is true and deduce simpler necessary or sufficient predecessors \(S_{\text{goal}} \impliedby C_{k-1} \impliedby \cdots \impliedby C_0\) until \(C_0\) is a known fact; then write the final proof forward from \(C_0\) to \(S_{\text{goal}}\) (<a href="p78-reversible-steps.html"><span class="pid">P78</span></a>).</li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Forward branching tree from S_0 exploding into 2^k paths. Right: Backward inverse funnel from S_goal = 100 collapsing along a single forced path 100 -> 50 -> 25 -> 24 -> 12 -> 6 -> 3 -> 2 -> 1">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Forward Branching Tree from 1 (x -> 2x or x -> x+1) -->
+      <text x="150" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Forward from 1: 2ᵏ Branching Explosion</text>
+      <rect x="20" y="28" width="260" height="150" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.2"/>
+      <!-- Tree from 1 -> 2 -> (3, 4) -> (4, 6; 5, 8) ... -->
+      <circle cx="50" cy="103" r="12" fill="#ffffff" stroke="#b85d19" stroke-width="1.8"/>
+      <circle cx="110" cy="103" r="12" fill="#ffffff" stroke="#b85d19" stroke-width="1.8"/>
+      <circle cx="175" cy="68" r="12" fill="#ffffff" stroke="#b85d19" stroke-width="1.8"/>
+      <circle cx="175" cy="138" r="12" fill="#ffffff" stroke="#b85d19" stroke-width="1.8"/>
+      <circle cx="245" cy="48" r="11" fill="#ffffff" stroke="#b85d19" stroke-width="1.5"/>
+      <circle cx="245" cy="83" r="11" fill="#ffffff" stroke="#b85d19" stroke-width="1.5"/>
+      <circle cx="245" cy="123" r="11" fill="#ffffff" stroke="#b85d19" stroke-width="1.5"/>
+      <circle cx="245" cy="158" r="11" fill="#ffffff" stroke="#b85d19" stroke-width="1.5"/>
+      <line x1="62" y1="103" x2="98" y2="103" stroke="#b85d19" stroke-width="1.8"/>
+      <line x1="121" y1="98" x2="164" y2="73" stroke="#b85d19" stroke-width="1.8"/>
+      <line x1="121" y1="108" x2="164" y2="133" stroke="#b85d19" stroke-width="1.8"/>
+      <line x1="186" y1="64" x2="234" y2="51" stroke="#b85d19" stroke-width="1.5"/>
+      <line x1="186" y1="72" x2="234" y2="81" stroke="#b85d19" stroke-width="1.5"/>
+      <line x1="186" y1="134" x2="234" y2="125" stroke="#b85d19" stroke-width="1.5"/>
+      <line x1="186" y1="142" x2="234" y2="155" stroke="#b85d19" stroke-width="1.5"/>
+      <text x="50" y="107" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+      <text x="110" y="107" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+      <text x="175" y="72" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3</text>
+      <text x="175" y="142" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+      <text x="245" y="52" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4</text>
+      <text x="245" y="87" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">6</text>
+      <text x="245" y="127" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">5</text>
+      <text x="245" y="162" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">8</text>
+      <text x="150" y="194" font-family="system-ui, sans-serif" font-size="9" fill="#b85d19" text-anchor="middle">Every number can BOTH double and add 1!</text>
+
+      <!-- Right panel: Backward Funnel from 100 (Exemplar 1) -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Backward from 100: Unique Parity Funnel!</text>
+      <rect x="310" y="28" width="270" height="150" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="445" y="52" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Odd numbers CANNOT come from ×2!</text>
+      <text x="445" y="80" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">100 → 50 → 25 → 24 → 12</text>
+      <text x="445" y="108" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">→ 6 → 3 → 2 → 1  (8 steps)</text>
+      <text x="445" y="138" font-family="system-ui, sans-serif" font-size="9" fill="#3a6073" text-anchor="middle">• Even n: halving n → n/2 beats subtracting 1</text>
+      <text x="445" y="156" font-family="system-ui, sans-serif" font-size="9" fill="#3a6073" text-anchor="middle">• Odd n: forced to subtract 1 (n → n − 1)</text>
+      <text x="445" y="194" font-family="system-ui, sans-serif" font-size="9" fill="#3a6073" font-weight="bold" text-anchor="middle">Zero branching when read from 100 down to 1!</text>
+    </svg>
+    <figcaption><strong>Fig P77.1.</strong> Forward branching vs. backward funneling (Exemplar 1). Starting from \(1\) with the moves \(x \mapsto 2x\) and \(x \mapsto x+1\), every integer has two forward branches (left). Starting from \(100\) and working backwards, parity dictates the predecessor at every step: odd numbers like \(25\) and \(3\) could only have been reached by \(+1\), while even numbers halve directly, tracing the unique \(8\)-step shortest path \(100 \to 50 \to 25 \to 24 \to 12 \to 6 \to 3 \to 2 \to 1\).</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p77a">
+    <h3>Box P77.A · The Four Verification Obligations of Working Backwards</h3>
+    <ol>
+      <li><strong>State the Exact Target Condition \(S_{\text{goal}}\):</strong> Write down the complete specification of the terminal state, desired figure, or target inequality before taking a single backward step.</li>
+      <li><strong>Invert Every Legal Step Completely:</strong> When solving \(S_{t+1} = F(S_t)\) for \(S_t\), check whether the inverse \(F^{-1}(S_{t+1})\) is unique, empty (an unreachable state!), or multi-valued. In games, apply the exact Zermelo rule: \(S \in \mathbf{P} \iff \text{all moves lead to } \mathbf{N}\).</li>
+      <li><strong>Verify Domain Admissibility at Every Backward Step:</strong> Confirm that each reconstructed predecessor \(S_t\) lies inside the legal state space (e.g., nonnegative integers, inside the board boundaries).</li>
+      <li><strong>Reverse the Chain for Final Presentation (<span class="pid">P78</span>):</strong> Once the backward path \(S_{\text{goal}} \leftarrow \cdots \leftarrow S_0\) is found, verify that running it forward \(S_0 \to \cdots \to S_{\text{goal}}\) is valid at every step!</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Backward induction P/N grid for the 8x8 Corner-to-Corner Chess King game showing P-positions at even-even distance coordinates (dx, dy) from the target corner">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Backward Induction on the Chess King Corner Game (Exemplar 2)</text>
+      <!-- Left: 5x5 subboard near Target (0,0) at bottom-left x=55, y=145 (28px cells: x=55..195, y=33..173) -->
+      <text x="135" y="32" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P/N Grid Near Target T(0,0)</text>
+      <!-- Draw 5x5 grid of (dx, dy) for dx, dy in 0..4: P-positions (crimson) when BOTH dx and dy are EVEN! -->
+      <!-- dy=4 (y=38): dx=0(P), 1(N), 2(P), 3(N), 4(P) -->
+      <rect x="65" y="38" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="93" y="38" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="121" y="38" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="149" y="38" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="177" y="38" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <!-- dy=3 (y=64): all N -->
+      <rect x="65" y="64" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="93" y="64" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="121" y="64" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="149" y="64" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="177" y="64" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <!-- dy=2 (y=90): dx=0(P), 1(N), 2(P), 3(N), 4(P) -->
+      <rect x="65" y="90" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="93" y="90" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="121" y="90" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="149" y="90" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="177" y="90" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <!-- dy=1 (y=116): all N -->
+      <rect x="65" y="116" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="93" y="116" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="121" y="116" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="149" y="116" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="177" y="116" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <!-- dy=0 (y=142): dx=0(T=P), 1(N), 2(P), 3(N), 4(P) -->
+      <rect x="65" y="142" width="28" height="26" fill="#8b2635" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="93" y="142" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="121" y="142" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <rect x="149" y="142" width="28" height="26" fill="#eef3f7" stroke="#3a6073" stroke-width="1"/>
+      <rect x="177" y="142" width="28" height="26" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <!-- Labels of P cells -->
+      <text x="79" y="159" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">T(P)</text>
+      <text x="135" y="159" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="191" y="159" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="79" y="107" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="135" y="107" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="191" y="107" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="79" y="55" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="135" y="55" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="191" y="55" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">P</text>
+      <text x="135" y="188" font-family="system-ui, sans-serif" font-size="9" fill="#8b2635" font-weight="bold" text-anchor="middle">P-cells = (even dx, even dy)</text>
+
+      <!-- Right explanation box -->
+      <rect x="245" y="38" width="330" height="130" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="410" y="58" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Why (even dx, even dy) are the exact P-positions:</text>
+      <text x="258" y="82" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">1. Target T = (0, 0) is (even, even) [Base P-position].</text>
+      <text x="258" y="104" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">2. Moving Left (−1,0), Down (0,−1), or Diag (−1,−1) from</text>
+      <text x="258" y="120" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">   (even, even) flips at least one coordinate to ODD (N)!</text>
+      <text x="258" y="142" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" font-weight="bold">3. From any (odd, odd), (odd, even), or (even, odd), you</text>
+      <text x="258" y="158" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" font-weight="bold">   can subtract 1 from the odd coordinate(s) to hit (even, even)!</text>
+      <text x="410" y="188" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Start (7, 7) is (odd, odd) ⟹ Move 1 diagonally to (6, 6) wins!</text>
+    </svg>
+    <figcaption><strong>Fig P77.2.</strong> Backward induction on the \(8 \times 8\) corner-to-corner king game (Exemplar 2). Starting from the target corner \(T = (0, 0)\) and filling the \(\mathbf{P}/\mathbf{N}\) table backwards reveals that \((dx, dy)\) is a \(\mathbf{P}\)-position (crimson) if and only if both \(dx\) and \(dy\) are even. Since the starting corner \((7, 7)\) has \((dx, dy) = (7, 7)\) (both odd), the first player wins immediately by stepping diagonally to \((6, 6)\).</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p77b">
+    <h3>Box P77.B · Three-Key Recognition Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> "Find the starting value \(x_0\) that produces final output \(x_T\)", "Find the minimum number of operations to reach \(N\) from \(1\)", "Determine which player has a winning strategy in a finite game", or "Construct a geometric point/figure satisfying a tangency/incidence condition."</li>
+      <li><strong>Problem shape:</strong> High forward branching or loss of intuition at the start \(S_0\), paired with a unique, crisp terminal state \(S_{\text{goal}}\) where the inverse step is constrained by parity, divisibility, or game termination.</li>
+      <li><strong>Tools at hand:</strong> Inverse functions \(F^{-1}\), backward \(\mathbf{P}/\mathbf{N}\) game labeling, Bellman's dynamic programming equation, and Pappus's geometric analysis.</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 (Number Theory &amp; Reachability) · Shortest path from \(1\) to \(100\) via doubling and adding \(1\)</h3>
+  <p><strong>Problem.</strong> Starting with the number \(1\) on a calculator screen, each button press either doubles the current number (\(x \mapsto 2x\)) or adds \(1\) to it (\(x \mapsto x + 1\)). What is the minimum number of button presses required to reach \(100\), and what is the exact sequence of presses?</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Invert the two operations from \(100\) down to \(1\)).</strong> Moving forward from \(1\), every state \(x\) has two legal moves (\(2x\) and \(x + 1\)), creating a binary tree of \(2^k\) paths (Fig P77.1, left). Instead, stand at \(100\) and look at the two inverse operations: \(n \mapsto n / 2\) (valid only when \(n\) is even) and \(n \mapsto n - 1\):</p>
+  <ul>
+    <li><strong>When \(n &gt; 1\) is odd:</strong> Since \(2x\) is never odd, the last forward step to reach \(n\) <em>must</em> have been \(+1\). Thus \(n \mapsto n - 1\) is completely forced!</li>
+    <li><strong>When \(n \ge 2\) is even:</strong> Could a shortest path to \(n = 2k\) end with two consecutive \(+1\) steps (\(2k - 2 \xrightarrow{+1} 2k - 1 \xrightarrow{+1} 2k\))? No! Because instead of doubling to \(2k - 2\) and adding \(1\) twice (\(3\) steps from \(k - 1\)), you could add \(1\) once to \(k - 1 \xrightarrow{+1} k\) and then double \(k \xrightarrow{\times 2} 2k\) (\(2\) steps from \(k - 1\)), saving a full step! Thus at every even number \(n = 2k\), halving \(n \mapsto n / 2\) is always optimal.</li>
+  </ul>
+
+  <p><strong>Step 2 (Read off the unique backward chain and reverse it).</strong> Applying "halve if even, subtract \(1\) if odd" from \(100\) down to \(1\) gives a single unbranched chain:</p>
+  \[
+    100 \xrightarrow{\div 2} 50 \xrightarrow{\div 2} 25 \xrightarrow{-1} 24 \xrightarrow{\div 2} 12 \xrightarrow{\div 2} 6 \xrightarrow{\div 2} 3 \xrightarrow{-1} 2 \xrightarrow{\div 2} 1.
+  \]
+  <p>Reversing the arrows gives the unique optimal \(8\)-step forward sequence:</p>
+  \[
+    1 \xrightarrow{\times 2} 2 \xrightarrow{+1} 3 \xrightarrow{\times 2} 6 \xrightarrow{\times 2} 12 \xrightarrow{\times 2} 24 \xrightarrow{+1} 25 \xrightarrow{\times 2} 50 \xrightarrow{\times 2} 100.
+  \]
+  <p>(In base \(2\), \(100 = 1100100_2\) has \(7\) bits: after the leading \(1\), each of the \(6\) bit positions requires a shift \(\times 2\), and each of the \(2\) additional ones requires a \(+1\), totaling \(6 + 2 = 8\) steps!)</p>
+
+  <h3>Exemplar 2 (Combinatorial Games) · The \(8 \times 8\) corner-to-corner chess king game</h3>
+  <p><strong>Problem.</strong> A chess king starts at the top-right corner \((1, 8)\) of an \(8 \times 8\) chessboard. Two players (Alice and Bob) alternate moving the king one square <strong>Left</strong>, <strong>Down</strong>, or <strong>Diagonally Down-Left</strong> toward the bottom-left corner \((8, 1)\). The player who moves the king onto \((8, 1)\) wins. Who has a winning strategy, and what is the winning first move?</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Set up distance-to-target coordinates and label backwards from \((0, 0)\)).</strong> Measure each square by its remaining horizontal and vertical steps \((dx, dy) \in \{0, 1, \dots, 7\}^2\) to the target corner \((8, 1)\), so the target is \(T = (0, 0)\) and the start is \(S_0 = (7, 7)\). A legal move subtracts \((1, 0)\), \((0, 1)\), or \((1, 1)\) from \((dx, dy)\). Working backwards from \(T = (0, 0)\) (Fig P77.2):</p>
+  <ul>
+    <li>\((0, 0)\) is the terminal winning square, so \((0, 0) \in \mathbf{P}\).</li>
+    <li>\((1, 0), (0, 1), (1, 1)\) can all step directly to \((0, 0)\) in one move, so they are \(\mathbf{N}\)-positions.</li>
+    <li>At \((2, 0)\), the only legal move is to \((1, 0) \in \mathbf{N}\), so \((2, 0) \in \mathbf{P}\); similarly \((0, 2) \in \mathbf{P}\). At \((2, 2)\), the three legal moves land on \((1, 2), (2, 1), (1, 1)\) — all of which can reach \((0, 2), (2, 0),\) or \((0, 0)\) and are therefore \(\mathbf{N}\)-positions! Thus \((2, 2) \in \mathbf{P}\).</li>
+  </ul>
+
+  <p><strong>Step 2 (Verify the parity rule for \(\mathbf{P}\)-positions).</strong> In general, \((dx, dy)\) is a \(\mathbf{P}\)-position if and only if <strong>both \(dx\) and \(dy\) are even</strong>:</p>
+  <ul>
+    <li>From any \((\text{even}, \text{even})\) square, subtracting \((1, 0)\), \((0, 1)\), or \((1, 1)\) changes at least one coordinate from even to odd, so <em>every</em> move lands on a non-\((\text{even}, \text{even})\) square.</li>
+    <li>From any square where at least one of \(dx, dy\) is odd, you can subtract \(1\) from whichever coordinate(s) are odd — moving Left if only \(dx\) is odd, Down if only \(dy\) is odd, or Diagonally if both are odd — landing back on an \((\text{even}, \text{even})\) square!</li>
+  </ul>
+  <p>Since the starting square \((7, 7)\) has \((dx, dy) = (7, 7)\) (both odd), <strong>Alice (Player 1) wins</strong>: her unique winning first move is the diagonal step to \((dx, dy) = (6, 6)\) (square \((2, 7)\)), after which she restores \((\text{even}, \text{even})\) on every turn until she lands on \((0, 0)\).</p>
+
+  <h3>Exemplar 3 (Classical Geometry) · Pappus's backward analysis for a tangent circle</h3>
+  <p><strong>Problem.</strong> Given two parallel lines \(\ell_1, \ell_2\) at distance \(2R\) apart and a point \(P\) strictly between them, construct with straightedge and compass a circle \(\mathcal{C}\) tangent to both \(\ell_1\) and \(\ell_2\) and passing through \(P\).</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Analysis — assume the circle \(\mathcal{C}\) with center \(O\) already exists).</strong> Suppose \(\mathcal{C}\) is drawn (Fig P77.3, left). What properties must its center \(O\) and radius \(r\) satisfy?</p>
+  <ol>
+    <li>Because \(\mathcal{C}\) is tangent to both parallel lines \(\ell_1\) and \(\ell_2\) (which are separated by \(2R\)), the diameter of \(\mathcal{C}\) must equal \(2R\) (so \(r = R\)), and the center \(O\) must be equidistant from \(\ell_1\) and \(\ell_2\) — meaning <strong>\(O\) lies on the midline \(\ell_{\text{mid}}\)</strong> halfway between \(\ell_1\) and \(\ell_2\)!</li>
+    <li>Because \(\mathcal{C}\) has radius \(R\) and passes through the given point \(P\), the distance \(|OP|\) equals \(R\) — meaning <strong>\(O\) also lies on the circle \(\mathcal{C}(P, R)\)</strong> of radius \(R\) centered at \(P\)!</li>
+  </ol>
+
+  <p><strong>Step 2 (Synthesis — run the construction forward).</strong> First construct the midline \(\ell_{\text{mid}}\) parallel to \(\ell_1, \ell_2\) and halfway between them (establishing radius \(R\)). Next, set the compass to radius \(R\), place the needle at the given point \(P\), and draw the circle \(\mathcal{C}(P, R)\). The intersection points \(O_1, O_2 \in \ell_{\text{mid}} \cap \mathcal{C}(P, R)\) are at distance \(R\) from \(\ell_1\), distance \(R\) from \(\ell_2\), and distance \(R\) from \(P\) — so the circles centered at \(O_1\) and \(O_2\) with radius \(R\) solve the problem!</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — The One-Way Arrow Trap: presenting backward scratchwork as a proof without checking reversibility (<a href="p78-reversible-steps.html"><span class="pid">P78</span></a>).</strong> Suppose someone tries to prove the false inequality \(-3 \ge 2\) by "working backwards" from the conclusion: <em>"Start with \(-3 \ge 2\); square both sides to get \((-3)^2 \ge 2^2\), which is \(9 \ge 4\) (True!). Therefore \(-3 \ge 2\)."</em> Why did that fail? Because squaring \(A \ge B \implies A^2 \ge B^2\) is not reversible when \(A\) is negative! Deducing a true statement \(C_0\) <em>from</em> your target \(S_{\text{goal}}\) (\(S_{\text{goal}} \implies C_0\)) proves nothing at all (from a false statement, multiplying by \(0\) gives \(0 = 0\), which is always true!).</p>
+    <p><em>Mitigation:</em> Treat backward deduction from \(S_{\text{goal}}\) as <strong>Analysis (scratchwork)</strong>, and always write your final proof in the forward direction \(C_0 \implies C_1 \implies \cdots \implies S_{\text{goal}}\) (Obligation 4 of Box P77.A and <a href="p78-reversible-steps.html"><span class="pid">P78</span></a>).</p>
+    <p><em>Price:</em> Checking that every step in the chain is an \(\iff\) or a valid forward \(\implies\).</p>
+    <p><em>Default:</em> Never end a proof with \(0 = 0\) or \(x^2 \ge 0\); always start your final write-up with \(x^2 \ge 0\) and work forward to the target.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Pappus's geometric analysis for Exemplar 3 intersecting the midline l_mid with circle C(P, R) to find centers O_1, O_2. Right: Exhibit A comparing invalid backward implication S_goal => True against valid forward synthesis True => S_goal">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Geometric Locus Intersection (Exemplar 3) -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pappus's Analysis: O ∈ ℓ_mid ∩ C(P, R)</text>
+      <!-- Two parallel lines l_1 at y=42, l_2 at y=162 (distance 2R = 120, so R = 60, midline l_mid at y=102!) -->
+      <line x1="25" y1="42" x2="285" y2="42" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="25" y1="162" x2="285" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="25" y1="102" x2="285" y2="102" stroke="#3a6073" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <!-- Point P at (155, 66) (dy from midline = 36; since R = 60, dx = sqrt(60^2 - 36^2) = 48! So O1=(107, 102), O2=(203, 102)!) -->
+      <!-- Auxiliary circle C(P, R=60) centered at P(155, 66) -->
+      <circle cx="155" cy="66" r="60" fill="none" stroke="#b85d19" stroke-width="1.8" stroke-dasharray="3,2"/>
+      <!-- Solution circle centered at O1(107, 102) with radius R=60 -->
+      <circle cx="107" cy="102" r="60" fill="#f3e6e8" fill-opacity="0.35" stroke="#8b2635" stroke-width="2.2"/>
+      <circle cx="155" cy="66" r="4.5" fill="#1a1a1a"/>
+      <circle cx="107" cy="102" r="4.5" fill="#8b2635"/>
+      <circle cx="203" cy="102" r="4.5" fill="#8b2635"/>
+      <text x="35" y="36" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">ℓ₁</text>
+      <text x="35" y="156" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">ℓ₂</text>
+      <text x="35" y="96" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073">ℓ_mid</text>
+      <text x="155" y="56" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P</text>
+      <text x="95" y="116" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">O₁</text>
+      <text x="215" y="116" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">O₂</text>
+      <text x="155" y="192" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Assume O exists ⇒ O ∈ ℓ_mid and |OP| = R ⇒ Intersect!</text>
+
+      <!-- Right panel: Exhibit A — Analysis (Scratchwork) vs Synthesis (Proof) -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Exhibit A: Scratchwork Analysis vs. Valid Proof</text>
+      <rect x="315" y="30" width="265" height="68" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.2"/>
+      <text x="447" y="48" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">FALLACY (Unreversed Backward Arrows):</text>
+      <text x="447" y="68" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Target S_goal  ⟹  C₁  ⟹  0 = 0 (True)</text>
+      <text x="447" y="86" font-family="system-ui, sans-serif" font-size="8.5" fill="#b85d19" text-anchor="middle">Example: −3 ≥ 2 ⟹ (−3)² ≥ 2² ⟹ 9 ≥ 4 (Proves nothing!)</text>
+
+      <rect x="315" y="110" width="265" height="68" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="447" y="128" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">VALID PROOF (Discover Backward, Write Forward):</text>
+      <text x="447" y="148" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Known Truth C₀  ⟹  C₁  ⟹  Target S_goal</text>
+      <text x="447" y="166" font-family="system-ui, sans-serif" font-size="8.5" fill="#3a6073" text-anchor="middle">Example: (a − b)² ≥ 0 ⟹ a² − 2ab + b² ≥ 0 ⟹ a²+b² ≥ 2ab</text>
+      <text x="447" y="192" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Always reverse your scratchwork chain in the final write-up!</text>
+    </svg>
+    <figcaption><strong>Fig P77.3.</strong> <em>Left (Exemplar 3):</em> Assuming the tangent circle \(\mathcal{C}\) already exists reveals that its center \(O\) must lie on both the midline \(\ell_{\text{mid}}\) and the radius-\(R\) circle \(\mathcal{C}(P, R)\) around \(P\), immediately giving the two solutions \(O_1, O_2\). <em>Right (Exhibit A):</em> Discovering a proof by working backwards from \(S_{\text{goal}}\) to a known truth \(C_0\) is valid <em>only</em> when you reverse the chain so that \(C_0 \implies \cdots \implies S_{\text{goal}}\) holds in the forward direction.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Ignoring multiple preimages when \(F\) is many-to-one.</strong> If a forward step is \(x_{t+1} = x_t^2 - 4x_t + 3\) and you know \(x_1 = 0\), working backwards gives the quadratic \(x_0^2 - 4x_0 + 3 = 0 \implies x_0 \in \{1, 3\}\). If you arbitrarily pick \(x_0 = 3\) and forget \(x_0 = 1\), you miss half the solutions!</p>
+    <p><em>Mitigation:</em> Compute the <em>entire</em> preimage set \(F^{-1}(y) = \{x \in D : F(x) = y\}\) at each backward step (Obligation 2 of Box P77.A).</p>
+    <p><em>Price:</em> Tracking a small set of candidate predecessors when \(F\) is not injective.</p>
+    <p><em>Default:</em> Check the degree/multiplicity of each step before inverting.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Reconstructing predecessors that violate domain constraints.</strong> Suppose a game on positive integers allows \(x \mapsto 3x + 1\) and \(x \mapsto x + 2\), and you try to invert \(10 \mapsto (10 - 1)/3 = 3\), then \(3 \mapsto (3 - 1)/3 = 2/3 \notin \mathbb{Z}\). Any backward branch that leaves the allowed domain (producing fractions, negative numbers, or off-board coordinates) must be pruned immediately.</p>
+    <p><em>Mitigation:</em> Filter every backward preimage \(F^{-1}(S_{t+1})\) against the legal state space \(\mathcal{X}\) at each step (Obligation 3 of Box P77.A).</p>
+    <p><em>Price:</em> Checking integrality and sign at each step.</p>
+    <p><em>Default:</em> Prune illegal predecessors immediately — that pruning is precisely why the backward tree is so much narrower than the forward tree!</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> In finite games of perfect information, working backwards is <strong>Zermelo's Theorem (1913)</strong> and the foundation of <strong>Bellman's Dynamic Programming (1953)</strong> (the optimality principle: an optimal trajectory's tail is itself optimal for the subproblem starting at that tail). In deductive proof writing, working backwards from the conclusion is half of the story — the companion chapter <a href="p78-reversible-steps.html"><span class="pid">P78</span> · Make every step reversible</a> supplies the exact audit that turns backward scratchwork into a bulletproof bidirectional proof.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When you have found a chain of steps from the target \(S_{\text{goal}}\) back to a known truth \(C_0\) and need to guarantee that every step is an exact equivalence (\(\iff\)):</strong> Step forward immediately to the companion chapter, <a href="p78-reversible-steps.html"><span class="pid">P78</span> · Make every step reversible</a>.</li>
+    <li><strong>When the \(\mathbf{P}\)-positions discovered by working backwards form a periodic or modular pattern (like \(n \equiv 0 \pmod 4\) or \((\text{even}, \text{even})\)):</strong> State that pattern as an invariant in <a href="p09-invariant.html"><span class="pid">P09</span> · Find the invariant</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Pappus's treasury of analysis and Fibonacci's merchant puzzles to Zermelo and Bellman's dynamic programming (c. 320 CE – 1953).</strong></p>
+    <ul>
+      <li><strong>Pappus of Alexandria (c. 320 CE):</strong> In Book VII of his <em>Collection</em> (the <em>Treasury of Analysis</em>), Pappus gave the classic definition of working backwards in geometry and proof: <em>"In analysis we assume that which is sought as if it were already done, and we inquire what it is from which this results, and again what is the antecedent cause of the latter, until by so retracing our steps we come upon something already known."</em></li>
+      <li><strong>Fibonacci (1202) &amp; Claude Gaspar Bachet de Méziriac (1612):</strong> In the <em>Liber Abaci</em>, Leonardo of Pisa used step-by-step algebraic inversion to solve merchant toll problems, while Bachet's <em>Problèmes plaisants et délectables</em> analyzed the game of \(21\) by working backwards in steps of \(4\) from the winning target.</li>
+      <li><strong>Ernst Zermelo (1913) &amp; Willem Wythoff (1907):</strong> In his paper <em>Über eine Anwendung der Mengenlehre auf die Theorie des Schachspiels</em>, Zermelo proved that every finite deterministic two-player game of perfect information can be solved by backward induction from the terminal states; Wythoff used backward elimination on a chessboard queen to discover the golden-ratio \(\mathbf{P}\)-positions \((\lfloor k\varphi \rfloor, \lfloor k\varphi^2 \rfloor)\).</li>
+      <li><strong>George Pólya (1945) &amp; Richard Bellman (1953):</strong> Pólya placed <em>Working Backwards</em> at the heart of heuristic problem solving in <em>How to Solve It</em>, and Bellman turned backward induction into the workhorse algorithm of modern computer science and control theory — <strong>Dynamic Programming</strong> — via Bellman's optimality equation \(V_t(s) = \min_a \{c(s, a) + V_{t+1}(F(s, a))\}\).</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise P77.1 (●○○ — The three friends and the apple basket).</strong> Three friends share a basket of apples one after another:</p>
+    <ul>
+      <li>Friend 1 takes half of the apples in the basket, plus \(1\) more apple.</li>
+      <li>Friend 2 takes half of the remaining apples, plus \(2\) more apples.</li>
+      <li>Friend 3 takes half of the remaining apples, plus \(3\) more apples, leaving the basket <strong>completely empty (\(0\) apples)</strong>.</li>
+    </ul>
+    <p>Invert each friend's step starting from \(x_3 = 0\) to find how many apples \(x_0\) were in the basket initially, and check your answer forward.</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Friend \(k\) leaves \(x_k = \frac{1}{2} x_{k-1} - k\) apples in the basket. Inverting that equation gives \(x_{k-1} = 2(x_k + k)\) ("add \(k\), then double").</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Invert each step from \(x_3 = 0\).</strong> Since Friend \(k\) leaves \(x_k = \frac{1}{2} x_{k-1} - k\) apples, the inverse formula is</p>
+      \[
+        x_{k-1} \;=\; 2(x_k + k) \qquad (k = 3, 2, 1).
+      \]
+      <p>Stepping backwards from \(x_3 = 0\):</p>
+      <ul>
+        <li>Before Friend 3 (\(k = 3\), from \(x_3 = 0\)): \(x_2 = 2(0 + 3) = 6\) apples.</li>
+        <li>Before Friend 2 (\(k = 2\), from \(x_2 = 6\)): \(x_1 = 2(6 + 2) = 16\) apples.</li>
+        <li>Before Friend 1 (\(k = 1\), from \(x_1 = 16\)): \(x_0 = 2(16 + 1) = \mathbf{34}\) apples.</li>
+      </ul>
+      <p><strong>2. Forward verification.</strong> Starting with \(34\): Friend 1 takes \(17 + 1 = 18\), leaving \(16\); Friend 2 takes \(8 + 2 = 10\), leaving \(6\); Friend 3 takes \(3 + 3 = 6\), leaving \(0\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P77.2 (●●○ — Measuring \(6\) liters with \(9\)-liter and \(4\)-liter jugs by working backwards).</strong> You have an unmarked \(9\)-liter jug, an unmarked \(4\)-liter jug, and an unlimited water supply. You want to end up with <strong>exactly \(6\) liters</strong> in the \(9\)-liter jug and \(0\) liters in the \(4\)-liter jug: state \((6, 0)\).</p>
+    <p>By asking <em>"How could \(6\) liters have been left in the \(9\)-liter jug on the very last pour?"</em>, work backwards from \((6, 0)\) to \((0, 0)\) to discover the sequence of pours!</p>
+    <details>
+      <summary>Hint</summary>
+      <p>To leave \(6\) liters in the \(9\)-liter jug, you must have just poured \(3\) liters out of a full \(9\)-liter jug into the \(4\)-liter jug — which means the \(4\)-liter jug must have already contained \(4 - 3 = 1\) liter! How do you get \(1\) liter from \(9\) and \(4\)?</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Backward analysis from \((6, 0)\).</strong></p>
+      <ul>
+        <li>To reach \((6, 0)\), we just emptied the full \(4\)-liter jug from \((6, 4)\).</li>
+        <li>To reach \((6, 4)\) by pouring from the \(9\)-liter jug into the \(4\)-liter jug, the \(9\)-liter jug lost \(9 - 6 = 3\) liters, so the previous state was \((9, 1)\) (a full \(9\)-liter jug and \(1\) liter in the \(4\)-liter jug!).</li>
+        <li>To reach \((9, 1)\), we filled the \(9\)-liter jug from \((0, 1)\), which came from pouring \(1\) liter from the \(9\)-liter jug into the empty \(4\)-liter jug at \((1, 0)\).</li>
+        <li>How do we get \((1, 0)\)? Since \(9 - 4 - 4 = 1\), filling the \(9\)-liter jug \((9, 0)\) and pouring twice into the \(4\)-liter jug gives \((9, 0) \to (5, 4) \to (5, 0) \to (1, 4) \to (1, 0)\)!</li>
+      </ul>
+      <p><strong>2. Complete \(8\)-step forward synthesis.</strong></p>
+      \[
+        (0,0) \xrightarrow{\text{fill }9} (9,0) \xrightarrow{\text{pour}} (5,4) \xrightarrow{\text{empty }4} (5,0) \xrightarrow{\text{pour}} (1,4) \xrightarrow{\text{empty }4} (1,0) \xrightarrow{\text{pour}} (0,1) \xrightarrow{\text{fill }9} (9,1) \xrightarrow{\text{pour}} (6,4) \xrightarrow{\text{empty }4} (6,0).
+      \]
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P77.3 (●●● — The \(\{1, 3, 4\}\) subtraction game and period-\(7\) backward induction).</strong> A pile contains \(N = 25\) stones. Two players alternate turns; on each turn, a player may remove <strong>\(1\), \(3\), or \(4\) stones</strong> (removing \(2\) stones is <em>not</em> allowed!). The player who takes the last stone (\(0\) left) wins.</p>
+    <ol>
+      <li>Work backwards from \(n = 0\) to determine the \(\mathbf{P}/\mathbf{N}\) status of \(n = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\).</li>
+      <li>Prove that the \(\mathbf{P}/\mathbf{N}\) sequence is periodic with period \(7\): specifically, \(n\) is a \(\mathbf{P}\)-position if and only if \(n \equiv 0 \text{ or } 2 \pmod 7\).</li>
+      <li>For \(N = 25\), determine who wins and find the unique winning first move!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>At \(n = 2\), the only legal move is \(2 - 1 = 1\) (since taking \(2\) is forbidden!), and \(1 \in \mathbf{N}\), so \(2\) is a \(\mathbf{P}\)-position! Then check which numbers \(n \in \{0..6\}\) cannot reach \(0\) or \(2\) by subtracting \(1, 3,\) or \(4\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Backward \(\mathbf{P}/\mathbf{N}\) table for \(n = 0..9\).</strong></p>
+      <ul>
+        <li>\(n = 0\): terminal target \(\implies \mathbf{P}\).</li>
+        <li>\(n = 1\): \(1 - 1 = 0 \in \mathbf{P} \implies \mathbf{N}\).</li>
+        <li>\(n = 2\): only legal move is \(2 - 1 = 1 \in \mathbf{N}\) \(\implies \mathbf{P}\)!</li>
+        <li>\(n = 3\): \(3 - 3 = 0 \in \mathbf{P} \implies \mathbf{N}\).</li>
+        <li>\(n = 4\): \(4 - 4 = 0 \in \mathbf{P} \implies \mathbf{N}\).</li>
+        <li>\(n = 5\): \(5 - 3 = 2 \in \mathbf{P} \implies \mathbf{N}\).</li>
+        <li>\(n = 6\): \(6 - 4 = 2 \in \mathbf{P} \implies \mathbf{N}\).</li>
+        <li>\(n = 7\): legal moves from \(7\) land on \(7 - 1 = 6\), \(7 - 3 = 4\), and \(7 - 4 = 3\) — <em>all three of which are \(\mathbf{N}\)</em>! Thus \(7 \in \mathbf{P}\), \(8 \in \mathbf{N}\), \(9 \in \mathbf{P}\).</li>
+      </ul>
+      <p><strong>2. Period-\(7\) proof.</strong> Modulo \(7\), if \(r \equiv 0\) or \(2 \pmod 7\), subtracting \(1, 3,\) or \(4\) yields residues \(\{6, 4, 3\}\) or \(\{1, 6, 5\} \pmod 7\), none of which is \(0\) or \(2 \pmod 7\). Conversely, from every residue \(r \in \{1, 3, 4, 5, 6\} \pmod 7\), subtracting \(1\) (from \(1, 3\)), \(3\) (from \(3, 5\)), or \(4\) (from \(4, 6\)) lands on \(0\) or \(2 \pmod 7\)! By induction, \(n \in \mathbf{P} \iff n \equiv 0 \text{ or } 2 \pmod 7\).</p>
+      <p><strong>3. Winning move from \(N = 25\).</strong> Since \(25 = 3 \times 7 + 4 \equiv 4 \pmod 7\), \(25\) is an \(\mathbf{N}\)-position (Player 1 wins). The three legal moves from \(25\) leave \(24 \equiv 3\), \(22 \equiv 1\), or \(21 \equiv 0 \pmod 7\). Thus the <strong>unique winning first move is to remove \(4\) stones</strong>, leaving \(21 \in \mathbf{P}\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P77.4 (◆ — Pattern-unknown diagnosis: The Calkin–Wilf fraction tree).</strong> Starting with the fraction \(\frac{1}{1}\), at each step you may replace your current fraction \(\frac{a}{b}\) with either</p>
+    \[
+      L\!\left(\frac{a}{b}\right) \;=\; \frac{a}{a + b} \qquad\text{or}\qquad R\!\left(\frac{a}{b}\right) \;=\; \frac{a + b}{b}.
+    \]
+    <p>Find the exact sequence of \(L\) and \(R\) steps that reaches the fraction \(\frac{19}{7}\) starting from \(\frac{1}{1}\), and explain why this path is unique.</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern diagnosis (<a href="p77-work-backwards.html"><span class="pid">P77</span> · Work backwards</a>).</strong> Moving forward from \(\frac{1}{1}\) branches into \(2^k\) fractions. However, look at the output of \(L\) and \(R\) on any positive fraction \(\frac{a}{b} &gt; 0\): \(L(\frac{a}{b}) = \frac{a}{a+b} &lt; 1\) always has numerator strictly smaller than denominator, whereas \(R(\frac{a}{b}) = \frac{a+b}{b} &gt; 1\) always has numerator strictly larger than denominator! Therefore, working <strong>backwards</strong> from any positive fraction \(\frac{p}{q} \neq \frac{1}{1}\) is \(100\%\) deterministic:</p>
+      <ul>
+        <li>If \(p &gt; q\), the last step <em>must</em> have been \(R\), and the predecessor is \(\frac{p - q}{q}\).</li>
+        <li>If \(p &lt; q\), the last step <em>must</em> have been \(L\), and the predecessor is \(\frac{p}{q - p}\).</li>
+      </ul>
+      <p><strong>2. Tracing backwards from \(\frac{19}{7}\) to \(\frac{1}{1}\).</strong></p>
+      \[
+        \frac{19}{7} \xleftarrow{R} \frac{12}{7} \xleftarrow{R} \frac{5}{7} \xleftarrow{L} \frac{5}{2} \xleftarrow{R} \frac{3}{2} \xleftarrow{R} \frac{1}{2} \xleftarrow{L} \frac{1}{1}.
+      \]
+      <p><strong>3. Forward synthesis.</strong> Reading the arrows from right to left gives the unique \(6\)-step sequence \(L, R, R, L, R, R\):</p>
+      \[
+        \frac{1}{1} \xrightarrow{L} \frac{1}{2} \xrightarrow{R} \frac{3}{2} \xrightarrow{R} \frac{5}{2} \xrightarrow{L} \frac{5}{7} \xrightarrow{R} \frac{12}{7} \xrightarrow{R} \frac{19}{7}.
+      \]
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P77.5 (◐ — Exploration: Wythoff's Queen Game and the Golden Ratio).</strong> Place a chess queen at coordinates \((x, y) \in \mathbb{Z}_{\ge 0}^2\). Two players alternate moving the queen <em>any positive number of squares</em> in one of three directions: due West \((x - k, y)\), due South \((x, y - k)\), or South-West along the diagonal \((x - k, y - k)\). The player who moves the queen to the origin \((0, 0)\) wins.</p>
+    <ol>
+      <li>Start at the terminal \(\mathbf{P}\)-position \((0, 0)\) and cross out every square \((x, y)\) that can reach \((0, 0)\) in one queen move (the row \(y = 0\), column \(x = 0\), and main diagonal \(x = y\)). Among the remaining uncrossed squares, find the one closest to the origin (with smallest \(x + y\)) to discover the next \(\mathbf{P}\)-position \(\{ (1, 2), (2, 1) \}\)!</li>
+      <li>Cross out all squares that can reach \((1, 2)\) or \((2, 1)\) in one queen move, and find the next two \(\mathbf{P}\)-position pairs \(\{(a_2, b_2), (b_2, a_2)\}\) and \(\{(a_3, b_3), (b_3, a_3)\}\). Compare \((a_k, b_k)\) with \((\lfloor k\varphi \rfloor,\; \lfloor k\varphi^2 \rfloor)\) where \(\varphi = \frac{1 + \sqrt{5}}{2} \approx 1.61803\)!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>For each new pair \((a_k, b_k)\) with \(a_k &lt; b_k\), \(a_k\) is the smallest nonnegative integer not yet used in any earlier pair \(\{(a_j, b_j)\}_{j &lt; k}\), and \(b_k = a_k + k\) (so the diagonal difference \(b_k - a_k = k\) has not been used either!).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Sieving queen moves backwards from \((0, 0)\).</strong></p>
+      <ul>
+        <li>\(k = 0\): \((0, 0) \in \mathbf{P}\) eliminates row \(0\), column \(0\), and the diagonal \(y - x = 0\).</li>
+        <li>\(k = 1\): The smallest unused coordinate is \(a_1 = 1\), and the smallest unused diagonal offset \(b_1 - a_1\) is \(1\), giving <strong>\((1, 2)\) and \((2, 1)\)</strong>!</li>
+      </ul>
+      <p><strong>2. Next \(\mathbf{P}\)-positions and Wythoff's Golden-Ratio Theorem (1907).</strong></p>
+      <ul>
+        <li>\(k = 2\): After crossing out rows/columns \(\{0, 1, 2\}\) and diagonals \(|y - x| \in \{0, 1\}\), the smallest unused coordinate is \(a_2 = 3\) and the next diagonal offset is \(b_2 - a_2 = 2\), giving <strong>\((3, 5)\) and \((5, 3)\)</strong>.</li>
+        <li>\(k = 3\): The smallest unused coordinate after \(\{0, 1, 2, 3, 5\}\) is \(a_3 = 4\), and \(b_3 = a_3 + 3 = 7\), giving <strong>\((4, 7)\) and \((7, 4)\)</strong>.</li>
+      </ul>
+      <p>Using \(\varphi^2 = \varphi + 1\), Wythoff proved that the \(k\)-th cold pair is given for all \(k \ge 0\) by</p>
+      \[
+        \bigl(a_k,\; b_k\bigr) \;=\; \Bigl(\lfloor k\varphi \rfloor,\;\; \lfloor k\varphi^2 \rfloor\Bigr) \;=\; \Bigl(\lfloor k\varphi \rfloor,\;\; \lfloor k\varphi \rfloor + k\Bigr),
+      \]
+      <p>which for \(k = 1, 2, 3\) produces \((1, 2), (3, 5), (4, 7)\) identically!</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p76-inclusion-exclusion.html">← Previous: P76 · Inclusion-exclusion</a> ·
+    <a href="p78-reversible-steps.html">Next: P78 · Make every step reversible →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>

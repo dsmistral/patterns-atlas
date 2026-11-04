@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P50 · Double centralizer decomposition · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P50 · the fifth move of tier 5</p>
+  <h1>Double centralizer decomposition</h1>
+  <p class="tagline">When a hard symmetry algebra acts on a large space, find the partner algebra of everything that commutes with it — their irreducible pieces pair up one-to-one, and the dimension of each partner is the multiplicity of the other.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Centralizer (commutant) \(\mathcal{A}'\), semisimple algebras, and tensor powers \((\mathbb{C}^d)^{\otimes n}\).</strong>
+  Given a vector space \(V\) and a collection of linear operators \(\mathcal{A} \subset \operatorname{End}(V)\), its <em>centralizer</em> (or <em>commutant</em>) \(\mathcal{A}' = \operatorname{End}_{\mathcal{A}}(V) = \{B \in \operatorname{End}(V) : AB = BA \text{ for all } A \in \mathcal{A}\}\) is the algebra of all operators on \(V\) that commute with every operator in \(\mathcal{A}\). An algebra \(\mathcal{A}\) is <em>semisimple</em> if every \(\mathcal{A}\)-invariant subspace of \(V\) has an \(\mathcal{A}\)-invariant complement (always true for finite group algebras \(\mathbb{C}[G]\) and reductive Lie groups like \(\operatorname{GL}_d(\mathbb{C})\)). The <em>\(n\)-fold tensor space</em> \((\mathbb{C}^d)^{\otimes n}\) is the \(d^n\)-dimensional space spanned by formal \(n\)-slot words \(e_{i_1} \otimes e_{i_2} \otimes \cdots \otimes e_{i_n}\) with each letter \(i_k \in \{1, \dots, d\}\).
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p36-character-counting.html"><span class="pid">P36</span></a> taught us how to decompose a symmetry action by taking character inner products — as in Example 2 of <a href="p36-character-counting.html"><span class="pid">P36</span></a>, where the \(6\) permutations of a triangle (\(S_3\)) acting on the \(2^3 = 8\) binary vertex colorings split the \(8\)-dimensional space into \(4\) copies of the \(1\)-dimensional trivial representation and \(2\) copies of the \(2\)-dimensional standard representation (\(8 = 4 \times 1 + 2 \times 2\)). <a href="p08-divide-by-symmetry.html"><span class="pid">P08</span></a> and <a href="p05-canonical-form.html"><span class="pid">P05</span></a> showed us how to block-diagonalize operators by grouping equivalent states together.</p>
+  <p>Here is the question that <a href="p36-character-counting.html"><span class="pid">P36</span></a> left hanging in the air. In the \(8\)-dimensional space of \(3\)-letter binary words \((\mathbb{C}^2)^{\otimes 3}\), <em>why</em> did the \(1\)-dimensional trivial representation of \(S_3\) appear with multiplicity \(4\), and why did the \(2\)-dimensional standard representation of \(S_3\) appear with multiplicity \(2\)? Where do those mysterious multiplicity numbers \(4\) and \(2\) live geometrically? And if we replace a \(2\)-letter alphabet with a \(d\)-letter alphabet (\((\mathbb{C}^d)^{\otimes n}\)), or replace \(S_n\) with an infinite continuous Lie group \(\operatorname{GL}_d(\mathbb{C})\) where finite conjugacy tables don't exist, how can we decompose a massive representation without computing a single character integral?</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: two commuting symmetries on three-letter words</h2>
+  <p>Take an alphabet of \(d\) letters \(\{e_1, e_2, \dots, e_d\}\) and form the \(d^3\)-dimensional space \(V = (\mathbb{C}^d)^{\otimes 3}\) of three-slot words \(v_1 \otimes v_2 \otimes v_3\) (when \(d=2\), this is the \(2^3 = 8\)-dimensional binary triangle space from <a href="p36-character-counting.html"><span class="pid">P36</span></a>; when \(d=3\), it has dimension \(3^3 = 27\)). Two completely different symmetry groups act on \(V\):</p>
+  <ul>
+    <li><strong>Slot permutations \(S_3\) (size \(6\)):</strong> A permutation \(\sigma \in S_3\) shuffles the three positions without changing the letters: \(\sigma\cdot(v_1 \otimes v_2 \otimes v_3) = v_{\sigma^{-1}(1)} \otimes v_{\sigma^{-1}(2)} \otimes v_{\sigma^{-1}(3)}\).</li>
+    <li><strong>Simultaneous basis changes \(\operatorname{GL}_d(\mathbb{C})\) (continuous \(d \times d\) matrices):</strong> An invertible matrix \(g \in \operatorname{GL}_d(\mathbb{C})\) rotates all three slots by the exact same matrix \(g\): \(g\cdot(v_1 \otimes v_2 \otimes v_3) = (gv_1) \otimes (gv_2) \otimes (gv_3)\).</li>
+  </ul>
+  <p>Notice a basic miracle: <strong>the two actions commute with each other!</strong> Whether you apply \(g\) to all three slots first and then swap slots \(1\) and \(2\), or swap slots \(1\) and \(2\) first and then apply \(g\) to all three slots, you get the exact same tensor \((gv_2) \otimes (gv_1) \otimes (gv_3)\). Even better, neither group leaves any room for outsiders: every linear operator on \(V\) that commutes with all \(g^{\otimes 3}\) is a linear combination of the \(6\) permutations in \(\mathbb{C}[S_3]\), and every operator that commutes with \(\mathbb{C}[S_3]\) is a linear combination of the diagonal matrices \(g^{\otimes 3}\).</p>
+  <p>Now decompose \(V = (\mathbb{C}^d)^{\otimes 3}\) under the \(3\) irreducible representations of \(S_3\) (indexed by the three partitions \(\lambda \vdash 3\): symmetric \([3]\) of dimension \(f^{[3]} = 1\), alternating \([1,1,1]\) of dimension \(f^{[1,1,1]} = 1\), and mixed hook \([2,1]\) of dimension \(f^{[2,1]} = 2\)), and watch how the multiplicities behave as \(d\) varies:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Alphabet \(d\)</th>
+        <th>Total \(\dim V = d^3\)</th>
+        <th>Symmetric \(\lambda=[3]\)<br>\(\dim S^{[3]} = \mathbf{1}\)</th>
+        <th>Alternating \(\lambda=[1,1,1]\)<br>\(\dim S^{[1,1,1]} = \mathbf{1}\)</th>
+        <th>Mixed Hook \(\lambda=[2,1]\)<br>\(\dim S^{[2,1]} = \mathbf{2}\)</th>
+        <th>Paired Sum \(\sum (\dim S^\lambda)(\dim \mathbb{W}^\lambda_d)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(d = 2\)</td>
+        <td>\(8\)</td>
+        <td>\(1 \times \mathbf{4}\)</td>
+        <td>\(1 \times \mathbf{0}\)</td>
+        <td>\(2 \times \mathbf{2}\)</td>
+        <td>\(1(4) + 1(0) + 2(2) = 8\) (<span class="pid">P36</span> Ex. 2!)</td>
+      </tr>
+      <tr>
+        <td>\(d = 3\)</td>
+        <td>\(27\)</td>
+        <td>\(1 \times \mathbf{10}\)</td>
+        <td>\(1 \times \mathbf{1}\)</td>
+        <td>\(2 \times \mathbf{8}\)</td>
+        <td>\(1(10) + 1(1) + 2(8) = 27\)</td>
+      </tr>
+      <tr>
+        <td>\(d = 4\)</td>
+        <td>\(64\)</td>
+        <td>\(1 \times \mathbf{20}\)</td>
+        <td>\(1 \times \mathbf{4}\)</td>
+        <td>\(2 \times \mathbf{20}\)</td>
+        <td>\(1(20) + 1(4) + 2(20) = 64\)</td>
+      </tr>
+      <tr>
+        <td>\(d = 5\)</td>
+        <td>\(125\)</td>
+        <td>\(1 \times \mathbf{35}\)</td>
+        <td>\(1 \times \mathbf{10}\)</td>
+        <td>\(2 \times \mathbf{40}\)</td>
+        <td>\(1(35) + 1(10) + 2(40) = 125\)</td>
+      </tr>
+      <tr>
+        <td>General \(d\)</td>
+        <td>\(d^3\)</td>
+        <td>\(1 \times \binom{d+2}{3}\)</td>
+        <td>\(1 \times \binom{d}{3}\)</td>
+        <td>\(2 \times \frac{d(d^2-1)}{3}\)</td>
+        <td>\(1\cdot\frac{d(d+1)(d+2)}{6} + 1\cdot\frac{d(d-1)(d-2)}{6} + 2\cdot\frac{d(d^2-1)}{3} = d^3\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Look at the row \(d = 2\): the mysterious multiplicities \(\mathbf{4}\) and \(\mathbf{2}\) from <a href="p36-character-counting.html"><span class="pid">P36</span></a> (Example 2) are the exact dimensions of the irreducible \(\operatorname{GL}_2(\mathbb{C})\)-modules \(\operatorname{Sym}^3(\mathbb{C}^2)\) (\(\dim = 4\)) and \(\mathbb{W}^{[2,1]}(\mathbb{C}^2)\) (\(\dim = 2\))! Conversely, at \(d = 3\) (\(27\)-dimensional space of \(3\)-qutrit states), \(\operatorname{GL}_3(\mathbb{C})\) has a \(10\)-dimensional symmetric cube \(\operatorname{Sym}^3(\mathbb{C}^3)\) appearing \(1\) time, a \(1\)-dimensional determinant representation \(\bigwedge^3(\mathbb{C}^3)\) appearing \(1\) time, and an \(8\)-dimensional traceless mixed tensor \(\mathbb{W}^{[2,1]}(\mathbb{C}^3)\) (Gell-Mann's eightfold-way octet!) appearing \(\mathbf{2}\) times — because \(\dim S^{[2,1]} = 2\)! The dimension of each symmetry's irreducible module is the exact multiplicity of the other's.</p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 215" role="img" aria-label="Fig P50.1: Block-rectangle decomposition of the 27-dimensional tensor space (C^3)^(x)3 into three paired rectangles S^lambda (x) W^lambda_3 of sizes 1x10, 2x8, and 1x1.">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <text x="300" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Schur–Weyl Rectangle Decomposition of  (ℂ³)⊗³  (dim = 27 = 1×10 + 2×8 + 1×1)</text>
+
+      <!-- Block 1: lambda = [3] (1 row high, 10 cols wide) -->
+      <!-- Scale: each cell is 24px wide x 28px high -->
+      <rect x="30" y="55" width="240" height="28" fill="#e1f0ee" stroke="#0f5c57" stroke-width="2"/>
+      <!-- Vertical grid lines for 10 columns -->
+      <line x1="54" y1="55" x2="54" y2="83" stroke="#b8d8d4"/>
+      <line x1="78" y1="55" x2="78" y2="83" stroke="#b8d8d4"/>
+      <line x1="102" y1="55" x2="102" y2="83" stroke="#b8d8d4"/>
+      <line x1="126" y1="55" x2="126" y2="83" stroke="#b8d8d4"/>
+      <line x1="150" y1="55" x2="150" y2="83" stroke="#b8d8d4"/>
+      <line x1="174" y1="55" x2="174" y2="83" stroke="#b8d8d4"/>
+      <line x1="198" y1="55" x2="198" y2="83" stroke="#b8d8d4"/>
+      <line x1="222" y1="55" x2="222" y2="83" stroke="#b8d8d4"/>
+      <line x1="246" y1="55" x2="246" y2="83" stroke="#b8d8d4"/>
+      <text x="150" y="47" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">λ = [3] :  S^[3] ⊗ Sym³(ℂ³)   (1 × 10 = 10)</text>
+      <text x="150" y="102" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Width = dim W^[3] = 10  (GL₃ acts horizontally)</text>
+      <text x="22" y="73" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="end">f=1</text>
+
+      <!-- Block 2: lambda = [2,1] (2 rows high, 8 cols wide = 192px wide x 56px high) -->
+      <rect x="305" y="55" width="192" height="56" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2"/>
+      <line x1="305" y1="83" x2="497" y2="83" stroke="#8a4b08" stroke-width="1.2" stroke-dasharray="3,2"/>
+      <line x1="329" y1="55" x2="329" y2="111" stroke="#e5cbb0"/>
+      <line x1="353" y1="55" x2="353" y2="111" stroke="#e5cbb0"/>
+      <line x1="377" y1="55" x2="377" y2="111" stroke="#e5cbb0"/>
+      <line x1="401" y1="55" x2="401" y2="111" stroke="#e5cbb0"/>
+      <line x1="425" y1="55" x2="425" y2="111" stroke="#e5cbb0"/>
+      <line x1="449" y1="55" x2="449" y2="111" stroke="#e5cbb0"/>
+      <line x1="473" y1="55" x2="473" y2="111" stroke="#e5cbb0"/>
+      <text x="401" y="47" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">λ = [2,1] :  S^[2,1] ⊗ 𝕎^[2,1]   (2 × 8 = 16)</text>
+      <text x="401" y="128" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">Height = dim S^[2,1] = 2  (S₃ acts vertically)</text>
+      <text x="298" y="87" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="end">f=2</text>
+
+      <!-- Block 3: lambda = [1,1,1] (1 row high, 1 col wide = 28x28) -->
+      <rect x="535" y="55" width="28" height="28" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="549" y="47" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">λ=[1³]</text>
+      <text x="549" y="102" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1 × 1 = 1</text>
+
+      <!-- Bottom summary banner -->
+      <rect x="65" y="152" width="470" height="42" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.2" rx="3"/>
+      <text x="300" y="170" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Each shape λ gets ONE rectangle:  Height = dim(S^λ) = multiplicity of 𝕎^λ_d</text>
+      <text x="300" y="186" font-family="Georgia, serif" font-size="11" fill="#0f5c57" text-anchor="middle">Width = dim(𝕎^λ_d) = multiplicity of S^λ   ·   Zero cross-talk between rectangles!</text>
+    </svg>
+    <figcaption><strong>Fig P50.1.</strong> Under the commuting pair \((S_3, \operatorname{GL}_3(\mathbb{C}))\), the \(27\)-dimensional space \((\mathbb{C}^3)^{\otimes 3}\) splits into three disjoint rectangles \(S^\lambda \otimes \mathbb{W}^\lambda_3\) of sizes \(1 \times 10\), \(2 \times 8\), and \(1 \times 1\). Permutations \(S_3\) mix rows within each rectangle; matrices \(\operatorname{GL}_3(\mathbb{C})\) mix columns within each rectangle.</figcaption>
+  </figure>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>Why do the irreducible pieces of two commuting algebras pair up in a strict one-to-one bijection with zero leftover multiplicities? Suppose \(\mathcal{A} \subset \operatorname{End}(V)\) is a semisimple algebra of operators on a finite-dimensional vector space \(V\). By Maschke's and Wedderburn's theorems, \(V\) decomposes into a direct sum of \(\mathcal{A}\)-isotypic components \(V = \bigoplus_{i=1}^r V_i\), where each block \(V_i \cong U_i \otimes W_i\) consists of \(m_i = \dim U_i\) copies of a distinct simple \(\mathcal{A}\)-module \(W_i\) (of dimension \(d_i = \dim W_i\)).</p>
+  <p>In a basis adapted to \(V = \bigoplus_{i=1}^r (U_i \otimes W_i)\), Burnside's density theorem says \(\mathcal{A} = \bigoplus_{i=1}^r \bigl(I_{m_i} \otimes \operatorname{Mat}_{d_i}(\mathbb{C})\bigr)\). Now ask: what is the centralizer \(\mathcal{B} = \operatorname{End}_{\mathcal{A}}(V)\) of all matrices that commute with \(\mathcal{A}\)? By Schur's lemma, no operator can map \(W_i\) to \(W_j\) for \(i \ne j\), and any operator commuting with \(I_{m_i} \otimes \operatorname{Mat}_{d_i}(\mathbb{C})\) must act purely on the multiplicity space \(U_i\) as \(\operatorname{Mat}_{m_i}(\mathbb{C}) \otimes I_{d_i}\)! Therefore \(\mathcal{B} = \bigoplus_{i=1}^r \bigl(\operatorname{Mat}_{m_i}(\mathbb{C}) \otimes I_{d_i}\bigr)\), its simple modules are the multiplicity spaces \(U_i\) themselves, and the centralizer of \(\mathcal{B}\) is \(\mathcal{B}' = \mathcal{A}\)!</p>
+
+  <div class="pattern-box" id="box-p50">
+    <p><strong>Pattern P50 — Double centralizer decomposition.</strong> Let \(\mathcal{A} \subset \operatorname{End}(V)\) be a finite-dimensional semisimple algebra acting on a vector space \(V\) over \(\mathbb{C}\), and let \(\mathcal{B} = \operatorname{End}_{\mathcal{A}}(V) = \mathcal{A}'\) be its full centralizer. Then \(\mathcal{B}\) is also semisimple, \(\operatorname{End}_{\mathcal{B}}(V) = \mathcal{A}'' = \mathcal{A}\), and \(V\) decomposes canonically as a multiplicity-free direct sum of tensor products over a bijection \(i \in \{1, \dots, r\}\) between the simple \(\mathcal{B}\)-modules \(U_i\) and the simple \(\mathcal{A}\)-modules \(W_i\):</p>
+    <p class="eq">\[V \;\cong\; \bigoplus_{i=1}^r U_i \otimes W_i \qquad \text{as a } (\mathcal{B} \times \mathcal{A})\text{-bimodule}.\]</p>
+    <p>In particular, \(\dim U_i\) equals the multiplicity of \(W_i\) in \(V|_A\), \(\dim W_i\) equals the multiplicity of \(U_i\) in \(V|_B\), and the shared center \(\mathcal{Z}(\mathcal{A}) = \mathcal{Z}(\mathcal{B}) = \mathcal{A} \cap \mathcal{B}\) is spanned by the \(r\) block projections \(P_i : V \to U_i \otimes W_i\).</p>
+    <p class="words"><strong>Or, in words:</strong> Instead of brute-forcing the decomposition of a space \(V\) under a complicated symmetry \(\mathcal{A}\), find the full algebra \(\mathcal{B}\) of symmetries that commute with \(\mathcal{A}\). Every irreducible representation of \(\mathcal{B}\) acts as the multiplicity ledger for a unique irreducible representation of \(\mathcal{A}\).</p>
+  </div>
+
+  <div class="pattern-box" id="box-p50a">
+    <p><strong>Box P50.A — The three obligations of a double centralizer pair.</strong></p>
+    <ol>
+      <li><strong>Semisimplicity Lock (Complete Reducibility):</strong> Verify that the generating algebra \(\mathcal{A}\) acts semisimply on \(V\) (guaranteed in characteristic \(0\) for finite groups by Maschke's theorem, for compact groups by unitary averaging <span class="pid">P36</span>, and for reductive algebraic groups like \(\operatorname{GL}_d, \operatorname{O}_d, \operatorname{Sp}_{2d}\)).</li>
+      <li><strong>Full Commutant Audit (\(\mathcal{B} = \mathcal{A}'\)):</strong> Verify that your candidate partner algebra \(\mathcal{B}\) generates the <em>entire</em> centralizer \(\operatorname{End}_{\mathcal{A}}(V)\), not merely a proper subalgebra (for instance, by checking \(\dim \mathcal{B} = \sum m_i^2\) or using spanning arguments on symmetric tensors).</li>
+      <li><strong>Center &amp; Dimension Ledger (\(\dim V = \sum m_i d_i\)):</strong> Match each simple \(\mathcal{B}\)-module \(U_i\) (dimension \(m_i\)) to its partner simple \(\mathcal{A}\)-module \(W_i\) (dimension \(d_i\)) via the central idempotents \(P_i \in \mathcal{A} \cap \mathcal{B}\), and confirm the three dimension sums:
+        <p class="eq">\[\dim V = \sum_{i=1}^r m_i d_i, \qquad \dim \mathcal{B} = \sum_{i=1}^r m_i^2, \qquad \dim \mathcal{A} = \sum_{i=1}^r d_i^2.\]</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p50b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>Multiplicity formulas, branching rules, or explicit canonical decompositions of tensor spaces, polynomial rings, or group algebras without character sum blowup.</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>A large representation space \(V\) (such as \((\mathbb{C}^d)^{\otimes n}\) or \(\mathbb{C}[x_{ij}]\)) carrying two natural, mutually commuting symmetry actions.</td>
+        </tr>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>Schur's lemma, Wedderburn matrix block decomposition \(\bigoplus \operatorname{Mat}_{d_i}(\mathbb{C})\), and central Young/Casimir idempotents in \(\mathcal{A} \cap \mathcal{B}\).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P50</span> whenever a large space carries a difficult symmetry \(\mathcal{A}\) whose commuting partner \(\mathcal{B} = \mathcal{A}'\) is small or already understood.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P50.2: The Double Centralizer seesaw between Algebra A = sum(I_{m_i} (x) Mat_{d_i}) and its commutant B = sum(Mat_{m_i} (x) I_{d_i}), meeting in their common r-dimensional center Z = A intersect B.">
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+
+      <!-- Left box: Algebra A -->
+      <rect x="28" y="32" width="215" height="128" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
+      <text x="135.5" y="54" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Algebra  𝒜 = ℬ′</text>
+      <text x="135.5" y="78" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">⨁ᵢ ( I_{mᵢ} ⊗ Mat_{dᵢ}(ℂ) )</text>
+      <text x="135.5" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Simple modules  Wᵢ  (dim dᵢ)</text>
+      <text x="135.5" y="124" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Multiplicity in V = mᵢ = dim Uᵢ</text>
+      <text x="135.5" y="146" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">dim 𝒜 = ∑ dᵢ²</text>
+
+      <!-- Middle shared intersection: Center Z = A intersect B -->
+      <rect x="255" y="52" width="90" height="88" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="4"/>
+      <text x="300" y="74" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Center 𝒵</text>
+      <text x="300" y="92" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">𝒜 ∩ ℬ</text>
+      <text x="300" y="112" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Projectors Pᵢ</text>
+      <text x="300" y="128" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">dim 𝒵 = r</text>
+
+      <!-- Right box: Commutant Algebra B = A' -->
+      <rect x="357" y="32" width="215" height="128" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="4"/>
+      <text x="464.5" y="54" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Commutant  ℬ = 𝒜′</text>
+      <text x="464.5" y="78" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">⨁ᵢ ( Mat_{mᵢ}(ℂ) ⊗ I_{dᵢ} )</text>
+      <text x="464.5" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Simple modules  Uᵢ  (dim mᵢ)</text>
+      <text x="464.5" y="124" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Multiplicity in V = dᵢ = dim Wᵢ</text>
+      <text x="464.5" y="146" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">dim ℬ = ∑ mᵢ²</text>
+    </svg>
+    <figcaption><strong>Fig P50.2.</strong> The double-centralizer lock: inside \(\operatorname{End}(V)\), \(\mathcal{A}\) acts on the right factor \(W_i\) while \(\mathcal{B} = \mathcal{A}'\) acts on the left factor \(U_i\). Their intersection \(\mathcal{A} \cap \mathcal{B}\) is the common \(r\)-dimensional center spanned by the block idempotents \(P_i\), establishing a canonical bijection \(U_i \leftrightarrow W_i\).</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · Left vs. right regular representations of a finite group (\(|G| = \sum d_i^2\))</h3>
+  <p>Why does every irreducible representation \(W_i\) of a finite group \(G\) appear inside the regular representation \(V = \mathbb{C}[G]\) with multiplicity equal to its own dimension \(d_i = \dim W_i\)? In <a href="p36-character-counting.html"><span class="pid">P36</span></a> we checked this by character orthogonality; <span class="pid">P50</span> reveals the structural reason without computing a single trace.</p>
+  <p>On \(V = \mathbb{C}[G]\), let \(\mathcal{A} = \mathbb{C}[G]_L\) act by left multiplication \(L_g(x) = gx\), and let \(\mathcal{B} = \mathbb{C}[G]_R\) act by right multiplication \(R_h(x) = xh^{-1}\). By the associative law of the group, \((gx)h^{-1} = g(xh^{-1})\), so \(L_g R_h = R_h L_g\). Even better, suppose a linear map \(T : \mathbb{C}[G] \to \mathbb{C}[G]\) commutes with all left multiplications \(L_g\): setting \(b = T(e) \in \mathbb{C}[G]\), we have \(T(g) = T(L_g(e)) = L_g(T(e)) = gb\) for every \(g \in G\), which says \(T\) is simply right multiplication by \(b\)! Thus \(\mathcal{B} = \mathcal{A}'\) is the <em>full</em> centralizer of \(\mathcal{A}\).</p>
+  <p>Applying Box P50 immediately decomposes \(\mathbb{C}[G]\) as a \((G_R \times G_L)\)-bimodule into</p>
+  <p class="eq">\[\mathbb{C}[G] \;\cong\; \bigoplus_{i=1}^r W_i^* \otimes W_i.\]</p>
+  <p>When we restrict to the left action \(G_L\) alone, each factor \(W_i^*\) of dimension \(d_i\) acts as the multiplicity space for \(W_i\), proving both that \(W_i\) appears \(d_i\) times and that \(\dim \mathbb{C}[G] = |G| = \sum_{i=1}^r d_i^2\).</p>
+
+  <h3>Exemplar 2 · Explicit Young projectors on \((\mathbb{C}^d)^{\otimes 3}\) and the dimension of \(\mathbb{W}^{[2,1]}_d\)</h3>
+  <p>How did we compute the polynomial dimensions \(\binom{d+2}{3}\), \(\binom{d}{3}\), and \(\frac{d(d^2-1)}{3}\) of the three \(\operatorname{GL}_d(\mathbb{C})\)-modules in Section 2 without using Lie algebra roots or Weyl character formulas? Because \(S_3\) and \(\operatorname{GL}_d(\mathbb{C})\) form a double centralizer pair on \(V = (\mathbb{C}^d)^{\otimes 3}\), the three block projections \(P_\lambda : V \to S^\lambda \otimes \mathbb{W}^\lambda_d\) lie in the shared center \(\mathcal{Z} = \mathbb{C}[S_3] \cap \operatorname{Span}(\operatorname{GL}_d(\mathbb{C}))\), so we can write them down purely inside \(\mathbb{C}[S_3]\) using the character formula \(P_\lambda = \frac{f^\lambda}{|S_3|}\sum_{\sigma \in S_3} \chi^\lambda(\sigma^{-1})\sigma\) (<a href="p36-character-counting.html"><span class="pid">P36</span></a>):</p>
+  <ul>
+    <li><strong>Symmetric projector (\(\lambda = [3]\), \(f^{[3]} = 1\)):</strong>
+      <p class="eq">\[P_{[3]} = \frac{1}{6}\bigl(e + (12) + (13) + (23) + (123) + (132)\bigr).\]</p>
+    </li>
+    <li><strong>Alternating projector (\(\lambda = [1,1,1]\), \(f^{[1,1,1]} = 1\)):</strong>
+      <p class="eq">\[P_{[1,1,1]} = \frac{1}{6}\bigl(e - (12) - (13) - (23) + (123) + (132)\bigr).\]</p>
+    </li>
+    <li><strong>Mixed hook projector (\(\lambda = [2,1]\), \(f^{[2,1]} = 2\), where \(\chi^{[2,1]}(e)=2, \chi^{[2,1]}((12))=0, \chi^{[2,1]}((123))=-1\)):</strong>
+      <p class="eq">\[P_{[2,1]} = \frac{2}{6}\bigl(2e - (123) - (132)\bigr) = \frac{2}{3}e - \frac{1}{3}(123) - \frac{1}{3}(132).\]</p>
+    </li>
+  </ul>
+  <p>Now count fixed words (Box P36.A, Obligation 2) to find the trace of each permutation \(\sigma \in S_3\) on the basis of \(d^3\) words \(e_{i_1} \otimes e_{i_2} \otimes e_{i_3}\):
+  <ul>
+    <li>The identity \(e\) fixes all \(d^3\) words (\(i_1, i_2, i_3\) arbitrary): \(\operatorname{Tr}_V(e) = d^3\).</li>
+    <li>Any swap like \((12)\) fixes words with \(i_1 = i_2\) and \(i_3\) free: \(\operatorname{Tr}_V((12)) = d^2\).</li>
+    <li>Any 3-cycle \((123)\) fixes words with \(i_1 = i_2 = i_3\): \(\operatorname{Tr}_V((123)) = d\).</li>
+  </ul>
+  Since \(P_\lambda\) is an idempotent projecting onto a subspace of dimension \(\dim(S^\lambda \otimes \mathbb{W}^\lambda_d) = f^\lambda \dim \mathbb{W}^\lambda_d\), its trace equals the rank of its image:</p>
+  <p class="eq">\[\dim \mathbb{W}^{[3]}_d = \frac{\operatorname{Tr}_V(P_{[3]})}{1} = \frac{d^3 + 3d^2 + 2d}{6} = \frac{d(d+1)(d+2)}{6},\]</p>
+  <p class="eq">\[\dim \mathbb{W}^{[1,1,1]}_d = \frac{\operatorname{Tr}_V(P_{[1,1,1]})}{1} = \frac{d^3 - 3d^2 + 2d}{6} = \frac{d(d-1)(d-2)}{6},\]</p>
+  <p class="eq">\[2\,\dim \mathbb{W}^{[2,1]}_d = \operatorname{Tr}_V(P_{[2,1]}) = \frac{2}{3}d^3 - \frac{2}{3}d \quad\Longrightarrow\quad \dim \mathbb{W}^{[2,1]}_d = \frac{d(d^2 - 1)}{3}.\]</p>
+  <p><em>How you could have found this:</em> Computing dimensions of \(\operatorname{GL}_d(\mathbb{C})\) representations directly requires highest-weight theory; <span class="pid">P50</span> lets you compute them by counting how many \(3\)-letter words are fixed by a swap (\(d^2\)) and a \(3\)-cycle (\(d\))!</p>
+
+  <h3>Exemplar 3 · Howe's \((\operatorname{O}_k, \mathfrak{sl}_2)\) dual pair and spherical harmonics on \(\mathbb{C}[x_1, \dots, x_k]\)</h3>
+  <p>Consider the space \(V = \mathbb{C}[x_1, \dots, x_k]\) of polynomials in \(k \ge 2\) real variables, equipped with the action of the orthogonal group \(\mathcal{A} = \operatorname{O}_k\) rotating the coordinates \(x = (x_1, \dots, x_k)\). What differential operators on \(\mathbb{C}[x_1, \dots, x_k]\) commute with every orthogonal rotation? Three natural rotation-invariant operators stand out:
+  <ul>
+    <li><strong>Raising operator (multiply by squared radius):</strong> \(E_+ = \frac{1}{2}r^2 = \frac{1}{2}\sum_{j=1}^k x_j^2\) (raises polynomial degree by \(+2\)).</li>
+    <li><strong>Lowering operator (Laplacian):</strong> \(E_- = -\frac{1}{2}\Delta = -\frac{1}{2}\sum_{j=1}^k \frac{\partial^2}{\partial x_j^2}\) (lowers polynomial degree by \(-2\)).</li>
+    <li><strong>Cartan weight operator (Euler degree):</strong> \(H = [E_+, E_-] = -\left(\sum_{j=1}^k x_j \frac{\partial}{\partial x_j} + \frac{k}{2}\right)\).</li>
+  </ul>
+  Together, \(\{E_+, E_-, H\}\) span a Lie algebra \(\mathcal{B} \cong \mathfrak{sl}_2\) that commutes with \(\operatorname{O}_k\)! Roger Howe proved that \((\operatorname{O}_k, \mathfrak{sl}_2)\) acts as a double centralizer pair on \(\mathbb{C}[x_1, \dots, x_k]\): the space splits into a multiplicity-free direct sum over degree \(m = 0, 1, 2, \dots\):</p>
+  <p class="eq">\[\mathbb{C}[x_1, \dots, x_k] \;\cong\; \bigoplus_{m=0}^{\infty} \mathcal{H}_m(\mathbb{R}^k) \otimes L_{m + k/2},\]</p>
+  <p>where \(\mathcal{H}_m(\mathbb{R}^k) = \{P \in \mathbb{C}[x]_m : \Delta P = 0\}\) is the irreducible \(\operatorname{O}_k\)-module of homogeneous degree-\(m\) <em>harmonic polynomials</em> (killed by the lowering operator \(E_- = -\frac{1}{2}\Delta\)), and \(L_{m+k/2} = \bigoplus_{j=0}^\infty r^{2j}\mathbb{C}\) is the lowest-weight \(\mathfrak{sl}_2\)-module generated by applying \(E_+ = \frac{1}{2}r^2\) repeatedly! Looking at homogeneous degree \(n\) across this decomposition immediately gives the canonical harmonic separation of variables</p>
+  <p class="eq">\[\mathbb{C}[x_1, \dots, x_k]_n = \mathcal{H}_n \oplus r^2\mathcal{H}_{n-2} \oplus r^4\mathcal{H}_{n-4} \oplus \cdots\]</p>
+  <p>and pins down the dimension of the space of spherical harmonics of degree \(n\) as \(\dim \mathcal{H}_n(\mathbb{R}^k) = \dim \mathbb{C}[x]_n - \dim \mathbb{C}[x]_{n-2} = \binom{n+k-1}{k-1} - \binom{n+k-3}{k-1}\).</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>The double centralizer theorem is an exact algebraic equivalence when its three obligations hold, and fails sharply when any one of them is violated:</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Non-semisimple algebras (Jordan blocks and modular characteristic \(p \mid n!\)) violate \(\mathcal{A}'' = \mathcal{A}\) or fail to split \(V\).</strong> Obligation 1 of Box P50.A requires that \(\mathcal{A}\) be semisimple. Take \(V = \mathbb{C}^2\) and let \(\mathcal{A} = \mathbb{C}[J]\) be the \(2\)-dimensional algebra spanned by \(I_2\) and the nilpotent Jordan block \(J = \begin{pmatrix} 0 &amp; 1 \\ 0 &amp; 0 \end{pmatrix}\) (\(J^2 = 0\)). Any matrix commuting with \(J\) is also of the form \(aI_2 + bJ\), so \(\mathcal{B} = \mathcal{A}' = \mathcal{A}\)! Yet \(V = \mathbb{C}^2\) is <em>indecomposable</em> without being irreducible: the 1-dimensional subspace \(\mathbb{C}e_1 = \ker J\) has no \(J\)-invariant complement! Similarly, in characteristic \(p &gt; 0\) when \(p \mid n!\) (for instance, \(p = 2\) or \(p = 3\) on \(S_3\)), the denominators \(\frac{1}{6}\) in our Young projectors \(P_\lambda\) divide by zero, Maschke's theorem fails, and \((\mathbb{F}_p^d)^{\otimes n}\) does not split into simple direct summands.</p>
+    <p><em>Mitigation:</em> In positive characteristic \(p \mid |G|\) or for non-reductive parabolic subgroups, replace semisimple direct-sum decompositions with <em>tilting modules</em> and Ringel / Schur algebra duality.</p>
+    <p><em>Price:</em> Working with filtrations (Weyl modules and dual Weyl modules) rather than orthogonal projectors.</p>
+    <p><em>Default:</em> Always check Obligation 1 (characteristic \(0\) or \(p \nmid |G|\), and reductive/unitary generators) before writing \(V = \bigoplus U_i \otimes W_i\).</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P50.3: Left: a semisimple action splits V into clean orthogonal blocks with complementary projectors P_1 + P_2 = I. Right: a non-semisimple Jordan block J traps an invariant subspace W_1 = ker J with no invariant complement.">
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+      <!-- Left panel: Semisimple block diagonal decomposition -->
+      <text x="150" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Semisimple Action (Obligation 1 holds)</text>
+      <rect x="45" y="42" width="210" height="105" fill="#f9f8f4" stroke="#8a94a3" stroke-width="1.2"/>
+      <rect x="55" y="50" width="90" height="42" fill="#e1f0ee" stroke="#0f5c57" stroke-width="2"/>
+      <rect x="155" y="98" width="90" height="42" fill="#e1f0ee" stroke="#0f5c57" stroke-width="2"/>
+      <text x="100" y="75" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">U₁ ⊗ W₁</text>
+      <text x="200" y="123" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">U₂ ⊗ W₂</text>
+      <text x="200" y="75" font-family="Georgia, serif" font-size="11" fill="#5a5a5a" text-anchor="middle">0</text>
+      <text x="100" y="123" font-family="Georgia, serif" font-size="11" fill="#5a5a5a" text-anchor="middle">0</text>
+      <text x="150" y="168" font-family="system-ui, sans-serif" font-size="10" fill="#0f5c57" text-anchor="middle">Clean projectors P₁ + P₂ = I  (V = V₁ ⊕ V₂)</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="175" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Non-semisimple upper-triangular shear / Jordan block -->
+      <text x="450" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Non-Semisimple Jordan Shear (No Complement!)</text>
+      <rect x="345" y="42" width="210" height="105" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.2"/>
+      <rect x="355" y="50" width="90" height="42" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2"/>
+      <rect x="455" y="50" width="90" height="42" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2" stroke-dasharray="4,2"/>
+      <rect x="455" y="98" width="90" height="42" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2"/>
+      <text x="400" y="75" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Subspace W₁</text>
+      <text x="500" y="75" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Shear J ≠ 0</text>
+      <text x="400" y="123" font-family="Georgia, serif" font-size="11" fill="#5a5a5a" text-anchor="middle">0</text>
+      <text x="500" y="123" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Quotient V/W₁</text>
+      <text x="450" y="168" font-family="system-ui, sans-serif" font-size="10" fill="#8a4b08" text-anchor="middle">Off-diagonal leak prevents splitting V = W₁ ⊕ W₂</text>
+    </svg>
+    <figcaption><strong>Fig P50.3.</strong> Why Obligation 1 (Semisimplicity) is essential: <strong>(A)</strong> a semisimple algebra admits central idempotents \(P_i\) that zero out all off-diagonal cross-talk; <strong>(B)</strong> a non-semisimple algebra (such as a Jordan block or modular group algebra at \(p \mid |G|\)) leaks across an upper-triangular block \(J \ne 0\) that no invariant complement can untangle.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Using a subgroup \(\mathcal{A}_0 \subsetneq \mathcal{A}\) enlarges the centralizer (\(\mathcal{A}_0' \supsetneq \mathcal{B}\)) and breaks the one-to-one pairing.</strong> In Section 2, the commutant of the <em>full</em> general linear group \(\operatorname{GL}_d(\mathbb{C})\) on \((\mathbb{C}^d)^{\otimes n}\) was the symmetric group algebra \(\mathbb{C}[S_n]\) (dimension \(n!\)). Suppose you restrict the matrix action from \(\operatorname{GL}_d(\mathbb{C})\) down to the orthogonal subgroup \(\operatorname{O}_d(\mathbb{C})\) (matrices preserving the dot product \(\langle u, v \rangle\)). Because \(\operatorname{O}_d(\mathbb{C})\) is smaller, <em>more</em> operators commute with it: in addition to permuting slots, you can contract any pair of slots with the dot product and re-insert the identity tensor \(\sum_{i=1}^d e_i \otimes e_i\)! Therefore \(\mathbb{C}[S_n]\) is <strong>no longer the full centralizer</strong> of \(\operatorname{O}_d(\mathbb{C})\), and the \(\operatorname{GL}_d\)-irreducible module \(\operatorname{Sym}^2(\mathbb{C}^d)\) splits into two \(\operatorname{O}_d\)-pieces (the trace \(\mathbb{C}\cdot r^2\) and the traceless symmetric tensors).</p>
+    <p><em>Mitigation:</em> Enlarge the partner algebra from the symmetric group \(\mathbb{C}[S_n]\) to Richard Brauer's <strong>Brauer algebra</strong> \(\mathcal{B}_n(d)\) (which adds horizontal pair-contraction diagrams to vertical permutation diagrams).</p>
+    <p><em>Price:</em> Working with an algebra of dimension \((2n-1)!!\) instead of \(n!\).</p>
+    <p><em>Default:</em> Always verify Obligation 2 (\(\mathcal{B} = \mathcal{A}'\) is the <em>full</em> commutant) whenever you restrict to a subgroup.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Infinite-dimensional spaces require topological closure (von Neumann's bicommutant theorem).</strong> On an infinite-dimensional Hilbert space \(\mathcal{H}\), a purely algebraic subalgebra \(\mathcal{A} \subset B(\mathcal{H})\) can have \(\mathcal{A}''\) strictly larger than \(\mathcal{A}\) (for example, polynomial multipliers on \(L^2([0,1])\) have double commutant equal to all \(L^\infty([0,1])\) multipliers).</p>
+    <p><em>Mitigation:</em> On Hilbert spaces, require \(\mathcal{A}\) to be a self-adjoint \(*\)-algebra and take the closure in the weak or strong operator topology (von Neumann's Bicommutant Theorem: \(\mathcal{A}'' = \overline{\mathcal{A}}^{\text{WOT}}\)), or decompose grading-by-grading on finite-dimensional weight spaces (as in Exemplar 3).</p>
+    <p><em>Price:</em> Direct integrals of representations instead of finite sums when the spectrum is continuous.</p>
+    <p><em>Default:</em> Slice infinite-dimensional spaces into finite-dimensional homogeneous degree spaces before applying <span class="pid">P50</span>.</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this orientation page.</strong> We proved the double centralizer decomposition for finite-dimensional semisimple algebras over \(\mathbb{C}\) (an algebraically closed field of characteristic \(0\)), where Schur's lemma guarantees \(\operatorname{End}_{\mathcal{A}}(W_i) = \mathbb{C}\) for every simple module \(W_i\). Over a non-algebraically closed field like \(\mathbb{R}\), the endomorphism ring of a simple module can be a non-commutative division algebra \(\mathbb{D} \in \{\mathbb{R}, \mathbb{C}, \mathbb{H}\}\) (Frobenius's theorem), so the paired tensor product \(U_i \otimes_{\mathbb{D}_i} W_i\) is taken over \(\mathbb{D}_i\) rather than \(\mathbb{R}\).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When the two dual objects are graded algebras or operads related by swapping generators and relations rather than commuting on a single finite-dimensional space:</strong> Step directly to <a href="p51-koszul-dual-swap.html"><span class="pid">P51</span> · The Koszul dual swap</a>, where the symmetric algebra \(\operatorname{Sym}(V)\) (commuting variables) and the exterior algebra \(\bigwedge(V^*)\) (anticommuting variables) become dual partners satisfying \(h_A(t)\,h_{A^!}(-t) = 1\).</li>
+    <li><strong>When you need to evaluate the character of one partner representation from the other:</strong> Combine <span class="pid">P50</span> with <a href="p36-character-counting.html"><span class="pid">P36</span> · Count with characters</a> to derive the Frobenius–Schur character formula linking power-sum symmetric functions \(p_\mu\) to Schur polynomials \(s_\lambda\).</li>
+    <li><strong>When tensor operations with multiple inputs and one output are composed along trees rather than fixed \(n\)-fold tensor powers:</strong> Package the collection of all \(S_n\)-modules \(\{\mathcal{P}(n)\}_{n \ge 1}\) into a Schur functor using <a href="p63-operad-algebra.html"><span class="pid">P63</span> · Recognize the operad algebra</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Issai Schur's 1901 dissertation and Hermann Weyl's book to von Neumann's bicommutant and Howe's reductive dual pairs.</strong> In his 1901 Berlin doctoral dissertation (<em>Über eine Klasse von Matrizen, die sich einer gegebenen Matrix zuordnen lassen</em>, supervised by Georg Frobenius) and his 1927 paper on rational representations of \(\operatorname{GL}_d(\mathbb{C})\), Issai Schur discovered that the polynomial representations of \(\operatorname{GL}_d(\mathbb{C})\) on \((\mathbb{C}^d)^{\otimes n}\) are governed by the centralizer algebra \(\mathbb{C}[S_n]\). Joseph Wedderburn (1907) and Emil Artin (1927) generalized the matrix-block decomposition to arbitrary semisimple algebras, and John von Neumann (<em>Mathematische Annalen</em> 102, 1930, 370–427) proved his Bicommutant Theorem \(\mathcal{A}'' = \mathcal{A}\) for weakly closed self-adjoint operator algebras on Hilbert spaces. Hermann Weyl popularized the \((S_n, \operatorname{GL}_d)\) pairing in <em>The Classical Groups</em> (1939), Richard Brauer (1937) discovered the diagram centralizer algebras for \(\operatorname{O}_d\) and \(\operatorname{Sp}_{2d}\), and Roger Howe (<em>Proceedings of Symposia in Pure Mathematics</em> 33, 1979) unified classical invariant theory under reductive dual pairs \((G, G')\) inside a symplectic oscillator group.</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — The two-slot tensor square \((\mathbb{C}^d)^{\otimes 2}\) and matrix transpose</h3>
+  <p>Consider the \(d^2\)-dimensional space \(V = \mathbb{C}^d \otimes \mathbb{C}^d\) (which is isomorphic to the space \(\operatorname{Mat}_d(\mathbb{C})\) of \(d \times d\) matrices \(M\), where the swap \(\tau = (12) \in S_2\) sends \(M \mapsto M^T\)).<br>
+  (a) Write down the two central idempotents \(P_{[2]} = \frac{1}{2}(e + \tau)\) and \(P_{[1,1]} = \frac{1}{2}(e - \tau)\) of \(\mathbb{C}[S_2]\), compute their traces on \(V = \mathbb{C}^d \otimes \mathbb{C}^d\) using \(\operatorname{Tr}_V(e) = d^2\) and \(\operatorname{Tr}_V(\tau) = d\), and verify the Schur–Weyl decomposition \(\mathbb{C}^d \otimes \mathbb{C}^d = \operatorname{Sym}^2(\mathbb{C}^d) \oplus \bigwedge^2(\mathbb{C}^d)\).<br>
+  (b) Using Obligation 3 of Box P50.A, compute the exact dimension \(\dim \mathcal{A} = d_1^2 + d_2^2\) of the algebra \(\mathcal{A} = \operatorname{Span}\{g \otimes g : g \in \operatorname{GL}_d(\mathbb{C})\} \subset \operatorname{End}(\mathbb{C}^d \otimes \mathbb{C}^d)\) for \(d = 3\), and explain why \(\dim \mathcal{A} &lt; d^4 = 81\).</p>
+  <details><summary>Hint</summary><p>In (a), \(\operatorname{Tr}_V(P_{[2]}) = \frac{1}{2}(d^2 + d)\) and \(\operatorname{Tr}_V(P_{[1,1]}) = \frac{1}{2}(d^2 - d)\). In (b), both \(S^{[2]}\) and \(S^{[1,1]}\) have dimension \(m_1 = m_2 = 1\), so \(\dim \mathcal{A} = (\dim \operatorname{Sym}^2)^2 + (\dim \bigwedge^2)^2\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Traces and symmetric/skew-symmetric decomposition:</strong> Since \(e\) fixes all \(d^2\) basis pairs \(e_i \otimes e_j\) and the swap \(\tau = (12)\) fixes only the \(d\) diagonal pairs \(e_i \otimes e_i\), we have \(\operatorname{Tr}_V(e) = d^2\) and \(\operatorname{Tr}_V(\tau) = d\). Thus</p>
+    <p class="eq">\[\dim \operatorname{Sym}^2(\mathbb{C}^d) = \operatorname{Tr}_V(P_{[2]}) = \frac{d^2 + d}{2} = \binom{d+1}{2}, \qquad \dim \textstyle\bigwedge^2(\mathbb{C}^d) = \operatorname{Tr}_V(P_{[1,1]}) = \frac{d^2 - d}{2} = \binom{d}{2}.\]</p>
+    <p>Both \(S_2\)-irreducibles have dimension \(m_1 = m_2 = 1\), so each \(\operatorname{GL}_d(\mathbb{C})\)-module appears with multiplicity \(1\), and \(\binom{d+1}{2} + \binom{d}{2} = d^2\).</p>
+    <p><strong>(b) Dimension of the enveloping algebra \(\mathcal{A} = \operatorname{Span}(g \otimes g)\):</strong> For \(d = 3\), \(d_1 = \dim \operatorname{Sym}^2(\mathbb{C}^3) = \frac{3\cdot 4}{2} = 6\) and \(d_2 = \dim \bigwedge^2(\mathbb{C}^3) = \frac{3\cdot 2}{2} = 3\). By Obligation 3 of Box P50.A,</p>
+    <p class="eq">\[\dim \mathcal{A} = d_1^2 + d_2^2 = 6^2 + 3^2 = 36 + 9 = 45 &lt; 81.\]</p>
+    <p>Why is \(\dim \mathcal{A} = 45\) instead of \(81\)? Because every operator in \(\mathcal{A}\) commutes with \(\tau\), so \(\mathcal{A}\) cannot mix symmetric matrices (\(6 \times 6 = 36\) entries) with skew-symmetric matrices (\(3 \times 3 = 9\) entries), zeroing out all \(2 \times 6 \times 3 = 36\) off-diagonal entries (\(45 + 36 = 81\)).</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — Full Schur–Weyl census of four-slot tensors \((\mathbb{C}^3)^{\otimes 4}\)</h3>
+  <p>Consider \(V = (\mathbb{C}^3)^{\otimes 4}\) of dimension \(3^4 = 81\) under the commuting pair \((S_4, \operatorname{GL}_3(\mathbb{C}))\). The symmetric group \(S_4\) has five irreducible representations indexed by the partitions of \(4\): \([4]\) (\(\dim = 1\)), \([3,1]\) (\(\dim = 3\)), \([2,2]\) (\(\dim = 2\)), \([2,1,1]\) (\(\dim = 3\)), and \([1,1,1,1]\) (\(\dim = 1\)).<br>
+  (a) Explain why the sign module \(\mathbb{W}^{[1,1,1,1]}_3 = \bigwedge^4(\mathbb{C}^3)\) vanishes identically when \(d = 3\), leaving only \(r = 4\) active blocks.<br>
+  (b) Using the Weyl dimension formulas \(\dim \mathbb{W}^{[4]}_d = \binom{d+3}{4}\), \(\dim \mathbb{W}^{[3,1]}_d = \frac{d(d+1)(d+2)(d-1)}{8}\), \(\dim \mathbb{W}^{[2,2]}_d = \frac{d^2(d+1)(d-1)}{12}\), and \(\dim \mathbb{W}^{[2,1,1]}_d = \frac{d(d+1)(d-1)(d-2)}{8}\), evaluate the dimensions \(d_i = \dim \mathbb{W}^\lambda_3\) at \(d = 3\) and verify both \(\sum_{i=1}^4 m_i d_i = 81\) and the dimension \(\sum_{i=1}^4 m_i^2\) of the image of \(\mathbb{C}[S_4]\) in \(\operatorname{End}((\mathbb{C}^3)^{\otimes 4})\).</p>
+  <details><summary>Hint</summary><p>In (a), by the pigeonhole principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>), any \(4\)-letter word from a \(3\)-letter alphabet repeats at least one letter, so full antisymmetrization gives \(0\). In (b), notice that because the \(1\)-dimensional sign block \([1,1,1,1]\) vanishes on \((\mathbb{C}^3)^{\otimes 4}\), the homomorphism \(\mathbb{C}[S_4] \to \operatorname{End}(V)\) has a \(1\)-dimensional kernel!</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Pigeonhole vanishing of \(\bigwedge^4(\mathbb{C}^3)\):</strong> A partition \(\lambda\) has non-zero \(\operatorname{GL}_d(\mathbb{C})\)-module \(\mathbb{W}^\lambda_d \ne 0\) if and only if \(\lambda\) has at most \(d\) rows (\(\ell(\lambda) \le d\)), because antisymmetrizing across \(\ell(\lambda) &gt; d\) slots forces a repeated basis vector (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>). Since \([1,1,1,1]\) has \(4 &gt; 3\) rows, \(\mathbb{W}^{[1,1,1,1]}_3 = 0\).</p>
+    <p><strong>(b) Dimension and kernel ledger at \(d = 3\):</strong> Evaluating the four surviving \(\operatorname{GL}_3(\mathbb{C})\) dimensions at \(d = 3\) gives:</p>
+    <ul>
+      <li>\(\lambda = [4]\) (\(m_1 = 1\)): \(d_1 = \binom{6}{4} = 15\).</li>
+      <li>\(\lambda = [3,1]\) (\(m_2 = 3\)): \(d_2 = \frac{3\cdot 4\cdot 5\cdot 2}{8} = 15\).</li>
+      <li>\(\lambda = [2,2]\) (\(m_3 = 2\)): \(d_3 = \frac{9\cdot 4\cdot 2}{12} = 6\).</li>
+      <li>\(\lambda = [2,1,1]\) (\(m_4 = 3\)): \(d_4 = \frac{3\cdot 4\cdot 2\cdot 1}{8} = 3\).</li>
+    </ul>
+    <p>Checking the total vector space dimension:</p>
+    <p class="eq">\[\sum_{i=1}^4 m_i d_i = 1(15) + 3(15) + 2(6) + 3(3) = 15 + 45 + 12 + 9 = 81 = 3^4.\]</p>
+    <p>And the image algebra \(\mathcal{B}\) of \(\mathbb{C}[S_4]\) inside \(\operatorname{End}((\mathbb{C}^3)^{\otimes 4})\) has dimension</p>
+    <p class="eq">\[\dim \mathcal{B} = \sum_{i=1}^4 m_i^2 = 1^2 + 3^2 + 2^2 + 3^2 = 1 + 9 + 4 + 9 = 23 = 24 - 1,\]</p>
+    <p>with a \(1\)-dimensional kernel spanned by the \(4\)-slot antisymmetrizer \(P_{[1,1,1,1]} = \frac{1}{24}\sum_{\sigma \in S_4} \operatorname{sgn}(\sigma)\sigma\).</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Harmonic decomposition of homogeneous cubic polynomials on \(\mathbb{R}^3\)</h3>
+  <p>Apply Howe's \((\operatorname{O}_k, \mathfrak{sl}_2)\) double centralizer decomposition from Exemplar 3 to the space \(\mathbb{C}[x_1, x_2, x_3]_3\) of homogeneous degree-\(3\) polynomials in \(k = 3\) variables.<br>
+  (a) Compute \(\dim \mathbb{C}[x_1, x_2, x_3]_3 = \binom{3+3-1}{3-1}\) and decompose \(\mathbb{C}[x_1, x_2, x_3]_3 = \mathcal{H}_3(\mathbb{R}^3) \oplus r^2 \mathcal{H}_1(\mathbb{R}^3)\) to find the exact dimension of the space \(\mathcal{H}_3(\mathbb{R}^3)\) of cubic spherical harmonics.<br>
+  (b) Given the cubic polynomial \(P(x_1, x_2, x_3) = x_1^3\), compute its Laplacian \(\Delta(x_1^3)\) and use the \(\mathfrak{sl}_2\) decomposition \(P(x) = H(x) + c\,(x_1^2 + x_2^2 + x_3^2)\,x_1\) to find the constant \(c\) and the exact harmonic projection \(H(x) \in \mathcal{H}_3(\mathbb{R}^3)\).</p>
+  <details><summary>Hint</summary><p>In (b), use \(\Delta(r^2 x_1) = \Delta(x_1^3 + x_1 x_2^2 + x_1 x_3^2) = 6x_1 + 2x_1 + 2x_1 = 10x_1\), and choose \(c\) so that \(\Delta\bigl(x_1^3 - c\,r^2 x_1\bigr) = 0\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Dimension of cubic spherical harmonics \(\mathcal{H}_3(\mathbb{R}^3)\):</strong> For \(k = 3\) variables and degree \(n = 3\), \(\dim \mathbb{C}[x_1, x_2, x_3]_3 = \binom{5}{2} = 10\), while for degree \(n - 2 = 1\), \(\dim \mathcal{H}_1(\mathbb{R}^3) = \dim \mathbb{C}[x_1, x_2, x_3]_1 = \binom{3}{2} = 3\). By Exemplar 3,</p>
+    <p class="eq">\[\dim \mathcal{H}_3(\mathbb{R}^3) = \dim \mathbb{C}[x]_3 - \dim \mathbb{C}[x]_1 = 10 - 3 = 7 \quad (= 2\ell + 1 \text{ at angular momentum } \ell = 3).\]</p>
+    <p><strong>(b) Explicit harmonic projection of \(x_1^3\):</strong> Computing the Laplacians directly gives \(\Delta(x_1^3) = 6x_1\) and</p>
+    <p class="eq">\[\Delta\bigl(r^2 x_1\bigr) = \bigl(\partial_1^2 + \partial_2^2 + \partial_3^2\bigr)\bigl(x_1^3 + x_1 x_2^2 + x_1 x_3^2\bigr) = 6x_1 + 2x_1 + 2x_1 = 10\,x_1.\]</p>
+    <p>For \(H(x) = x_1^3 - c\,r^2 x_1\) to be harmonic (\(\Delta H = 0\)), we require \(6x_1 - 10c\,x_1 = 0\), which pins down \(c = \frac{6}{10} = \frac{3}{5}\). Thus the canonical \((\operatorname{O}_3, \mathfrak{sl}_2)\) decomposition of \(x_1^3\) is</p>
+    <p class="eq">\[x_1^3 = \underbrace{\left(x_1^3 - \frac{3}{5}(x_1^2 + x_2^2 + x_3^2)x_1\right)}_{H(x) \,\in\, \mathcal{H}_3(\mathbb{R}^3)} \;+\; \underbrace{\frac{3}{5}(x_1^2 + x_2^2 + x_3^2)x_1}_{r^2 \mathcal{H}_1(\mathbb{R}^3)}.\]</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: full commutant pair, subgroup leak, or non-semisimple trap?</h3>
+  <p>Diagnose each candidate double-centralizer claim below:</p>
+  <ol>
+    <li>On \(V = (\mathbb{C}^4)^{\otimes 2}\), you restrict the matrix action from \(\operatorname{GL}_4(\mathbb{C})\) to the orthogonal group \(\operatorname{O}_4(\mathbb{C})\) and claim that since \(\mathbb{C}[S_2]\) has only \(2\) irreducibles (trivial and sign), \(V\) splits into just \(2\) irreducible \(\operatorname{O}_4(\mathbb{C})\)-modules (\(\operatorname{Sym}^2\) and \(\bigwedge^2\)).</li>
+    <li>On the polynomial ring \(\mathbb{C}[x_{ij}]\) of \(m \times d\) matrices \(X\) (\(1 \le i \le m, 1 \le j \le d\)), the group \(\operatorname{GL}_m(\mathbb{C})\) acts on rows (\(X \mapsto gX\)) and \(\operatorname{GL}_d(\mathbb{C})\) acts on columns (\(X \mapsto Xh^T\)). You claim that \(\mathbb{C}[x_{ij}]\) decomposes as a multiplicity-free direct sum \(\bigoplus_\lambda \mathbb{W}^\lambda_m \otimes \mathbb{W}^\lambda_d\).</li>
+    <li>Over the field \(\mathbb{F}_2\) of characteristic \(2\), you let \(S_2 = \{e, \tau\}\) act on \((\mathbb{F}_2^2)^{\otimes 2}\) by swapping the two slots and claim the space splits into a direct sum of the \(+1\) and \(-1\) eigenspaces of \(\tau\).</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>False claim — fails Obligation 2 (Subgroup leak, Exhibit B):</strong> When you restrict from \(\operatorname{GL}_4\) to \(\operatorname{O}_4\), the trace-contraction operator \(C(u \otimes v) = \langle u, v \rangle \sum_{i=1}^4 e_i \otimes e_i\) also commutes with \(\operatorname{O}_4\)! The full centralizer is the \(3\)-dimensional Brauer algebra \(\mathcal{B}_2(4) = \operatorname{Span}\{e, \tau, C\}\), which splits \(\operatorname{Sym}^2(\mathbb{C}^4)\) (\(\dim 10\)) into the \(1\)-dimensional trace \(\mathbb{C}\sum e_i \otimes e_i\) and the \(9\)-dimensional traceless symmetric tensors (\(16 = 1 + 9 + 6\)).</li>
+      <li><strong>Genuine <span class="pid">P50</span> (\(\operatorname{GL}_m \times \operatorname{GL}_d\) Cauchy identity / Howe duality):</strong> Row operations and column operations commute and generate each other's full commutant on every homogeneous degree \(\operatorname{Sym}^n(\mathbb{C}^m \otimes \mathbb{C}^d) \cong \bigoplus_{\lambda \vdash n} \mathbb{W}^\lambda_m \otimes \mathbb{W}^\lambda_d\), yielding the classical Cauchy identity \(\prod_{i,j} (1 - x_i y_j)^{-1} = \sum_\lambda s_\lambda(x)s_\lambda(y)\).</li>
+      <li><strong>False claim — fails Obligation 1 (Modular characteristic \(p = 2 \mid |S_2|\), Exhibit A):</strong> In characteristic \(2\), \(+1 \equiv -1 \pmod 2\) and \(e + \tau = e - \tau\) has square \((e+\tau)^2 = 2(e+\tau) = 0\) (a nilpotent Jordan block!). The \(2\)-dimensional symmetric subspace \(\operatorname{Span}\{e_1\otimes e_1,\, e_2\otimes e_2,\, e_1\otimes e_2 + e_2\otimes e_1\}\) has dimension \(3\) while the alternating subspace is trapped inside it with no \(S_2\)-invariant complement.</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: The Brauer algebra \(\mathcal{B}_2(d)\) and orthogonal projectors on \(\mathbb{C}^d \otimes \mathbb{C}^d\)</h3>
+  <p>Let us repair the subgroup leak from Exercise 4(1) on \(V = \mathbb{C}^d \otimes \mathbb{C}^d\) under \(\mathcal{A} = \operatorname{O}_d(\mathbb{C})\) (\(d \ge 2\)). Define the three basis operators of the Brauer algebra \(\mathcal{B}_2(d) = \operatorname{End}_{\operatorname{O}_d}(V)\) on basis tensors \(e_i \otimes e_j\):</p>
+  <p class="eq">\[e(e_i \otimes e_j) = e_i \otimes e_j, \qquad \tau(e_i \otimes e_j) = e_j \otimes e_i, \qquad C(e_i \otimes e_j) = \delta_{ij} \sum_{k=1}^d e_k \otimes e_k.\]</p>
+  <p>(a) Compute the multiplication rules \(C^2\), \(\tau C\), and \(C\tau\) in terms of \(C\), and show that \(P_{\text{tr}} = \frac{1}{d}C\) is an idempotent (\(P_{\text{tr}}^2 = P_{\text{tr}}\)) of rank \(1\).<br>
+  (b) Construct the three mutually orthogonal central idempotents \(P_{\text{tr}}\), \(P_{\text{sym}, 0}\), and \(P_{\text{alt}}\) of \(\mathcal{B}_2(d)\) that project \(V\) onto the \(1\)-dimensional trace, the \(\bigl(\frac{d(d+1)}{2} - 1\bigr)\)-dimensional traceless symmetric tensors, and the \(\frac{d(d-1)}{2}\)-dimensional skew-symmetric tensors.</p>
+  <details><summary>Hint</summary><p>In (a), apply \(C\) to \(\sum_{k=1}^d e_k \otimes e_k\) to see that \(C^2 = d\,C\), while \(\tau(e_k \otimes e_k) = e_k \otimes e_k\) implies \(\tau C = C\tau = C\). In (b), subtract \(P_{\text{tr}} = \frac{1}{d}C\) from the symmetric projector \(\frac{1}{2}(e + \tau)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Brauer multiplication rules:</strong> Applying \(C\) a second time gives</p>
+    <p class="eq">\[C^2(e_i \otimes e_j) = \delta_{ij}\sum_{k=1}^d C(e_k \otimes e_k) = \delta_{ij}\sum_{k=1}^d \left(\sum_{m=1}^d e_m \otimes e_m\right) = d\,C(e_i \otimes e_j),\]</p>
+    <p>so \(C^2 = d\,C\). Moreover, because \(\tau(e_k \otimes e_k) = e_k \otimes e_k\) and \(\delta_{ji} = \delta_{ij}\), we have \(\tau C = C\tau = C\). Dividing \(C\) by \(d\) gives \(P_{\text{tr}} = \frac{1}{d}C\), which satisfies \(P_{\text{tr}}^2 = \frac{1}{d^2}(dC) = P_{\text{tr}}\) and projects onto the \(1\)-dimensional line \(\mathbb{C}\sum_{k=1}^d e_k \otimes e_k\).</p>
+    <p><strong>(b) The three orthogonal idempotents of \(\mathcal{B}_2(d)\):</strong> Since \(\tau C = C\tau = C\), \(P_{\text{tr}} = \frac{1}{d}C\) lies entirely inside the \(+1\) eigenspace of \(\tau\) (\(P_{[2]} P_{\text{tr}} = \frac{1}{2}(e+\tau)\frac{1}{d}C = P_{\text{tr}}\)) and is orthogonal to \(P_{\text{alt}} = \frac{1}{2}(e - \tau)\) (\(P_{\text{alt}} P_{\text{tr}} = 0\)). Subtracting \(P_{\text{tr}}\) from \(\frac{1}{2}(e + \tau)\) splits the identity into three mutually orthogonal central idempotents:</p>
+    <p class="eq">\[P_{\text{tr}} = \frac{1}{d}C, \qquad P_{\text{sym}, 0} = \frac{1}{2}(e + \tau) - \frac{1}{d}C, \qquad P_{\text{alt}} = \frac{1}{2}(e - \tau),\]</p>
+    <p>cutting \(\mathbb{C}^d \otimes \mathbb{C}^d\) into three irreducible \(\operatorname{O}_d(\mathbb{C})\)-modules of dimensions \(1\), \(\frac{(d+2)(d-1)}{2}\), and \(\frac{d(d-1)}{2}\).</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P50 · Double centralizer decomposition. <a href="index.html">Return to the index</a> · Previous: <a href="p49-ultraproduct-transfer.html">P49 · Ultraproduct transfer</a> · Next: <a href="p51-koszul-dual-swap.html">P51 · The Koszul dual swap →</a></p>
+</footer>
+
+</body>
+</html>

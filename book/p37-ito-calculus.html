@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P37 · Itô calculus (differentiating randomness) · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P37 · the third move of tier 4</p>
+  <h1>Itô calculus (differentiating randomness)</h1>
+  <p class="tagline">When a random walk takes steps of size \(\sqrt{\Delta t}\), the square of a tiny step is not negligible — it is the clock \(\Delta t\) itself, so every chain rule must keep its second-order Taylor term.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Brownian motion \(W_t\) and quadratic variation \([W]_t\).</strong>
+  A <em>standard Brownian motion</em> (or Wiener process) \(W_t\) starting at \(W_0 = 0\) is the continuous-time limit of a symmetric coin-toss walk where, over each tiny time slice \(\Delta t = T/N\), the position steps by \(\Delta W_k = \pm\sqrt{\Delta t}\) with equal probability \(\frac{1}{2}\), so that increments over disjoint time intervals are independent with mean \(\mathbb{E}[\Delta W_k] = 0\) and variance \(\mathbb{E}[(\Delta W_k)^2] = \Delta t\). The <em>quadratic variation</em> \([X]_T = \lim_{N\to\infty} \sum_{k=1}^N (X_{t_k} - X_{t_{k-1}})^2\) measures the accumulated sum of squared increments along a refined partition of \([0, T]\).
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p26-model-with-equation.html"><span class="pid">P26</span></a> taught us how to turn a physical balance law into a differential equation — as on the cooling coffee mug \(dT/dt = -k(T - T_{\text{env}})\) — by writing a small change over time \(\Delta t\), dividing by \(\Delta t\), and discarding higher powers \((\Delta t)^2\) in the limit (<a href="p15-squeeze.html"><span class="pid">P15</span></a>). <a href="p19-count-outcomes.html"><span class="pid">P19</span></a> introduced probability spaces where independent coin flips accumulate variance linearly with the number of trials.</p>
+  <p>Here is the collision between those two moves. Suppose a particle or asset price is buffeted at every instant by independent random kicks whose total variance over one second equals \(1\). If we chop one second into \(N\) steps of duration \(\Delta t = 1/N\), each kick must have variance \(\Delta t\) — which forces the step size itself to have magnitude \(\sqrt{\Delta t} = 1/\sqrt{N}\). When \(\Delta t = 10^{-6}\), the step is \(\sqrt{\Delta t} = 10^{-3}\), a thousand times larger than \(\Delta t\)! As \(N \to \infty\), the slope \(\Delta W / \Delta t = \pm 1/\sqrt{\Delta t} \to \pm\infty\) blows up everywhere, and the squared increment \((\Delta W)^2 = \Delta t\) refuses to vanish. How do you run calculus on a path that is continuous everywhere, differentiable nowhere, and accumulates non-zero squared steps at every scale?</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: the squared step that refuses to die</h2>
+  <p>Chop the unit time interval \([0, 1]\) into \(N\) equal slices of width \(\Delta t = 1/N\) at times \(t_k = k/N\). Compare two trajectories that both travel from \(0\) to \(O(1)\) across \([0,1]\):
+  <ul>
+    <li><strong>A smooth parabola:</strong> \(x(t) = t^2\), whose \(k\)-th increment is \(\Delta x_k = t_k^2 - t_{k-1}^2 = \frac{2k-1}{N^2}\).</li>
+    <li><strong>A scaled coin-toss walk:</strong> \(W_{t_k} = \sum_{j=1}^k \Delta W_j\), where each step is \(\Delta W_k = \xi_k \sqrt{\Delta t} = \pm \frac{1}{\sqrt{N}}\) for a fair coin \(\xi_k \in \{-1, +1\}\).</li>
+  </ul>
+  Now compute the sum of <em>squared</em> steps \(Q_N = \sum_{k=1}^N (\text{step}_k)^2\) for both paths as the grid gets finer:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Slices \(N\)</th>
+        <th>Time Step \(\Delta t = 1/N\)</th>
+        <th>Smooth Step Size \(\Delta x_k\)</th>
+        <th>Smooth Sum \(\sum_{k=1}^N (\Delta x_k)^2 = \frac{4N^2-1}{3N^3}\)</th>
+        <th>Random Walk Step \(|\Delta W_k| = \sqrt{\Delta t}\)</th>
+        <th>Walk Sum \(\sum_{k=1}^N (\Delta W_k)^2\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(4\)</td>
+        <td>\(1/4 = 0.25\)</td>
+        <td>\(\le 7/16 \approx 0.4375\)</td>
+        <td>\(\frac{21}{64} \approx 0.328125\)</td>
+        <td>\(1/2 = 0.50\)</td>
+        <td>\(4 \times \frac{1}{4} = \mathbf{1.000000}\)</td>
+      </tr>
+      <tr>
+        <td>\(16\)</td>
+        <td>\(1/16 = 0.0625\)</td>
+        <td>\(\le 31/256 \approx 0.1211\)</td>
+        <td>\(\frac{341}{4096} \approx 0.083252\)</td>
+        <td>\(1/4 = 0.25\)</td>
+        <td>\(16 \times \frac{1}{16} = \mathbf{1.000000}\)</td>
+      </tr>
+      <tr>
+        <td>\(64\)</td>
+        <td>\(1/64 \approx 0.0156\)</td>
+        <td>\(\le 127/4096 \approx 0.0310\)</td>
+        <td>\(\frac{5461}{262144} \approx 0.020832\)</td>
+        <td>\(1/8 = 0.125\)</td>
+        <td>\(64 \times \frac{1}{64} = \mathbf{1.000000}\)</td>
+      </tr>
+      <tr>
+        <td>\(256\)</td>
+        <td>\(1/256 \approx 0.0039\)</td>
+        <td>\(\le 511/65536 \approx 0.0078\)</td>
+        <td>\(\frac{87381}{16777216} \approx 0.005208\)</td>
+        <td>\(1/16 = 0.0625\)</td>
+        <td>\(256 \times \frac{1}{256} = \mathbf{1.000000}\)</td>
+      </tr>
+      <tr>
+        <td>\(N \to \infty\)</td>
+        <td>\(dt \to 0\)</td>
+        <td>\(2t\,dt \to 0\)</td>
+        <td>\(\frac{4}{3N} \to \mathbf{0}\) (<span class="pid">P15</span>)</td>
+        <td>\(\sqrt{dt} \to 0\)</td>
+        <td>\(N \times \frac{1}{N} \to \mathbf{1}\) (on all \(2^N\) paths!)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Look at the last column. Even though the random walk \(W\) is random — at \(N = 256\) there are \(2^{256} \approx 1.16 \times 10^{77}\) distinct coin-toss trajectories — on <em>every single trajectory</em> each step squares to \((\pm 1/\sqrt{N})^2 = +1/N\), so the sum of squared steps over \([0, t]\) equals \(t\) deterministically! Now watch what that non-zero squared step does when we telescope (<a href="p69-telescoping.html"><span class="pid">P69</span></a>, <a href="b11-discrete-derivative.html"><span class="pid">B11</span></a>) the square of the position \(W_N^2\):</p>
+  <p class="eq">\[W_{k+1}^2 - W_k^2 = \bigl(W_k + \Delta W_k\bigr)^2 - W_k^2 = 2\,W_k\,\Delta W_k + (\Delta W_k)^2.\]</p>
+  <p>Sum both sides from \(k = 0\) to \(N - 1\) (with \(W_0 = 0\) and \(\sum_{k=0}^{N-1} (\Delta W_k)^2 = T\)) and divide by \(2\):</p>
+  <p class="eq">\[\sum_{k=0}^{N-1} W_{t_k}\bigl(W_{t_{k+1}} - W_{t_k}\bigr) = \frac{1}{2}W_T^2 - \frac{1}{2}\sum_{k=0}^{N-1}(\Delta W_k)^2 = \frac{1}{2}W_T^2 - \frac{1}{2}T.\]</p>
+  <p>In ordinary calculus, \(\int_0^T x_t\,dx_t = \frac{1}{2}x_T^2\). For a random walk evaluated at the left endpoint \(W_{t_k}\) (before the \((k+1)\)-st coin is tossed), the integral \(\int_0^T W_t\,dW_t\) is <strong>not</strong> \(\frac{1}{2}W_T^2\) — it is \(\frac{1}{2}W_T^2 - \frac{1}{2}T\)! Why must there be a \(-\frac{1}{2}T\) subtraction? Take the expected value of both sides: on the left, \(W_{t_k}\) is already known before the fair coin \(\Delta W_k\) is flipped, so \(\mathbb{E}[W_{t_k}\,\Delta W_k] = \mathbb{E}[W_{t_k}]\mathbb{E}[\Delta W_k] = 0\). On the right, \(\mathbb{E}[\frac{1}{2}W_T^2] = \frac{1}{2}T &gt; 0\). Only after subtracting \(\frac{1}{2}\sum (\Delta W_k)^2 = \frac{1}{2}T\) do the two expectations match at \(0\).</p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" role="img" aria-label="Fig P37.1: Left: a 16-step scaled random walk W(t) versus the smooth curve x(t)=t^2. Right: accumulated quadratic variation sum(dW^2) climbing along the exact diagonal y=t while smooth sum(dx^2) collapses to zero.">
+      <rect x="0" y="0" width="600" height="220" fill="#ffffff"/>
+      <!-- Left panel: Paths on [0,1] -->
+      <text x="150" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Trajectories W(t) vs. x(t) = t² (N = 16)</text>
+      <!-- Axes: t in [0,1] -> x in [45, 269] (width 224, 14px per 1/16 step); y in [-0.25, 1.0] -> y=165 is 0, scale 100px per unit -->
+      <line x1="45" y1="165" x2="275" y2="165" stroke="#8a94a3" stroke-width="1.2"/>
+      <line x1="45" y1="35" x2="45" y2="195" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- Smooth parabola x(t) = t^2 -->
+      <path d="M 45.0,165.0 Q 157.0,165.0 269.0,65.0" fill="none" stroke="#8a4b08" stroke-width="2" stroke-dasharray="4,3"/>
+      <!-- 16-step random walk: coins [1,1,-1,1,-1,-1,1,1,-1,1,1,-1,-1,1,-1,1], step = 0.25 (25px) -->
+      <polyline points="45,165 59,140 73,115 87,140 101,115 115,140 129,165 143,140 157,115 171,140 185,115 199,90 213,115 227,140 241,115 255,140 269,115" fill="none" stroke="#0f5c57" stroke-width="2.2"/>
+      <circle cx="45" cy="165" r="3.5" fill="#0f5c57"/>
+      <circle cx="269" cy="115" r="4" fill="#0f5c57"/>
+      <circle cx="269" cy="65" r="4" fill="#8a4b08"/>
+      <text x="235" y="55" font-family="Georgia, serif" font-size="10.5" fill="#8a4b08">x(t) = t²</text>
+      <text x="195" y="82" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57">W(t) (ΔW = ±¼)</text>
+      <text x="157" y="204" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Time t ∈ [0, 1]</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="202" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Accumulated Quadratic Variation sum (Delta)^2 -->
+      <text x="450" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Cumulative Squared Steps ∑ (Δ)² on [0, t]</text>
+      <line x1="340" y1="165" x2="570" y2="165" stroke="#8a94a3" stroke-width="1.2"/>
+      <line x1="340" y1="35" x2="340" y2="195" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- Exact diagonal [W]_t = t from (340, 165) to (564, 65) -->
+      <line x1="340" y1="165" x2="564" y2="65" stroke="#0f5c57" stroke-width="2.5"/>
+      <!-- Smooth curve quadratic variation for N=16: ends at y = 165 - 8.3 = 156.7 -->
+      <path d="M 340.0,165.0 C 415.0,165.0 490.0,163.0 564.0,156.7" fill="none" stroke="#8a4b08" stroke-width="2" stroke-dasharray="4,3"/>
+      <!-- Smooth N -> inf limit = 0 -->
+      <line x1="340" y1="165" x2="564" y2="165" stroke="#8a4b08" stroke-width="1.2"/>
+      <circle cx="564" cy="65" r="4.5" fill="#0f5c57"/>
+      <circle cx="564" cy="156.7" r="3.8" fill="#8a4b08"/>
+
+      <text x="462" y="92" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="end">[W]ₜ = ∑ (ΔWₖ)² = t</text>
+      <text x="485" y="148" font-family="Georgia, serif" font-size="10.5" fill="#8a4b08">Smooth ∑ (Δxₖ)² → 0</text>
+      <text x="452" y="204" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Time t ∈ [0, 1]</text>
+    </svg>
+    <figcaption><strong>Fig P37.1.</strong> <strong>(A)</strong> A 16-step random walk \(W(t)\) with steps \(\Delta W_k = \pm\frac{1}{4}\) looks jagged next to the smooth parabola \(x(t) = t^2\). <strong>(B)</strong> Yet when we sum the <em>squares</em> of the steps, the jagged walk climbs the exact deterministic clock line \([W]_t = t\), while the smooth curve's squared steps collapse to zero as \(N \to \infty\).</figcaption>
+  </figure>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>Kiyosi Itô observed in 1944 that because \((\Delta W_t)^2\) has size \(\Delta t\) while \((\Delta t)^2\) and \(\Delta t\,\Delta W_t\) have sizes \((\Delta t)^2\) and \((\Delta t)^{3/2}\) (both negligible as \(\Delta t \to 0\) by <a href="p15-squeeze.html"><span class="pid">P15</span></a>), any Taylor expansion along a stochastic differential equation</p>
+  <p class="eq">\[dX_t = \mu(t, X_t)\,dt + \sigma(t, X_t)\,dW_t\]</p>
+  <p>must retain its <strong>second-order derivative in \(x\)</strong> and substitute the quadratic variation rule \((dW_t)^2 = dt\).</p>
+
+  <aside class="onramp">
+    <strong>Non-anticipating (adapted) processes and the Itô vs. Stratonovich convention.</strong>
+    A process \(H_t\) is <em>non-anticipating</em> (or <em>adapted</em>) if its value at time \(t\) depends only on the history of the random walk up to time \(t\), never peeking at future coin flips. The <em>Itô integral</em> \(\int_0^T H_t\,dW_t = \lim \sum H_{t_k}(W_{t_{k+1}} - W_{t_k})\) evaluates the integrand at the <strong>left endpoint</strong> \(t_k\), guaranteeing that \(\mathbb{E}[\int_0^T H_t\,dW_t] = 0\) (a fair game, or <em>martingale</em>). Evaluating at the midpoint \(\frac{1}{2}(t_k + t_{k+1})\) defines the <em>Stratonovich integral</em> \(\int_0^T H_t \circ dW_t\), which obeys the classical chain rule but loses the zero-mean martingale property.
+  </aside>
+
+  <div class="pattern-box" id="box-p37">
+    <p><strong>Pattern P37 — Itô calculus (differentiating randomness).</strong> Let \(X_t\) satisfy the stochastic differential equation \(dX_t = \mu(t, X_t)\,dt + \sigma(t, X_t)\,dW_t\). For any smooth function \(f(t, x) \in C^{1,2}(\mathbb{R}_{\ge 0} \times \mathbb{R})\), expand \(f(t + dt, X_t + dX_t)\) to second order in \(dX_t\) and apply the multiplication table \((dt)^2 = 0\), \(dt\,dW_t = 0\), \((dW_t)^2 = dt\) so that \((dX_t)^2 = \sigma(t, X_t)^2\,dt\). This yields <strong>Itô's Lemma</strong>:</p>
+    <p class="eq">\[df(t, X_t) = \left(\frac{\partial f}{\partial t} + \mu(t, X_t)\frac{\partial f}{\partial x} + \frac{1}{2}\sigma(t, X_t)^2 \frac{\partial^2 f}{\partial x^2}\right) dt + \sigma(t, X_t)\frac{\partial f}{\partial x}\,dW_t.\]</p>
+    <p class="words"><strong>Or, in words:</strong> When differentiating a function of a noisy trajectory, add half the variance rate times the second derivative (\(\frac{1}{2}\sigma^2 f_{xx}\,dt\)) to the ordinary drift; convexity (\(f_{xx} &gt; 0\)) converts random jiggling into upward drift, while concavity (\(f_{xx} &lt; 0\)) converts random jiggling into downward drag.</p>
+  </div>
+
+  <div class="pattern-box" id="box-p37a">
+    <p><strong>Box P37.A — The Itô multiplication table and the three obligations.</strong></p>
+    <ol>
+      <li><strong>The formal differential table:</strong>
+        <p class="eq">\[dt \cdot dt = 0, \qquad dt \cdot dW_t = 0, \qquad dW_t \cdot dW_t = dt, \qquad dW_t^{(i)} \cdot dW_t^{(j)} = \rho_{ij}\,dt.\]</p>
+      </li>
+      <li><strong>Left-endpoint (non-anticipating) audit:</strong> Verify that the integrand \(\sigma(t, X_t) \partial_x f(t, X_t)\) is evaluated strictly at the start of each step \(t_k\). Because \(\mathbb{E}[H_{t_k}\Delta W_k] = 0\), the stochastic integral \(\int_0^T \sigma\,\partial_x f\,dW_t\) has expected value zero (provided \(\mathbb{E}\int_0^T (\sigma\,\partial_x f)^2\,dt &lt; \infty\)).</li>
+      <li><strong>The Generator–PDE bridge (<span class="pid">P26</span>):</strong> Setting the bracketed \(dt\) drift of \(df(t, X_t)\) to zero pairs the random process \(X_t\) with the backward parabolic PDE \(\partial_t f + \mu\,\partial_x f + \frac{1}{2}\sigma^2 \partial_{xx} f = 0\), turning expected values \(\mathbb{E}[g(X_T) \mid X_t = x]\) into exact solutions of a deterministic heat-type equation (Feynman–Kac).</li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p37b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>An exact closed-form trajectory, expected value, conservation law, or PDE representation for a nonlinear function \(f(t, X_t)\) of a noisy continuous-time process.</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>Continuous dynamics driven by white-noise / Brownian fluctuations where step sizes scale as \(\sqrt{\Delta t}\), invalidating the first-order chain rule of <span class="pid">P26</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>Second-order Taylor expansion, quadratic variation \([W]_t = t\), and the zero-mean property of left-endpoint martingale integrals.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P37</span> whenever you apply a nonlinear coordinate change (such as \(\ln S_t\), \(X_t^2\), or \(e^{\lambda X_t}\)) to a differential equation driven by Brownian noise.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 205" role="img" aria-label="Fig P37.2: Geometric origin of the Itô correction (1/2) sigma^2 f_xx dt: symmetric horizontal kicks ±sigma*sqrt(dt) on a convex curve f(x) average above the tangent line by (1/2) f''(x) sigma^2 dt.">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Axes -->
+      <line x1="65" y1="178" x2="535" y2="178" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- Convex parabola f(x) centered around x0 = 300, y0 = 135: y_svg = 135 - 0.15*(x-300) - 0.0022*(x-300)^2 -->
+      <path d="M 100,17.0 Q 300,253.0 500,-43.0" fill="none" stroke="none"/>
+      <!-- Exact quadratic Bezier through (120, 91.6), (300, 135) with tangent slope -0.15, (480, 36.6) -->
+      <!-- Let f_svg(dx) = 135 - 0.15*dx - 0.0025*dx^2:
+           at dx = -160 (x=140): y = 135 + 24 - 64 = 95
+           at dx = 0 (x=300): y = 135
+           at dx = +160 (x=460): y = 135 - 24 - 64 = 47
+           Control point at x=300: y_ctrl = 135 + 64 = 199! -->
+      <path d="M 140,95 Q 300,199 460,47" fill="none" stroke="#0f5c57" stroke-width="2.4"/>
+      <!-- Tangent line at x=300: y = 135 - 0.15*(x-300): at x=140, y=159; at x=460, y=111 -->
+      <line x1="140" y1="159" x2="460" y2="111" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <!-- Chord connecting (180, f(-120)) and (420, f(+120)):
+           at dx = -120 (x=180): y_curve = 135 + 18 - 36 = 117; y_tan = 153
+           at dx = +120 (x=420): y_curve = 135 - 18 - 36 = 81;  y_tan = 117
+           Midpoint of chord at x=300: y_mid = (117 + 81)/2 = 99!
+           Gap between midpoint (300, 99) and tangent point (300, 135) is 36 px = (1/2) f''(x) sigma^2 dt! -->
+      <line x1="180" y1="117" x2="420" y2="81" stroke="#8a4b08" stroke-width="1.8"/>
+
+      <!-- Vertical guidelines at x0 - sigma*sqrt(dt) (180), x0 (300), x0 + sigma*sqrt(dt) (420) -->
+      <line x1="180" y1="117" x2="180" y2="178" stroke="#d8d4cc" stroke-dasharray="3,3"/>
+      <line x1="300" y1="99" x2="300" y2="178" stroke="#d8d4cc" stroke-dasharray="3,3"/>
+      <line x1="420" y1="81" x2="420" y2="178" stroke="#d8d4cc" stroke-dasharray="3,3"/>
+
+      <!-- Vertical Itô gap segment at x=300 from y=135 (tangent) to y=99 (chord midpoint) -->
+      <line x1="300" y1="135" x2="300" y2="99" stroke="#8a4b08" stroke-width="3.2"/>
+
+      <!-- Dots -->
+      <circle cx="180" cy="117" r="4.5" fill="#0f5c57"/>
+      <circle cx="420" cy="81" r="4.5" fill="#0f5c57"/>
+      <circle cx="300" cy="135" r="4.5" fill="#1a1a1a"/>
+      <circle cx="300" cy="99" r="5" fill="#8a4b08"/>
+
+      <!-- Labels -->
+      <text x="180" y="193" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Xₜ − σ√dt</text>
+      <text x="300" y="193" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Xₜ</text>
+      <text x="420" y="193" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Xₜ + σ√dt</text>
+
+      <text x="468" y="48" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57">f(x) (convex, f″ &gt; 0)</text>
+      <text x="468" y="114" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a">First-order tangent</text>
+      <text x="312" y="121" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08">Itô drift = +½ σ² f″(Xₜ) dt</text>
+      <text x="292" y="88" font-family="system-ui, sans-serif" font-size="10" fill="#8a4b08" text-anchor="end">𝔼[f(Xₜ + dXₜ)]</text>
+    </svg>
+    <figcaption><strong>Fig P37.2.</strong> Why convexity turns zero-mean noise into deterministic drift: a fair coin kick \(\pm\sigma\sqrt{dt}\) lands at the two green dots on \(f(x)\), whose average (the orange midpoint on the chord) sits strictly above \(f(X_t)\) by the second-order Taylor sag \(\frac{1}{2}f''(X_t)(\sigma\sqrt{dt})^2 = \frac{1}{2}\sigma^2 f''(X_t)\,dt\).</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · Volatility drag and geometric Brownian motion (\(dS_t = \mu S_t\,dt + \sigma S_t\,dW_t\))</h3>
+  <p>Imagine an investment \(S_t\) that starts at \(S_0 = 100\) and undergoes proportional shocks: in discrete steps, tossing Heads raises \(S\) by \(+50\%\) (\(\times 1.5\)) and tossing Tails cuts \(S\) by \(-50\%\) (\(\times 0.5\)). The expected return on any single toss is \(\frac{1}{2}(+50\%) + \frac{1}{2}(-50\%) = 0\%\). Yet after one Head and one Tail, your capital is \(100 \times 1.5 \times 0.5 = 75\) — a \(25\%\) loss! Where did that downward drag come from?</p>
+  <p>Model the continuous limit (<a href="p26-model-with-equation.html"><span class="pid">P26</span></a>) by the geometric Brownian motion equation \(dS_t = \mu S_t\,dt + \sigma S_t\,dW_t\). To turn multiplication into addition (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>), apply Itô's lemma (<span class="pid">P37</span>) to the concave logarithm \(f(S) = \ln S\), whose derivatives are \(f'(S) = \frac{1}{S}\) and \(f''(S) = -\frac{1}{S^2}\). Because \((dS_t)^2 = \sigma^2 S_t^2 (dW_t)^2 = \sigma^2 S_t^2\,dt\), Box P37 gives:</p>
+  <p class="eq">\[d(\ln S_t) = \frac{1}{S_t}\,dS_t + \frac{1}{2}\!\left(-\frac{1}{S_t^2}\right)(dS_t)^2 = \left(\mu\,dt + \sigma\,dW_t\right) - \frac{1}{2}\frac{1}{S_t^2}\bigl(\sigma^2 S_t^2\,dt\bigr) = \left(\mu - \frac{1}{2}\sigma^2\right)dt + \sigma\,dW_t.\]</p>
+  <p>The \(S_t\) factors cancel completely! Integrating from \(0\) to \(t\) and exponentiating yields the exact trajectory formula</p>
+  <p class="eq">\[S_t = S_0 \exp\!\left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W_t\right).\]</p>
+  <p>Notice the sharp dichotomy between the <em>mean</em> \(\mathbb{E}[S_t] = S_0 e^{\mu t}\) and the <em>median</em> (where \(W_t = 0\)) \(S_t^{\text{med}} = S_0 e^{(\mu - \frac{1}{2}\sigma^2)t}\). Because \(\ln S\) is concave (\(f''(S) = -1/S^2 &lt; 0\)), the chord in <strong>Fig P37.2</strong> sags <em>below</em> the tangent line, carving out a deterministic volatility drag of \(-\frac{1}{2}\sigma^2\) per unit time. If \(\mu = 0\) and \(\sigma &gt; 0\), \(\mathbb{E}[S_t] = S_0\) stays constant only because an exponentially tiny fraction of lucky trajectories shoot high enough to mask the fact that almost every individual trajectory decays to \(0\) at rate \(e^{-\frac{1}{2}\sigma^2 t}\).</p>
+
+  <h3>Exemplar 2 · Expected exit time from a sphere without solving a PDE (\(\mathbb{E}_{\mathbf{x}}[\tau] = \frac{R^2 - \|\mathbf{x}\|^2}{d}\))</h3>
+  <p>Suppose a Brownian particle \(\mathbf{W}_t = (W_t^{(1)}, \dots, W_t^{(d)})\) starts at position \(\mathbf{x}_0 \in \mathbb{R}^d\) inside a ball of radius \(R\) (\(\|\mathbf{x}_0\| &lt; R\)), with independent coordinates satisfying \(dW_t^{(i)}\cdot dW_t^{(j)} = \delta_{ij}\,dt\). Let \(\tau = \inf\{t \ge 0 : \|\mathbf{W}_t\| = R\}\) be the first moment the particle hits the boundary sphere. What is the expected exit time \(\mathbb{E}_{\mathbf{x}_0}[\tau]\)?</p>
+  <p>Instead of setting up a Green's function integral, apply <span class="pid">P37</span> to the squared radius \(f(\mathbf{x}) = \|\mathbf{x}\|^2 = \sum_{i=1}^d x_i^2\). Since \(\partial_{x_i} f = 2x_i\) and \(\partial_{x_i x_i} f = 2\) for each of the \(d\) independent coordinates, summing Itô's lemma across \(i = 1, \dots, d\) gives</p>
+  <p class="eq">\[d\bigl(\|\mathbf{W}_t\|^2\bigr) = \sum_{i=1}^d 2W_t^{(i)}\,dW_t^{(i)} + \frac{1}{2}\sum_{i=1}^d (2)\,dt = 2\,\mathbf{W}_t \cdot d\mathbf{W}_t + d\,dt.\]</p>
+  <p>Subtract \(d\,dt\) from both sides: the combination \(M_t = \|\mathbf{W}_t\|^2 - d\,t\) has zero \(dt\)-drift (\(dM_t = 2\,\mathbf{W}_t \cdot d\mathbf{W}_t\)), so \(M_t\) is a martingale (<a href="p09-find-invariant.html"><span class="pid">P09</span></a> in expectation)! By Doob's optional stopping theorem (valid here because the ball is bounded, \(\|\mathbf{W}_{t \wedge \tau}\| \le R\)), the expected value of \(M_\tau\) at the exit moment \(\tau\) equals its starting value \(M_0 = \|\mathbf{x}_0\|^2\):</p>
+  <p class="eq">\[\mathbb{E}_{\mathbf{x}_0}\bigl[\|\mathbf{W}_\tau\|^2 - d\,\tau\bigr] = \|\mathbf{x}_0\|^2 - d\cdot 0 = \|\mathbf{x}_0\|^2.\]</p>
+  <p>At the exact moment \(\tau\) of hitting the boundary sphere, \(\|\mathbf{W}_\tau\|^2 = R^2\) deterministically! Solving for \(\mathbb{E}_{\mathbf{x}_0}[\tau]\) yields</p>
+  <p class="eq">\[\mathbb{E}_{\mathbf{x}_0}[\tau] = \frac{R^2 - \|\mathbf{x}_0\|^2}{d}.\]</p>
+  <p><em>How you could have found this:</em> Each of the \(d\) coordinates contributes \(+1\cdot dt\) to the radial quadratic variation, so the squared distance from the origin grows on average at speed \(d\). To climb from \(\|\mathbf{x}_0\|^2\) to \(R^2\) at speed \(d\) takes average time \((R^2 - \|\mathbf{x}_0\|^2)/d\).</p>
+
+  <h3>Exemplar 3 · Thermal equilibrium of a noisy spring (Ornstein–Uhlenbeck equipartition)</h3>
+  <p>Combine the deterministic cooling-mug restoring force of <a href="p26-model-with-equation.html"><span class="pid">P26</span></a> with continuous thermal kicks of intensity \(\sigma\): a particle in an optical trap with stiffness \(\gamma &gt; 0\) obeys the Ornstein–Uhlenbeck stochastic differential equation</p>
+  <p class="eq">\[dX_t = -\gamma X_t\,dt + \sigma\,dW_t.\]</p>
+  <p>We can extract both the exact trajectory and the steady-state variance in two passes of <span class="pid">P37</span>:</p>
+  <ul>
+    <li><strong>Pass 1 (Linear integrating factor, <span class="pid">P06</span>):</strong> Apply <span class="pid">P37</span> to \(f(t, x) = e^{\gamma t} x\). Because \(f\) is <em>linear</em> in \(x\), \(\partial_{xx} f = 0\) and the Itô correction vanishes! Thus \(d(e^{\gamma t} X_t) = \gamma e^{\gamma t} X_t\,dt + e^{\gamma t}(-\gamma X_t\,dt + \sigma\,dW_t) = \sigma e^{\gamma t}\,dW_t\), which integrates to
+      <p class="eq">\[X_t = X_0 e^{-\gamma t} + \sigma \int_0^t e^{-\gamma(t-s)}\,dW_s.\]</p>
+    </li>
+    <li><strong>Pass 2 (Quadratic energy balance, <span class="pid">P29</span>):</strong> Apply <span class="pid">P37</span> to \(g(x) = x^2\), where \(g'(x) = 2x\) and \(g''(x) = 2\):
+      <p class="eq">\[d(X_t^2) = 2X_t\,dX_t + \frac{1}{2}(2)(dX_t)^2 = \bigl(-2\gamma X_t^2 + \sigma^2\bigr)dt + 2\sigma X_t\,dW_t.\]</p>
+      Taking expectations kills the \(dW_t\) martingale term and gives an ordinary linear ODE for the variance \(v(t) = \mathbb{E}[X_t^2]\): \(\dot{v}(t) = -2\gamma v(t) + \sigma^2\). Solving \(\dot{v} = -2\gamma(v - \frac{\sigma^2}{2\gamma})\) gives
+      <p class="eq">\[\mathbb{E}[X_t^2] = X_0^2 e^{-2\gamma t} + \frac{\sigma^2}{2\gamma}\bigl(1 - e^{-2\gamma t}\bigr) \;\xrightarrow{t \to \infty}\; \frac{\sigma^2}{2\gamma}.\]</p>
+      Without the Itô term \(+\sigma^2\,dt\), the energy would decay to zero; with it, the spring settles into exact thermal equilibrium where linear damping \(-2\gamma\mathbb{E}[X^2]\) balances the quadratic variation pump \(+\sigma^2\).
+    </li>
+  </ul>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>Itô's lemma is exact whenever its three structural assumptions hold, and fails sharply when any one of them is violated:</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Peeking into the future (Midpoint / Stratonovich vs. Left-Endpoint / Itô) changes the answer by \(\frac{1}{2}\sigma^2\).</strong> In our 16-path table of Section 2 (\(N=4, \Delta t = \frac{1}{4}, \Delta W_k = \pm\frac{1}{2}\)), evaluating the Riemann sum at the <strong>left endpoint</strong> \(W_{t_k}\) gave \(\sum_{k=0}^{N-1} W_{t_k}\Delta W_k = \frac{1}{2}W_T^2 - \frac{1}{2}T\) with mean \(0\). If instead you evaluate at the <strong>midpoint</strong> \(\overline{W}_k = \frac{1}{2}(W_{t_k} + W_{t_{k+1}})\) (the Stratonovich convention, which occurs naturally when physical white noise is smoothed at correlation time \(\tau_c \to 0\)), then \(\overline{W}_k \Delta W_k = \frac{1}{2}(W_{t_{k+1}}^2 - W_{t_k}^2)\) telescopes directly to \(\frac{1}{2}W_T^2\) with mean \(+\frac{1}{2}T\)! Why? Because the midpoint \(\frac{1}{2}(W_{t_k} + W_{t_{k+1}}) = W_{t_k} + \frac{1}{2}\Delta W_k\) already contains half of the current step \(\Delta W_k\), and \(\frac{1}{2}(\Delta W_k)^2 = \frac{1}{2}\Delta t\).</p>
+    <p><em>Mitigation:</em> Explicitly declare whether an SDE is written in Itô form (\(dW_t\)) or Stratonovich form (\(\circ\,dW_t\)), and convert between them using the exact bridge \(dX_t = \mu\,dt + \sigma \circ dW_t \Longleftrightarrow dX_t = \bigl(\mu + \frac{1}{2}\sigma\partial_x\sigma\bigr)dt + \sigma\,dW_t\).</p>
+    <p><em>Price:</em> One extra derivative \(\frac{1}{2}\sigma\sigma_x\,dt\) when translating physical smoothed-noise models into Itô form.</p>
+    <p><em>Default:</em> Use Itô in finance,discrete-time filtering, and martingale proofs (where non-anticipation is mandatory); convert physical Wong–Zakai limits from Stratonovich to Itô before computing expectations.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 190" role="img" aria-label="Fig P37.3: Comparison of Left-Endpoint (Itô) versus Midpoint (Stratonovich) sampling on a single step Delta W_k, showing the exact covariance rectangle (1/2)(Delta W_k)^2 = (1/2)dt.">
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <!-- Left panel: Itô left-endpoint rectangle W_k * dW_k -->
+      <text x="150" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Left-Endpoint (Itô): Hₖ = W(tₖ)</text>
+      <rect x="65" y="95" width="160" height="60" fill="#e1f0ee" stroke="#0f5c57" stroke-width="2"/>
+      <line x1="65" y1="95" x2="225" y2="45" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="4,3"/>
+      <circle cx="65" cy="95" r="4.5" fill="#0f5c57"/>
+      <circle cx="225" cy="45" r="4.5" fill="#1a1a1a"/>
+      <text x="58" y="99" font-family="Georgia, serif" font-size="10.5" fill="#0f5c57" text-anchor="end">W(tₖ)</text>
+      <text x="232" y="48" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a">W(tₖ₊₁)</text>
+      <text x="145" y="130" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">𝔼[W(tₖ) ΔWₖ] = 0</text>
+      <text x="145" y="174" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">∑ Wₖ ΔWₖ = ½ W_T² − ½ T</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="178" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Midpoint (Stratonovich) includes the extra triangle/half-step (1/2)(dW_k)^2 -->
+      <text x="450" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Midpoint (Stratonovich): Hₖ = W(tₖ) + ½ ΔWₖ</text>
+      <!-- Base Itô rectangle -->
+      <rect x="365" y="95" width="160" height="60" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.5"/>
+      <!-- Extra midpoint strip of height (1/2)dW_k -->
+      <rect x="365" y="70" width="160" height="25" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2"/>
+      <line x1="365" y1="95" x2="525" y2="45" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="4,3"/>
+      <circle cx="445" cy="70" r="4.5" fill="#8a4b08"/>
+      <text x="445" y="60" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">+½ (ΔWₖ)² = +½ dt</text>
+      <text x="445" y="130" font-family="Georgia, serif" font-size="11" fill="#0f5c57" text-anchor="middle">Base W(tₖ) ΔWₖ</text>
+      <text x="445" y="174" font-family="system-ui, sans-serif" font-size="10" fill="#8a4b08" text-anchor="middle">∑ W_mid ΔWₖ = ½ W_T²  (mean = +½ T)</text>
+    </svg>
+    <figcaption><strong>Fig P37.3.</strong> Why the sampling point matters when \(\Delta W_k \sim \sqrt{dt}\): <strong>(A)</strong> Left-endpoint (Itô) evaluation uses only \(W(t_k)\), which is independent of \(\Delta W_k\) and has mean \(0\). <strong>(B)</strong> Midpoint (Stratonovich) evaluation adds \(\frac{1}{2}\Delta W_k\) to the height; multiplying by width \(\Delta W_k\) adds the positive area \(\frac{1}{2}(\Delta W_k)^2 = \frac{1}{2}dt\) at every step.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Kinks and corners where \(f''(x)\) does not exist (Tanaka's local time).</strong> Suppose you apply Itô's lemma to the absolute value \(f(x) = |x|\) (the payoff of a straddle at strike \(0\)). Everywhere away from \(x = 0\), \(f''(x) = 0\), so a naive application of Box P37 would say \(d|W_t| = \operatorname{sgn}(W_t)\,dW_t + 0\,dt\), implying \(\mathbb{E}[|W_t|] = 0\) — an obvious falsehood since \(|W_t| \ge 0\) and \(\mathbb{E}[|W_t|] = \sqrt{2t/\pi} &gt; 0\)! The second derivative at the kink \(x = 0\) is twice a Dirac delta \(2\delta_0(x)\).</p>
+    <p><em>Mitigation:</em> Replace \(\frac{1}{2}f''(X_t)\,dt\) at a corner \(x = a\) with <strong>Tanaka's formula</strong> \(d|W_t - a| = \operatorname{sgn}(W_t - a)\,dW_t + dL_t^a\), where \(L_t^a = \lim_{\varepsilon \to 0}\frac{1}{2\varepsilon}\int_0^t \mathbf{1}_{|W_s - a| &lt; \varepsilon}\,ds\) is the <em>local time</em> spent at the kink.</p>
+    <p><em>Price:</em> Tracking a singular increasing boundary process \(dL_t^a\) supported on \(\{t : W_t = a\}\).</p>
+    <p><em>Default:</em> Always check \(f \in C^{1,2}\) before dropping the second-order term on piecewise-linear functions.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Jump processes (Poisson / Lévy jumps) violate the two-term Taylor cutoff.</strong> Itô's lemma stops at the second derivative \(f_{xx}\) only because continuous Brownian paths have \((\Delta W_t)^3 \sim (\Delta t)^{3/2} \to 0\) (sum of cubes \(\sim N(\Delta t)^{3/2} = N^{-1/2} \to 0\)). If \(X_t\) has discrete jumps \(\Delta X_t = J\) of macroscopic size \(O(1)\) arriving at Poisson rate \(\lambda\), then \((\Delta X_t)^3, (\Delta X_t)^4, \dots\) are all of order \(O(1)\) at the jump instant!</p>
+    <p><em>Mitigation:</em> Separate the continuous Brownian part from the discrete jump sum: \(df(X_t) = f'(X_{t^-})\,dX_t^{\text{cont}} + \frac{1}{2}f''(X_{t^-})\,d[X^{\text{cont}}]_t + \bigl(f(X_{t^-} + \Delta X_t) - f(X_{t^-})\bigr)\).</p>
+    <p><em>Price:</em> The generator becomes an integro-differential operator rather than a local second-order PDE.</p>
+    <p><em>Default:</em> Verify path continuity before truncating the Taylor expansion at order \(2\).</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> Our discrete telescoping proof on the \(2^N\) coin-toss lattice captures the exact algebraic mechanism of quadratic variation. On continuous Brownian paths, \([W]_T = T\) holds in \(L^2(\Omega)\) over arbitrary sequences of partitions with mesh \(\max_k \Delta t_k \to 0\) (since \(\operatorname{Var}(\sum (\Delta W_k)^2) = 2\sum (\Delta t_k)^2 \le 2T\max_k \Delta t_k \to 0\)), and holds almost surely along any Refining sequence of dyadic partitions \(N = 2^m\). Also remember that a driftless Itô integral \(M_t = \int_0^t H_s\,dW_s\) is initially a <em>local martingale</em>; promoting it to a true martingale with \(\mathbb{E}[M_t] = 0\) requires a square-integrability check such as \(\mathbb{E}\int_0^T H_s^2\,ds &lt; \infty\).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When you want to shift the drift \(\mu(t, X_t)\) of a Brownian motion by reweighting path probabilities:</strong> Apply Girsanov's theorem — built by running <span class="pid">P37</span> on the exponential martingale \(Z_t = \exp\!\bigl(\int_0^t \theta_s\,dW_s - \frac{1}{2}\int_0^t \theta_s^2\,ds\bigr)\) (see Exercise 2 below).</li>
+    <li><strong>When the PDE produced by Box P37.A has rough or multi-scale coefficients:</strong> Combine the heat-kernel smoothing of Brownian motion with <a href="p42-dyadic-decomposition.html"><span class="pid">P42</span> · Dyadic (scale-by-scale) decomposition</a> (or <a href="p29-energy-methods.html"><span class="pid">P29</span> · Energy methods</a>) to bound each frequency shell independently.</li>
+    <li><strong>When you want long-time time averages \(\frac{1}{T}\int_0^T g(X_t)\,dt\) of a stochastic flow rather than transient expectations:</strong> Step forward to <a href="p58-ergodic-correspondence.html"><span class="pid">P58</span> · Ergodic correspondence</a>, where the stationary invariant measure solves the adjoint Fokker–Planck equation \(\mathcal{L}^* \rho_\infty = 0\).</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Brown's pollen grains and Bachelier's options to Wiener's measure and Itô's chain rule.</strong> In 1827 the botanist Robert Brown observed jittering microscopic particles suspended in water. Seventy-three years later, Louis Bachelier (<em>Théorie de la Spéculation</em>, 1900) modeled Paris Bourse option prices via Gaussian random walks and derived the heat equation five years before Albert Einstein (<em>Annalen der Physik</em>, 1905) and Marian Smoluchowski (1906) connected molecular collisions to the diffusion constant \(D = \frac{1}{2}\sigma^2\). Norbert Wiener (<em>Journal of Mathematics and Physics</em>, 1923) constructed a rigorous probability measure on the space of continuous paths, proving that almost every path is nowhere differentiable, and Paul Lévy (1940) discovered the quadratic variation law \([W]_t = t\). During World War II, Kiyosi Itô (<em>Proceedings of the Imperial Academy of Tokyo</em> 20, 1944, 519–524; <em>Memoirs of the American Mathematical Society</em> 4, 1951) constructed the left-endpoint stochastic integral and published his second-order chain rule, transforming stochastic differential equations into an exact calculus later universalized across martingale theory by Joseph Doob (1953) and across mathematical finance by Fischer Black, Myron Scholes, and Robert Merton (1973).</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — Fourth moment \(\mathbb{E}[W_t^4] = 3t^2\) and the cubic integral \(\int_0^T W_t^2\,dW_t\)</h3>
+  <p>Let \(W_t\) be a standard Brownian motion with \(W_0 = 0\).<br>
+  (a) Apply Itô's lemma (<span class="pid">P37</span>) to \(f(x) = x^3\) to express \(\int_0^T W_t^2\,dW_t\) in terms of \(W_T^3\) and an ordinary time integral \(\int_0^T W_t\,dt\).<br>
+  (b) Apply Itô's lemma to \(g(x) = x^4\), take expectations on both sides using \(\mathbb{E}[W_t^2] = t\), and solve the resulting ordinary differential equation to prove that \(\mathbb{E}[W_t^4] = 3t^2\).</p>
+  <details><summary>Hint</summary><p>For \(f(x) = x^3\), \(f'(x) = 3x^2\) and \(f''(x) = 6x\). For \(g(x) = x^4\), \(g'(x) = 4x^3\) and \(g''(x) = 12x^2\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Cubic Itô identity:</strong> For \(f(x) = x^3\), we have \(f'(x) = 3x^2\) and \(f''(x) = 6x\). Applying Box P37 with \(\mu = 0, \sigma = 1\) gives</p>
+    <p class="eq">\[d(W_t^3) = 3W_t^2\,dW_t + \frac{1}{2}(6W_t)(dW_t)^2 = 3W_t^2\,dW_t + 3W_t\,dt.\]</p>
+    <p>Integrating from \(0\) to \(T\) and dividing by \(3\) yields the exact pathwise identity</p>
+    <p class="eq">\[\int_0^T W_t^2\,dW_t = \frac{1}{3}W_T^3 - \int_0^T W_t\,dt.\]</p>
+    <p><strong>(b) Fourth moment via ODE:</strong> For \(g(x) = x^4\), we have \(g'(x) = 4x^3\) and \(g''(x) = 12x^2\), so</p>
+    <p class="eq">\[d(W_t^4) = 4W_t^3\,dW_t + \frac{1}{2}(12W_t^2)\,dt = 4W_t^3\,dW_t + 6W_t^2\,dt.\]</p>
+    <p>Integrating from \(0\) to \(t\) and taking expectations kills the zero-mean martingale integral \(\mathbb{E}[\int_0^t 4W_s^3\,dW_s] = 0\), leaving</p>
+    <p class="eq">\[\mathbb{E}[W_t^4] = 6\int_0^t \mathbb{E}[W_s^2]\,ds = 6\int_0^t s\,ds = 6\left(\frac{t^2}{2}\right) = 3t^2.\]</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — The exponential martingale and Hermite polynomials</h3>
+  <p>For any constant parameter \(\lambda \in \mathbb{R}\), define the process</p>
+  <p class="eq">\[Z_t = \exp\!\left(\lambda W_t - \frac{1}{2}\lambda^2 t\right).\]</p>
+  <p>(a) Apply Itô's lemma to \(f(t, x) = \exp(\lambda x - \frac{1}{2}\lambda^2 t)\) to compute \(dZ_t\) and prove that \(Z_t\) has zero \(dt\)-drift (\(dZ_t = \lambda Z_t\,dW_t\)), so \(\mathbb{E}[Z_t] = Z_0 = 1\) for all \(t \ge 0\).<br>
+  (b) Expand \(Z_t = \sum_{n=0}^{\infty} \frac{\lambda^n}{n!} H_n(t, W_t)\) in powers of \(\lambda\) for \(n = 0, 1, 2, 3\) to read off three non-trivial polynomial martingales \(H_1(t, W_t)\), \(H_2(t, W_t)\), and \(H_3(t, W_t)\) immediately.</p>
+  <details><summary>Hint</summary><p>Compute \(\partial_t f = -\frac{1}{2}\lambda^2 f\), \(\partial_x f = \lambda f\), and \(\partial_{xx} f = \lambda^2 f\). For part (b), multiply the Taylor series of \(e^{\lambda W_t}\) and \(e^{-\frac{1}{2}\lambda^2 t}\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Zero drift of the exponential martingale:</strong> With \(f(t,x) = \exp(\lambda x - \frac{1}{2}\lambda^2 t)\), the partial derivatives are \(\partial_t f = -\frac{1}{2}\lambda^2 f\), \(\partial_x f = \lambda f\), and \(\partial_{xx} f = \lambda^2 f\). By Box P37,</p>
+    <p class="eq">\[dZ_t = \left(-\frac{1}{2}\lambda^2 Z_t + \frac{1}{2}(1)^2(\lambda^2 Z_t)\right)dt + \lambda Z_t\,dW_t = 0\,dt + \lambda Z_t\,dW_t.\]</p>
+    <p>Because the \(dt\) drift cancels identically, \(Z_t = 1 + \lambda\int_0^t Z_s\,dW_s\) is a martingale with \(\mathbb{E}[Z_t] = 1\) (which also confirms the Gaussian moment generating function \(\mathbb{E}[e^{\lambda W_t}] = e^{\frac{1}{2}\lambda^2 t}\)).</p>
+    <p><strong>(b) Hermite polynomial martingales by power-series matching (<span class="pid">P73</span>):</strong> Multiplying the two series</p>
+    <p class="eq">\[e^{\lambda W_t}\cdot e^{-\frac{1}{2}\lambda^2 t} = \left(1 + \lambda W_t + \frac{\lambda^2}{2}W_t^2 + \frac{\lambda^3}{6}W_t^3 + \cdots\right)\left(1 - \frac{\lambda^2}{2}t + \cdots\right)\]</p>
+    <p>and collecting coefficients of \(\lambda^n / n!\) gives</p>
+    <p class="eq">\[H_1(t, W_t) = W_t, \qquad H_2(t, W_t) = W_t^2 - t, \qquad H_3(t, W_t) = W_t^3 - 3t\,W_t.\]</p>
+    <p>Because \(Z_t\) is a martingale for every \(\lambda\), each coefficient \(H_n(t, W_t)\) has zero \(dt\)-drift: indeed, from Exercise 1(a), \(d(W_t^3 - 3tW_t) = (3W_t^2\,dW_t + 3W_t\,dt) - (3W_t\,dt + 3t\,dW_t) = 3(W_t^2 - t)\,dW_t\).</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Asymmetric gambler's ruin and hitting probabilities in a drift field</h3>
+  <p>A particle starts at \(x \in (-L, L)\) and satisfies the drifted Brownian motion \(dX_t = \mu\,dt + \sigma\,dW_t\) with constant drift \(\mu \ne 0\) and volatility \(\sigma &gt; 0\). Let \(\tau = \inf\{t \ge 0 : X_t \notin (-L, L)\}\) be the first exit time from the interval \([-L, L]\).<br>
+  (a) Find the non-zero exponent \(\alpha = -\frac{2\mu}{\sigma^2}\) such that \(f(x) = e^{\alpha x}\) satisfies the stationary generator equation \(\mu f'(x) + \frac{1}{2}\sigma^2 f''(x) = 0\), making \(M_t = e^{\alpha X_t}\) a martingale.<br>
+  (b) Use \(\mathbb{E}_x[M_\tau] = M_0 = e^{\alpha x}\) to compute the exact probability \(p(x) = \mathbb{P}_x(X_\tau = +L)\) that the particle exits through the top wall \(+L\) before hitting \(-L\), and verify that \(\lim_{\mu \to 0} p(x) = \frac{x + L}{2L}\).</p>
+  <details><summary>Hint</summary><p>Substitute \(f(x) = e^{\alpha x}\) into \(df(X_t) = (\mu \alpha + \frac{1}{2}\sigma^2 \alpha^2)e^{\alpha X_t}\,dt + \sigma\alpha e^{\alpha X_t}\,dW_t\). At exit time \(\tau\), \(X_\tau = +L\) with probability \(p(x)\) and \(X_\tau = -L\) with probability \(1 - p(x)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Choosing \(\alpha\) to kill the drift (scale function):</strong> Applying Box P37 to \(f(x) = e^{\alpha x}\) gives</p>
+    <p class="eq">\[d\bigl(e^{\alpha X_t}\bigr) = \alpha\left(\mu + \frac{1}{2}\sigma^2 \alpha\right)e^{\alpha X_t}\,dt + \alpha\sigma e^{\alpha X_t}\,dW_t.\]</p>
+    <p>Setting the bracketed \(dt\) coefficient to zero for \(\alpha \ne 0\) pins down \(\alpha = -\frac{2\mu}{\sigma^2}\). Thus \(M_t = \exp\!\bigl(-\frac{2\mu}{\sigma^2}X_t\bigr)\) is a bounded martingale up to exit time \(\tau\).</p>
+    <p><strong>(b) Exact exit probability \(p(x)\):</strong> By optional stopping, \(\mathbb{E}_x[M_\tau] = M_0 = e^{\alpha x}\). Because \(X_\tau\) equals \(+L\) with probability \(p(x)\) and \(-L\) with probability \(1 - p(x)\),</p>
+    <p class="eq">\[p(x)\,e^{\alpha L} + \bigl(1 - p(x)\bigr)e^{-\alpha L} = e^{\alpha x} \quad\Longrightarrow\quad p(x) = \frac{e^{\alpha x} - e^{-\alpha L}}{e^{\alpha L} - e^{-\alpha L}} = \frac{e^{-2\mu x/\sigma^2} - e^{2\mu L/\sigma^2}}{e^{-2\mu L/\sigma^2} - e^{2\mu L/\sigma^2}}.\]</p>
+    <p>As \(\mu \to 0\) (\(\alpha \to 0\)), expanding \(e^{\alpha z} = 1 + \alpha z + O(\alpha^2)\) (<a href="p15-squeeze.html"><span class="pid">P15</span></a>) gives \(\lim_{\alpha \to 0} \frac{(1 + \alpha x) - (1 - \alpha L)}{(1 + \alpha L) - (1 - \alpha L)} = \frac{\alpha(x + L)}{2\alpha L} = \frac{x + L}{2L}\).</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: does Itô's correction appear or not?</h3>
+  <p>For each differential equation or integral below, diagnose whether an Itô second-derivative correction \(\frac{1}{2}\sigma^2 f_{xx}\,dt\) is present, or whether classical first-order calculus (<span class="pid">P26</span>) applies directly:</p>
+  <ol>
+    <li>A particle's position \(X_t\) obeys \(\frac{dX_t}{dt} = V_t\), where the velocity \(V_t\) is an Ornstein–Uhlenbeck process \(dV_t = -\gamma V_t\,dt + \sigma\,dW_t\). You want to differentiate \(f(X_t) = X_t^2\).</li>
+    <li>A random phase angle is \(\theta_t = W_t\) (standard Brownian motion), and a point on the unit circle is \(Z_t = (\cos W_t, \sin W_t)\). You want the drift of \(Z_t\).</li>
+    <li>A noisy circle rotation is written explicitly in <em>Stratonovich</em> form: \(dX_t = -Y_t \circ dW_t\), \(dY_t = +X_t \circ dW_t\). You want to know whether \(X_t^2 + Y_t^2\) is conserved.</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>No Itô correction on \(X_t\) (classical chain rule <span class="pid">P26</span> applies to \(X_t\)!):</strong> Because \(dX_t = V_t\,dt + 0\,dW_t\) has <em>zero</em> \(dW_t\) noise coefficient directly in \(dX_t\), its quadratic variation is \((dX_t)^2 = V_t^2 (dt)^2 = 0\)! Thus \(d(X_t^2) = 2X_t V_t\,dt\) with no Itô term. (The Itô correction appears only when differentiating functions of the velocity \(V_t\), where \((dV_t)^2 = \sigma^2\,dt \ne 0\).)</li>
+      <li><strong>Genuine <span class="pid">P37</span> (Itô damping toward the origin):</strong> Since \(\frac{d^2}{dx^2}\cos x = -\cos x\) and \(\frac{d^2}{dx^2}\sin x = -\sin x\), applying Box P37 gives \(d(\cos W_t) = -\sin W_t\,dW_t - \frac{1}{2}\cos W_t\,dt\) and \(d(\sin W_t) = \cos W_t\,dW_t - \frac{1}{2}\sin W_t\,dt\). Even though \(Z_t\) stays on the unit circle pathwise, its expected position decays inward at rate \(\mathbb{E}[Z_t] = e^{-t/2} Z_0\)!</li>
+      <li><strong>Stratonovich form obeys the classical chain rule (Exhibit A):</strong> In Stratonovich calculus (\(\circ\,dW_t\)), midpoint evaluation cancels the second-order correction, so \(d(X_t^2 + Y_t^2) = 2X_t \circ dX_t + 2Y_t \circ dY_t = (-2X_t Y_t + 2Y_t X_t)\circ dW_t = 0\), keeping \(X_t^2 + Y_t^2 = R^2\) conserved. (If the same equations were written in <em>Itô</em> form \(dX_t = -Y_t\,dW_t, dY_t = X_t\,dW_t\), then \(d(X_t^2 + Y_t^2)\) would gain \(+((dX_t)^2 + (dY_t)^2) = +(X_t^2 + Y_t^2)\,dt\), causing the radius to spiral outward exponentially as \(e^{t/2}\)!)</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: The Black–Scholes PDE by killing the \(dW_t\) term</h3>
+  <p>An asset follows \(dS_t = \mu S_t\,dt + \sigma S_t\,dW_t\), and a risk-free bank account grows at rate \(r\): \(dB_t = r B_t\,dt\). Consider a derivative contract whose price at time \(t\) is \(V(t, S_t)\), and form a self-financing portfolio \(\Pi_t = V(t, S_t) - \Delta_t S_t\) holding \(1\) option and shorting \(\Delta_t\) shares of stock.<br>
+  (a) Apply Itô's lemma (<span class="pid">P37</span>) to expand \(d\Pi_t = dV(t, S_t) - \Delta_t\,dS_t\), and choose the hedge ratio \(\Delta_t\) that makes the coefficient of \(dW_t\) vanish identically.<br>
+  (b) Since the hedged portfolio \(\Pi_t\) is completely deterministic over the next instant \(dt\), no-arbitrage requires \(d\Pi_t = r\Pi_t\,dt\). Substitute your expression for \(d\Pi_t\) to derive the Black–Scholes partial differential equation, and explain why the stock's subjective drift rate \(\mu\) vanishes completely from the equation.</p>
+  <details><summary>Hint</summary><p>By Box P37, \(dV = (\partial_t V + \mu S_t \partial_S V + \frac{1}{2}\sigma^2 S_t^2 \partial_{SS} V)\,dt + \sigma S_t \partial_S V\,dW_t\). Subtract \(\Delta_t(\mu S_t\,dt + \sigma S_t\,dW_t)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Eliminating the noise \(dW_t\):</strong> Expanding \(dV(t, S_t)\) by Box P37 and subtracting \(\Delta_t\,dS_t\) gives</p>
+    <p class="eq">\[d\Pi_t = \left(\frac{\partial V}{\partial t} + \bigl(\mu - \mu\Delta_t\bigr)S_t + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 V}{\partial S^2}\right)dt + \sigma S_t\!\left(\frac{\partial V}{\partial S} - \Delta_t\right)dW_t.\]</p>
+    <p>Choosing the delta-hedge \(\Delta_t = \frac{\partial V}{\partial S}(t, S_t)\) zeroes out the \(dW_t\) coefficient — and simultaneously cancels the drift terms \(\mu S_t \frac{\partial V}{\partial S} - \mu S_t \Delta_t = 0\)!</p>
+    <p><strong>(b) The Black–Scholes PDE:</strong> With \(\Delta_t = \partial_S V\), the remaining change in the portfolio is purely deterministic: \(d\Pi_t = \bigl(\partial_t V + \frac{1}{2}\sigma^2 S_t^2 \partial_{SS} V\bigr)dt\). Equating this to the risk-free return \(r\Pi_t\,dt = r\bigl(V - S_t \partial_S V\bigr)dt\) yields</p>
+    <p class="eq">\[\frac{\partial V}{\partial t} + r S \frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} - rV = 0.\]</p>
+    <p>The physical drift \(\mu\) disappears because both the option \(V(t, S_t)\) and the underlying stock \(S_t\) are driven by the exact same Brownian coin \(dW_t\) in fixed ratio \(\partial_S V\); cancelling \(dW_t\) automatically cancels \(\mu\,dt\), leaving only the quadratic-variation convexity cost \(\frac{1}{2}\sigma^2 S^2 \partial_{SS} V\).</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P37 · Itô calculus (differentiating randomness). <a href="index.html">Return to the index</a> · Previous: <a href="p36-count-with-characters.html">P36 · Count with characters</a> · Next: <a href="p38-major-minor-arcs.html">P38 · Major and minor arcs →</a></p>
+</footer>
+
+</body>
+</html>

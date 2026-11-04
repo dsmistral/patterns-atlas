@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M02 · Sums of two squares — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Multi-Pattern Synthesis · Landmark Theorems</p>
+  <h1><span class="pid">M02</span> · Sums of two squares</h1>
+  <p class="lede">Why a prime \(p\) is a sum of two squares if and only if \(p = 2\) or \(p \equiv 1 \pmod 4\) — synthesizing Brahmagupta's norm identity (<span class="pid">P06</span>) with Fermat–Euler's descent (<span class="pid">P13</span>), Thue's pigeonhole grid (<span class="pid">P10</span>), and Zagier's involution (<span class="pid">P78</span>).</p>
+  <p class="prereqs"><strong>Moves Combined:</strong> <a href="p06-compose-identity.html">P06 · Compose with identity</a> + <a href="p13-descent.html">P13 · Infinite descent</a> (with <a href="p09-invariant.html">P09 · Find the invariant</a>, <a href="p10-pigeonhole.html">P10 · Force a collision</a> &amp; <a href="p30-localize-at-prime.html">P30 · Localize at a prime</a>)</p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — The pattern of primes that split into two squares.</strong> Test the first ten primes to see which ones can be written as \(p = x^2 + y^2\) for integers \(x, y\):</p>
+  <ul>
+    <li><strong>Split into two squares:</strong> \(2 = 1^2 + 1^2\), \(5 = 2^2 + 1^2\), \(13 = 3^2 + 2^2\), \(17 = 4^2 + 1^2\), \(29 = 5^2 + 2^2\).</li>
+    <li><strong>Cannot be written as \(x^2 + y^2\):</strong> \(3,\; 7,\; 11,\; 19,\; 23\).</li>
+  </ul>
+  <p>Look at the remainders when divided by \(4\): aside from \(2\), every prime on the first list has remainder <strong>\(1 \pmod 4\)</strong>, and every prime on the second list has remainder <strong>\(3 \pmod 4\)</strong>! In a Christmas Day letter to Marin Mersenne (December 25, 1640), Pierre de Fermat announced that this pattern holds for all primes.</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — The Brahmagupta–Fibonacci identity as complex norm multiplication.</strong> In <a href="p06-compose-identity.html"><span class="pid">P06</span> · Compose with identity</a>, we met the algebraic identity</p>
+  \[
+    (x^2 + y^2)(r^2 + s^2) \;=\; (xr + ys)^2 \,+\, (xs - yr)^2,
+  \]
+  <p>which comes from taking the squared modulus \(|\cdot|^2\) of the Gaussian integer product \((x + yi)(r - si) = (xr + ys) - (xs - yr)i\). Not only does this identity multiply two sums of two squares into a new sum of two squares, it also lets us <em>divide</em> a large sum of two squares \(x^2 + y^2 = k p\) by a smaller sum of two squares \(r^2 + s^2 = m k\) to shrink the multiplier \(k \mapsto m\)!</p>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>Proving the easy half of Fermat's Christmas Theorem — that <em>no</em> integer \(N \equiv 3 \pmod 4\) can ever equal \(x^2 + y^2\) — is a one-line modulo-\(4\) invariant (<a href="p09-invariant.html"><span class="pid">P09</span></a>): every integer satisfies \(x^2 \equiv 0\) or \(1 \pmod 4\), so \(x^2 + y^2 \equiv 0, 1,\) or \(2 \not\equiv 3 \pmod 4\).</p>
+  <p>Why is the reverse direction — proving that <em>every</em> prime \(p \equiv 1 \pmod 4\) actually splits as \(p = x^2 + y^2\) — so much deeper? Because knowing \(p = 4n + 1\) gives no obvious values for \(x\) and \(y\). To bridge the gap from \(p \equiv 1 \pmod 4\) to \(p = x^2 + y^2\), we must synthesize four patterns from our Atlas:</p>
+  <ol>
+    <li><strong>Local Congruence Seed (<a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>):</strong> When \(p \equiv 1 \pmod 4\), \(-1\) is a quadratic residue modulo \(p\): there exists \(u \in \{1, \dots, \frac{p-1}{2}\}\) such that \(u^2 + 1^2 = k p\) is a multiple of \(p\) (with \(1 \le k &lt; p\)).</li>
+    <li><strong>Descent or Collision to \(k = 1\) (<a href="p06-compose-identity.html"><span class="pid">P06</span></a> + <a href="p13-descent.html"><span class="pid">P13</span></a>, or <a href="p10-pigeonhole.html"><span class="pid">P10</span></a>, or <a href="p78-reversible-steps.html"><span class="pid">P78</span></a>):</strong> Shrink the auxiliary multiplier \(k\) from \(u^2 + 1^2 = kp\) down to \(k = 1\), arriving at \(x^2 + y^2 = p\).</li>
+  </ol>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: shrinking \(13 \times 89\) down to \(1 \times 89\)</h2>
+  <p>Take the prime \(p = 89 = 4(22) + 1 \equiv 1 \pmod 4\). By Wilson's theorem (or quick modular arithmetic), \(u = 34\) satisfies \(34^2 + 1^2 = 1156 + 1 = 1157 = 13 \times 89\). That gives us a sum of two squares equal to \(13 \times 89\) (multiplier \(k_0 = 13\)), not \(1 \times 89\)!</p>
+  <p>How did Fermat and Euler shrink the unwanted multiplier \(k = 13\) down to \(1\)? Watch their two-pattern machine (<span class="pid">P06</span> + <span class="pid">P13</span>) run on \((x, y) = (34, 1)\) with \(k = 13\):</p>
+  <ol>
+    <li><strong>Step 1 — Take centered remainders modulo \(k\) to build a smaller multiplier \(m \le k/2\):</strong> Divide \(x = 34\) and \(y = 1\) by \(k = 13\), choosing the <em>nearest</em> integer multiples of \(13\) so the remainders \(r, s\) lie in the symmetric interval \([-k/2, k/2] = [-6, 6]\):
+      \[
+        34 \;=\; 3(13) - 5 \implies r = -5, \qquad 1 \;=\; 0(13) + 1 \implies s = +1.
+      \]
+      Because \(r \equiv x \pmod{13}\) and \(s \equiv y \pmod{13}\), we have \(r^2 + s^2 \equiv x^2 + y^2 = 13 \times 89 \equiv 0 \pmod{13}\). Indeed, \(r^2 + s^2 = (-5)^2 + 1^2 = 26 = 2 \times 13\), giving the strictly smaller multiplier <strong>\(m = 2 \le \frac{13}{2}\)</strong>!</li>
+    <li><strong>Step 2 — Compose with Brahmagupta–Fibonacci (<span class="pid">P06</span>) and divide out \(k^2\):</strong> Multiply \(x^2 + y^2 = kp\) by \(r^2 + s^2 = mk\):
+      \[
+        (xr + ys)^2 + (xs - yr)^2 \;=\; (x^2 + y^2)(r^2 + s^2) \;=\; (kp)(mk) \;=\; m\,k^2\,p.
+      \]
+      Because \(r \equiv x \pmod k\) and \(s \equiv y \pmod k\), both parenthesized terms on the left are exact multiples of \(k\): \(xr + ys \equiv x^2 + y^2 \equiv 0 \pmod k\) and \(xs - yr \equiv xy - yx = 0 \pmod k\)! Dividing both terms by \(k = 13\) gives a new integer pair \((x_1, y_1)\) with multiplier \(m = 2 &lt; 13\):
+      \[
+        x_1 \;=\; \frac{|34(-5) + 1(1)|}{13} \;=\; \frac{169}{13} \;=\; 13, \qquad y_1 \;=\; \frac{|34(1) - 1(-5)|}{13} \;=\; \frac{39}{13} \;=\; 3,
+      \]
+      satisfying \(13^2 + 3^2 = 169 + 9 = 178 = 2 \times 89\)!</li>
+  </ol>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Descent step \(t\)</th>
+        <th>Current equation \(x_t^2 + y_t^2 = k_t \cdot 89\)</th>
+        <th>Centered remainders \((r, s) \bmod k_t\)</th>
+        <th>New multiplier \(m = \frac{r^2+s^2}{k_t}\)</th>
+        <th>Brahmagupta quotient \(\bigl(\frac{|xr+ys|}{k_t},\, \frac{|xs-yr|}{k_t}\bigr)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Start (\(t = 0\))</strong></td>
+        <td>\(34^2 + 1^2 = 13 \times 89\) (\(k_0 = 13\))</td>
+        <td>\((-5,\; +1) \in [-6, 6]^2\)</td>
+        <td>\(\frac{25+1}{13} = \mathbf{2}\)</td>
+        <td>\(\bigl(\frac{169}{13}, \frac{39}{13}\bigr) = (13, 3)\)</td>
+      </tr>
+      <tr>
+        <td><strong>Step 1 (\(t = 1\))</strong></td>
+        <td>\(13^2 + 3^2 = 2 \times 89\) (\(k_1 = 2\))</td>
+        <td>\((+1,\; +1) \in [-1, 1]^2\)</td>
+        <td>\(\frac{1+1}{2} = \mathbf{1}\)</td>
+        <td>\(\bigl(\frac{13+3}{2}, \frac{13-3}{2}\bigr) = (8, 5)\)</td>
+      </tr>
+      <tr>
+        <td><strong>Done (\(t = 2\))</strong></td>
+        <td><strong>\(8^2 + 5^2 = 64 + 25 = 1 \times 89\)!</strong></td>
+        <td>—</td>
+        <td>\(k_2 = 1\) (Halts!)</td>
+        <td><strong>\(89 = 8^2 + 5^2\)</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Because each step shrinks the multiplier by at least half (\(1 \le m \le \frac{(k/2)^2 + (k/2)^2}{k} = \frac{k}{2}\)), the descent is guaranteed to hit \(k = 1\) in at most \(\lfloor \log_2 p \rfloor\) steps!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the synthesis</h2>
+
+  <div class="pattern-box" id="box-m02">
+    <h3>Box M02 · The Multi-Pattern Synthesis for Sums of Two Squares</h3>
+    <p>A positive integer \(N\) is a sum of two integer squares \(N = x^2 + y^2\) if and only if in its prime factorization \(N = 2^a \prod_{p \equiv 1 (4)} p^{b_p} \prod_{q \equiv 3 (4)} q^{c_q}\), every prime \(q \equiv 3 \pmod 4\) appears with an <strong>even exponent \(c_q\)</strong>. This landmark theorem is built by interlocking four patterns:</p>
+    <ol>
+      <li><strong>Modulo-\(4\) Invariant (<span class="pid">P09</span>):</strong> Rules out primes \(q \equiv 3 \pmod 4\) since \(x^2 + y^2 \in \{0, 1, 2\} \pmod 4\).</li>
+      <li><strong>Local Congruence Seed (<span class="pid">P30</span>):</strong> For \(p \equiv 1 \pmod 4\), Wilson's theorem gives \(u = \bigl(\frac{p-1}{2}\bigr)!\) satisfying \(u^2 \equiv -1 \pmod p\).</li>
+      <li><strong>Prime Representation (\(p \equiv 1 \pmod 4 \implies p = x^2 + y^2\)):</strong> Proved via Fermat–Euler Descent (<span class="pid">P06</span> + <span class="pid">P13</span>), Thue's Pigeonhole Grid (<span class="pid">P10</span> + <span class="pid">P15</span>), or Zagier's Dual Involutions (<span class="pid">P78</span> + <span class="pid">P70</span>).</li>
+      <li><strong>Multiplicative Composition (<span class="pid">P06</span>):</strong> Combines \(2 = 1^2 + 1^2\), \(p = x_p^2 + y_p^2\), and \(q^2 = q^2 + 0^2\) via the Brahmagupta–Fibonacci identity to build any valid composite \(N\).</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Pattern synthesis architecture for M02 showing how P30 seeds u^2 = -1 mod p and feeds into three independent bridges (Fermat-Euler P06+P13, Thue P10+P15, and Zagier P78+P70) to establish p = x^2 + y^2">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Three Synthesis Bridges from p ≡ 1 (mod 4) to p = x² + y²</text>
+      <!-- Top root: p = 4n + 1 -->
+      <rect x="180" y="28" width="240" height="30" rx="5" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="300" y="47" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Prime p = 4n + 1  (P30: u² ≡ −1 mod p)</text>
+      <line x1="230" y1="58" x2="105" y2="82" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="300" y1="58" x2="300" y2="82" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="370" y1="58" x2="495" y2="82" stroke="#1a1a1a" stroke-width="1.5"/>
+
+      <!-- Bridge 1: Fermat-Euler Descent -->
+      <rect x="18" y="82" width="175" height="102" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="105" y="100" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">1. Fermat–Euler (P06 + P13)</text>
+      <text x="105" y="118" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Start: x² + y² = k·p (k &lt; p)</text>
+      <text x="105" y="135" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Reduce r, s ∈ [−k/2, k/2]</text>
+      <text x="105" y="152" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• P06 quotient gives m ≤ k/2</text>
+      <text x="105" y="172" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#8b2635" text-anchor="middle">Algorithmic O(log p) descent!</text>
+
+      <!-- Bridge 2: Thue's Pigeonhole -->
+      <rect x="212" y="82" width="175" height="102" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="300" y="100" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">2. Thue's Grid (P10 + P15)</text>
+      <text x="300" y="118" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• (⌊√p⌋ + 1)² &gt; p pairs (a, b)</text>
+      <text x="300" y="135" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• P10: a₁ − ub₁ ≡ a₂ − ub₂</text>
+      <text x="300" y="152" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• P15: 0 &lt; x² + y² &lt; 2p</text>
+      <text x="300" y="172" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#3a6073" text-anchor="middle">Single-step existence proof!</text>
+
+      <!-- Bridge 3: Zagier's Involution -->
+      <rect x="407" y="82" width="175" height="102" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="495" y="100" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">3. Zagier's Map (P78 + P70)</text>
+      <text x="495" y="118" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Set S: x² + 4yz = p</text>
+      <text x="495" y="135" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Involution 1: 1 fixed pt ⇒ |S| odd</text>
+      <text x="495" y="152" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Involution 2: (x,y,z)↦(x,z,y)</text>
+      <text x="495" y="172" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#8b2635" text-anchor="middle">Zero modular arithmetic!</text>
+    </svg>
+    <figcaption><strong>Fig M02.1.</strong> Three pattern combinations proving Fermat's Christmas Theorem. Bridge 1 uses Brahmagupta–Fibonacci (<span class="pid">P06</span>) as a descent engine (<span class="pid">P13</span>). Bridge 2 uses the Pigeonhole Principle (<span class="pid">P10</span>) on a \(\lfloor\sqrt{p}\rfloor \times \lfloor\sqrt{p}\rfloor\) grid and squeezes \(0 &lt; x^2 + y^2 &lt; 2p\) (<span class="pid">P15</span>). Bridge 3 compares fixed points of two reversible involutions (<span class="pid">P78</span>) on \(x^2 + 4yz = p\) via parity double counting (<span class="pid">P70</span>).</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m02a">
+    <h3>Box M02.A · How the Patterns Hand Off the Baton</h3>
+    <ol>
+      <li><strong>Why <span class="pid">P30</span> (Localize at \(p\)) is needed first:</strong> Over \(\mathbb{Z}\), \(x^2 + y^2\) does not factor. Modulo \(p \equiv 1 \pmod 4\), \(-1 \equiv u^2 \pmod p\) has a square root, so \(x^2 + y^2 \equiv x^2 - (uy)^2 = (x - uy)(x + uy) \pmod p\) factors into linear forms!</li>
+      <li><strong>Why <span class="pid">P06</span> + <span class="pid">P13</span> (or <span class="pid">P10</span>) is needed next:</strong> Factoring modulo \(p\) only gives \(x^2 + y^2 = k p\) for some multiplier \(k\). Descent (<span class="pid">P13</span>) or Pigeonhole (<span class="pid">P10</span>) forces \(k = 1\).</li>
+      <li><strong>Why <span class="pid">P06</span> returns at the end:</strong> Once every prime \(p \equiv 1 \pmod 4\) is a sum of two squares, <span class="pid">P06</span> multiplies them together to handle arbitrary composite integers \(N\).</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 210" width="100%" role="img" aria-label="Left: Thue's 4x4 pigeonhole grid for p=13 (u=5) showing how 16 > 13 points force a collision at (a1,b1)=(3,0) and (a2,b2)=(0,2) giving x=3, y=2, 3^2+2^2=13. Right: Zagier's windmill geometry for x^2 + 4yz = p">
+      <rect x="0" y="0" width="600" height="210" fill="#ffffff"/>
+      <!-- Left panel: Thue's 4x4 Pigeonhole Grid for p = 13 (u = 5, floor(sqrt(13)) = 3) -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Thue's Pigeonhole Grid for p = 13 (4×4 = 16 &gt; 13)</text>
+      <rect x="25" y="28" width="260" height="152" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="155" y="45" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">Residues of (a − 5b) mod 13 for a, b ∈ {0, 1, 2, 3}:</text>
+      <!-- 4x4 table of residues (a - 5b) mod 13:
+           b=0: a=0(0), a=1(1), a=2(2), a=3(3*)
+           b=1: a=0(8), a=1(9), a=2(10), a=3(11)
+           b=2: a=0(3*), a=1(4), a=2(5), a=3(6)
+           b=3: a=0(11), a=1(12), a=2(0), a=3(1) -->
+      <text x="65" y="66" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550">b\a</text>
+      <text x="105" y="66" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550" text-anchor="middle">0</text>
+      <text x="145" y="66" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550" text-anchor="middle">1</text>
+      <text x="185" y="66" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550" text-anchor="middle">2</text>
+      <text x="225" y="66" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550" text-anchor="middle">3</text>
+      <!-- Row b=0 -->
+      <text x="65" y="88" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550">b=0</text>
+      <text x="105" y="88" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+      <text x="145" y="88" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+      <text x="185" y="88" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">2</text>
+      <circle cx="225" cy="84" r="10" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="225" y="88" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">3</text>
+      <!-- Row b=1 -->
+      <text x="65" y="112" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550">b=1</text>
+      <text x="105" y="112" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">8</text>
+      <text x="145" y="112" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">9</text>
+      <text x="185" y="112" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">10</text>
+      <text x="225" y="112" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">11</text>
+      <!-- Row b=2 -->
+      <text x="65" y="136" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550">b=2</text>
+      <circle cx="105" cy="132" r="10" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="105" y="136" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">3</text>
+      <text x="145" y="136" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">4</text>
+      <text x="185" y="136" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">5</text>
+      <text x="225" y="136" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">6</text>
+      <!-- Row b=3 -->
+      <text x="65" y="160" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550">b=3</text>
+      <text x="105" y="160" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">11</text>
+      <text x="145" y="160" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">12</text>
+      <text x="185" y="160" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+      <text x="225" y="160" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+      <text x="155" y="196" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">Collision at (3,0) &amp; (0,2) ⇒ (x,y) = (3, −2) ⇒ 3² + 2² = 13!</text>
+
+      <!-- Right panel: Zagier's Windmill Decomposition x^2 + 4yz = p -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Zagier's Windmill Geometry: x² + 4yz = p</text>
+      <!-- Central x by x crimson square at (425..475, 78..128) (50x50), surrounded by four y by z slate rectangles! -->
+      <!-- Let x = 50, y = 25, z = 45:
+           Top wing (y wide, z tall): x=425..450, y=33..78 (25x45)
+           Right wing (z wide, y tall): x=475..520, y=78..103 (45x25)
+           Bottom wing (y wide, z tall): x=450..475, y=128..173 (25x45)
+           Left wing (z wide, y tall): x=380..425, y=103..128 (45x25) -->
+      <rect x="425" y="78" width="50" height="50" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <rect x="425" y="33" width="25" height="45" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <rect x="475" y="78" width="45" height="25" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <rect x="450" y="128" width="25" height="45" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <rect x="380" y="103" width="45" height="25" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <text x="450" y="107" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">x²</text>
+      <text x="437" y="59" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#3a6073" text-anchor="middle">y×z</text>
+      <text x="497" y="94" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#3a6073" text-anchor="middle">z×y</text>
+      <text x="462" y="154" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#3a6073" text-anchor="middle">y×z</text>
+      <text x="402" y="119" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#3a6073" text-anchor="middle">z×y</text>
+      <text x="450" y="196" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">When y = z, the 4 wings form a square (2y)² ⇒ p = x² + (2y)²!</text>
+    </svg>
+    <figcaption><strong>Fig M02.2.</strong> <em>Left (Exemplar 1):</em> Thue's Pigeonhole grid for \(p = 13\) (\(u = 5,\; \lfloor\sqrt{13}\rfloor = 3\)). Because there are \(4 \times 4 = 16 &gt; 13\) pairs \((a, b) \in \{0, 1, 2, 3\}^2\), two pairs must share the same residue \(a - 5b \pmod{13}\) — such as \((3, 0)\) and \((0, 2)\) (both \(\equiv 3\)), whose difference \((x, y) = (3, -2)\) immediately gives \(3^2 + (-2)^2 = 13\)! <em>Right (Exemplar 2):</em> Minkowski–Zagier's "windmill" of area \(x^2 + 4yz = p\): a central \(x \times x\) square flanked by four \(y \times z\) rectangles.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m02b">
+    <h3>Box M02.B · Three-Key Synthesis Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> Classifying which integers \(N\) can be represented by a binary quadratic form \(x^2 + d y^2\) (or counting the number of representations \(r_2(N)\)).</li>
+      <li><strong>Problem shape:</strong> Interaction between a multiplicative norm \(N(\alpha\beta) = N(\alpha)N(\beta)\) (<span class="pid">P06</span>) and local congruence obstructions modulo \(4\) or \(p\) (<span class="pid">P09</span> + <span class="pid">P30</span>).</li>
+      <li><strong>Tools at hand:</strong> Brahmagupta–Fibonacci composition (<span class="pid">P06</span>), centered modular remainders + descent (<span class="pid">P13</span>), Thue's pigeonhole lemma (<span class="pid">P10</span>), and fixed-point parity of involutions (<span class="pid">P78</span> + <span class="pid">P70</span>).</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked synthesis exemplars</h2>
+  <p>We now compare three celebrated proofs that every prime \(p \equiv 1 \pmod 4\) is a sum of two squares, followed by the complete classification and counting formula for composite integers \(N = x^2 + y^2\).</p>
+
+  <h3>Exemplar 1 · Thue's Pigeonhole Grid (<span class="pid">P30</span> + <span class="pid">P10</span> + <span class="pid">P15</span>)</h3>
+  <p><strong>Theorem (Axel Thue, 1902).</strong> <em>If \(p\) is a prime and \(u \in \mathbb{Z}\) satisfies \(u^2 \equiv -1 \pmod p\), then there exist integers \(x, y\) with \(1 \le x, y \le \lfloor\sqrt{p}\rfloor\) such that \(x^2 + y^2 = p\).</em></p>
+  <p><strong>Synthesis proof (converting Fermat–Euler's multi-step descent into a single Pigeonhole collision):</strong></p>
+  <ol>
+    <li><strong> Step 1 — Localize at \(p\) via Wilson's theorem (<a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>):</strong> Write \(p = 4n + 1\). In the product \((p-1)! = 1 \cdot 2 \cdots (2n) \cdot (2n+1) \cdots (4n)\), each upper factor \(p - j\) satisfies \(p - j \equiv -j \pmod p\). Setting \(u = (2n)!\), Wilson's theorem \((p-1)! \equiv -1 \pmod p\) gives
+      \[
+        -1 \;\equiv\; (p-1)! \;\equiv\; \bigl(1 \cdot 2 \cdots 2n\bigr)\bigl((-1)(-2)\cdots(-2n)\bigr) \;=\; (-1)^{2n}\,((2n)!)^2 \;=\; u^2 \pmod p.
+      \]
+      Hence \(p \mid (u^2 + 1)\). (For example, when \(p = 13 = 4(3)+1\), \(u = 6! = 720 \equiv 5 \pmod{13}\), and \(5^2 + 1 = 26 = 2 \times 13\).)</li>
+    <li><strong>Step 2 — Force a modular collision on a square grid (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>):</strong> Let \(m = \lfloor\sqrt{p}\rfloor\). Since \(p\) is prime, \(p\) is not a square, so \(m &lt; \sqrt{p} &lt; m + 1\). Consider the \((m+1) \times (m+1)\) grid of integer pairs
+      \[
+        G \;=\; \bigl\{(a, b) \in \mathbb{Z}^2 \;:\; 0 \le a \le m,\;\; 0 \le b \le m\bigr\}.
+      \]
+      Because \(|G| = (m + 1)^2 &gt; (\sqrt{p})^2 = p\), there are strictly more grid pairs \((a, b) \in G\) than residue classes in \(\mathbb{Z}/p\mathbb{Z}\). By the Pigeonhole Principle (<span class="pid">P10</span>), the linear evaluation map \((a, b) \mapsto (a - ub) \bmod p\) must collide on two distinct pairs \((a_1, b_1) \ne (a_2, b_2)\) in \(G\):
+      \[
+        a_1 - u b_1 \;\equiv\; a_2 - u b_2 \pmod p \quad\Longrightarrow\quad (a_1 - a_2) \;\equiv\; u(b_1 - b_2) \pmod p.
+      \]</li>
+    <li><strong>Step 3 — Square and bound the norm (<a href="p15-bound-both-sides.html"><span class="pid">P15</span></a>):</strong> Set \(x = |a_1 - a_2|\) and \(y = |b_1 - b_2|\). Then \(x^2 \equiv u^2 y^2 \equiv -y^2 \pmod p\), so \(p \mid (x^2 + y^2)\). On the other hand, because \((a_1, b_1) \ne (a_2, b_2)\) and \(0 \le a_i, b_i \le m &lt; \sqrt{p}\), we have \(0 \le x, y \le m\) (not both zero), which squeezes \(x^2 + y^2\) between two consecutive multiples of \(p\):
+      \[
+        0 \;&lt;\; x^2 + y^2 \;\le\; m^2 + m^2 \;&lt;\; p + p \;=\; 2p.
+      \]
+      The <em>only</em> multiple of \(p\) strictly between \(0\) and \(2p\) is \(1 \cdot p\) itself! Thus \(x^2 + y^2 = p\). \(\blacksquare\)</li>
+  </ol>
+
+  <h3>Exemplar 2 · Zagier's One-Sentence Dual-Involution Proof (<span class="pid">P78</span> + <span class="pid">P70</span> + <span class="pid">P09</span>)</h3>
+  <p><strong>Theorem (Don Zagier, 1990, condensing Roger Heath-Brown, 1984).</strong> <em>For any prime \(p = 4n + 1\), the finite set of positive integer triples</em></p>
+  \[
+    S \;=\; \bigl\{(x, y, z) \in \mathbb{Z}_{\ge 1}^3 \;:\; x^2 + 4yz = p\bigr\}
+  \]
+  <p><em>admits two involutions (\(f \circ f = \mathrm{id}_S\) and \(g \circ g = \mathrm{id}_S\)): an algebraic involution \(f\) with <strong>unique fixed point \((1, 1, n)\)</strong>, and the flip involution \(g(x, y, z) = (x, z, y)\). Therefore \(|S|\) is odd, so \(g\) must also have at least one fixed point \((x, y, y) \in S\), giving \(x^2 + (2y)^2 = p\).</em></p>
+  <p><strong>Synthesis proof (Reversible Involution <span class="pid">P78</span> + Parity Double Counting <span class="pid">P70</span>):</strong></p>
+  <ul>
+    <li><strong>Why \(S\) is finite and why \(g\)-fixed points solve our problem:</strong> Since \(x, y, z \ge 1\) and \(x^2 + 4yz = p\), we have \(x &lt; \sqrt{p}\) and \(4yz = p - x^2\), which has only finitely many divisor pairs \((y, z)\). A triple \((x, y, z) \in S\) is fixed by \(g(x, y, z) = (x, z, y)\) if and only if \(y = z\), which says \(x^2 + 4y^2 = x^2 + (2y)^2 = p\)!</li>
+    <li><strong>Zagier's piecewise linear involution \(f : S \to S\) (<a href="p78-reversible-steps.html"><span class="pid">P78</span></a>):</strong> Define
+      \[
+        f(x, y, z) \;=\; \begin{cases}
+          (x + 2z,\;\; z,\;\; y - x - z) &amp; \text{if } x &lt; y - z, \\[4pt]
+          (2y - x,\;\; y,\;\; x - y + z) &amp; \text{if } y - z &lt; x &lt; 2y, \\[4pt]
+          (x - 2y,\;\; x - y + z,\;\; y) &amp; \text{if } x &gt; 2y.
+        \end{cases}
+      \]
+      Notice first that the boundary cases \(x = y - z\) and \(x = 2y\) cannot occur in \(S\) because \(p\) is prime: \(x = y - z \implies p = (y-z)^2 + 4yz = (y+z)^2\), while \(x = 2y \implies p = 4y^2 + 4yz = 4y(y+z)\). Second, direct expansion confirms \(x'^2 + 4y'z' = x^2 + 4yz = p\) in all three branches, and applying \(f\) a second time swaps the first and third branches while sending the middle branch to itself!</li>
+    <li><strong>Counting fixed points (<a href="p70-double-counting.html"><span class="pid">P70</span></a>):</strong> Only the middle branch \((2y - x, y, x - y + z)\) can equal \((x, y, z)\), which happens if and only if \(2y - x = x \iff x = y\). Substituting \(x = y\) into \(x^2 + 4yz = p\) gives \(x(x + 4z) = p\). Because \(p = 4n + 1\) is prime, its only positive factorization of this form is \(x = 1\) and \(x + 4z = p \implies z = n\), yielding the <strong>unique fixed point \((1, 1, n)\)</strong>. Since every involution partitions \(S\) into \(2\)-cycles and fixed points, \(|S| \equiv |\mathrm{Fix}(f)| = 1 \pmod 2\) is odd — forcing \(|\mathrm{Fix}(g)| \equiv |S| \equiv 1 \pmod 2\) to be non-empty! \(\blacksquare\)</li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Triple \((x, y, z) \in S\) for \(p = 29\)</th>
+        <th>Check \(x^2 + 4yz = 29\)</th>
+        <th>Active branch of Zagier's \(f\)</th>
+        <th>Zagier image \(f(x, y, z)\)</th>
+        <th>Flip image \(g(x, y, z) = (x, z, y)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>\((1, 1, 7)\)</strong></td>
+        <td>\(1^2 + 4(1)(7) = 29\)</td>
+        <td>\(y - z = -6 &lt; 1 &lt; 2 = 2y\) (Middle)</td>
+        <td><strong>\((1, 1, 7)\) — Unique \(f\)-fixed point!</strong></td>
+        <td>\((1, 7, 1)\)</td>
+      </tr>
+      <tr>
+        <td>\((1, 7, 1)\)</td>
+        <td>\(1^2 + 4(7)(1) = 29\)</td>
+        <td>\(x = 1 &lt; 6 = y - z\) (Top)</td>
+        <td>\((3, 1, 5)\)</td>
+        <td>\((1, 1, 7)\)</td>
+      </tr>
+      <tr>
+        <td>\((3, 1, 5)\)</td>
+        <td>\(3^2 + 4(1)(5) = 29\)</td>
+        <td>\(x = 3 &gt; 2 = 2y\) (Bottom)</td>
+        <td>\((1, 7, 1)\)</td>
+        <td>\((3, 5, 1)\)</td>
+      </tr>
+      <tr>
+        <td>\((3, 5, 1)\)</td>
+        <td>\(3^2 + 4(5)(1) = 29\)</td>
+        <td>\(x = 3 &lt; 4 = y - z\) (Top)</td>
+        <td>\((5, 1, 1)\)</td>
+        <td>\((3, 1, 5)\)</td>
+      </tr>
+      <tr>
+        <td><strong>\((5, 1, 1)\)</strong></td>
+        <td>\(5^2 + 4(1)(1) = 29\)</td>
+        <td>\(x = 5 &gt; 2 = 2y\) (Bottom)</td>
+        <td>\((3, 5, 1)\)</td>
+        <td><strong>\((5, 1, 1)\) — Unique \(g\)-fixed point \(\implies 5^2 + 2^2 = 29\)!</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Exemplar 3 · Composite Numbers &amp; Gaussian Integer Factorization (<span class="pid">P06</span> + <span class="pid">P32</span>)</h3>
+  <p><strong>Theorem (Fermat–Euler Composite Criterion &amp; Jacobi's Counting Formula).</strong> <em>A positive integer \(N = 2^a \prod_{p \equiv 1(4)} p^{b_p} \prod_{q \equiv 3(4)} q^{c_q}\) is a sum of two integer squares if and only if every exponent \(c_q\) of a prime \(q \equiv 3 \pmod 4\) is <strong>even</strong>. Moreover, the total number of signed representations \(r_2(N) = \#\{(x, y) \in \mathbb{Z}^2 : x^2 + y^2 = N\}\) equals</em></p>
+  \[
+    r_2(N) \;=\; 4\,\bigl(d_1(N) \,-\, d_3(N)\bigr),
+  \]
+  <p><em>where \(d_1(N)\) and \(d_3(N)\) count the positive divisors of \(N\) congruent to \(1\) and \(3 \pmod 4\), respectively.</em></p>
+  <p><strong>Synthesis proof (Gaussian integer norm <span class="pid">P06</span> + Unique factorization in \(\mathbb{Z}[i]\)):</strong></p>
+  <ol>
+    <li><strong>Step 1 — Prime divisors \(q \equiv 3 \pmod 4\) must divide both \(x\) and \(y\):</strong> Suppose \(q \equiv 3 \pmod 4\) divides \(N = x^2 + y^2\). If \(q \nmid y\), then \(y\) has a multiplicative inverse \(y^{-1} \pmod q\), so \((x y^{-1})^2 \equiv -1 \pmod q\). Raising both sides to the odd power \(\frac{q-1}{2}\) contradicts Euler's criterion (Fermat's Little Theorem):
+      \[
+        1 \;\equiv\; (x y^{-1})^{q-1} \;\equiv\; (-1)^{(q-1)/2} \;=\; -1 \pmod q \quad (\text{since } \tfrac{q-1}{2} \text{ is odd for } q \equiv 3 \pmod 4).
+      \]
+      Hence \(q \mid y\) and therefore \(q \mid x\). Dividing \(N = x^2 + y^2\) by \(q^2\) gives \(N/q^2 = (x/q)^2 + (y/q)^2\). Repeating this descent strips out \(q^2\) factors one by one, proving that \(c_q = v_q(N)\) must be even!</li>
+    <li><strong>Step 2 — Factoring in \(\mathbb{Z}[i]\) (<a href="p06-compose-identity.html"><span class="pid">P06</span></a>):</strong> In the Euclidean ring of Gaussian integers \(\mathbb{Z}[i]\), writing \(N = x^2 + y^2 = (x + yi)(x - yi) = \mathrm{N}(\alpha)\) is equivalent to finding \(\alpha = x + yi \in \mathbb{Z}[i]\) of norm \(N\). The rational primes split into three types in \(\mathbb{Z}[i]\):
+      <ul>
+        <li><strong>Ramified prime \(2\):</strong> \(2 = (1 + i)(1 - i) = -i(1+i)^2\).</li>
+        <li><strong>Split primes \(p \equiv 1 \pmod 4\):</strong> \(p = \pi_p \overline{\pi_p}\) factors into two conjugate Gaussian primes \(\pi_p = a + bi\) and \(\overline{\pi_p} = a - bi\). For \(p^{b_p}\), there are \(b_p + 1\) choices \(\pi_p^j \overline{\pi_p}^{b_p - j}\) (\(0 \le j \le b_p\)) of norm \(p^{b_p}\).</li>
+        <li><strong>Inert primes \(q \equiv 3 \pmod 4\):</strong> \(q\) remains prime in \(\mathbb{Z}[i]\) of norm \(q^2\), so \(q^{c_q}\) has a factor of norm \(q^{c_q}\) if and only if \(c_q\) is even (giving the single choice \(q^{c_q/2}\)).</li>
+      </ul>
+      Multiplying by the \(4\) units \(\{\pm 1, \pm i\}\) gives \(r_2(N) = 4 \prod_{p \equiv 1(4)} (b_p + 1)\) when all \(c_q\) are even (and \(0\) otherwise), which matches \(4(d_1(N) - d_3(N))\)! For instance, for \(N = 65 = 5 \times 13\), we have \(b_5 = b_{13} = 1\), so there are \(r_2(65) = 4(2)(2) = 16\) signed solutions (from \((\pm 8, \pm 1)\) and \((\pm 7, \pm 4)\), plus swaps). \(\blacksquare\)</li>
+  </ol>
+</section>
+
+<section id="fails">
+  <h2>5 · Where each proof breaks — and why new patterns are born</h2>
+  <p>Testing where Fermat's two-square synthesis breaks reveals three major frontiers of modern number theory:</p>
+  <ul>
+    <li><strong>Exhibit A — Why primes \(q \equiv 3 \pmod 4\) fail at Step 1 (No local root of \(-1\)):</strong> Try to run Thue's or Fermat–Euler's proof on \(q = 7\) or \(q = 11\). Before any descent or pigeonhole step can begin, we need a seed \(u^2 \equiv -1 \pmod q\). Because the multiplicative group \((\mathbb{Z}/q\mathbb{Z})^\times\) has order \(q - 1 \equiv 2 \pmod 4\), it has no elements of order \(4\), so \(u^2 \equiv -1 \pmod q\) has <em>no solution</em>. And in Zagier's proof, the set \(S = \{x^2 + 4yz = q\}\) is completely empty because \(x^2 + 4yz \equiv x^2 \equiv 1 \not\equiv 3 \pmod 4\)!</li>
+    <li><strong>Exhibit B — Why \(p = x^2 + d y^2\) can fail when \(\mathbb{Z}[\sqrt{-d}]\) lacks unique factorization (\(d = 5, 6, 14\)):</strong> For \(d = 2\) or \(d = 3\), Fermat–Euler descent still works (giving \(p = x^2 + 2y^2 \iff p \equiv 1, 3 \pmod 8\) and \(p = x^2 + 3y^2 \iff p = 3\) or \(p \equiv 1 \pmod 3\)). But try \(d = 5\): for \(p = 29 \equiv 1, 9 \pmod{20}\), \(p = 3^2 + 5(2)^2 = 29\) succeeds, whereas for \(p = 3 \text{ or } 7 \pmod{20}\) (such as \(p = 7\)), \(-5 \equiv 2 \equiv 3^2 \pmod 7\) <em>is</em> a quadratic residue modulo \(7\) (\(3^2 + 5(1)^2 = 14 = 2 \times 7\)), yet \(7 \ne x^2 + 5y^2\)! Where does the descent from \(2 \times 7\) to \(1 \times 7\) get stuck? At multiplier \(k = 2\): the centered remainders modulo \(2\) satisfy \(r^2 + 5s^2 = 1^2 + 5(1)^2 = 6 = 3 \times 2\), so the new multiplier is \(m = 3 &gt; 2\) — it <em>grows</em> instead of shrinking! Algebraically, \(\mathbb{Z}[\sqrt{-5}]\) has class number \(h(-20) = 2\) (witnessed by \(6 = 2 \cdot 3 = (1 + \sqrt{-5})(1 - \sqrt{-5})\)), so primes split into two <em>classes</em> of quadratic forms: \(p = x^2 + 5y^2\) (for \(p \equiv 1, 9 \pmod{20}\)) versus \(p = 2x^2 + 2xy + 3y^2\) (for \(p \equiv 3, 7 \pmod{20}\)).</li>
+    <li><strong>Exhibit C — Sums of three vs. four squares (Legendre &amp; Lagrange):</strong> What if we allow three or four squares? By a modulo-\(8\) invariant (<span class="pid">P09</span>), since \(x^2 \in \{0, 1, 4\} \pmod 8\), no integer of the form \(4^a(8b + 7)\) is a sum of three squares (Legendre's Three-Square Theorem, 1798). Moreover, sums of three squares are <em>not</em> closed under multiplication (\(3 = 1^2 + 1^2 + 1^2\) and \(5 = 2^2 + 1^2 + 0^2\), yet \(3 \times 5 = 15 \equiv 7 \pmod 8\) is not a sum of three squares!) because \(\mathbb{R}^3\) has no norm-multiplicative division algebra. In dimension \(4\), however, Hamilton's quaternions give Euler's four-square identity (<span class="pid">P06</span>), and Fermat–Euler descent proves <strong>Lagrange's Four-Square Theorem (1770)</strong>: <em>every</em> positive integer is a sum of four integer squares!</li>
+  </ul>
+
+  <figure>
+    <svg viewBox="0 0 600 185" width="100%" role="img" aria-label="Comparison across dimensions: 2 squares (Gaussian integers Z[i], p = 1 mod 4), 3 squares (no division algebra, fails at 4^a(8b+7)), and 4 squares (Quaternions, every N >= 1)">
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">How Norm Composition (P06) and Congruence Invariants (P09) Govern Sums of k Squares</text>
+      <!-- Panel 1: k = 2 -->
+      <rect x="18" y="30" width="175" height="135" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="105" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">k = 2 Squares: x² + y²</text>
+      <text x="105" y="68" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Algebra: ℂ / ℤ[i] (norm-mult.)</text>
+      <text x="105" y="86" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Mod 4 obstruction: q ≡ 3 (mod 4)</text>
+      <text x="105" y="104" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Descent bound: m ≤ (1/4+1/4)k = k/2</text>
+      <text x="105" y="126" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#3a6073" text-anchor="middle">All c_q even (Fermat–Euler)</text>
+      <text x="105" y="148" font-family="system-ui, sans-serif" font-size="8.3" fill="#5a5550" text-anchor="middle">r₂(N) = 4(d₁(N) − d₃(N))</text>
+      <!-- Panel 2: k = 3 -->
+      <rect x="212" y="30" width="175" height="135" rx="5" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <text x="300" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">k = 3 Squares: x² + y² + z²</text>
+      <text x="300" y="68" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Algebra: None! (3×5 = 15 fails)</text>
+      <text x="300" y="86" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Mod 8 obstruction: 4ᵃ(8b + 7)</text>
+      <text x="300" y="104" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Needs ternary quadratic forms</text>
+      <text x="300" y="126" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#8b2635" text-anchor="middle">N ≠ 4ᵃ(8b + 7) (Legendre–Gauss)</text>
+      <text x="300" y="148" font-family="system-ui, sans-serif" font-size="8.3" fill="#5a5550" text-anchor="middle">Linked to class numbers h(−N)</text>
+      <!-- Panel 3: k = 4 -->
+      <rect x="407" y="30" width="175" height="135" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="495" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">k = 4 Squares: w² + x² + y² + z²</text>
+      <text x="495" y="68" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Algebra: Quaternions ℍ (Euler)</text>
+      <text x="495" y="86" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Local seed: w² + x² + 1 ≡ 0 (mod p)</text>
+      <text x="495" y="104" font-family="system-ui, sans-serif" font-size="8.8" fill="#1a1a1a" text-anchor="middle">• Descent bound: m ≤ 4(1/4)k = k</text>
+      <text x="495" y="126" font-family="system-ui, sans-serif" font-size="8.8" font-weight="bold" fill="#8b2635" text-anchor="middle">Every N ≥ 1! (Lagrange, 1770)</text>
+      <text x="495" y="148" font-family="system-ui, sans-serif" font-size="8.3" fill="#5a5550" text-anchor="middle">r₄(N) = 8 ∑_{d|N, 4∤d} d</text>
+    </svg>
+    <figcaption><strong>Fig M02.3.</strong> Why sums of two, three, and four squares behave so differently: \(k = 2\) and \(k = 4\) inherit multiplicative norm identities (<span class="pid">P06</span>) from \(\mathbb{C}\) and the quaternions \(\mathbb{H}\), enabling Fermat–Euler descent (<span class="pid">P13</span>) down to \(k_t = 1\); \(k = 3\) has no multiplicative norm identity and is obstructed at \(4^a(8b+7)\).</figcaption>
+  </figure>
+
+  <aside class="aside warn">
+    <p><strong>Scope note — Why Fermat–Euler descent for \(x^2 + d y^2\) requires \(d \le 3\):</strong> In Step 1 of the Fermat–Euler descent modulo \(k\), the centered remainders satisfy \(|r|, |s| \le k/2\), so the new multiplier \(m = \frac{r^2 + d s^2}{k}\) is bounded by
+      \[
+        m \;\le\; \frac{(k/2)^2 + d(k/2)^2}{k} \;=\; \frac{1 + d}{4}\,k.
+      \]
+      Strict descent (\(m &lt; k\)) is guaranteed for every \(k &gt; 1\) if and only if \(\frac{1+d}{4} \le 1\) (with equality handled separately), which holds for \(d = 1, 2, 3\)! For \(d \ge 5\), \(\frac{1+d}{4} &gt; 1\), and the failure of strict descent corresponds to the nontrivial ideal class group of \(\mathbb{Q}(\sqrt{-d})\).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong><a href="p06-compose-identity.html">P06 · Compose with identity</a>:</strong> Review Brahmagupta–Fibonacci's two-square identity, Euler's four-square quaternion identity, and Degen–Graves's eight-square octonion identity.</li>
+    <li><strong><a href="p13-descent.html">P13 · Infinite descent</a> &amp; <a href="p78-reversible-steps.html">P78 · Work with reversible steps</a>:</strong> Compare Fermat–Euler's algorithmic descent with Zagier's fixed-point involution method.</li>
+    <li><strong><a href="p30-localize-at-prime.html">P30 · Localize at a prime</a> &amp; <a href="p34-local-to-global.html">P34 · Local-to-global</a>:</strong> Explore how local solvability modulo every prime \(p\) and over \(\mathbb{R}\) governs quadratic forms via the Hasse–Minkowski theorem.</li>
+    <li><strong><a href="m03-picks-theorem.html">M03 · Pick's theorem</a>:</strong> Continue to our third synthesis chapter, where we count lattice points inside polygons by combining small-case induction (<span class="pid">P02</span>), additive invariants (<span class="pid">P09</span>), and triangulation double counting (<span class="pid">P70</span>).</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Diophantus and Brahmagupta to Fermat, Euler, Gauss, and Zagier.</strong> The multiplicative identity \((x^2 + y^2)(r^2 + s^2) = (xr \pm ys)^2 + (xs \mp yr)^2\) appears implicitly in Diophantus's <em>Arithmetica</em> (Book III, Problem 19, c. 250 CE) to construct numbers representable as a sum of two squares in multiple ways (such as \(65 = 8^2 + 1^2 = 7^2 + 4^2\)), and in full generality for \(x^2 - d y^2\) in Brahmagupta's <em>Brāhmasphuṭasiddhānta</em> (628 CE) and Fibonacci's <em>Liber Quadratorum</em> (1225). On December 25, 1640, Pierre de Fermat wrote to Marin Mersenne stating that every prime \(p = 4n + 1\) is a unique sum of two squares, later explaining in a 1659 letter to Pierre de Carcavi that he had proved it by his method of infinite descent (<span class="pid">P13</span>).</p>
+    <p>The first published proof was achieved by Leonhard Euler in two memoirs (1749 and 1754) after seven years of work, using centered modular remainders to descend from \(u^2 + 1 = kp\) to \(x^2 + y^2 = p\). Joseph-Louis Lagrange (1773) and Carl Friedrich Gauss (<em>Disquisitiones Arithmeticae</em>, 1801) placed the theorem inside the theory of binary quadratic forms and Gaussian integers \(\mathbb{Z}[i]\). In 1902, Axel Thue replaced the descent loop with a single Pigeonhole step (<span class="pid">P10</span>); and in 1984, Roger Heath-Brown discovered a non-constructive involution proof that Don Zagier (1990) compressed into his famous "one-sentence proof" on \(x^2 + 4yz = p\) (<span class="pid">P78</span>).</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise M02.1 (●○○) — Running the Fermat–Euler Descent on \(p = 97\).</strong> Let \(p = 97 \equiv 1 \pmod 4\). Given that \(u = 22\) satisfies \(22^2 + 1^2 = 485 = 5 \times 97\) (multiplier \(k_0 = 5\)), perform the Fermat–Euler descent algorithm step by step to find positive integers \(x, y\) such that \(x^2 + y^2 = 97\).</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Start with \((x_0, y_0) = (22, 1)\) and \(k_0 = 5\). Reduce \(22\) and \(1\) modulo \(5\) into the symmetric interval \([-2, 2]\), compute the new multiplier \(m = (r^2 + s^2)/5\), and apply the Brahmagupta quotient formula \(\bigl(\frac{|x_0 r + y_0 s|}{5},\, \frac{|x_0 s - y_0 r|}{5}\bigr)\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p>Starting from \(22^2 + 1^2 = 5 \times 97\) with \(k_0 = 5\):</p>
+      <ol>
+        <li><strong>Centered remainders modulo \(k_0 = 5\):</strong> Since \(22 = 4(5) + 2\) and \(1 = 0(5) + 1\), the remainders in \([-2, 2]\) are \(r = 2\) and \(s = 1\).</li>
+        <li><strong>New multiplier:</strong> We compute
+          \[
+            r^2 + s^2 \;=\; 2^2 + 1^2 \;=\; 5 \;=\; 1 \times 5 \quad\Longrightarrow\quad k_1 \;=\; m \;=\; 1!
+          \]
+          The descent reaches \(k_1 = 1\) in a single step!</li>
+        <li><strong>Brahmagupta–Fibonacci quotient (<span class="pid">P06</span>):</strong> Dividing by \(k_0 = 5\) yields
+          \[
+            x_1 \;=\; \frac{|22(2) + 1(1)|}{5} \;=\; \frac{45}{5} \;=\; 9, \qquad y_1 \;=\; \frac{|22(1) - 1(2)|}{5} \;=\; \frac{20}{5} \;=\; 4.
+          \]
+          Check: \(9^2 + 4^2 = 81 + 16 = 97\). \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M02.2 (●●○) — Tracing Zagier's Involution on \(p = 17\).</strong> For \(p = 17 = 4(4) + 1\):</p>
+    <ol>
+      <li>List all positive integer triples \((x, y, z) \in S = \{(x, y, z) \in \mathbb{Z}_{\ge 1}^3 : x^2 + 4yz = 17\}\).</li>
+      <li>Compute Zagier's involution \(f(x, y, z)\) on each element of \(S\), verify that \((1, 1, 4)\) is the unique fixed point of \(f\), and identify the unique fixed point \((x, y, y)\) of the flip involution \(g(x, y, z) = (x, z, y)\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Since \(x \ge 1\) is odd and \(x^2 &lt; 17\), the only possible values for \(x\) are \(x = 1\) (leaving \(4yz = 16 \implies yz = 4\)) and \(x = 3\) (leaving \(4yz = 8 \implies yz = 2\)).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Listing \(S\):</strong> Since \(x \in \{1, 3\}\):
+          <ul>
+            <li>For \(x = 1\): \(yz = 4\) has \(3\) positive factorizations: \((1, 1, 4),\; (1, 2, 2),\; (1, 4, 1)\).</li>
+            <li>For \(x = 3\): \(yz = 2\) has \(2\) positive factorizations: \((3, 1, 2),\; (3, 2, 1)\).</li>
+          </ul>
+          Thus \(|S| = 5\) (an odd number of triples).</li>
+        <li><strong>Action of \(f\) and \(g\):</strong>
+          <ul>
+            <li>At \((1, 1, 4)\): \(y - z = -3 &lt; 1 &lt; 2 = 2y\) (middle branch), so \(f(1, 1, 4) = (2(1)-1,\, 1,\, 1-1+4) = \mathbf{(1, 1, 4)}\) (unique \(f\)-fixed point!).</li>
+            <li>At \((1, 4, 1)\) and \((3, 1, 2)\): \(f(1, 4, 1) = (1 + 2(1),\, 1,\, 4 - 1 - 1) = (3, 1, 2)\), and \(f(3, 1, 2) = (3 - 2(1),\, 3 - 1 + 2,\, 1) = (1, 4, 1)\) (a \(2\)-cycle).</li>
+            <li>At \((1, 2, 2)\) and \((3, 2, 1)\): \(f(3, 2, 1) = (2(2) - 3,\, 2,\, 3 - 2 + 1) = (1, 2, 2)\), and \(f(1, 2, 2) = (2(2) - 1,\, 2,\, 1 - 2 + 2) = (3, 2, 1)\) (a \(2\)-cycle).</li>
+          </ul>
+          Meanwhile, the flip map \(g(x, y, z) = (x, z, y)\) fixes the unique triple with \(y = z\), namely <strong>\((1, 2, 2)\)</strong>, which gives \(1^2 + (2 \cdot 2)^2 = 1^2 + 4^2 = 17\)! \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M02.3 (●●●) — Multi-Way Sums of Two Squares via Brahmagupta Composition (<span class="pid">P06</span>).</strong> Let \(N = 1105 = 5 \times 13 \times 17\).</p>
+    <ol>
+      <li>Use Jacobi's formula (or prime splitting in \(\mathbb{Z}[i]\)) to determine how many representations \(N = x^2 + y^2\) exist with \(0 &lt; x &lt; y\).</li>
+      <li>Given \(5 = 2^2 + 1^2\), \(13 = 3^2 + 2^2\), and \(17 = 4^2 + 1^2\), apply the Brahmagupta–Fibonacci identity twice to find all four representations of \(1105 = x^2 + y^2\) with \(0 &lt; x &lt; y\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>First combine \(5 = 2^2 + 1^2\) and \(13 = 3^2 + 2^2\) into two distinct representations of \(65 = 8^2 + 1^2 = 7^2 + 4^2\), then compose each of those with \(17 = 4^2 + 1^2\) using both signs \((xr \pm ys)^2 + (xs \mp yr)^2\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Counting representations:</strong> Since \(1105 = 5^1 \cdot 13^1 \cdot 17^1\) is a product of three distinct primes \(\equiv 1 \pmod 4\), Jacobi's formula gives \(r_2(1105) = 4(1+1)(1+1)(1+1) = 32\) signed pairs \((x, y) \in \mathbb{Z}^2\). Because \(1105\) isNeither a square nor twice a square, every representation has \(0 &lt; |x| \ne |y|\), and the \(8\) symmetries \((\pm x, \pm y), (\pm y, \pm x)\) partition the \(32\) pairs into \(32 / 8 = \mathbf{4}\) unordered positive pairs \(0 &lt; x &lt; y\).</li>
+        <li><strong>Computing all four pairs via <span class="pid">P06</span>:</strong>
+          <ul>
+            <li>First, compose \(5 = 2^2 + 1^2\) with \(13 = 3^2 + 2^2\):
+              \[
+                (2\cdot 3 + 1\cdot 2)^2 + (2\cdot 2 - 1\cdot 3)^2 \;=\; 8^2 + 1^2 \;=\; 65, \qquad (2\cdot 3 - 1\cdot 2)^2 + (2\cdot 2 + 1\cdot 3)^2 \;=\; 4^2 + 7^2 \;=\; 65.
+              \]</li>
+            <li>Next, compose \((8, 1)\) with \((4, 1)\) (\(17 = 4^2 + 1^2\)):
+              \[
+                (8\cdot 4 + 1\cdot 1)^2 + (8\cdot 1 - 1\cdot 4)^2 \;=\; \mathbf{33^2 + 4^2} \;=\; 1089 + 16 \;=\; 1105,
+              \]
+              \[
+                (8\cdot 4 - 1\cdot 1)^2 + (8\cdot 1 + 1\cdot 4)^2 \;=\; \mathbf{31^2 + 12^2} \;=\; 961 + 144 \;=\; 1105.
+              \]</li>
+            <li>Finally, compose \((7, 4)\) with \((4, 1)\):
+              \[
+                (7\cdot 4 + 4\cdot 1)^2 + |7\cdot 1 - 4\cdot 4|^2 \;=\; \mathbf{32^2 + 9^2} \;=\; 1024 + 81 \;=\; 1105,
+              \]
+              \[
+                (7\cdot 4 - 4\cdot 1)^2 + (7\cdot 1 + 4\cdot 4)^2 \;=\; \mathbf{24^2 + 23^2} \;=\; 576 + 529 \;=\; 1105.
+              \]</li>
+          </ul>
+          Thus the four unordered positive representations \((x, y)\) with \(0 &lt; x &lt; y\) are <strong>\((4, 33),\; (9, 32),\; (12, 31),\; (23, 24)\)</strong>. \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M02.4 (◆) — Pattern-Unknown Synthesis Diagnosis: Primes of the Form \(x^2 + 2y^2\).</strong> Prove that every prime \(p \equiv 1 \text{ or } 3 \pmod 8\) can be written in the form \(p = x^2 + 2y^2\) for integers \(x, y\) by identifying and executing the appropriate synthesis of patterns from this chapter (given that \(-2\) is a quadratic residue modulo every prime \(p \equiv 1, 3 \pmod 8\)).</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>Diagnosis:</strong> We synthesize <strong>Localize at \(p\) (<span class="pid">P30</span>)</strong> + <strong>Thue's Pigeonhole Grid (<span class="pid">P10</span>)</strong> + <strong>Bound Both Sides (<span class="pid">P15</span>)</strong> (or Fermat–Euler descent with the weighted norm identity \((x^2 + 2y^2)(r^2 + 2s^2) = (xr + 2ys)^2 + 2(xs - yr)^2\) from <span class="pid">P06</span>):</p>
+      <ol>
+        <li><strong>Local seed (<span class="pid">P30</span>):</strong> Since \(p \equiv 1 \text{ or } 3 \pmod 8\), there exists \(u \in \mathbb{Z}\) such that \(u^2 \equiv -2 \pmod p\).</li>
+        <li><strong>Pigeonhole collision (<span class="pid">P10</span>):</strong> Let \(m = \lfloor\sqrt{p}\rfloor\). As in Exemplar 1, the grid \(G = \{0, 1, \dots, m\}^2\) has \((m+1)^2 &gt; p\) pairs \((a, b)\), so two distinct pairs collide modulo \(p\) under \((a, b) \mapsto a - ub \bmod p\). Their difference \((x, y) = (|a_1 - a_2|, |b_1 - b_2|) \ne (0, 0)\) satisfies \(x \equiv \pm u y \pmod p\), so
+          \[
+            x^2 + 2y^2 \;\equiv\; u^2 y^2 + 2y^2 \;=\; (u^2 + 2)y^2 \;\equiv\; 0 \pmod p.
+          \]</li>
+        <li><strong>Bounding \(x^2 + 2y^2\) (<span class="pid">P15</span>) and handling \(k = 2\):</strong> Because \(0 \le x, y \le m &lt; \sqrt{p}\) (not both zero), we have
+          \[
+            0 \;&lt;\; x^2 + 2y^2 \;&lt;\; p + 2p \;=\; 3p.
+          \]
+          Hence \(x^2 + 2y^2\) equals either \(p\) or \(2p\):
+          <ul>
+            <li>If \(x^2 + 2y^2 = p\), we are done!</li>
+            <li>If \(x^2 + 2y^2 = 2p\), then \(x^2 = 2(p - y^2)\) is even, so \(x = 2z\) is even. Substituting \(x = 2z\) into \(x^2 + 2y^2 = 2p\) gives \(4z^2 + 2y^2 = 2p\), and dividing by \(2\) yields \(y^2 + 2z^2 = p\)! \(\blacksquare\)</li>
+          </ul></li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M02.5 (◐) — Exploration: Why Every Prime Divides a Sum of Three Squares (\(w^2 + x^2 + 1 \equiv 0 \pmod p\)).</strong> In Lagrange's Four-Square Theorem (Exhibit C), the descent starts from a multiple \(w^2 + x^2 + y^2 + z^2 = kp\) with \(1 \le k &lt; p\). Prove using the Pigeonhole Principle (<span class="pid">P10</span>) that for <em>every</em> odd prime \(p\) (even when \(p \equiv 3 \pmod 4\), where \(x^2 + 1 \equiv 0 \pmod p\) has no solution!), there exist integers \(w, x \in \{0, 1, \dots, \frac{p-1}{2}\}\) such that</p>
+    \[
+      w^2 + x^2 + 1 \;\equiv\; 0 \pmod p.
+    \]
+    <details>
+      <summary>Hint</summary>
+      <p>Rewrite the congruence as \(w^2 \equiv -1 - x^2 \pmod p\), and count the size of the two sets \(A = \{w^2 \bmod p : 0 \le w \le \frac{p-1}{2}\}\) and \(B = \{(-1 - x^2) \bmod p : 0 \le x \le \frac{p-1}{2}\}\) inside the \(p\)-element set \(\mathbb{Z}/p\mathbb{Z}\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Distinctness of squares on \(\{0, 1, \dots, \frac{p-1}{2}\}\):</strong> If \(0 \le w_1 &lt; w_2 \le \frac{p-1}{2}\), then \(0 &lt; w_2 - w_1 &lt; w_2 + w_1 &lt; p\), so \(p \nmid (w_2 - w_1)(w_2 + w_1) = w_2^2 - w_1^2\). Thus the map \(w \mapsto w^2 \bmod p\) is injective on \(\{0, 1, \dots, \frac{p-1}{2}\}\).</li>
+        <li><strong>Pigeonhole overlap (<span class="pid">P10</span>):</strong> Consequently, both sets of residues modulo \(p\),
+          \[
+            A \;=\; \Bigl\{w^2 \bmod p \;:\; 0 \le w \le \frac{p-1}{2}\Bigr\} \qquad\text{and}\qquad B \;=\; \Bigl\{(-1 - x^2) \bmod p \;:\; 0 \le x \le \frac{p-1}{2}\Bigr\},
+          \]
+          have cardinality \(|A| = |B| = \frac{p-1}{2} + 1 = \frac{p+1}{2}\). Since \(A\) and \(B\) are subsets of \(\mathbb{Z}/p\mathbb{Z}\) (which has only \(p\) elements) and
+          \[
+            |A| + |B| \;=\; \frac{p+1}{2} + \frac{p+1}{2} \;=\; p + 1 \;&gt;\; p,
+          \]
+          the Pigeonhole Principle guarantees that \(A \cap B \ne \emptyset\)! Choosing \(w^2 \equiv -1 - x^2 \pmod p\) in \(A \cap B\) gives \(w^2 + x^2 + 1^2 + 0^2 = kp\) with \(0 &lt; w^2 + x^2 + 1 &lt; 2\bigl(\frac{p}{2}\bigr)^2 + 1 &lt; p^2\), seeding Lagrange's four-square descent with \(1 \le k &lt; p\) for every odd prime \(p\). \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <p><a href="index.html">← Back to the Patterns Atlas Index</a> · <a href="m01-root-two-irrational.html">← Previous: M01 · √2 is irrational</a> · <a href="m03-picks-theorem.html">Next: M03 · Pick's theorem →</a></p>
+</footer>
+
+</main>
+</body>
+</html>

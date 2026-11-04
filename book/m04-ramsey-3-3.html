@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M04 · Six people at a party — Patterns of Math</title>
+<style>
+/* Patterns of Math — shared stylesheet.
+   Target: clean, readable textbook-page feel. Light mode default,
+   dark mode supported via prefers-color-scheme. MathJax-friendly. */
+
+:root {
+  --bg: #faf8f4;
+  --fg: #1a1a1a;
+  --muted: #5a5550;
+  --accent: #8b2635;        /* deep crimson — sparingly */
+  --accent-2: #3a6073;      /* slate blue for secondary markers */
+  --box-bg: #f2eee6;
+  --box-border: #d4cbbf;
+  --onramp-bg: #eef3f7;
+  --onramp-border: #b8cad6;
+  --warn-bg: #f8ece8;
+  --warn-border: #d8a99c;
+  --code-bg: #f0ece4;
+  --rule: #dcd4c6;
+  --maxw: 44rem;            /* ~700px — comfortable reading measure */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161513;
+    --fg: #e8e4dc;
+    --muted: #9b948a;
+    --accent: #e06c75;
+    --accent-2: #7aa6be;
+    --box-bg: #211f1c;
+    --box-border: #3a3630;
+    --onramp-bg: #1c2227;
+    --onramp-border: #34434f;
+    --warn-bg: #281e1b;
+    --warn-border: #5a3a32;
+    --code-bg: #221f1b;
+    --rule: #2e2a24;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html {
+  font-size: 17px;
+  line-height: 1.65;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Charter", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* Header / identity bar */
+header.chapter-header {
+  border-bottom: 2px solid var(--fg);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.tier-label {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.4rem;
+}
+
+h1 {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+
+h1 .pid {
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 0.35rem;
+}
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0.4rem 0 0;
+}
+
+.prereqs {
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.9rem;
+}
+
+.prereqs a {
+  color: var(--accent-2);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent-2);
+}
+
+/* Section headings */
+section {
+  margin: 2.5rem 0;
+}
+
+h2 {
+  font-size: 1.35rem;
+  line-height: 1.3;
+  margin: 2.2rem 0 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 1.08rem;
+  margin: 1.5rem 0 0.4rem;
+  color: var(--fg);
+}
+
+p { margin: 0 0 1rem; }
+
+/* The Pattern Box — centerpiece of each chapter */
+.pattern-box {
+  background: var(--box-bg);
+  border-left: 4px solid var(--accent);
+  border-top: 1px solid var(--box-border);
+  border-right: 1px solid var(--box-border);
+  border-bottom: 1px solid var(--box-border);
+  padding: 1.1rem 1.35rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.pattern-box h3 {
+  margin-top: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pattern-box ol, .pattern-box ul {
+  margin-bottom: 0.25rem;
+}
+
+/* On-ramp / aside / warning boxes */
+.onramp, .aside, .warn {
+  padding: 0.95rem 1.2rem;
+  margin: 1.35rem 0;
+  border-radius: 4px;
+  font-size: 0.96rem;
+}
+
+.onramp {
+  background: var(--onramp-bg);
+  border: 1px solid var(--onramp-border);
+}
+
+.aside {
+  background: var(--box-bg);
+  border: 1px solid var(--box-border);
+}
+
+.warn {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+}
+
+.onramp > strong:first-child,
+.aside > strong:first-child,
+.warn > strong:first-child {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--accent-2);
+}
+
+.warn > strong:first-child { color: var(--accent); }
+
+/* Exercises & collapsible solutions */
+.exercise {
+  margin: 1.25rem 0;
+  padding: 0.9rem 1.15rem;
+  background: var(--box-bg);
+  border: 1px solid var(--box-border);
+  border-radius: 4px;
+}
+
+details {
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--rule);
+}
+
+summary {
+  cursor: pointer;
+  font-family: system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: var(--accent-2);
+  font-weight: 600;
+  user-select: none;
+}
+
+summary:hover { color: var(--accent); }
+
+/* Figures & SVG */
+figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+figure svg {
+  max-width: 100%;
+  height: auto;
+}
+
+figcaption {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 0.45rem;
+  font-style: italic;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.45rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  border-bottom: 2px solid var(--fg);
+}
+
+code {
+  background: var(--code-bg);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+a { color: var(--accent); }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+</style>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+
+<header class="chapter-header">
+  <p class="tier-label">Multi-Pattern Synthesis · Landmark Theorems</p>
+  <h1><span class="pid">M04</span> · Six people at a party</h1>
+  <p class="lede">Why any gathering of six people contains three mutual acquaintances or three mutual strangers (\(R(3, 3) = 6\)), and in fact at least <em>two</em> such trios — synthesizing vertex/color symmetry (<span class="pid">P08</span> + <span class="pid">P68</span>) with the Pigeonhole Principle (<span class="pid">P10</span>) and cherry double counting (<span class="pid">P70</span>).</p>
+  <p class="prereqs"><strong>Moves Combined:</strong> <a href="p08-symmetry.html">P08 · Exploit symmetry</a> + <a href="p10-pigeonhole.html">P10 · Force a collision</a> (with <a href="p68-wlog.html">P68 · Without loss of generality</a>, <a href="p70-double-counting.html">P70 · Double counting</a> &amp; <a href="p75-coloring-arguments.html">P75 · Coloring arguments</a>)</p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — Modeling a party as a two-colored complete graph \(K_n\).</strong> Represent \(n\) people at a party by \(n\) vertices \(V = \{v_1, v_2, \dots, v_n\}\), and connect every pair of people \(\{v_i, v_j\}\) by an edge, forming the <strong>complete graph</strong> \(K_n\) with \(\binom{n}{2} = \frac{n(n-1)}{2}\) edges. Color each edge:</p>
+  <ul>
+    <li><strong>Red (Crimson):</strong> if \(v_i\) and \(v_j\) know each other (mutual acquaintances).</li>
+    <li><strong>Blue (Slate):</strong> if \(v_i\) and \(v_j\) do not know each other (mutual strangers).</li>
+  </ul>
+  <p>Three mutual acquaintances form a <strong>Red triangle \(K_3\)</strong>; three mutual strangers form a <strong>Blue triangle \(K_3\)</strong>. Either way, they form a <strong>monochromatic triangle</strong>. The <strong>Ramsey number</strong> \(R(r, s)\) is the smallest integer \(N\) such that every Red/Blue edge-coloring of \(K_N\) contains either a Red \(K_r\) or a Blue \(K_s\).</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — Why five people are not enough (\(R(3, 3) &gt; 5\)).</strong> Seat \(5\) people \(v_1, v_2, v_3, v_4, v_5\) in a circle around a pentagonal table. Suppose each person knows <em>only</em> their two immediate neighbors next to them on the outer pentagon (Red \(5\)-cycle \(C_5\)), and is a stranger to the two people across the table on the inner star pentagram (Blue \(5\)-cycle \(C_5\)). Because the shortest cycle in a pentagon has length \(5\), neither the Red \(C_5\) nor the Blue \(C_5\) contains a triangle! Thus \(R(3, 3) \ge 6\).</p>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>How many Red/Blue edge-colorings exist on \(K_6\)? Since \(K_6\) has \(\binom{6}{2} = 15\) edges, there are \(2^{15} = 32{,}768\) possible ways to assign acquaintance/stranger relationships among six people. Checking all \(32{,}768\) graphs by brute force would tell us that every single one contains a monochromatic triangle, but would give zero insight into <em>why</em> \(n = 6\) crosses a threshold that \(n = 5\) avoids.</p>
+  <p>In this final synthesis chapter of our Atlas, we collapse all \(32{,}768\) cases into a three-line deduction by chaining four patterns:</p>
+  <ol>
+    <li><strong>Vertex &amp; Color Symmetry (<a href="p08-symmetry.html"><span class="pid">P08</span></a> + <a href="p68-wlog.html"><span class="pid">P68</span></a>):</strong> Use the vertex-transitivity of \(K_6\) to focus on a single person \(v_1\), and use Red\(\leftrightarrow\)Blue swap symmetry to assume without loss of generality that the majority color among \(v_1\)'s five incident edges is Red.</li>
+    <li><strong>Pigeonhole Degree Collision (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>):</strong> Because \(v_1\) has \(5\) incident edges partitioned into \(2\) colors, at least \(\lceil 5/2 \rceil = 3\) edges share the same color (say Red, to \(v_2, v_3, v_4\)) — reducing a \(2\)-color \((3, 3)\) problem on \(6\) vertices to a \((2, 3)\) problem on the \(3\) neighbors \(\{v_2, v_3, v_4\}\)!</li>
+    <li><strong>Cherry Double Counting (<a href="p70-double-counting.html"><span class="pid">P70</span></a>):</strong> Count two-colored \(2\)-edge paths ("bichromatic cherries") across all \(6\) vertices to prove Goodman's stronger theorem: every \(2\)-coloring of \(K_6\) contains at least <strong>two</strong> monochromatic triangles!</li>
+  </ol>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: the three-move force from one vertex</h2>
+  <p>Let \(v_1, v_2, v_3, v_4, v_5, v_6\) be six people at a party, and color each of the \(\binom{6}{2} = 15\) edges of \(K_6\) Red or Blue. Watch how focusing on a single vertex \(v_1\) forces a monochromatic triangle in three moves:</p>
+  <ol>
+    <li><strong>Move 1 — Isolate one vertex by symmetry (<span class="pid">P08</span>):</strong> Look at person \(v_1\). They are connected to the other \(5\) people \(v_2, v_3, v_4, v_5, v_6\) by \(5\) edges, each colored Red or Blue.</li>
+    <li><strong>Move 2 — Force \(3\) same-colored neighbors by Pigeonhole (<span class="pid">P10</span>) + WLOG (<span class="pid">P68</span>):</strong> Putting \(5\) edges into \(2\) color buckets (Red and Blue) forces at least one bucket to contain at least \(\lceil 5/2 \rceil = 3\) edges (since \(2 + 2 = 4 &lt; 5\)). Because the statement "contains a Red triangle or a Blue triangle" is invariant under swapping the words Red and Blue and relabeling \(v_2, \dots, v_6\), we may assume <strong>without loss of generality (<span class="pid">P68</span>)</strong> that the three edges \(v_1 v_2,\; v_1 v_3,\; v_1 v_4\) are all <strong>Red</strong>.</li>
+    <li><strong>Move 3 — Inspect the triangle \(\{v_2, v_3, v_4\}\) opposite \(v_1\):</strong> Now look at the \(3\) edges connecting \(v_2, v_3, v_4\) to one another (\(v_2 v_3,\; v_3 v_4,\; v_2 v_4\)):
+      <ul>
+        <li><strong>Case A (At least one edge among \(\{v_2, v_3, v_4\}\) is Red):</strong> Suppose \(v_2 v_3\) is Red. Since \(v_1 v_2\) and \(v_1 v_3\) are already Red, \(\{v_1, v_2, v_3\}\) forms a <strong>Red triangle</strong>!</li>
+        <li><strong>Case B (No edge among \(\{v_2, v_3, v_4\}\) is Red):</strong> Then all three edges \(v_2 v_3,\; v_3 v_4,\; v_2 v_4\) must be Blue — so \(\{v_2, v_3, v_4\}\) itself forms a <strong>Blue triangle</strong>!</li>
+      </ul></li>
+  </ol>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Step in the Proof of \(R(3,3) = 6\)</th>
+        <th>Pattern Deployed</th>
+        <th>Combinatorial Action</th>
+        <th>Why \(n = 5\) Fails at This Step</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Counterexample for \(n = 5\)</strong></td>
+        <td><span class="pid">P75</span> · Coloring / Decomposition</td>
+        <td>Split \(K_5\) into outer Red \(C_5\) + inner Blue \(C_5\)</td>
+        <td>Both color classes are triangle-free \(5\)-cycles!</td>
+      </tr>
+      <tr>
+        <td><strong>1. Fan out from \(v_1\) in \(K_6\)</strong></td>
+        <td><span class="pid">P08</span> · Exploit symmetry</td>
+        <td>Inspect the \(d = 5\) edges incident to \(v_1\)</td>
+        <td>In \(K_5\), \(v_1\) has only \(d = 4\) incident edges</td>
+      </tr>
+      <tr>
+        <td><strong>2. Majority color bucket</strong></td>
+        <td><span class="pid">P10</span> · Pigeonhole + <span class="pid">P68</span> · WLOG</td>
+        <td>\(\lceil 5/2 \rceil = 3\) edges share a color (WLOG Red to \(v_2,v_3,v_4\))</td>
+        <td>In \(K_5\), \(4 = 2 + 2\) allows \(2\) Red and \(2\) Blue edges!</td>
+      </tr>
+      <tr>
+        <td><strong>3. Close the triangle on \(\{v_2,v_3,v_4\}\)</strong></td>
+        <td><span class="pid">P67</span> / Disjunctive dichotomy</td>
+        <td>Any Red edge \(\implies\) Red \(\Delta\) with \(v_1\); all Blue \(\implies\) Blue \(\Delta v_2 v_3 v_4\)</td>
+        <td>With only \(2\) Red neighbors \(\{v_2, v_3\}\), a single Blue edge \(v_2 v_3\) is not a triangle!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Together with the \(C_5\) counterexample on \(5\) vertices (On-ramp 2), this proves \(R(3, 3) = 6\). Even better, notice how Step 2 reduced \(R(3, 3)\) to \(R(2, 3) = 3\): in general, if \(v_1\) has at least \(R(r-1, s)\) Red neighbors, either those neighbors contain a Red \(K_{r-1}\) (which joins with \(v_1\) to form a Red \(K_r\)) or they contain a Blue \(K_s\)!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the synthesis</h2>
+
+  <div class="pattern-box" id="box-m04">
+    <h3>Box M04 · The Multi-Pattern Synthesis for Ramsey's Theorem \(R(3, 3) = 6\)</h3>
+    <p>Every Red/Blue edge-coloring of \(K_6\) contains at least one monochromatic triangle — and in fact <strong>at least two</strong> monochromatic triangles (Goodman's Theorem), whereas \(K_5\) has a triangle-free \(2\)-coloring. This synthesis combines four patterns:</p>
+    <ol>
+      <li><strong>Self-Complementary Counterexample for \(N = 5\) (<span class="pid">P75</span> + <span class="pid">P08</span>):</strong> Decomposing \(E(K_5) = C_5^{\text{Red}} \sqcup C_5^{\text{Blue}}\) shows \(R(3, 3) &gt; 5\).</li>
+      <li><strong>Pigeonhole Neighborhood Reduction (<span class="pid">P08</span> + <span class="pid">P68</span> + <span class="pid">P10</span>):</strong> At any vertex \(v_1 \in V(K_N)\) with \(N = R(r-1, s) + R(r, s-1)\), the \(N - 1\) incident edges split into a Red neighborhood \(N_R(v_1)\) and a Blue neighborhood \(N_B(v_1)\) with \(|N_R(v_1)| + |N_B(v_1)| = R(r-1, s) + R(r, s-1) - 1\), forcing either \(|N_R(v_1)| \ge R(r-1, s)\) or \(|N_B(v_1)| \ge R(r, s-1)\).</li>
+      <li><strong>Bichromatic Cherry Double Counting (<span class="pid">P70</span>):</strong> Every non-monochromatic triangle in \(K_n\) contains exactly \(2\) bichromatic cherries (pairs of incident edges of opposite colors at a vertex \(v\)), while every monochromatic triangle contains \(0\), yielding Goodman's exact identity:
+        \[
+          T_{\text{mono}} \;=\; \binom{n}{3} \,-\, \frac{1}{2}\sum_{v=1}^n r_v(n - 1 - r_v).
+        \]</li>
+      <li><strong>Quadratic Extremal Bound (<span class="pid">P15</span>):</strong> For \(n = 6\), since \(r_v \in \mathbb{Z}\), \(r_v(5 - r_v) \le 2 \times 3 = 6\), forcing \(T_{\text{mono}} \ge 20 - \frac{1}{2}(6 \times 6) = 2\).</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="Left: K_5 decomposed into an outer Red pentagon C_5 and an inner Blue star pentagram C_5 with 0 monochromatic triangles. Right: Vertex v_1 in K_6 with 3 Red edges to v_2, v_3, v_4 forcing either a Red triangle with v_1 or a Blue triangle v_2 v_3 v_4">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <!-- Left panel: K_5 = Red C_5 + Blue C_5 (R(3,3) > 5) -->
+      <!-- Pentagon center (145, 112), radius 68:
+           u1=(145, 44), u2=(210, 91), u3=(185, 167), u4=(105, 167), u5=(80, 91) -->
+      <text x="145" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Why N = 5 Escapes: K₅ = Red C₅ ⊔ Blue C₅</text>
+      <!-- Outer Red pentagon -->
+      <polygon points="145,44 210,91 185,167 105,167 80,91" fill="none" stroke="#8b2635" stroke-width="2.5"/>
+      <!-- Inner Blue pentagram (chords) -->
+      <polygon points="145,44 185,167 80,91 210,91 105,167" fill="none" stroke="#3a6073" stroke-width="2" stroke-dasharray="5,3"/>
+      <circle cx="145" cy="44" r="5" fill="#1a1a1a"/>
+      <circle cx="210" cy="91" r="5" fill="#1a1a1a"/>
+      <circle cx="185" cy="167" r="5" fill="#1a1a1a"/>
+      <circle cx="105" cy="167" r="5" fill="#1a1a1a"/>
+      <circle cx="80" cy="91" r="5" fill="#1a1a1a"/>
+      <text x="145" y="198" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#5a5550" text-anchor="middle">Every vertex has 2 Red &amp; 2 Blue edges ⇒ 0 monochromatic triangles!</text>
+
+      <!-- Right panel: Pigeonhole Neighborhood Force in K_6 from v_1 -->
+      <text x="445" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Why N = 6 Forces a Triangle (P08 + P68 + P10)</text>
+      <!-- v1 at (330, 110); Red neighbors v2=(465, 48), v3=(535, 95), v4=(465, 142); other two v5=(385, 172), v6=(425, 172) -->
+      <!-- Triangle {v2, v3, v4} shaded -->
+      <polygon points="465,48 535,95 465,142" fill="#eef3f7" stroke="#3a6073" stroke-width="2.2" stroke-dasharray="5,3"/>
+      <!-- 3 Red edges from v1 to v2, v3, v4 -->
+      <line x1="330" y1="110" x2="465" y2="48" stroke="#8b2635" stroke-width="2.6"/>
+      <line x1="330" y1="110" x2="535" y2="95" stroke="#8b2635" stroke-width="2.6"/>
+      <line x1="330" y1="110" x2="465" y2="142" stroke="#8b2635" stroke-width="2.6"/>
+      <!-- 2 other edges from v1 to v5, v6 (gray/muted) -->
+      <line x1="330" y1="110" x2="375" y2="172" stroke="#9b948a" stroke-width="1.4"/>
+      <line x1="330" y1="110" x2="415" y2="172" stroke="#9b948a" stroke-width="1.4"/>
+      <circle cx="330" cy="110" r="6" fill="#8b2635"/>
+      <circle cx="465" cy="48" r="5" fill="#3a6073"/>
+      <circle cx="535" cy="95" r="5" fill="#3a6073"/>
+      <circle cx="465" cy="142" r="5" fill="#3a6073"/>
+      <circle cx="375" cy="172" r="4" fill="#9b948a"/>
+      <circle cx="415" cy="172" r="4" fill="#9b948a"/>
+      <text x="312" y="114" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="end">v₁</text>
+      <text x="465" y="36" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₂</text>
+      <text x="552" y="99" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">v₃</text>
+      <text x="465" y="158" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₄</text>
+      <text x="375" y="185" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">v₅</text>
+      <text x="415" y="185" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">v₆</text>
+      <text x="445" y="198" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">⌈5/2⌉ = 3 Red edges from v₁ ⇒ Red edge in {v₂,v₃,v₄} or all-Blue Δv₂v₃v₄!</text>
+    </svg>
+    <figcaption><strong>Fig M04.1.</strong> <em>Left:</em> On \(5\) vertices, \(K_5\) decomposes into two triangle-free \(5\)-cycles (solid Red outer pentagon \(C_5\) and dashed Blue inner star \(C_5\)), proving \(R(3, 3) &gt; 5\). <em>Right:</em> On \(6\) vertices, Pigeonhole (<span class="pid">P10</span>) + WLOG (<span class="pid">P68</span>) gives \(v_1\) at least \(\lceil 5/2 \rceil = 3\) Red neighbors \(\{v_2, v_3, v_4\}\), whose internal triangle either contains a Red edge (completing a Red \(\Delta\) with \(v_1\)) or is entirely Blue!</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m04a">
+    <h3>Box M04.A · How Cherry Double Counting (<span class="pid">P70</span>) Upgrades \(T_{\text{mono}} \ge 1\) to \(T_{\text{mono}} \ge 2\)</h3>
+    <p>Why does the local Pigeonhole argument at \(v_1\) find only <em>one</em> monochromatic triangle, whereas every \(2\)-coloring of \(K_6\) actually has at least <em>two</em>? Because looking at a single vertex ignores the global incidence structure! Instead, define a <strong>bichromatic cherry centered at \(v\)</strong> to be a pair of edges \(\{vu, vw\}\) meeting at \(v\) such that one edge is Red and the other is Blue:</p>
+    <ul>
+      <li><strong>Count by vertices:</strong> If vertex \(v\) has \(r_v\) Red edges and \(b_v = (n - 1 - r_v)\) Blue edges, it is the center of exactly \(r_v b_v = r_v(n - 1 - r_v)\) bichromatic cherries.</li>
+      <li><strong>Count by triangles:</strong> A monochromatic triangle (all \(3\) edges Red or all \(3\) edges Blue) contains <strong>\(0\)</strong> bichromatic cherries. A non-monochromatic triangle (two edges of one color and one edge of the other color) contains <strong>exactly \(2\)</strong> bichromatic cherries!</li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 185" width="100%" role="img" aria-label="Double counting bichromatic cherries in triangles: a monochromatic triangle has 0 bichromatic corners, whereas a non-monochromatic triangle has 2 bichromatic corners and 1 monochromatic corner">
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Goodman's Cherry Double-Counting Engine (P70)</text>
+      <!-- Left box: Monochromatic Triangle -->
+      <rect x="25" y="30" width="255" height="135" rx="5" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <text x="152" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Monochromatic Triangle (RRR or BBB)</text>
+      <polygon points="152,62 105,132 199,132" fill="#ffffff" stroke="#8b2635" stroke-width="2.5"/>
+      <circle cx="152" cy="62" r="4.5" fill="#8b2635"/>
+      <circle cx="105" cy="132" r="4.5" fill="#8b2635"/>
+      <circle cx="199" cy="132" r="4.5" fill="#8b2635"/>
+      <text x="152" y="153" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">0 bichromatic cherries!</text>
+
+      <!-- Right box: Non-Monochromatic Triangle (RRB or BBR) -->
+      <rect x="320" y="30" width="255" height="135" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="447" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">Non-Monochromatic Triangle (RRB or BBR)</text>
+      <!-- Top vertex (447, 62) has 2 Red edges; bottom two vertices (400, 132) and (494, 132) each have 1 Red + 1 Blue edge! -->
+      <line x1="447" y1="62" x2="400" y2="132" stroke="#8b2635" stroke-width="2.5"/>
+      <line x1="447" y1="62" x2="494" y2="132" stroke="#8b2635" stroke-width="2.5"/>
+      <line x1="400" y1="132" x2="494" y2="132" stroke="#3a6073" stroke-width="2.5" stroke-dasharray="5,3"/>
+      <circle cx="447" cy="62" r="4.5" fill="#1a1a1a"/>
+      <circle cx="400" cy="132" r="7" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <circle cx="494" cy="132" r="7" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="447" y="58" font-family="system-ui, sans-serif" font-size="8.2" fill="#5a5550" text-anchor="middle">same color (RR)</text>
+      <text x="385" y="135" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635" text-anchor="end">RB cherry #1</text>
+      <text x="509" y="135" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635">RB cherry #2</text>
+      <text x="447" y="153" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">Always 2 bichromatic cherries ⇒ T_non-mono = ½ ∑ r_v b_v!</text>
+    </svg>
+    <figcaption><strong>Fig M04.2.</strong> Double-counting bichromatic cherries (<span class="pid">P70</span>): every non-monochromatic triangle has two corners where a Red edge meets a Blue edge, so the total number of non-monochromatic triangles in \(K_n\) is exactly \(\frac{1}{2}\sum_{v=1}^n r_v(n - 1 - r_v)\).</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m04b">
+    <h3>Box M04.B · Three-Key Synthesis Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> Unavoidable monochromatic substructure in any partition/coloring of edges or integers (\(R(r, s) \le N\), lower bounds on monochromatic counts).</li>
+      <li><strong>Problem shape:</strong> Complete graph \(K_n\) with vertex-transitive and color-swap symmetry, where local vertex degrees constrain global triangle counts.</li>
+      <li><strong>Tools at hand:</strong> Symmetry + WLOG reduction (<span class="pid">P08</span> + <span class="pid">P68</span>), Pigeonhole degree splitting (<span class="pid">P10</span>), bichromatic cherry double counting (<span class="pid">P70</span>), and explicit cycle/Paley graph counterexamples (<span class="pid">P75</span>).</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked synthesis exemplars</h2>
+  <p>We now develop three landmark extensions of the party problem: Goodman's exact formula for monochromatic triangles in \(K_n\), the Erdős–Szekeres recursive upper bound for general Ramsey numbers \(R(r, s)\), and Schur's theorem on monochromatic solutions to \(x + y = z\).</p>
+
+  <h3>Exemplar 1 · Goodman's Theorem: At Least Two Monochromatic Triangles in \(K_6\) (<span class="pid">P70</span> + <span class="pid">P15</span>)</h3>
+  <p><strong>Theorem (A. W. Goodman, 1959).</strong> <em>In any Red/Blue edge-coloring of \(K_n\) where vertex \(v\) has Red degree \(r_v\) and Blue degree \(b_v = n - 1 - r_v\), the total number of monochromatic triangles \(T_{\text{mono}}\) is given by the exact identity</em></p>
+  \[
+    T_{\text{mono}} \;=\; \binom{n}{3} \,-\, \frac{1}{2}\sum_{v=1}^n r_v(n - 1 - r_v).
+  \]
+  <p><em>In particular, for \(n = 6\), every \(2\)-coloring of \(K_6\) contains <strong>at least \(2\) monochromatic triangles</strong>.</em></p>
+  <p><strong>Synthesis proof (Cherry Double Counting <span class="pid">P70</span> + Discrete Quadratic Bound <span class="pid">P15</span>):</strong></p>
+  <ol>
+    <li><strong>Step 1 — Double-count bichromatic cherries (<a href="p70-double-counting.html"><span class="pid">P70</span></a>):</strong> Let \(\mathcal{C}\) be the set of all ordered triples \((v, \{u, w\})\) where \(u, w \ne v\) are two distinct neighbors of \(v\) such that one of the edges \(vu, vw\) is Red and the other is Blue (a <em>bichromatic cherry</em> with apex \(v\)):
+      <ul>
+        <li><strong>Count 1 (by apex vertex \(v\)):</strong> To form a bichromatic cherry at \(v\), we choose one of the \(r_v\) Red edges incident to \(v\) and one of the \(b_v = n - 1 - r_v\) Blue edges incident to \(v\). Summing over all \(n\) vertices gives
+          \[
+            |\mathcal{C}| \;=\; \sum_{v=1}^n r_v b_v \;=\; \sum_{v=1}^n r_v(n - 1 - r_v).
+          \]</li>
+        <li><strong>Count 2 (by triangles \(\{u, v, w\}\)):</strong> Every \(3\)-subset of vertices \(\{u, v, w\}\) forms a triangle in \(K_n\). If the triangle is <em>monochromatic</em> (RRR or BBB), all three of its corners are monochromatic cherries, so it contributes \(0\) to \(|\mathcal{C}|\). If the triangle is <em>non-monochromatic</em> (RRB or BBR), exactly one of its corners has two edges of the same color and the other <strong>\(2\) corners</strong> are bichromatic cherries! Hence
+          \[
+            |\mathcal{C}| \;=\; 2\,T_{\text{non-mono}} \;=\; 2\left(\binom{n}{3} - T_{\text{mono}}\right).
+          \]</li>
+      </ul>
+      Equating the two expressions for \(|\mathcal{C}|\) and dividing by \(2\) yields Goodman's identity \(T_{\text{mono}} = \binom{n}{3} - \frac{1}{2}\sum_{v=1}^n r_v(n - 1 - r_v)\).</li>
+    <li><strong>Step 2 — Maximize \(r_v(5 - r_v)\) over integers (<a href="p15-bound-both-sides.html"><span class="pid">P15</span></a>):</strong> When \(n = 6\), we have \(\binom{6}{3} = 20\) and \(r_v \in \{0, 1, 2, 3, 4, 5\}\). Because \(r_v\) is an integer, the product \(r_v(5 - r_v)\) takes values in \(\{0, 4, 6\}\) and attains its maximum of \(2 \times 3 = 6\) when \(r_v \in \{2, 3\}\). Therefore
+      \[
+        T_{\text{mono}} \;=\; 20 \,-\, \frac{1}{2}\sum_{v=1}^6 r_v(5 - r_v) \;\ge\; 20 \,-\, \frac{1}{2}(6 \times 6) \;=\; 20 - 18 \;=\; \mathbf{2}.
+      \]
+      Moreover, equality \(T_{\text{mono}} = 2\) holds if and only if <em>every</em> vertex \(v\) has \(r_v \in \{2, 3\}\) (for example, two disjoint Red triangles \(v_1 v_2 v_3\) and \(v_4 v_5 v_6\) with all \(9\) cross-edges Blue!). \(\blacksquare\)</li>
+  </ol>
+
+  <h3>Exemplar 2 · The Erdős–Szekeres Recursive Bound &amp; Parity Improvement (<span class="pid">P08</span> + <span class="pid">P10</span> + <span class="pid">P09</span>)</h3>
+  <p><strong>Theorem (Paul Erdős &amp; George Szekeres, 1935; Greenwood &amp; Gleason, 1955).</strong> <em>For all integers \(r, s \ge 2\), the Ramsey number \(R(r, s)\) exists and satisfies</em></p>
+  \[
+    R(r, s) \;\le\; R(r - 1, s) \,+\, R(r, s - 1) \;\le\; \binom{r + s - 2}{r - 1}.
+  \]
+  <p><em>Furthermore, if both \(R(r - 1, s)\) and \(R(r, s - 1)\) are <strong>even</strong>, then the strict inequality \(R(r, s) \le R(r - 1, s) + R(r, s - 1) - 1\) holds — proving in particular that \(R(3, 4) = 9\).</em></p>
+  <p><strong>Synthesis proof (Pigeonhole Induction <span class="pid">P10</span> + Handshaking Parity Invariant <span class="pid">P09</span>):</strong></p>
+  <ol>
+    <li><strong>Step 1 — Pigeonhole induction at \(v_1\) (<span class="pid">P10</span>):</strong> Set \(N = R(r - 1, s) + R(r, s - 1)\) and pick a vertex \(v_1 \in V(K_N)\). Its \(N - 1\) neighbors partition into the Red neighborhood \(N_R(v_1)\) and the Blue neighborhood \(N_B(v_1)\), with
+      \[
+        |N_R(v_1)| + |N_B(v_1)| \;=\; N - 1 \;=\; \bigl(R(r - 1, s) - 1\bigr) + \bigl(R(r, s - 1) - 1\bigr) + 1.
+      \]
+      By the Pigeonhole Principle, either \(|N_R(v_1)| \ge R(r - 1, s)\) or \(|N_B(v_1)| \ge R(r, s - 1)\). In the first case, the induced subgraph on \(N_R(v_1)\) contains either a Red \(K_{r-1}\) (which together with \(v_1\) forms a Red \(K_r\)!) or a Blue \(K_s\); the second case is symmetric. Since \(R(2, s) = s = \binom{s}{1}\) and \(R(r, 2) = r = \binom{r}{r-1}\), Pascal's identity \(\binom{r+s-2}{r-1} = \binom{r+s-3}{r-2} + \binom{r+s-3}{r-1}\) gives the binomial upper bound by induction!</li>
+    <li><strong>Step 2 — Parity improvement when both terms are even (<span class="pid">P09</span> + <span class="pid">P70</span>):</strong> Suppose \(A = R(r-1, s)\) and \(B = R(r, s-1)\) are both <em>even</em>, and consider \(K_{A + B - 1}\) on \(n = A + B - 1\) vertices (note that \(n\) is <strong>odd</strong>!). Every vertex \(v\) has \(r_v + b_v = A + B - 2 = (A - 1) + (B - 1)\). The only way \(v\) could avoid having \(r_v \ge A\) or \(b_v \ge B\) is if \(r_v = A - 1\) (which is <strong>odd</strong>!) for <em>every</em> vertex \(v\). Complete the contradiction via the Handshaking Lemma (<span class="pid">P70</span>): in the Red subgraph on \(n\) vertices, the sum of all Red degrees must be even:
+      \[
+        2|E_{\text{Red}}| \;=\; \sum_{v=1}^{A+B-1} r_v \;=\; (A + B - 1)(A - 1) \;=\; (\text{odd}) \times (\text{odd}) \;=\; \text{odd},
+      \]
+      which is impossible! Thus at least one vertex has \(r_v \ge A\) or \(b_v \ge B\), proving \(R(r, s) \le A + B - 1\). For \(R(3, 4)\), since \(R(2, 4) = 4\) and \(R(3, 3) = 6\) are both even, this immediately gives \(R(3, 4) \le 4 + 6 - 1 = \mathbf{9}\) (and an explicit \(8\)-vertex counterexample shows \(R(3, 4) = 9\)). \(\blacksquare\)</li>
+  </ol>
+
+  <h3>Exemplar 3 · Schur's Theorem on Sum-Free Colorings via Edge-Coloring \(K_6\) (<span class="pid">P75</span> + <span class="pid">P10</span>)</h3>
+  <p><strong>Theorem (Issai Schur, 1916 — Two-Color Case).</strong> <em>For any \(2\)-coloring \(c : \{1, 2, 3, 4, 5\} \to \{\text{Red}, \text{Blue}\}\) of the first five positive integers, there exist (not necessarily distinct) integers \(x, y, z \in \{1, 2, 3, 4, 5\}\) of the <strong>same color</strong> such that \(x + y = z\).</em></p>
+  <p><strong>Synthesis proof (Induced Difference-Coloring of \(K_6\) <span class="pid">P75</span> + Ramsey's Theorem \(R(3, 3) = 6\)):</strong></p>
+  <ol>
+    <li><strong>Step 1 — Translate integer coloring into an edge-coloring of \(K_6\):</strong> Label the \(6\) vertices of \(K_6\) by the numbers \(V = \{1, 2, 3, 4, 5, 6\}\). For every pair of distinct vertices \(1 \le i &lt; j \le 6\), their difference \(j - i\) lies in \(\{1, 2, 3, 4, 5\}\). Color the edge \(\{i, j\}\) with the color of its difference:
+      \[
+        \chi(\{i, j\}) \;=\; c(j - i) \;\in\; \{\text{Red}, \text{Blue}\}.
+      \]</li>
+    <li><strong>Step 2 — Force a monochromatic triangle via \(R(3, 3) = 6\):</strong> By our party theorem on \(K_6\), the edge-coloring \(\chi\) must contain a monochromatic triangle on three vertices \(1 \le i &lt; j &lt; k \le 6\).</li>
+    <li><strong>Step 3 — Recover \(x + y = z\) via telescoping differences:</strong> Set \(x = j - i\), \(y = k - j\), and \(z = k - i\). Then \(x, y, z \in \{1, 2, 3, 4, 5\}\) all have the same color \(c(x) = c(y) = c(z)\), and
+      \[
+        x + y \;=\; (j - i) + (k - j) \;=\; k - i \;=\; z!
+      \]
+      Notice how tight this is: on \(\{1, 2, 3, 4\}\), the \(2\)-coloring \(\text{Red} = \{1, 4\},\; \text{Blue} = \{2, 3\}\) has <em>no</em> monochromatic solution to \(x + y = z\) (and induces our triangle-free \(C_5 \sqcup C_5\) coloring on \(K_5\)!). \(\blacksquare\)</li>
+  </ol>
+</section>
+
+<section id="fails">
+  <h2>5 · Where the party argument breaks — and why Ramsey numbers explode</h2>
+  <p>Testing the boundaries of our synthesis reveals why Ramsey theory is famous for both extreme elegance at small scales and extreme intractability at large scales:</p>
+  <ul>
+    <li><strong>Exhibit A — Why \(K_5\) has \(T_{\text{mono}} = 0\) in Goodman's formula:</strong> Plug \(n = 5\) into Goodman's identity \(T_{\text{mono}} = \binom{5}{3} - \frac{1}{2}\sum_{v=1}^5 r_v(4 - r_v)\). When \(r_v = 2\) at every vertex (each person knows \(2\) people and is a stranger to \(2\) people, as in the outer Red pentagon + inner Blue star pentagram of Fig M04.1), each vertex contributes \(r_v(4 - r_v) = 2 \times 2 = 4\) bichromatic cherries, giving
+      \[
+        T_{\text{mono}} \;=\; 10 \,-\, \frac{1}{2}(5 \times 4) \;=\; 10 - 10 \;=\; \mathbf{0}!
+      \]
+      Algebraically, \(5\) is a prime \(\equiv 1 \pmod 4\), and the Red/Blue decomposition of \(K_5\) is the <strong>Paley graph of order \(5\)</strong>: connect \(i, j \in \mathbb{Z}/5\mathbb{Z}\) in Red if \(i - j \equiv \pm 1 \pmod 5\) (a quadratic residue mod \(5\)) and in Blue if \(i - j \equiv \pm 2 \pmod 5\) (a quadratic non-residue mod \(5\))!</li>
+    <li><strong>Exhibit B — Why \(R(k, k)\) is almost impossible to compute for \(k \ge 5\):</strong> Our recursive bound gives \(R(3, 3) = 6\) and \(R(4, 4) \le 2 R(3, 4) = 18\) (in fact \(R(4, 4) = 18\), proved by Greenwood and Gleason in 1955 using the Paley graph of order \(17\)). What about \(R(5, 5)\)? Even with modern supercomputers, humanity knows only that \(43 \le R(5, 5) \le 48\)! Why? Because \(K_{43}\) has \(\binom{43}{2} = 903\) edges and \(2^{903} \approx 10^{271}\) colorings, while the Erdős–Szekeres upper bound grows like \(\binom{2k-2}{k-1} \approx 4^{k-1}/\sqrt{\pi k}\) (improved in 2023 by Campos, Griffiths, Morris, and Sahasrabudhe to \((4 - \varepsilon)^k\)) and Erdős's 1947 probabilistic lower bound gives \(R(k, k) &gt; 2^{k/2}\).</li>
+    <li><strong>Exhibit C — Three colors require \(17\) people (\(R(3, 3, 3) = 17\)):</strong> What if edges of \(K_n\) are colored with <em>three</em> colors (Red, Blue, Green — say, colleagues, friends, and strangers)? On \(K_6\), we can easily partition the \(15\) edges into three triangle-free \(5\)-cycles (plus isolated vertices). By Pigeonhole from \(v_1\), to force \(3\) edges of the same color we need \(\lceil d/3 \rceil \ge R(3, 3) = 6 \implies d \ge 3(6 - 1) + 1 = 16\) edges incident to \(v_1\), which requires \(N = 16 + 1 = \mathbf{17}\) people! Indeed, \(R(3, 3, 3) = 17\) is exact because \(K_{16}\) can be \(3\)-colored without monochromatic triangles using the finite field \(\mathbb{F}_{16}\).</li>
+  </ul>
+
+  <figure>
+    <svg viewBox="0 0 600 185" width="100%" role="img" aria-label="Growth of known Ramsey numbers: R(3,3)=6, R(3,4)=9, R(4,4)=18, R(3,3,3)=17, and the frontier R(5,5) in [43, 48]">
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">From Six People at a Party to the Frontiers of Ramsey Theory</text>
+      <!-- 3 cards -->
+      <rect x="18" y="30" width="175" height="135" rx="5" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <text x="105" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Exact Small Cases</text>
+      <text x="105" y="70" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• R(3, 3) = 6  (K₅ Paley C₅)</text>
+      <text x="105" y="90" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• R(3, 4) = 9  (Parity bound!)</text>
+      <text x="105" y="110" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• R(4, 4) = 18 (K₁₇ Paley)</text>
+      <text x="105" y="132" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">• R(3, 3, 3) = 17 (3 colors)</text>
+      <text x="105" y="152" font-family="system-ui, sans-serif" font-size="8.2" fill="#5a5550" text-anchor="middle">Greenwood &amp; Gleason (1955)</text>
+
+      <rect x="212" y="30" width="175" height="135" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="300" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">Goodman Multiplicity</text>
+      <text x="300" y="70" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• n = 5: min T_mono = 0</text>
+      <text x="300" y="90" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• n = 6: min T_mono = 2</text>
+      <text x="300" y="110" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• n = 7: min T_mono = 4</text>
+      <text x="300" y="132" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">Asymptotic: ≥ (1/4) C(n, 3)</text>
+      <text x="300" y="152" font-family="system-ui, sans-serif" font-size="8.2" fill="#5a5550" text-anchor="middle">Cherry Double Counting (P70)</text>
+
+      <rect x="407" y="30" width="175" height="135" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="495" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Diagonal Growth R(k, k)</text>
+      <text x="495" y="70" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• R(5, 5) ∈ [43, 48] (Open!)</text>
+      <text x="495" y="90" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Lower: R(k, k) &gt; 2^{k/2}</text>
+      <text x="495" y="110" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Upper: R(k, k) ≤ (4−ε)^k</text>
+      <text x="495" y="132" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">"Complete disorder is impossible"</text>
+      <text x="495" y="152" font-family="system-ui, sans-serif" font-size="8.2" fill="#5a5550" text-anchor="middle">Theodore Motzkin</text>
+    </svg>
+    <figcaption><strong>Fig M04.3.</strong> How the party problem scales: exact values via Pigeonhole + Paley graphs (`Left`), guaranteed multiplicity via Goodman's cherry double counting (`Center`), and exponential bounds on diagonal Ramsey numbers \(R(k, k)\) (`Right`).</figcaption>
+  </figure>
+
+  <aside class="aside warn">
+    <p><strong>Scope note — Why Goodman's \(\frac{1}{4}\binom{n}{3}\) triangle multiplicity fails for \(K_4\):</strong> Goodman's cherry formula proves that asynchronously as \(n \to \infty\), at least \(\frac{1}{4}\binom{n}{3}(1 - o(1))\) of all triangles in any \(2\)-coloring of \(K_n\) are monochromatic — the exact fraction expected in a random coin-flip coloring (where each triangle is monochromatic with probability \(2 \cdot (1/2)^3 = 1/4\))! Paul Erdős conjectured in 1962 that a random coloring also minimizes the fraction of monochromatic \(K_4\)'s (\(\frac{1}{32}\binom{n}{4}\)), but in 1989 Andrew Thomason disproved this by constructing a blown-up graph coloring with strictly fewer monochromatic \(K_4\)'s than random!</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong><a href="p08-symmetry.html">P08 · Exploit symmetry</a> &amp; <a href="p68-wlog.html">P68 · Without loss of generality</a>:</strong> Review the invariance criteria that make WLOG reductions rigorous.</li>
+    <li><strong><a href="p10-pigeonhole.html">P10 · Force a collision</a> &amp; <a href="p70-double-counting.html">P70 · Double counting</a>:</strong> Explore more applications of the Pigeonhole Principle and incidence double counting.</li>
+    <li><strong><a href="p75-coloring-arguments.html">P75 · Coloring arguments</a> &amp; <a href="p23-probabilistic-existence.html">P23 · Probabilistic existence</a>:</strong> See how coloring invariants and Erdős's probabilistic method bound graph structures from opposite directions.</li>
+    <li><strong><a href="index.html">Return to the Patterns Atlas Index</a>:</strong> You have reached the end of our \(82\)-chapter Atlas (\(78\) atomic patterns <span class="pid">P01</span>–<span class="pid">P78</span> and \(4\) synthesis chapters <span class="pid">M01</span>–<span class="pid">M04</span>)!</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Frank Ramsey (1928) and the 1953 Putnam Exam to Goodman and Modern Combinatorics.</strong> In December 1928, the 25-year-old Cambridge philosopher, economist, and mathematician Frank Plumpton Ramsey (1903–1930) submitted <em>"On a Problem of Formal Logic"</em> to the London Mathematical Society (published in 1930, the year of his untimely death at age 26). Seeking a decision procedure for Bernays–Schönfinkel–Ramsey formulas in first-order logic, Ramsey proved both the infinite and finite versions of what we now call <strong>Ramsey's Theorem</strong>: for any \(k, c, r\), every \(c\)-coloring of the \(k\)-subsets of a sufficiently large set \(V\) contains a homogeneous subset of size \(r\).</p>
+    <p>In 1935, Paul Erdős and George Szekeres independently rediscovered Ramsey's theorem while proving that any sufficiently large set of points in general position in the plane contains a convex \(m\)-gon (the "Happy Ending Problem", so nicknamed by Erdős because it led to the marriage of George Szekeres and Esther Klein), establishing the recursive bound \(R(r, s) \le \binom{r+s-2}{r-1}\). The friendly formulation <em>"Prove that at any party of six people, there are either three mutual acquaintances or three mutual strangers"</em> became famous worldwide when it appeared as Problem A2 on the 13th William Lowell Putnam Mathematical Competition in March 1953 and in R. E. Greenwood and A. M. Gleason's landmark 1955 paper (which also determined \(R(3, 4) = 9\), \(R(4, 4) = 18\), and \(R(3, 3, 3) = 17\)), followed by A. W. Goodman's 1959 cherry-counting formula proving \(T_{\text{mono}} \ge 2\).</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise M04.1 (●○○) — Exact Monochromatic Triangle Count via Goodman's Formula.</strong> Suppose the edges of \(K_6\) on vertices \(\{v_1, \dots, v_6\}\) are colored Red and Blue so that the Red subgraph is the \(6\)-cycle \(C_6 = v_1 v_2 v_3 v_4 v_5 v_6 v_1\) plus the single main diagonal \(v_1 v_4\) (\(7\) Red edges and \(8\) Blue edges).</p>
+    <ol>
+      <li>List the Red degrees \((r_{v_1}, r_{v_2}, r_{v_3}, r_{v_4}, r_{v_5}, r_{v_6})\) of the six vertices.</li>
+      <li>Use Goodman's formula \(T_{\text{mono}} = 20 - \frac{1}{2}\sum_{v=1}^6 r_v(5 - r_v)\) to compute the exact number of monochromatic triangles in this coloring, and identify them explicitly.</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Vertices \(v_1\) and \(v_4\) lie on \(2\) cycle edges plus the diagonal \(v_1 v_4\) (so \(r = 3\)), while the other four vertices lie only on \(2\) cycle edges (so \(r = 2\)).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Red degree sequence:</strong> Along the \(6\)-cycle \(v_1 v_2 v_3 v_4 v_5 v_6 v_1\), every vertex has degree \(2\); adding the chord \(v_1 v_4\) increases the Red degrees of \(v_1\) and \(v_4\) to \(3\). Thus the Red degrees are
+          \[
+            (r_{v_1}, r_{v_2}, r_{v_3}, r_{v_4}, r_{v_5}, r_{v_6}) \;=\; (3,\; 2,\; 2,\; 3,\; 2,\; 2).
+          \]</li>
+        <li><strong>Goodman's formula &amp; explicit triangles:</strong> Since \(r_v \in \{2, 3\}\) for all six vertices, every vertex satisfies \(r_v(5 - r_v) = 6\):
+          \[
+            T_{\text{mono}} \;=\; 20 \,-\, \frac{1}{2}(6 + 6 + 6 + 6 + 6 + 6) \;=\; 20 - 18 \;=\; \mathbf{2}.
+          \]
+          Explicitly, the Red graph (\(C_6\) plus diagonal \(v_1 v_4\)) is bipartite and contains \(0\) Red triangles, while the two sets of alternating vertices \(\{v_1, v_3, v_5\}\) and \(\{v_2, v_4, v_6\}\) have no Red edges at all between them — forming the <strong>\(2\) Blue triangles \(\Delta v_1 v_3 v_5\) and \(\Delta v_2 v_4 v_6\)</strong>! \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M04.2 (●●○) — Minimum Number of Monochromatic Triangles in \(K_7\).</strong> Use Goodman's formula \(T_{\text{mono}} = \binom{7}{3} - \frac{1}{2}\sum_{v=1}^7 r_v(6 - r_v)\) together with the Handshaking Lemma (<span class="pid">P09</span> + <span class="pid">P70</span>) to prove that every Red/Blue edge-coloring of \(K_7\) contains at least <strong>\(4\) monochromatic triangles</strong>.</p>
+    <details>
+      <summary>Hint</summary>
+      <p>For \(n = 7\), \(\binom{7}{3} = 35\), and \(r_v(6 - r_v)\) is maximized at \(r_v = 3\) (where \(3 \times 3 = 9\)). Can all \(7\) vertices in the Red subgraph have odd degree \(r_v = 3\)?</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Naive bound before parity:</strong> For \(n = 7\), \(\binom{7}{3} = 35\), and for each vertex \(v \in \{1, \dots, 7\}\), the product \(r_v(6 - r_v)\) attains its maximum value of \(3 \times 3 = 9\) when \(r_v = 3\), and is at most \(2 \times 4 = 8\) whenever \(r_v \ne 3\).</li>
+        <li><strong>Handshaking parity obstruction (<span class="pid">P09</span>):</strong> By the Handshaking Lemma applied to the Red subgraph on \(7\) vertices, \(\sum_{v=1}^7 r_v = 2|E_{\text{Red}}|\) must be <strong>even</strong>. If all \(7\) vertices had \(r_v = 3\), the sum of degrees would be \(7 \times 3 = 21\), which is odd — impossible!</li>
+        <li><strong>Sharpened cherry bound:</strong> Therefore, at most \(6\) vertices can have \(r_v = 3\) (contributing \(9\) each), and at least \(1\) vertex must have \(r_v \ne 3\) (contributing at most \(8\)). Hence
+          \[
+            \sum_{v=1}^7 r_v(6 - r_v) \;\le\; 6(9) + 1(8) \;=\; 62,
+          \]
+          which forces
+          \[
+            T_{\text{mono}} \;=\; 35 \,-\, \frac{1}{2}\sum_{v=1}^7 r_v(6 - r_v) \;\ge\; 35 \,-\, \frac{62}{2} \;=\; 35 - 31 \;=\; \mathbf{4}\text{ monochromatic triangles!} \quad \blacksquare
+          \]</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M04.3 (●●●) — Three-Color Ramsey Number \(R(3, 3, 3) \le 17\) (Greenwood &amp; Gleason, 1955).</strong> Prove by combining vertex symmetry (<span class="pid">P08</span>), WLOG (<span class="pid">P68</span>), the Pigeonhole Principle (<span class="pid">P10</span>), and our theorem \(R(3, 3) = 6\) that if the edges of \(K_{17}\) are colored with <strong>three</strong> colors (Red, Blue, Green), then there must exist a monochromatic triangle of one of the three colors.</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Pick a vertex \(v_1 \in V(K_{17})\) and apply the Pigeonhole Principle to its \(16\) incident edges partitioned into \(3\) color buckets.</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Pigeonhole on the \(16\) edges incident to \(v_1\) (<span class="pid">P10</span>):</strong> Choose any vertex \(v_1 \in V(K_{17})\). It has \(16\) incident edges connecting it to \(v_2, \dots, v_{17}\), partitioned into \(3\) color buckets (Red, Blue, Green). Because \(5 + 5 + 5 = 15 &lt; 16\), at least one color bucket must contain at least
+          \[
+            \left\lceil \frac{16}{3} \right\rceil \;=\; 6\text{ edges.}
+          \]</li>
+        <li><strong>WLOG reduction (<span class="pid">P68</span>) to \(K_6\):</strong> By color-permutation symmetry, assume without loss of generality that \(v_1\) is connected by <strong>Green</strong> edges to at least \(6\) vertices \(U = \{u_1, u_2, u_3, u_4, u_5, u_6\}\).</li>
+        <li><strong>Inspect the induced \(K_6\) on \(U\):</strong>
+          <ul>
+            <li><strong>Case A:</strong> If any edge \(\{u_i, u_j\}\) inside \(U\) is colored <strong>Green</strong>, then \(\{v_1, u_i, u_j\}\) is a <strong>Green triangle</strong>!</li>
+            <li><strong>Case B:</strong> If <em>no</em> edge inside \(U\) is Green, then all \(\binom{6}{2} = 15\) edges of the complete graph \(K_6\) on \(U\) are colored using only the remaining <strong>two</strong> colors (Red and Blue)! By our two-color theorem \(R(3, 3) = 6\), \(U\) must contain either a <strong>Red triangle</strong> or a <strong>Blue triangle</strong>! \(\blacksquare\)</li>
+          </ul></li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M04.4 (◆) — Pattern-Unknown Synthesis Diagnosis: Chromatic Number of Odd-Cycle-Free decompositions.</strong> Suppose the edges of the complete graph \(K_n\) are partitioned into \(k\) spanning subgraphs \(G_1, G_2, \dots, G_k\) such that every \(G_i\) is <strong>bipartite</strong> (contains no odd cycles). Prove that \(n \le 2^k\), and deduce immediately why \(K_5\) cannot be decomposed into two bipartite graphs (so any \(2\)-edge-coloring of \(K_5\) must contain at least one monochromatic odd cycle).</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>Diagnosis:</strong> Encode each vertex \(v \in V(K_n)\) by a binary \(k\)-tuple (<span class="pid">P05</span> Canonical Form / <span class="pid">P75</span> Bipartition Coloring) and apply the <strong>Pigeonhole Principle (<span class="pid">P10</span>)</strong>:</p>
+      <ol>
+        <li><strong>Bipartition bit-vector encoding:</strong> Because each subgraph \(G_i\) (\(1 \le i \le k\)) is bipartite, its vertex set \(V\) can be partitioned into two independent sets \(V = A_i^{(0)} \sqcup A_i^{(1)}\) such that no edge of \(G_i\) connects two vertices in the same part. Assign to each vertex \(v \in V(K_n)\) the binary codeword
+          \[
+            \mathbf{b}(v) \;=\; \bigl(b_1(v),\, b_2(v),\, \dots,\, b_k(v)\bigr) \;\in\; \{0, 1\}^k, \qquad\text{where } v \in A_i^{(b_i(v))}.
+          \]</li>
+        <li><strong>Injectivity via completeness of \(K_n\):</strong> Could two distinct vertices \(u \ne v\) have the exact same codeword \(\mathbf{b}(u) = \mathbf{b}(v)\)? Because \(K_n\) is a complete graph, the edge \(uv\) belongs to at least one subgraph \(G_i\). Therefore \(u\) and \(v\) must lie in <em>opposite</em> parts of \(G_i\)'s bipartition (\(b_i(u) \ne b_i(v)\)), so \(\mathbf{b}(u) \ne \mathbf{b}(v)\)!</li>
+        <li><strong>Pigeonhole bound (<span class="pid">P10</span>):</strong> Since \(\mathbf{b} : V(K_n) \to \{0, 1\}^k\) is injective,
+          \[
+            n \;=\; |V(K_n)| \;\le\; \bigl|\{0, 1\}^k\bigr| \;=\; 2^k.
+          \]
+          For \(k = 2\) colors, \(2^2 = 4 &lt; 5\), so \(K_5\) cannot be partitioned into two bipartite graphs — explaining why our triangle-free \(2\)-coloring of \(K_5\) (Fig M04.1) was forced to use two odd cycles \(C_5 \sqcup C_5\)! \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M04.5 (◐) — Exploration: Erdős's 1947 Probabilistic Lower Bound \(R(k, k) &gt; 2^{k/2}\).</strong> Why is it so easy to prove that \(R(k, k)\) grows exponentially, even though nobody knows how to construct an explicit triangle/clique-free coloring of that size? Consider coloring each edge of \(K_n\) independently Red or Blue with probability \(1/2\) (<span class="pid">P23</span> Probabilistic Existence).</p>
+    <ol>
+      <li>For any fixed \(k\)-subset of vertices \(S \subset V(K_n)\), what is the probability \(p_k\) that \(S\) forms a monochromatic \(K_k\) (all \(\binom{k}{2}\) edges Red or all \(\binom{k}{2}\) edges Blue)?</li>
+      <li>Using the union bound (<span class="pid">P76</span>), show that if \(\binom{n}{k} 2^{1 - \binom{k}{2}} &lt; 1\), then there exists a \(2\)-coloring of \(K_n\) with <strong>zero</strong> monochromatic \(K_k\)'s, and verify that this holds whenever \(n \le 2^{k/2}\) (\(k \ge 3\)).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>A \(k\)-subset \(S\) has \(\binom{k}{2}\) edges, so the probability all \(\binom{k}{2}\) edges are Red is \(2^{-\binom{k}{2}}\), and the same for Blue. Use \(\binom{n}{k} &lt; \frac{n^k}{k!}\) to bound the expected number of monochromatic \(K_k\)'s.</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <ol>
+        <li><strong>Single-clique probability:</strong> A \(k\)-subset \(S\) has \(\binom{k}{2} = \frac{k(k-1)}{2}\) edges. Under independent fair-coin coloring, the probability that all \(\binom{k}{2}\) edges are Red is \(2^{-\binom{k}{2}}\), and the probability that all are Blue is also \(2^{-\binom{k}{2}}\). Since \(k \ge 2\), these two events are disjoint, so
+          \[
+            p_k \;=\; 2 \cdot 2^{-\binom{k}{2}} \;=\; 2^{1 - \binom{k}{2}}.
+          \]</li>
+        <li><strong>Expected value / Union bound (<span class="pid">P23</span> + <span class="pid">P76</span>):</strong> By linearity of expectation across all \(\binom{n}{k}\) subsets \(S\) of size \(k\), the expected number of monochromatic \(K_k\)'s in a random coloring of \(K_n\) is
+          \[
+            \mathbb{E}[X] \;=\; \binom{n}{k}\,2^{1 - \binom{k}{2}}.
+          \]
+          If \(n \le 2^{k/2}\) and \(k \ge 3\) (so \(k! \ge 6 &gt; 2\)), then
+          \[
+            \mathbb{E}[X] \;=\; \binom{n}{k}\,2^{1 - k(k-1)/2} \;&lt;\; \frac{(2^{k/2})^k}{k!}\,2^{1 - k^2/2 + k/2} \;=\; \frac{2^{1 + k/2}}{k!} \;&lt;\; 1.
+          \]
+          Because \(\mathbb{E}[X] &lt; 1\) and \(X\) is a non-negative integer random variable, at least one coloring must have \(X = 0\), proving \(R(k, k) &gt; \lfloor 2^{k/2} \rfloor\)! \(\blacksquare\)</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <p><a href="index.html">← Back to the Patterns Atlas Index</a> · <a href="m03-picks-theorem.html">← Previous: M03 · Pick's theorem</a> · <a href="index.html">Atlas Complete: Return to Index →</a></p>
+</footer>
+
+</main>
+</body>
+</html>

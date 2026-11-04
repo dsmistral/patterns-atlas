@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P78 · Make every step reversible — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Tier 2 · Canon Foundations</p>
+  <h1><span class="pid">P78</span> · Make every step reversible</h1>
+  <p class="lede">Turn leaky one-way implications (\(\implies\)) into airtight logical equivalences (\(\iff\)) by carrying explicit domain and sign guards alongside your algebra — banishing ghost roots, lost solutions, and backward-proof fallacies.</p>
+  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p03-special-cases.html">P03 · Stress-test with special cases</a>, <a href="p77-work-backwards.html">P77 · Work backwards</a></p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — One-way implication (\(\implies\)) vs. Logical equivalence (\(\iff\)).</strong> When you solve an equation by transforming \(E_0(x) \to E_1(x) \to \cdots \to E_k(x)\), two opposite leaks can corrupt the solution set:</p>
+  <ul>
+    <li><strong>Information loss (\(\implies\) only, creating ghost/extraneous roots):</strong> Squaring both sides (\(A = B \implies A^2 = B^2\)) or multiplying by \(x - 2\) enlarges the solution set. Solutions of the final equation may fail the original equation!</li>
+    <li><strong>Root loss (\(\impliedby\) only, dropping valid roots):</strong> Dividing both sides of \(x(x - 3) = 2(x - 3)\) by \(x - 3\) silently throws away the valid root \(x = 3\)!</li>
+  </ul>
+  <p>When every step is an <strong>if-and-only-if (\(\iff\))</strong>, the solution set of \(E_k(x)\) is <em>guaranteed</em> to be identical to the solution set of \(E_0(x)\).</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — How a guard condition turns \(\implies\) into \(\iff\).</strong> Almost every non-reversible algebraic step becomes \(100\%\) reversible the moment you attach a simple side condition (a <strong>guard</strong>):</p>
+  <ul>
+    <li>Squaring a radical: \(\sqrt{A} = B \;\Longleftrightarrow\; \bigl(B \ge 0 \;\text{ and }\; A = B^2\bigr)\).</li>
+    <li>Canceling a common factor: \(E \cdot A = E \cdot B \;\Longleftrightarrow\; \bigl(E = 0 \;\text{ or }\; A = B\bigr)\).</li>
+    <li>Clearing a denominator: \(\frac{A}{D} = C \;\Longleftrightarrow\; \bigl(D \neq 0 \;\text{ and }\; A = C \cdot D\bigr)\).</li>
+  </ul>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>In <a href="p03-special-cases.html"><span class="pid">P03</span> · Stress-test with special cases</a>, we learned to test degenerate boundary cases (like \(D = 0\) or negative inputs) where naive formulas break down. And in <a href="p77-work-backwards.html"><span class="pid">P77</span> · Work backwards</a>, we saw that discovering an inequality or construction by working backwards from the target \(S_{\text{goal}}\) to a known truth \(C_0\) is a valid proof <em>only if every step can be reversed</em>.</p>
+  <p><strong>Make every step reversible (<span class="pid">P78</span>)</strong> is the discipline that makes <span class="pid">P77</span> and all of algebraic manipulation airtight: instead of doing sloppy one-way algebra and hoping to catch errors at the end, you package the exact domain/sign guard into each step so that every arrow is a verified \(\iff\).</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: the ghost root at \(x = -1\) and the mediant inequality</h2>
+  <p>Let us inspect two classic situations — one where an unguarded step invents a false solution, and one where guarded \(\iff\) steps prove an inequality in a single pass.</p>
+
+  <h3>Encounter A · Where did the ghost root \(x = -1\) come from?</h3>
+  <p>Solve the real radical equation</p>
+  \[
+    \sqrt{2x + 3} \;=\; x \qquad (x \in \mathbb{R}).
+  \]
+  <p>A hasty solution squares both sides without a guard:</p>
+  \[
+    \sqrt{2x + 3} = x \;\;\implies\;\; 2x + 3 = x^2 \;\;\implies\;\; x^2 - 2x - 3 = 0 \;\;\implies\;\; (x - 3)(x + 1) = 0 \;\;\implies\;\; x \in \{-1,\; 3\}.
+  \]
+  <p>Yet when you plug \(x = -1\) back into \(\sqrt{2x + 3} = x\), the left-hand side is \(\sqrt{2(-1) + 3} = \sqrt{1} = +1\) (since \(\sqrt{\cdot}\) denotes the principal <em>nonnegative</em> square root!), while the right-hand side is \(-1\): \(+1 \neq -1\)! Why did \(x = -1\) sneak in? Because squaring erased the minus sign in \(+1 = -1\), merging the upper half-parabola \(y = +\sqrt{2x+3}\) with the lower half-parabola \(y = -\sqrt{2x+3}\) (Fig P78.1)!</p>
+  <p>Now solve the exact same equation using a <strong>guarded equivalence (<span class="pid">P78</span>)</strong>: since \(\sqrt{A} \ge 0\) automatically forces \(B \ge 0\) and \(A = B^2 \ge 0\),</p>
+  \[
+    \sqrt{2x + 3} = x \quad\Longleftrightarrow\quad \Bigl(x \ge 0 \;\;\text{and}\;\; 2x + 3 = x^2\Bigr) \quad\Longleftrightarrow\quad \Bigl(x \ge 0 \;\;\text{and}\;\; x \in \{-1, 3\}\Bigr) \quad\Longleftrightarrow\quad x = 3.
+  \]
+  <p>Carrying the guard \(x \ge 0\) filters out \(-1\) automatically — even if the equation contains parameters where you cannot plug in numerical roots at the end!</p>
+
+  <h3>Encounter B · Proving a fraction inequality in a single \(\iff\) chain</h3>
+  <p>Suppose \(0 &lt; b &lt; a\) (so \(\frac{b}{a} &lt; 1\) is a proper positive fraction) and \(k &gt; 0\). Prove that adding \(k\) to both numerator and denominator pulls the fraction strictly closer to \(1\):</p>
+  \[
+    \frac{b}{a} \;&lt;\; \frac{b + k}{a + k}.
+  \]
+  <p>Because \(a &gt; 0\), \(k &gt; 0\), and \(a + k &gt; 0\) are all strictly positive, every step below is an unconditional equivalence (\(\iff\)):</p>
+  \[
+    \begin{aligned}
+      \frac{b}{a} \;&lt;\; \frac{b + k}{a + k}
+      &amp;\quad\Longleftrightarrow\quad b(a + k) \;&lt;\; a(b + k) &amp;&amp;\bigl(\text{multiplying by } a(a+k) &gt; 0 \text{ is reversible!}\bigr) \\
+      &amp;\quad\Longleftrightarrow\quad ab + bk \;&lt;\; ab + ak &amp;&amp;\bigl(\text{distributing is an identity}\bigr) \\
+      &amp;\quad\Longleftrightarrow\quad bk \;&lt;\; ak &amp;&amp;\bigl(\text{subtracting } ab \text{ is reversible!}\bigr) \\
+      &amp;\quad\Longleftrightarrow\quad b \;&lt;\; a &amp;&amp;\bigl(\text{dividing by } k &gt; 0 \text{ is reversible!}\bigr).
+    \end{aligned}
+  \]
+  <p>Since the bottom line \(b &lt; a\) is given as true, and every step is \(\iff\), the top line is proved immediately!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+
+  <div class="pattern-box" id="box-p78">
+    <h3>Box P78 · The Reversible Steps Move</h3>
+    <p>Whenever you transform an equation, inequality, or combinatorial set \(S_0 \to S_1 \to \cdots \to S_m\), audit each step so that it is an exact <strong>logical equivalence (\(\iff\))</strong> (or an explicit <strong>bijection</strong> \(\Phi : X \leftrightarrow Y\) with verified inverse \(\Psi = \Phi^{-1}\)):</p>
+    \[
+      P(x) \quad\Longleftrightarrow\quad \bigl(G(x) \;\;\text{and}\;\; Q(x)\bigr),
+    \]
+    <p>where \(G(x)\) records any positivity, non-vanishing, or domain conditions required to invert the step \(P(x) \mapsto Q(x)\).</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="Left: Graph of y = sqrt(2x+3) (solid crimson) and y = -sqrt(2x+3) (dashed orange) crossed by y = x, showing true root (3,3) and extraneous root (-1,-1). Right: Guarded equivalence table for 5 common algebraic steps">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <!-- Left panel: Geometric origin of the extraneous root (-1, -1) -->
+      <text x="150" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Geometry of Squaring: Why x = −1 Is a Ghost Root</text>
+      <!-- Axes: x in [-2, 4] -> x_px = 100 + 35*x; y in [-2.5, 3.5] -> y_px = 125 - 26*y -->
+      <!-- Origin (0,0) at (100, 125); Vertex (-1.5, 0) at (47.5, 125); (-1, -1) at (65, 151); (3, 3) at (205, 47) -->
+      <line x1="25" y1="125" x2="270" y2="125" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="100" y1="195" x2="100" y2="28" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- Upper branch y = +sqrt(2x+3) from (47.5, 125) through (65, 99) and (100, 80) to (205, 47) -->
+      <path d="M 47.5 125 Q 75 72 225 40" fill="none" stroke="#8b2635" stroke-width="2.8"/>
+      <!-- Lower branch y = -sqrt(2x+3) from (47.5, 125) through (65, 151) to (170, 185) -->
+      <path d="M 47.5 125 Q 70 165 175 188" fill="none" stroke="#b85d19" stroke-width="2" stroke-dasharray="4,3"/>
+      <!-- Line y = x from (-1.8, -1.8)->(37, 172) through (-1,-1)->(65,151), (0,0)->(100,125), (3,3)->(205,47) -->
+      <line x1="37" y1="172" x2="222" y2="34" stroke="#3a6073" stroke-width="2"/>
+      <!-- Guard region x >= 0 shaded lightly -->
+      <circle cx="205" cy="47" r="5" fill="#8b2635"/>
+      <circle cx="65" cy="151" r="5" fill="#b85d19"/>
+      <text x="195" y="36" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">True Root (3, 3)</text>
+      <text x="128" y="164" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Ghost (−1, −1) on −√(2x+3)!</text>
+      <text x="165" y="75" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635">y = +√(2x+3)</text>
+      <text x="150" y="204" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Guard x ≥ 0 restricts y = x to the upper half-plane y ≥ 0</text>
+
+      <!-- Right panel: The 5 Guarded Equivalence Rules -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">The Five Reversible Upgrade Rules (⟺)</text>
+      <rect x="305" y="28" width="280" height="162" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="315" y="50" font-family="system-ui, sans-serif" font-size="9.2" fill="#1a1a1a">1. <tspan font-weight="bold" fill="#8b2635">√A = B</tspan>  ⟺  (B ≥ 0  and  A = B²)</text>
+      <text x="315" y="78" font-family="system-ui, sans-serif" font-size="9.2" fill="#1a1a1a">2. <tspan font-weight="bold" fill="#8b2635">√A &lt; B</tspan>  ⟺  (A ≥ 0,  B &gt; 0,  and  A &lt; B²)</text>
+      <text x="315" y="106" font-family="system-ui, sans-serif" font-size="9.2" fill="#1a1a1a">3. <tspan font-weight="bold" fill="#3a6073">E·A = E·B</tspan>  ⟺  (E = 0  or  A = B)</text>
+      <text x="315" y="134" font-family="system-ui, sans-serif" font-size="9.2" fill="#1a1a1a">4. <tspan font-weight="bold" fill="#3a6073">A / D = C</tspan>  ⟺  (D ≠ 0  and  A = C·D)</text>
+      <text x="315" y="162" font-family="system-ui, sans-serif" font-size="9.2" fill="#1a1a1a">5. <tspan font-weight="bold" fill="#b85d19">ln A + ln B = C</tspan>  ⟺  (A &gt; 0, B &gt; 0, AB = eᶜ)</text>
+      <text x="445" y="182" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Never drop a factor E or merge logs without writing the guard!</text>
+    </svg>
+    <figcaption><strong>Fig P78.1.</strong> <em>Left:</em> Squaring \(\sqrt{2x+3} = x\) replaces the upper half-parabola \(y = +\sqrt{2x+3}\) (solid crimson) with the full parabola \(2x+3 = y^2\), whose lower branch \(y = -\sqrt{2x+3}\) (dashed orange) crosses \(y = x\) at the ghost root \((-1, -1)\). Attaching the guard \(x \ge 0\) restricts to the first quadrant and keeps only \((3, 3)\). <em>Right:</em> The five standard guarded equivalences.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p78a">
+    <h3>Box P78.A · The Four Verification Obligations of Reversible Steps</h3>
+    <ol>
+      <li><strong>Non-Vanishing &amp; Sign Audit on Multipliers \(E(x)\):</strong> Before multiplying or dividing an equation by \(E(x)\), check whether \(E(x) = 0\) is possible (if so, split off \(E(x) = 0\) as an <code>OR</code> branch). Before multiplying an inequality by \(E(x)\), prove \(E(x) &gt; 0\) (or split into \(E(x) &gt; 0\) and \(E(x) &lt; 0\)).</li>
+      <li><strong>Injectivity Audit on Functions \(f(A) = f(B)\):</strong> Applying \(f\) to both sides of an equation or inequality is an \(\iff\) only on a domain where \(f\) is strictly monotone/injective. When squaring, attach the sign guard \(B \ge 0\).</li>
+      <li><strong>Domain Preservation Audit (Logarithms, Radicals, Trig):</strong> When combining \(\ln A + \ln B \mapsto \ln(AB)\) or \(\tan\alpha + \tan\beta\), explicitly carry forward the original domain restrictions \(A &gt; 0,\; B &gt; 0\) (or \(\alpha, \beta \neq \frac{\pi}{2} + k\pi\)).</li>
+      <li><strong>Explicit Two-Way Inverse for Bijections:</strong> When proving \(|X| = |Y|\) via a map \(\Phi : X \to Y\), define the backward map \(\Psi : Y \to X\) explicitly and verify that \(\Psi(\Phi(x)) = x\) for all \(x \in X\) and \(\Phi(\Psi(y)) = y\) for all \(y \in Y\).</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 190" width="100%" role="img" aria-label="Bijection reversibility diagram showing Forward Map Phi: X -> Y and Inverse Map Psi: Y -> X satisfying Psi(Phi(x)) = x and Phi(Psi(y)) = y, illustrated with the subset parity involution S <-> S symmetric-difference {1}">
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Reversible Combinatorics: Constructing Both Directions of a Bijection (Exemplar 3)</text>
+      <!-- Left oval: Even-sized subsets X -->
+      <ellipse cx="145" cy="102" rx="105" ry="62" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="145" y="64" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Set X: Even Subsets of [n]</text>
+      <text x="145" y="88" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">∅  (1 ∉ S)</text>
+      <text x="145" y="112" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{1, 2}  (1 ∈ S)</text>
+      <text x="145" y="136" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{2, 3}  (1 ∉ S)</text>
+
+      <!-- Right oval: Odd-sized subsets Y -->
+      <ellipse cx="455" cy="102" rx="105" ry="62" fill="#eef3f7" stroke="#3a6073" stroke-width="2"/>
+      <text x="455" y="64" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">Set Y: Odd Subsets of [n]</text>
+      <text x="455" y="88" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{1}  (1 ∈ T)</text>
+      <text x="455" y="112" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{2}  (1 ∉ T)</text>
+      <text x="455" y="136" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{1, 2, 3}  (1 ∈ T)</text>
+
+      <!-- Two-way arrows Phi and Psi -->
+      <path d="M 255 86 Q 300 66 345 86" fill="none" stroke="#8b2635" stroke-width="2.2"/>
+      <polygon points="345,86 336,81 338,90" fill="#8b2635"/>
+      <path d="M 345 118 Q 300 138 255 118" fill="none" stroke="#3a6073" stroke-width="2.2"/>
+      <polygon points="255,118 264,123 262,114" fill="#3a6073"/>
+      <text x="300" y="70" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Φ(S) = S Δ {1}</text>
+      <text x="300" y="142" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Ψ(T) = T Δ {1}</text>
+      <text x="300" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Toggling element 1 twice returns to the start: (S Δ {1}) Δ {1} = S!</text>
+    </svg>
+    <figcaption><strong>Fig P78.2.</strong> In combinatorics, "making every step reversible" means exhibiting an explicit inverse map \(\Psi = \Phi^{-1}\). Toggling whether element \(1\) is in a subset \(S \subseteq \{1, \dots, n\}\) (\(\Phi(S) = S \triangle \{1\}\)) flips the size \(|S|\) by \(\pm 1\) (mapping Even \(\to\) Odd and Odd \(\to\) Even) and is its own inverse (\(\Phi(\Phi(S)) = S\)), proving \(|\text{Even}| = |\text{Odd}| = 2^{n-1}\) without a single binomial calculation.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p78b">
+    <h3>Box P78.B · Three-Key Recognition Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> Solving an equation with radicals, logarithms, absolute values, or fractions; proving an algebraic inequality; or proving that two combinatorial sets have equal cardinality (\(|X| = |Y|\)).</li>
+      <li><strong>Problem shape:</strong> Multi-step chains \(S_0 \iff S_1 \iff \cdots \iff S_m\) where non-injective steps (squaring), variable multipliers (clearing denominators), or domain shifts (\(\ln A + \ln B = \ln(AB)\)) appear.</li>
+      <li><strong>Tools at hand:</strong> Guarded equivalences, sign analysis on factors, completing the square (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>), and involution/bijection construction.</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 (Equations &amp; Inequalities with Guards) · Logarithmic domain shifts and radical inequalities</h3>
+  <p><strong>Problem.</strong> Solve over the real numbers \(x \in \mathbb{R}\) using chains of guarded equivalences (\(\iff\)):</p>
+  <ol>
+    <li>The logarithmic equation \(\log_2(x - 1) + \log_2(x - 3) = 3\).</li>
+    <li>The radical inequality \(\sqrt{x + 3} &lt; x - 3\).</li>
+  </ol>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Part 1 (Guarding the logarithmic domain contraction).</strong> In \(\log_2(x - 1) + \log_2(x - 3)\), both arguments must be strictly positive: \(x - 1 &gt; 0\) and \(x - 3 &gt; 0\), whose intersection is \(x &gt; 3\). If you merge the logs into \(\log_2\bigl((x-1)(x-3)\bigr) = 3\) without recording \(x &gt; 3\), the product \((x-1)(x-3) = 8\) is also positive when <em>both factors are negative</em> (\(x &lt; 1\)), spawning the ghost root \(x = -1\)! Carrying the guard \(x &gt; 3\) makes every step an exact equivalence:</p>
+  \[
+    \begin{aligned}
+      \log_2(x - 1) + \log_2(x - 3) = 3
+      &amp;\quad\Longleftrightarrow\quad \Bigl(x - 1 &gt; 0,\;\; x - 3 &gt; 0,\;\;\text{and}\;\; \log_2\bigl((x - 1)(x - 3)\bigr) = 3\Bigr) \\
+      &amp;\quad\Longleftrightarrow\quad \Bigl(x &gt; 3 \;\;\text{and}\;\; x^2 - 4x - 5 = 0\Bigr) \\
+      &amp;\quad\Longleftrightarrow\quad \Bigl(x &gt; 3 \;\;\text{and}\;\; (x - 5)(x + 1) = 0\Bigr) \quad\Longleftrightarrow\quad x = 5.
+    \end{aligned}
+  \]
+
+  <p><strong>Part 2 (Guarding a radical inequality).</strong> For \(\sqrt{A} &lt; B\) to hold over \(\mathbb{R}\), the radicand \(A\) must be nonnegative (\(A \ge 0\)), the upper bound \(B\) must be strictly positive (since \(0 \le \sqrt{A} &lt; B \implies B &gt; 0\)), and on \(0 \le \sqrt{A} &lt; B\) squaring is strictly increasing (\(A &lt; B^2\)). Applying Rule 2 of Fig P78.1 with \(A = x + 3\) and \(B = x - 3\) gives</p>
+  \[
+    \begin{aligned}
+      \sqrt{x + 3} &lt; x - 3
+      &amp;\quad\Longleftrightarrow\quad \Bigl(x + 3 \ge 0,\;\; x - 3 &gt; 0,\;\;\text{and}\;\; x + 3 &lt; (x - 3)^2\Bigr) \\
+      &amp;\quad\Longleftrightarrow\quad \Bigl(x &gt; 3 \;\;\text{and}\;\; x^2 - 7x + 6 &gt; 0\Bigr) \\
+      &amp;\quad\Longleftrightarrow\quad \Bigl(x &gt; 3 \;\;\text{and}\;\; (x - 6)(x - 1) &gt; 0\Bigr) \quad\Longleftrightarrow\quad x &gt; 6.
+    \end{aligned}
+  \]
+  <p>Notice that without the guard \(x &gt; 3\), the quadratic \((x - 6)(x - 1) &gt; 0\) would falsely accept every \(x \in [-3, 1)\) (for example \(x = -2\), where \(\sqrt{1} = +1 \not&lt; -5\))!</p>
+
+  <h3>Exemplar 2 (Bidirectional Inequality Chains) · Proving the HM–GM–AM–QM inequality chain and its equality condition in one pass</h3>
+  <p><strong>Problem.</strong> For any two positive real numbers \(a, b &gt; 0\), prove the four-mean inequality chain (Harmonic \(\le\) Geometric \(\le\) Arithmetic \(\le\) Quadratic Mean)</p>
+  \[
+    \frac{2}{\frac{1}{a} + \frac{1}{b}} \;\le\; \sqrt{ab} \;\le\; \frac{a + b}{2} \;\le\; \sqrt{\frac{a^2 + b^2}{2}},
+  \]
+  <p>and prove that equality holds in each link if and only if \(a = b\).</p>
+
+  <p><strong>Solution.</strong></p>
+  <p>Because \(a &gt; 0\) and \(b &gt; 0\), every mean above is strictly positive, so squaring (\(0 &lt; X \le Y \iff X^2 \le Y^2\)) and multiplying by \(2 &gt; 0\) or \(a + b &gt; 0\) are unconditional equivalences (\(\iff\)) (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>):</p>
+  <ul>
+    <li><strong>AM \(\le\) QM:</strong>
+      \[
+        \frac{a + b}{2} \;\le\; \sqrt{\frac{a^2 + b^2}{2}}
+        \;\;\Longleftrightarrow\;\; \frac{(a + b)^2}{4} \;\le\; \frac{a^2 + b^2}{2}
+        \;\;\Longleftrightarrow\;\; a^2 + 2ab + b^2 \;\le\; 2a^2 + 2b^2
+        \;\;\Longleftrightarrow\;\; (a - b)^2 \;\ge\; 0.
+      \]
+    </li>
+    <li><strong>GM \(\le\) AM:</strong>
+      \[
+        \sqrt{ab} \;\le\; \frac{a + b}{2}
+        \;\;\Longleftrightarrow\;\; 4ab \;\le\; (a + b)^2
+        \;\;\Longleftrightarrow\;\; 0 \;\le\; a^2 - 2ab + b^2
+        \;\;\Longleftrightarrow\;\; (a - b)^2 \;\ge\; 0.
+      \]
+    </li>
+    <li><strong>HM \(\le\) GM:</strong> Since \(\frac{2}{1/a + 1/b} = \frac{2ab}{a + b}\) and \(\sqrt{ab} &gt; 0\), dividing by \(\sqrt{ab} &gt; 0\) gives
+      \[
+        \frac{2ab}{a + b} \;\le\; \sqrt{ab}
+        \;\;\Longleftrightarrow\;\; 2\sqrt{ab} \;\le\; a + b
+        \;\;\Longleftrightarrow\;\; \sqrt{ab} \;\le\; \frac{a + b}{2}
+        \;\;\Longleftrightarrow\;\; (a - b)^2 \;\ge\; 0.
+      \]
+    </li>
+  </ul>
+  <p>Because every single arrow in all three chains is \(\iff\), and \((a - b)^2 \ge 0\) holds for all \(a, b \in \mathbb{R}\) with equality <em>if and only if</em> \(a = b\), both the inequalities and their exact equality conditions are proved in one stroke!</p>
+
+  <h3>Exemplar 3 (Reversible Combinatorics) · Glaisher's explicit two-way bijection for Euler's partition theorem</h3>
+  <p><strong>Problem.</strong> In <a href="p73-generating-functions.html"><span class="pid">P73</span> · Generating functions</a> (Exemplar 3), we proved via infinite products that the number of partitions of \(n\) into <strong>odd</strong> parts equals the number of partitions of \(n\) into <strong>distinct</strong> parts. Construct an explicit, step-by-step reversible bijection \(\Phi : \mathcal{O}_n \leftrightarrow \mathcal{D}_n\) between the two sets of partitions and trace both directions on \(n = 10\).</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Forward map \(\Phi : \text{Odd parts} \to \text{Distinct parts}\) via binary grouping).</strong> Take any partition of \(n\) into odd parts: suppose each odd integer \(m \in \{1, 3, 5, \dots\}\) appears \(c_m \ge 0\) times, so \(n = \sum_{m \text{ odd}} c_m \cdot m\). Write each multiplicity \(c_m &gt; 0\) in its unique binary expansion (<a href="p73-generating-functions.html"><span class="pid">P73</span></a>, Exercise P73.4): \(c_m = 2^{r_1} + 2^{r_2} + \cdots + 2^{r_k}\) with \(0 \le r_1 &lt; r_2 &lt; \cdots &lt; r_k\). Replace the \(c_m\) copies of \(m\) by the parts</p>
+  \[
+    2^{r_1} m, \;\; 2^{r_2} m, \;\; \dots, \;\; 2^{r_k} m.
+  \]
+  <p>Why are all resulting parts across all odd \(m\) <strong>distinct</strong>? Because by the Fundamental Theorem of Arithmetic, every positive integer \(d\) factors <em>uniquely</em> as \(d = 2^r \cdot m\) where \(m\) is its odd part and \(2^r\) is the highest power of \(2\) dividing \(d\)!</p>
+
+  <p><strong>Step 2 (Inverse map \(\Psi : \text{Distinct parts} \to \text{Odd parts}\) via repeated halving).</strong> Given any partition of \(n\) into distinct parts \(d_1 &gt; d_2 &gt; \cdots &gt; d_s\), factor each part as \(d_j = 2^{r_j} m_j\) (with \(m_j\) odd) and split \(d_j\) into \(2^{r_j}\) copies of the odd number \(m_j\) (equivalently, repeatedly split every even part \(2k \mapsto k + k\) until all parts are odd!). Because binary expansion and prime-power factorization \(d = 2^r m\) are both unique, \(\Psi(\Phi(\lambda)) = \lambda\) and \(\Phi(\Psi(\mu)) = \mu\) (illustrated for \(n = 10\) in Fig P78.3, right).</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Dividing by an expression \(E(x)\) that can equal zero: the "\(2 = 1\)" fallacy and lost roots.</strong> In the classic bogus proof that \(2 = 1\), one starts with \(a = b &gt; 0\), multiplies by \(a\) and subtracts \(b^2\) to get \(a^2 - b^2 = ab - b^2\), factors as \((a - b)(a + b) = b(a - b)\), and divides by \(a - b\) to conclude \(a + b = b \implies 2b = b \implies 2 = 1\)! The fatal step is dividing by \(E = a - b = 0\). In genuine algebra, dividing \((x - 3)(x - 1) = 2(x - 3)\) by \(x - 3\) commits the same error in reverse: it throws away the valid solution \(x = 3\)!</p>
+    <p><em>Mitigation:</em> Never divide an equation by a variable expression \(E(x)\); instead, subtract everything to one side, factor out \(E(x)\), and apply Rule 3 of Fig P78.1: \(E(x)\bigl(A(x) - B(x)\bigr) = 0 \iff \bigl(E(x) = 0 \text{ or } A(x) = B(x)\bigr)\).</p>
+    <p><em>Price:</em> Carrying an <code>OR</code> branch \(E(x) = 0\).</p>
+    <p><em>Default:</em> Factor rather than cancel whenever a common term contains the unknown \(x\).</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Exhibit B showing how multiplying (x+1)/(x-2) < 3 by (x-2)^2 > 0 preserves both solution rays (-inf, 2) and (7/2, inf) whereas multiplying by (x-2) loses (-inf, 2). Right: Glaisher's reversible bijection on partitions of 10">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Exhibit B — Rational Inequality Sign Flip Trap -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Exhibit B: Solving (x + 1)/(x − 2) &lt; 3 Reversibly</text>
+      <rect x="20" y="28" width="270" height="150" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.2"/>
+      <text x="155" y="48" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">WRONG: Multiply by (x − 2)  ⟹  x + 1 &lt; 3x − 6  ⟹  x &gt; 7/2</text>
+      <text x="155" y="65" font-family="system-ui, sans-serif" font-size="8.5" fill="#1a1a1a" text-anchor="middle">(Loses the entire negative-denominator ray x &lt; 2!)</text>
+      <line x1="35" y1="78" x2="275" y2="78" stroke="#d8d2c7" stroke-width="1"/>
+      <text x="155" y="96" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">RIGHT (⟺): Subtract 3 or multiply by (x − 2)² &gt; 0:</text>
+      <text x="155" y="114" font-family="system-ui, sans-serif" font-size="9.2" fill="#1a1a1a" text-anchor="middle">(x+1)/(x−2) − 3 &lt; 0  ⟺  (7 − 2x)/(x − 2) &lt; 0</text>
+      <!-- Number line at y = 148: x = 2 at x_px = 110, x = 7/2 at x_px = 195 -->
+      <line x1="40" y1="148" x2="270" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="40" y1="148" x2="110" y2="148" stroke="#8b2635" stroke-width="4"/>
+      <line x1="195" y1="148" x2="270" y2="148" stroke="#8b2635" stroke-width="4"/>
+      <circle cx="110" cy="148" r="4" fill="#ffffff" stroke="#8b2635" stroke-width="2"/>
+      <circle cx="195" cy="148" r="4" fill="#ffffff" stroke="#8b2635" stroke-width="2"/>
+      <text x="110" y="166" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">x = 2</text>
+      <text x="195" y="166" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">x = 7/2</text>
+      <text x="72" y="138" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635" text-anchor="middle">x &lt; 2 (valid!)</text>
+      <text x="235" y="138" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635" text-anchor="middle">x &gt; 7/2 (valid!)</text>
+      <text x="155" y="194" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Multiplying by (x − 2)² &gt; 0 (for x ≠ 2) never flips the sign!</text>
+
+      <!-- Right panel: Glaisher's Bijection on n = 10 (Exemplar 3) -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Glaisher's Reversible Partition Map on n = 10</text>
+      <rect x="315" y="28" width="265" height="150" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="447" y="48" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Odd Partition of 10:  3 + 3 + 1 + 1 + 1 + 1</text>
+      <text x="447" y="70" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Odd part m = 3 has count c₃ = 2 = 2¹</text>
+      <text x="447" y="88" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Odd part m = 1 has count c₁ = 4 = 2²</text>
+      <text x="447" y="114" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">Φ (Binary Merge) ↓      ↑ Ψ (Halve Evens)</text>
+      <text x="447" y="140" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Distinct Partition of 10:  (2¹·3) + (2²·1) = 6 + 4</text>
+      <text x="447" y="162" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Inverse Ψ splits 6 → 3+3 and 4 → 2+2 → 1+1+1+1!</text>
+      <text x="447" y="194" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Unique factorization d = 2ʳ·m guarantees Φ and Ψ invert each other</text>
+    </svg>
+    <figcaption><strong>Fig P78.3.</strong> <em>Left (Exhibit B):</em> In the rational inequality \(\frac{x+1}{x-2} &lt; 3\), multiplying by \(x - 2\) assumes \(x - 2 &gt; 0\) and drops the entire branch \(x &lt; 2\). Subtracting \(3\) first (or multiplying by the positive square \((x-2)^2 &gt; 0\) for \(x \neq 2\)) preserves the exact equivalence \(\iff (7 - 2x)(x - 2) &lt; 0 \iff x \in (-\infty, 2) \cup (7/2, \infty)\). <em>Right (Exemplar 3):</em> Glaisher's reversible bijection between odd-part partitions and distinct-part partitions.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Multiplying an inequality by a denominator \(D(x)\) of unknown sign.</strong> In \(\frac{x + 1}{x - 2} &lt; 3\) (Fig P78.3, left), multiplying both sides by \(x - 2\) without a sign guard silently assumes \(x - 2 &gt; 0\), losing every solution with \(x &lt; 2\)! Why? Because when \(x - 2 &lt; 0\), multiplying by \(x - 2\) <em>reverses</em> the inequality sign from \(&lt;\) to \(&gt;\).</p>
+    <p><em>Mitigation:</em> Never cross-multiply an inequality by an expression \(D(x)\) of variable sign. Instead, either move all terms to one side (\(\frac{A(x)}{D(x)} - C &lt; 0\)) and analyze the sign table of numerator and denominator, or multiply both sides by the strictly positive square \(D(x)^2 &gt; 0\) (with the guard \(D(x) \neq 0\)):</p>
+    \[
+      \frac{N(x)}{D(x)} &lt; 0 \quad\Longleftrightarrow\quad N(x) \cdot D(x) &lt; 0.
+    \]
+    <p><em>Price:</em> Factoring a single product \(N(x) D(x) &lt; 0\).</p>
+    <p><em>Default:</em> Replace division \(\frac{N(x)}{D(x)} &lt; 0\) with multiplication \(N(x)D(x) &lt; 0\)! </p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — One-way combinatorial maps: defining \(\Phi : X \to Y\) without checking surjectivity or injectivity.</strong> Suppose a student claims that the map \(\Phi\) sending a graph on \(n\) vertices to its degree sequence \((d_1, \dots, d_n)\) proves that two graph families have the same size. Without an inverse map \(\Psi\), \(\Phi\) can be many-to-one (two non-isomorphic graphs can share the same degree sequence) or fail to hit all of \(Y\)!</p>
+    <p><em>Mitigation:</em> Always write down the explicit backward map \(\Psi : Y \to X\) and verify both \(\Psi(\Phi(x)) = x\) and \(\Phi(\Psi(y)) = y\) (Obligation 4 of Box P78.A).</p>
+    <p><em>Price:</em> Defining the reverse decoding rule \(\Psi\).</p>
+    <p><em>Default:</em> A bijection proof is only half-finished until the inverse map \(\Psi\) is written down and checked.</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> In logic and algebra, making every step reversible is the passage from preorders (\(\implies\)) to equivalence relations (\(\iff\)) and groupoids/isomorphisms (<a href="p16-isomorphism.html"><span class="pid">P16</span></a>). In computer science and physics, <strong>reversible computing</strong> (Landauer's Principle, 1961; Bennett's reversible Turing machines, 1973; and unitary quantum gates \(U^\dagger U = I\)) proves that any irreversible step that erases a bit of information (like \(x \mapsto x^2\) erasing the sign of \(x\)) must dissipate at least \(k_B T \ln 2\) of thermodynamic heat, whereas reversible bijective steps can in principle be executed with zero entropy production!</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>You have now completed the entire Tier 2 Canon Foundations! To see multiple patterns from Tiers 1 and 2 work together in concert on four landmark theorems of mathematics:</strong> Step forward to the Multi-Pattern Synthesis pages:
+      <ul>
+        <li><a href="m01-root-two-irrational.html"><span class="pid">M01</span> · \(\sqrt{2}\) is irrational</a> (<span class="pid">P05</span> + <span class="pid">P11</span> + <span class="pid">P13</span>)</li>
+        <li><a href="m02-two-squares.html"><span class="pid">M02</span> · Sums of two squares</a> (<span class="pid">P06</span> + <span class="pid">P13</span>)</li>
+        <li><a href="m03-picks-theorem.html"><span class="pid">M03</span> · Pick's theorem</a> (<span class="pid">P02</span> + <span class="pid">P09</span> + <span class="pid">P70</span>)</li>
+        <li><a href="m04-ramsey-3-3.html"><span class="pid">M04</span> · Six people at a party (\(R(3,3) = 6\))</a> (<span class="pid">P08</span> + <span class="pid">P10</span> + <span class="pid">P68</span>)</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Viète and Descartes's equation transformations to Dedekind–Cantor bijections and Landauer–Bennett reversible computing (1591 – 1980).</strong></p>
+    <ul>
+      <li><strong>François Viète (1591) &amp; René Descartes (1637):</strong> Developing symbolic algebra, Viète and Descartes studied how root sets transform under substitutions \(x \mapsto x + c\) and \(x \mapsto x^2\), observing that squaring introduces "false" (negative) roots alongside "true" (positive) roots unless sign conditions are tracked.</li>
+      <li><strong>Georg Cantor (1878) &amp; Richard Dedekind (1888):</strong> To define when two infinite sets \(X\) and \(Y\) have the same cardinality without counting to a final integer, Cantor and Dedekind elevated the <strong>reversible bijection</strong> (\(\Phi : X \to Y\) with two-sided inverse \(\Psi = \Phi^{-1}\)) to the foundational definition of equinumerosity across all of mathematics.</li>
+      <li><strong>James Whitbread Lee Glaisher (1883) &amp; Major Percy MacMahon (1915):</strong> Dissatisfied with purely formal power-series proofs of partition identities, Glaisher and his successors initiated <em>bijective combinatorics</em> — demanding explicit, step-by-step reversible algorithms (such as binary merging vs. halving in Exemplar 3) that explain <em>why</em> two finite sets have the same size.</li>
+      <li><strong>Rolf Landauer (1961), Charles H. Bennett (1973) &amp; Tommaso Toffoli (1980):</strong> Landauer discovered that logically <em>irreversible</em> operations (such as an <code>AND</code> gate \((a, b) \mapsto a \wedge b\) that erases its inputs) must dissipate at least \(k_B T \ln 2\) of heat per erased bit. Bennett and Toffoli proved that any computation can be made <strong>100% logically reversible</strong> by keeping auxiliary history/guard bits (such as the \(3\)-bit Toffoli gate in Exercise P78.5) — laying the gate-level foundation for quantum computing!</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise P78.1 (●○○ — Banishing a ghost root with a guarded radical equivalence).</strong> Solve the real equation</p>
+    \[
+      \sqrt{x + 7} + x \;=\; 5 \qquad (x \in \mathbb{R})
+    \]
+    <p>by isolating the square root and writing a single chain of guarded equivalences (\(\iff\)). Explain which root of the resulting quadratic is rejected by the guard and why it appeared.</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Subtract \(x\) first to get \(\sqrt{x + 7} = 5 - x\), then apply \(\sqrt{A} = B \iff (B \ge 0 \text{ and } A = B^2)\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Guarded equivalence chain.</strong> Isolating the radical and applying Rule 1 of Fig P78.1 gives</p>
+      \[
+        \begin{aligned}
+          \sqrt{x + 7} + x = 5
+          &amp;\quad\Longleftrightarrow\quad \sqrt{x + 7} = 5 - x \\
+          &amp;\quad\Longleftrightarrow\quad \Bigl(5 - x \ge 0 \;\;\text{and}\;\; x + 7 = (5 - x)^2\Bigr) \\
+          &amp;\quad\Longleftrightarrow\quad \Bigl(x \le 5 \;\;\text{and}\;\; x^2 - 11x + 18 = 0\Bigr) \\
+          &amp;\quad\Longleftrightarrow\quad \Bigl(x \le 5 \;\;\text{and}\;\; (x - 2)(x - 9) = 0\Bigr) \quad\Longleftrightarrow\quad x = 2.
+        \end{aligned}
+      \]
+      <p><strong>2. Origin of the rejected root \(x = 9\).</strong> The guard \(x \le 5\) rejects \(x = 9\), because at \(x = 9\) the right-hand side is \(5 - 9 = -4 &lt; 0\), so \(x = 9\) solves the opposite-branch equation \(-\sqrt{9 + 7} = 5 - 9\) (\(-4 = -4\)), not \(+\sqrt{9 + 7} = 5 - 9\) (\(+4 \neq -4\)).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P78.2 (●●○ — The two-branch guarded equivalence for \(\sqrt{A} &gt; B\)).</strong> In Exemplar 1, we saw that \(\sqrt{A} &lt; B \iff (A \ge 0,\; B &gt; 0,\; A &lt; B^2)\). Now consider the opposite inequality \(\sqrt{A} &gt; B\) over \(\mathbb{R}\).</p>
+    <ol>
+      <li>Explain why \(\sqrt{A} &gt; B\) is <em>automatically true</em> whenever \(A \ge 0\) and \(B &lt; 0\) (without squaring!), and write down the complete two-branch guarded equivalence for \(\sqrt{A} &gt; B\).</li>
+      <li>Use your guarded equivalence to solve \(\sqrt{x + 2} &gt; x\) over \(\mathbb{R}\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Split into \(B &lt; 0\) (where \(\sqrt{A} \ge 0 &gt; B\) holds as long as the square root is defined, \(A \ge 0\)) and \(B \ge 0\) (where both sides are nonnegative, so \(\sqrt{A} &gt; B \iff A &gt; B^2\)).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Complete guarded equivalence for \(\sqrt{A} &gt; B\).</strong> When \(B &lt; 0\) and \(A \ge 0\), the left-hand side is nonnegative (\(\sqrt{A} \ge 0\)) while the right-hand side is negative (\(B &lt; 0\)), so \(\sqrt{A} &gt; B\) holds unconditionally (whereas squaring could reverse the inequality!). When \(B \ge 0\), squaring is strictly increasing on \([0, \infty)\), and \(A &gt; B^2 \ge 0\) automatically implies \(A \ge 0\). Thus:</p>
+      \[
+        \sqrt{A} &gt; B \quad\Longleftrightarrow\quad \Bigl(A \ge 0 \;\;\text{and}\;\; B &lt; 0\Bigr) \;\;\text{OR}\;\; \Bigl(B \ge 0 \;\;\text{and}\;\; A &gt; B^2\Bigr).
+      \]
+      <p><strong>2. Solving \(\sqrt{x + 2} &gt; x\).</strong> Applying the two-branch equivalence with \(A = x + 2\) and \(B = x\):</p>
+      <ul>
+        <li><strong>Branch 1 (\(B &lt; 0\)):</strong> \(x + 2 \ge 0 \text{ and } x &lt; 0 \;\Longleftrightarrow\; x \in [-2, 0)\).</li>
+        <li><strong>Branch 2 (\(B \ge 0\)):</strong> \(x \ge 0 \text{ and } x + 2 &gt; x^2 \;\Longleftrightarrow\; x \ge 0 \text{ and } (x - 2)(x + 1) &lt; 0 \;\Longleftrightarrow\; x \in [0, 2)\).</li>
+      </ul>
+      <p>Taking the union of the two branches gives the exact solution interval \([-2, 0) \cup [0, 2) = [-2, 2)\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P78.3 (●●● — Stars-and-bars as an explicit two-way reversible bijection).</strong> Let \(X\) be the set of ordered \(k\)-tuples of nonnegative integers \(\mathbf{x} = (x_1, x_2, \dots, x_k) \in \mathbb{Z}_{\ge 0}^k\) such that \(x_1 + x_2 + \cdots + x_k = n\), and let \(Y\) be the set of \((k-1)\)-element subsets \(S = \{s_1 &lt; s_2 &lt; \cdots &lt; s_{k-1}\} \subseteq \{1, 2, \dots, n + k - 1\}\). Define the forward map \(\Phi : X \to Y\) by</p>
+    \[
+      s_j \;:=\; j \,+\, \sum_{i=1}^j x_i \qquad (j = 1, 2, \dots, k - 1).
+    \]
+    <ol>
+      <li>Prove that \(1 \le s_1 &lt; s_2 &lt; \cdots &lt; s_{k-1} \le n + k - 1\) for every \(\mathbf{x} \in X\).</li>
+      <li>Write down the explicit inverse formula \(\Psi : Y \to X\) recovering \((x_1, \dots, x_k)\) from \((s_1, \dots, s_{k-1})\), and verify algebraically that \(\Psi(\Phi(\mathbf{x})) = \mathbf{x}\) and \(\Phi(\Psi(S)) = S\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Notice that \(s_j - s_{j-1} = 1 + x_j \ge 1\) because \(x_j \ge 0\)! To invert, solve for \(x_j\) in terms of \(s_j - s_{j-1}\) (<a href="p69-telescoping.html"><span class="pid">P69</span></a>).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Image lands inside \(Y\).</strong> Since \(x_i \ge 0\), we have \(s_1 = 1 + x_1 \ge 1\), for each \(2 \le j \le k-1\) we have \(s_j - s_{j-1} = 1 + x_j \ge 1 \implies s_{j-1} &lt; s_j\), and \(s_{k-1} = (k - 1) + \sum_{i=1}^{k-1} x_i = (k - 1) + (n - x_k) \le n + k - 1\). Thus \(\Phi(\mathbf{x}) \in Y\).</p>
+      <p><strong>2. Explicit inverse \(\Psi\) and two-way verification.</strong> Set \(s_0 := 0\) and \(s_k := n + k\). Define \(\Psi(s_1, \dots, s_{k-1}) = (x_1, \dots, x_k)\) by</p>
+      \[
+        x_j \;:=\; s_j - s_{j-1} - 1 \qquad (j = 1, 2, \dots, k).
+      \]
+      <p>Because \(s_{j-1} &lt; s_j\) are integers, \(s_j - s_{j-1} \ge 1 \implies x_j \ge 0\), and by telescoping (<a href="p69-telescoping.html"><span class="pid">P69</span></a>),</p>
+      \[
+        \sum_{j=1}^k x_j \;=\; \sum_{j=1}^k \bigl(s_j - s_{j-1} - 1\bigr) \;=\; (s_k - s_0) - k \;=\; (n + k - 0) - k \;=\; n.
+      \]
+      <p>Checking \(\Psi(\Phi(\mathbf{x}))\): \((j + \sum_{i=1}^j x_i) - (j - 1 + \sum_{i=1}^{j-1} x_i) - 1 = x_j\). Checking \(\Phi(\Psi(S))\): \(j + \sum_{i=1}^j (s_i - s_{i-1} - 1) = j + (s_j - s_0) - j = s_j\). Thus \(\Phi\) and \(\Psi\) are exact two-sided inverses, proving \(|X| = |Y| = \binom{n+k-1}{k-1}\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P78.4 (◆ — Pattern-unknown diagnosis).</strong> A student attempts to solve the real inequality</p>
+    \[
+      \frac{x^2 - 3x + 2}{x^2 - 3x - 4} \;\le\; 1
+    \]
+    <p>by writing: <em>"Multiply both sides by \(x^2 - 3x - 4\) to obtain \(x^2 - 3x + 2 \le x^2 - 3x - 4\); subtract \(x^2 - 3x\) from both sides to get \(2 \le -4\), which is impossible; therefore there are no real solutions."</em> Diagnose the exact reversibility violation in the student's argument, and solve the inequality correctly using a chain of guarded equivalences (\(\iff\)).</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern diagnosis (<a href="p78-reversible-steps.html"><span class="pid">P78</span> · Make every step reversible</a>, Exhibit B).</strong> The student multiplied an inequality by the variable denominator \(D(x) = x^2 - 3x - 4 = (x - 4)(x + 1)\) without checking its sign! That step is valid with \(\le\) <em>only</em> when \(D(x) &gt; 0\). When \(D(x) &lt; 0\) (which occurs on the interval \(x \in (-1, 4)\)), multiplying by \(D(x) &lt; 0\) reverses \(\le\) to \(\ge\), turning \(2 \le -4\) (false) into \(2 \ge -4\) (always true!) — so the student threw away the entire solution interval!</p>
+      <p><strong>2. Reversible solution via subtraction of \(1\).</strong> Subtracting \(1\) from both sides is an unconditional equivalence that preserves the denominator and its sign:</p>
+      \[
+        \begin{aligned}
+          \frac{x^2 - 3x + 2}{x^2 - 3x - 4} \le 1
+          &amp;\quad\Longleftrightarrow\quad \frac{(x^2 - 3x + 2) - (x^2 - 3x - 4)}{x^2 - 3x - 4} \le 0 \\
+          &amp;\quad\Longleftrightarrow\quad \frac{6}{(x - 4)(x + 1)} \le 0 \\
+          &amp;\quad\Longleftrightarrow\quad (x - 4)(x + 1) &lt; 0 \quad (\text{since } 6 &gt; 0 \text{ cannot equal } 0) \\
+          &amp;\quad\Longleftrightarrow\quad -1 &lt; x &lt; 4.
+        \end{aligned}
+      \]
+      <p>Thus the exact solution set is the open interval \((-1, 4)\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P78.5 (◐ — Exploration: Reversible computing and the \(3\)-bit Toffoli gate).</strong> In classical digital logic, the \(2\)-bit <code>AND</code> gate \((a, b) \mapsto a \wedge b\) (for \(a, b \in \{0, 1\}\)) is <strong>irreversible</strong>: if the output is \(0\), you cannot tell whether the input \((a, b)\) was \((0, 0)\), \((0, 1)\), or \((1, 0)\). In 1980, Tommaso Toffoli showed how to make <code>AND</code> completely reversible by adding a third "target/ancilla" bit \(c \in \{0, 1\}\) and defining the \(3\)-bit <strong>Toffoli gate</strong> \(T : \{0, 1\}^3 \to \{0, 1\}^3\) (where \(\oplus\) denotes addition modulo \(2\), i.e., <code>XOR</code>):</p>
+    \[
+      T(a, b, c) \;:=\; \bigl(a,\;\; b,\;\; c \oplus (a \cdot b)\bigr).
+    \]
+    <ol>
+      <li>Prove algebraically using \(x \oplus x = 0\) in \(\mathbb{Z}_2\) that the Toffoli gate is its own inverse: \(T\bigl(T(a, b, c)\bigr) = (a, b, c)\) for all \(2^3 = 8\) bit triples \((a, b, c) \in \{0, 1\}^3\)!</li>
+      <li>Show how choosing special values of \((a, b, c)\) allows the single reversible gate \(T\) to simulate the universal irreversible gates <code>AND</code> (\(a \cdot b\)), <code>NOT</code> (\(\neg a = 1 \oplus a\)), and <code>XOR</code> (\(a \oplus c\)) without ever losing information!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Apply \(T\) a second time to \((a, b, c \oplus ab)\): the first two bits are still \(a\) and \(b\), so the third bit becomes \((c \oplus ab) \oplus ab\). For <code>AND</code>, set \(c = 0\); for <code>NOT</code>, set \(b = 1, c = 1\); for <code>XOR</code>, set \(b = 1\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Self-inverse property (\(T \circ T = \operatorname{Id}\)).</strong> Because \(T\) leaves the two control bits \(a, b\) untouched, applying \(T\) twice adds \(a \cdot b \pmod 2\) to the third bit twice:</p>
+      \[
+        T\bigl(T(a, b, c)\bigr) \;=\; T\bigl(a,\; b,\; c \oplus ab\bigr) \;=\; \bigl(a,\; b,\; (c \oplus ab) \oplus ab\bigr) \;=\; \bigl(a,\; b,\; c \oplus (ab \oplus ab)\bigr) \;=\; (a, b, c),
+      \]
+      <p>since \(x \oplus x = 0\) in modulo-\(2\) arithmetic! Thus \(T\) is a permutation (bijection) of the \(8\) states \(\{0, 1\}^3\).</p>
+      <p><strong>2. Universal irreversible logic embedded inside a reversible bijection.</strong></p>
+      <ul>
+        <li><strong><code>AND</code> gate:</strong> Initialize the ancilla bit to \(c = 0\): \(T(a, b, 0) = (a, b, a \cdot b)\). Carrying the inputs \((a, b)\) alongside the output \(a \cdot b\) is the exact hardware analog of carrying the guard \(G(x)\) in Box P78!</li>
+        <li><strong><code>NOT</code> gate:</strong> Fix \(b = 1\) and \(c = 1\): \(T(a, 1, 1) = (a, 1, 1 \oplus a) = (a, 1, \neg a)\).</li>
+        <li><strong><code>XOR</code> gate:</strong> Fix \(b = 1\): \(T(a, 1, c) = (a, 1, c \oplus a)\).</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p77-work-backwards.html">← Previous: P77 · Work backwards</a> ·
+    <a href="m01-root-two-irrational.html">Next: M01 · \(\sqrt{2}\) is irrational →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>

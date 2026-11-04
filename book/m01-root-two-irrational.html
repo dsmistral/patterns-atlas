@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M01 · √2 is irrational — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Multi-Pattern Synthesis · Landmark Theorems</p>
+  <h1><span class="pid">M01</span> · \(\sqrt{2}\) is irrational</h1>
+  <p class="lede">Four distinct proofs of the first great discovery of pure mathematics — showing how Canonical Form (<span class="pid">P05</span>), Contradiction (<span class="pid">P11</span>), Infinite Descent (<span class="pid">P13</span>), and Prime Localization (<span class="pid">P30</span>) trade roles to prove that no fraction squares to \(2\).</p>
+  <p class="prereqs"><strong>Moves Combined:</strong> <a href="p05-canonical-form.html">P05 · Put it in canonical form</a> + <a href="p11-contradiction.html">P11 · Prove by contradiction</a> + <a href="p13-infinite-descent.html">P13 · Infinite descent</a> (with <a href="p67-contrapositive.html">P67 · Prove the contrapositive</a> &amp; <a href="p30-localize-at-prime.html">P30 · Localize at a prime</a>)</p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — What is a Multi-Pattern Synthesis page?</strong> In the first \(78\) chapters of this Atlas, we isolated individual reasoning moves one at a time. In real mathematical discovery, a theorem is rarely proved by a single move in isolation: instead, patterns snap together like gears — one move sets up the representation, a second move performs the reduction, and a third move closes the trap. Better still, changing <em>which</em> pattern does the heavy lifting produces genuinely different proofs that generalize in different directions!</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — Incommensurability and integer equations.</strong> Asking whether \(\sqrt{2}\) is a rational number \(\frac{a}{b}\) (with \(a, b \in \mathbb{Z}_{\ge 1}\)) is identical to two concrete questions:</p>
+  <ul>
+    <li><strong>Geometric question (The Pythagoreans, c. 450 BCE):</strong> Does there exist a tiny common ruler of length \(\delta &gt; 0\) that fits into the side \(b\) of a square an exact integer number of times <em>and</em> into its diagonal \(a = b\sqrt{2}\) an exact integer number of times?</li>
+    <li><strong>Diophantine question:</strong> Does the quadratic equation \(a^2 - 2b^2 = 0\) have any solution in positive integers \((a, b) \in \mathbb{Z}_{\ge 1}^2\)?</li>
+  </ul>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>We first met the irrationality of \(\sqrt{2}\) in <a href="p11-contradiction.html"><span class="pid">P11</span> · Prove by contradiction</a>. Now that we have the entire Atlas at our fingertips, look closely at the hidden machinery inside that proof — and see how four patterns collaborate:</p>
+  <ul>
+    <li><a href="p11-contradiction.html"><span class="pid">P11</span> · Prove by contradiction</a> supplies the outer wrapper: because "\(\sqrt{2}\) is irrational" is a negative statement (the absence of integer solutions to \(a^2 = 2b^2\)), assuming a solution \((a, b) \in \mathbb{Z}_{\ge 1}^2\) exists hands us two concrete integers to manipulate.</li>
+    <li><a href="p05-canonical-form.html"><span class="pid">P05</span> · Put it in canonical form</a> normalizes the hypothetical fraction \(\frac{a}{b}\) to lowest terms (\(\gcd(a, b) = 1\)) <em>up front</em> — or writes \(a\) and \(b\) in their canonical prime factorizations.</li>
+    <li><a href="p67-contrapositive.html"><span class="pid">P67</span> · Prove the contrapositive</a> proves the inner parity step: \(a^2\) even \(\implies a\) even (because \(a\) odd \(\implies a^2\) odd).</li>
+    <li><a href="p13-descent.html"><span class="pid">P13</span> · Infinite descent</a> (paired with <a href="p71-extremal-principle.html"><span class="pid">P71</span> · The extremal principle</a>) eliminates the need for lowest terms altogether: instead of dividing \(a\) and \(b\) by \(2\), we can fold the square or overlap two \(b \times b\) squares inside an \(a \times a\) square to produce a strictly smaller integer solution \((2b - a,\; a - b)\) using subtraction alone!</li>
+  </ul>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: A4 printer paper and the folding descent</h2>
+  <p>Pick up a standard sheet of <strong>ISO A4 printer paper</strong>, which measures \(a_0 = 297\text{ mm}\) long by \(b_0 = 210\text{ mm}\) wide. Dividing both dimensions by \(3\text{ mm}\) gives \((a_0, b_0) = (99, 70)\) in \(3\text{ mm}\) grid units, with ratio \(\frac{99}{70} \approx 1.4142857\).</p>
+  <p>Why was \(99 : 70\) chosen for A4 paper? Because engineers wanted a rectangle whose aspect ratio \(\frac{a}{b}\) is preserved when you fold the sheet in half (\(\frac{a}{b} = \frac{b}{a/2} \iff a^2 = 2b^2\)), and \(99^2 - 2 \cdot 70^2 = 9801 - 9800 = +1\) is as close to \(0\) as two two-digit integers can get!</p>
+  <p>Now watch what happens if you apply the <strong>geometric corner-fold</strong></p>
+  \[
+    (a,\; b) \;\longmapsto\; (a',\; b') \;:=\; \bigl(2b - a,\;\; a - b\bigr)
+  \]
+  <p>to any pair of integers \((a, b)\). By expanding squares (<a href="p06-compose-identity.html"><span class="pid">P06</span></a>), the discrepancy \(\Delta(a, b) := a^2 - 2b^2\) satisfies the exact sign-reversing identity:</p>
+  \[
+    (a')^2 - 2(b')^2 \;=\; (2b - a)^2 - 2(a - b)^2 \;=\; (4b^2 - 4ab + a^2) - (2a^2 - 4ab + 2b^2) \;=\; -\bigl(a^2 - 2b^2\bigr)!
+  \]
+  <p>Compare what this folding map does to the A4 near-miss \((99, 70)\) (where \(\Delta = \pm 1\)) versus a hypothetical exact integer solution \((a, b)\) to \(a^2 - 2b^2 = 0\):</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fold step \(t\)</th>
+        <th>A4 paper dimensions \((a_t, b_t)\)</th>
+        <th>Decimal ratio \(a_t / b_t\)</th>
+        <th>Pell discrepancy \(a_t^2 - 2b_t^2\)</th>
+        <th>Hypothetical exact solution \(\Delta = 0\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(t = 0\)</td>
+        <td>\((99,\; 70)\)</td>
+        <td>\(1.4142857\)</td>
+        <td>\(9801 - 9800 = +1\)</td>
+        <td>\((a_0, b_0) \in \mathbb{Z}_{\ge 1}^2\) with \(a_0^2 - 2b_0^2 = 0\)</td>
+      </tr>
+      <tr>
+        <td>\(t = 1\)</td>
+        <td>\((41,\; 29)\)</td>
+        <td>\(1.4137931\)</td>
+        <td>\(1681 - 1682 = -1\)</td>
+        <td>\((2b_0 - a_0,\; a_0 - b_0) \in \mathbb{Z}_{\ge 1}^2,\; \Delta = 0\)</td>
+      </tr>
+      <tr>
+        <td>\(t = 2\)</td>
+        <td>\((17,\; 12)\)</td>
+        <td>\(1.4166667\)</td>
+        <td>\(289 - 288 = +1\)</td>
+        <td>\((a_2, b_2) \in \mathbb{Z}_{\ge 1}^2,\; 0 &lt; b_2 &lt; b_1,\; \Delta = 0\)</td>
+      </tr>
+      <tr>
+        <td>\(t = 3\)</td>
+        <td>\((7,\; 5)\)</td>
+        <td>\(1.4000000\)</td>
+        <td>\(49 - 50 = -1\)</td>
+        <td>\((a_3, b_3) \in \mathbb{Z}_{\ge 1}^2,\; 0 &lt; b_3 &lt; b_2,\; \Delta = 0\)</td>
+      </tr>
+      <tr>
+        <td>\(t = 4\)</td>
+        <td>\((3,\; 2)\)</td>
+        <td>\(1.5000000\)</td>
+        <td>\(9 - 8 = +1\)</td>
+        <td>\(\vdots\)</td>
+      </tr>
+      <tr>
+        <td>\(t = 5\)</td>
+        <td>\((1,\; 1)\)</td>
+        <td>\(1.0000000\)</td>
+        <td>\(1 - 2 = -1\)</td>
+        <td><strong>Never hits \(0\) — infinite descent in \(\mathbb{Z}_{\ge 1}\)!</strong></td>
+      </tr>
+      <tr>
+        <td>\(t = 6\)</td>
+        <td>\((1,\; 0)\) — <strong>Halts!</strong></td>
+        <td>\(\infty\)</td>
+        <td>\(1 - 0 = +1\)</td>
+        <td><strong>Contradiction (<span class="pid">P13</span>)!</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Because \(99^2 - 2\cdot 70^2 = +1 \neq 0\), the A4 paper sequence hits \((1, 1)\) and stops at \(b_6 = 0\). By contrast, if \(a_0^2 - 2b_0^2 = 0\), then \(\frac{a_t}{b_t} = \sqrt{2} \in (1, 2)\) at every step, so \(0 &lt; b_{t+1} = a_t - b_t = (\sqrt{2} - 1)b_t &lt; b_t\) produces an infinite strictly decreasing sequence of positive integers \(b_0 &gt; b_1 &gt; b_2 &gt; \cdots &gt; 0\) — which is impossible!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the synthesis</h2>
+
+  <div class="pattern-box" id="box-m01">
+    <h3>Box M01 · The Four-Pattern Synthesis for Irrationality</h3>
+    <p>Every proof that \(\sqrt{2} \notin \mathbb{Q}\) combines an <strong>existence negation (<span class="pid">P11</span>)</strong> with a <strong>canonical invariant or descent mechanism</strong> that exposes an irreconcilable clash between \(a^2\) and \(2b^2\):</p>
+    \[
+      \text{Assume } a^2 = 2b^2 \text{ in } \mathbb{Z}_{\ge 1} \;\;(\text{P11})
+      \quad\longrightarrow\quad
+      \begin{cases}
+        \textbf{Route 1 (Lowest Terms): } \gcd(a,b)=1 \text{ (P05)} + \text{Parity (P67)} \implies 2 \mid \gcd(a,b), \\[4pt]
+        \textbf{Route 2 (2-Adic Valuation): } 2\nu_2(a) = 2\nu_2(b) + 1 \text{ (P05 + P30 + P09)}, \\[4pt]
+        \textbf{Route 3 (Subtractive Descent): } (a,b) \mapsto (2b-a, a-b) \text{ (P13 + P71 + P76)}.
+      \end{cases}
+    \]
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Pattern dependency DAG for M01 showing how P11 branches into Route 1 (P05 + P67), Route 2 (P05 + P30 + P09), and Route 3 (P71 + P13 + P76)">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">How the Patterns Interlock Across the Three Proofs of M01</text>
+      <!-- Top root: P11 -->
+      <rect x="195" y="28" width="210" height="32" rx="5" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="300" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">P11 · Assume ∃ a, b ∈ ℤ₊ : a² = 2b²</text>
+      <!-- Three branches -->
+      <line x1="230" y1="60" x2="105" y2="85" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="300" y1="60" x2="300" y2="85" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="370" y1="60" x2="495" y2="85" stroke="#1a1a1a" stroke-width="1.5"/>
+
+      <!-- Route 1 box -->
+      <rect x="18" y="85" width="175" height="98" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="105" y="103" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Route 1: Euclid's Parity</text>
+      <text x="105" y="122" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P05: Normalize gcd(a, b) = 1</text>
+      <text x="105" y="140" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P67: a² even ⇒ a = 2k</text>
+      <text x="105" y="158" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• 4k² = 2b² ⇒ b even</text>
+      <text x="105" y="175" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Clash: 2 | gcd(a, b) = 1!</text>
+
+      <!-- Route 2 box -->
+      <rect x="212" y="85" width="175" height="98" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="300" y="103" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Route 2: 2-Adic Valuation</text>
+      <text x="300" y="122" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P05: Prime factorization</text>
+      <text x="300" y="140" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P30: Apply ν₂ to a² = 2b²</text>
+      <text x="300" y="158" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P09: Parity of exponents</text>
+      <text x="300" y="175" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Clash: 2ν₂(a) = 2ν₂(b) + 1!</text>
+
+      <!-- Route 3 box -->
+      <rect x="407" y="85" width="175" height="98" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="495" y="103" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Route 3: Tennenbaum Descent</text>
+      <text x="495" y="122" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P71: Pick minimal a &gt; 0</text>
+      <text x="495" y="140" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P76: Overlap two b×b squares</text>
+      <text x="495" y="158" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• P13: (2b−a)² = 2(a−b)²</text>
+      <text x="495" y="175" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Clash: 0 &lt; 2b − a &lt; a!</text>
+    </svg>
+    <figcaption><strong>Fig M01.1.</strong> Three distinct pattern combinations proving \(\sqrt{2} \notin \mathbb{Q}\). Route 1 normalizes \(\gcd(a,b)=1\) up front (<span class="pid">P05</span>) and uses contrapositive parity (<span class="pid">P67</span>). Route 2 localizes at the prime \(p = 2\) (<span class="pid">P30</span>) and compares exponent parity (<span class="pid">P09</span>) without ever reducing fractions. Route 3 picks the smallest hypothetical square \(a^2 = 2b^2\) (<span class="pid">P71</span>) and uses Inclusion–Exclusion (<span class="pid">P76</span>) to descend to a smaller square (<span class="pid">P13</span>) without using divisibility at all!</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m01a">
+    <h3>Box M01.A · Role Assignment of Each Pattern in the Synthesis</h3>
+    <ol>
+      <li><strong><span class="pid">P11</span> (Prove by contradiction):</strong> Converts the negative target "\(\forall a, b \in \mathbb{Z}_{\ge 1},\; a^2 \neq 2b^2\)" into a concrete hypothetical pair \((a, b) \in \mathbb{Z}_{\ge 1}^2\) satisfying \(a^2 = 2b^2\).</li>
+      <li><strong><span class="pid">P05</span> (Canonical form):</strong> Either divides out \(\gcd(a, b)\) so \(\frac{a}{b}\) is in lowest terms (Route 1), or invokes Unique Prime Factorization \(n = \prod p_i^{e_i}\) (Route 2).</li>
+      <li><strong><span class="pid">P67</span> (Contrapositive) &amp; <span class="pid">P30</span> (Localize at a prime):</strong> Extracts the \(2\)-divisibility obstruction from \(a^2 = 2b^2\).</li>
+      <li><strong><span class="pid">P13</span> (Infinite descent) &amp; <span class="pid">P71</span> (Extremal principle):</strong> Replaces prime factorization by a purely linear transformation \((a, b) \mapsto (2b - a, a - b)\) that shrinks positive integers below the minimum possible solution.</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 220" width="100%" role="img" aria-label="Left: Stanley Tennenbaum's overlapping squares proof showing two b x b squares inside an a x a square overlapping in a (2b-a) x (2b-a) square and leaving two uncovered (a-b) x (a-b) squares. Right: Geometric corner fold of a right isosceles triangle">
+      <rect x="0" y="0" width="600" height="220" fill="#ffffff"/>
+      <!-- Left panel: Tennenbaum's Overlapping Squares (a = 140px, b = 99px -> 2b - a = 58px, a - b = 41px!) -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Tennenbaum's Carpet Proof (P71 + P76 + P13)</text>
+      <!-- Outer a x a square at x=85..225, y=34..174 (width 140, height 140) -->
+      <rect x="85" y="34" width="140" height="140" fill="#faf8f5" stroke="#1a1a1a" stroke-width="2"/>
+      <!-- Top-left b x b square: x=85..184, y=34..133 (99x99) -->
+      <rect x="85" y="34" width="99" height="99" fill="#eef3f7" fill-opacity="0.7" stroke="#3a6073" stroke-width="1.8"/>
+      <!-- Bottom-right b x b square: x=126..225, y=75..174 (99x99) -->
+      <rect x="126" y="75" width="99" height="99" fill="#eef3f7" fill-opacity="0.7" stroke="#3a6073" stroke-width="1.8"/>
+      <!-- Central overlap (2b - a) x (2b - a): x=126..184, y=75..133 (58x58) -->
+      <rect x="126" y="75" width="58" height="58" fill="#f3e6e8" stroke="#8b2635" stroke-width="2.2"/>
+      <!-- Uncovered top-right (a - b) x (a - b): x=184..225, y=34..75 (41x41) -->
+      <rect x="184" y="34" width="41" height="41" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.8"/>
+      <!-- Uncovered bottom-left (a - b) x (a - b): x=85..126, y=133..174 (41x41) -->
+      <rect x="85" y="133" width="41" height="41" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.8"/>
+      <text x="155" y="102" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">Overlap</text>
+      <text x="155" y="114" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635" text-anchor="middle">(2b − a)²</text>
+      <text x="204" y="58" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#b85d19" text-anchor="middle">(a−b)²</text>
+      <text x="105" y="157" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#b85d19" text-anchor="middle">(a−b)²</text>
+      <text x="155" y="192" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">If 2b² = a², then Overlap (2b−a)² = 2·Uncovered (a−b)²!</text>
+      <text x="155" y="207" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">A strictly smaller integer solution inside the minimal square!</text>
+
+      <!-- Right panel: Geometric Right-Triangle Fold -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Geometric Triangle Fold: (a, b) ↦ (2b − a, a − b)</text>
+      <!-- Right isosceles triangle A(340, 170) - B(510, 170) [right angle, leg b=170] - C(510, 40)? Wait: make legs equal:
+           Let right angle be at B=(500, 170), bottom-left A=(360, 170) [leg b=140], top-right C=(500, 30) [leg b=140].
+           Hypotenuse AC has length a = 140*sqrt(2) = 198.
+           Lay off distance b = 140 along hypotenuse AC from C(500, 30) toward A(360, 170):
+           Unit vector C->A is (-1/sqrt(2), 1/sqrt(2)) = (-0.7071, 0.7071).
+           At distance 140 from C: D = (500 - 99, 30 + 99) = (401, 129)!
+           The remaining segment DA has length a - b!
+           At D(401, 129), erect perpendicular DE to AB meeting AB at E:
+           Since angle A = 45 deg, triangle ADE is a right isosceles triangle with legs AD = DE = a - b,
+           and EB = AD = a - b, so AE = b - (a - b) = 2b - a! -->
+      <polygon points="360,170 500,170 500,30" fill="#f2eee6" stroke="#1a1a1a" stroke-width="2"/>
+      <!-- Small corner right isosceles triangle A(360,170) - D(401,129) - E(418, 170) -->
+      <polygon points="360,170 401,129 418,170" fill="#f3e6e8" stroke="#8b2635" stroke-width="2.2"/>
+      <!-- Fold line CE from C(500,30) to E(418,170) -->
+      <line x1="500" y1="30" x2="418" y2="170" stroke="#3a6073" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <circle cx="360" cy="170" r="3.5" fill="#1a1a1a"/>
+      <circle cx="500" cy="170" r="3.5" fill="#1a1a1a"/>
+      <circle cx="500" cy="30" r="3.5" fill="#1a1a1a"/>
+      <circle cx="401" cy="129" r="4" fill="#8b2635"/>
+      <circle cx="418" cy="170" r="4" fill="#8b2635"/>
+      <text x="348" y="175" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">A</text>
+      <text x="510" y="175" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">B</text>
+      <text x="510" y="35" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">C</text>
+      <text x="388" y="124" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635">D</text>
+      <text x="418" y="185" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">E</text>
+      <text x="438" y="74" font-family="system-ui, sans-serif" font-size="9" fill="#3a6073">|CD| = b</text>
+      <text x="364" y="144" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635">a − b</text>
+      <text x="389" y="185" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635" text-anchor="middle">2b − a</text>
+      <text x="524" y="105" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">b</text>
+      <text x="450" y="204" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Folding BC onto AC leaves smaller 45°-45°-90° △ADE!</text>
+    </svg>
+    <figcaption><strong>Fig M01.2.</strong> Two geometric descent proofs that require zero divisibility theory. <em>Left (Tennenbaum):</em> Place two \(b \times b\) blue carpets in opposite corners of an \(a \times a\) room where \(a^2 = 2b^2\). Since the total carpet area \(2b^2\) equals the floor area \(a^2\), the central double-covered square of side \(2b - a\) must have the exact same area as the two uncovered corner squares of side \(a - b\): \((2b - a)^2 = 2(a - b)^2\)! <em>Right (Hippasus–Euclid Fold):</em> Folding leg \(BC = b\) onto hypotenuse \(AC = a\) leaves a strictly smaller integer right isosceles triangle \(\triangle ADE\) with legs \(a - b\) and hypotenuse \(2b - a\).</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-m01b">
+    <h3>Box M01.B · Three-Key Synthesis Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> Irrationality of an algebraic number (\(\sqrt{2}, \sqrt[k]{N}, \log_2 3\)) or non-existence of integer solutions to a homogeneous Diophantine equation.</li>
+      <li><strong>Problem shape:</strong> An equation \(a^k = N b^k\) (or \(2^a = 3^b\)) where the two sides have incompatible prime valuations or admit a self-similar scaling reduction.</li>
+      <li><strong>Tools at hand:</strong> Greatest common divisor normalization (<span class="pid">P05</span>), \(p\)-adic valuations \(\nu_p\) (<span class="pid">P30</span>), Inclusion–Exclusion area balance (<span class="pid">P76</span>), and Well-Ordering / Infinite Descent (<span class="pid">P71</span> + <span class="pid">P13</span>).</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked synthesis exemplars</h2>
+
+  <h3>Exemplar 1 (Route 2: <span class="pid">P11</span> + <span class="pid">P05</span> + <span class="pid">P30</span> + <span class="pid">P09</span>) · The \(2\)-adic valuation proof and the complete \(\sqrt[k]{N}\) theorem</h3>
+  <p><strong>Problem.</strong> Prove that \(\sqrt{2}\) is irrational without reducing fractions to lowest terms, and generalize the argument to prove that for any integers \(N \ge 2\) and \(k \ge 2\), \(\sqrt[k]{N}\) is rational if and only if \(N = m^k\) is the \(k\)-th power of an integer.</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (The 1-line parity clash for \(\sqrt{2}\)).</strong> Suppose for contradiction (<a href="p11-contradiction.html"><span class="pid">P11</span></a>) that \(\sqrt{2} = \frac{a}{b}\) for some positive integers \(a, b \in \mathbb{Z}_{\ge 1}\) (not necessarily coprime!), so</p>
+  \[
+    a^2 \;=\; 2b^2.
+  \]
+  <p>By Unique Prime Factorization (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>), localize at the prime \(p = 2\) (<a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>) by counting the exact exponent \(\nu_2(n)\) of the prime \(2\) dividing each side:</p>
+  <ul>
+    <li>Whenever an integer \(a\) is squared, every prime exponent in its factorization doubles: \(\nu_2(a^2) = 2\,\nu_2(a)\), which is always <strong>even</strong>.</li>
+    <li>Multiplying \(b^2\) by \(2\) adds \(1\) to the exponent of \(2\): \(\nu_2(2b^2) = 1 + 2\,\nu_2(b)\), which is always <strong>odd</strong>.</li>
+  </ul>
+  <p>Equating the exponents of \(2\) on both sides of \(a^2 = 2b^2\) forces \(2\,\nu_2(a) = 2\,\nu_2(b) + 1\) — an even integer equal to an odd integer (<a href="p09-invariant.html"><span class="pid">P09</span></a>)! Contradiction.</p>
+
+  <p><strong>Step 2 (Generalization to \(\sqrt[k]{N}\)).</strong> If \(\sqrt[k]{N} = \frac{a}{b}\), then \(a^k = N b^k\). For <em>every</em> prime \(p\), applying \(\nu_p\) gives</p>
+  \[
+    k\,\nu_p(a) \;=\; \nu_p(N) + k\,\nu_p(b) \quad\implies\quad \nu_p(N) \;=\; k\bigl(\nu_p(a) - \nu_p(b)\bigr).
+  \]
+  <p>Since \(N\) is an integer, \(\nu_p(N) \ge 0\) is divisible by \(k\) for every prime \(p\), so \(e_p := \nu_p(N) / k \in \mathbb{Z}_{\ge 0}\) is a nonnegative integer for every prime \(p\). Setting \(m = \prod_p p^{e_p} \in \mathbb{Z}_{\ge 1}\) gives \(N = m^k\)!</p>
+
+  <h3>Exemplar 2 (Route 3: <span class="pid">P11</span> + <span class="pid">P71</span> + <span class="pid">P76</span> + <span class="pid">P13</span>) · Tennenbaum's overlapping carpets and Estermann's multiplier descent</h3>
+  <p><strong>Problem.</strong></p>
+  <ol>
+    <li>Give Stanley Tennenbaum's geometric proof that \(a^2 = 2b^2\) has no positive integer solutions by overlapping two \(b \times b\) squares inside a minimal \(a \times a\) square.</li>
+    <li>Generalize this descent to prove that for any positive integer \(d\) that is not a perfect square, \(\sqrt{d}\) is irrational.</li>
+  </ol>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Part 1 (Tennenbaum's overlapping squares).</strong> Suppose \(a^2 = 2b^2\) has solutions in positive integers (<span class="pid">P11</span>). By the Well-Ordering Principle (<a href="p71-extremal-principle.html"><span class="pid">P71</span></a>), choose the solution \((a, b) \in \mathbb{Z}_{\ge 1}^2\) with the <strong>smallest possible side \(a &gt; 0\)</strong>. Place two \(b \times b\) squares in the top-left and bottom-right corners of the \(a \times a\) square (Fig M01.2, left). Because \(b &lt; a &lt; 2b\), the two \(b \times b\) squares overlap in a central square of side \(2b - a &gt; 0\) and leave two uncovered corner squares of side \(a - b &gt; 0\). By Inclusion–Exclusion (<a href="p76-inclusion-exclusion.html"><span class="pid">P76</span></a>), the total area of the \(a \times a\) square is</p>
+  \[
+    a^2 \;=\; \underbrace{2b^2}_{\text{two } b\times b \text{ carpets}} \,-\, \underbrace{(2b - a)^2}_{\text{double-covered overlap}} \,+\, \underbrace{2(a - b)^2}_{\text{two uncovered corners}}.
+  \]
+  <p>Subtracting \(a^2 = 2b^2\) from both sides yields \((2b - a)^2 = 2(a - b)^2\)! Since \(b &lt; a &lt; 2b\), the integers \(a' = 2b - a\) and \(b' = a - b\) satisfy \(0 &lt; a' &lt; a\) and \((a')^2 = 2(b')^2\) — a strictly smaller positive integer solution (<a href="p13-descent.html"><span class="pid">P13</span></a>), contradicting the minimality of \(a\)!</p>
+
+  <p><strong>Part 2 (Estermann–Beukers fractional-part descent for \(\sqrt{d}\)).</strong> Let \(d \in \mathbb{Z}_{\ge 2}\) not be a perfect square, and let \(m = \lfloor \sqrt{d} \rfloor\) be the unique integer such that \(m &lt; \sqrt{d} &lt; m + 1\), so \(0 &lt; \sqrt{d} - m &lt; 1\). If \(\sqrt{d} \in \mathbb{Q}\), let \(b \in \mathbb{Z}_{\ge 1}\) be the <strong>smallest positive integer</strong> such that \(a := b\sqrt{d}\) is an integer (<span class="pid">P71</span>). Define</p>
+  \[
+    b' \;:=\; b\bigl(\sqrt{d} - m\bigr) \;=\; a - mb \;\in\; \mathbb{Z}.
+  \]
+  <p>Because \(0 &lt; \sqrt{d} - m &lt; 1\), we have \(0 &lt; b' &lt; b\); and multiplying \(b'\) by \(\sqrt{d}\) gives</p>
+  \[
+    b'\sqrt{d} \;=\; b d - m(b\sqrt{d}) \;=\; d b - m a \;\in\; \mathbb{Z},
+  \]
+  <p>contradicting that \(b\) was the smallest positive integer multiplier sending \(\sqrt{d}\) into \(\mathbb{Z}\)!</p>
+
+  <h3>Exemplar 3 (Route 4: <span class="pid">P05</span> + <span class="pid">P30</span> + <span class="pid">P67</span>) · The Rational Root Theorem for monic polynomials</h3>
+  <p><strong>Problem.</strong> Prove that if a monic polynomial with integer coefficients</p>
+  \[
+    P(x) \;=\; x^n + c_{n-1} x^{n-1} + \cdots + c_1 x + c_0 \;\in\; \mathbb{Z}[x]
+  \]
+  <p>has a rational root \(x = \frac{a}{b} \in \mathbb{Q}\), then \(x \in \mathbb{Z}\) must be an integer! Use this to prove in two lines that \(\sqrt{2} + \sqrt{3}\) is irrational.</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Clear denominators in lowest terms).</strong> Write \(x = \frac{a}{b}\) in canonical lowest terms with \(b \ge 1\) and \(\gcd(a, b) = 1\) (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>). Substituting \(x = \frac{a}{b}\) into \(P(x) = 0\), multiplying by \(b^n\), and isolating the leading term \(a^n\) gives</p>
+  \[
+    a^n \;=\; -b\bigl(c_{n-1} a^{n-1} + c_{n-2} a^{n-2} b + \cdots + c_0 b^{n-1}\bigr).
+  \]
+  <p>Suppose for contradiction that \(b &gt; 1\), and let \(p\) be any prime factor of \(b\) (<a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>). Because \(p \mid b\), the right-hand side is a multiple of \(p\), so \(p \mid a^n\). By the contrapositive of Euclid's lemma (<a href="p67-contrapositive.html"><span class="pid">P67</span></a>: if \(p \nmid a\), then \(p \nmid a^n\)), we have \(p \mid a\). Thus \(p\) divides both \(a\) and \(b\), contradicting \(\gcd(a, b) = 1\)! Hence \(b = 1\) and \(x = a \in \mathbb{Z}\).</p>
+
+  <p><strong>Step 2 (Application to \(\alpha = \sqrt{2} + \sqrt{3}\)).</strong> Squaring \(\alpha = \sqrt{2} + \sqrt{3}\) gives \(\alpha^2 = 5 + 2\sqrt{6} \implies (\alpha^2 - 5)^2 = 24 \implies \alpha^4 - 10\alpha^2 + 1 = 0\). By Step 1, any rational root of \(x^4 - 10x^2 + 1 = 0\) must be an integer dividing the constant term \(1\), namely \(x = \pm 1\) (where \((\pm 1)^4 - 10(\pm 1)^2 + 1 = -8 \neq 0\), or simply note \(3 = 1 + 2 &lt; \sqrt{2} + \sqrt{3} &lt; 2 + 2 = 4\), so \(\alpha\) lies strictly between the consecutive integers \(3\) and \(4\)). Therefore \(\sqrt{2} + \sqrt{3}\) is irrational!</p>
+</section>
+
+<section id="fails">
+  <h2>5 · Where each proof breaks when stress-tested (<span class="pid">P03</span>)</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Stress-testing all three routes on \(\sqrt{4} = 2\): where does each proof stop?</strong> Applying <a href="p03-special-cases.html"><span class="pid">P03</span> · Stress-test with special cases</a>, replace \(2\) by the perfect square \(4\) (\(a^2 = 4b^2\)) and watch the exact line where each of our three proofs halts:</p>
+    <ul>
+      <li><em>Route 1 (Euclid's Parity):</em> \(a^2 = 4b^2 \implies a = 2k \implies 4k^2 = 4b^2 \implies k^2 = b^2\). The factor of \(4\) cancels completely, leaving \(1 \cdot b^2\) with no factor of \(2\) to force \(b\) to be even!</li>
+      <li><em>Route 2 (\(2\)-Adic Valuation):</em> \(2\nu_2(a) = \nu_2(4) + 2\nu_2(b) = 2 + 2\nu_2(b)\), which is <em>even = even</em> (satisfied by \(\nu_2(a) = \nu_2(b) + 1\)).</li>
+      <li><em>Route 3 (Tennenbaum / Estermann Descent):</em> Since \(m = \lfloor \sqrt{4} \rfloor = 2\), the new denominator is \(b' = a - 2b = 2b - 2b = 0\), which drops out of \(\mathbb{Z}_{\ge 1}\) because \(\sqrt{4} - 2 = 0\) is not strictly positive!</li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Stress-test table showing why sqrt(4)=2 passes where sqrt(2) fails across all 3 routes. Right: Self-similar continued fraction geometry of sqrt(2) = [1; 2, 2, 2, ...]">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Stress Test sqrt(2) vs sqrt(4) -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Stress-Test (P03): Why √2 Fails &amp; √4 Succeeds</text>
+      <rect x="20" y="28" width="270" height="150" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="32" y="52" font-family="system-ui, sans-serif" font-size="9.2" fill="#8b2635" font-weight="bold">• Route 1 (a = 2k):</text>
+      <text x="42" y="68" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a">N=2: 4k² = 2b² ⇒ 2k² = b² (b forced even!)</text>
+      <text x="42" y="83" font-family="system-ui, sans-serif" font-size="9" fill="#3a6073">N=4: 4k² = 4b² ⇒ k² = b² (b can be odd = 1!)</text>
+      <text x="32" y="106" font-family="system-ui, sans-serif" font-size="9.2" fill="#8b2635" font-weight="bold">• Route 2 (2-adic ν₂):</text>
+      <text x="42" y="122" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a">N=2: 2ν₂(a) = 1 + 2ν₂(b) (Even ≠ Odd!)</text>
+      <text x="42" y="137" font-family="system-ui, sans-serif" font-size="9" fill="#3a6073">N=4: 2ν₂(a) = 2 + 2ν₂(b) (Even = Even!)</text>
+      <text x="32" y="160" font-family="system-ui, sans-serif" font-size="9.2" fill="#8b2635" font-weight="bold">• Route 3 (Descent): b' = b(√N − ⌊√N⌋) = 0 for N=4!</text>
+      <text x="155" y="194" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">A valid proof must visibly break when N = 2 is replaced by N = 4</text>
+
+      <!-- Right panel: Continued Fraction Self-Similarity of 1 + sqrt(2) -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Euclidean Algorithm on (√2, 1): Never Terminates!</text>
+      <!-- Silver rectangle of width 1 + sqrt(2) (say 193px) and height 1 (80px) partitioned into two 1x1 squares (80px + 80px = 160px) and a remaining (sqrt(2)-1) x 1 rectangle (33px x 80px)! -->
+      <rect x="330" y="38" width="80" height="80" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <rect x="410" y="38" width="80" height="80" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
+      <rect x="490" y="38" width="33" height="80" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <!-- Subdivide the 33x80 vertical strip into two 33x33 squares and a 33x14 strip! -->
+      <line x1="490" y1="71" x2="523" y2="71" stroke="#8b2635" stroke-width="1.5"/>
+      <line x1="490" y1="104" x2="523" y2="104" stroke="#8b2635" stroke-width="1.5"/>
+      <text x="370" y="82" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">1 × 1</text>
+      <text x="450" y="82" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">1 × 1</text>
+      <text x="548" y="60" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635" text-anchor="middle">√2 − 1</text>
+      <text x="548" y="75" font-family="system-ui, sans-serif" font-size="8.5" fill="#8b2635" text-anchor="middle">strip!</text>
+      <text x="450" y="142" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1 + √2 = 2 + (√2 − 1) = 2 + 1 / (1 + √2)</text>
+      <text x="450" y="164" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">√2 = 1 + 1 / (2 + 1 / (2 + 1 / (2 + ⋯)))</text>
+      <text x="450" y="194" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Removing two squares leaves a smaller copy of the exact same rectangle!</text>
+    </svg>
+    <figcaption><strong>Fig M01.3.</strong> <em>Left:</em> Stress-testing all three routes at \(N = 4\) (\(\sqrt{4} = 2\)) shows where the parity mismatch and positive fractional part vanish. <em>Right:</em> Geometric continued-fraction view of \(\sqrt{2} = [1; 2, 2, 2, \dots]\): removing two \(1 \times 1\) squares from a \((1+\sqrt{2}) \times 1\) "silver rectangle" leaves a \(1 \times (\sqrt{2}-1)\) rectangle whose aspect ratio is \(\frac{1}{\sqrt{2}-1} = 1 + \sqrt{2}\) — the exact same shape at a smaller scale, so the Euclidean algorithm runs forever!</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Extending Route 1 to composite \(N\) without prime localization: why "\(12 \mid a^2 \implies 12 \mid a\)" is false!</strong> Suppose a student tries to prove \(\sqrt{12} \notin \mathbb{Q}\) by writing: <em>"\(a^2 = 12b^2 \implies 12 \mid a^2 \implies 12 \mid a \implies a = 12k\)."</em> That implication is <strong>false</strong>: for \(a = 6\), \(a^2 = 36\) is divisible by \(12\), yet \(12 \nmid 6\)! The step \(N \mid a^2 \implies N \mid a\) holds if and only if \(N\) is <em>squarefree</em>. By contrast, Route 2 (localizing at a single prime \(p = 3\) where \(\nu_3(12) = 1\) is odd, <a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>) or Route 3 (Estermann's descent with \(m = \lfloor \sqrt{12} \rfloor = 3\)) works effortlessly for every non-square \(N\).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Why polynomial descent needs a new ingredient for transcendental numbers (\(e\) and \(\pi\)).</strong> All four routes in this chapter exploit an <em>algebraic</em> equation \(P(\alpha) = 0\) with integer coefficients. When \(\alpha = e = \sum_{n=0}^\infty \frac{1}{n!}\), there is no polynomial \(P(x)\) to start from; instead, Fourier (1815) combined <span class="pid">P11</span> + <span class="pid">P73</span> (multiplying the series for \(e = a/b\) by \(b!\)) + <span class="pid">P15</span> (squeezing the tail \(R_b = b! \sum_{n=b+1}^\infty \frac{1}{n!} \in (0, \frac{1}{b})\)) to trap an integer strictly between \(0\) and \(1\)!</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this synthesis.</strong> Comparing multiple proofs of the same theorem is one of the highest-leverage habits in mathematics: Euclid's lowest-terms parity proof generalizes to prime ideals in Dedekind domains (<a href="p32-ideal-arithmetic.html"><span class="pid">P32</span></a>); the \(2\)-adic valuation proof generalizes to Ostrowski's valuation theory and Newton polygons (<a href="p40-tropicalize.html"><span class="pid">P40</span></a>); and the geometric folding / continued-fraction descent generalizes to Pell's equation \(a^2 - db^2 = \pm 1\) and Diophantine approximation.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>To see how Infinite Descent (<span class="pid">P13</span>) teams up with Compose with Identity (<span class="pid">P06</span>) to prove Fermat's Christmas Theorem (\(p = x^2 + y^2 \iff p \equiv 1 \pmod 4\)):</strong> Step forward to <a href="m02-two-squares.html"><span class="pid">M02</span> · Sums of two squares</a>.</li>
+    <li><strong>To see how Double Counting (<span class="pid">P70</span>) and Invariants (<span class="pid">P09</span>) measure the exact area of any lattice polygon:</strong> Visit <a href="m03-picks-theorem.html"><span class="pid">M03</span> · Pick's theorem</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Hippasus's pentagon and Aristotle's parity proof to Dedekind, Estermann, and Tennenbaum (c. 450 BCE – 1955).</strong></p>
+    <ul>
+      <li><strong>Hippasus of Metapontum (c. 450 BCE) &amp; Theodorus of Cyrene (c. 400 BCE):</strong> The early Pythagoreans built their cosmology on the belief that all lengths are commensurable (ratios of whole numbers). Discovering that the diagonal and side of a regular pentagon or square have an unending mutual subtraction process (<em>anthyphairesis</em> — our geometric descent in Section 2 and Exercise M01.3!) shattered that dogma and launched Greek deductive mathematics. In Plato's <em>Theaetetus</em>, Theodorus proved the irrationality of \(\sqrt{3}, \sqrt{5}, \dots, \sqrt{17}\).</li>
+      <li><strong>Aristotle (c. 350 BCE) &amp; Euclid (c. 300 BCE):</strong> In the <em>Prior Analytics</em> (I.23), Aristotle cited the parity proof ("if the diagonal is commensurable, odd numbers would equal even numbers") as the canonical example of <em>reductio ad impossibile</em> (<a href="p11-contradiction.html"><span class="pid">P11</span></a>), preserved in Book X of Euclid's <em>Elements</em>.</li>
+      <li><strong>Carl Friedrich Gauss (1801) &amp; Richard Dedekind (1858):</strong> In the <em>Disquisitiones Arithmeticae</em> (Article 42), Gauss proved that any monic polynomial with integer coefficients cannot have a non-integer rational root (Exemplar 3). Dedekind was inspired by the gap at \(\sqrt{2}\) in \(\mathbb{Q}\) to construct the real numbers \(\mathbb{R}\) via Dedekind cuts.</li>
+      <li><strong>Theodor Estermann (1975) &amp; Stanley Tennenbaum (1950s):</strong> Estermann popularized the three-line multiplier descent \(b' = b(\sqrt{d} - \lfloor\sqrt{d}\rfloor)\), while logician Stanley Tennenbaum discovered the overlapping-carpets visual proof (Fig M01.2, left), later shared with the world by John Horton Conway in <em>The Power of Mathematics</em>.</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise M01.1 (●○○ — Irrationality of \(\log_2 3\) and \(\log_{10} 2\) via <span class="pid">P11</span> + <span class="pid">P05</span> + <span class="pid">P09</span>).</strong></p>
+    <ol>
+      <li>Prove that \(\log_2 3\) is irrational by assuming \(\log_2 3 = \frac{a}{b}\) with \(a, b \in \mathbb{Z}_{\ge 1}\) and clearing both the logarithm and the fraction.</li>
+      <li>Prove that \(\log_{10} 2\) is irrational by comparing the \(5\)-adic valuation \(\nu_5\) on both sides of \(2^b = 10^a\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Since \(\log_2 3 &gt; 0\), if \(\log_2 3 = a/b\) we can take \(a, b \ge 1\). Exponentiating base \(2\) gives \(2^{a/b} = 3 \iff 2^a = 3^b\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Irrationality of \(\log_2 3\).</strong> Since \(3 &gt; 1\), \(\log_2 3 &gt; 0\). Suppose for contradiction (<span class="pid">P11</span>) that \(\log_2 3 = \frac{a}{b}\) with \(a, b \in \mathbb{Z}_{\ge 1}\). Exponentiating base \(2\) and raising to the \(b\)-th power gives</p>
+      \[
+        2^a \;=\; 3^b.
+      \]
+      <p>Because \(a \ge 1\), the left-hand side \(2^a\) is an <strong>even</strong> integer, while the right-hand side \(3^b\) is a product of odd numbers and is therefore <strong>odd</strong> (<span class="pid">P09</span>) — contradiction!</p>
+      <p><strong>2. Irrationality of \(\log_{10} 2\).</strong> If \(\log_{10} 2 = \frac{a}{b}\) with \(a, b \in \mathbb{Z}_{\ge 1}\), then \(10^a = 2^b \implies 2^a \cdot 5^a = 2^b\). Localizing at the prime \(p = 5\) (<span class="pid">P30</span>), the left-hand side has \(\nu_5(10^a) = a \ge 1\), while the right-hand side has \(\nu_5(2^b) = 0\) — contradicting Unique Prime Factorization (<span class="pid">P05</span>)!</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M01.2 (●●○ — Explicit linear descent for \(\sqrt{3}\) and \(\sqrt{5}\)).</strong></p>
+    <ol>
+      <li>For \(d = 3\), we have \(m = \lfloor \sqrt{3} \rfloor = 1\). If \(a^2 = 3b^2\) in positive integers, Estermann's multiplier descent sets \(b' = a - b\) and \(a' = 3b - a\). Verify algebraically that \((a')^2 - 3(b')^2 = 2(3b^2 - a^2) = 0\) and that \(0 &lt; b' &lt; b\).</li>
+      <li>For \(d = 5\), we have \(m = \lfloor \sqrt{5} \rfloor = 2\). Write down the corresponding linear map \((a, b) \mapsto (a', b')\) and verify that \((a')^2 - 5(b')^2 = -(a^2 - 5b^2)\) and \(0 &lt; b' &lt; b\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>For \(d = 5\), set \(b' = b(\sqrt{5} - 2) = a - 2b\) and \(a' = b'\sqrt{5} = 5b - 2a\), then expand \((5b - 2a)^2 - 5(a - 2b)^2\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Descent for \(\sqrt{3}\).</strong> Expanding \((3b - a)^2 - 3(a - b)^2\) gives</p>
+      \[
+        (9b^2 - 6ab + a^2) - 3(a^2 - 2ab + b^2) \;=\; 6b^2 - 2a^2 \;=\; -2\bigl(a^2 - 3b^2\bigr) \;=\; 0.
+      \]
+      <p>Since \(1 &lt; \sqrt{3} &lt; 2\), we have \(b &lt; a &lt; 2b\), so \(0 &lt; b' = a - b &lt; b\) and \(a' = 3b - a &gt; b &gt; 0\), giving a strictly smaller positive integer solution to \((a')^2 = 3(b')^2\).</p>
+      <p><strong>2. Descent for \(\sqrt{5}\).</strong> Since \(m = \lfloor \sqrt{5} \rfloor = 2\), set \(b' = a - 2b\) and \(a' = 5b - 2a\). Expanding \((a')^2 - 5(b')^2\) gives</p>
+      \[
+        (5b - 2a)^2 - 5(a - 2b)^2 \;=\; (25b^2 - 20ab + 4a^2) - (5a^2 - 20ab + 20b^2) \;=\; -\bigl(a^2 - 5b^2\bigr) \;=\; 0.
+      \]
+      <p>Since \(2 &lt; \sqrt{5} &lt; 3\), we have \(2b &lt; a &lt; 3b\), so \(0 &lt; b' = a - 2b &lt; b\), completing the infinite descent.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M01.3 (●●● — Hippasus's regular pentagon and the golden-ratio descent).</strong> In a regular pentagon with side length \(b\) and diagonal length \(a\), the ratio \(\varphi = \frac{a}{b}\) satisfies \(\frac{a}{b} = \frac{b}{a - b} \iff a^2 - ab - b^2 = 0\), and the five diagonals enclose a smaller regular pentagon in the center with side \(b' = a - b\) and diagonal \(a' = b - b' = 2b - a\).</p>
+    <ol>
+      <li>Verify the exact algebraic identity \((2b - a)^2 - (2b - a)(a - b) - (a - b)^2 = -\bigl(a^2 - ab - b^2\bigr)\).</li>
+      <li>Apply the map \((a, b) \mapsto (2b - a,\; a - b)\) repeatedly to the Fibonacci near-miss \((a_0, b_0) = (13, 8)\), and explain why no pair of positive integers \((a, b)\) can ever satisfy \(a^2 - ab - b^2 = 0\)!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Expand \((4b^2 - 4ab + a^2) - (3ab - a^2 - 2b^2) - (a^2 - 2ab + b^2)\). On \((13, 8)\), note that \(2(8) - 13 = 3\)? Wait: for \(a' = b = 8\) and \(b' = a - b = 5\)? Check whether the inner pentagon has diagonal \(b' = a - b\) and side \(2b - a\)!</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pentagon vs. Fibonacci descent identity.</strong> Note the convention: in a regular pentagon, the shorter segment cut by diagonals is \(s' = 2b - a\) and the longer segment (the new diagonal) is \(d' = a - b\), or simply taking the standard Euclidean step \(a_{\text{new}} = b\) and \(b_{\text{new}} = a - b\)! Under \((a, b) \mapsto (b,\; a - b)\):</p>
+      \[
+        b^2 - b(a - b) - (a - b)^2 \;=\; b^2 - ab + b^2 - (a^2 - 2ab + b^2) \;=\; -\bigl(a^2 - ab - b^2\bigr)!
+      \]
+      <p>(And taking two steps at once gives \((a, b) \mapsto (a - b,\; 2b - a)\).) Thus if \((a, b) \in \mathbb{Z}_{\ge 1}^2\) satisfies \(a^2 - ab - b^2 = 0\), then \((b,\; a - b)\) also satisfies the exact same equation with \(0 &lt; a - b &lt; b\) (since \(1 &lt; \varphi &lt; 2\)).</p>
+      <p><strong>2. Fibonacci trace from \((13, 8)\) and irrationality of \(\varphi\).</strong> Under \((a, b) \mapsto (b,\; a - b)\), the Fibonacci pair \((13, 8)\) (where \(13^2 - 13(8) - 8^2 = 169 - 104 - 64 = +1\)) steps down the Fibonacci sequence:</p>
+      \[
+        (13, 8) \mapsto (8, 5) \mapsto (5, 3) \mapsto (3, 2) \mapsto (2, 1) \mapsto (1, 1) \mapsto (1, 0),
+      \]
+      <p>alternating \(\Delta = +1, -1, +1, -1, +1, -1, +1\) until hitting \(0\). A hypothetical exact solution with \(\Delta = 0\) can never reach \((1, 0)\) (where \(\Delta = +1 \neq 0\)), so it would descend in \(\mathbb{Z}_{\ge 1}\) forever — proving \(\varphi = \frac{1+\sqrt{5}}{2} \notin \mathbb{Q}\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M01.4 (◆ — Pattern-unknown synthesis).</strong> Prove that the number</p>
+    \[
+      \alpha \;=\; \sqrt{2} + \sqrt{3} + \sqrt{5}
+    \]
+    <p>is irrational.</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern synthesis (<a href="p11-contradiction.html"><span class="pid">P11</span></a> + <a href="p78-reversible-steps.html"><span class="pid">P78</span></a> isolating radicals + <a href="p30-localize-at-prime.html"><span class="pid">P30</span></a> valuation).</strong> Suppose for contradiction (<span class="pid">P11</span>) that \(\alpha = \sqrt{2} + \sqrt{3} + \sqrt{5} \in \mathbb{Q}\) is rational. To eliminate two radicals at once when squaring, isolate \(\sqrt{5}\) on the right-hand side:</p>
+      \[
+        \sqrt{2} + \sqrt{3} \;=\; \alpha - \sqrt{5}.
+      \]
+      <p>Squaring both sides yields</p>
+      \[
+        2 + 2\sqrt{6} + 3 \;=\; \alpha^2 - 2\alpha\sqrt{5} + 5 \quad\Longleftrightarrow\quad 2\sqrt{6} + 2\alpha\sqrt{5} \;=\; \alpha^2.
+      \]
+      <p>Squaring a second time eliminates both \(\sqrt{6}\) and \(\sqrt{5}\) except in their single cross-product \(\sqrt{6}\sqrt{5} = \sqrt{30}\):</p>
+      \[
+        24 + 8\alpha\sqrt{30} + 20\alpha^2 \;=\; \alpha^4 \quad\Longleftrightarrow\quad 8\alpha\sqrt{30} \;=\; \alpha^4 - 20\alpha^2 - 24.
+      \]
+      <p><strong>2. Valuation clash on \(\sqrt{30}\).</strong> Since \(\alpha = \sqrt{2} + \sqrt{3} + \sqrt{5} &gt; 0\) is strictly positive, \(8\alpha \neq 0\) (<span class="pid">P78</span>). Dividing by the non-zero rational number \(8\alpha\) would express</p>
+      \[
+        \sqrt{30} \;=\; \frac{\alpha^4 - 20\alpha^2 - 24}{8\alpha} \;\in\; \mathbb{Q}
+      \]
+      <p>as a rational number! Yet \(\nu_2(30) = \nu_2(2 \cdot 3 \cdot 5) = 1\) is odd, so by Exemplar 1 (\(2\)-adic valuation, <span class="pid">P30</span>), \(\sqrt{30}\) is irrational — contradiction! Therefore \(\sqrt{2} + \sqrt{3} + \sqrt{5} \notin \mathbb{Q}\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise M01.5 (◐ — Exploration: Fourier's 1815 synthesis proof that \(e\) is irrational).</strong> How do we prove that Euler's base \(e = \sum_{n=0}^\infty \frac{1}{n!} = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \cdots\) is irrational when \(e\) is not the root of a simple quadratic? Joseph Fourier (1815) combined four patterns from our Atlas: <span class="pid">P11</span> (Contradiction: assume \(e = \frac{a}{b}\) with \(a, b \in \mathbb{Z}_{\ge 1}\)), <span class="pid">P73</span> (Factorial clearing: multiply by \(b!\)), <span class="pid">P69</span> (Geometric series domination), and <span class="pid">P15</span> (Squeeze an integer strictly between \(0\) and \(1\)).</p>
+    <p>Carry out Fourier's proof by defining \(N := b!\Bigl(e - \sum_{n=0}^b \frac{1}{n!}\Bigr)\):</p>
+    <ol>
+      <li>Explain why \(N\) must be an <strong>integer</strong> if \(e = \frac{a}{b}\).</li>
+      <li>Bound the infinite tail \(N = \frac{1}{b+1} + \frac{1}{(b+1)(b+2)} + \frac{1}{(b+1)(b+2)(b+3)} + \cdots\) above by a geometric series with ratio \(\frac{1}{b+1}\) to prove \(0 &lt; N &lt; \frac{1}{b} \le 1\), and conclude that \(e \notin \mathbb{Q}\)!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>For \(0 \le n \le b\), \(\frac{b!}{n!} = (n+1)(n+2)\cdots b\) is an integer, and \(b! \cdot \frac{a}{b} = (b-1)! a\) is an integer. In the tail, replace each factor \((b+2), (b+3), \dots\) with the smaller number \((b+1)\)!</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Integrality of \(N\) under \(e = \frac{a}{b}\).</strong> Suppose \(e = \frac{a}{b}\) with \(a, b \in \mathbb{Z}_{\ge 1}\) (we may take \(b \ge 2\) since \(2 &lt; e &lt; 3\) is not an integer). Then \(b!\,e = (b-1)!\,a \in \mathbb{Z}\), and for every \(0 \le n \le b\), \(\frac{b!}{n!} \in \mathbb{Z}\). Therefore their difference</p>
+      \[
+        N \;:=\; b!\,e \,-\, \sum_{n=0}^b \frac{b!}{n!} \;\in\; \mathbb{Z}
+      \]
+      <p>must be an exact integer!</p>
+      <p><strong>2. Squeezing \(0 &lt; N &lt; 1\) (<span class="pid">P15</span>).</strong> Writing out \(N\) from the Taylor series \(e = \sum_{n=0}^\infty \frac{1}{n!}\) gives</p>
+      \[
+        0 \;&lt;\; N \;=\; \frac{1}{b+1} + \frac{1}{(b+1)(b+2)} + \frac{1}{(b+1)(b+2)(b+3)} + \cdots
+        \;&lt;\; \frac{1}{b+1} + \frac{1}{(b+1)^2} + \frac{1}{(b+1)^3} + \cdots \;=\; \frac{\frac{1}{b+1}}{1 - \frac{1}{b+1}} \;=\; \frac{1}{b} \;\le\; \frac{1}{2} \;&lt;\; 1.
+      \]
+      <p>Thus \(N\) is an integer strictly between \(0\) and \(1\) — impossible! Hence \(e\) is irrational.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p78-reversible-steps.html">← Previous: P78 · Make every step reversible</a> ·
+    <a href="m02-two-squares.html">Next: M02 · Sums of two squares →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>

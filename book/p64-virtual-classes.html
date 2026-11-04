@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P64 · Virtual classes from obstruction theory · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P64 · the nineteenth move of tier 5</p>
+  <h1>Virtual classes from obstruction theory</h1>
+  <p class="tagline">When redundant equations fail to cut your solution space down to its expected dimension, package the wasted equations into an obstruction bundle and cap the oversized space with its Euler class.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Excess intersection, vector bundles, and the Euler class \(e(\operatorname{Ob})\).</strong>
+  When \(r\) independent equations cut inside an \(m\)-dimensional space \(V\), we expect a solution locus of dimension \(d_{\text{vir}} = m - r\). An <em>excess intersection</em> occurs when some equations vanish redundantly on the solution set \(Z\), leaving \(\dim Z &gt; m - r\). A <em>vector bundle</em> \(\pi : E \to Z\) of rank \(r\) attaches an \(r\)-dimensional vector space \(E_x\) to every point \(x \in Z\) (recording the directions of the equations at \(x\)). Its <em>Euler class</em> \(e(E) \in H^r(Z)\) (or top Chern class \(c_r(E)\) for complex bundles) is the cohomology class of the zero locus \(s^{-1}(0)\) of a generic smooth section \(s : Z \to E\).
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p12-obstruction.html"><span class="pid">P12</span></a> taught us how to name the obstruction when a local move hits a wall, and <a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a> upgraded that audit into a cochain complex where \(H^1\) counts first-order knob-turns (tangent directions) and \(H^2\) counts the walls (obstructions) on planar bar-and-joint frameworks. <a href="p54-stable-compactification.html"><span class="pid">P54</span></a> showed us how to seal the missing boundary of a moduli space \(\mathcal{M}\) by adjoining nodal bubble trees so sequences never escape.</p>
+  <p>Here is the crisis that erupts as soon as we try to count points or integrate over the compactified moduli space \(\overline{\mathcal{M}}\). In enumerative geometry and gauge theory, our invariants are defined assuming \(\overline{\mathcal{M}}\) has its <strong>expected dimension</strong> \(\dim H^1 - \dim H^2\). But along boundary strata where a curve degenerates into a multiple cover \(z \mapsto z^k\) (<a href="p54-stable-compactification.html"><span class="pid">P54</span></a>, Exhibit B), the obstruction space \(H^2\) jumps up from zero! By the index formula, whenever \(\dim H^2\) jumps up by \(r\), the tangent dimension \(\dim H^1\) jumps up by the exact same amount \(r\). Instead of isolated points (expected dimension \(0\)), the moduli space sprouts entire \(r\)-dimensional continents of degenerate solutions, and you cannot even Perturb the ambient geometry to make them transverse because multiple covers stay obstructed under every deformation of the target! How do you extract the true, deformation-invariant count of dimension \(d_{\text{vir}} = \dim H^1 - \dim H^2\) when the actual space has the wrong dimension?</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: when two equations collapse onto one, how many zeros are hiding on a circle?</h2>
+  <p>Start with a pencil-and-paper phenomenon in the plane \(V = \mathbb{R}^2\) before touching moduli stacks. Suppose we have two smooth equations \(f_1(x,y) = 0\) and \(f_2(x,y) = 0\) in two unknowns \((x,y)\), parameterized by a knob \(\varepsilon \in \mathbb{R}\):</p>
+  <p class="eq">\[s_\varepsilon(x,y) = \begin{pmatrix} f_1(x,y) \\ f_2(x,y) \end{pmatrix} = \begin{pmatrix} x^2 + y^2 - 1 \\ \varepsilon\,(x^2 - y^2) \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}.\]</p>
+  <p>Count dimensions: we have \(m = 2\) coordinates \((x,y)\) and \(r = 2\) equations \((f_1, f_2)\), so the <strong>expected (virtual) dimension</strong> of the zero set \(Z_\varepsilon = s_\varepsilon^{-1}(0)\) is</p>
+  <p class="eq">\[d_{\text{vir}} = m - r = 2 - 2 = 0 \quad\text{(isolated points)}.\]</p>
+  <p>When \(\varepsilon \ne 0\), the two equations are transverse: \(x^2 + y^2 = 1\) is the unit circle \(S^1\), and \(x^2 - y^2 = 0\) cuts that circle transversely at the four corners \((\pm\frac{1}{\sqrt{2}}, \pm\frac{1}{\sqrt{2}})\). Computing the \(2\times 2\) Jacobian determinant \(\det D s_\varepsilon(x,y) = -8\varepsilon xy\) at the four corners gives signs \((-1, +1, -1, +1)\) (or, if our second equation is the complex polynomial \((z^2 - 1)\) on \(\mathbb{P}^1\) where holomorphic intersections always carry positive sign \(+1\), a degree count of \(+2\)).</p>
+  <p>Now turn the knob to \(\varepsilon = 0\). The second equation \(\varepsilon(x^2 - y^2) = 0\) vanishes identically! Instead of isolated points of dimension \(0\), the actual zero locus \(Z_0 = s_0^{-1}(0) = \{(x,y) : x^2 + y^2 = 1\}\) is the <strong>entire 1-dimensional circle \(S^1\)</strong>! Look at the tangent-obstruction ledger at any point \(p \in Z_0 = S^1\) (using the deformation language of <a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a>):</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Regime</th>
+        <th>Actual Zero Set \(Z_\varepsilon\)</th>
+        <th>Tangent Space \(T_p Z_\varepsilon = \ker Ds_\varepsilon\) (\(H^1\))</th>
+        <th>Obstruction Space \(\operatorname{Ob}_p = \operatorname{coker} Ds_\varepsilon\) (\(H^2\))</th>
+        <th>Virtual Dimension \(\dim H^1 - \dim H^2\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Transverse (\(\varepsilon \ne 0\))</strong></td>
+        <td>Finite point set (\(\dim Z_\varepsilon = 0\))</td>
+        <td>\(\dim H^1 = 0\) (rigid points)</td>
+        <td>\(\dim H^2 = 0\) (no wasted equations)</td>
+        <td>\(0 - 0 = \mathbf{0}\)</td>
+      </tr>
+      <tr>
+        <td><strong>Degenerate (\(\varepsilon = 0\))</strong></td>
+        <td>Entire circle \(S^1\) (\(\dim Z_0 = 1\))</td>
+        <td>\(\dim H^1 = 1\) (tangent to \(S^1\))</td>
+        <td>\(\dim H^2 = 1\) (the redundant 2nd row!)</td>
+        <td>\(1 - 1 = \mathbf{0}\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Look at the last three columns at \(\varepsilon = 0\): the actual zero set \(Z_0\) is 1 dimension too fat (\(\dim H^1 = 1\)) <em>for the exact same reason</em> that the Jacobian \(Ds_0 = \begin{pmatrix} 2x &amp; 2y \\ 0 &amp; 0 \end{pmatrix}\) has a 1-dimensional cokernel (\(\dim H^2 = 1\), the dead second row)! Even if nobody tells us the perturbation \(\varepsilon(x^2 - y^2)\), the dead second equation defines a rank-1 <strong>obstruction vector bundle</strong> \(\operatorname{Ob} \to Z_0\) over the oversized locus \(Z_0\). To recover the true 0-dimensional virtual cycle \([Z_0]^{\text{vir}} \in H_0(Z_0)\) directly at \(\varepsilon = 0\), we simply intersect the fundamental class \([Z_0] \in H_1(Z_0)\) with the <strong>Euler class</strong> \(e(\operatorname{Ob}) \in H^1(Z_0)\) of the missing equation bundle:</p>
+  <p class="eq">\[[Z_0]^{\text{vir}} = [Z_0] \cap e(\operatorname{Ob}) \;\in\; H_{d_{\text{vir}}}(Z_0).\]</p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 215" role="img" aria-label="Fig P64.1: Left: excess zero locus Z_0 (an entire 1D curve where s_0=0) carrying the rank-1 obstruction bundle Ob. Right: pairing [Z_0] with the Euler class e(Ob) (zeros of a generic section sigma of Ob) recovers the virtual 0-cycle.">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <!-- Left panel: Degenerate Excess Locus Z_0 (1D curve) with vertical Obstruction fibers Ob_p -->
+      <text x="150" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">A · Excess Locus Z₀ (dim H¹ = 1, dim H² = 1)</text>
+      <!-- Shaded obstruction bundle ribbon over Z_0 -->
+      <path d="M 45,65 Q 150,35 255,65 L 255,155 Q 150,125 45,155 Z" fill="#f7e6d4" opacity="0.65" stroke="#d8d4cc" stroke-width="1"/>
+      <!-- Vertical fibers of Ob -->
+      <line x1="65" y1="60" x2="65" y2="150" stroke="#8a4b08" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="107" y1="53" x2="107" y2="143" stroke="#8a4b08" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="150" y1="50" x2="150" y2="140" stroke="#8a4b08" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="193" y1="53" x2="193" y2="143" stroke="#8a4b08" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="235" y1="60" x2="235" y2="150" stroke="#8a4b08" stroke-width="1" stroke-dasharray="3,2"/>
+
+      <!-- Oversized zero locus Z_0 (the zero section s_0 = 0) -->
+      <path d="M 45,110 Q 150,80 255,110" fill="none" stroke="#8a4b08" stroke-width="3"/>
+      <text x="150" y="72" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Obstruction bundle Ob (rank = dim H² = 1)</text>
+      <text x="150" y="119" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Oversized Z₀ = {s₀ = 0} (dim = 1 &gt; d_vir = 0)</text>
+      <text x="150" y="182" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Redundant equation leaves a 1D curve instead of points</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="198" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Capping [Z_0] with Euler class e(Ob) via generic section sigma -->
+      <text x="450" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Virtual Cycle [Z₀]^vir = [Z₀] ∩ e(Ob) (dim = 0)</text>
+      <path d="M 345,65 Q 450,35 555,65 L 555,155 Q 450,125 345,155 Z" fill="#f2f7f6" opacity="0.7" stroke="#d8d4cc" stroke-width="1"/>
+      <!-- Zero section Z_0 -->
+      <path d="M 345,110 Q 450,80 555,110" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="4,3"/>
+      <!-- Generic section sigma : Z_0 -> Ob crossing the zero section at 2 isolated virtual points -->
+      <path d="M 345,142 C 395,42 505,152 555,62" fill="none" stroke="#0f5c57" stroke-width="2.4"/>
+
+      <!-- Transverse intersections of sigma with 0_Ob -->
+      <circle cx="388" cy="100" r="5" fill="#0f5c57"/>
+      <circle cx="512" cy="100" r="5" fill="#0f5c57"/>
+
+      <text x="388" y="86" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">p₁ (+1)</text>
+      <text x="512" y="122" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">p₂ (+1)</text>
+      <text x="548" y="55" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="end">Section σ ∈ Γ(Z₀, Ob)</text>
+      <text x="450" y="182" font-family="system-ui, sans-serif" font-size="10" fill="#0f5c57" text-anchor="middle">Capping with e(Ob) extracts the expected 0D point count</text>
+    </svg>
+    <figcaption><strong>Fig P64.1.</strong> <strong>(A)</strong> When \(r_2 = \dim H^2\) equations become redundant along a solution locus \(Z_0\), the actual space \(Z_0\) is \(r_2\) dimensions wider than expected, and the wasted equations form a rank-\(r_2\) obstruction bundle \(\operatorname{Ob} \to Z_0\). <strong>(B)</strong> Pairing the oversized fundamental class \([Z_0]\) with the Euler class \(e(\operatorname{Ob})\) cuts \(Z_0\) down by \(r_2\) dimensions to the virtual fundamental class \([Z_0]^{\text{vir}}\) of exact dimension \(d_{\text{vir}} = \dim H^1 - \dim H^2\).</figcaption>
+  </figure>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>In general moduli problems (stable maps <a href="p54-stable-compactification.html"><span class="pid">P54</span></a>, Donaldson–Thomas sheaves, or Floer strips <a href="p65-floer-homology.html"><span class="pid">P65</span></a>), the moduli space \(\mathcal{M}\) is not even a smooth manifold — its dimension can jump from stratum to stratum as \(H^1\) and \(H^2\) vary together. Yet as Masatake Kuranishi showed for complex structures and Kai Behrend, Barbara Fantechi, Jun Li, and Gang Tian showed for algebraic stacks, as long as the deformation complex has only <strong>two active degrees</strong> (\(H^1\) for tangents and \(H^2\) for obstructions, with constant index \(d_{\text{vir}} = \dim H^1 - \dim H^2\)), every neighborhood in \(\mathcal{M}\) is locally the zero locus \(s^{-1}(0)\) of a <em>Kuranishi map</em> \(s : V \to E\) from a smooth ambient chart \(V\) of dimension \(m\) into an obstruction vector bundle \(E\) of rank \(r\) with \(m - r = d_{\text{vir}}\).</p>
+
+  <aside class="onramp">
+    <strong>Kuranishi charts \((V, E, \Gamma, s)\), intrinsic normal cones, and \(e(E)\).</strong>
+    A <em>Kuranishi chart</em> around a point \(p \in \mathcal{M}\) consists of a smooth manifold (or variety) \(V\) of dimension \(m\), a vector bundle \(E \to V\) of rank \(r = m - d_{\text{vir}}\), a finite symmetry group \(\Gamma = \operatorname{Aut}(p)\) acting on \((V, E)\), and an equivariant <em>Kuranishi section</em> \(s : V \to E\) (recording the higher-order obstruction map \(H^1 \to H^2\) from <span class="pid">P53</span>) such that \(s^{-1}(0)/\Gamma\) models \(\mathcal{M}\) near \(p\). Globally in algebraic geometry, the limiting directions of \(s(v)\) as \(v \to \mathcal{M}\) form a cone \(C_{\mathcal{M}/V} \subset E|_{\mathcal{M}}\) of pure dimension \(m\); intersecting \(C_{\mathcal{M}/V}\) with the zero section \(0_E\) of the rank-\(r\) bundle \(E\) produces a cycle of pure dimension \(m - r = d_{\text{vir}}\).
+  </aside>
+
+  <div class="pattern-box" id="box-p64">
+    <p><strong>Pattern P64 — Virtual classes from obstruction theory.</strong> Let \(\mathcal{M}\) be a compact moduli space (<span class="pid">P54</span>) equipped with a two-term deformation-obstruction theory (<span class="pid">P53</span>) whose tangent spaces \(T_p\mathcal{M} = H^1\) and obstruction spaces \(\operatorname{Ob}_p = H^2\) vary in dimension while their difference</p>
+    <p class="eq">\[d_{\text{vir}} = \dim H^1 - \dim H^2\]</p>
+    <p>is locally constant. Represent \(\mathcal{M}\) locally (or globally) as the zero locus \(s^{-1}(0)\) of a section \(s : V \to E\) of a rank-\(r\) obstruction bundle \(E\) over a smooth \(m\)-dimensional ambient space \(V\) with \(m - r = d_{\text{vir}}\). Define the <strong>virtual fundamental class</strong> by intersecting the normal cone (or perturbed section) with the zero section \(0_E\):</p>
+    <p class="eq">\[[\mathcal{M}]^{\text{vir}} = 0_E^!\bigl([C_{\mathcal{M}/V}]\bigr) \;\in\; H_{2d_{\text{vir}}}(\mathcal{M}; \mathbb{Q}) \qquad \bigl(\text{reducing to } [\mathcal{M}] \cap e(\operatorname{Ob}) \text{ when } \mathcal{M} \text{ is smooth}\bigr).\]</p>
+    <p class="words"><strong>Or, in words:</strong> When your moduli space has the wrong dimension because obstructions \(H^2\) do not vanish, do not integrate over the naive geometric space; subtract the obstruction bundle from the tangent bundle by intersecting with the zero section of \(E\) (or multiplying by the Euler class \(e(\operatorname{Ob})\)) to extract a cycle of the exact expected dimension \(d_{\text{vir}} = \dim H^1 - \dim H^2\).</p>
+  </div>
+
+  <div class="pattern-box" id="box-p64a">
+    <p><strong>Box P64.A — The three obligations of a virtual fundamental class.</strong></p>
+    <ol>
+      <li><strong>Two-Term Amplitude Lock (No \(H^3\) walls, <span class="pid">P53</span>):</strong> The deformation-obstruction complex must be concentrated in two consecutive degrees (tangents \(H^1\), obstructions \(H^2\), after quotienting out finite automorphisms \(H^0\)). If a third degree \(H^3 \ne 0\) ("obstructions to obstructions") is present, a 2-term Kuranishi bundle does not suffice without derived-stack upgrades.</li>
+      <li><strong>Compactness Lock (<span class="pid">P54</span>):</strong> The zero locus \(\mathcal{M} = s^{-1}(0)\) must be compact (proper); otherwise zeros can flee across the boundary of \(V\) when the section \(s\) is perturbed, ruining deformation invariance.</li>
+      <li><strong>Smooth-Case Reduction (Fulton–MacPherson excess formula):</strong> Whenever a connected component \(\mathcal{Z} \subset \mathcal{M}\) is actually a smooth manifold (or orbifold) of excess dimension \(d_{\text{act}} &gt; d_{\text{vir}}\), the obstruction spaces \(H^2\) assemble into a genuine vector bundle \(\operatorname{Ob} \to \mathcal{Z}\) of rank \(r = d_{\text{act}} - d_{\text{vir}}\), and the virtual class is simply the Poincaré dual of its Euler (top Chern) class:
+        <p class="eq">\[[\mathcal{Z}]^{\text{vir}} = [\mathcal{Z}] \cap e(\operatorname{Ob}) = [\mathcal{Z}] \cap c_{d_{\text{act}} - d_{\text{vir}}}(\operatorname{Ob}).\]</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p64b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>Deformation-invariant enumerative counts (Gromov–Witten, Donaldson–Thomas, Seiberg–Witten, or Floer invariants) that remain constant even when the moduli space degenerates or jumps in dimension.</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>A compact moduli space \(\overline{\mathcal{M}}\) whose actual dimension exceeds its Riemann–Roch / Fredholm expected dimension \(d_{\text{vir}}\) due to non-vanishing \(H^2\) obstructions.</td>
+        </tr>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>Deformation-obstruction sequence \(0 \to H^1 \to T_v V \xrightarrow{ds} E_v \to H^2 \to 0\), Chern/Euler classes \(c_r(\operatorname{Ob})\), and orbifold automorphism weights \(1/|\Gamma|\).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P64</span> whenever a compact moduli space (<span class="pid">P54</span>) has non-vanishing obstruction cohomology \(H^2 \ne 0\) (<span class="pid">P53</span>) so its actual dimension differs from the expected index \(d_{\text{vir}} = \dim H^1 - \dim H^2\).</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 190" role="img" aria-label="Fig P64.2: The four-term exact sequence of a Kuranishi chart 0 -> H^1 -> T_p V -> E_p -> H^2 -> 0 showing why dim H^1 - dim H^2 = dim V - rank E is invariant.">
+      <defs>
+        <marker id="arr-p64" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <text x="300" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">The Exact Dimension Ledger at Any Point  p ∈ s⁻¹(0)</text>
+
+      <!-- Four boxes for H^1, T_p V, E_p, H^2 -->
+      <rect x="40" y="52" width="110" height="58" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="3"/>
+      <text x="95" y="74" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#0f5c57" text-anchor="middle">H¹ = ker(dsₚ)</text>
+      <text x="95" y="94" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Actual tangents (jumps!)</text>
+
+      <rect x="185" y="52" width="105" height="58" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="3"/>
+      <text x="237.5" y="74" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TₚV  (dim = m)</text>
+      <text x="237.5" y="94" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Smooth chart (constant)</text>
+
+      <rect x="330" y="52" width="105" height="58" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="3"/>
+      <text x="382.5" y="74" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Eₚ  (rank = r)</text>
+      <text x="382.5" y="94" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Equation bundle (constant)</text>
+
+      <rect x="470" y="52" width="110" height="58" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="3"/>
+      <text x="525" y="74" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#8a4b08" text-anchor="middle">H² = coker(dsₚ)</text>
+      <text x="525" y="94" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">Obstructions (jumps!)</text>
+
+      <!-- Arrows -->
+      <line x1="150" y1="81" x2="183" y2="81" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr-p64)"/>
+      <line x1="290" y1="81" x2="328" y2="81" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr-p64)"/>
+      <text x="309" y="73" font-family="Georgia, serif" font-size="11" font-style="italic" fill="#0f5c57" text-anchor="middle">dsₚ</text>
+      <line x1="435" y1="81" x2="468" y2="81" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr-p64)"/>
+
+      <!-- Bottom invariant equation banner -->
+      <rect x="95" y="132" width="410" height="38" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.4" rx="3"/>
+      <text x="300" y="156" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">dim H¹ − dim H²  =  dim(TₚV) − rank(Eₚ)  =  m − r  =  d_vir  (constant!)</text>
+    </svg>
+    <figcaption><strong>Fig P64.2.</strong> Why \(\dim H^1\) and \(\dim H^2\) always jump in lockstep: by the rank–nullity theorem applied to the linearized Kuranishi map \(ds_p : T_p V \to E_p\), the alternating sum of dimensions of the exact sequence \(0 \to H^1 \to T_p V \xrightarrow{ds_p} E_p \to H^2 \to 0\) is zero, locking \(\dim H^1 - \dim H^2 = m - r = d_{\text{vir}}\) across every stratum.</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · Self-intersection of a curve on a surface (why a complex curve can meet itself \(-1\) times)</h3>
+  <p>In a complex surface \(S\) (complex dimension \(m = 2\)), any two curves \(C_1, C_2\) of complex codimension \(1\) have expected intersection dimension \(d_{\text{vir}} = 2 - (1 + 1) = 0\). When \(C_1\) and \(C_2\) cross transversely, every intersection point carries positive local orientation \(+1\), so \(C_1 \cdot C_2 \ge 0\). What happens when we intersect a smooth curve \(C \cong \mathbb{P}^1\) <em>with itself</em> (\(C_1 = C_2 = C\))?</p>
+  <p>The set-theoretic intersection \(C \cap C = C\) is not a finite set of points — it is the entire 1-dimensional sphere \(C\), which has excess dimension \(d_{\text{act}} - d_{\text{vir}} = 1 - 0 = 1\)! Locally, \(C\) is cut out by one equation \(w = 0\), and intersecting \(C\) with \(C\) writes the system \(w = 0, w = 0\), where the second equation is completely redundant. The space of redundant equations along \(C\) is the rank-1 normal bundle \(\operatorname{Ob} = N_{C/S} = \mathcal{O}_{\mathbb{P}^1}(k)\). Applying Obligation 3 of Box P64.A:</p>
+  <p class="eq">\[[C \cap C]^{\text{vir}} = [C] \cap c_1\bigl(N_{C/S}\bigr) = \int_{\mathbb{P}^1} c_1\bigl(\mathcal{O}_{\mathbb{P}^1}(k)\bigr) = k.\]</p>
+  <ul>
+    <li><strong>A projective line \(L \subset \mathbb{P}^2\):</strong> Its normal bundle is \(\mathcal{O}_{\mathbb{P}^1}(+1)\), so \([L \cap L]^{\text{vir}} = +1\) (any perturbed line \(L'\) meets \(L\) at \(1\) point).</li>
+    <li><strong>An exceptional blowup divisor \(E \subset \operatorname{Bl}_0\mathbb{P}^2\) (<span class="pid">P54</span>, Exemplar 2):</strong> Its normal bundle is the tautological bundle \(\mathcal{O}_{\mathbb{P}^1}(-1)\), which has no non-zero holomorphic sections at all! Thus \(E\) is rigid inside the blown-up surface — it cannot be moved holomorphically — yet the virtual class formula extracts its exact self-intersection number \([E \cap E]^{\text{vir}} = \deg \mathcal{O}(-1) = -1\).</li>
+  </ul>
+
+  <h3>Exemplar 2 · The \(27\) lines on a cubic surface via the Euler class on \(G(2,4)\)</h3>
+  <p>How many straight lines \(\ell \cong \mathbb{P}^1\) lie on a cubic surface \(X_3 = \{F(x_0, x_1, x_2, x_3) = 0\} \subset \mathbb{P}^3\)? Instead of solving \(4\) coupled cubic equations by hand, frame the problem as a section of an obstruction bundle over the Grassmannian \(V = G(2,4)\) of all lines in \(\mathbb{P}^3\):</p>
+  <ul>
+    <li><strong>Ambient chart \(V = G(2,4)\):</strong> A line \(\ell \subset \mathbb{P}^3\) is a 2-plane in \(\mathbb{C}^4\), parameterized by \(m = 2(4-2) = 4\) complex coordinates.</li>
+    <li><strong>Equation bundle \(E = \operatorname{Sym}^3(\mathcal{S}^*)\):</strong> Restricting the degree-3 homogeneous polynomial \(F\) to the 2-plane \(\mathcal{S}_\ell\) produces a binary cubic \(a u^3 + b u^2 v + c u v^2 + d v^3\) with \(r = 3 + 1 = 4\) coefficients. The line \(\ell\) lies inside \(X_3\) if and only if all \(4\) coefficients vanish: \(s_F(\ell) = 0 \in E_\ell\).</li>
+    <li><strong>Virtual dimension:</strong> \(d_{\text{vir}} = m - r = 4 - 4 = 0\).</li>
+  </ul>
+  <p>Compute the integral of the top Chern class \(c_4\bigl(\operatorname{Sym}^3 \mathcal{S}^*\bigr)\) over \(G(2,4)\) using the formal Chern roots \(\alpha, \beta\) of the rank-2 bundle \(\mathcal{S}^*\) (where \(s_1 = \alpha + \beta = c_1(\mathcal{S}^*)\) and \(s_2 = \alpha\beta = c_2(\mathcal{S}^*)\) satisfy the Schubert intersection numbers \(\int_{G(2,4)} s_1^2 s_2 = 1\) and \(\int_{G(2,4)} s_2^2 = 1\)). The four basis monomials \(u^3, u^2v, uv^2, v^3\) have weights \(3\alpha, 2\alpha+\beta, \alpha+2\beta, 3\beta\), so (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>):</p>
+  <p class="eq">\[c_4\bigl(\operatorname{Sym}^3 \mathcal{S}^*\bigr) = (3\alpha)(3\beta)(2\alpha+\beta)(\alpha+2\beta) = 9\alpha\beta\bigl(2(\alpha+\beta)^2 + \alpha\beta\bigr) = 18\,s_1^2 s_2 + 9\,s_2^2.\]</p>
+  <p>Integrating over \(G(2,4)\) gives the virtual line count</p>
+  <p class="eq">\[\int_{[Z(s_F)]^{\text{vir}}} 1 = \int_{G(2,4)} c_4\bigl(\operatorname{Sym}^3 \mathcal{S}^*\bigr) = 18(1) + 9(1) = 27.\]</p>
+  <p>When \(X_3\) is smooth, \(H^2 = 0\) at every line and there are literally \(27\) distinct lines; when \(X_3\) develops nodes or degenerates into three planes \(x_0 x_1 x_2 = 0\) (where \(\dim Z(s_F) = 2 &gt; 0\) explodes into three 2-dimensional planes of lines!), the virtual fundamental class \([Z(s_F)]^{\text{vir}}\) stays in degree \(0\) and still integrates to \(27\).</p>
+
+  <h3>Exemplar 3 · Multiple covers in a Calabi–Yau 3-fold and the \(1/k^3\) Aspinwall–Morrison formula</h3>
+  <p>Return to the obstacle we met in <a href="p54-stable-compactification.html"><span class="pid">P54</span></a> (Exhibit B): suppose \(C \cong \mathbb{P}^1\) is an isolated rigid rational curve inside a Calabi–Yau 3-fold \(X\) with normal bundle \(N_{C/X} = \mathcal{O}(-1) \oplus \mathcal{O}(-1)\). In Gromov–Witten theory, the expected dimension of the moduli space \(\overline{\mathcal{M}}_{0,0}(X, k[C])\) of degree-\(k\) maps into \(X\) is \(d_{\text{vir}} = (1 - g)(\dim X - 3) + \int_{k[C]} c_1(TX) = 0 + 0 = 0\). Yet for any \(k \ge 2\), a \(k\)-sheeted branched cover \(u : \mathbb{P}^1 \to C\) depends on \(2k + 1\) rational coefficients modulo \(3\) Möbius parameters, forming a compact moduli space \(\mathcal{Z}_k = \overline{\mathcal{M}}_{0,0}(C, k)\) of actual complex dimension \(d_{\text{act}} = 2k - 2 &gt; 0\)!</p>
+  <p>Why did the dimension jump by \(2k - 2\)? Pull back the normal bundle \(N_{C/X} = \mathcal{O}(-1) \oplus \mathcal{O}(-1)\) along the degree-\(k\) map \(u\): we get \(u^* N_{C/X} = \mathcal{O}(-k) \oplus \mathcal{O}(-k)\). By Serre duality on \(\mathbb{P}^1\), its deformation cohomology (<a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a>) has zero normal moves and a \((2k-2)\)-dimensional wall:</p>
+  <p class="eq">\[H^0\bigl(\mathbb{P}^1, \mathcal{O}(-k)^{\oplus 2}\bigr) = 0, \qquad \operatorname{Ob}_k = H^1\bigl(\mathbb{P}^1, \mathcal{O}(-k)^{\oplus 2}\bigr) \cong H^0\bigl(\mathbb{P}^1, \mathcal{O}(k-2)^{\oplus 2}\bigr)^* \;\;\text{of rank } 2(k-1) = 2k - 2.\]</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cover Degree \(k\)</th>
+        <th>Virtual Dim \(d_{\text{vir}}\)</th>
+        <th>Actual Moduli Dim \(d_{\text{act}} = 2k-2\)</th>
+        <th>Obstruction Rank \(\dim H^1(\mathcal{O}(-k)^{\oplus 2})\)</th>
+        <th>Virtual Invariant \(\int_{[\mathcal{Z}_k]^{\text{vir}}} 1 = \frac{1}{k^3}\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(k = 1\)</td>
+        <td>\(0\)</td>
+        <td>\(0\) (single rigid curve)</td>
+        <td>\(0\) (unobstructed)</td>
+        <td>\(1\)</td>
+      </tr>
+      <tr>
+        <td>\(k = 2\)</td>
+        <td>\(0\)</td>
+        <td>\(2\) (double covers)</td>
+        <td>\(2\)</td>
+        <td>\(1/8\)</td>
+      </tr>
+      <tr>
+        <td>\(k = 3\)</td>
+        <td>\(0\)</td>
+        <td>\(4\) (triple covers)</td>
+        <td>\(4\)</td>
+        <td>\(1/27\)</td>
+      </tr>
+      <tr>
+        <td>\(k = 4\)</td>
+        <td>\(0\)</td>
+        <td>\(6\) (quadruple covers)</td>
+        <td>\(6\)</td>
+        <td>\(1/64\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>The dimension ledger balances at every \(k\): \(d_{\text{act}} - \operatorname{rank}(\operatorname{Ob}_k) = (2k - 2) - (2k - 2) = 0 = d_{\text{vir}}\). Integrating the Euler class \(c_{2k-2}(\operatorname{Ob}_k)\) over the orbifold \(\overline{\mathcal{M}}_{0,0}(\mathbb{P}^1, k)\) (including the \(1/k\) orbifold weight of the deck group \(\mathbb{Z}/k\mathbb{Z}\)) gives the exact multiple-cover contribution \(\frac{1}{k^3}\) — explaining why Gromov–Witten invariants are rational numbers whose generating series sums \(\sum_{k \ge 1} \frac{1}{k^3} q^k = \operatorname{Li}_3(q)\) into integer Gopakumar–Vafa invariants!</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>Virtual fundamental classes rescue enumerative invariants from excess dimension, but three sharp traps govern when the machine fails or misleads:</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Higher obstructions (\(H^3 \ne 0\)) break the two-term Kuranishi dimension formula.</strong> Obligation 1 of Box P64.A requires that the deformation-obstruction theory sit exclusively in degrees \(1\) and \(2\) (tangents \(H^1\) and obstructions \(H^2\)). For coherent sheaves or complexes on a variety of dimension \(m \ge 4\), \(\operatorname{Ext}^3(\mathcal{F}, \mathcal{F})\) (and \(\operatorname{Ext}^4\)) can be non-zero! When \(H^3 \ne 0\), the alternating Euler characteristic is \(\dim H^1 - \dim H^2 + \dim H^3\), so the cokernel \(H^2\) of \(ds_p : T_p V \to E_p\) no longer varies with locally constant index \(\dim H^1 - \dim H^2\), and no standard 2-term virtual cycle exists.</p>
+    <p><em>Mitigation:</em> Restrict to curves (1D domains, where \(H^{\ge 2}(C, u^*TX) = 0\) automatically), surfaces (2D), or 3-folds where Serre duality + trace removal kills \(\operatorname{Ext}^3_0(\mathcal{F}, \mathcal{F}) \cong \operatorname{Ext}^0_0(\mathcal{F}, \mathcal{F} \otimes K_X)^* = 0\) (Donaldson–Thomas theory on 3-folds; Borisov–Joyce / Oh–Thomas on Calabi–Yau 4-folds using \(\sqrt{e}\)).</p>
+    <p><em>Price:</em> Four-dimensional theories require a quadratic form on \(H^2\) to extract a half-rank isotropic obstruction bundle.</p>
+    <p><em>Default:</em> Always check vanishing of \(H^{\ge 3}\) before writing \(d_{\text{vir}} = \dim H^1 - \dim H^2\).</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 190" role="img" aria-label="Fig P64.3: Left: on a compact chart, perturbing s_0 to s_eps preserves the signed count of zeros (+1). Right: on a non-compact chart without P54 boundary control, zeros escape across the open boundary as eps varies.">
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <!-- Left panel: Compact domain (zeros trapped inside) -->
+      <text x="150" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Compact Moduli Space (P54 holds)</text>
+      <rect x="40" y="42" width="220" height="110" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
+      <line x1="40" y1="97" x2="260" y2="97" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Cubic section s_0 = x^3 and perturbation s_eps = x^3 - eps^2 x -->
+      <path d="M 65,142 C 120,97 180,97 235,52" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-dasharray="4,3"/>
+      <path d="M 65,145 C 115,60 185,134 235,49" fill="none" stroke="#0f5c57" stroke-width="2.2"/>
+      <circle cx="106" cy="97" r="4.2" fill="#0f5c57"/>
+      <circle cx="150" cy="97" r="4.2" fill="#8a4b08"/>
+      <circle cx="194" cy="97" r="4.2" fill="#0f5c57"/>
+      <text x="106" y="86" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">+1</text>
+      <text x="150" y="114" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">−1</text>
+      <text x="194" y="86" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">+1</text>
+      <text x="150" y="172" font-family="system-ui, sans-serif" font-size="10" fill="#0f5c57" text-anchor="middle">Signed count (+1) + (−1) + (+1) = +1 is invariant</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="178" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Non-compact domain (zero escapes across open right edge!) -->
+      <text x="450" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Non-Compact Space (Zeros Escape!)</text>
+      <rect x="340" y="42" width="220" height="110" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.5" stroke-dasharray="5,3" rx="4"/>
+      <line x1="340" y1="97" x2="560" y2="97" stroke="#1a1a1a" stroke-width="1.5"/>
+      <!-- Section s_eps(x) = eps*x - 1 on R: root at x = 1/eps escapes across right wall as eps -> 0! -->
+      <line x1="350" y1="132" x2="550" y2="62" stroke="#8a94a3" stroke-width="1.6" stroke-dasharray="4,3"/>
+      <line x1="350" y1="132" x2="560" y2="108" stroke="#8a4b08" stroke-width="2.2"/>
+      <circle cx="450" cy="97" r="4.2" fill="#8a94a3"/>
+      <text x="450" y="85" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">x = 1/ε₁</text>
+      <text x="548" y="124" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">x = 1/ε₂ → ∞ (escaped!)</text>
+      <text x="450" y="172" font-family="system-ui, sans-serif" font-size="10" fill="#8a4b08" text-anchor="middle">Without P54 compactification, count jumps from 1 to 0</text>
+    </svg>
+    <figcaption><strong>Fig P64.3.</strong> Why <span class="pid">P64</span> depends on <span class="pid">P54</span>: <strong>(A)</strong> on a compact space (or a proper Kuranishi chart where \(\|s(v)\| \ge c &gt; 0\) on \(\partial V\)), zeros can split or merge only in cancelling \((+1, -1)\) pairs; <strong>(B)</strong> on a non-compact space, a zero \(x = 1/\varepsilon\) of \(s_\varepsilon(x) = \varepsilon x - 1\) walks off to infinity as \(\varepsilon \to 0\), destroying invariance.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Virtual counts can be negative or fractional, so \([\mathcal{M}]^{\text{vir}} \ne 0\) does not mean geometric solutions are isolated!</strong> As we saw in Exemplar 1 (\([E \cap E]^{\text{vir}} = -1\)) and Exemplar 3 (\(\deg [\mathcal{Z}_k]^{\text{vir}} = 1/k^3\)), the virtual class is a homological intersection number over \(\mathbb{Q}\), not a literal cardinality of a finite set. When \(H^2 \ne 0\), an entire positive-dimensional component can contribute a negative integer or a fraction \(\frac{1}{|\Gamma|}\) to the total count.</p>
+    <p><em>Mitigation:</em> Separate primitive unobstructed contributions from boundary/multiple-cover contributions using degeneration or localization formulas before interpreting a virtual invariant as a literal geometric count.</p>
+    <p><em>Price:</em> Unpacking multi-cover series (such as the \(1/k^3\) Gopakumar–Vafa transformation).</p>
+    <p><em>Default:</em> Always check whether \(H^2 = 0\) holds generically before calling a virtual invariant an actual count of smooth objects.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Orbifold stabilizers \(\Gamma = \operatorname{Aut}(p)\) require rational multi-sections in analytic Kuranishi charts.</strong> In symplectic Gromov–Witten and Floer theory (<a href="p65-floer-homology.html"><span class="pid">P65</span></a>), a multiple cover \(u : \mathbb{P}^1 \to \mathbb{P}^1\) (\(z \mapsto z^k\)) has finite symmetry group \(\Gamma = \mathbb{Z}/k\mathbb{Z}\). A single-valued \(\Gamma\)-equivariant section \(s : V \to E\) often cannot be made transverse to \(0\) because \(\Gamma\)-invariance forces \(s(0) = 0\) along the fixed locus!</p>
+    <p><em>Mitigation:</em> Use branched <em>multi-sections</em> (Fukaya–Ono) or polyfold sc-fredholm sections (Hofer–Wysocki–Zehnder) that average \(k\) branches with weight \(1/k\) each.</p>
+    <p><em>Price:</em> Working with rational homology \(H_*(\mathcal{M}; \mathbb{Q})\) instead of integral homology \(H_*(\mathcal{M}; \mathbb{Z})\).</p>
+    <p><em>Default:</em> Always declare coefficients in \(\mathbb{Q}\) whenever non-trivial automorphisms \(\operatorname{Aut}(p) \ne \{1\}\) appear in \(\overline{\mathcal{M}}\).</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this orientation page.</strong> Our explicit calculations use Obligation 3 of Box P64.A — the case where the excess locus \(\mathcal{Z}\) is smooth (such as \(G(2,4)\), \(\mathbb{P}^1\), or \(\overline{\mathcal{M}}_{0,0}(\mathbb{P}^1, k)\)) so the virtual cycle equals \([\mathcal{Z}] \cap e(\operatorname{Ob})\). When \(\mathcal{M}\) is singular with multiple irreducible components of different dimensions meeting along lower strata, the Behrend–Fantechi construction replaces \([\mathcal{Z}] \cap e(\operatorname{Ob})\) by intersecting the intrinsic normal cone \(\mathfrak{C}_{\mathcal{M}} \subset h^1/h^0(E^\bullet)\) with the zero section of the vector bundle stack \(E^1/E^0\).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When you need to evaluate an integral \(\int_{[\overline{\mathcal{M}}]^{\text{vir}}} \alpha\) on a complicated moduli space with a torus \(\mathbb{C}^*\) symmetry:</strong> Apply the virtual Atiyah–Bott localization formula (connects to <a href="p08-divide-by-symmetry.html"><span class="pid">P08</span> · Divide by symmetry</a>), which reduces the integral over \([\overline{\mathcal{M}}]^{\text{vir}}\) to a finite sum over the \(\mathbb{C}^*\)-fixed trees weighted by the equivariant Euler class of the virtual normal bundle \(N^{\text{vir}} = T^{\text{mov}} - \operatorname{Ob}^{\text{mov}}\).</li>
+    <li><strong>When the moduli space consists of holomorphic strips and disks between Lagrangians:</strong> Feed the virtual chain counts directly into <a href="p65-floer-homology.html"><span class="pid">P65</span> · Floer homology from holomorphic strips</a> to define unobstructed Floer homology on general symplectic manifolds.</li>
+    <li><strong>When the virtual classes across all genus-0 moduli spaces \(\overline{\mathcal{M}}_{0,n}(X, \beta)\) are assembled together:</strong> Their boundary splitting axioms form a Cohomological Field Theory governed by <a href="p63-operad-algebra.html"><span class="pid">P63</span> · Recognize the operad algebra</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Severi's principle of conservation of number to Fulton–MacPherson excess intersection and the 1996 virtual class breakthroughs.</strong> Nineteenth-century enumerative geometers led by Hermann Schubert and Francesco Severi relied on the "principle of conservation of number," assuming counts remained invariant through degenerate special positions, until counterexamples exposed the need for rigorous excess-intersection formulas. In 1975–1984 William Fulton and Robert MacPherson (<em>Intersection Theory</em>, Springer 1984) solved the classical problem by intersecting the normal cone \(C_{X/Y}\) with the zero section of the ambient bundle. In 1994 Maxim Kontsevich proposed that moduli spaces of stable maps \(\overline{\mathcal{M}}_{g,n}(X, \beta)\) carry a "virtual fundamental class" of dimension \(\dim H^1 - \dim H^2\) extracted from their two-term deformation complex. Between 1996 and 1999, four teams independently constructed the virtual class across algebraic and symplectic geometry: Jun Li and Gang Tian (<em>Journal of the American Mathematical Society</em> 11, 1998, via normal cones of Kuranishi families), Kai Behrend and Barbara Fantechi (<em>Inventiones Mathematicae</em> 128, 1997, via intrinsic normal cones on Deligne–Mumford stacks), Kenji Fukaya and Kaoru Ono (<em>Topology</em> 38, 1999, via Kuranishi structures and multi-sections), and Yongbin Ruan (1999), later joined by Helmut Hofer, Kris Wysocki, and Eduard Zehnder's polyfold theory.</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — Self-intersection of a degree-\(d\) plane curve and the genus–degree normal bundle</h3>
+  <p>Let \(C \subset \mathbb{P}^2\) be a smooth projective curve defined by a homogeneous polynomial \(F(x_0, x_1, x_2) = 0\) of degree \(d \ge 1\).<br>
+  (a) Explain why the normal line bundle \(N_{C/\mathbb{P}^2}\) is the restriction \(\mathcal{O}_{\mathbb{P}^2}(d)|_C\), and use Box P64.A (Obligation 3) to compute the virtual self-intersection number \([C \cap C]^{\text{vir}} = \int_C c_1(N_{C/\mathbb{P}^2})\).<br>
+  (b) Using the exact tangent sequence \(0 \to TC \to T\mathbb{P}^2|_C \to N_{C/\mathbb{P}^2} \to 0\) and \(c_1(T\mathbb{P}^2) = 3H\) (where \(\int_C H = d\) and \(\int_C c_1(TC) = 2 - 2g\)), derive the classical genus–degree formula \(g = \frac{(d-1)(d-2)}{2}\).</p>
+  <details><summary>Hint</summary><p>By Bézout's theorem, the restriction of the hyperplane class \(H = c_1(\mathcal{O}(1))\) to a degree-\(d\) curve \(C\) has degree \(\int_C H = d\), so \(\int_C c_1(\mathcal{O}(d)|_C) = d \cdot d = d^2\). For (b), take first Chern classes: \(c_1(TC) + c_1(N_{C/\mathbb{P}^2}) = c_1(T\mathbb{P}^2|_C)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Virtual self-intersection \([C \cap C]^{\text{vir}}\):</strong> Since \(C\) is the zero locus of a section \(F \in H^0(\mathbb{P}^2, \mathcal{O}(d))\), its normal bundle is \(N_{C/\mathbb{P}^2} \cong \mathcal{O}_{\mathbb{P}^2}(d)|_C\). Intersecting \(C\) with itself has expected dimension \(2 - (1+1) = 0\) and actual dimension \(1\), with obstruction bundle \(\operatorname{Ob} = N_{C/\mathbb{P}^2}\). By Obligation 3 of Box P64.A,</p>
+    <p class="eq">\[[C \cap C]^{\text{vir}} = \int_C c_1\bigl(\mathcal{O}_{\mathbb{P}^2}(d)|_C\bigr) = d \int_C H = d^2.\]</p>
+    <p><strong>(b) Genus–degree formula from the normal bundle:</strong> Additivity of the first Chern class on \(0 \to TC \to T\mathbb{P}^2|_C \to N_{C/\mathbb{P}^2} \to 0\) gives \(c_1(TC) = c_1(T\mathbb{P}^2|_C) - c_1(N_{C/\mathbb{P}^2}) = (3 - d)H|_C\). Integrating over \(C\) yields</p>
+    <p class="eq">\[2 - 2g = \int_C c_1(TC) = (3 - d)d \quad\Longrightarrow\quad 2g = d^2 - 3d + 2 = (d-1)(d-2) \quad\Longrightarrow\quad g = \frac{(d-1)(d-2)}{2}.\]</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — Counting lines on a quadratic surface in \(\mathbb{P}^3\) vs. a quartic surface</h3>
+  <p>Recall from Exemplar 2 that on the Grassmannian \(V = G(2,4)\) of lines in \(\mathbb{P}^3\) (dimension \(m = 4\)), a homogeneous polynomial \(F\) of degree \(d\) defines a section \(s_F\) of the vector bundle \(E_d = \operatorname{Sym}^d(\mathcal{S}^*)\) of rank \(r_d = d + 1\).<br>
+  (a) Compute the virtual dimension \(d_{\text{vir}} = m - r_d\) of the moduli space of lines on a surface \(X_d \subset \mathbb{P}^3\) of degree \(d\) for \(d = 1, 2, 3, 4\). Why are there infinitely many lines on a smooth quadric surface (\(d = 2\)), finitely many on a cubic (\(d = 3\)), and zero on a generic quartic (\(d = 4\))?<br>
+  (b) For \(d = 2\) (where \(E_2 = \operatorname{Sym}^2(\mathcal{S}^*)\) has rank \(3\) and Chern roots \(2\alpha, \alpha+\beta, 2\beta\)), express the top Chern class \(c_3(E_2)\) in terms of \(s_1 = \alpha+\beta\) and \(s_2 = \alpha\beta\), and compute the degree \(\int_{[Z(s_F)]^{\text{vir}}} s_1 = \int_{G(2,4)} s_1\,c_3(E_2)\) of the 1-dimensional curve of lines on a quadric surface (using \(\int_{G(2,4)} s_1^2 s_2 = 1\)).</p>
+  <details><summary>Hint</summary><p>In (a), \(d_{\text{vir}} = 4 - (d + 1) = 3 - d\). In (b), multiply \((2\alpha)(2\beta)(\alpha + \beta) = 4\alpha\beta(\alpha+\beta) = 4s_1 s_2\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Virtual dimension across degrees \(d = 1, 2, 3, 4\):</strong> Since \(\dim G(2,4) = 4\) and \(\operatorname{rank}\operatorname{Sym}^d(\mathcal{S}^*) = d + 1\),</p>
+    <p class="eq">\[d_{\text{vir}} = 4 - (d + 1) = 3 - d.\]</p>
+    <ul>
+      <li>\(d = 1\) (plane): \(d_{\text{vir}} = 2\) (a 2-dimensional \(\mathbb{P}^2\) family of lines in a plane).</li>
+      <li>\(d = 2\) (quadric \(X_2 \cong \mathbb{P}^1 \times \mathbb{P}^1\)): \(d_{\text{vir}} = 1\) (two 1-dimensional rulings of lines!).</li>
+      <li>\(d = 3\) (cubic \(X_3\)): \(d_{\text{vir}} = 0\) (isolated points: \(27\) lines).</li>
+      <li>\(d = 4\) (quartic \(X_4\)): \(d_{\text{vir}} = -1 &lt; 0\) (overdetermined: \(5\) conditions on \(4\) parameters, so a generic quartic surface contains \(0\) lines).</li>
+    </ul>
+    <p><strong>(b) Virtual class of the 1-dimensional family of lines on a quadric (\(d = 2\)):</strong> The three Chern roots of \(E_2 = \operatorname{Sym}^2(\mathcal{S}^*)\) are \(2\alpha, \alpha+\beta, 2\beta\). Their product is</p>
+    <p class="eq">\[c_3\bigl(\operatorname{Sym}^2 \mathcal{S}^*\bigr) = (2\alpha)(2\beta)(\alpha+\beta) = 4\,s_1 s_2.\]</p>
+    <p>Pairing the 1-dimensional virtual cycle \([Z(s_F)]^{\text{vir}} = [G(2,4)] \cap c_3(E_2)\) with the hyperplane class \(s_1\) gives</p>
+    <p class="eq">\[\int_{[Z(s_F)]^{\text{vir}}} s_1 = \int_{G(2,4)} s_1 \cdot (4\,s_1 s_2) = 4\int_{G(2,4)} s_1^2 s_2 = 4(1) = 4.\]</p>
+    <p>Geometrically, a smooth quadric \(X_2 \cong \mathbb{P}^1 \times \mathbb{P}^1\) has two rulings of lines, each embedded as a conic of degree \(2\) in the Plücker quadric of \(G(2,4)\), giving total degree \(2 + 2 = 4\).</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Dimension balance for degree-\(k\) covers of a \((-2, 0)\) curve vs. a \((-1, -1)\) curve</h3>
+  <p>Let \(C \cong \mathbb{P}^1\) be a smooth rational curve inside a Calabi–Yau 3-fold \(X\) whose normal bundle is \(N_{C/X} = \mathcal{O}(-2) \oplus \mathcal{O}(0)\) (meaning \(C\) moves in a 1-parameter family along the \(\mathcal{O}(0)\) direction, with \(\dim H^0(C, N_{C/X}) = 1\) and \(\dim H^1(C, N_{C/X}) = 1\)).<br>
+  (a) For a degree-\(k\) cover \(u : \mathbb{P}^1 \to C\) (\(k \ge 1\)), compute the pullback bundle \(u^* N_{C/X}\), and use \(\dim H^0(\mathbb{P}^1, \mathcal{O}(m)) = \max(0, m+1)\) and \(\dim H^1(\mathbb{P}^1, \mathcal{O}(-m)) = \max(0, m-1)\) to find \(\dim H^0(\mathbb{P}^1, u^* N_{C/X})\) and \(\dim H^1(\mathbb{P}^1, u^* N_{C/X})\).<br>
+  (b) Adding the \(2k - 2\) internal branched-cover deformations of \(u : \mathbb{P}^1 \to C\), verify that the total tangent dimension \(\dim H^1_{\text{total}} = (2k - 2) + \dim H^0(u^* N_{C/X})\) minus the obstruction rank \(\dim H^2_{\text{total}} = \dim H^1(u^* N_{C/X})\) equals \(d_{\text{vir}} = 0\) for every \(k \ge 1\).</p>
+  <details><summary>Hint</summary><p>Under a degree-\(k\) map \(u : \mathbb{P}^1 \to \mathbb{P}^1\), \(\mathcal{O}(-2)\) pulls back to \(\mathcal{O}(-2k)\), while \(\mathcal{O}(0)\) pulls back to \(\mathcal{O}(0)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Pullback cohomology of \(\mathcal{O}(-2) \oplus \mathcal{O}(0)\):</strong> Pulling back along a degree-\(k\) cover gives \(u^* N_{C/X} = \mathcal{O}(-2k) \oplus \mathcal{O}(0)\). On \(\mathbb{P}^1\):</p>
+    <ul>
+      <li><strong>Normal moves \(H^0(\mathbb{P}^1, u^* N_{C/X})\):</strong> \(H^0(\mathcal{O}(-2k)) = 0\) (since \(-2k &lt; 0\)) and \(H^0(\mathcal{O}(0)) = \mathbb{C}^1\), so \(\dim H^0(\mathbb{P}^1, u^* N_{C/X}) = 0 + 1 = 1\).</li>
+      <li><strong>Normal obstructions \(H^1(\mathbb{P}^1, u^* N_{C/X})\):</strong> By Serre duality, \(\dim H^1(\mathcal{O}(-2k)) = 2k - 1\) and \(\dim H^1(\mathcal{O}(0)) = 0\), so \(\dim H^1(\mathbb{P}^1, u^* N_{C/X}) = 2k - 1\).</li>
+    </ul>
+    <p><strong>(b) Exact virtual dimension balance:</strong> Combining the \(2k - 2\) tangent deformations along \(C\) with the \(1\) normal move gives total tangent dimension</p>
+    <p class="eq">\[\dim H^1_{\text{total}} = (2k - 2) + 1 = 2k - 1.\]</p>
+    <p>Meanwhile, the obstruction space has rank \(\dim H^2_{\text{total}} = \dim H^1(u^* N_{C/X}) = 2k - 1\). Subtracting the two gives</p>
+    <p class="eq">\[d_{\text{vir}} = \dim H^1_{\text{total}} - \dim H^2_{\text{total}} = (2k - 1) - (2k - 1) = 0 \quad\text{for all } k \ge 1.\]</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: unobstructed count, virtual class, or broken setup?</h3>
+  <p>Diagnose each enumerative problem below:</p>
+  <ol>
+    <li>You want to count the number of degree-\(d\) rational curves in \(\mathbb{P}^2\) passing through \(3d - 1\) generic points (\(g = 0\)). Does \(\overline{\mathcal{M}}_{0, 3d-1}(\mathbb{P}^2, d)\) need an obstruction bundle correction, or is \(H^2 = 0\) already?</li>
+    <li>You want to count the number of lines on the Fermat quintic threefold \(X_5 = \{x_0^5 + x_1^5 + x_2^5 + x_3^5 + x_4^5 = 0\} \subset \mathbb{P}^4\), where the lines actually form 1-dimensional cones (50 cones of lines!) instead of isolated points.</li>
+    <li>You want to define a deformation-invariant zero count for \(s_\varepsilon(x) = \varepsilon x^2 - 1\) on the open real line \(V = \mathbb{R}\).</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>Unobstructed (\(H^2 = 0\)) — <span class="pid">P54</span> suffices directly without an obstruction bundle:</strong> Because \(T\mathbb{P}^2\) is generated by global sections (a <em>convex</em> target), for every genus-0 map \(u : \mathbb{P}^1 \to \mathbb{P}^2\) the pullback \(u^* T\mathbb{P}^2\) splits into line bundles of non-negative degree, so \(H^1(\mathbb{P}^1, u^* T\mathbb{P}^2) = 0\) identically! The virtual class equals the ordinary fundamental class \([\overline{\mathcal{M}}_{0,n}(\mathbb{P}^2, d)]\).</li>
+      <li><strong>Genuine <span class="pid">P64</span> (Excess intersection on \(G(2,5)\)):</strong> For lines in \(\mathbb{P}^4\), \(\dim G(2,5) = 2(5-2) = 6\) and \(\operatorname{rank}\operatorname{Sym}^5(\mathcal{S}^*) = 5 + 1 = 6\), so \(d_{\text{vir}} = 6 - 6 = 0\). On the special Fermat quintic \(X_5\), the lines form 1-dimensional cones (\(\dim H^1 = 1, \dim H^2 = 1\)), yet capping with the Euler class \(\int_{G(2,5)} c_6(\operatorname{Sym}^5 \mathcal{S}^*) = 2875\) extracts the exact virtual count of \(2875\) lines realized on a generic quintic.</li>
+      <li><strong>Broken setup — fails Obligation 2 (Compactness Lock, Fig P64.3B):</strong> On \(V = \mathbb{R}\), when \(\varepsilon &gt; 0\) there are \(2\) roots \(x = \pm 1/\sqrt{\varepsilon}\), and when \(\varepsilon \le 0\) there are \(0\) roots, because the roots escape to \(\pm\infty\) as \(\varepsilon \to 0^+\). Without compactness (<span class="pid">P54</span>), no invariant virtual count exists.</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: Deriving the \(2875\) lines on a quintic threefold</h3>
+  <p>Extend the Schubert calculus of Exemplar 2 from a cubic surface in \(\mathbb{P}^3\) to a quintic 3-fold \(X_5 \subset \mathbb{P}^4\), where lines move in the Grassmannian \(G(2,5)\) of complex dimension \(m = 2(5-2) = 6\) and a degree-5 polynomial defines a section of \(E_5 = \operatorname{Sym}^5(\mathcal{S}^*)\) of rank \(r = 6\).<br>
+  (a) In terms of the Chern roots \(\alpha, \beta\) of \(\mathcal{S}^*\) (with \(s_1 = \alpha+\beta\) and \(s_2 = \alpha\beta\)), expand the product of the six weights of \(\operatorname{Sym}^5(\mathcal{S}^*)\):
+  <p class="eq">\[c_6\bigl(\operatorname{Sym}^5 \mathcal{S}^*\bigr) = (5\alpha)(4\alpha+\beta)(3\alpha+2\beta)(2\alpha+3\beta)(\alpha+4\beta)(5\beta).\]</p>
+  (b) Using the Schubert intersection numbers on \(G(2,5)\) — namely \(\int_{G(2,5)} s_1^4 s_2 = 2\), \(\int_{G(2,5)} s_1^2 s_2^2 = 1\), and \(\int_{G(2,5)} s_2^3 = 1\) — evaluate \(\int_{G(2,5)} c_6(\operatorname{Sym}^5 \mathcal{S}^*)\) to verify the famous degree-1 Calabi–Yau count \(N_1 = 2875\).</p>
+  <details><summary>Hint</summary><p>Pair symmetric factors: \((5\alpha)(5\beta) = 25s_2\), \((4\alpha+\beta)(\alpha+4\beta) = 4(\alpha+\beta)^2 + 9\alpha\beta = 4s_1^2 + 9s_2\), and \((3\alpha+2\beta)(2\alpha+3\beta) = 6(\alpha+\beta)^2 + \alpha\beta = 6s_1^2 + s_2\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Symmetric polynomial expansion (<span class="pid">P05</span>):</strong> Pairing the six weights symmetrically gives</p>
+    <ul>
+      <li>\((5\alpha)(5\beta) = 25\alpha\beta = 25\,s_2\),</li>
+      <li>\((4\alpha+\beta)(\alpha+4\beta) = 4\alpha^2 + 17\alpha\beta + 4\beta^2 = 4(\alpha+\beta)^2 + 9\alpha\beta = 4s_1^2 + 9s_2\),</li>
+      <li>\((3\alpha+2\beta)(2\alpha+3\beta) = 6\alpha^2 + 13\alpha\beta + 6\beta^2 = 6(\alpha+\beta)^2 + \alpha\beta = 6s_1^2 + s_2\).</li>
+    </ul>
+    <p>Multiplying the three quadratic factors gives</p>
+    <p class="eq">\[c_6\bigl(\operatorname{Sym}^5 \mathcal{S}^*\bigr) = 25\,s_2\bigl(4s_1^2 + 9s_2\bigr)\bigl(6s_1^2 + s_2\bigr) = 25\,s_2\bigl(24s_1^4 + 58s_1^2 s_2 + 9s_2^2\bigr) = 600\,s_1^4 s_2 + 1450\,s_1^2 s_2^2 + 225\,s_2^3.\]</p>
+    <p><strong>(b) Evaluating the Schubert integral on \(G(2,5)\):</strong> In the cohomology ring of \(G(2,5)\), the Schubert classes \(\sigma_1 = s_1\) and \(\sigma_{1,1} = s_2\) obey \(\sigma_1^2 = \sigma_2 + \sigma_{1,1}\), which yields the top-degree integrals \(\int_{G(2,5)} s_2^3 = 1\), \(\int_{G(2,5)} s_1^2 s_2^2 = 1\), and \(\int_{G(2,5)} s_1^4 s_2 = 2\). Substituting these values into \(c_6(\operatorname{Sym}^5\mathcal{S}^*)\) gives</p>
+    <p class="eq">\[N_1 = 600(2) + 1450(1) + 225(1) = 1200 + 1450 + 225 = 2875.\]</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P64 · Virtual classes from obstruction theory. <a href="index.html">Return to the index</a> · Previous: <a href="p63-operad-algebra.html">P63 · Recognize the operad algebra</a> · Next: <a href="p65-floer-homology.html">P65 · Floer homology from holomorphic strips →</a></p>
+</footer>
+
+</body>
+</html>

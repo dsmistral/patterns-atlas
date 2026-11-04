@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P63 · Recognize the operad algebra · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P63 · the eighteenth move of tier 5</p>
+  <h1>Recognize the operad algebra</h1>
+  <p class="tagline">When a space carries multi-input operations that plug into one another like rooted trees, separate the universal grammar of the wiring diagrams from the vector space they act on.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Arity spaces \(\mathcal{P}(n)\), partial grafting \(\circ_i\), and the endomorphism operad \(\operatorname{End}_V\).</strong>
+  On any vector space \(V\), an <em>\(n\)-ary operation</em> is a multilinear map \(f : V^{\otimes n} \to V\) taking \(n\) inputs and producing \(1\) output; the collection of all such maps forms the <em>endomorphism operad</em> \(\operatorname{End}_V(n) = \operatorname{Hom}(V^{\otimes n}, V)\). Given an \(m\)-ary operation \(f \in \operatorname{End}_V(m)\) and a \(k\)-ary operation \(g \in \operatorname{End}_V(k)\), their <em>\(i\)-th partial grafting</em> \(f \circ_i g \in \operatorname{End}_V(m + k - 1)\) (\(1 \le i \le m\)) plugs the single output of \(g\) into the \(i\)-th input slot of \(f\). An <em>operad</em> \(\mathcal{P} = \{\mathcal{P}(n)\}_{n \ge 1}\) is an abstract collection of \(n\)-to-\(1\) wiring spaces equipped with \(S_n\) input-relabelling actions, an identity wire \(\mathbf{1} \in \mathcal{P}(1)\), and grafting maps \(\circ_i\) obeying the same tree-plugging axioms as \(\operatorname{End}_V\).
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p31-universal-property.html"><span class="pid">P31</span></a> taught us to pin down an object by its universal mapping job rather than its internal blueprint — just as \(\mathbb{Z}[x]\) was hired in Example 3 of <a href="p31-universal-property.html"><span class="pid">P31</span></a> to hold "a number we haven't chosen yet." <a href="p51-koszul-dual-swap.html"><span class="pid">P51</span></a> showed us that entire families of binary algebras (\(\mathcal{C}om, \mathcal{L}ie, \mathcal{A}ss\)) swap roles under orthogonal complementation \(R \leftrightarrow R^\perp\), and <a href="p54-stable-compactification.html"><span class="pid">P54</span></a> built the compactified moduli spaces \(\overline{\mathcal{M}}_{0, n+1}\) (and the real Stasheff associahedra \(K_n\)) where boundary strata glue \(k\)-pointed spheres and \(l\)-pointed spheres into \((k+l-1)\)-pointed trees.</p>
+  <p>Here is the structural tension that brings <a href="p31-universal-property.html"><span class="pid">P31</span></a>, <a href="p51-koszul-dual-swap.html"><span class="pid">P51</span></a>, and <a href="p54-stable-compactification.html"><span class="pid">P54</span></a> under a single roof. Across topology, geometry, and physics, we repeatedly encounter a vector space or chain complex \(V\) equipped not with a single associative binary product, but with an infinite hierarchy of \(n\)-input operations controlled by geometric shapes: loop concatenations that are associative only up to a chain of higher homotopies (\(K_n\)), little \(d\)-disks inside a larger disk (\(E_d(n)\)), or Gromov–Witten correlators controlled by \(\overline{\mathcal{M}}_{0, n+1}\). Proving identities on \(V\) by writing out explicit multilinear brackets and signs quickly becomes a nightmare. How do we package an entire infinite hierarchy of multi-input operations and their coherence laws into a single homomorphism?</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: two ways to graft three trees, and the index shift that governs them</h2>
+  <p>Imagine three multilinear function boxes acting on a vector space \(V\): an \(m = 3\)-input box \(f(x_1, x_2, x_3)\), a \(k = 2\)-input box \(g(y_1, y_2)\), and an \(l = 2\)-input box \(h(z_1, z_2)\). When we wire the output of \(g\) and the output of \(h\) into \(f\) to build a \(3 + 2 + 2 - 2 = 5\)-input operation on \((a_1, a_2, a_3, a_4, a_5)\), only <strong>two geometric wiring topologies</strong> can occur:</p>
+  <ul>
+    <li><strong>Parallel (disjoint-slot) grafting:</strong> Plug \(g\) into slot \(i = 1\) of \(f\) and plug \(h\) into slot \(j = 3\) of \(f\), computing \(f\bigl(g(a_1, a_2),\; a_3,\; h(a_4, a_5)\bigr)\). Notice what happens to the slot numbers depending on which box we plug in first! If we plug \(h\) into slot \(3\) of \(f\) first (forming the \(4\)-input box \(f \circ_3 h\)), we then plug \(g\) into slot \(1\): \((f \circ_3 h) \circ_1 g\). But if we plug \(g\) into slot \(1\) of \(f\) first, the \(k = 2\) inputs of \(g\) expand slot \(1\) into two slots \((1, 2)\), <strong>shifting the old slot \(j = 3\) right by \(k - 1 = 1\) unit to slot \(3 + 2 - 1 = 4\)</strong>! Thus:
+      <p class="eq">\[(f \circ_j h) \circ_i g \;=\; (f \circ_i g) \circ_{j + k - 1} h \qquad (1 \le i &lt; j \le m).\]</p>
+    </li>
+    <li><strong>Sequential (nested) grafting:</strong> Plug \(g\) into slot \(i = 2\) of \(f\), and plug \(h\) into slot \(j = 1\) <em>of \(g\) itself</em>, computing \(f\bigl(a_1,\; g(h(a_2, a_3), a_4),\; a_5\bigr)\). Because \(g\)'s first slot sits at position \(i + j - 1 = 2 + 1 - 1 = 2\) inside the composite box \(f \circ_2 g\), nesting obeys:
+      <p class="eq">\[(f \circ_i g) \circ_{i + j - 1} h \;=\; f \circ_i (g \circ_j h) \qquad (1 \le i \le m,\; 1 \le j \le k).\]</p>
+    </li>
+  </ul>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 205" role="img" aria-label="Fig P63.1: Left: Parallel grafting on disjoint leaves i=1 and j=3 showing why inserting g (arity k=2) at slot 1 shifts slot 3 to slot 3+2-1=4. Right: Sequential grafting nesting h into slot j=1 of g inside slot i=2 of f.">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+
+      <!-- Left panel: Parallel Grafting (f o_3 h) o_1 g = (f o_1 g) o_4 h -->
+      <text x="150" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Parallel Grafting (1 = i &lt; j = 3,  k = 2)</text>
+      <!-- Root node f at (150, 145) -->
+      <line x1="150" y1="145" x2="150" y2="175" stroke="#1a1a1a" stroke-width="2.2"/>
+      <!-- 3 branches from f to (85, 95), (150, 95), (215, 95) -->
+      <line x1="150" y1="145" x2="85" y2="95" stroke="#0f5c57" stroke-width="2"/>
+      <line x1="150" y1="145" x2="150" y2="48" stroke="#1a1a1a" stroke-width="1.8"/>
+      <line x1="150" y1="145" x2="215" y2="95" stroke="#8a4b08" stroke-width="2"/>
+      <!-- Subtree g at (85, 95) with 2 leaves (60, 48) and (110, 48) -->
+      <line x1="85" y1="95" x2="60" y2="48" stroke="#0f5c57" stroke-width="2"/>
+      <line x1="85" y1="95" x2="110" y2="48" stroke="#0f5c57" stroke-width="2"/>
+      <!-- Subtree h at (215, 95) with 2 leaves (190, 48) and (240, 48) -->
+      <line x1="215" y1="95" x2="190" y2="48" stroke="#8a4b08" stroke-width="2"/>
+      <line x1="215" y1="95" x2="240" y2="48" stroke="#8a4b08" stroke-width="2"/>
+
+      <!-- Vertices -->
+      <circle cx="150" cy="145" r="11" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.8"/>
+      <text x="150" y="149" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">f</text>
+      <circle cx="85" cy="95" r="10" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.8"/>
+      <text x="85" y="99" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">g</text>
+      <circle cx="215" cy="95" r="10" fill="#f7e6d4" stroke="#8a4b08" stroke-width="1.8"/>
+      <text x="215" y="99" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">h</text>
+
+      <!-- Leaf labels 1..5 -->
+      <text x="60" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">a₁</text>
+      <text x="110" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">a₂</text>
+      <text x="150" y="40" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">a₃</text>
+      <text x="190" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">a₄</text>
+      <text x="240" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">a₅</text>
+      <text x="150" y="193" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">(f ∘₃ h) ∘₁ g  =  (f ∘₁ g) ∘₄ h   (4 = 3 + 2 − 1)</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="195" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Sequential Grafting (f o_2 g) o_2 h = f o_2 (g o_1 h) -->
+      <text x="450" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Sequential Grafting (i = 2,  j = 1)</text>
+      <!-- Root node f at (450, 152) -->
+      <line x1="450" y1="152" x2="450" y2="178" stroke="#1a1a1a" stroke-width="2.2"/>
+      <!-- 3 branches from f: left leaf a1 at (365, 48), middle node g at (450, 108), right leaf a5 at (535, 48) -->
+      <line x1="450" y1="152" x2="365" y2="48" stroke="#1a1a1a" stroke-width="1.8"/>
+      <line x1="450" y1="152" x2="450" y2="108" stroke="#0f5c57" stroke-width="2.2"/>
+      <line x1="450" y1="152" x2="535" y2="48" stroke="#1a1a1a" stroke-width="1.8"/>
+      <!-- From g at (450, 108): left goes to h at (422, 74), right goes to leaf a4 at (485, 48) -->
+      <line x1="450" y1="108" x2="422" y2="74" stroke="#8a4b08" stroke-width="2"/>
+      <line x1="450" y1="108" x2="485" y2="48" stroke="#0f5c57" stroke-width="2"/>
+      <!-- From h at (422, 74): two leaves a2 at (402, 48) and a3 at (442, 48) -->
+      <line x1="422" y1="74" x2="402" y2="48" stroke="#8a4b08" stroke-width="2"/>
+      <line x1="422" y1="74" x2="442" y2="48" stroke="#8a4b08" stroke-width="2"/>
+
+      <!-- Vertices -->
+      <circle cx="450" cy="152" r="11" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.8"/>
+      <text x="450" y="156" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">f</text>
+      <circle cx="450" cy="108" r="10" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.8"/>
+      <text x="450" y="112" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">g</text>
+      <circle cx="422" cy="74" r="9.5" fill="#f7e6d4" stroke="#8a4b08" stroke-width="1.8"/>
+      <text x="422" y="78" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">h</text>
+
+      <!-- Leaf labels 1..5 -->
+      <text x="365" y="40" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">a₁</text>
+      <text x="402" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">a₂</text>
+      <text x="442" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">a₃</text>
+      <text x="485" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">a₄</text>
+      <text x="535" y="40" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">a₅</text>
+      <text x="450" y="193" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">(f ∘₂ g) ∘₂ h  =  f ∘₂ (g ∘₁ h)   (2 = 2 + 1 − 1)</text>
+    </svg>
+    <figcaption><strong>Fig P63.1.</strong> The two universal tree-grafting laws of an operad: <strong>(A)</strong> parallel grafting on disjoint leaves commutes up to the leaf-count shift \(j + k - 1\); <strong>(B)</strong> sequential grafting along a single branch is associative at index \(i + j - 1\).</figcaption>
+  </figure>
+
+  <p>Once we isolate those two tree-grafting axioms, we can compare the "size" \(\dim \mathcal{P}(n)\) of different algebraic and geometric wiring grammars side by side across arity \(n = 1, 2, 3, 4, 5, 6\):</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Arity \(n\)</th>
+        <th>Planar Binary Trees<br>\(\dim = C_{n-1} = \frac{1}{n}\binom{2n-2}{n-1}\)</th>
+        <th>Commutative<br>\(\dim \mathcal{C}om(n) = 1\)</th>
+        <th>Lie Brackets<br>\(\dim \mathcal{L}ie(n) = (n-1)!\)</th>
+        <th>Associative<br>\(\dim \mathcal{A}ss(n) = n!\)</th>
+        <th>Deligne–Mumford Curves<br>\(\dim_{\mathbb{C}} \overline{\mathcal{M}}_{0, n+1} = n-2\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(n = 1\)</td>
+        <td>\(1\) (identity wire)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(0\) (point)</td>
+      </tr>
+      <tr>
+        <td>\(n = 2\)</td>
+        <td>\(1\) (single binary node)</td>
+        <td>\(1\) (\(ab = ba\))</td>
+        <td>\(1\) (\([a,b] = -[b,a]\))</td>
+        <td>\(2\) (\(ab,\, ba\))</td>
+        <td>\(0\) (\(\overline{\mathcal{M}}_{0,3} = \text{pt}\), <span class="pid">P54</span>)</td>
+      </tr>
+      <tr>
+        <td>\(n = 3\)</td>
+        <td>\(2\) (\((ab)c,\, a(bc)\))</td>
+        <td>\(1\)</td>
+        <td>\(2\) (\(3\) trees \(- 1\) Jacobi)</td>
+        <td>\(6\)</td>
+        <td>\(1\) (\(\overline{\mathcal{M}}_{0,4} \cong \mathbb{P}^1\))</td>
+      </tr>
+      <tr>
+        <td>\(n = 4\)</td>
+        <td>\(5\) (pentagon \(K_4\) vertices)</td>
+        <td>\(1\)</td>
+        <td>\(6\)</td>
+        <td>\(24\)</td>
+        <td>\(2\) (\(\overline{\mathcal{M}}_{0,5}\), \(10\) divisors)</td>
+      </tr>
+      <tr>
+        <td>\(n = 5\)</td>
+        <td>\(14\) (associahedron \(K_5\))</td>
+        <td>\(1\)</td>
+        <td>\(24\)</td>
+        <td>\(120\)</td>
+        <td>\(3\) (\(\overline{\mathcal{M}}_{0,6}\), \(25\) divisors)</td>
+      </tr>
+      <tr>
+        <td>\(n = 6\)</td>
+        <td>\(42\)</td>
+        <td>\(1\)</td>
+        <td>\(120\)</td>
+        <td>\(720\)</td>
+        <td>\(4\) (\(\overline{\mathcal{M}}_{0,7}\))</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>J. Peter May (1972) coined the word <em>operad</em> to state a universal recognition principle: instead of checking an endless list of multilinear axioms on a space \(V\), package the operations themselves into a universal object \(\mathcal{P} = \{\mathcal{P}(n)\}_{n \ge 1}\) (<a href="p31-universal-property.html"><span class="pid">P31</span></a>). Then equipping \(V\) with a \(\mathcal{P}\)-algebra structure is nothing more and nothing less than giving a morphism of operads \(\rho : \mathcal{P} \to \operatorname{End}_V\).</p>
+
+  <div class="pattern-box" id="box-p63">
+    <p><strong>Pattern P63 — Recognize the operad algebra.</strong> When a mathematical object \(V\) (a vector space, topological space, or chain complex) carries a family of \(n\)-input, \(1\)-output operations parameterized by an external combinatorial or geometric model \(\mathcal{P}(n)\) whose boundary or grafting maps match substitution of outputs into inputs, recognize \(\mathcal{P} = \{\mathcal{P}(n)\}_{n \ge 1}\) as an <strong>operad</strong> and \(V\) as a <strong>\(\mathcal{P}\)-algebra</strong> defined by an operad morphism:</p>
+    <p class="eq">\[\rho_n : \mathcal{P}(n) \longrightarrow \operatorname{End}_V(n) = \operatorname{Hom}\bigl(V^{\otimes n}, V\bigr), \qquad \rho_{m+k-1}(f \circ_i g) = \rho_m(f) \circ_i \rho_k(g).\]</p>
+    <p>Every algebraic relation, homology class, or boundary identity inside \(\mathcal{P}(n)\) transfers automatically to \(V\); furthermore, replacing \(\mathcal{P}\) by its Koszul dual cobar resolution \(\mathcal{P}_\infty = \Omega(\mathcal{P}^{\text{!`}})\) (<span class="pid">P51</span>) produces the homotopy-coherent version of \(\mathcal{P}\)-algebras (\(A_\infty, L_\infty, C_\infty\)).</p>
+    <p class="words"><strong>Or, in words:</strong> Separate the wiring diagram from the wires. Once you prove that a collection of geometric shapes (disks, trees, or moduli spaces of curves) plugs together as an operad \(\mathcal{P}\) and acts on \(V\), every topological identity in \(\mathcal{P}\) becomes an algebraic theorem on \(V\) at zero extra cost.</p>
+  </div>
+
+  <div class="pattern-box" id="box-p63a">
+    <p><strong>Box P63.A — The three obligations of an operad recognition proof.</strong></p>
+    <ol>
+      <li><strong>Arity &amp; Equivariance Setup (\(\mathcal{P}(n)\) with \(S_n\)-action):</strong> Identify the space \(\mathcal{P}(n)\) of \(n\)-input, \(1\)-output operations (labeling inputs \(1, \dots, n\) and designating the \((n+1)\)-st port as the output root) and verify that permuting input labels commutes with evaluation on \(V^{\otimes n}\).</li>
+      <li><strong>Grafting Compatibility (\(\circ_i\) matches substitution):</strong> Verify that the geometric gluing map \(\circ_i : \mathcal{P}(m) \times \mathcal{P}(k) \to \mathcal{P}(m+k-1)\) (such as inserting a \(k\)-disk configuration into the \(i\)-th disk, or gluing two nodal spheres at a node in <span class="pid">P54</span>) maps under \(\rho\) to composition of multilinear maps on \(V\).</li>
+      <li><strong>Homology / Koszul Transfer (<span class="pid">P51</span>):</strong> Pass to homology \(H_\bullet(\mathcal{P})\) to read off the induced algebraic laws on \(H_\bullet(V)\), or apply the cobar construction \(\Omega(\mathcal{P}^{\text{!`}})\) to read off the higher homotopy operations \(m_n : V^{\otimes n} \to V[2-n]\).</li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p63b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>Coherence theorems (loop space recognition, \(A_\infty / L_\infty\) homotopy transfer, WDVV associativity equations, or Lie brackets on deformation complexes).</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>Multi-input operations indexed by trees, nested disks, or moduli spaces of curves where manual parenthesization checks explode combinatorially.</td>
+        </tr>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>Endomorphism operad \(\operatorname{End}_V\), Schur functors \(\mathcal{P}(V) = \bigoplus_{n \ge 1} \mathcal{P}(n) \otimes_{S_n} V^{\otimes n}\) (<span class="pid">P50</span>), and Koszul dual resolutions \(\Omega(\mathcal{P}^{\text{!`}})\) (<span class="pid">P51</span>).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P63</span> whenever operations with arbitrary numbers of inputs compose along rooted trees or geometric boundary gluings.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 190" role="img" aria-label="Fig P63.2: Left: the little 2-disks operad E_2 where plugging a 2-disk configuration into disk 1 of another configuration realizes partial grafting o_1. Right: the induced Gerstenhaber structure on homology.">
+      <defs>
+        <marker id="arr-p63" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+
+      <!-- Step 1: Outer Disk f in E_2(2) -->
+      <text x="95" y="24" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">f ∈ E₂(2)</text>
+      <circle cx="95" cy="102" r="56" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="72" cy="92" r="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.8" stroke-dasharray="3,2"/>
+      <circle cx="122" cy="112" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+      <text x="72" y="96" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">1</text>
+      <text x="122" y="116" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+
+      <!-- Circle_1 symbol -->
+      <text x="176" y="106" font-family="Georgia, serif" font-size="16" font-weight="bold" fill="#0f5c57" text-anchor="middle">∘₁</text>
+
+      <!-- Step 2: Inner Disk g in E_2(2) -->
+      <text x="255" y="24" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">g ∈ E₂(2)</text>
+      <circle cx="255" cy="102" r="46" fill="#e1f0ee" stroke="#0f5c57" stroke-width="2"/>
+      <circle cx="236" cy="94" r="14" fill="#ffffff" stroke="#0f5c57" stroke-width="1.6"/>
+      <circle cx="274" cy="110" r="14" fill="#ffffff" stroke="#0f5c57" stroke-width="1.6"/>
+      <text x="236" y="98" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">1′</text>
+      <text x="274" y="114" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">2′</text>
+
+      <!-- Arrow to Grafted Disk f o_1 g in E_2(3) -->
+      <line x1="318" y1="102" x2="368" y2="102" stroke="#0f5c57" stroke-width="2.2" marker-end="url(#arr-p63)"/>
+      <text x="343" y="92" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">graft</text>
+
+      <!-- Step 3: Result f o_1 g in E_2(3) -->
+      <text x="455" y="24" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">f ∘₁ g ∈ E₂(3)</text>
+      <circle cx="455" cy="102" r="56" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="2"/>
+      <!-- Dashed ghost boundary of old disk 1 -->
+      <circle cx="432" cy="92" r="24" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.2" stroke-dasharray="3,3"/>
+      <!-- Two scaled subdisks 1 and 2 inside old disk 1 -->
+      <circle cx="421" cy="87" r="9" fill="#ffffff" stroke="#0f5c57" stroke-width="1.6"/>
+      <circle cx="443" cy="97" r="9" fill="#ffffff" stroke="#0f5c57" stroke-width="1.6"/>
+      <!-- Shifted disk 3 (formerly disk 2) -->
+      <circle cx="482" cy="112" r="18" fill="#ffffff" stroke="#8a4b08" stroke-width="1.8"/>
+      <text x="421" y="90" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">1</text>
+      <text x="443" y="100" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">2</text>
+      <text x="482" y="116" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">3</text>
+
+      <text x="300" y="177" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">H₀(E₂(2)) = ℤ (product a·b)   ·   H₁(E₂(2)) = ℤ (1D loop of disk 1 orbiting disk 2 = Lie bracket [a,b]!)</text>
+    </svg>
+    <figcaption><strong>Fig P63.2.</strong> Boardman–Vogt's little \(2\)-disks operad \(E_2\): an element of \(E_2(n)\) is a configuration of \(n\) disjoint subdisks inside the unit disk, and \(f \circ_1 g\) shrinks \(g\) to fit inside subdisk \(1\) of \(f\). Passing to homology \(H_\bullet(E_2)\) automatically produces a commutative product from \(H_0(E_2(2))\) and a degree-\(1\) Poisson/Lie bracket from \(H_1(E_2(2))\) (a <em>Gerstenhaber algebra</em>).</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · Why every operad generates a pre-Lie and Lie bracket (Gerstenhaber's brace)</h3>
+  <p>In <a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a>, we saw that the deformation cochain complex of an algebraic structure always carries a differential graded Lie bracket \([f, g]\) whose Maurer–Cartan equation \(df + \frac{1}{2}[f,f] = 0\) governs unobstructed deformations. Where does that Lie bracket come from when the cochains \(f \in \operatorname{Hom}(V^{\otimes m}, V)\) are multilinear maps of different arities that don't compose like square matrices?</p>
+  <p>Recognize \(\operatorname{End}_V(m) = \operatorname{Hom}(V^{\otimes m}, V)\) as an operad (<span class="pid">P63</span>)! For any linear operad \(\mathcal{P}\), sum the partial compositions over all \(m\) input slots of \(f \in \mathcal{P}(m)\) to define the <strong>total circle product</strong>:</p>
+  <p class="eq">\[f \circ g = \sum_{i=1}^m f \circ_i g \;\in\; \mathcal{P}(m + k - 1).\]</p>
+  <p>Is \(f \circ g\) associative? Compute the associator \((f \circ g) \circ h - f \circ (g \circ h)\) for \(f \in \mathcal{P}(m)\), \(g \in \mathcal{P}(k)\), and \(h \in \mathcal{P}(l)\). In \((f \circ g) \circ h = \sum_{i=1}^m \sum_{r=1}^{m+k-1} (f \circ_i g) \circ_r h\), the index \(r\) where \(h\) plugs in either lands <em>inside</em> the slots of \(g\) (\(i \le r \le i + k - 1\)) or lands in a <em>disjoint</em> slot of \(f\) (\(r &lt; i\) or \(r \ge i + k\)):
+  <ul>
+    <li>By the <strong>Sequential Axiom</strong> (<strong>Fig P63.1B</strong>), the terms where \(h\) lands inside \(g\) sum to \(\sum_{i=1}^m \sum_{j=1}^k f \circ_i (g \circ_j h) = f \circ (g \circ h)\), so they <strong>cancel completely</strong> when we subtract \(f \circ (g \circ h)\)!</li>
+    <li>By the <strong>Parallel Axiom</strong> (<strong>Fig P63.1A</strong>), the remaining terms where \(g\) and \(h\) plug into two disjoint slots \(i \ne j\) of \(f\) are <strong>symmetric</strong> under swapping \(g \leftrightarrow h\):
+      <p class="eq">\[(f \circ g) \circ h - f \circ (g \circ h) = \sum_{1 \le i &lt; j \le m} \Bigl((f \circ_j h) \circ_i g + (f \circ_i g) \circ_{j+k-1} h\Bigr) = (f \circ h) \circ g - f \circ (h \circ g).\]</p>
+    </li>
+  </ul>
+  <p>An algebra whose associator is symmetric in the right two slots is a <em>pre-Lie algebra</em>, and antisymmetrizing any pre-Lie product into \([f, g] = f \circ g - g \circ f\) satisfies the Jacobi identity identically! That single two-line operad calculation proves that the direct sum \(\bigoplus_{n \ge 1} \mathcal{P}(n)\) of <em>any</em> operad is a Lie algebra.</p>
+
+  <h3>Exemplar 2 · Stasheff's associahedra \(K_n\) and \(A_\infty\)-algebras from \(\Omega(\mathcal{A}ss^{\text{!`}})\)</h3>
+  <p>On the space \(\Omega X\) of loops in a topological space, concatenating two loops \(a \cdot b\) runs through \(a\) at double speed on \([0, \frac{1}{2}]\) and \(b\) at double speed on \([\frac{1}{2}, 1]\). Because \(((a\cdot b)\cdot c)\) spends time \(\frac{1}{4}, \frac{1}{4}, \frac{1}{2}\) on the three loops while \((a\cdot(b\cdot c))\) spends time \(\frac{1}{2}, \frac{1}{4}, \frac{1}{4}\), loop multiplication is <em>not</em> strictly associative! Instead, the two parenthesizations are connected by a 1-dimensional interval \(K_3 = [0,1]\) of reparametrizations \(m_3(a,b,c)\), and for \(4\) loops the \(C_3 = 5\) binary parenthesizations form the vertices of Stasheff's pentagon \(K_4\) (constructed in <a href="p54-stable-compactification.html"><span class="pid">P54</span></a>, Exercise 5 as \(\overline{\mathcal{M}}_{0,5}(\mathbb{R})\))!</p>
+  <p>Look at the boundary of the pentagon \(K_4\) in <strong>Fig P63.3</strong>: each of its \(5\) edges is a 1-node tree obtained by grafting a 2-input tree \(m_2\) and a 3-input tree \(m_3\) via \(\circ_i\)! Thus the cellular chain complexes \(C_\bullet(K_n)\) form a differential graded operad \(\mathcal{A}ss_\infty\) — which is the exact Koszul cobar resolution \(\Omega(\mathcal{A}ss^{\text{!`}})\) (<a href="p51-koszul-dual-swap.html"><span class="pid">P51</span></a>) of the associative operad! By Box P63, an <strong>\(A_\infty\)-algebra</strong> is simply an operad morphism \(\rho : C_\bullet(K_n) \to \operatorname{End}_V(n)\), assigning to each top cell \(K_n\) a degree-\((2-n)\) map \(m_n : V^{\otimes n} \to V\) whose boundary \(\partial K_n\) translates directly into Stasheff's master \(A_\infty\) hierarchy:</p>
+  <p class="eq">\[\partial(m_n) = \sum_{\substack{r + s + t = n \\ s \ge 2,\; r+t \ge 1}} (-1)^{r + st}\,m_{r + 1 + t} \circ_{r+1} m_s.\]
+  </p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210" role="img" aria-label="Fig P63.3: The Stasheff pentagon K_4 whose 5 vertices are the binary parenthesizations of 4 inputs, 5 edges are the partial graftings m_2 o_i m_3 and m_3 o_j m_2, and 2D interior cell is the 4-ary homotopy m_4.">
+      <rect x="0" y="0" width="600" height="210" fill="#ffffff"/>
+      <text x="300" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">The Stasheff Pentagon  K₄ ≅ 𝓜̄₀,₅(ℝ)   (2D cell m₄ bounding 5 grafted edges)</text>
+
+      <!-- Pentagon K_4 centered at (300, 114), radius 76 -->
+      <polygon points="300.0,38.0 372.3,90.5 344.7,175.5 255.3,175.5 227.7,90.5" fill="#f2f7f6" stroke="#0f5c57" stroke-width="2.4"/>
+
+      <!-- 5 Vertices -->
+      <circle cx="300.0" cy="38.0" r="5" fill="#1a1a1a"/>
+      <circle cx="372.3" cy="90.5" r="5" fill="#1a1a1a"/>
+      <circle cx="344.7" cy="175.5" r="5" fill="#1a1a1a"/>
+      <circle cx="255.3" cy="175.5" r="5" fill="#1a1a1a"/>
+      <circle cx="227.7" cy="90.5" r="5" fill="#1a1a1a"/>
+
+      <!-- Vertex labels (5 Catalan parenthesizations) -->
+      <text x="300" y="30" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">((ab)c)d</text>
+      <text x="382" y="93" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#1a1a1a">(ab)(cd)</text>
+      <text x="355" y="191" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#1a1a1a">a(b(cd))</text>
+      <text x="245" y="191" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="end">a((bc)d)</text>
+      <text x="218" y="93" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="end">(a(bc))d</text>
+
+      <!-- Edge labels (5 operadic graftings of m2 and m3) -->
+      <text x="348" y="58" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57">m₃ ∘₁ m₂</text>
+      <text x="372" y="140" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57">m₂ ∘₂ m₃</text>
+      <text x="300" y="191" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">m₃ ∘₃ m₂</text>
+      <text x="228" y="140" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m₃ ∘₂ m₂</text>
+      <text x="252" y="58" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="end">m₂ ∘₁ m₃</text>
+
+      <!-- Center 2-cell label -->
+      <text x="300" y="110" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#0f5c57" text-anchor="middle">2-cell  m₄</text>
+      <text x="300" y="128" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">∂(m₄) = sum of 5 grafted edges</text>
+    </svg>
+    <figcaption><strong>Fig P63.3.</strong> The Stasheff pentagon \(K_4\) inside the \(A_\infty\) operad: its \(5\) vertices are the \(C_3 = 5\) binary parenthesizations of \((a,b,c,d)\), its \(5\) edges are the five ways to graft \(m_2\) and \(m_3\) (\(m_2 \circ_1 m_3, m_2 \circ_2 m_3, m_3 \circ_1 m_2, m_3 \circ_2 m_2, m_3 \circ_3 m_2\)), and its interior 2-cell \(m_4\) makes the pentagon commute up to homotopy.</figcaption>
+  </figure>
+
+  <h3>Exemplar 3 · The Deligne–Mumford operad \(\{\overline{\mathcal{M}}_{0, n+1}\}\) and the WDVV equation</h3>
+  <p>Look back at the compactified moduli spaces \(\overline{\mathcal{M}}_{0, n+1}\) of genus-\(0\) curves with \(n + 1\) marked points from <a href="p54-stable-compactification.html"><span class="pid">P54</span></a>. Treat the first \(n\) beacons as inputs and the \((n+1)\)-st beacon as the output root. Whenever an \((m+1)\)-pointed sphere and a \((k+1)\)-pointed sphere glue together by identifying the output root of the second sphere with the \(i\)-th input beacon of the first sphere at a node \(N\) (<a href="p54-stable-compactification.html"><span class="pid">P54</span></a>, Section 2), they form an \((m + k)\)-pointed nodal curve:</p>
+  <p class="eq">\[\circ_i : \overline{\mathcal{M}}_{0, m+1} \times \overline{\mathcal{M}}_{0, k+1} \longrightarrow \overline{\mathcal{M}}_{0, m+k}.\]</p>
+  <p>Thus \(\{\overline{\mathcal{M}}_{0, n+1}\}_{n \ge 2}\) is a topological operad! Now let \(X\) be a smooth projective variety and let \(V = H^\bullet(X; \mathbb{Q})\). Pulling back cohomology classes from \(X^{n+1}\) and integrating against the virtual fundamental class \([\overline{\mathcal{M}}_{0, n+1}(X, \beta)]^{\text{vir}}\) (<a href="p64-virtual-classes.html"><span class="pid">P64</span></a>) defines a morphism of homology operads \(\rho : H_\bullet(\overline{\mathcal{M}}_{0, n+1}) \to \operatorname{End}_V(n)\). What does this operad recognition give us for free?
+  <ul>
+    <li>At \(n = 2\), \(\overline{\mathcal{M}}_{0,3}\) is a single point, so \(\rho_2([\overline{\mathcal{M}}_{0,3}])\) defines a commutative binary product \(a * b\) on \(V = H^\bullet(X)\) (the <em>quantum cup product</em>).</li>
+    <li>At \(n = 3\), \(\overline{\mathcal{M}}_{0,4} \cong \mathbb{P}^1\) is connected, so the two boundary points \((12 \mid 34) = m_2 \circ_1 m_2\) and \((23 \mid 14) = m_2 \circ_2 m_2\) lie in the <em>same</em> \(H_0\) homology class (<a href="p54-stable-compactification.html"><span class="pid">P54</span></a>, Exemplar 1)! Passing that single topological equality through the operad morphism \(\rho\) immediately proves \((a * b) * c = a * (b * c)\) — the <strong>WDVV associativity equation</strong> for the Gromov–Witten potential!</li>
+  </ul>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>Operad recognition is a powerful organizational lens, but three structural boundaries determine where strict operads must be modified or replaced:</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Multi-output operations (bi-algebras, Frobenius tubes, and higher-genus loops) cannot be wired as rooted trees!</strong> Every operation in an operad \(\mathcal{P}(n)\) has \(n\) inputs and <strong>exactly \(1\) output</strong>, so composing them only ever builds contractible <em>trees</em> without closed loops. If your structure has a coproduct \(\Delta : V \to V \otimes V\) (1 input, 2 outputs) or a trace pairing \(\langle a, b \rangle \in \mathbb{C}\) (2 inputs, 0 outputs), or if you glue surfaces along higher-genus handles (\(\overline{\mathcal{M}}_{g, n}\)), wiring outputs into inputs can form closed loops!</p>
+    <p><em>Mitigation:</em> Upgrade from an operad to a <strong>cyclic operad</strong> (when an inner product makes inputs and the output interchangeable), a <strong>modular operad</strong> (Getzler–Kapranov, for arbitrary genus \(\overline{\mathcal{M}}_{g,n}\) with self-gluing contractions), or a <strong>PROP</strong> (Adams–Mac Lane "PROduct and Permutation category" \(\mathcal{P}(m, n)\) with \(n\) inputs and \(m\) outputs).</p>
+    <p><em>Price:</em> Contraction traces across loops require finite-dimensionality of \(V\) (otherwise \(\operatorname{Tr}(\operatorname{Id}_V) = \infty\) diverges!).</p>
+    <p><em>Default:</em> Always count outputs before calling a structure an operad: \(n \to 1\) is an operad; \(n \to m\) is a PROP.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Strictifying homotopy algebras in positive characteristic \(p \mid n!\) hits divided-power obstructions.</strong> Over a field of characteristic \(0\), any homotopy commutative algebra (\(C_\infty\) or \(E_\infty\)) can be analyzed via the Koszul dual Lie operad (<a href="p51-koszul-dual-swap.html"><span class="pid">P51</span></a>) because symmetric invariants and coinvariants of \(S_n\) are isomorphic (\(\frac{1}{n!}\sum \sigma\), <a href="p50-double-centralizer.html"><span class="pid">P50</span></a>). Over \(\mathbb{Z}\) or \(\mathbb{F}_p\) (as in mod-\(p\) algebraic topology, where Steenrod squares live!), \(S_n\) does not act freely or semisimply on \(\mathcal{C}om(n) = \mathbb{F}_p\).</p>
+    <p><em>Mitigation:</em> Replace the naive commutative operad \(\mathcal{C}om\) with an <strong>\(E_\infty\)-operad</strong> (such as the Barratt–Eccles operad or the infinite little-cubes operad \(E_\infty\)) whose arity spaces \(\mathcal{P}(n)\) are contractible <em>and carry a free \(S_n\)-action</em>.</p>
+    <p><em>Price:</em> Keeping non-trivial higher equivariant homotopies that generate Steenrod operations on cohomology.</p>
+    <p><em>Default:</em> In characteristic \(p &gt; 0\) or over \(\mathbb{Z}\), always require \(S_n\)-projectivity (\(\Sigma\)-cofibrancy) of \(\mathcal{P}(n)\).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Arity-\(0\) constants (units and curvature) break conilpotency of the bar construction.</strong> If an operad includes arity-\(0\) operations \(\mathcal{P}(0) \ne 0\) (representing constant elements, units \(1 \in A\), or background curvature \(m_0 \in V\) from disk bubbles in <a href="p65-floer-homology.html"><span class="pid">P65</span></a>), plugging \(k\) arity-\(0\) corks into an \(n\)-ary operation lowers arity from \(n\) to \(n - k\), allowing infinite sums of trees for a single fixed input count!</p>
+    <p><em>Mitigation:</em> Split off the unit/augmentation ideal (work with reduced operads where \(\mathcal{P}(0) = 0\) and \(\mathcal{P}(1) = \mathbb{C}\cdot\mathbf{1}\)) or work over a complete local Novikov ring (<span class="pid">P65</span>, Exercise 5) so infinite curvature sums converge.</p>
+    <p><em>Price:</em> Filtering by energy or augmentation weight.</p>
+    <p><em>Default:</em> Verify \(\mathcal{P}(0) = 0\) and \(\mathcal{P}(1) = \mathbb{C}\) before applying standard quadratic Koszul duality (<span class="pid">P51</span>).</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this orientation page.</strong> Our definitions and examples treat symmetric and non-symmetric operads with a single color (all inputs and the output belong to the same space \(V\)). When operations mix distinct spaces (such as an algebra \(A\) acting on a module \(M\), or open strings between different Lagrangians \(L_i, L_j\) in <a href="p65-floer-homology.html"><span class="pid">P65</span></a>), one uses a <em>colored operad</em> (or multicategory) whose ports carry color labels required to match upon grafting.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When the geometric operad \(\{\overline{\mathcal{M}}_{0, n+1}(X, \beta)\}\) has non-vanishing obstructions \(H^2 \ne 0\):</strong> Pair the operadic gluing maps on this page with <a href="p64-virtual-classes.html"><span class="pid">P64</span> · Virtual classes from obstruction theory</a> to construct the virtual Gromov–Witten correlators.</li>
+    <li><strong>When you want to compute the deformation complex of any \(\mathcal{P}\)-algebra \(V\):</strong> Combine Exemplar 1's pre-Lie commutator bracket with <a href="p51-koszul-dual-swap.html"><span class="pid">P51</span> · The Koszul dual swap</a> and <a href="p53-deformation-cohomology.html"><span class="pid">P53</span> · Deformation cohomology</a>: the deformation complex of a \(\mathcal{P}\)-algebra is the convolution Lie algebra \(\operatorname{Hom}_{S}(\mathcal{P}^{\text{!`}}, \operatorname{End}_V)\).</li>
+    <li><strong>When the boundary of your moduli space involves open holomorphic strips and disks rather than closed spheres:</strong> Pass to <a href="p65-floer-homology.html"><span class="pid">P65</span> · Floer homology from holomorphic strips</a>, where disk trees equip the Floer complex with an \(A_\infty\)-algebra structure.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Stasheff's 1963 associahedra and Boardman–Vogt's little cubes to May's 1972 operads and the 1990s renaissance.</strong> In 1963 James Stasheff (<em>Transactions of the American Mathematical Society</em> 108, 275–292) constructed the polytopes \(K_n\) (associahedra) to characterize topological spaces that have the homotopy type of a loop space \(\Omega X\). Simultaneously, Murray Gerstenhaber (<em>Annals of Mathematics</em> 78, 1963, 267–288) discovered the pre-Lie brace product \(\circ_i\) on Hochschild cochains of an associative algebra. In 1968–1973 J. Michael Boardman and Rainer Vogt (<em>Homotopy Invariant Algebraic Structures on Topological Spaces</em>, Springer LNM 347) introduced categories of operators in standard form (little \(d\)-cubes), and in 1972 J. Peter May (<em>The Geometry of Iterated Loop Spaces</em>, Springer LNM 271) distilled the axiomatic definition of an operad and coined the name (blending "operations" and "monad," and in homage to his mother, an opera singer). Two decades later, a second renaissance erupted when Maxim Kontsevich, Victor Ginzburg, Mikhail Kapranov, and Ezra Getzler discovered that Deligne–Mumford moduli spaces \(\overline{\mathcal{M}}_{0, n+1}\), graph complexes, and quantum field theories are governed by operads and their Koszul duals (<a href="p51-koszul-dual-swap.html"><span class="pid">P51</span></a>).</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — Computing partial compositions \(\circ_i\) on multilinear polynomials</h3>
+  <p>In the endomorphism operad \(\operatorname{End}_{\mathbb{R}}(n)\) of real functions of \(n\) variables, consider the \(3\)-ary operation \(f(x_1, x_2, x_3) = x_1 x_2^2 + x_3\) and the \(2\)-ary operation \(g(y_1, y_2) = y_1 - 3y_2\).<br>
+  (a) Compute the three \(4\)-ary operations \((f \circ_1 g)(a_1, a_2, a_3, a_4)\), \((f \circ_2 g)(a_1, a_2, a_3, a_4)\), and \((f \circ_3 g)(a_1, a_2, a_3, a_4)\) explicitly.<br>
+  (b) Let \(h(z_1, z_2) = z_1 z_2\). Evaluate both \(((f \circ_3 h) \circ_1 g)(1, 2, 3, 4, 5)\) and \(((f \circ_1 g) \circ_4 h)(1, 2, 3, 4, 5)\) and verify the Parallel Grafting Axiom \((f \circ_3 h) \circ_1 g = (f \circ_1 g) \circ_{3 + 2 - 1} h\).</p>
+  <details><summary>Hint</summary><p>In \((f \circ_i g)(a_1, a_2, a_3, a_4)\), replace \(x_i\) with \(g(a_i, a_{i+1})\) and shift all subsequent variables \(x_r\) (\(r &gt; i\)) to \(a_{r+1}\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Explicit \(4\)-ary partial compositions:</strong></p>
+    <ul>
+      <li><strong>Slot \(i = 1\):</strong> \((f \circ_1 g)(a_1, a_2, a_3, a_4) = f\bigl(g(a_1, a_2),\, a_3,\, a_4\bigr) = (a_1 - 3a_2)a_3^2 + a_4\).</li>
+      <li><strong>Slot \(i = 2\):</strong> \((f \circ_2 g)(a_1, a_2, a_3, a_4) = f\bigl(a_1,\, g(a_2, a_3),\, a_4\bigr) = a_1(a_2 - 3a_3)^2 + a_4\).</li>
+      <li><strong>Slot \(i = 3\):</strong> \((f \circ_3 g)(a_1, a_2, a_3, a_4) = f\bigl(a_1,\, a_2,\, g(a_3, a_4)\bigr) = a_1 a_2^2 + (a_3 - 3a_4)\).</li>
+    </ul>
+    <p><strong>(b) Parallel grafting verification at \((1, 2, 3, 4, 5)\):</strong> First, \((f \circ_3 h)(u_1, u_2, u_3, u_4) = u_1 u_2^2 + u_3 u_4\). Plugging \(g(a_1, a_2) = a_1 - 3a_2\) into slot \(1\) gives</p>
+    <p class="eq">\[\bigl((f \circ_3 h) \circ_1 g\bigr)(a_1, a_2, a_3, a_4, a_5) = (a_1 - 3a_2)a_3^2 + a_4 a_5.\]</p>
+    <p>Conversely, starting from \((f \circ_1 g)(v_1, v_2, v_3, v_4) = (v_1 - 3v_2)v_3^2 + v_4\) and plugging \(h(a_4, a_5) = a_4 a_5\) into the shifted slot \(4 = 3 + 2 - 1\) gives the identical polynomial \((a_1 - 3a_2)a_3^2 + a_4 a_5\). At \((1, 2, 3, 4, 5)\), both evaluate to \((1 - 6)(9) + 20 = -45 + 20 = -25\).</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — Generating function for planar binary trees and the Catalan recursion</h3>
+  <p>Let \(\mathcal{T}(n)\) be the set of planar rooted binary trees with \(n \ge 1\) leaves (the free non-symmetric operad on one binary generator \(m_2 \in \mathcal{T}(2)\)), with cardinality \(c_n = |\mathcal{T}(n)|\) (\(c_1 = 1, c_2 = 1, c_3 = 2, c_4 = 5, \dots\)).<br>
+  (a) Explain why every tree \(T \in \mathcal{T}(n)\) with \(n \ge 2\) leaves is uniquely obtained by grafting a left subtree \(T_L \in \mathcal{T}(j)\) and a right subtree \(T_R \in \mathcal{T}(n-j)\) into the two slots of the root binary node \(m_2\): \(T = (m_2 \circ_2 T_R) \circ_1 T_L\).<br>
+  (b) Translate this unique operadic grafting decomposition into the quadratic functional equation \(F(t) = t + F(t)^2\) for the ordinary generating function \(F(t) = \sum_{n=1}^\infty c_n t^n\) (<a href="p73-generating-functions.html"><span class="pid">P73</span></a>), and solve it via the binomial theorem to prove \(c_n = C_{n-1} = \frac{1}{n}\binom{2n-2}{n-1}\).</p>
+  <details><summary>Hint</summary><p>In (a), the root of any binary tree with \(n \ge 2\) leaves splits the \(n\) leaves into the first \(j\) leaves (\(1 \le j \le n-1\)) and the remaining \(n-j\) leaves. In (b), solve \(F^2 - F + t = 0\) with \(F(0) = 0\) to get \(F(t) = \frac{1 - \sqrt{1 - 4t}}{2}\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Unique root splitting via \(\circ_1, \circ_2\):</strong> For \(n = 1\), the only tree is the single identity wire \(\mathbf{1} \in \mathcal{T}(1)\) (\(c_1 = 1\)). For \(n \ge 2\), the bottom root vertex is a binary node \(m_2\) whose left input carries a planar binary tree \(T_L \in \mathcal{T}(j)\) on \(1 \le j \le n-1\) leaves and whose right input carries a planar binary tree \(T_R \in \mathcal{T}(n-j)\) on the remaining \(n-j\) leaves. By the Parallel Grafting Axiom, \((m_2 \circ_2 T_R) \circ_1 T_L = (m_2 \circ_1 T_L) \circ_{j+1} T_R\), giving the recursion</p>
+    <p class="eq">\[c_n = \sum_{j=1}^{n-1} c_j\,c_{n-j} \qquad (n \ge 2).\]</p>
+    <p><strong>(b) Generating function solution (<span class="pid">P73</span>):</strong> Multiplying by \(t^n\) and summing over \(n \ge 2\) gives \(F(t) - t = F(t)^2\), or \(F(t)^2 - F(t) + t = 0\). Choosing the branch with \(F(0) = 0\) gives</p>
+    <p class="eq">\[F(t) = \frac{1 - \sqrt{1 - 4t}}{2} = \sum_{n=1}^{\infty} \frac{1}{n}\binom{2n-2}{n-1} t^n,\]</p>
+    <p>confirming \(c_n = C_{n-1} = 1, 1, 2, 5, 14, 42, \dots\).</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Proving the Pre-Lie identity \((f \circ g) \circ h - f \circ (g \circ h) = (f \circ h) \circ g - f \circ (h \circ g)\) for \(m=2, k=2, l=2\)</h3>
+  <p>Let \(f, g, h \in \mathcal{P}(2)\) be three binary operations in an arbitrary linear operad \(\mathcal{P}\), where the total brace product on binary operations is \(x \circ y = x \circ_1 y + x \circ_2 y \in \mathcal{P}(3)\).<br>
+  (a) Expand \((f \circ g) \circ h = (f \circ_1 g + f \circ_2 g) \circ_1 h + (f \circ_1 g + f \circ_2 g) \circ_2 h + (f \circ_1 g + f \circ_2 g) \circ_3 h\) into \(6\) terms in \(\mathcal{P}(4)\).<br>
+  (b) Expand \(f \circ (g \circ h) = f \circ_1 (g \circ_1 h + g \circ_2 h) + f \circ_2 (g \circ_1 h + g \circ_2 h)\) into \(4\) terms, use the Sequential Axiom to cancel those \(4\) terms against \(4\) of the \(6\) terms in \((f \circ g) \circ h\), and use the Parallel Axiom on the remaining \(2\) terms to verify that \((f \circ g) \circ h - f \circ (g \circ h)\) is symmetric in \(g\) and \(h\).</p>
+  <details><summary>Hint</summary><p>By the Sequential Axiom (with \(k = 2\)), \((f \circ_1 g) \circ_1 h = f \circ_1 (g \circ_1 h)\), \((f \circ_1 g) \circ_2 h = f \circ_1 (g \circ_2 h)\), \((f \circ_2 g) \circ_2 h = f \circ_2 (g \circ_1 h)\), and \((f \circ_2 g) \circ_3 h = f \circ_2 (g \circ_2 h)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Six-term expansion of \((f \circ g) \circ h\):</strong> Since \(f \circ g = f \circ_1 g + f \circ_2 g\) has arity \(2 + 2 - 1 = 3\), composing with \(h\) across its \(3\) slots produces \(2 \times 3 = 6\) terms:</p>
+    <p class="eq">\[(f \circ g) \circ h = \bigl[(f \circ_1 g) \circ_1 h + (f \circ_1 g) \circ_2 h + (f \circ_1 g) \circ_3 h\bigr] + \bigl[(f \circ_2 g) \circ_1 h + (f \circ_2 g) \circ_2 h + (f \circ_2 g) \circ_3 h\bigr].\]</p>
+    <p><strong>(b) Exact cancellation of sequential terms and symmetry of parallel terms:</strong> By the Sequential Axiom \((f \circ_i g) \circ_{i+j-1} h = f \circ_i (g \circ_j h)\):</p>
+    <ul>
+      <li>For \(i = 1, j = 1\): \((f \circ_1 g) \circ_1 h = f \circ_1 (g \circ_1 h)\).</li>
+      <li>For \(i = 1, j = 2\): \((f \circ_1 g) \circ_2 h = f \circ_1 (g \circ_2 h)\).</li>
+      <li>For \(i = 2, j = 1\): \((f \circ_2 g) \circ_2 h = f \circ_2 (g \circ_1 h)\).</li>
+      <li>For \(i = 2, j = 2\): \((f \circ_2 g) \circ_3 h = f \circ_2 (g \circ_2 h)\).</li>
+    </ul>
+    <p>Those four terms sum to \(f \circ_1 (g \circ h) + f \circ_2 (g \circ h) = f \circ (g \circ h)\) and cancel out! Only the two disjoint-slot terms \((f \circ_1 g) \circ_3 h\) and \((f \circ_2 g) \circ_1 h\) remain:</p>
+    <p class="eq">\[(f \circ g) \circ h - f \circ (g \circ h) = (f \circ_1 g) \circ_3 h + (f \circ_2 g) \circ_1 h.\]</p>
+    <p>Now apply the Parallel Axiom \((f \circ_2 h) \circ_1 g = (f \circ_1 g) \circ_{2 + 2 - 1} h = (f \circ_1 g) \circ_3 h\): swapping \(g \leftrightarrow h\) simply exchanges the two surviving terms \((f \circ_1 h) \circ_3 g = (f \circ_2 g) \circ_1 h\) and \((f \circ_2 h) \circ_1 g = (f \circ_1 g) \circ_3 h\), proving \((f \circ g) \circ h - f \circ (g \circ h) = (f \circ h) \circ g - f \circ (h \circ g)\).</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: strict operad, PROP, or cyclic operad?</h3>
+  <p>Diagnose which categorical wiring framework governs each structure below:</p>
+  <ol>
+    <li>A vector space \(V\) carries a family of operations parameterized by configurations of \(n\) little intervals inside \([0,1]\) (\(E_1(n)\)).</li>
+    <li>A Hopf algebra \(H\) carries both a multiplication \(\mu : H \otimes H \to H\) (2 inputs, 1 output) and a comultiplication \(\Delta : H \to H \otimes H\) (1 input, 2 outputs) satisfying \(\Delta(ab) = \Delta(a)\Delta(b)\).</li>
+    <li>A Riemann surface of genus \(g \ge 1\) with \(n\) incoming boundary circles and \(m\) outgoing boundary circles acts on a quantum state space \(V\) by gluing outgoing circles to incoming circles (forming closed handles when two ports on the same surface are glued).</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>Genuine <span class="pid">P63</span> (\(E_1\) / \(A_\infty\) operad):</strong> Every operation has \(n\) inputs and \(1\) output, and little intervals inside \([0,1]\) contract onto the Stasheff associahedra \(K_n\), making \(V\) an \(A_\infty\)-algebra (and \(H_\bullet(V)\) a strictly associative algebra).</li>
+      <li><strong>Requires a PROP / Bialgebra framework (Exhibit A):</strong> Because \(\Delta : H \to H \otimes H\) has \(2\) outputs and compatibility \(\Delta \circ \mu = (\mu \otimes \mu) \circ (1 \otimes \tau \otimes 1) \circ (\Delta \otimes \Delta)\) wires \(2\)-output boxes into \(2\)-input boxes forming a closed diamond graph with a loop, rooted trees (\(n \to 1\) operads) cannot express \(\Delta(ab) = \Delta(a)\Delta(b)\). You must use a PROP \(\mathcal{P}(m, n)\).</li>
+      <li><strong>Requires a Modular Operad / PROP (Getzler–Kapranov, Exhibit A):</strong> Gluing ports on the same surface increases genus \(g \mapsto g + 1\) and takes a trace over \(V\), which requires a modular operad or cobordism PROP rather than a tree-level operad.</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: The Poincaré polynomial of the little 2-disks operad \(E_2(n)\) (Arnold's braid cohomology)</h3>
+  <p>In <strong>Fig P63.2</strong>, an element of the little 2-disks operad \(E_2(n)\) is homotopy equivalent to the ordered configuration space \(\operatorname{Conf}_n(\mathbb{C}) = \{(z_1, \dots, z_n) \in \mathbb{C}^n : z_i \ne z_j \text{ for } i \ne j\}\). Vladimir Arnold proved in 1969 that the cohomology ring \(H^\bullet(E_2(n); \mathbb{Z})\) is generated by the \(\binom{n}{2}\) degree-\(1\) winding forms \(\omega_{ij} = \frac{1}{2\pi i}\frac{d(z_i - z_j)}{z_i - z_j}\) modulo Arnold's quadratic 3-term relation \(\omega_{ij}\wedge\omega_{jk} + \omega_{jk}\wedge\omega_{ki} + \omega_{ki}\wedge\omega_{ij} = 0\), yielding the Poincaré polynomial</p>
+  <p class="eq">\[P_{E_2(n)}(t) = \sum_{k=0}^{n-1} \dim H^k\bigl(E_2(n)\bigr)\,t^k = (1 + t)(1 + 2t)(1 + 3t)\cdots\bigl(1 + (n-1)t\bigr).\]</p>
+  <p>(a) Evaluate \(P_{E_2(n)}(1)\) to find the total dimension \(\sum_k \dim H^k(E_2(n))\), and evaluate \(P_{E_2(n)}(-1)\) to find the Euler characteristic \(\chi(E_2(n))\) for \(n \ge 2\).<br>
+  (b) Compute the dimension of the top cohomology group \(\dim H^{n-1}(E_2(n))\) (the coefficient of \(t^{n-1}\)), and compare it with the arity dimension \(\dim \mathcal{L}ie(n)\) of the Lie operad in the table of Section 2!</p>
+  <details><summary>Hint</summary><p>In (a), plug \(t = 1\) and \(t = -1\) directly into the factored product \((1+t)(1+2t)\cdots(1+(n-1)t)\). In (b), look at the leading term \(t \cdot 2t \cdot 3t \cdots (n-1)t\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Total dimension \(n!\) and Euler characteristic \(0\):</strong> Plugging \(t = 1\) into Arnold's product gives</p>
+    <p class="eq">\[\sum_{k=0}^{n-1} \dim H^k\bigl(E_2(n)\bigr) = P_{E_2(n)}(1) = (2)(3)(4)\cdots(n) = n! = \dim \mathcal{A}ss(n).\]</p>
+    <p>Plugging \(t = -1\) into the first factor \((1 + t)\) gives \(1 - 1 = 0\) for every \(n \ge 2\), so \(\chi(E_2(n)) = P_{E_2(n)}(-1) = 0\) (because rotating all configurations by \(e^{i\theta}\) gives a free \(S^1\)-action!).<br>
+    <strong>(b) Top cohomology \(H^{n-1}(E_2(n))\) is the Lie operad \(\mathcal{L}ie(n)\):</strong> Extracting the top power \(t^{n-1}\) from \((1+t)(1+2t)\cdots(1+(n-1)t)\) takes the second term from every factor:</p>
+    <p class="eq">\[\dim H^{n-1}\bigl(E_2(n)\bigr) = 1 \cdot 2 \cdot 3 \cdots (n-1) = (n-1)! = \dim \mathcal{L}ie(n).\]</p>
+    <p>Indeed, as an operad, \(H_\bullet(E_2)\) is the <em>Gerstenhaber operad</em> \(\mathcal{G}er\): its bottom degree \(H_0(E_2(n)) \cong \mathcal{C}om(n)\) (\(\dim = 1\)) gives the commutative product, its top degree \(H_{n-1}(E_2(n)) \cong \mathcal{L}ie(n)\) (\(\dim = (n-1)!\)) gives the shifted Lie bracket, and the whole operad splits as \(\mathcal{G}er \cong \mathcal{C}om \circ \mathcal{L}ie\) with total dimension \(n!\).</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P63 · Recognize the operad algebra. <a href="index.html">Return to the index</a> · Previous: <a href="p62-sheafify-on-site.html">P62 · Sheafify on a site</a> · Next: <a href="p64-virtual-classes.html">P64 · Virtual classes from obstruction theory →</a></p>
+</footer>
+
+</body>
+</html>

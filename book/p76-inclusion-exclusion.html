@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P76 · Inclusion-exclusion — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Tier 2 · Canon Foundations</p>
+  <h1><span class="pid">P76</span> · Inclusion-exclusion</h1>
+  <p class="lede">Count elements that avoid a list of forbidden properties by alternating over intersections of the forbidden sets — using the binomial identity \((1 - 1)^r = 0\) to cancel every overcount to zero.</p>
+  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p70-double-counting.html">P70 · Double counting</a>, <a href="p67-contrapositive.html">P67 · Prove the contrapositive</a></p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — Why intersecting "bad" conditions is easy while intersecting "good" conditions is hard.</strong> Suppose you want to count permutations \(\pi\) of \(\{1, \dots, n\}\) where \(\pi(1) \neq 1\) <em>and</em> \(\pi(2) \neq 2\) <em>and</em> \(\dots\) <em>and</em> \(\pi(n) \neq n\). Directly tracking what \(\pi(i)\) is <em>not</em> equal to creates a tangled branching tree because the remaining available values for \(\pi(2)\) depend on what \(\pi(1)\) chose! By contrast, the <em>negated</em> ("bad") conditions \(A_i = \{\pi : \pi(i) = i\}\) are trivial to intersect: requiring \(\pi(1) = 1\) and \(\pi(2) = 2\) simply pins down \(2\) elements and leaves the other \(n - 2\) elements completely free in \((n-2)!\) ways!</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — The binomial switch \((1 - 1)^r = \mathbf{1}_{r=0}\).</strong> Suppose an element \(x\) belongs to <em>exactly \(r\)</em> of the bad sets \(A_1, \dots, A_m\). How many times is \(x\) counted in the alternating sum over all subsets \(J \subseteq \{1, \dots, m\}\)? For each size \(k = |J|\), there are \(\binom{r}{k}\) subsets \(J\) of size \(k\) that contain \(x\). Summing with alternating signs \((-1)^k\) gives</p>
+  \[
+    \sum_{k=0}^r (-1)^k \binom{r}{k} \;=\;
+    \begin{cases}
+      1 &amp; \text{if } r = 0 \quad (\text{avoids all bad sets!}), \\[4pt]
+      (1 - 1)^r = 0 &amp; \text{if } r \ge 1 \quad (\text{belongs to } \ge 1 \text{ bad set!}).
+    \end{cases}
+  \]
+  <p>That single algebraic identity is the entire engine of <strong>Inclusion–Exclusion</strong>.</p>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>In <a href="p70-double-counting.html"><span class="pid">P70</span> · Double counting</a>, we built an incidence matrix between elements \(x \in U\) and properties \(A_i\), and equated the sum of row totals with the sum of column totals. What if the columns \(A_1, \dots, A_m\) overlap, and instead of summing their sizes \(\sum |A_i|\), we want to count how many elements \(x \in U\) belong to <em>at least one</em> \(A_i\) (the union \(\bigcup A_i\)) or to <em>none</em> of them (the complement \(U \setminus \bigcup A_i\))?</p>
+  <p><strong>Inclusion–exclusion (<span class="pid">P76</span>)</strong> is simply <span class="pid">P70</span> applied to the incidence matrix of all intersections \(A_J = \bigcap_{j \in J} A_j\), weighted by \((-1)^{|J|}\). Summing by columns gives \(\sum_J (-1)^{|J|} |A_J|\); summing by rows gives \((1 - 1)^r = \mathbf{1}_{r=0}\), which filters out every element that violates even one rule.</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: counting integers up to \(60\) coprime to \(60\)</h2>
+  <p>How many integers \(n \in U = \{1, 2, \dots, 60\}\) are coprime to \(60\) (\(\gcd(n, 60) = 1\))?</p>
+  <p>Since \(60 = 2^2 \cdot 3 \cdot 5\), an integer \(n\) is coprime to \(60\) if and only if it is <em>not</em> divisible by \(2\), <em>not</em> divisible by \(3\), and <em>not</em> divisible by \(5\). Define the three "bad" sets in \(U = \{1, \dots, 60\}\):</p>
+  \[
+    A_2 = \{n \in U : 2 \mid n\}, \qquad A_3 = \{n \in U : 3 \mid n\}, \qquad A_5 = \{n \in U : 5 \mid n\}.
+  \]
+  <p>Because \(\lfloor 60/d \rfloor = 60/d\) for every divisor \(d \mid 30\), the size of every intersection is instant:</p>
+  <ul>
+    <li><strong>Level \(k = 0\) (the whole universe \(U\)):</strong> \(|U| = 60\).</li>
+    <li><strong>Level \(k = 1\) (subtract single prime multiples):</strong>
+      \[
+        |A_2| + |A_3| + |A_5| \;=\; \frac{60}{2} + \frac{60}{3} + \frac{60}{5} \;=\; 30 + 20 + 12 \;=\; 62.
+      \]
+      Notice that \(60 - 62 = -2 &lt; 0\)! Why did we overshoot past zero? Because multiples of \(6 = 2 \cdot 3\), \(10 = 2 \cdot 5\), and \(15 = 3 \cdot 5\) were subtracted <em>twice</em>, and multiples of \(30 = 2 \cdot 3 \cdot 5\) were subtracted <em>three times</em>!</li>
+    <li><strong>Level \(k = 2\) (add back pairwise intersections):</strong>
+      \[
+        |A_2 \cap A_3| + |A_2 \cap A_5| + |A_3 \cap A_5| \;=\; \frac{60}{6} + \frac{60}{10} + \frac{60}{15} \;=\; 10 + 6 + 4 \;=\; 20.
+      \]
+      Now multiples of \(6, 10, 15\) have net count \(1 - 2 + 1 = 0\) (fixed!), but what about \(n \in \{30, 60\}\), which lie in all three sets? They were counted \(+1\) time in \(U\), \(-3\) times at \(k=1\), and \(+\binom{3}{2} = +3\) times at \(k=2\), for a net count of \(1 - 3 + 3 = +1\) instead of \(0\)!</li>
+    <li><strong>Level \(k = 3\) (subtract the triple intersection):</strong>
+      \[
+        |A_2 \cap A_3 \cap A_5| \;=\; \frac{60}{30} \;=\; 2 \qquad (\text{namely } 30 \text{ and } 60).
+      \]
+    </li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Element type \(n \in \{1,\dots,60\}\)</th>
+        <th># of bad sets \(r\)</th>
+        <th>\(k=0\) (\(+|U|\))</th>
+        <th>\(k=1\) (\(-\sum |A_i|\))</th>
+        <th>\(k=2\) (\(+\sum |A_i \cap A_j|\))</th>
+        <th>\(k=3\) (\(-|A_2 \cap A_3 \cap A_5|\))</th>
+        <th>Net weight \(\sum (-1)^k \binom{r}{k}\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Coprime (e.g., \(n = 1, 7, 11\))</td>
+        <td>\(r = 0\)</td>
+        <td>\(+1\)</td>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td><strong>\(+1\) (kept!)</strong></td>
+      </tr>
+      <tr>
+        <td>\(1\) prime factor (e.g., \(n = 2, 3, 5\))</td>
+        <td>\(r = 1\)</td>
+        <td>\(+1\)</td>
+        <td>\(-1\)</td>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td>\(1 - 1 = \mathbf{0}\)</td>
+      </tr>
+      <tr>
+        <td>\(2\) prime factors (e.g., \(n = 6, 10, 15\))</td>
+        <td>\(r = 2\)</td>
+        <td>\(+1\)</td>
+        <td>\(-2\)</td>
+        <td>\(+1\)</td>
+        <td>\(0\)</td>
+        <td>\(1 - 2 + 1 = \mathbf{0}\)</td>
+      </tr>
+      <tr>
+        <td>\(3\) prime factors (\(n = 30, 60\))</td>
+        <td>\(r = 3\)</td>
+        <td>\(+1\)</td>
+        <td>\(-3\)</td>
+        <td>\(+3\)</td>
+        <td>\(-1\)</td>
+        <td>\(1 - 3 + 3 - 1 = \mathbf{0}\)</td>
+      </tr>
+      <tr>
+        <td><strong>Total across \(U\)</strong></td>
+        <td>—</td>
+        <td><strong>\(+60\)</strong></td>
+        <td><strong>\(-62\)</strong></td>
+        <td><strong>\(+20\)</strong></td>
+        <td><strong>\(-2\)</strong></td>
+        <td><strong>\(\varphi(60) = 16\)</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+
+  <div class="pattern-box" id="box-p76">
+    <h3>Box P76 · The Principle of Inclusion–Exclusion (PIE)</h3>
+    <p>Let \(A_1, A_2, \dots, A_m\) be subsets of a finite universe \(U\). For each index subset \(J \subseteq \{1, \dots, m\}\), write \(A_J := \bigcap_{j \in J} A_j\) (with \(A_\emptyset := U\)). Then:</p>
+    <ul>
+      <li><strong>Complement Form (Avoiding all \(m\) bad properties):</strong>
+        \[
+          \left|U \setminus \bigcup_{i=1}^m A_i\right| \;=\; \sum_{J \subseteq \{1, \dots, m\}} (-1)^{|J|} |A_J| \;=\; |U| \,-\, \sum_{i} |A_i| \,+\, \sum_{i &lt; j} |A_i \cap A_j| \,-\, \sum_{i &lt; j &lt; k} |A_i \cap A_j \cap A_k| \,+\, \cdots.
+        \]
+      </li>
+      <li><strong>Union Form (Satisfying at least one property):</strong>
+        \[
+          \left|\bigcup_{i=1}^m A_i\right| \;=\; \sum_{\emptyset \neq J \subseteq \{1, \dots, m\}} (-1)^{|J|-1} |A_J|.
+        \]
+      </li>
+      <li><strong>Symmetric Collapse (<span class="pid">P68</span>):</strong> When \(|A_J| = f(k)\) depends only on \(k = |J|\), there are \(\binom{m}{k}\) subsets of size \(k\), so
+        \[
+          \left|U \setminus \bigcup_{i=1}^m A_i\right| \;=\; \sum_{k=0}^m (-1)^k \binom{m}{k} f(k).
+        \]
+      </li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="Three-circle Venn diagram for A_2, A_3, A_5 inside U = {1..60} showing region counts and the binomial cancellation 1 - C(r,1) + C(r,2) - C(r,3) = 0 for r >= 1">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <!-- Left panel: 3-set Venn diagram for {1..60} -->
+      <text x="160" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Venn Partition of U = {1, …, 60} by (2 | n, 3 | n, 5 | n)</text>
+      <rect x="20" y="28" width="280" height="168" rx="6" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="32" y="46" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">Outside all 3 circles (r = 0): φ(60) = 16</text>
+      <!-- Three overlapping circles: A2=(125, 102), A3=(195, 102), A5=(160, 148) -->
+      <circle cx="125" cy="100" r="46" fill="#f3e6e8" fill-opacity="0.55" stroke="#8b2635" stroke-width="1.8"/>
+      <circle cx="195" cy="100" r="46" fill="#f2eee6" fill-opacity="0.65" stroke="#1a1a1a" stroke-width="1.8"/>
+      <circle cx="160" cy="142" r="44" fill="#f9ebe0" fill-opacity="0.65" stroke="#b85d19" stroke-width="1.8"/>
+      <!-- Exact disjoint region counts for N=60:
+           Only 2: 30 - 10 - 6 + 2 = 16
+           Only 3: 20 - 10 - 4 + 2 = 8
+           Only 5: 12 - 6 - 4 + 2 = 4
+           2 & 3 not 5: 10 - 2 = 8
+           2 & 5 not 3: 6 - 2 = 4
+           3 & 5 not 2: 4 - 2 = 2
+           2 & 3 & 5: 2 -->
+      <text x="102" y="88" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">16</text>
+      <text x="218" y="88" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+      <text x="160" y="168" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">4</text>
+      <text x="160" y="86" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+      <text x="132" y="132" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+      <text x="188" y="132" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+      <text x="160" y="114" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">2</text>
+      <text x="80" y="62" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635">A₂ (30)</text>
+      <text x="225" y="62" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">A₃ (20)</text>
+      <text x="212" y="176" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19">A₅ (12)</text>
+
+      <!-- Right panel: Why PIE beats direct "Good" counting -->
+      <text x="455" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Why Intersecting "Bad" Sets Is Effortless</text>
+      <rect x="315" y="28" width="265" height="78" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.2"/>
+      <text x="447" y="46" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Direct ("Good" Conditions): Coupled Choices!</text>
+      <text x="447" y="66" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">π(1) ≠ 1 AND π(2) ≠ 2 AND ⋯ AND π(n) ≠ n</text>
+      <text x="447" y="86" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Choices for π(2) depend on whether π(1) picked 2 or not!</text>
+
+      <rect x="315" y="118" width="265" height="78" rx="5" fill="#f2eee6" stroke="#8b2635" stroke-width="1.5"/>
+      <text x="447" y="136" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">PIE ("Bad" Intersections A_J): Free Choices!</text>
+      <text x="447" y="156" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">π(j) = j for j ∈ J (|J| = k)  ⟹  (n − k)! ways!</text>
+      <text x="447" y="176" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Fixing k points leaves the other n − k points 100% free!</text>
+    </svg>
+    <figcaption><strong>Fig P76.1.</strong> <em>Left:</em> The exact Venn diagram of \(U = \{1, \dots, 60\}\) under divisibility by \(2, 3, 5\): the \(7\) interior regions sum to \(16 + 8 + 4 + 8 + 4 + 2 + 2 = 44 = |A_2 \cup A_3 \cup A_5|\), leaving \(\varphi(60) = 60 - 44 = 16\) coprime integers outside. <em>Right:</em> Why we define \(A_i\) as the <em>bad</em> property: intersecting \(k\) equality constraints \(\pi(j) = j\) simply locks \(k\) coordinates and leaves the remaining \(n - k\) coordinates completely unconstrained.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p76a">
+    <h3>Box P76.A · The Four Verification Obligations of Inclusion–Exclusion</h3>
+    <ol>
+      <li><strong>Pin Down the Unrestricted Universe \(U\) and Bad Sets \(A_1, \dots, A_m\):</strong> Define \(U\) by dropping the hard avoidance constraints, and define \(A_i \subseteq U\) as the subset of elements violating constraint \(i\).</li>
+      <li><strong>Compute the Intersection Formula \(|A_J|\) for General \(J\):</strong> For an arbitrary subset \(J \subseteq \{1, \dots, m\}\) of size \(k = |J|\), count how many elements of \(U\) violate <em>all</em> rules in \(J\) simultaneously (checking when \(|A_J|\) drops to \(0\) because constraints in \(J\) become mutually incompatible).</li>
+      <li><strong>Check the Sign Parity \((-1)^{|J|}\) vs. \((-1)^{|J|-1}\):</strong> In the complement formula \(|U \setminus \bigcup A_i|\), term \(k\) has sign \((-1)^k\); in the union formula \(|\bigcup A_i|\), term \(k \ge 1\) has sign \((-1)^{k-1}\).</li>
+      <li><strong>Verify on a Small Case (<span class="pid">P02</span>):</strong> Plug in \(n = 2\) or \(n = 3\) to confirm that the alternating sum matches a direct count.</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 190" width="100%" role="img" aria-label="Three canonical PIE setups: Derangements fixing k points, Surjections missing k target boxes, and Upper-bounded integer compositions exceeding capacity in k variables">
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <!-- Card 1: Derangements -->
+      <rect x="15" y="18" width="175" height="156" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="102" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">1. Derangements Dₙ</text>
+      <text x="102" y="60" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">U = Sₙ (|U| = n!)</text>
+      <text x="102" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Bad Aᵢ: π(i) = i (fixed point)</text>
+      <text x="102" y="102" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">|A_J| = (n − k)!</text>
+      <text x="102" y="128" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">Dₙ = ∑ (−1)ᵏ C(n,k) (n−k)!</text>
+      <text x="102" y="152" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">= n! ∑_{k=0}ⁿ (−1)ᵏ / k!</text>
+
+      <!-- Card 2: Surjections -->
+      <rect x="212" y="18" width="175" height="156" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="300" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2. Surjections Surj(n, m)</text>
+      <text x="300" y="60" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">U = all maps [n] → [m] (mⁿ)</text>
+      <text x="300" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Bad Aᵢ: box i is empty</text>
+      <text x="300" y="102" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">|A_J| = (m − k)ⁿ</text>
+      <text x="300" y="128" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">∑ (−1)ᵏ C(m,k) (m−k)ⁿ</text>
+      <text x="300" y="152" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">= m! · S(n, m) (Stirling 2nd kind)</text>
+
+      <!-- Card 3: Bounded Compositions -->
+      <rect x="410" y="18" width="175" height="156" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="497" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">3. Upper-Bounded Sums</text>
+      <text x="497" y="60" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">y₁ + ⋯ + yₘ = N,  0 ≤ yᵢ &lt; b</text>
+      <text x="497" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Bad Aᵢ: yᵢ ≥ b (shift yᵢ' = yᵢ − b)</text>
+      <text x="497" y="102" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">|A_J| = C(N − kb + m − 1, m − 1)</text>
+      <text x="497" y="128" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">∑ (−1)ᵏ C(m,k) C(N−kb+m−1, m−1)</text>
+      <text x="497" y="152" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Turns ≤ bounds into ≥ shifts!</text>
+    </svg>
+    <figcaption><strong>Fig P76.2.</strong> The three workhorse applications of Inclusion–Exclusion (Section 4). In each case, the positive constraint ("no fixed points", "no empty boxes", "no variable \(\ge b\)") couples the variables, while the negated intersection \(A_J\) ("these \(k\) points are fixed", "these \(k\) boxes are empty", "these \(k\) variables have \(\ge b\) pre-allocated") reduces immediately to an unconstrained count.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p76b">
+    <h3>Box P76.B · Three-Key Recognition Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> Exact count (or probability) of objects satisfying \(m\) simultaneous avoidance conditions ("none of \(A_1, \dots, A_m\) occurs") or union coverage ("at least one of \(A_1, \dots, A_m\) occurs").</li>
+      <li><strong>Problem shape:</strong> "No fixed points", "every box receives at least \(1\) ball", "not divisible by \(p_1, \dots, p_m\)", "no two adjacent items of the same type", or "each summand \(y_i \le b - 1\)".</li>
+      <li><strong>Tools at hand:</strong> Binomial coefficients \(\binom{m}{k}\), stars-and-bars \(\binom{N+m-1}{m-1}\), Euler's totient product \(N \prod (1 - 1/p)\), and Bonferroni truncation inequalities.</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 (Permutations &amp; Probability) · Montmort's hat-check problem and why \(D_n = \operatorname{round}(n! / e)\)</h3>
+  <p><strong>Problem.</strong> At a theatre, \(n\) guests check their hats; at the end of the performance, a careless attendant returns the \(n\) hats in a uniformly random permutation \(\pi \in S_n\). Find the exact number \(D_n\) of permutations in which <strong>no guest receives their own hat</strong> (\(\pi(i) \neq i\) for all \(i = 1, \dots, n\)), and show that \(D_n\) is always the nearest integer to \(n! / e\).</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Define the universe \(U\) and the \(n\) fixed-point bad sets).</strong> Let \(U = S_n\) be the set of all \(n!\) permutations, and for each guest \(i \in \{1, \dots, n\}\), let \(A_i = \{\pi \in S_n : \pi(i) = i\}\) be the bad event that guest \(i\) receives their own hat.</p>
+
+  <p><strong>Step 2 (Evaluate \(|A_J|\) for any subset \(J \subseteq \{1, \dots, n\}\) of size \(k\)).</strong> A permutation \(\pi\) belongs to \(A_J = \bigcap_{j \in J} A_j\) if and only if \(\pi(j) = j\) for every \(j \in J\), while the remaining \(n - k\) guests outside \(J\) can have their hats permuted in <em>any</em> of the \((n - k)!\) ways! Thus \(|A_J| = (n - k)!\) depends only on \(k = |J|\). Since there are \(\binom{n}{k}\) subsets \(J\) of size \(k\), the Symmetric PIE formula (Box P76) gives</p>
+  \[
+    D_n \;=\; \left|S_n \setminus \bigcup_{i=1}^n A_i\right| \;=\; \sum_{k=0}^n (-1)^k \binom{n}{k} (n - k)! \;=\; \sum_{k=0}^n (-1)^k \frac{n!}{k!\,\cancel{(n-k)!}}\,\cancel{(n-k)!} \;=\; n! \sum_{k=0}^n \frac{(-1)^k}{k!}.
+  \]
+  <p>Notice that \(\sum_{k=0}^\infty \frac{(-1)^k}{k!} = e^{-1}\). By the alternating series estimation theorem, the tail error satisfies</p>
+  \[
+    \left|\frac{n!}{e} - D_n\right| \;=\; n! \left|\sum_{k=n+1}^\infty \frac{(-1)^k}{k!}\right| \;&lt;\; \frac{n!}{(n + 1)!} \;=\; \frac{1}{n + 1} \;\le\; \frac{1}{2} \qquad (n \ge 1),
+  \]
+  <p>so \(D_n\) is literally the closest integer to \(n! / e\) for every \(n \ge 1\), and the probability of zero matches converges rapidly to \(\lim_{n \to \infty} \frac{D_n}{n!} = \frac{1}{e} \approx 36.7879\%\)!</p>
+
+  <h3>Exemplar 2 (Functions &amp; Partitions) · Counting surjective maps and Stirling numbers \(S(n, m)\)</h3>
+  <p><strong>Problem.</strong> How many surjective (onto) functions \(f : \{1, 2, \dots, n\} \to \{1, 2, \dots, m\}\) exist — i.e., ways to assign \(n\) distinct tasks to \(m\) distinct servers so that <strong>every server receives at least \(1\) task</strong>? Evaluate your formula explicitly for \(n = 4, m = 3\).</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Define the unrestricted function space \(U\) and empty-server bad sets \(A_i\)).</strong> Let \(U\) be the set of all \(m^n\) functions \(f : \{1, \dots, n\} \to \{1, \dots, m\}\). For each server \(i \in \{1, \dots, m\}\), define the bad set</p>
+  \[
+    A_i \;=\; \bigl\{f \in U \;:\; i \notin \operatorname{im}(f)\bigr\} \qquad (\text{server } i \text{ receives } 0 \text{ tasks}).
+  \]
+
+  <p><strong>Step 2 (Intersect \(k\) empty-server conditions).</strong> For any subset \(J \subseteq \{1, \dots, m\}\) of size \(k = |J|\), a function \(f\) belongs to \(A_J = \bigcap_{j \in J} A_j\) if and only if all \(n\) tasks are sent to the remaining \(m - k\) servers outside \(J\). Each of the \(n\) tasks has \(m - k\) allowed choices, so \(|A_J| = (m - k)^n\)! Summing over all \(\binom{m}{k}\) subsets \(J\) of size \(k\) yields Euler's surjection formula:</p>
+  \[
+    \operatorname{Surj}(n, m) \;=\; \sum_{k=0}^m (-1)^k \binom{m}{k} (m - k)^n.
+  \]
+  <p>(Dividing by \(m!\) forgets the labels of the \(m\) servers and gives the <strong>Stirling number of the second kind</strong> \(S(n, m) = \frac{1}{m!} \operatorname{Surj}(n, m)\).) For \(n = 4, m = 3\):</p>
+  \[
+    \operatorname{Surj}(4, 3) \;=\; \binom{3}{0} 3^4 - \binom{3}{1} 2^4 + \binom{3}{2} 1^4 - \binom{3}{3} 0^4 \;=\; 81 - 3(16) + 3(1) - 0 \;=\; 36.
+  \]
+
+  <h3>Exemplar 3 (Bounded Compositions) · Rolling a sum of \(15\) with four \(6\)-sided dice</h3>
+  <p><strong>Problem.</strong> Find the number of ordered \(4\)-tuples of integers \((x_1, x_2, x_3, x_4)\) such that</p>
+  \[
+    x_1 + x_2 + x_3 + x_4 \;=\; 15 \qquad\text{and}\qquad 1 \le x_i \le 6 \quad (i = 1, 2, 3, 4).
+  \]
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Shift lower bounds to \(0\) and turn upper bounds into bad sets).</strong> Set \(y_i = x_i - 1\); then \(y_1 + y_2 + y_3 + y_4 = 15 - 4 = 11\) with \(0 \le y_i \le 5\). Let \(U\) be the set of all nonnegative integer solutions to \(y_1 + y_2 + y_3 + y_4 = 11\) (ignoring the upper bound \(\le 5\)). By stars-and-bars (<a href="p73-generating-functions.html"><span class="pid">P73</span></a>), \(|U| = \binom{11 + 4 - 1}{4 - 1} = \binom{14}{3} = 364\). Now define the \(4\) bad sets</p>
+  \[
+    A_i \;=\; \bigl\{(y_1, y_2, y_3, y_4) \in U \;:\; y_i \ge 6\bigr\} \qquad (i = 1, 2, 3, 4).
+  \]
+
+  <p><strong>Step 2 (Evaluate intersections by pre-allocating \(6\) units to each bad variable).</strong></p>
+  <ul>
+    <li><strong>For \(k = 1\) (e.g., \(y_1 \ge 6\)):</strong> Write \(y_1 = y_1' + 6\) with \(y_1' \ge 0\). Then \(y_1' + y_2 + y_3 + y_4 = 11 - 6 = 5\), which has \(\binom{5 + 4 - 1}{4 - 1} = \binom{8}{3} = 56\) solutions. Across all \(\binom{4}{1} = 4\) variables, \(\sum_{i=1}^4 |A_i| = 4 \times 56 = 224\).</li>
+    <li><strong>For \(k \ge 2\) (e.g., \(y_1 \ge 6\) and \(y_2 \ge 6\)):</strong> Then \(y_1 + y_2 \ge 12 &gt; 11\), which is impossible for nonnegative integers summing to \(11\)! Thus \(|A_J| = 0\) for all \(|J| \ge 2\).</li>
+  </ul>
+  <p>By Inclusion–Exclusion, the exact number of valid dice rolls is \(364 - 224 + 0 - 0 = 140\).</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — The \(2^m\) Remainder Explosion when intersection sizes are only approximate (\(\lfloor X/d \rfloor = X/d + r_d\)).</strong> In Section 2, \(60\) was divisible by \(30 = 2 \cdot 3 \cdot 5\), so every intersection size \(\lfloor 60/d \rfloor = 60/d\) was exact. If instead you sieve \(X = 1000\) by the \(15\) primes \(p \le 50\), each of the \(2^{15} = 32{,}768\) subsets \(J\) contributes a floor rounding error \(r_d = \lfloor X/d \rfloor - X/d\), and the \(32{,}768\) rounding errors swamp \(X = 1000\) completely!</p>
+    <p><em>Mitigation:</em> When \(m\) is large and \(|A_J|\) has rounding remainders, truncate the alternating sum using the <strong>Bonferroni inequalities</strong> (Fig P76.3, left) or replace raw PIE by Selberg's quadratic majorant in Tier 4's <a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a>.</p>
+    <p><em>Price:</em> Obtaining upper and lower brackets instead of an exact identity.</p>
+    <p><em>Default:</em> Use exact PIE when \(|A_J|\) is known in closed form or when \(m\) is small (\(2^m \ll |U|\)).</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Bonferroni alternating partial sums for D_4 = 9 oscillating above at k=0,2,4 (24, 12, 9) and below at k=1,3 (0, 8). Right: Exhibit B showing why lcm(4,6)=12 != 4*6=24 when bad divisibility sets are not coprime">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Bonferroni Alternating Brackets for D_4 = 9 -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Bonferroni Brackets on D₄ = 9 (Truncating at Level K)</text>
+      <line x1="35" y1="168" x2="280" y2="168" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="50" y1="175" x2="50" y2="28" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- True value D_4 = 9: scale val in [0, 24] -> y_px = 168 - 5.5*val; D_4=9 -> y_px = 118.5 -->
+      <line x1="45" y1="118.5" x2="275" y2="118.5" stroke="#8b2635" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <text x="272" y="112" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="end">True D₄ = 9</text>
+      <!-- Partial sums S_K = sum_{k=0}^K (-1)^k C(4,k)(4-k)!:
+           K=0: 24 -> (65, 36) [upper]
+           K=1: 24 - 24 = 0 -> (110, 168) [lower]
+           K=2: 0 + 12 = 12 -> (155, 102) [upper]
+           K=3: 12 - 4 = 8 -> (200, 124) [lower]
+           K=4: 8 + 1 = 9 -> (245, 118.5) [exact] -->
+      <polyline points="65,36 110,168 155,102 200,124 245,118.5" fill="none" stroke="#3a6073" stroke-width="2.3"/>
+      <circle cx="65" cy="36" r="4.5" fill="#8b2635"/>
+      <circle cx="110" cy="168" r="4.5" fill="#3a6073"/>
+      <circle cx="155" cy="102" r="4.5" fill="#8b2635"/>
+      <circle cx="200" cy="124" r="4.5" fill="#3a6073"/>
+      <circle cx="245" cy="118.5" r="5" fill="#b85d19"/>
+      <text x="82" y="42" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635">K=0: 24 (≥9)</text>
+      <text x="110" y="182" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">K=1: 0 (≤9)</text>
+      <text x="155" y="92" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">K=2: 12 (≥9)</text>
+      <text x="200" y="140" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">K=3: 8 (≤9)</text>
+      <text x="245" y="135" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">K=4: 9</text>
+      <text x="155" y="198" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Even K gives an upper bound; odd K gives a lower bound</text>
+
+      <!-- Right panel: Exhibit B — Non-Coprime Moduli & Asymmetric Intersections -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Exhibit B: Intersections Need lcm(d₁, d₂), NOT d₁·d₂!</text>
+      <rect x="315" y="30" width="265" height="145" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.2"/>
+      <text x="447" y="52" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Bad sets: A₁ = {4 | n},  A₂ = {6 | n},  A₃ = {9 | n}</text>
+      <text x="447" y="78" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635" text-anchor="middle">• A₁ ∩ A₂ = {lcm(4, 6) | n} = {12 | n}  (NOT 24!)</text>
+      <text x="447" y="102" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635" text-anchor="middle">• A₂ ∩ A₃ = {lcm(6, 9) | n} = {18 | n}  (NOT 54!)</text>
+      <text x="447" y="126" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">• A₁ ∩ A₃ = {lcm(4, 9) | n} = {36 | n}</text>
+      <text x="447" y="152" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">• A₁ ∩ A₂ ∩ A₃ = {lcm(4, 6, 9) | n} = {36 | n}</text>
+      <text x="447" y="198" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Notice |A₁ ∩ A₃| = |A₁ ∩ A₂ ∩ A₃|: they cancel each other!</text>
+    </svg>
+    <figcaption><strong>Fig P76.3.</strong> <em>Left (Exhibit A &amp; Bonferroni Inequalities):</em> Truncating the complement PIE sum after an even level \(K\) always overestimates the true count, while truncating after an odd level \(K\) always underestimates it (Brun's pure sieve!). <em>Right (Exhibit B):</em> When bad sets are not symmetric or not pairwise coprime, you cannot write \(|A_i \cap A_j| = f(2)\) or multiply moduli blindly: \(4 \mid n \text{ and } 6 \mid n \iff \operatorname{lcm}(4, 6) = 12 \mid n\).</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Multiplying moduli instead of taking \(\operatorname{lcm}(d_i, d_j)\), or assuming \(|A_J|\) is symmetric when overlaps vary.</strong> Suppose you want to count integers \(n \le 72\) not divisible by \(4, 6,\) or \(9\) (Fig P76.3, right). If you write \(|A_4 \cap A_6| = 72 / (4 \times 6) = 3\), you get the wrong answer! An integer is divisible by both \(4\) and \(6\) if and only if it is divisible by \(\operatorname{lcm}(4, 6) = 12\) (\(|A_4 \cap A_6| = 72/12 = 6\)). Similarly, if you forbid the subword <code>ABA</code> from appearing in a string, two occurrences of <code>ABA</code> can overlap in <code>ABABA</code> (length \(5\)) or be disjoint (length \(6\)), so \(|A_i \cap A_j|\) depends on whether \(|i - j| = 2\) or \(|i - j| \ge 3\).</p>
+    <p><em>Mitigation:</em> Always compute \(A_J = \bigcap_{j \in J} A_j\) as a logical conjunction before counting its size (Obligation 2 of Box P76.A).</p>
+    <p><em>Price:</em> Grouping subsets \(J\) by their overlap geometry when full \(S_m\) symmetry is absent.</p>
+    <p><em>Default:</em> Check pairwise coprimality or independence before multiplying probabilities or denominators.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Sign-parity reversal between \(|\bigcup A_i|\) and \(|U \setminus \bigcup A_i|\).</strong> In the union formula \(|A_1 \cup A_2 \cup A_3| = \sum |A_i| - \sum |A_i \cap A_j| + |A_1 \cap A_2 \cap A_3|\), the triple intersection carries a <strong>plus</strong> sign (\((-1)^{3-1} = +1\)). When subtracting the union from \(|U|\) to get the complement \(|U \setminus (A_1 \cup A_2 \cup A_3)|\), every sign inside the union flips, so the triple intersection carries a <strong>minus</strong> sign (\((-1)^3 = -1\)).</p>
+    <p><em>Mitigation:</em> Anchor every sign to \(k = |J|\): in the complement formula, \(k = 0\) is \(+|U|\) and \(k = 1\) is \(-\sum |A_i|\), so the sign is always \((-1)^k\).</p>
+    <p><em>Price:</em> Two seconds to check that \(k = 1\) has a minus sign in \(|U| - \sum |A_i| + \cdots\).</p>
+    <p><em>Default:</em> Always write out the \(k = 0\) and \(k = 1\) terms first to lock in the alternating sign pattern.</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> Classic Inclusion–Exclusion is Möbius inversion on the Boolean lattice of subsets \((\mathcal{P}(\{1, \dots, m\}), \subseteq)\), where the Möbius function is \(\mu(\emptyset, J) = (-1)^{|J|}\). In 1964, <strong>Gian-Carlo Rota</strong> generalized Inclusion–Exclusion to arbitrary locally finite partially ordered sets \((P, \le)\): replacing subsets by divisors \((d \mid n)\) gives number-theoretic Möbius inversion \(\sum_{d \mid n} \mu(d) = \mathbf{1}_{n=1}\) (<a href="p39-optimized-sieve.html"><span class="pid">P39</span></a>), and replacing subsets by set partitions gives cumulant expansions in probability and statistical physics.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When a target state or algebraic identity is hard to reach from the start, so you want to start from the desired end state and invert each step:</strong> Step forward to the next chapter, <a href="p77-work-backwards.html"><span class="pid">P77</span> · Work backwards</a>.</li>
+    <li><strong>When the \(2^{\pi(z)}\) floor remainders of Inclusion–Exclusion explode in prime sieving:</strong> Upgrade to Selberg's quadratic weights in Tier 4's <a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a>.</li>
+    <li><strong>When you want to package the alternating sum \(\sum_{k=0}^n (-1)^k \binom{n}{k} f(n-k)\) as the product of an EGF with \(e^{-x}\):</strong> Connect <span class="pid">P76</span> with <a href="p73-generating-functions.html"><span class="pid">P73</span> · Generating functions</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Montmort's game of <em>Treize</em> and Da Silva–Sylvester's sieve formula to Bonferroni and Rota's Möbius algebra (1708 – 1964).</strong></p>
+    <ul>
+      <li><strong>Pierre Rémond de Montmort (1708) &amp; Nicolaus I Bernoulli (1713):</strong> In his <em>Essay d'analyse sur les jeux de hazard</em>, Montmort analyzed the French card game <em>Le Jeu du Treize</em> (in which a player draws \(13\) cards numbered \(1..13\) and wins if at least one card matches its draw position) and discovered the exact alternating series \(1 - \frac{1}{1!} + \frac{1}{2!} - \cdots + \frac{(-1)^n}{n!}\) for derangements.</li>
+      <li><strong>Abraham de Moivre (1718) &amp; Adrien-Marie Legendre (1808):</strong> De Moivre stated the general alternating intersection formula for probabilities of unions of events, and Legendre applied it to prime divisibility in his <em>Essai sur la théorie des nombres</em>, turning Eratosthenes' sieve into the exact inclusion–exclusion formula \(\sum_{d \mid P(z)} \mu(d)\lfloor X/d \rfloor\).</li>
+      <li><strong>Daniel da Silva (1854) &amp; James Joseph Sylvester (1883):</strong> The Portuguese mathematician Daniel da Silva and the English algebraist J. J. Sylvester independently rediscovered and generalized the principle to count elements satisfying <em>exactly \(r\)</em> (or at least \(r\)) conditions among \(m\) properties.</li>
+      <li><strong>Carlo Emilio Bonferroni (1936) &amp; Gian-Carlo Rota (1964):</strong> Bonferroni proved that truncating the inclusion–exclusion sum at even vs. odd levels yields rigorous upper and lower probability bounds, and in <em>On the Foundations of Combinatorial Theory I</em>, Rota unified classical PIE, number-theoretic Möbius inversion, and chromatic polynomials as instances of Möbius inversion on partially ordered sets.</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise P76.1 (●○○ — Divisibility PIE with non-coprime moduli).</strong> How many integers \(n \in U = \{1, 2, \dots, 72\}\) are divisible by <strong>none</strong> of \(4\), \(6\), or \(9\)?</p>
+    <ol>
+      <li>Let \(A_4, A_6, A_9 \subseteq U\) be the subsets of multiples of \(4, 6, 9\) respectively. Compute \(|A_4|, |A_6|, |A_9|\).</li>
+      <li>Using \(A_a \cap A_b = A_{\operatorname{lcm}(a, b)}\) (Exhibit B), compute the three pairwise intersection sizes and the triple intersection size \(|A_4 \cap A_6 \cap A_9|\), and apply Inclusion–Exclusion to find \(|U \setminus (A_4 \cup A_6 \cup A_9)|\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Remember that \(\operatorname{lcm}(4, 6) = 12\), \(\operatorname{lcm}(6, 9) = 18\), \(\operatorname{lcm}(4, 9) = 36\), and \(\operatorname{lcm}(4, 6, 9) = 36\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Single set sizes (\(k = 1\)).</strong> Since \(4, 6, 9\) all divide \(72\):</p>
+      \[
+        |A_4| = \frac{72}{4} = 18, \qquad |A_6| = \frac{72}{6} = 12, \qquad |A_9| = \frac{72}{9} = 8 \qquad (\text{sum } = 38).
+      \]
+      <p><strong>2. Pairwise and triple intersections via \(\operatorname{lcm}\) (\(k = 2, 3\)).</strong></p>
+      <ul>
+        <li>\(|A_4 \cap A_6| = |A_{\operatorname{lcm}(4,6)}| = |A_{12}| = \frac{72}{12} = 6\).</li>
+        <li>\(|A_6 \cap A_9| = |A_{\operatorname{lcm}(6,9)}| = |A_{18}| = \frac{72}{18} = 4\).</li>
+        <li>\(|A_4 \cap A_9| = |A_{\operatorname{lcm}(4,9)}| = |A_{36}| = \frac{72}{36} = 2\) (pairwise sum \(= 6 + 4 + 2 = 12\)).</li>
+        <li>\(|A_4 \cap A_6 \cap A_9| = |A_{\operatorname{lcm}(4,6,9)}| = |A_{36}| = \frac{72}{36} = 2\).</li>
+      </ul>
+      <p>Applying the complement PIE formula gives</p>
+      \[
+        \bigl|U \setminus (A_4 \cup A_6 \cup A_9)\bigr| \;=\; 72 \,-\, 38 \,+\, 12 \,-\, 2 \;=\; 44.
+      \]
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P76.2 (●●○ — Anagrams of <code>AABBCC</code> with no adjacent identical letters).</strong> The \(6\)-letter word <code>AABBCC</code> has \(\frac{6!}{2!\,2!\,2!} = 90\) distinct anagrams. How many of those \(90\) anagrams contain <strong>no two adjacent identical letters</strong> (i.e., neither <code>AA</code>, nor <code>BB</code>, nor <code>CC</code> appears as a consecutive block)?</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Define \(A_1 = \{\text{contains } \text{`AA'}\}\), \(A_2 = \{\text{contains } \text{`BB'}\}\), \(A_3 = \{\text{contains } \text{`CC'}\}\). To count words in \(A_1\), glue the two <code>A</code>s into a single super-letter <code>[AA]</code> and permute the \(5\) objects <code>[AA], B, B, C, C</code>!</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Define the universe \(U\) and the \(3\) glued-letter bad sets.</strong> Let \(U\) be all \(\frac{6!}{2!2!2!} = 90\) anagrams of <code>AABBCC</code>, and let \(A_1, A_2, A_3\) be the subsets of anagrams containing the adjacent blocks <code>AA</code>, <code>BB</code>, <code>CC</code> respectively.</p>
+      <p><strong>2. Evaluate intersection sizes by gluing identical pairs into super-letters.</strong></p>
+      <ul>
+        <li><strong>\(k = 0\):</strong> \(|U| = \frac{6!}{2!2!2!} = 90\).</li>
+        <li><strong>\(k = 1\) (one glued pair, e.g., <code>[AA], B, B, C, C</code>):</strong> Permuting these \(5\) items (with two <code>B</code>s and two <code>C</code>s) gives \(\frac{5!}{1!\,2!\,2!} = 30\) words. Across all \(\binom{3}{1} = 3\) letters, \(\sum |A_i| = 3 \times 30 = 90\).</li>
+        <li><strong>\(k = 2\) (two glued pairs, e.g., <code>[AA], [BB], C, C</code>):</strong> Permuting these \(4\) items gives \(\frac{4!}{1!\,1!\,2!} = 12\) words. Across all \(\binom{3}{2} = 3\) pairs, \(\sum |A_i \cap A_j| = 3 \times 12 = 36\).</li>
+        <li><strong>\(k = 3\) (all three glued, <code>[AA], [BB], [CC]</code>):</strong> Permuting \(3\) distinct super-letters gives \(3! = 6\) words.</li>
+      </ul>
+      <p>By Inclusion–Exclusion, the number of anagrams with no adjacent identical letters is</p>
+      \[
+        90 \,-\, 90 \,+\, 36 \,-\, 6 \;=\; 30.
+      \]
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P76.3 (●●● — Whitney's chromatic polynomial expansion via edge-violation PIE).</strong> Let \(G = (V, E)\) be a finite simple graph, and let \(P_G(q)\) be the number of proper vertex colorings \(c : V \to \{1, 2, \dots, q\}\) such that \(c(u) \neq c(w)\) for every edge \(e = \{u, w\} \in E\).</p>
+    <ol>
+      <li>Let \(U = \{1, \dots, q\}^V\) be all \(q^{|V|}\) unconstrained vertex colorings, and for each edge \(e = \{u, w\} \in E\) define the bad set \(A_e = \{c \in U : c(u) = c(w)\}\). Prove that for any subset of edges \(J \subseteq E\), \(|A_J| = q^{c(J)}\), where \(c(J)\) is the number of connected components of the spanning subgraph \((V, J)\), and write down the PIE expansion for \(P_G(q)\).</li>
+      <li>Use this expansion (or edge subsets of \(C_4\)) to compute the chromatic polynomial \(P_{C_4}(q)\) of the \(4\)-cycle \(C_4\) (\(4\) vertices, \(4\) edges), and evaluate \(P_{C_4}(3)\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>A coloring \(c\) belongs to \(A_J = \bigcap_{e \in J} A_e\) if and only if \(c\) is constant on every connected component of \((V, J)\). For \(C_4\), count how many components \((V, J)\) has when \(|J| = 0, 1, 2, 3, 4\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Component formula for \(|A_J|\).</strong> Requiring \(c(u) = c(w)\) across every edge \(e = \{u, w\} \in J\) forces \(c\) to take a single constant color on each connected component of the spanning subgraph \((V, J)\), with no constraints between different components. Since there are \(c(J)\) connected components and \(q\) color choices per component, \(|A_J| = q^{c(J)}\). Complement PIE immediately yields Whitney's theorem (1932):</p>
+      \[
+        P_G(q) \;=\; \sum_{J \subseteq E} (-1)^{|J|} q^{c(J)}.
+      \]
+      <p><strong>2. Evaluating \(P_{C_4}(q)\) across all \(2^4 = 16\) edge subsets of \(C_4\).</strong></p>
+      <ul>
+        <li>\(|J| = 0\) (\(\binom{4}{0} = 1\) subset): \(4\) isolated vertices \(\implies c(J) = 4\), contributing \(+q^4\).</li>
+        <li>\(|J| = 1\) (\(\binom{4}{1} = 4\) subsets): \(1\) edge + \(2\) isolated vertices \(\implies c(J) = 3\), contributing \(-4q^3\).</li>
+        <li>\(|J| = 2\) (\(\binom{4}{2} = 6\) subsets): whether the \(2\) edges share a vertex (a \(3\)-vertex path + \(1\) vertex) or are opposite (\(2\) disjoint edges), \((V, J)\) is a forest with \(4 - 2 = 2\) components \(\implies c(J) = 2\), contributing \(+6q^2\).</li>
+        <li>\(|J| = 3\) (\(\binom{4}{3} = 4\) subsets): each is a spanning tree on \(4\) vertices \(\implies c(J) = 1\), contributing \(-4q\).</li>
+        <li>\(|J| = 4\) (\(\binom{4}{4} = 1\) subset, the full cycle \(C_4\)): connected on \(4\) vertices \(\implies c(J) = 1\), contributing \(+q\).</li>
+      </ul>
+      <p>Summing the five levels gives</p>
+      \[
+        P_{C_4}(q) \;=\; q^4 - 4q^3 + 6q^2 - 3q \;=\; q(q - 1)\bigl(q^2 - 3q + 3\bigr),
+      \]
+      <p>and at \(q = 3\) colors, \(P_{C_4}(3) = 3(2)(9 - 9 + 3) = 18\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P76.4 (◆ — Pattern-unknown diagnosis).</strong> How many \(3 \times 3\) matrices with entries in \(\{0, 1\}\) have the property that <strong>every row contains at least one \(1\) AND every column contains at least one \(1\)</strong>?</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern diagnosis (<a href="p76-inclusion-exclusion.html"><span class="pid">P76</span> · Inclusion-exclusion</a> + <a href="p70-double-counting.html"><span class="pid">P70</span> · Double counting</a>).</strong> Instead of defining \(3 + 3 = 6\) bad sets for rows and columns simultaneously (which would require tracking \(2^6 = 64\) row-column intersections), build the row condition directly into the universe \(U\) and apply Inclusion–Exclusion only to the \(3\) columns! Define:</p>
+      <ul>
+        <li><strong>Universe \(U\):</strong> All \(3 \times 3\) binary matrices in which <em>every row contains at least one \(1\)</em>. Since each of the \(3\) rows can be any of the \(2^3 - 1 = 7\) non-zero binary triples independently, \(|U| = 7^3 = 343\).</li>
+        <li><strong>Bad sets \(C_1, C_2, C_3 \subseteq U\):</strong> Let \(C_j\) be the set of matrices in \(U\) whose \(j\)-th column consists entirely of \(0\)s.</li>
+      </ul>
+      <p><strong>2. Evaluating \(|C_J|\) when \(k = |J|\) columns are forced to be zero.</strong> For any subset \(J \subseteq \{1, 2, 3\}\) of \(k\) columns, a matrix belongs to \(C_J = \bigcap_{j \in J} C_j\) if and only if those \(k\) columns are all \(0\)s and each of the \(3\) rows has at least one \(1\) in the remaining \(3 - k\) columns. Each row therefore has \(2^{3-k} - 1\) valid choices, and the \(3\) rows are chosen independently, so</p>
+      \[
+        |C_J| \;=\; \bigl(2^{3 - k} - 1\bigr)^3.
+      \]
+      <p><strong>3. Alternating sum across \(k = 0, 1, 2, 3\).</strong> By Symmetric PIE,</p>
+      \[
+        \begin{aligned}
+          \bigl|U \setminus (C_1 \cup C_2 \cup C_3)\bigr|
+          &\;=\; \sum_{k=0}^3 (-1)^k \binom{3}{k} \bigl(2^{3-k} - 1\bigr)^3 \\
+          &\;=\; \binom{3}{0} 7^3 \,-\, \binom{3}{1} 3^3 \,+\, \binom{3}{2} 1^3 \,-\, \binom{3}{3} 0^3 \\
+          &\;=\; 343 \,-\, 3(27) \,+\, 3(1) \,-\, 0 \;=\; 343 - 81 + 3 \;=\; 265.
+        \end{aligned}
+      \]
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P76.5 (◐ — Exploration: Generalized Inclusion–Exclusion for "exactly \(r\)" properties).</strong> Let \(A_1, \dots, A_m \subseteq U\) be subsets of a finite universe \(U\), and for each \(0 \le k \le m\) write \(S_k := \sum_{|J| = k} |A_J|\) for the sum of the sizes of all \(k\)-fold intersections. Suppose we want to count the number of elements \(E_r\) in \(U\) that belong to <strong>exactly \(r\)</strong> of the sets \(A_1, \dots, A_m\).</p>
+    <ol>
+      <li>Verify that for any integers \(0 \le r \le k \le t\), \(\binom{t}{k}\binom{k}{r} = \binom{t}{r}\binom{t-r}{k-r}\), and deduce that
+        \[
+          \sum_{k=r}^t (-1)^{k-r} \binom{k}{r}\binom{t}{k} \;=\; \binom{t}{r} (1 - 1)^{t-r} \;=\; \mathbf{1}_{t = r}.
+        \]
+      </li>
+      <li>Double-count over all elements \(x \in U\) (where an element in \(t\) sets contributes \(\binom{t}{k}\) to \(S_k\)) to prove the <strong>Generalized Inclusion–Exclusion Formula</strong>:
+        \[
+          E_r \;=\; \sum_{k=r}^m (-1)^{k-r} \binom{k}{r} S_k,
+        \]
+        and apply it to permutations of \(\{1, \dots, n\}\) (where \(S_k = \binom{n}{k}(n-k)! = \frac{n!}{k!}\)) to find the number of permutations with <em>exactly \(r\)</em> fixed points!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>In Part 1, count triples of subsets \(R \subseteq K \subseteq T\) with \(|R| = r, |K| = k, |T| = t\) in two ways (<span class="pid">P70</span>). In Part 2, substitute \(S_k = \frac{n!}{k!}\) and shift the summation index \(j = k - r\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Binomial identity via subset double counting.</strong> From a set \(T\) of size \(t\), choosing a subset \(K\) of size \(k\) and then a subset \(R \subseteq K\) of size \(r\) takes \(\binom{t}{k}\binom{k}{r}\) ways; choosing \(R \subseteq T\) of size \(r\) first and then choosing the remaining \(k - r\) elements of \(K \setminus R\) from \(T \setminus R\) takes \(\binom{t}{r}\binom{t-r}{k-r}\) ways. Summing over \(k = r, \dots, t\) with \((-1)^{k-r}\) gives</p>
+      \[
+        \sum_{k=r}^t (-1)^{k-r} \binom{k}{r}\binom{t}{k} \;=\; \binom{t}{r} \sum_{j=0}^{t-r} (-1)^j \binom{t - r}{j} \;=\; \binom{t}{r} (1 - 1)^{t-r} \;=\; \mathbf{1}_{t = r}.
+      \]
+      <p><strong>2. Exact-\(r\) formula and permutations with \(r\) fixed points.</strong> An element \(x \in U\) belonging to exactly \(t\) sets is counted \(\binom{t}{k}\) times in \(S_k\) (and \(0\) times if \(t &lt; k\)). Therefore, in \(\sum_{k=r}^m (-1)^{k-r} \binom{k}{r} S_k\), each element \(x\) belonging to \(t \ge r\) sets receives weight \(\sum_{k=r}^t (-1)^{k-r}\binom{k}{r}\binom{t}{k} = \mathbf{1}_{t=r}\), isolating precisely \(E_r\)! For permutations in \(S_n\) where \(S_k = \binom{n}{k}(n-k)! = \frac{n!}{k!}\), setting \(j = k - r\) gives</p>
+      \[
+        E_r \;=\; \sum_{k=r}^n (-1)^{k-r} \frac{k!}{r!(k-r)!} \frac{n!}{k!} \;=\; \frac{n!}{r!} \sum_{j=0}^{n-r} \frac{(-1)^j}{j!} \;=\; \binom{n}{r} D_{n-r}.
+      \]
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p75-coloring-arguments.html">← Previous: P75 · Coloring arguments</a> ·
+    <a href="p77-work-backwards.html">Next: P77 · Work backwards →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>

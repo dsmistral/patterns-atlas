@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P67 · Prove the contrapositive — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Tier 2 · Canon Foundations</p>
+  <h1><span class="pid">P67</span> · Prove the contrapositive</h1>
+  <p class="lede">When a hypothesis is barren, negative, or composite-free, reverse the arrow and negate both ends: prove \(P \implies Q\) by assuming \(\neg Q\) and computing forward to \(\neg P\).</p>
+  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p11-contradiction.html">P11 · Prove by contradiction</a>, <a href="p01-pin-down-the-problem.html">P01 · Pin down the problem</a></p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — Antecedent, consequent, and the contrapositive flip.</strong> An implication \(P \implies Q\) ("if \(P\), then \(Q\)") has an <strong>antecedent</strong> (hypothesis) \(P\) and a <strong>consequent</strong> (conclusion) \(Q\). It promises only one thing: you will never find a case where \(P\) is true and \(Q\) is false. Because "cannot have \(P\) true and \(Q\) false" is the exact same ban whether you check \(P\) first or \(\neg Q\) ("not \(Q\)") first, the implication \(P \implies Q\) is logically identical to its <strong>contrapositive</strong>:</p>
+  \[
+    \bigl(P \implies Q\bigr) \quad\Longleftrightarrow\quad \bigl(\neg Q \implies \neg P\bigr).
+  \]
+  <p>By contrast, the <strong>converse</strong> (\(Q \implies P\)) and the <strong>inverse</strong> (\(\neg P \implies \neg Q\)) are <em>not</em> equivalent to \(P \implies Q\): "if a number is divisible by \(4\), it is even" is true, its contrapositive "if a number is odd, it is not divisible by \(4\)" is also true, whereas its converse "if a number is even, it is divisible by \(4\)" fails at \(n = 2\).</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — De Morgan's laws and quantifier negation.</strong> Flipping \(P \implies Q\) into \(\neg Q \implies \neg P\) requires negating compound statements cleanly. Two rules govern every negation in mathematics:</p>
+  <ul>
+    <li><strong>De Morgan's Laws:</strong> Negating an "AND" turns it into an "OR", and negating an "OR" turns it into an "AND":
+      \[
+        \neg(A \text{ and } B) \;\equiv\; (\neg A) \text{ or } (\neg B),
+        \qquad
+        \neg(A \text{ or } B) \;\equiv\; (\neg A) \text{ and } (\neg B).
+      \]
+    </li>
+    <li><strong>Quantifier Flip:</strong> Negating "for every \(x\), \(S(x)\) holds" (\(\forall x,\, S(x)\)) produces "there exists at least one witness \(x\) where \(S(x)\) fails" (\(\exists x,\, \neg S(x)\)).</li>
+  </ul>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>Look back at our proof in <a href="p11-contradiction.html"><span class="pid">P11</span> · Prove by contradiction</a> that \(\sqrt{2}\) is irrational. Right in the middle of that proof, we needed a seemingly simple step about integers:</p>
+  \[
+    \text{If } a^2 \text{ is even,} \quad\text{then}\quad a \text{ is even.}
+  \]
+  <p>Think about how awkward it is to prove that step <em>directly</em> from left to right: starting from \(a^2 = 2k\), taking the square root gives \(a = \sqrt{2k}\), which drags \(\sqrt{2}\) right back into the middle of the calculation! Instead, we instinctively proved the <strong>contrapositive</strong>: we assumed \(a\) is <em>not</em> even (\(a = 2m + 1\) is odd) and squared it forward to get \(a^2 = 4m^2 + 4m + 1 = 2(2m^2 + 2m) + 1\), which is odd (\(a^2\) is <em>not</em> even). Squaring an expression is algebraic and effortless; taking a square root is obstructed.</p>
+  <p>While <a href="p11-contradiction.html"><span class="pid">P11</span></a> assumes \(P \text{ and } \neg Q\) and searches in the dark for <em>any</em> contradiction, <span class="pid">P67</span> is a targeted, forward-moving machine: you start at \(\neg Q\) and march directly to the single destination \(\neg P\).</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: why \(2^n - 1\) being prime forces \(n\) to be prime</h2>
+  <p>Suppose someone hands you the 28-digit integer</p>
+  \[
+    M_{91} \;=\; 2^{91} - 1 \;=\; 2{,}475{,}880{,}078{,}570{,}760{,}549{,}798{,}248{,}447
+  \]
+  <p>and asks you to prove the general theorem:</p>
+  \[
+    \underbrace{\text{If } 2^n - 1 \text{ is prime}}_{P}, \quad\text{then}\quad \underbrace{n \text{ is prime}}_{Q} \qquad (n \ge 2).
+  \]
+  <p>Try starting directly from the hypothesis \(P\): "Suppose \(2^n - 1\) is prime." What does that give you to calculate with? "Prime" means that <em>no</em> integer \(d\) strictly between \(1\) and \(2^n - 1\) divides \(2^n - 1\). That is a purely <strong>negative</strong> statement — a list of billions of things that do <em>not</em> happen. You have no equation, no factor, and no handle on the exponent \(n\).</p>
+  <p>Now flip the statement into its contrapositive (\(\neg Q \implies \neg P\)) while keeping the domain \(n \ge 2\) fixed:</p>
+  \[
+    \underbrace{\text{If } n \text{ is composite}}_{{\neg Q}}, \quad\text{then}\quad \underbrace{2^n - 1 \text{ is composite}}_{{\neg P}} \qquad (n \ge 2).
+  \]
+  <p>Look at what happens the instant we assume \(\neg Q\) ("\(n\) is composite"): we are handed two concrete integers \(a, b\) with \(1 &lt; a, b &lt; n\) such that \(n = ab\)! Substituting \(n = ab\) into \(2^n - 1\) writes \(2^{ab} - 1 = (2^a)^b - 1\). Using the geometric series identity \(x^b - 1 = (x - 1)(x^{b-1} + x^{b-2} + \cdots + x + 1)\) with \(x = 2^a\), we obtain an explicit factorization:</p>
+  \[
+    2^{ab} - 1 \;=\; \bigl(2^a - 1\bigr)\,\bigl(2^{a(b-1)} + 2^{a(b-2)} + \cdots + 2^a + 1\bigr).
+  \]
+  <p>Since \(a \ge 2\) and \(b \ge 2\), the first factor satisfies \(2^a - 1 \ge 2^2 - 1 = 3 &gt; 1\), and the second factor is at least \(2^a + 1 \ge 5 &gt; 1\). Both factors are strictly greater than \(1\), so \(2^n - 1\) is composite (\(\neg P\))! Even better, in base \(2\), \(2^{ab} - 1\) is a string of \(ab\) ones, which factors visibly into \(b\) blocks of \(a\) ones:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Composite exponent \(n = ab\)</th>
+        <th>Binary block factorization of \(2^n - 1\)</th>
+        <th>Decimal factorization \(\bigl(2^a - 1\bigr) \times \bigl(\sum_{k=0}^{b-1} 2^{ak}\bigr)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(n = 6 = 2 \times 3\)</td>
+        <td>\(111111_2 = 11_2 \times 10101_2\)</td>
+        <td>\(63 = 3 \times 21\)</td>
+      </tr>
+      <tr>
+        <td>\(n = 15 = 3 \times 5\)</td>
+        <td>\(111\,111\,111\,111\,111_2 = 111_2 \times 1001001001001_2\)</td>
+        <td>\(32{,}767 = 7 \times 4{,}681\)</td>
+      </tr>
+      <tr>
+        <td>\(n = 91 = 7 \times 13\)</td>
+        <td>\(13\) blocks of \(1111111_2\) (\(2^7 - 1 = 127\))</td>
+        <td>\(2^{91} - 1 = 127 \times 8191 \times 2{,}380{,}264{,}197{,}535{,}009{,}569{,}281\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Because \(91 = 7 \times 13\) is composite, \(M_{91} = 2^{91} - 1\) is immediately divisible by both \(2^7 - 1 = 127\) and \(2^{13} - 1 = 8191\).</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+
+  <div class="pattern-box" id="box-p67">
+    <h3>Box P67 · The Contrapositive Move</h3>
+    <p>To prove an implication \(\forall x \in D,\; P(x) \implies Q(x)\) whose hypothesis \(P(x)\) is negative, global, or algebraically downstream of \(Q(x)\), prove its logically equivalent <strong>contrapositive</strong>:</p>
+    \[
+      \forall x \in D, \qquad \neg Q(x) \;\implies\; \neg P(x).
+    \]
+    <p>Keep the ambient domain \(x \in D\) unchanged, negate \(Q(x)\) using De Morgan's laws and quantifier flips to extract a concrete witness or algebraic decomposition, and compute in the forward direction until \(\neg P(x)\) emerges.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="Euler-Venn containment diagram and truth table comparing P implies Q with its contrapositive not Q implies not P and contrasting with the converse Q implies P">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <!-- Left panel: Euler-Venn containment P subset Q <==> Q^c subset P^c -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Set View: (P ⊆ Q)  ⟺  (Qᶜ ⊆ Pᶜ)</text>
+      <!-- Ambient box D -->
+      <rect x="25" y="30" width="260" height="150" rx="6" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="35" y="46" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073">Outside Q (¬Q): automatically outside P (¬P)!</text>
+      <!-- Outer oval Q -->
+      <ellipse cx="155" cy="115" rx="95" ry="52" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.8"/>
+      <text x="215" y="92" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a">Set Q</text>
+      <!-- Inner oval P -->
+      <ellipse cx="135" cy="120" rx="52" ry="30" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="135" y="124" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Set P</text>
+      <!-- Counterexample to converse in Q \ P -->
+      <circle cx="212" cy="128" r="4" fill="#b85d19"/>
+      <text x="212" y="145" font-family="system-ui, sans-serif" font-size="9" fill="#b85d19" text-anchor="middle">x ∈ Q \ P</text>
+      <text x="212" y="156" font-family="system-ui, sans-serif" font-size="8.5" fill="#b85d19" text-anchor="middle">(breaks Q⇒P)</text>
+      <text x="155" y="198" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550" text-anchor="middle">Every point outside Q is also outside P</text>
+
+      <!-- Right panel: 4-Arrow Square of Implications -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">The Four Implications: Which Pairs Match?</text>
+      <!-- Top-left: P => Q -->
+      <rect x="320" y="40" width="110" height="44" rx="5" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="375" y="60" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Direct: P ⇒ Q</text>
+      <text x="375" y="75" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(often hard)</text>
+      <!-- Bottom-right: ~Q => ~P -->
+      <rect x="465" y="130" width="115" height="44" rx="5" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
+      <text x="522" y="150" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Contrapositive</text>
+      <text x="522" y="165" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">¬Q ⇒ ¬P (≡ P⇒Q)</text>
+      <!-- Top-right: Converse Q => P -->
+      <rect x="465" y="40" width="115" height="44" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="522" y="60" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">Converse: Q ⇒ P</text>
+      <text x="522" y="75" font-family="system-ui, sans-serif" font-size="9" fill="#b85d19" text-anchor="middle">(NOT equivalent!)</text>
+      <!-- Bottom-left: Inverse ~P => ~Q -->
+      <rect x="320" y="130" width="110" height="44" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="375" y="150" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">Inverse: ¬P ⇒ ¬Q</text>
+      <text x="375" y="165" font-family="system-ui, sans-serif" font-size="9" fill="#b85d19" text-anchor="middle">(≡ Converse Q⇒P)</text>
+      <!-- Diagonal equivalence line -->
+      <line x1="415" y1="84" x2="480" y2="130" stroke="#8b2635" stroke-width="2.5"/>
+      <text x="448" y="198" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635" font-weight="bold" text-anchor="middle">Diagonal pair (P⇒Q) and (¬Q⇒¬P) share identical truth tables</text>
+    </svg>
+    <figcaption><strong>Fig P67.1.</strong> Set containment and the square of implications. <em>Left:</em> Saying every element of \(P\) lies inside \(Q\) (\(P \subseteq Q\)) is identical to saying every element outside \(Q\) lies outside \(P\) (\(Q^c \subseteq P^c\)). Points in \(Q \setminus P\) (orange dot, such as \(M_{11} = 2^{11}-1 = 23 \times 89\) where \(n=11\) is prime but \(2^{11}-1\) is composite) refute the converse \(Q \implies P\) while leaving \(P \implies Q\) and \(\neg Q \implies \neg P\) untouched. <em>Right:</em> Diagonal pairs are logically equivalent; horizontal/vertical neighbors are not.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p67a">
+    <h3>Box P67.A · The Four Verification Obligations</h3>
+    <ol>
+      <li><strong>Pin Down the Ambient Domain &amp; Arrow (\(x \in D : P(x) \implies Q(x)\)):</strong> Separate the ambient domain \(x \in D\) (such as "for every integer \(n \ge 2\)" or "for every real \(x \ge 0\)") from the implication \(P(x) \implies Q(x)\). Never negate the ambient domain \(x \in D\)!</li>
+      <li><strong>De Morgan &amp; Quantifier Audit on \(\neg Q\) and \(\neg P\):</strong> Write out \(\neg Q(x)\) and \(\neg P(x)\) explicitly. Verify that every "and" flipped to "or" (and vice versa), every \(\forall\) flipped to \(\exists\) (and vice versa), and strict inequalities flipped to weak inequalities (\(&lt;\) becomes \(\ge\)).</li>
+      <li><strong>Extract the Constructive Handle in \(\neg Q(x)\):</strong> Translate \(\neg Q(x)\) into a concrete object you can compute with — an explicit factorization \(n = ab\), a remainder \(a \equiv 1, 2 \pmod 3\), a positive gap \(\varepsilon_0 = x / 2 &gt; 0\), or a pair of distinct points \(x_1 \neq x_2\) — and push it forward to \(\neg P(x)\).</li>
+      <li><strong>Prune Spurious Contradiction Wrappers:</strong> If your proof assumes \(P \text{ and } \neg Q\) but never touches \(P\) until the final sentence "which contradicts \(P\)", strip away the contradiction wrapper and state it directly as a contrapositive \(\neg Q \implies \neg P\).</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 200" width="100%" role="img" aria-label="Polarity comparison between negative/barren statements and positive/constructive negations, illustrated with 2^6 - 1 binary block factorization">
+      <rect x="0" y="0" width="600" height="200" fill="#ffffff"/>
+      <!-- Left column: Barren direct direction -->
+      <rect x="20" y="22" width="255" height="156" rx="6" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.5"/>
+      <text x="147" y="42" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Direct (P ⇒ Q): Negative / Barren Start</text>
+      <text x="34" y="66" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "2ⁿ − 1 has NO nontrivial divisors"</text>
+      <text x="34" y="86" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "x is irrational (NO p/q equals x)"</text>
+      <text x="34" y="106" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "0 ≤ x &lt; ε for EVERY ε &gt; 0"</text>
+      <text x="34" y="126" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "a² + b² is divisible by 3" (sum coupled)</text>
+      <text x="147" y="158" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Obstacle: Universal ∀ / absence of witness</text>
+
+      <!-- Arrow between columns -->
+      <line x1="282" y1="100" x2="318" y2="100" stroke="#8b2635" stroke-width="2.5"/>
+      <polygon points="318,100 310,95 310,105" fill="#8b2635"/>
+      <text x="300" y="88" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Flip</text>
+
+      <!-- Right column: Fertile contrapositive direction -->
+      <rect x="325" y="22" width="255" height="156" rx="6" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="452" y="42" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Contrapositive (¬Q ⇒ ¬P): Constructive Start</text>
+      <text x="339" y="66" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "n = a·b" ⇒ 111111₂ = 11₂ × 10101₂</text>
+      <text x="339" y="86" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "x = p/q" ⇒ algebraic fraction arithmetic</text>
+      <text x="339" y="106" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "x &gt; 0" ⇒ pick explicit witness ε = x/2 &gt; 0</text>
+      <text x="339" y="126" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">• "3 ∤ a or 3 ∤ b" ⇒ a² ≡ 1 (mod 3), decoupled!</text>
+      <text x="452" y="158" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Gain: Existential ∃ witness &amp; forward algebra</text>
+    </svg>
+    <figcaption><strong>Fig P67.2.</strong> Logical polarity Diagnosis. Whenever \(P\) asserts the <em>absence</em> of a structure (primality, irrationality, holding for all \(\varepsilon &gt; 0\)) or couples variables inside a high-degree expression (\(a^2 + b^2\)), while \(\neg Q\) hands you an <em>explicit witness</em> (\(n = ab\), \(x = p/q\), \(\varepsilon = x/2\)) or decouples the variables (\(3 \nmid a\)), flipping to \(\neg Q \implies \neg P\) turns a roadblock into a forward calculation.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p67b">
+    <h3>Box P67.B · Three-Key Recognition Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> An implication \(P \implies Q\) (or an equivalence \(P \iff Q\) where one direction is obstructed).</li>
+      <li><strong>Problem shape:</strong> One or more of three telltale asymmetries between \(P\) and \(Q\):
+        <ol>
+          <li><em>Negative polarity in \(P\):</em> \(P\) states that something is prime, irrational, empty, or zero, so \(\neg Q\) gives a concrete witness (a factor, a fraction, an element, or a nonzero gap).</li>
+          <li><em>Algebraic funneling (\(Q\) is simpler than \(P\)):</em> \(P\) constrains a complicated combination (\(a^2 + b^2\), \(n^3 + 5n + 1\), or \(f(x_1) = f(x_2)\)), whereas \(Q\) constrains individual variables (\(a, b\) or \(x_1 = x_2\)).</li>
+          <li><em>Universal quantifier in \(P\):</em> \(P\) quantifies over all \(\varepsilon &gt; 0\) or all test subsets, so \(\neg P\) requires constructing just <em>one</em> counterexample \(\varepsilon_0\) from \(\neg Q\).</li>
+        </ol>
+      </li>
+      <li><strong>Tools at hand:</strong> De Morgan's laws, modular arithmetic on small residue classes, polynomial factorization, and strict monotonicity / triangle inequality.</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 (Number Theory &amp; De Morgan Flip) · Why \(3 \mid (a^2 + b^2)\) forces \(3 \mid a\) and \(3 \mid b\)</h3>
+  <p><strong>Problem.</strong> Prove that for any integers \(a, b \in \mathbb{Z}\),</p>
+  \[
+    \underbrace{3 \mid (a^2 + b^2)}_{P} \quad\implies\quad \underbrace{3 \mid a \;\text{ and }\; 3 \mid b}_{Q}.
+  \]
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Diagnose the direct roadblock and apply De Morgan).</strong> Starting directly from \(a^2 + b^2 = 3k\) couples \(a\) and \(b\) inside a sum of squares, which does not factor over \(\mathbb{Z}\). Instead, we form the contrapositive \(\neg Q \implies \neg P\). Because \(Q\) is an <strong>AND</strong> statement ("\(3 \mid a\) and \(3 \mid b\)"), De Morgan's first law turns \(\neg Q\) into an <strong>OR</strong> statement:</p>
+  \[
+    \neg Q:\quad 3 \nmid a \;\;\text{or}\;\; 3 \nmid b,
+    \qquad\qquad
+    \neg P:\quad 3 \nmid (a^2 + b^2).
+  \]
+
+  <p><strong>Step 2 (Compute forward modulo \(3\)).</strong> Every integer \(x\) satisfies \(x \equiv 0, 1,\) or \(2 \pmod 3\). Squaring each residue gives</p>
+  \[
+    0^2 \;\equiv\; 0 \pmod 3, \qquad 1^2 \;\equiv\; 1 \pmod 3, \qquad 2^2 \;=\; 4 \;\equiv\; 1 \pmod 3.
+  \]
+  <p>Thus \(3 \nmid x\) implies \(x^2 \equiv 1 \pmod 3\), while \(3 \mid x\) implies \(x^2 \equiv 0 \pmod 3\). Under \(\neg Q\), at least one of \(a, b\) is not divisible by \(3\), which leaves only two cases for the pair \((a^2 \bmod 3,\, b^2 \bmod 3)\):</p>
+  <ul>
+    <li><strong>Case 1 (Exactly one of \(a, b\) is not divisible by \(3\)):</strong> Then one square is \(1 \pmod 3\) and the other is \(0 \pmod 3\), so \(a^2 + b^2 \equiv 1 + 0 = 1 \not\equiv 0 \pmod 3\).</li>
+    <li><strong>Case 2 (Neither \(a\) nor \(b\) is divisible by \(3\)):</strong> Then both squares are \(1 \pmod 3\), so \(a^2 + b^2 \equiv 1 + 1 = 2 \not\equiv 0 \pmod 3\).</li>
+  </ul>
+  <p>In every case covered by \(\neg Q\), \(a^2 + b^2 \equiv 1\) or \(2 \pmod 3\), so \(3 \nmid (a^2 + b^2)\) (\(\neg P\)). By contrapositive, \(3 \mid (a^2 + b^2) \implies 3 \mid a \text{ and } 3 \mid b\).</p>
+
+  <h3>Exemplar 2 (Real Analysis &amp; Quantifier Flip) · The \(\varepsilon\)-vanishing principle and injectivity of monotone functions</h3>
+  <p><strong>Problem.</strong></p>
+  <ol>
+    <li>Let \(x \ge 0\) be a nonnegative real number. Prove that if \(x &lt; \varepsilon\) for every \(\varepsilon &gt; 0\), then \(x = 0\).</li>
+    <li>Prove that the polynomial \(f : \mathbb{R} \to \mathbb{R}\) defined by \(f(x) = x^5 + 3x^3 + 7x - 2\) is injective: for all \(x_1, x_2 \in \mathbb{R}\), if \(f(x_1) = f(x_2)\), then \(x_1 = x_2\).</li>
+  </ol>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Part 1 (Flipping a universal quantifier into a witness).</strong> Keep the ambient domain \(x \ge 0\) fixed. The implication to prove is</p>
+  \[
+    \underbrace{\bigl(\forall \varepsilon &gt; 0,\; x &lt; \varepsilon\bigr)}_{P} \quad\implies\quad \underbrace{x = 0}_{Q}.
+  \]
+  <p>Negating \(Q\) inside the ambient domain \(x \ge 0\) gives \(\neg Q : x &gt; 0\). Negating the universally quantified statement \(P\) flips \(\forall\) to \(\exists\) and \(&lt;\) to \(\ge\), giving</p>
+  \[
+    \neg P:\quad \exists \varepsilon_0 &gt; 0 \;\text{ such that }\; x \ge \varepsilon_0.
+  \]
+  <p>Now the proof of \(\neg Q \implies \neg P\) takes one line: assuming \(x &gt; 0\), choose \(\varepsilon_0 = \frac{x}{2} &gt; 0\); then \(x = 2\varepsilon_0 &gt; \varepsilon_0\), establishing \(\neg P\)!</p>
+
+  <p><strong>Part 2 (Injectivity is naturally a contrapositive).</strong> Starting from \(x_1^5 + 3x_1^3 + 7x_1 - 2 = x_2^5 + 3x_2^3 + 7x_2 - 2\) and trying to solve a degree-5 equation for \(x_1 = x_2\) is algebraically painful. Instead, flip the definition of injectivity \(f(x_1) = f(x_2) \implies x_1 = x_2\) into its contrapositive:</p>
+  \[
+    x_1 \neq x_2 \quad\implies\quad f(x_1) \neq f(x_2).
+  \]
+  <p>If \(x_1 \neq x_2\), then either \(x_1 &lt; x_2\) or \(x_2 &lt; x_1\). Since \(t \mapsto t^5\), \(t \mapsto 3t^3\), and \(t \mapsto 7t\) are each strictly increasing on \(\mathbb{R}\), their sum \(f(t)\) is strictly increasing: \(x_1 &lt; x_2 \implies f(x_1) &lt; f(x_2)\) and \(x_2 &lt; x_1 \implies f(x_2) &lt; f(x_1)\). In both cases \(f(x_1) \neq f(x_2)\).</p>
+
+  <h3>Exemplar 3 (Combinatorics) · Why the generalized pigeonhole principle is a one-line contrapositive</h3>
+  <p><strong>Problem.</strong> Prove the Generalized Pigeonhole Principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span> · Force a collision</a>): if \(N\) items are distributed into \(n\) boxes and \(N \ge kn + 1\), then at least one box contains at least \(k + 1\) items.</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Identify \(P\) and \(Q\) and negate both).</strong> Let \(c_1, c_2, \dots, c_n\) be the number of items in boxes \(1, 2, \dots, n\), so \(N = c_1 + c_2 + \cdots + c_n\). The claim is</p>
+  \[
+    \underbrace{c_1 + c_2 + \cdots + c_n \;\ge\; kn + 1}_{P} \quad\implies\quad \underbrace{\exists i \in \{1, \dots, n\} \text{ such that } c_i \ge k + 1}_{Q}.
+  \]
+  <p>Negating the existential conclusion \(Q\) ("at least one box has \(\ge k + 1\) items") flips \(\exists\) into \(\forall\) and \(\ge k + 1\) into \(\le k\) (for integers):</p>
+  \[
+    \neg Q:\quad \forall i \in \{1, \dots, n\},\;\; c_i \le k.
+  \]
+  <p>Negating \(P\) gives \(\neg P : c_1 + c_2 + \cdots + c_n \le kn\).</p>
+
+  <p><strong>Step 2 (Add the inequalities forward).</strong> Assuming \(\neg Q\) (\(c_i \le k\) for each \(i = 1, \dots, n\)), summing across all \(n\) boxes gives</p>
+  \[
+    c_1 + c_2 + \cdots + c_n \;\le\; \underbrace{k + k + \cdots + k}_{n \text{ times}} \;=\; kn,
+  \]
+  <p>which is literally \(\neg P\)! Notice that no "contradiction" ceremony was needed: \(\neg Q\) implies \(\neg P\) directly by addition.</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Proving the Inverse (\(\neg P \implies \neg Q\)) or Converse (\(Q \implies P\)) instead of the Contrapositive (\(\neg Q \implies \neg P\)).</strong> Suppose a student tries to prove "If \(2^n - 1\) is prime (\(P\)), then \(n\) is prime (\(Q\))" by negating both sides <em>without</em> reversing the arrow: "Assume \(2^n - 1\) is composite (\(\neg P\)); then \(n\) is composite (\(\neg Q\))." That statement is <strong>false</strong>! At \(n = 11\) (which is prime), \(2^{11} - 1 = 2047 = 23 \times 89\) is composite.</p>
+    <p><em>Mitigation:</em> Always verify that you both <strong>reversed the arrow</strong> and <strong>negated both statements</strong>: \(P \implies Q\) becomes \(\neg Q \implies \neg P\).</p>
+    <p><em>Price:</em> Writing out \(P\), \(Q\), \(\neg Q\), and \(\neg P\) explicitly before starting the algebra (Obligation 1 of Box P67.A).</p>
+    <p><em>Default:</em> Check your starting assumption: in a contrapositive proof of \(P \implies Q\), your first sentence must always be "Assume \(\neg Q\)," never "Assume \(\neg P\)" or "Assume \(Q\)."</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="3x3 modulo 3 grid for (a mod 3, b mod 3) showing why De Morgan negation of (3 divides a and 3 divides b) covers all 8 non-zero cells whereas the botched negation covers only 4 cells">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <!-- Left 3x3 Grid: Correct De Morgan Negation ~(3|a AND 3|b) = (3∤a OR 3∤b) (8 cells) -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Correct De Morgan ¬Q: (3 ∤ a OR 3 ∤ b) — All 8 Cells Checked</text>
+      <!-- Grid at x=65..245 (60px per col), y=35..185 (50px per row) -->
+      <!-- Row 0 (a≡0): (0,0) white/Q, (0,1) blue, (0,2) blue -->
+      <rect x="65" y="35" width="60" height="50" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <rect x="125" y="35" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="185" y="35" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <!-- Row 1 (a≡1): all 3 blue -->
+      <rect x="65" y="85" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="125" y="85" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="185" y="85" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <!-- Row 2 (a≡2): all 3 blue -->
+      <rect x="65" y="135" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="125" y="135" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="185" y="135" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <!-- Cell labels -->
+      <text x="95" y="64" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q: (0,0)→0</text>
+      <text x="155" y="64" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(0,1)→1</text>
+      <text x="215" y="64" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(0,2)→1</text>
+      <text x="95" y="114" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(1,0)→1</text>
+      <text x="155" y="114" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(1,1)→2</text>
+      <text x="215" y="114" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(1,2)→2</text>
+      <text x="95" y="164" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(2,0)→1</text>
+      <text x="155" y="164" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(2,1)→2</text>
+      <text x="215" y="164" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(2,2)→2</text>
+      <text x="155" y="203" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">All 8 non-Q cells give a²+b² ≡ 1 or 2 ≠ 0 (mod 3)</text>
+
+      <!-- Right 3x3 Grid: Botched Negation (3∤a AND 3∤b) misses 4 border cells! -->
+      <text x="445" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Botched Negation: (3 ∤ a AND 3 ∤ b) — 4 Cells Missed!</text>
+      <rect x="355" y="35" width="60" height="50" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <rect x="415" y="35" width="60" height="50" fill="#f9ebe0" stroke="#b85d19" stroke-width="2" stroke-dasharray="3,2"/>
+      <rect x="475" y="35" width="60" height="50" fill="#f9ebe0" stroke="#b85d19" stroke-width="2" stroke-dasharray="3,2"/>
+      <rect x="355" y="85" width="60" height="50" fill="#f9ebe0" stroke="#b85d19" stroke-width="2" stroke-dasharray="3,2"/>
+      <rect x="415" y="85" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="475" y="85" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="355" y="135" width="60" height="50" fill="#f9ebe0" stroke="#b85d19" stroke-width="2" stroke-dasharray="3,2"/>
+      <rect x="415" y="135" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <rect x="475" y="135" width="60" height="50" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="385" y="64" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q: (0,0)</text>
+      <text x="445" y="64" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">MISSED!</text>
+      <text x="505" y="64" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">MISSED!</text>
+      <text x="385" y="114" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">MISSED!</text>
+      <text x="445" y="114" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(1,1)→2</text>
+      <text x="505" y="114" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(1,2)→2</text>
+      <text x="385" y="164" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">MISSED!</text>
+      <text x="445" y="164" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(2,1)→2</text>
+      <text x="505" y="164" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">(2,2)→2</text>
+      <text x="445" y="203" font-family="system-ui, sans-serif" font-size="9.5" fill="#b85d19" text-anchor="middle">Forgetting AND→OR leaves 4 residue pairs unproved!</text>
+    </svg>
+    <figcaption><strong>Fig P67.3.</strong> Why De Morgan's Law is mandatory when negating a compound conclusion (Exhibit B). In Exemplar 1, \(Q\) is the single cell \((0,0) \bmod 3\). Its complement \(\neg Q\) ("\(3 \nmid a\) <em>or</em> \(3 \nmid b\)") consists of all \(8\) remaining cells of the \(3 \times 3\) grid (left). Negating \(Q\) carelessly as "\(3 \nmid a\) <em>and</em> \(3 \nmid b\)" checks only the \(4\) lower-right cells and leaves the \(4\) mixed cells \((0,1), (0,2), (1,0), (2,0)\) unproved (right).</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Forgetting to flip AND to OR (De Morgan failure) leaves half the complement unproved.</strong> As shown in Fig P67.3, if \(Q\) is a conjunction \(Q_1 \wedge Q_2\) ("both \(a\) and \(b\) are multiples of \(3\)") and you write \(\neg Q\) as \(\neg Q_1 \wedge \neg Q_2\) ("neither \(a\) nor \(b\) is a multiple of \(3\)"), you have only proved \(P \implies (Q_1 \vee Q_2)\) ("at least one of \(a, b\) is a multiple of \(3\)") — a strictly weaker statement!</p>
+    <p><em>Mitigation:</em> Mechanically apply De Morgan's law \(\neg(Q_1 \wedge Q_2) = (\neg Q_1) \vee (\neg Q_2)\) and check both pure and mixed cases.</p>
+    <p><em>Price:</em> Checking two subcases (or using WLOG, <a href="p68-wlog.html"><span class="pid">P68</span></a>, when \(Q_1\) and \(Q_2\) are symmetric).</p>
+    <p><em>Default:</em> Audit every compound negation against Obligation 2 of Box P67.A.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Negating the ambient domain \(x \in D\) or losing explicit witnesses when an algorithm is required.</strong> First, in "For every integer \(n \ge 2\), if \(2^n - 1\) is prime then \(n\) is prime," the condition \(n \ge 2\) is the <em>ambient domain</em> \(D\). If you mistakenly include \(n &lt; 2\) inside \(\neg Q\), your proof breaks at \(n = 1\) (which is neither prime nor composite). Second, if a problem asks for an <em>explicit algorithm</em> to construct \(y\) from \(x\) whenever \(P(x)\) holds, proving \(\neg Q \implies \neg P\) may verify existence without supplying a direct formula.</p>
+    <p><em>Mitigation:</em> Keep the universal domain declaration "Let \(x \in D\)" outside the implication arrow before negating \(P(x) \implies Q(x)\).</p>
+    <p><em>Price:</em> Separating domain hypotheses from the active antecedent \(P(x)\).</p>
+    <p><em>Default:</em> Write every theorem in the canonical form \(\forall x \in D,\; \bigl(P(x) \implies Q(x)\bigr)\) before forming \(\forall x \in D,\; \bigl(\neg Q(x) \implies \neg P(x)\bigr)\).</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> In classical two-valued logic, \(P \implies Q\) and \(\neg Q \implies \neg P\) are completely equivalent because double negation elimination (\(\neg\neg P \iff P\)) holds. In <em>constructive</em> (intuitionistic) logic, \((P \implies Q) \implies (\neg Q \implies \neg P)\) is always valid, while the reverse direction \((\neg Q \implies \neg P) \implies (P \implies Q)\) requires \(Q\) to be decidable (such as primality, divisibility, or equality of integers).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When De Morgan splits \(\neg Q\) into symmetric cases like "\(3 \nmid a\) or \(3 \nmid b\)" or "\(x_1 &lt; x_2\) or \(x_2 &lt; x_1\)" and you want to cut the casework in half:</strong> Step forward to the next chapter, <a href="p68-wlog.html"><span class="pid">P68</span> · Without loss of generality</a>.</li>
+    <li><strong>When \(\neg Q\) alone is not enough to compute forward to \(\neg P\), so you genuinely need <em>both</em> \(P\) and \(\neg Q\) interacting together:</strong> Escalate to <a href="p11-contradiction.html"><span class="pid">P11</span> · Prove by contradiction</a> (for example, in the irrationality of \(\sqrt{2}\), where you need \(\gcd(a,b) = 1\) from \(\neg Q\) together with \(a^2 = 2b^2\) from \(P\)).</li>
+    <li><strong>When your contrapositive bounds a sum across boxes (\(\sum c_i \le kn\)):</strong> Pair <span class="pid">P67</span> with <a href="p10-pigeonhole.html"><span class="pid">P10</span> · Force a collision</a> or <a href="p70-double-counting.html"><span class="pid">P70</span> · Double counting</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Stoic <em>modus tollens</em> to Boole's algebra of classes and Brouwer's constructive critique (c. 300 BCE – 1908).</strong></p>
+    <ul>
+      <li><strong>Aristotle (c. 350 BCE) &amp; Chrysippus of Soli (c. 240 BCE):</strong> In the <em>Prior Analytics</em> and the Stoic propositional calculus, ancient logicians separated categorical conversion from <em>antistrophe</em> (contraposition) and codified the second Stoic "indemonstrable" inference rule, later named in medieval Latin <strong>modus tollendo tollens</strong> ("the mode that denies by denying"): from \(P \implies Q\) and \(\neg Q\), infer \(\neg P\).</li>
+      <li><strong>Marin Mersenne (1644) &amp; Pierre de Fermat (1640):</strong> Exploring prime numbers of the form \(2^n - 1\) and \(2^m + 1\), Fermat and Mersenne used the contrapositive polynomial factorizations \(x^{ab} - 1 = (x^a - 1)(\dots)\) and \(x^{ab} + 1 = (x^a + 1)(\dots)\) (for odd \(b\)) to rule out composite exponents \(n\) and odd factors of \(m\) before testing a single candidate divisor.</li>
+      <li><strong>Augustus De Morgan (1847) &amp; George Boole (1854):</strong> In <em>Formal Logic</em> and <em>The Laws of Thought</em>, De Morgan and Boole turned propositional negation into set complementation inside a universe \(D\), making the equivalence \((P \subseteq Q) \iff (Q^c \subseteq P^c)\) and the duality laws \((A \cap B)^c = A^c \cup B^c\) purely algebraic identities.</li>
+      <li><strong>L. E. J. Brouwer (1908) &amp; Arend Heyting (1930):</strong> Developing intuitionistic logic, Brouwer pointed out a subtle asymmetry: proving \(P \implies Q\) always yields \(\neg Q \implies \neg P\), but passing from \(\neg Q \implies \neg P\) back to \(P \implies Q\) uses \(\neg\neg Q \implies Q\) (double-negation elimination), which is non-constructive unless \(Q\) is decidable.</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise P67.1 (●○○ — Polynomial parity funnel).</strong> Let \(n \in \mathbb{Z}\) be an integer. Prove that</p>
+    \[
+      \text{If } n^3 + 5n + 1 \text{ is even,} \quad\text{then}\quad n \text{ is odd.}
+    \]
+    <ol>
+      <li>Identify the ambient domain \(D\), the antecedent \(P(n)\), the consequent \(Q(n)\), and write out the exact contrapositive \(\neg Q(n) \implies \neg P(n)\).</li>
+      <li>Prove \(\neg Q(n) \implies \neg P(n)\) by substituting \(n = 2k\) and computing \(n^3 + 5n + 1\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Keep \(n \in \mathbb{Z}\) fixed. In \(\mathbb{Z}\), "not odd" is "even" (\(n = 2k\)), and "not even" is "odd".</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Logical structure and contrapositive.</strong></p>
+      <ul>
+        <li>Ambient domain \(D\): \(n \in \mathbb{Z}\).</li>
+        <li>\(P(n)\): "\(n^3 + 5n + 1\) is even"; \(Q(n)\): "\(n\) is odd".</li>
+        <li>Contrapositive \(\neg Q(n) \implies \neg P(n)\): "If \(n\) is even, then \(n^3 + 5n + 1\) is odd."</li>
+      </ul>
+      <p><strong>2. Forward algebraic verification.</strong> Assume \(\neg Q(n)\), so \(n = 2k\) for some integer \(k \in \mathbb{Z}\). Substituting into the cubic gives</p>
+      \[
+        n^3 + 5n + 1 \;=\; (2k)^3 + 5(2k) + 1 \;=\; 8k^3 + 10k + 1 \;=\; 2\bigl(4k^3 + 5k\bigr) + 1,
+      \]
+      <p>which is odd (\(\neg P(n)\)). By contrapositive, if \(n^3 + 5n + 1\) is even, then \(n\) is odd.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P67.2 (●●○ — Fermat primes and odd exponent factors).</strong> Prove that for any integer \(m \ge 1\),</p>
+    \[
+      \text{If } 2^m + 1 \text{ is prime,} \quad\text{then}\quad m = 2^k \text{ is a power of } 2.
+    \]
+    <ol>
+      <li>Write the contrapositive of this implication. Why does "\(m\) is not a power of \(2\)" guarantee that \(m\) can be factored as \(m = a b\) where \(b \ge 3\) is <em>odd</em>?</li>
+      <li>Use the identity \(x^b + 1 = (x + 1)(x^{b-1} - x^{b-2} + \cdots - x + 1)\) (valid for odd \(b \ge 3\)) with \(x = 2^a\) to prove that \(2^m + 1\) is composite. Then apply your formula to factor \(2^{12} + 1 = 4097\) explicitly.</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Every positive integer \(m\) factors uniquely as \(m = 2^k \cdot b\) with \(b\) odd. Saying \(m\) is not a power of \(2\) means \(b \ge 3\). For \(m = 12 = 4 \times 3\), take \(a = 4\) and \(b = 3\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Contrapositive and extracting an odd factor \(b \ge 3\).</strong> The contrapositive is: "For any integer \(m \ge 1\), if \(m\) is not a power of \(2\) (\(\neg Q\)), then \(2^m + 1\) is composite (\(\neg P\))." Writing \(m = 2^k \cdot b\) where \(b\) is the odd part of \(m\), the assumption \(\neg Q\) ("\(m\) is not a power of \(2\)") means \(b \ge 3\) is an odd integer. Set \(a = 2^k \ge 1\), so \(m = ab\) with \(b \ge 3\) odd.</p>
+      <p><strong>2. Polynomial factorization for odd \(b\).</strong> Because \(b\) is odd, \((-1)^b = -1\), so \(x = -1\) is a root of \(x^b + 1\) and we have the exact identity</p>
+      \[
+        2^{ab} + 1 \;=\; (2^a)^b + 1 \;=\; \bigl(2^a + 1\bigr)\,\bigl(2^{a(b-1)} - 2^{a(b-2)} + \cdots - 2^a + 1\bigr).
+      \]
+      <p>Since \(a \ge 1\), the first factor is \(2^a + 1 \ge 3 &gt; 1\), and since \(b \ge 3\), the quotient is \(\frac{2^{ab} + 1}{2^a + 1} \ge \frac{2^{3a} + 1}{2^a + 1} = 2^{2a} - 2^a + 1 \ge 3 &gt; 1\). Thus \(2^m + 1\) is composite! For \(m = 12 = 4 \times 3\) (\(a = 4, b = 3\)), this gives</p>
+      \[
+        2^{12} + 1 \;=\; 4097 \;=\; \bigl(2^4 + 1\bigr)\,\bigl(2^8 - 2^4 + 1\bigr) \;=\; 17 \times (256 - 16 + 1) \;=\; 17 \times 241.
+      \]
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P67.3 (●●● — Irrationality propagation via De Morgan's second law).</strong> Let \(x, y \in \mathbb{R}\) be real numbers. Prove that</p>
+    \[
+      \text{If } x + y \text{ is irrational,} \quad\text{then}\quad x \text{ is irrational} \;\text{ or }\; y \text{ is irrational.}
+    \]
+    <p>Why is a direct proof obstructed, and how does De Morgan's law turn \(\neg Q\) into two constructive rational fractions?</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Here \(Q\) is an <strong>OR</strong> statement ("\(x \notin \mathbb{Q}\) or \(y \notin \mathbb{Q}\)"). By De Morgan's second law, \(\neg(A \text{ or } B) \equiv (\neg A) \text{ and } (\neg B)\), so \(\neg Q\) means <em>both</em> \(x\) and \(y\) are rational!</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Why the direct route is obstructed.</strong> Knowing only that \(x + y \notin \mathbb{Q}\) gives no algebraic representation for \(x + y\), nor does it tell us which summand carries the irrationality.</p>
+      <p><strong>2. De Morgan negation and forward rational arithmetic.</strong> Keep the ambient domain \(x, y \in \mathbb{R}\) fixed. The consequent is \(Q : (x \notin \mathbb{Q}) \vee (y \notin \mathbb{Q})\). Applying De Morgan's law \(\neg(A \vee B) \equiv (\neg A) \wedge (\neg B)\), the negation \(\neg Q\) is</p>
+      \[
+        \neg Q:\quad x \in \mathbb{Q} \;\;\text{and}\;\; y \in \mathbb{Q}.
+      \]
+      <p>Now \(\neg Q\) hands us four integers \(a, b, c, d \in \mathbb{Z}\) with \(b \neq 0, d \neq 0\) such that \(x = \frac{a}{b}\) and \(y = \frac{c}{d}\). Adding them gives</p>
+      \[
+        x + y \;=\; \frac{a}{b} + \frac{c}{d} \;=\; \frac{ad + bc}{bd}.
+      \]
+      <p>Since \(ad + bc \in \mathbb{Z}\) and \(bd \in \mathbb{Z} \setminus \{0\}\), \(x + y \in \mathbb{Q}\) is rational (\(\neg P\)). By contrapositive, \(x + y \notin \mathbb{Q} \implies (x \notin \mathbb{Q} \text{ or } y \notin \mathbb{Q})\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P67.4 (◆ — Pattern-unknown diagnosis).</strong> Let \(a, b, c \in \mathbb{Z}\) be integers satisfying the Pythagorean equation \(a^2 + b^2 = c^2\). Prove that at least one of the two legs \(a\) or \(b\) is divisible by \(3\).</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern diagnosis (<a href="p67-contrapositive.html"><span class="pid">P67</span> · Prove the contrapositive</a>).</strong> Rewriting the statement as an implication for integers \(a, b, c \in \mathbb{Z}\):</p>
+      \[
+        \underbrace{a^2 + b^2 = c^2}_{P} \quad\implies\quad \underbrace{3 \mid a \;\text{ or }\; 3 \mid b}_{Q}.
+      \]
+      <p>Trying to solve \(a^2 + b^2 = c^2\) directly for divisibility by \(3\) requires parameterizing all Pythagorean triples. Instead, negate \(Q\) via De Morgan's law \(\neg(A \vee B) \equiv (\neg A) \wedge (\neg B)\):</p>
+      \[
+        \neg Q:\quad 3 \nmid a \;\;\text{and}\;\; 3 \nmid b,
+        \qquad\qquad
+        \neg P:\quad a^2 + b^2 \neq c^2.
+      \]
+      <p><strong>2. Forward modular calculation.</strong> As shown in Exemplar 1, any integer not divisible by \(3\) satisfies \(x^2 \equiv (\pm 1)^2 \equiv 1 \pmod 3\), while every integer square satisfies \(c^2 \equiv 0\) or \(1 \pmod 3\). Assuming \(\neg Q\) (\(3 \nmid a\) and \(3 \nmid b\)), we have \(a^2 \equiv 1 \pmod 3\) and \(b^2 \equiv 1 \pmod 3\), so</p>
+      \[
+        a^2 + b^2 \;\equiv\; 1 + 1 \;=\; 2 \pmod 3.
+      \]
+      <p>However, for <em>every</em> integer \(c\), \(c^2 \equiv 0\) or \(1 \pmod 3\), so \(c^2 \not\equiv 2 \pmod 3\). Therefore \(a^2 + b^2 \not\equiv c^2 \pmod 3\), which forces \(a^2 + b^2 \neq c^2\) (\(\neg P\))! By contrapositive, \(a^2 + b^2 = c^2 \implies (3 \mid a \text{ or } 3 \mid b)\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P67.5 (◐ — Exploration: Topological continuity via closed sets and the \(n\)-th term divergence test).</strong></p>
+    <ol>
+      <li>In calculus, a fundamental theorem states: "If the infinite series \(\sum_{n=1}^\infty a_n\) converges (\(P\)), then \(\lim_{n \to \infty} a_n = 0\) (\(Q\))." Write down the contrapositive (\(\neg Q \implies \neg P\)) and the converse (\(Q \implies P\)) of this theorem. Which one is the <strong>\(n\)-th Term Test for Divergence</strong>, and what famous series proves that the converse is false?</li>
+      <li>Let \(f : X \to Y\) be a map between topological spaces, and let \(B \subseteq Y\) be any subset. Using the set-complement identity \(f^{-1}(Y \setminus B) = X \setminus f^{-1}(B)\), explain why the statement "for every open set \(U \subseteq Y\), \(f^{-1}(U)\) is open in \(X\)" is the exact set-level contrapositive of "for every closed set \(F \subseteq Y\), \(f^{-1}(F)\) is closed in \(X\)".</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>For Part 1, check the harmonic series \(\sum_{n=1}^\infty \frac{1}{n}\). For Part 2, recall that a subset \(F \subseteq Y\) is closed if and only if its complement \(U = Y \setminus F\) is open, and that \(x \in f^{-1}(Y \setminus F) \iff f(x) \notin F \iff x \notin f^{-1}(F)\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. The \(n\)-th Term Test vs. the harmonic trap.</strong></p>
+      <ul>
+        <li><strong>Contrapositive (\(\neg Q \implies \neg P\)):</strong> "If \(\lim_{n \to \infty} a_n \neq 0\) (or does not exist), then \(\sum_{n=1}^\infty a_n\) diverges." Because \(P \implies Q\) is true, this contrapositive is <strong>always true</strong> — it is the standard <em>\(n\)-th Term Test for Divergence</em>.</li>
+        <li><strong>Converse (\(Q \implies P\)):</strong> "If \(\lim_{n \to \infty} a_n = 0\), then \(\sum_{n=1}^\infty a_n\) converges." This is <strong>false</strong>: the harmonic series \(\sum_{n=1}^\infty \frac{1}{n}\) has \(\lim_{n \to \infty} \frac{1}{n} = 0\) (\(Q\) true), yet \(\sum_{n=1}^\infty \frac{1}{n} = \infty\) diverges (\(P\) false) — sitting squarely in the region \(Q \setminus P\) of Fig P67.1!</li>
+      </ul>
+      <p><strong>2. Open-preimage continuity vs. closed-preimage continuity.</strong> For any subset \(B \subseteq Y\), the preimage commutes with set complementation because the Membership implication \(x \in f^{-1}(B) \iff f(x) \in B\) has the contrapositive \(x \notin f^{-1}(B) \iff f(x) \notin B\):</p>
+      \[
+        X \setminus f^{-1}(B) \;=\; \{x \in X : f(x) \notin B\} \;=\; f^{-1}(Y \setminus B).
+      \]
+      <p>Since closed sets are precisely the complements of open sets (\(F = Y \setminus U\)), requiring \(f^{-1}(U)\) to be open for every open \(U \subseteq Y\) is identical to requiring \(X \setminus f^{-1}(U) = f^{-1}(Y \setminus U) = f^{-1}(F)\) to be closed for every closed \(F \subseteq Y\).</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p66-induction.html">← Previous: P66 · Prove by induction</a> ·
+    <a href="p68-wlog.html">Next: P68 · Without loss of generality →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>

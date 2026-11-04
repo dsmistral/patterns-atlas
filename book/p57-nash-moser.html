@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P57 · Nash-Moser fast Newton · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P57 · the twelfth move of tier 5</p>
+  <h1>Nash-Moser fast Newton</h1>
+  <p class="tagline">When every step of your iteration eats derivatives and high-frequency ripples blow up, pair quadratic Newton updates with a gradually widening low-pass filter so superlinear speed outruns the derivative loss.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Smoothness ladders \(C^s / H^s\), loss of derivatives, and smoothing filters \(S_N\).</strong>
+  A function \(u(x) = \sum_{n \in \mathbb{Z}} \hat{u}_n e^{inx}\) on the circle has <em>Sobolev smoothness \(s\)</em> (written \(u \in H^s\)) if its \(s\)-th derivative has finite energy: \(\|u\|_s^2 = \sum_{n \in \mathbb{Z}} (1 + n^2)^s |\hat{u}_n|^2 &lt; \infty\). An operator \(T\) suffers a <em>loss of \(d\) derivatives</em> if bounding its output in \(H^s\) requires \(s+d\) derivatives of the input: \(\|T(h)\|_s \le C\,\|h\|_{s+d}\). A <em>smoothing filter</em> \(S_N\) at cutoff \(N\) keeps all Fourier modes with \(|n| \le N\) and zeroes out high frequencies \(|n| &gt; N\), trading a small high-frequency truncation error for bounded derivatives of every order.
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p22-fixed-point.html"><span class="pid">P22</span></a> taught us the three locks of contraction mapping — exemplified by the Babylonian iteration \(x_{k+1} = \frac{1}{2}(x_k + \frac{2}{x_k})\) for \(\sqrt{2}\) — where a map \(g : X \to X\) sends a single complete space back into itself and shrinks distances at every step. <a href="p26-model-with-equation.html"><span class="pid">P26</span></a> showed us how physical balance laws become differential equations whose unknowns are functions living in smoothness spaces.</p>
+  <p>Here is the wall where <a href="p22-fixed-point.html"><span class="pid">P22</span></a> and <a href="p26-model-with-equation.html"><span class="pid">P26</span></a> collide. In geometric PDEs (such as embedding a curved surface isometrically into \(\mathbb{R}^n\)) and in celestial mechanics (where small divisors appear in Fourier series), solving the linearized equation \(D\mathcal{F}(u_k)\,h_k = -\mathcal{F}(u_k)\) <strong>loses \(d \ge 1\) derivatives</strong>: if the residual \(\mathcal{F}(u_k)\) has \(s\) continuous derivatives, the correction \(h_k\) has only \(s - d\) derivatives! After \(k\) steps, your iterate \(u_k\) has lost \(k \cdot d\) derivatives. If you start in \(C^{20}\) and lose \(2\) derivatives per step, you fall out of \(C^0\) after step \(10\), and the iteration dies before it can converge. Worse, you cannot simply work in \(C^\infty\), because \(C^\infty\) is not a single Banach space with one norm. How do you run a fixed-point iteration when every step drops you down the smoothness ladder?</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: the ultraviolet catastrophe of derivative loss, and the filter that tames it</h2>
+  <p>Watch what happens when an iteration loses two derivatives per step. Suppose we want to solve a nonlinear equation \(\mathcal{F}(u) = 0\) on the circle \(x \in \mathbb{R}/2\pi\mathbb{Z}\) whose iterative update applies a second derivative \(\partial_x^2\) with small coupling \(\varepsilon = 0.01\):</p>
+  <p class="eq">\[u_{k+1}(x) = g(x) - \varepsilon\,u_k(x)\,u_k''(x).\]</p>
+  <p>On smooth low-frequency waves like \(\cos x\), the operator \(\varepsilon\partial_x^2\) multiplies by \(-0.01\), which looks like a harmless contraction (<a href="p22-fixed-point.html"><span class="pid">P22</span></a>). But suppose \(u_0(x)\) contains a microscopic high-frequency ripple \(\delta_0 \cos(50 x)\) at wavenumber \(M = 50\) with initial amplitude \(\delta_0 = 10^{-6}\). Because \(\frac{d^2}{dx^2}\cos(50 x) = -2500\cos(50 x)\), each step multiplies that ripple not by \(0.01\), but by \(\varepsilon M^2 = 0.01 \times 2500 = 25\):</p>
+  <p class="eq">\[\delta_k = 25^k\,\delta_0 \quad\Longrightarrow\quad \delta_0 = 10^{-6},\;\; \delta_1 = 2.5\times 10^{-5},\;\; \delta_2 = 6.25\times 10^{-4},\;\; \delta_3 = 0.0156,\;\; \delta_4 = 0.3906.\]</p>
+  <p>In just four steps, a one-in-a-million ripple at \(M = 50\) explodes by a factor of \(390{,}625\)! And at wavenumber \(M = 1000\), the single-step amplification is \(\varepsilon M^2 = 10{,}000\). Naive Picard iteration is destroyed immediately by high-frequency noise.</p>
+  <p>Why can't we just truncate all Fourier modes (<a href="p24-split-into-waves.html"><span class="pid">P24</span></a>) above a gradually rising cutoff \(N_k\) inside a linear Picard iteration? Because linear error \(e_{k+1} \approx \frac{1}{2}e_k\) shrinks too slowly to pay for the growing \(N_k^d\) penalty! Here is John Nash's and Jürgen Moser's insight: switch from linear Picard iteration (\(e_k^1\)) to <strong>quadratic Newton iteration</strong> (\(e_k^2\)), and precede each Newton inversion with a low-pass smoothing filter \(S_{N_k}\). If our iterate has \(\sigma = 2\) spare derivatives of smoothness and the linearized inverse loses \(d = 2\) derivatives, the error \(e_{k+1}\) after one smoothed Newton step splits into two competing pieces:</p>
+  <p class="eq">\[e_{k+1} \;\le\; \underbrace{N_k^{-\sigma}\,e_k}_{\text{high-frequency truncation error }(\sigma=2)} \;+\; \underbrace{N_k^d\,e_k^2}_{\text{amplified Newton quadratic error }(d=2)}.\]</p>
+  <p>Balance the two pieces by setting \(N_k^{-2} e_k = N_k^2 e_k^2\), which pins down the exact cutoff schedule \(N_k = e_k^{-1/4}\). Substitute \(N_k = e_k^{-1/4}\) back into the bound:</p>
+  <p class="eq">\[e_{k+1} \;\le\; 2\,\bigl(e_k^{-1/4}\bigr)^{-2} e_k = 2\,e_k^{3/2}.\]</p>
+  <p>The derivative loss \(N_k^2 = e_k^{-1/2}\) eats only <em>half</em> of a power of \(e_k\) out of Newton's quadratic \(e_k^2\), leaving a net exponent \(\kappa = \frac{3}{2} &gt; 1\)! Compare the three regimes starting from \(e_0 = 10^{-2}\):</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Step \(k\)</th>
+        <th>Picard Contraction (\(0.5\,e_k\))</th>
+        <th>Nash–Moser Error (\(e_{k+1} = e_k^{3/2}\))</th>
+        <th>Filter Cutoff \(N_k = e_k^{-1/4}\)</th>
+        <th>Classical Newton (\(e_{k+1} = e_k^2, d=0\))</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(0\)</td>
+        <td>\(1.000 \times 10^{-2}\)</td>
+        <td>\(1.000000 \times 10^{-2}\)</td>
+        <td>\(3.16\) (keep modes \(|n| \le 3\))</td>
+        <td>\(1.000000 \times 10^{-2}\)</td>
+      </tr>
+      <tr>
+        <td>\(1\)</td>
+        <td>\(5.000 \times 10^{-3}\)</td>
+        <td>\(1.000000 \times 10^{-3}\)</td>
+        <td>\(5.62\) (keep modes \(|n| \le 5\))</td>
+        <td>\(1.000000 \times 10^{-4}\)</td>
+      </tr>
+      <tr>
+        <td>\(2\)</td>
+        <td>\(2.500 \times 10^{-3}\)</td>
+        <td>\(3.162278 \times 10^{-5}\)</td>
+        <td>\(13.34\) (keep modes \(|n| \le 13\))</td>
+        <td>\(1.000000 \times 10^{-8}\)</td>
+      </tr>
+      <tr>
+        <td>\(3\)</td>
+        <td>\(1.250 \times 10^{-3}\)</td>
+        <td>\(1.778279 \times 10^{-7}\)</td>
+        <td>\(48.70\) (keep modes \(|n| \le 48\))</td>
+        <td>\(1.000000 \times 10^{-16}\)</td>
+      </tr>
+      <tr>
+        <td>\(4\)</td>
+        <td>\(6.250 \times 10^{-4}\)</td>
+        <td>\(7.498942 \times 10^{-11}\)</td>
+        <td>\(339.82\) (keep modes \(|n| \le 339\))</td>
+        <td>\(1.000000 \times 10^{-32}\)</td>
+      </tr>
+      <tr>
+        <td>\(5\)</td>
+        <td>\(3.125 \times 10^{-4}\)</td>
+        <td>\(6.493816 \times 10^{-16}\)</td>
+        <td>\(6264.34\) (keep modes \(|n| \le 6264\))</td>
+        <td>\(1.000000 \times 10^{-64}\)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" role="img" aria-label="Fig P57.1: Left: the smoothness staircase where unsmoothed steps drop by d derivatives until falling below s_0, versus Nash-Moser smoothing S_{N_k} restoring C^infty regularity before each Newton step. Right: superlinear log-error decay e_k^(3/2).">
+      <defs>
+        <marker id="arr-p57-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8a4b08"/>
+        </marker>
+        <marker id="arr-p57-teal" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="600" height="220" fill="#ffffff"/>
+
+      <!-- Left panel: Smoothness staircase H^s -->
+      <text x="150" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · The Smoothness Ladder Hˢ (Derivative Loss d)</text>
+      <!-- Axes -->
+      <line x1="45" y1="175" x2="275" y2="175" stroke="#8a94a3" stroke-width="1.2"/>
+      <line x1="45" y1="35" x2="45" y2="195" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- Dead zone floor s_min -->
+      <rect x="45" y="155" width="230" height="35" fill="#fdf6f0"/>
+      <line x1="45" y1="155" x2="275" y2="155" stroke="#8a4b08" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <text x="270" y="170" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="end">Dead floor s &lt; s₀ (crash!)</text>
+
+      <!-- Unsmoothed staircase dropping by d each step: (60,55) -> (105,85) -> (150,115) -> (195,145) -> (240,175) -->
+      <polyline points="60,55 105,85 150,115 195,145 240,175" fill="none" stroke="#8a4b08" stroke-width="2" marker-end="url(#arr-p57-red)"/>
+      <circle cx="60" cy="55" r="4" fill="#8a4b08"/>
+      <circle cx="105" cy="85" r="4" fill="#8a4b08"/>
+      <circle cx="150" cy="115" r="4" fill="#8a4b08"/>
+      <circle cx="195" cy="145" r="4" fill="#8a4b08"/>
+      <text x="165" y="138" font-family="Georgia, serif" font-size="10" fill="#8a4b08">Unsmoothed: s − k d</text>
+
+      <!-- Nash-Moser sawtooth: S_{N_k} lifts up to band |n| <= N_k, then D F^{-1} drops by d, staying safe at s_* -->
+      <polyline points="60,75 82,45 105,75 127,45 150,75 172,45 195,75 217,45 240,75" fill="none" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p57-teal)"/>
+      <text x="155" y="40" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Smoothed S_{N_k} + Newton step</text>
+      <text x="160" y="204" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Iteration step k = 0, 1, 2, 3, 4</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="202" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Log10 Error Decay -->
+      <text x="450" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Log₁₀ Error Decay: Picard vs. Nash–Moser (κ = 3/2)</text>
+      <line x1="345" y1="45" x2="570" y2="45" stroke="#8a94a3" stroke-width="1.2"/>
+      <line x1="345" y1="45" x2="345" y2="185" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- k = 0,1,2,3,4,5 at x = 355 + 40*k -->
+      <!-- y maps log10(e_k) from -2 (y=60) down to -16 (y=172): y = 44 - 8 * log10(e_k) -->
+      <!-- Picard: log10 = -2.0, -2.3, -2.6, -2.9, -3.2, -3.5 -> y = 60, 62.4, 64.8, 67.2, 69.6, 72 -->
+      <polyline points="355,60 395,62.4 435,64.8 475,67.2 515,69.6 555,72" fill="none" stroke="#8a4b08" stroke-width="1.8" stroke-dasharray="4,3"/>
+      <!-- Nash-Moser (kappa=1.5): log10 = -2.0, -3.0, -4.5, -6.75, -10.125, -15.19 -> y = 60, 68, 80, 98, 125, 165.5 -->
+      <polyline points="355,60 395,68 435,80 475,98 515,125 555,165.5" fill="none" stroke="#0f5c57" stroke-width="2.4"/>
+      <circle cx="355" cy="60" r="4" fill="#0f5c57"/>
+      <circle cx="395" cy="68" r="4" fill="#0f5c57"/>
+      <circle cx="435" cy="80" r="4" fill="#0f5c57"/>
+      <circle cx="475" cy="98" r="4" fill="#0f5c57"/>
+      <circle cx="515" cy="125" r="4" fill="#0f5c57"/>
+      <circle cx="555" cy="165.5" r="4.5" fill="#0f5c57"/>
+
+      <text x="550" y="64" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="end">Picard (linear 0.5ᵏ)</text>
+      <text x="488" y="152" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="end">Nash–Moser e_k ≈ 10⁻²⁽³/²⁾ᵏ</text>
+      <text x="338" y="63" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="end">10⁻²</text>
+      <text x="338" y="108" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="end">10⁻⁸</text>
+      <text x="338" y="168" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="end">10⁻¹⁵</text>
+      <text x="455" y="204" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Step k = 0, 1, 2, 3, 4, 5</text>
+    </svg>
+    <figcaption><strong>Fig P57.1.</strong> <strong>(A)</strong> Unsmoothed iterations lose \(d\) derivatives at every step until crashing through the minimum regularity floor \(s_0\); Nash–Moser applies a low-pass smoothing filter \(S_{N_k}\) before each linearized inverse to restore regularity. <strong>(B)</strong> With cutoff \(N_k = e_k^{-1/4}\), the error plunges superlinearly as \(e_{k+1} = e_k^{3/2}\), reaching \(6.5 \times 10^{-16}\) in five steps.</figcaption>
+  </figure>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>To turn the balancing act of Section 2 into a general theorem on a graded scale of Banach spaces \(H^0 \supset H^1 \supset H^2 \supset \cdots \supset H^\infty = \bigcap_{s \ge 0} H^s\) (a <em>tame Fréchet space</em>), Richard Hamilton codified the properties of the smoothing family \(\{S_N\}_{N \ge 1}\) and the linearized inverse \(L(u) = D\mathcal{F}(u)^{-1}\).</p>
+
+  <aside class="onramp">
+    <strong>Tame estimates and interpolation inequalities.</strong>
+    On a smoothness scale \(\{H^s\}_{s \ge 0}\), a family of smoothing operators \(S_N : H^\infty \to H^\infty\) obeys the <em>Jackson–Bernstein smoothing inequalities</em> if for all \(s \ge 0\) and \(\sigma \ge 0\), capping at frequency \(N\) costs at most \(N^\sigma\) when climbing up \(\sigma\) derivatives and leaves at most \(N^{-\sigma}\) error when dropping \(\sigma\) derivatives:
+    \[\|S_N v\|_{s + \sigma} \le C\,N^\sigma \|v\|_s, \qquad \|(I - S_N)v\|_s \le C\,N^{-\sigma}\|v\|_{s + \sigma}.\]
+    A nonlinear operator \(\mathcal{F}(u)\) or linearized inverse \(L(u)h\) is <em>tame</em> (with derivative loss \(d\)) if its high norm \(\|\cdot\|_s\) grows at most <strong>linearly</strong> in the highest norm \(\|u\|_{s+d}\) once the low base norm \(\|u\|_{s_0}\) is bounded: \(\|L(u)h\|_s \le C\bigl(\|h\|_{s+d} + \|u\|_{s+d}\|h\|_{s_0}\bigr)\).
+  </aside>
+
+  <div class="pattern-box" id="box-p57">
+    <p><strong>Pattern P57 — Nash-Moser fast Newton.</strong> Suppose \(\mathcal{F} : H^\infty \to H^\infty\) is a smooth nonlinear map whose linearized right-inverse \(L(u)\) (\(D\mathcal{F}(u)\,L(u)h = h\)) suffers a bounded loss of \(d\) derivatives on a scale of Banach spaces \(\{H^s\}_{s \ge 0}\). Replace the ill-defined Newton update with the <strong>smoothed Newton iteration</strong>:</p>
+    <p class="eq">\[u_{k+1} = u_k - S_{N_k}\,L(u_k)\,\mathcal{F}(u_k), \qquad N_{k} = N_0^{\kappa^k} \;\;\text{with } 1 &lt; \kappa &lt; 2.\]</p>
+    <p>At each step, the low-pass filter \(S_{N_k}\) caps the \(d\)-derivative penalty at \(N_k^d\), while Newton's quadratic cancellation reduces the low-norm residual like \(N_k^{-\sigma} e_k + N_k^d e_k^2 \approx e_k^\kappa\), guaranteeing convergence to a smooth solution \(u_\infty \in H^s\).</p>
+    <p class="words"><strong>Or, in words:</strong> When solving a linearized equation eats \(d\) derivatives, smooth the correction at frequency cutoff \(N_k\) before adding it; increase the cutoff fast enough that the truncation error vanishes, yet slowly enough that Newton's squared error \(e_k^2\) crushes the \(N_k^d\) derivative-loss amplification.</p>
+  </div>
+
+  <div class="pattern-box" id="box-p57a">
+    <p><strong>Box P57.A — The three obligations of a Nash–Moser scheme.</strong></p>
+    <ol>
+      <li><strong>Jackson–Bernstein Smoothing Pair (<span class="pid">P24</span>):</strong> Construct smoothing operators \(S_N\) satisfying the upward amplification bound \(\|S_N v\|_{s+\sigma} \le C N^\sigma \|v\|_s\) and downward approximation bound \(\|(I - S_N)v\|_s \le C N^{-\sigma}\|v\|_{s+\sigma}\).</li>
+      <li><strong>Tame Linearized Right-Inverse (Uniform Loss \(d\)):</strong> Prove that for every \(u\) in a neighborhood of \(u_0\), \(D\mathcal{F}(u)\) admits a right-inverse \(L(u)\) losing a <em>fixed</em> number \(d\) of derivatives (independent of \(s\)) and satisfying tame linear growth in high norms.</li>
+      <li><strong>High-Low Norm Bootstrap (Exponent Lock):</strong> Bound a high norm \(\|u_k\|_{s_{\text{high}}} \le C N_k^A\) slowly growing while driving the low norm \(\|\mathcal{F}(u_k)\|_{s_0} = e_k \to 0\) superlinearly with \(1 &lt; \kappa = \frac{2\sigma + d}{\sigma + d} &lt; 2\), then interpolate \(\|h\|_s \le \|h\|_{s_0}^{1-\theta}\|h\|_{s_{\text{high}}}^\theta\) (<span class="pid">P15</span>) to prove convergence in intermediate norms \(H^s\).</li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p57b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>Local existence or persistence of a smooth (\(C^\infty\) or \(H^s\)) solution to a nonlinear PDE, geometric embedding, or conjugate dynamical system.</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>The linearized operator \(D\mathcal{F}(u)\) is invertible, but its inverse loses \(d &gt; 0\) derivatives (due to characteristic directions, degenerate symbols, or small divisors), breaking <span class="pid">P22</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>A graded scale of smoothness norms \(\{\|\cdot\|_s\}\), frequency-cutoff smoothing \(S_N\), and tame energy estimates (<span class="pid">P29</span>) on the linearized equation.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P57</span> whenever linearizing your nonlinear problem works algebraically, but the inverse operator \(D\mathcal{F}(u)^{-1}\) maps \(H^s \to H^{s-d}\) with \(d &gt; 0\) so standard Banach contraction (<span class="pid">P22</span>) cannot close in any single norm.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 205" role="img" aria-label="Fig P57.2: The Nash-Moser error balance at step k: trading off the downward-sloping truncation error N^{-sigma} e_k against the upward-sloping amplified Newton error N^d e_k^2 to hit the minimum at N_k = e_k^{-1/(sigma+d)}.">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Log-log plot of Next Error log(e_{k+1}) vs Log Frequency Cutoff log(N) -->
+      <line x1="80" y1="168" x2="535" y2="168" stroke="#8a94a3" stroke-width="1.3"/>
+      <line x1="80" y1="28" x2="80" y2="178" stroke="#8a94a3" stroke-width="1.3"/>
+
+      <!-- Downward line: Truncation error log(N^{-sigma} e_k) = log(e_k) - sigma * log(N) -->
+      <line x1="105" y1="45" x2="495" y2="162" stroke="#0f5c57" stroke-width="2" stroke-dasharray="5,3"/>
+      <!-- Upward line: Amplified Newton error log(N^d e_k^2) = 2*log(e_k) + d * log(N) -->
+      <line x1="105" y1="162" x2="495" y2="45" stroke="#8a4b08" stroke-width="2" stroke-dasharray="5,3"/>
+
+      <!-- Combined total error envelope (smooth V-curve above the two asymptotes, minimum at x=300, y=95) -->
+      <path d="M 105,42 L 245,84 Q 300,101 355,84 L 495,42" fill="none" stroke="#1a1a1a" stroke-width="2.6"/>
+
+      <!-- Optimal point at x=300, y=94 -->
+      <line x1="300" y1="94" x2="300" y2="168" stroke="#0f5c57" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <line x1="80" y1="94" x2="300" y2="94" stroke="#0f5c57" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <!-- Reference line at previous error log(e_k) at y=45 -->
+      <line x1="80" y1="45" x2="520" y2="45" stroke="#d8d4cc" stroke-width="1.2"/>
+
+      <circle cx="300" cy="94" r="5.5" fill="#0f5c57"/>
+      <circle cx="300" cy="103.5" r="4" fill="#8a4b08"/>
+
+      <text x="515" y="41" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="end">Previous error level  e_k</text>
+      <text x="175" y="56" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57">Truncation error  N⁻ᵠ e_k</text>
+      <text x="435" y="56" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="end">Amplified Newton  Nᵈ e_k²</text>
+
+      <text x="300" y="186" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Optimal cutoff  N_k = e_k⁻¹/⁽ᵠ⁺ᵈ⁾</text>
+      <text x="72" y="98" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="end">e_{k+1} ≈ 2 e_k^κ</text>
+      <text x="72" y="49" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="end">e_k</text>
+
+      <rect x="215" y="124" width="170" height="28" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1"/>
+      <text x="300" y="142" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">κ = 1 + σ / (σ + d) &gt; 1</text>
+    </svg>
+    <figcaption><strong>Fig P57.2.</strong> The goldilocks frequency cutoff \(N_k\): choosing \(N_k\) too small leaves a large high-frequency truncation tail \(N_k^{-\sigma} e_k\) (left branch); choosing \(N_k\) too large inflates the derivative-loss factor \(N_k^d e_k^2\) (right branch). Equating the two branches at \(N_k = e_k^{-1/(\sigma+d)}\) locks in the superlinear exponent \(\kappa = 1 + \frac{\sigma}{\sigma+d} \in (1, 2)\).</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · Exact surgical decomposition of the smoothed Newton step (\(\kappa = 1 + \frac{\sigma}{\sigma + d}\))</h3>
+  <p>Why does inserting a smoothing filter \(S_{N_k}\) into Newton's method leave a superlinear residual instead of ruining the quadratic cancellation? Let us expand \(\mathcal{F}(u_{k+1}) = \mathcal{F}(u_k + h_k)\) for the smoothed step \(h_k = -S_{N_k} L(u_k)\mathcal{F}(u_k)\) using Taylor's theorem with integral remainder and the compose-with-identity trick (<a href="p06-compose-identity.html"><span class="pid">P06</span></a>, writing \(S_{N_k} = I - (I - S_{N_k})\)):</p>
+  <p class="eq">\[\mathcal{F}(u_k + h_k) = \mathcal{F}(u_k) + D\mathcal{F}(u_k)h_k + \int_0^1 (1-t)\,D^2\mathcal{F}(u_k + th_k)(h_k, h_k)\,dt.\]</p>
+  <p>Substitute \(h_k = -L(u_k)\mathcal{F}(u_k) + (I - S_{N_k})L(u_k)\mathcal{F}(u_k)\) into the first-order term and use the right-inverse identity \(D\mathcal{F}(u_k)L(u_k)\mathcal{F}(u_k) = \mathcal{F}(u_k)\):</p>
+  <p class="eq">\[\mathcal{F}(u_k) + D\mathcal{F}(u_k)h_k = \underbrace{\mathcal{F}(u_k) - D\mathcal{F}(u_k)L(u_k)\mathcal{F}(u_k)}_{=\,0} + D\mathcal{F}(u_k)(I - S_{N_k})L(u_k)\mathcal{F}(u_k).\]</p>
+  <p>Now measure both surviving pieces in the base norm \(\|\cdot\|_{s_0}\), setting \(e_k = \|\mathcal{F}(u_k)\|_{s_0}\):</p>
+  <ul>
+    <li><strong>The smoothing tail:</strong> By Jackson's downward approximation inequality (Box P57.A, Obligation 1), dropping modes above \(N_k\) across a smoothness reserve of \(\sigma\) derivatives shrinks the linear remainder by \(N_k^{-\sigma}\):
+      <p class="eq">\[\bigl\|D\mathcal{F}(u_k)(I - S_{N_k})L(u_k)\mathcal{F}(u_k)\bigr\|_{s_0} \;\le\; C_1\,N_k^{-\sigma}\,e_k.\]</p>
+    </li>
+    <li><strong>The quadratic Taylor remainder:</strong> By Bernstein's upward inequality, capping \(h_k = -S_{N_k}L(u_k)\mathcal{F}(u_k)\) at frequency \(N_k\) pays at most \(N_k^d\) for the \(d\) lost derivatives of \(L(u_k)\), so \(\|h_k\|_{s_0} \le C N_k^{d/2} e_k\) (or in the worst case \(\|D^2\mathcal{F}(h_k, h_k)\|_{s_0} \le C_2 N_k^d e_k^2\)):
+      <p class="eq">\[\left\|\int_0^1 (1-t)\,D^2\mathcal{F}(u_k + th_k)(h_k, h_k)\,dt\right\|_{s_0} \;\le\; C_2\,N_k^d\,e_k^2.\]</p>
+    </li>
+  </ul>
+  <p>Equating the two contributions \(N_k^{-\sigma} e_k = N_k^d e_k^2\) yields \(N_k^{\sigma + d} = e_k^{-1}\), so \(N_k = e_k^{-1/(\sigma + d)}\) and</p>
+  <p class="eq">\[e_{k+1} \;\le\; (C_1 + C_2)\,e_k^{\,1 + \frac{\sigma}{\sigma + d}} = (C_1 + C_2)\,e_k^\kappa, \qquad \kappa = \frac{2\sigma + d}{\sigma + d} \in (1, 2).\]</p>
+  <p><em>How you could have found this:</em> A linear scheme only gives you \(e_k^1\) on the right-hand side, which can never afford a growing multiplier \(N_k^d \to \infty\). Newton's method gives you an extra factor of \(e_k\) (\(e_k^2 = e_k \cdot e_k\)), letting you spend a fraction \(\frac{d}{\sigma+d} &lt; 1\) of that bonus factor to pay off the frequency bill \(N_k^d = e_k^{-d/(\sigma+d)}\) while keeping the remaining fraction \(\frac{\sigma}{\sigma+d} &gt; 0\) to accelerate convergence!</p>
+
+  <h3>Exemplar 2 · Small divisors and KAM circle conjugacy at the golden rotation number</h3>
+  <p>In celestial mechanics and dynamical systems, we want to conjugate a perturbed circle map \(\tilde{T}(x) = x + \alpha + \varepsilon f(x) \pmod 1\) back to a rigid rotation \(T_\alpha(y) = y + \alpha \pmod 1\) by finding a smooth coordinate change \(x = y + u(y)\). Linearizing the conjugacy equation around \(u = 0\) yields the <em>homological difference equation</em>:</p>
+  <p class="eq">\[u(y + \alpha) - u(y) = h(y), \qquad y \in \mathbb{R}/\mathbb{Z}.\]</p>
+  <p>Split both sides into Fourier waves (<a href="p24-split-into-waves.html"><span class="pid">P24</span></a>) \(u(y) = \sum_{n \ne 0} \hat{u}_n e^{2\pi i n y}\) and \(h(y) = \sum_{n \ne 0} \hat{h}_n e^{2\pi i n y}\):</p>
+  <p class="eq">\[\hat{u}_n = \frac{\hat{h}_n}{e^{2\pi i n \alpha} - 1}, \qquad \bigl|e^{2\pi i n \alpha} - 1\bigr| = 2\,\bigl|\sin(\pi n \alpha)\bigr| \ge 4\,\|n\alpha\|_{\mathbb{Z}},\]</p>
+  <p>where \(\|n\alpha\|_{\mathbb{Z}} = \min_{m \in \mathbb{Z}} |n\alpha - m|\) is the distance from \(n\alpha\) to the nearest integer. Even when \(\alpha\) is the "most irrational" number — the golden conjugate \(\alpha = \frac{\sqrt{5}-1}{2} \approx 0.618034\) — whenever \(n = F_m\) is a Fibonacci number (\(1, 2, 3, 5, 8, 13, 21, 34, 55, 89\)), \(F_m \alpha\) lands within \(\frac{1}{\sqrt{5}\,F_m}\) of the Fibonacci integer \(F_{m-1}\):</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fibonacci Mode \(n = F_m\)</th>
+        <th>Nearest Integer \(m = F_{m-1}\)</th>
+        <th>Distance \(\|n\alpha\|_{\mathbb{Z}}\)</th>
+        <th>Divisor \(|e^{2\pi i n\alpha} - 1|\)</th>
+        <th>Mode Amplification \(|e^{2\pi i n\alpha} - 1|^{-1}\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(3\)</td>
+        <td>\(2\)</td>
+        <td>\(0.145898\)</td>
+        <td>\(0.884942\)</td>
+        <td>\(1.13 \times\)</td>
+      </tr>
+      <tr>
+        <td>\(8\)</td>
+        <td>\(5\)</td>
+        <td>\(0.055728\)</td>
+        <td>\(0.348364\)</td>
+        <td>\(2.87 \times\)</td>
+      </tr>
+      <tr>
+        <td>\(21\)</td>
+        <td>\(13\)</td>
+        <td>\(0.021286\)</td>
+        <td>\(0.133646\)</td>
+        <td>\(7.48 \times\)</td>
+      </tr>
+      <tr>
+        <td>\(55\)</td>
+        <td>\(34\)</td>
+        <td>\(0.008131\)</td>
+        <td>\(0.051081\)</td>
+        <td>\(19.58 \times\)</td>
+      </tr>
+      <tr>
+        <td>\(89\)</td>
+        <td>\(55\)</td>
+        <td>\(0.005025\)</td>
+        <td>\(0.031572\)</td>
+        <td>\(31.67 \times\) (\(\approx \frac{\sqrt{5}}{2\pi} n\))</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Because dividing by \(|e^{2\pi i n\alpha} - 1|\) multiplies the \(n\)-th Fourier coefficient by \(O(|n|^\tau)\) (with \(\tau = 1\) for golden \(\alpha\), plus \(1\) more derivative from differentiating the conjugacy, giving a total loss of \(d = \tau + 1 = 2\) derivatives), every step of classical perturbation theory loses \(2\) derivatives! By applying <span class="pid">P57</span> with Fourier truncation \(S_{N_k}\) at step \(k\), we only invert modes \(|n| \le N_k\), where the worst small divisor is bounded by \(C N_k^\tau\). When \(N_k\) advances to \(55\) at step \(3\), the residual \(e_3 \approx 1.8 \times 10^{-7}\) is already a hundred million times smaller than the \(19.58\times\) Fibonacci amplification!</p>
+
+  <h3>Exemplar 3 · Nash's algebraic trick for isometric embeddings (\(\langle \partial_i u, \partial_j u \rangle = g_{ij}\))</h3>
+  <p>Given a smooth compact Riemannian \(m\)-manifold \((M, g)\), can we embed it isometrically into Euclidean space \(\mathbb{R}^N\) as a smooth submanifold \(u : M \to \mathbb{R}^N\) so that the induced dot-product metric matches \(g\) everywhere:</p>
+  <p class="eq">\[\langle \partial_i u(x),\, \partial_j u(x) \rangle_{\mathbb{R}^N} = g_{ij}(x), \qquad 1 \le i \le j \le m\,?\]</p>
+  <p>Linearizing this quadratic first-order PDE around an immersion \(u\) for a perturbation \(h : M \to \mathbb{R}^N\) gives the underdetermined first-order differential system</p>
+  <p class="eq">\[\langle \partial_i u, \partial_j h \rangle + \langle \partial_j u, \partial_i h \rangle = k_{ij}.\]</p>
+  <p>Solving this first-order PDE directly seems to require integrating along tangled characteristic curves that depend on \(u\). John Nash bypassed PDE integration altogether by introducing an auxiliary orthogonality constraint (<a href="p07-build-auxiliary-object.html"><span class="pid">P07</span></a>): require the perturbation \(h(x)\) to point <strong>purely normal</strong> to the tangent space of \(u(M)\) at every point:</p>
+  <p class="eq">\[\langle \partial_i u(x),\, h(x) \rangle = 0 \quad\text{for all } i = 1, \dots, m.\]</p>
+  <p>Now differentiate \(\langle \partial_i u, h \rangle = 0\) with respect to \(x_j\) using the product rule: \(\langle \partial_{ij}^2 u, h \rangle + \langle \partial_i u, \partial_j h \rangle = 0\), which rewrites \(\langle \partial_i u, \partial_j h \rangle = -\langle \partial_{ij}^2 u, h \rangle\)! Substituting this into the linearized metric equation eliminates all derivatives of \(h\):</p>
+  <p class="eq">\[\left\{ \begin{aligned} \langle \partial_i u(x),\, h(x) \rangle &amp;= 0, \\ -2\,\langle \partial_{ij}^2 u(x),\, h(x) \rangle &amp;= k_{ij}(x). \end{aligned} \right.\]</p>
+  <p>Look at what happened: the linearized differential equation has turned into a <strong>pointwise linear algebraic system</strong> \(A(u(x), \partial u(x), \partial^2 u(x))\,h(x) = k(x)\)! Provided the ambient dimension \(N \ge \frac{m(m+1)}{2} + m\) is large enough that the \(\frac{m(m+1)}{2}\) second-fundamental-form vectors \(\partial_{ij}^2 u(x)\) are linearly independent in the normal bundle (a <em>free immersion</em>), we obtain \(h(x)\) pointwise by ordinary matrix inversion \(h(x) = A^{\dagger} k(x)\). Where is the catch? Because the matrix \(A\) contains the <em>second derivatives</em> \(\partial_{ij}^2 u\) while the original equation \(\langle \partial_i u, \partial_j u \rangle = g_{ij}\) only used <em>first derivatives</em>, differentiating \(h(x)\) \(s\) times requires \(s + 2\) derivatives of \(u(x)\) — a loss of \(d = 2\) derivatives! Feeding this algebraic right-inverse into the Nash–Moser machine (<span class="pid">P57</span>) proves Nash's isometric embedding theorem in one stroke.</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>Nash–Moser is a powerhouse for overcoming finite derivative loss, but three sharp boundaries dictate where the machine jams:</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Exponential (Liouville) small divisors overwhelm every polynomial cutoff \(N_k^d\).</strong> In Exemplar 2, our rotation number \(\alpha = \frac{\sqrt{5}-1}{2}\) was <em>Diophantine</em>: \(\|n\alpha\|_{\mathbb{Z}} \ge \frac{c}{|n|^\tau}\) with a finite exponent \(\tau = 1\), so the small-divisor amplification grew polynomially like \(N_k^\tau\). If \(\alpha = \sum_{m=1}^{\infty} 10^{-m!}\) is a <em>Liouville number</em> that is approximated exponentially fast by rationals (\(\|q_m\alpha\|_{\mathbb{Z}} \le e^{-e^{q_m}}\)), the linearized inverse loses <strong>infinitely many smooth derivatives</strong> (\(\exp(N_k)\) amplification), crushing \(e_k^2\) and destroying smooth KAM tori (leaving behind Cantor "cantori").</p>
+    <p><em>Mitigation:</em> Enforce an explicit Diophantine condition \(\|n \cdot \omega\|_{\mathbb{Z}} \ge \gamma |n|^{-\tau}\) (which holds for a set of frequencies of full Lebesgue measure as \(\gamma \to 0\)), or restrict to real-analytic spaces where Brjuno's arithmetic condition \(\sum 2^{-k}\ln(1/\omega_{2^k}) &lt; \infty\) suffices.</p>
+    <p><em>Price:</em> Excluding a meager dense fractal of resonant frequencies.</p>
+    <p><em>Default:</em> Always compute the derivative-loss exponent \(d\) on Fourier modes before launching <span class="pid">P57</span>; if the multiplier grows faster than every polynomial \(|n|^d\), <span class="pid">P57</span> in \(C^\infty/H^s\) does not apply.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 195" role="img" aria-label="Fig P57.3: Diophantine polynomial corridor |e^(2pi i n alpha) - 1|^(-1) <= C n^tau (which Nash-Moser tames) versus Liouville exponential spikes (which break polynomial smoothing).">
+      <rect x="0" y="0" width="600" height="195" fill="#ffffff"/>
+      <line x1="65" y1="162" x2="555" y2="162" stroke="#8a94a3" stroke-width="1.2"/>
+      <line x1="65" y1="25" x2="65" y2="172" stroke="#8a94a3" stroke-width="1.2"/>
+
+      <!-- Polynomial Diophantine ceiling C * n^tau (smooth curve rising gently) -->
+      <path d="M 65,155 Q 280,132 545,75" fill="none" stroke="#0f5c57" stroke-width="2.2" stroke-dasharray="5,3"/>
+      <text x="540" y="66" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="end">Diophantine ceiling  C n^τ (tame loss d = τ+1)</text>
+
+      <!-- Fibonacci small-divisor spikes for golden ratio alpha sitting neatly under the ceiling -->
+      <!-- n = 3 (x=95), 8 (x=135), 21 (x=215), 34 (x=295), 55 (x=405), 89 (x=525) -->
+      <line x1="95" y1="162" x2="95" y2="152" stroke="#0f5c57" stroke-width="2.5"/>
+      <circle cx="95" cy="152" r="3.5" fill="#0f5c57"/>
+      <line x1="135" y1="162" x2="135" y2="145" stroke="#0f5c57" stroke-width="2.5"/>
+      <circle cx="135" cy="145" r="3.5" fill="#0f5c57"/>
+      <line x1="215" y1="162" x2="215" y2="131" stroke="#0f5c57" stroke-width="2.5"/>
+      <circle cx="215" cy="131" r="3.5" fill="#0f5c57"/>
+      <line x1="295" y1="162" x2="295" y2="118" stroke="#0f5c57" stroke-width="2.5"/>
+      <circle cx="295" cy="118" r="3.5" fill="#0f5c57"/>
+      <line x1="405" y1="162" x2="405" y2="99" stroke="#0f5c57" stroke-width="2.5"/>
+      <circle cx="405" cy="99" r="3.5" fill="#0f5c57"/>
+      <line x1="525" y1="162" x2="525" y2="80" stroke="#0f5c57" stroke-width="2.5"/>
+      <circle cx="525" cy="80" r="3.5" fill="#0f5c57"/>
+
+      <!-- Liouville super-exponential spike punching vertically through the roof at x=350 -->
+      <line x1="350" y1="162" x2="350" y2="22" stroke="#8a4b08" stroke-width="2.4" stroke-dasharray="3,2"/>
+      <polygon points="345,28 350,16 355,28" fill="#8a4b08"/>
+      <text x="342" y="38" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="end">Liouville resonance  ‖q_m α‖_ℤ ≪ q_m⁻ᵐ (breaks P57!)</text>
+
+      <!-- Labels on axis -->
+      <text x="95" y="177" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">F₄=3</text>
+      <text x="135" y="177" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">F₆=8</text>
+      <text x="215" y="177" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">F₈=21</text>
+      <text x="295" y="177" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">F₉=34</text>
+      <text x="405" y="177" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">F₁₀=55</text>
+      <text x="525" y="177" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">F₁₁=89</text>
+      <text x="55" y="95" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="end">‖nα‖_ℤ⁻¹</text>
+    </svg>
+    <figcaption><strong>Fig P57.3.</strong> Why Diophantine arithmetic governs <span class="pid">P57</span> in small-divisor problems: for the golden ratio \(\alpha = \frac{\sqrt{5}-1}{2}\), the Fibonacci resonance peaks \(n = 3, 8, 21, 34, 55, 89\) stay trapped underneath the linear ceiling \(C n^1\) (green curve), losing only \(d = 2\) derivatives; a Liouville frequency creates super-polynomial spikes (orange arrow) that exceed every finite derivative loss \(N_k^d\).</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Inverting at the initial guess \(D\mathcal{F}(u_0)^{-1}\) instead of the current iterate \(D\mathcal{F}(u_k)^{-1}\) loses quadratic speed and diverges!</strong> In standard Banach spaces (<a href="p22-fixed-point.html"><span class="pid">P22</span></a>), the simplified Newton method \(u_{k+1} = u_k - D\mathcal{F}(u_0)^{-1}\mathcal{F}(u_k)\) (freezing the derivative at \(u_0\)) still converges linearly. When \(D\mathcal{F}^{-1}\) loses \(d &gt; 0\) derivatives, freezing the derivative at \(u_0\) produces a linear error term \((D\mathcal{F}(u_k) - D\mathcal{F}(u_0))h_k \sim \|u_k - u_0\|\cdot N_k^d e_k\), which grows like \(N_k^d \to \infty\) and blows up!</p>
+    <p><em>Mitigation:</em> You <strong>must</strong> invert the linearized operator \(D\mathcal{F}(u_k)\) at a neighborhood of the <em>current</em> iterate \(u_k\) (or smoothed iterate \(S_{N_k}u_k\)), never frozen at \(u_0\).</p>
+    <p><em>Price:</em> Proving invertibility and tame bounds for \(D\mathcal{F}(u)\) on an entire open ball around \(u_0\), not just at a single reference point.</p>
+    <p><em>Default:</em> Always check Obligation 2 of Box P57.A across all \(u\) near \(u_0\).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — False alarms where a clever reformulation eliminates derivative loss altogether (Günther's trick).</strong> Not every problem originally solved by Nash–Moser actually requires it! In 1989 Matthias Günther showed that in Nash's isometric embedding system (Exemplar 3), if instead of forcing \(h\) to be strictly normal you choose a non-local elliptic decomposition \(h = \nabla \phi + v\) using the inverse Laplacian \(\Delta^{-1}\), the derivative loss disappears completely (\(d = 0\)) and ordinary Banach contraction (<a href="p22-fixed-point.html"><span class="pid">P22</span></a>) suffices in Hölder spaces \(C^{2,\alpha}\)!</p>
+    <p><em>Mitigation:</em> Before setting up the full Nash–Moser ladder, check whether an auxiliary gauge choice (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>, such as DeTurck's gauge in Ricci flow or harmonic coordinates in general relativity) turns the linearized operator into an elliptic operator with \(d = 0\).</p>
+    <p><em>Price:</em> Solving an auxiliary elliptic boundary-value problem at each step instead of a pointwise algebraic matrix inverse.</p>
+    <p><em>Default:</em> Reserve <span class="pid">P57</span> for genuine derivative-loss regimes (small divisors in KAM, degenerate hyperbolic/characteristic boundary problems, and diffeomorphism-group quotients).</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this orientation page.</strong> Our model recursion \(e_{k+1} \le C_1 N_k^{-\sigma} e_k + C_2 N_k^d e_k^2\) tracks the low norm \(e_k = \|\mathcal{F}(u_k)\|_{s_0}\) assuming the high norm \(\|u_k\|_{s_0 + \sigma + d}\) stays uniformly bounded. In a full proof (such as Hamilton 1982 or Moser 1966), the high norm \(\|u_k\|_{s_{\text{high}}}\) is allowed to grow like a controlled power \(N_k^A\); one then chooses \(\sigma\) large enough relative to \(A\) and \(d\) that the effective exponent \(\kappa\) still exceeds \(1\).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When you want to decompose a function into dyadic frequency shells \(2^j \le |n| &lt; 2^{j+1}\) rather than a single sharp cutoff \(N_k\):</strong> Combine <span class="pid">P57</span> with <a href="p42-dyadic-decomposition.html"><span class="pid">P42</span> · Dyadic (scale-by-scale) decomposition</a> (Littlewood–Paley projections and Bony's paradifferential calculus), which tracks derivative loss shell by shell.</li>
+    <li><strong>When the linearized PDE loses derivatives only along specific light-cone or bicharacteristic rays:</strong> Use <a href="p52-microlocal-propagation.html"><span class="pid">P52</span> · Microlocal propagation of singularities</a> to localize the smoothing filter in both position and momentum \((x, \xi)\).</li>
+    <li><strong>When a gauge symmetry is the sole cause of the degenerate linearized symbol:</strong> Apply <a href="p05-canonical-form.html"><span class="pid">P05</span> · Reduce to canonical form</a> (harmonic / DeTurck gauge fixing) to restore ellipticity so standard contraction (<a href="p22-fixed-point.html"><span class="pid">P22</span></a>) applies directly.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Kolmogorov's 1954 ICM address and Nash's 1956 embedding theorem to Moser's discrete scheme and Hamilton's tame categories.</strong> In 1954 Andrey Kolmogorov announced at the Amsterdam International Congress of Mathematicians that majority quasi-periodic tori of an integrable Hamiltonian system survive small perturbations, overcoming Carl Siegel's and Henri Poincaré's small-divisor barrier via a superconvergent Newton iteration in analytic spaces. Independently, John Nash (<em>Annals of Mathematics</em> 63, 1956, 20–63) solved the \(C^\infty\) isometric embedding problem for Riemannian manifolds by coupling a continuous Newton flow with a family of mollifiers that restored lost derivatives. In 1961–1966 Jürgen Moser (<em>Proceedings of the National Academy of Sciences</em> 47, 1961; <em>Annali della Scuola Normale Superiore di Pisa</em> 20, 1966) replaced Nash's continuous flow with the discrete smoothed Newton step \(u_{k+1} = u_k - S_{N_k} L(u_k)\mathcal{F}(u_k)\), proving that finitely many continuous derivatives (\(C^{333}\), later sharpened by Herman to \(C^{3+\varepsilon}\)) suffice for invariant curves of twist maps. Lars Hörmander (1976), Sergiu Klainerman (1980, for global nonlinear wave equations), and Richard Hamilton (<em>Bulletin of the American Mathematical Society</em> 7, 1982, "The inverse function theorem of Nash and Moser") systematized the method into the modern framework of tame Fréchet spaces.</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — Proving Jackson and Bernstein smoothing inequalities on Fourier series</h3>
+  <p>For a periodic function \(v(x) = \sum_{n \in \mathbb{Z}} \hat{v}_n e^{inx}\) on \(S^1 = \mathbb{R}/2\pi\mathbb{Z}\), define the homogeneous Sobolev seminorm \(\|v\|_s^2 = \sum_{n \ne 0} |n|^{2s} |\hat{v}_n|^2\) and the sharp low-pass projection \((S_N v)(x) = \sum_{|n| \le N} \hat{v}_n e^{inx}\) for \(N \ge 1\).<br>
+  (a) For any \(s \ge 0\) and \(\sigma \ge 0\), prove the upward Bernstein bound \(\|S_N v\|_{s + \sigma} \le N^\sigma \|v\|_s\) with constant \(C = 1\).<br>
+  (b) Prove the downward Jackson approximation bound \(\|(I - S_N)v\|_s \le N^{-\sigma}\|v\|_{s + \sigma}\) with constant \(C = 1\).</p>
+  <details><summary>Hint</summary><p>In (a), every surviving mode in \(S_N v\) satisfies \(|n| \le N\), so \(|n|^{2(s+\sigma)} = |n|^{2\sigma}|n|^{2s} \le N^{2\sigma}|n|^{2s}\). In (b), every surviving mode in \((I - S_N)v\) satisfies \(|n| &gt; N\), so \(|n|^{2s} = |n|^{-2\sigma}|n|^{2(s+\sigma)} &lt; N^{-2\sigma}|n|^{2(s+\sigma)}\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Upward Bernstein bound:</strong> By definition of \(S_N\), only Fourier modes with \(1 \le |n| \le N\) appear in \(\|S_N v\|_{s+\sigma}^2\). Since \(\sigma \ge 0\) and \(|n| \le N\), we have \(|n|^{2\sigma} \le N^{2\sigma}\) (<a href="p15-squeeze.html"><span class="pid">P15</span></a>), so</p>
+    <p class="eq">\[\|S_N v\|_{s+\sigma}^2 = \sum_{1 \le |n| \le N} |n|^{2s + 2\sigma}|\hat{v}_n|^2 \le N^{2\sigma}\sum_{1 \le |n| \le N} |n|^{2s}|\hat{v}_n|^2 \le N^{2\sigma}\|v\|_s^2.\]</p>
+    <p>Taking square roots yields \(\|S_N v\|_{s+\sigma} \le N^\sigma \|v\|_s\).</p>
+    <p><strong>(b) Downward Jackson bound:</strong> The high-frequency tail \((I - S_N)v = \sum_{|n| &gt; N} \hat{v}_n e^{inx}\) is supported strictly on \(|n| &gt; N\), where \(|n|^{-2\sigma} &lt; N^{-2\sigma}\). Thus</p>
+    <p class="eq">\[\|(I - S_N)v\|_s^2 = \sum_{|n| &gt; N} |n|^{-2\sigma}|n|^{2(s+\sigma)}|\hat{v}_n|^2 \le N^{-2\sigma}\sum_{|n| &gt; N} |n|^{2(s+\sigma)}|\hat{v}_n|^2 \le N^{-2\sigma}\|v\|_{s+\sigma}^2.\]</p>
+    <p>Taking square roots yields \(\|(I - S_N)v\|_s \le N^{-\sigma}\|v\|_{s+\sigma}\), verifying Obligation 1 of Box P57.A with \(C = 1\).</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — Optimizing the convergence exponent \(\kappa\) when the high norm grows like \(N_k^A\)</h3>
+  <p>In a realistic Nash–Moser iteration, the high norm \(\|u_k\|_{s_0 + \sigma}\) is not constant, but grows at most polynomially with the cumulative cutoffs like \(N_k^A\) for some fixed exponent \(A &gt; 0\) (where \(0 &lt; A &lt; \sigma\)). Then the error recursion at step \(k\) becomes</p>
+  <p class="eq">\[e_{k+1} \;\le\; N_k^{-(\sigma - A)}\,e_k + N_k^d\,e_k^2.\]</p>
+  <p>(a) Find the optimal cutoff choice \(N_k = e_k^{-\alpha}\) that balances the two terms on the right-hand side, and express the resulting superlinear convergence exponent \(\kappa\) (where \(e_{k+1} \le 2 e_k^\kappa\)) in terms of \(\sigma, A,\) and \(d\).<br>
+  (b) Evaluate \(\alpha\), \(\kappa\), and the error \(e_4\) after \(4\) steps starting from \(e_0 = 10^{-3}\) when \(d = 2\), \(A = 1\), and \(\sigma = 5\) (leaving \(2e_k^\kappa\) without the factor of \(2\), i.e. \(e_{k+1} = e_k^\kappa\)).</p>
+  <details><summary>Hint</summary><p>Equate \(N_k^{-(\sigma - A)} e_k = N_k^d e_k^2\), which gives \(N_k^{\sigma - A + d} = e_k^{-1}\). Substitute \(\sigma - A = 4\) and \(d = 2\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Optimal cutoff and exponent with high-norm growth:</strong> Equating the two error terms \(N_k^{-(\sigma - A)} e_k = N_k^d e_k^2\) gives \(N_k^{\sigma - A + d} = e_k^{-1}\), so</p>
+    <p class="eq">\[\alpha = \frac{1}{\sigma - A + d}, \qquad N_k = e_k^{-\frac{1}{\sigma - A + d}}.\]</p>
+    <p>Substituting \(N_k\) back into either term yields \(e_{k+1} \le 2 e_k^\kappa\) with</p>
+    <p class="eq">\[\kappa = 1 + \frac{\sigma - A}{\sigma - A + d} = \frac{2(\sigma - A) + d}{\sigma - A + d}.\]</p>
+    <p>Notice that \(\kappa &gt; 1\) holds if and only if the smoothness reserve \(\sigma\) strictly exceeds the high-norm growth rate \(A\) (\(\sigma &gt; A\)).</p>
+    <p><strong>(b) Numerical evaluation for \(d = 2, A = 1, \sigma = 5\):</strong> Here \(\sigma - A = 5 - 1 = 4\) and \(\sigma - A + d = 4 + 2 = 6\), so \(\alpha = \frac{1}{6}\) and</p>
+    <p class="eq">\[\kappa = 1 + \frac{4}{6} = \frac{5}{3}.\]</p>
+    <p>Starting from \(e_0 = 10^{-3}\), after \(4\) steps of \(e_{k+1} = e_k^{5/3}\) we have \(\kappa^4 = \left(\frac{5}{3}\right)^4 = \frac{625}{81} \approx 7.71605\), so</p>
+    <p class="eq">\[e_4 = \bigl(10^{-3}\bigr)^{625/81} = 10^{-625/27} = 10^{-23.1481\dots} \approx 7.11 \times 10^{-24}.\]</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Why freezing the derivative at \(u_0\) fails when \(d &gt; 0\)</h3>
+  <p>Suppose we attempt to solve \(\mathcal{F}(u) = 0\) with derivative loss \(d = 2\) using a <em>modified</em> (frozen-derivative) smoothed iteration \(u_{k+1} = u_k + h_k\) where \(h_k = -S_{N_k} L(u_0)\mathcal{F}(u_k)\) uses the inverse \(L(u_0) = D\mathcal{F}(u_0)^{-1}\) frozen at the initial guess \(u_0\) rather than updated at \(u_k\).<br>
+  (a) Expand \(\mathcal{F}(u_k + h_k)\) around \(u_k\) and show that the mismatch \(\bigl(D\mathcal{F}(u_k) - D\mathcal{F}(u_0)\bigr)h_k\) introduces a bilinear error term bounded by \(C\,\|u_k - u_0\|_{s_0} N_k^d e_k\).<br>
+  (b) Since \(\|u_k - u_0\|_{s_0} \to \|u_\infty - u_0\|_{s_0} = \delta_0 &gt; 0\) does <em>not</em> shrink to zero as \(k \to \infty\), show that for any rising sequence of cutoffs \(N_k \to \infty\), the amplification factor \(\delta_0 N_k^d\) eventually exceeds \(1\) and destroys convergence.</p>
+  <details><summary>Hint</summary><p>Write \(\mathcal{F}(u_k) + D\mathcal{F}(u_k)h_k = \mathcal{F}(u_k) + D\mathcal{F}(u_0)h_k + (D\mathcal{F}(u_k) - D\mathcal{F}(u_0))h_k\). Compare \(e_k^2\) (which shrinks to \(0\)) against \(\|u_k - u_0\| e_k \approx \delta_0 e_k\) (where \(\delta_0\) stays fixed!).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Bilinear mismatch term:</strong> Adding and subtracting \(D\mathcal{F}(u_0)h_k\) (<a href="p06-compose-identity.html"><span class="pid">P06</span></a>) in the Taylor expansion gives</p>
+    <p class="eq">\[\mathcal{F}(u_k + h_k) = D\mathcal{F}(u_0)(I - S_{N_k})L(u_0)\mathcal{F}(u_k) + \bigl(D\mathcal{F}(u_k) - D\mathcal{F}(u_0)\bigr)h_k + O\bigl(\|h_k\|^2\bigr).\]</p>
+    <p>By the mean value theorem and the \(d\)-derivative loss of \(L(u_0)\) capped at frequency \(N_k\), \(\|h_k\|_{s_0 + d_{\mathcal{F}}} \le C N_k^d e_k\), so</p>
+    <p class="eq">\[\bigl\|\bigl(D\mathcal{F}(u_k) - D\mathcal{F}(u_0)\bigr)h_k\bigr\|_{s_0} \;\le\; C\,\|u_k - u_0\|_{s_0 + d_{\mathcal{F}}}\,N_k^d\,e_k.\]</p>
+    <p><strong>(b) Divergence as \(N_k \to \infty\):</strong> As \(u_k \to u_\infty \ne u_0\), the distance from the initial guess converges to a fixed positive number \(\|u_k - u_0\| \to \delta_0 &gt; 0\). Consequently, the multiplier on \(e_k\) in the recursion is</p>
+    <p class="eq">\[e_{k+1} \;\approx\; \bigl(C_1 N_k^{-\sigma} + C\,\delta_0\,N_k^d\bigr) e_k.\]</p>
+    <p>Unlike true Newton (\(N_k^d e_k^2 = (N_k^d e_k) e_k\), where \(e_k \to 0\) crushes \(N_k^d\)), here \(\delta_0 &gt; 0\) is constant! As soon as \(N_k &gt; (C\delta_0)^{-1/d}\), the factor \(C\delta_0 N_k^d &gt; 1\) amplifies \(e_k\) at every step. True Newton updating at \(u_k\) is mandatory when \(d &gt; 0\).</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: standard Banach contraction or Nash–Moser?</h3>
+  <p>For each nonlinear problem below, determine whether <span class="pid">P57</span> (Nash–Moser fast Newton) is needed, or whether classical Banach fixed-point / implicit function theory (<span class="pid">P22</span>) solves it directly in a single space:</p>
+  <ol>
+    <li>You want to solve the nonlinear elliptic PDE \(-\Delta u + u^3 = f(x)\) on the torus \(\mathbb{T}^2\) for smooth \(f \in H^s(\mathbb{T}^2)\) (\(s \ge 2\)).</li>
+    <li>You want to find a smooth curve \(u(x)\) invariant under a perturbed map \(F_\varepsilon(x, y) = (x + \alpha + \varepsilon a(x,y),\, \lambda y + \varepsilon b(x,y))\) when \(\lambda = 1\) (an area-preserving twist map with Diophantine rotation number \(\alpha\)).</li>
+    <li>You want to solve the same invariant-curve problem as in (2), but for a strongly dissipative map with contraction factor \(\lambda = \frac{1}{3} &lt; 1\).</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>Standard Banach Implicit Function Theorem (<a href="p22-fixed-point.html"><span class="pid">P22</span></a>) suffices — actually gains derivatives (\(d = -2\))!</strong> The linearized operator \(-\Delta + 3u^2\) is uniformly elliptic on \(\mathbb{T}^2\); its inverse \((-\Delta + 3u^2)^{-1}\) maps \(H^{s-2}(\mathbb{T}^2) \to H^s(\mathbb{T}^2)\), <em>gaining</em> \(2\) derivatives instead of losing any! Standard Newton or contraction in a single Sobolev space \(H^s\) converges quadratically without smoothing filters.</li>
+      <li><strong>Genuine <span class="pid">P57</span> (KAM twist map with small divisors):</strong> When \(\lambda = 1\), the linearized normal equation reduces to the second-order small-divisor difference equation \(u(x+\alpha) - 2u(x) + u(x-\alpha) = h(x)\), whose Fourier multiplier \(-4\sin^2(\pi n\alpha)\) vanishes near rationals and loses \(d = 2\tau + 1\) derivatives on \(H^s\). <span class="pid">P57</span> is required.</li>
+      <li><strong>Standard Banach contraction (<a href="p22-fixed-point.html"><span class="pid">P22</span></a>, normal hyperbolicity) suffices:</strong> Because \(\lambda = \frac{1}{3} &lt; 1\), the vertical contraction \(y \mapsto \frac{1}{3}y\) dominates horizontal rotation without dividing by \(e^{2\pi i n\alpha} - 1\); the graph-transform operator is a strict contraction with \(d = 0\) in a single \(C^k\) space.</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: Computing the derivative requirement for Moser's twist theorem</h3>
+  <p>In Exemplar 2 and Exercise 2, we saw that when the linearized inverse loses \(d\) derivatives and the high norm \(\|u_k\|_{s_0 + \sigma}\) grows like \(N_k^A\), convergence requires \(\sigma &gt; A\). In Moser's 1966 proof for twist maps of the annulus with a Diophantine frequency of exponent \(\tau &gt; 1\), each step applies \(L(u_k)\) twice (causing effective loss \(d = 2(\tau + 1)\)) and the high-norm bootstrap accumulates growth exponent \(A = d = 2(\tau + 1)\).<br>
+  (a) Using \(\kappa = 1 + \frac{\sigma - A}{\sigma - A + d}\) from Exercise 2, find the minimum smoothness reserve \(\sigma_{\min}\) needed just to make \(\kappa &gt; 1\), and find the value of \(\sigma\) required to achieve \(\kappa = \frac{4}{3}\) when \(\tau = 1\) (so \(d = A = 4\)).<br>
+  (b) Explain how interpolating (<a href="p15-squeeze.html"><span class="pid">P15</span></a>) between the decaying low norm \(\|h_k\|_{s_0} \le e_k\) and the growing high norm \(\|h_k\|_{s_0 + \sigma} \le N_k^A\) via \(\|h_k\|_s \le \|h_k\|_{s_0}^{1 - \theta}\|h_k\|_{s_0 + \sigma}^\theta\) (with \(\theta = \frac{s - s_0}{\sigma}\)) determines the highest regularity \(s\) in which the series \(\sum_{k=0}^\infty \|h_k\|_s\) converges.</p>
+  <details><summary>Hint</summary><p>For (a), set \(\frac{\sigma - 4}{\sigma - 4 + 4} = \frac{1}{3}\). For (b), write \(e_k = N_k^{-(\sigma - A + d)}\) so that \(\|h_k\|_{s_0}^{1-\theta}\|h_k\|_{s_0+\sigma}^\theta = N_k^{-(1-\theta)(\sigma - A + d) + \theta A}\); the series converges whenever the exponent of \(N_k\) is strictly negative.</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Smoothness reserve \(\sigma\) for \(\kappa = \frac{4}{3}\):</strong> When \(\tau = 1\), we have \(d = 2(1 + 1) = 4\) and \(A = 4\). To make \(\kappa = 1 + \frac{\sigma - A}{\sigma - A + d} &gt; 1\), we need \(\sigma &gt; A = 4\). To achieve \(\kappa = \frac{4}{3}\), we solve</p>
+    <p class="eq">\[\frac{\sigma - 4}{(\sigma - 4) + 4} = \frac{1}{3} \quad\Longrightarrow\quad 3\sigma - 12 = \sigma \quad\Longrightarrow\quad \sigma = 6.\]</p>
+    <p>With base norm \(s_0 = 1\), this naive two-level scheme uses \(s_0 + \sigma = 1 + 6 = 7\) derivatives.</p>
+    <p><strong>(b) Intermediate regularity via Sobolev interpolation:</strong> Since \(e_k = N_k^{-(\sigma - A + d)}\), the interpolation inequality gives</p>
+    <p class="eq">\[\|h_k\|_s \;\le\; e_k^{1-\theta}\,N_k^{\theta A} = N_k^{-(1-\theta)(\sigma - A + d) + \theta A}.\]</p>
+    <p>Because \(N_{k+1} = N_k^\kappa\) grows doubly exponentially, \(\sum_{k=0}^\infty \|h_k\|_s &lt; \infty\) converges whenever the power of \(N_k\) is strictly negative:</p>
+    <p class="eq">\[\theta A &lt; (1 - \theta)(\sigma - A + d) \quad\Longleftrightarrow\quad \theta = \frac{s - s_0}{\sigma} &lt; \frac{\sigma - A + d}{\sigma + d}.\]</p>
+    <p>For \(\sigma = 6, A = 4, d = 4\), this gives \(\theta &lt; \frac{6}{10} = \frac{3}{5}\), so the limit \(u_\infty = u_0 + \sum h_k\) is guaranteed to belong to \(H^s\) for all \(s &lt; s_0 + \frac{3}{5}\sigma = 1 + 3.6 = 4.6\).</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P57 · Nash-Moser fast Newton. <a href="index.html">Return to the index</a> · Previous: <a href="p56-rescale-asymptotic.html">P56 · Rescale for asymptotic geometry</a> · Next: <a href="p58-ergodic-correspondence.html">P58 · Ergodic correspondence →</a></p>
+</footer>
+
+</body>
+</html>

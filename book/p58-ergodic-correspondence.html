@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P58 · Ergodic correspondence · The Patterns Atlas</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
+:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
+main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
+.kicker a { color: var(--accent); text-decoration: none; }
+h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
+.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
+th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
+td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
+td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
+.st { font-family: system-ui, sans-serif; font-size: .75rem; }
+.st.published { color: #1c6b2f; }
+.st.reviewed { color: var(--accent); }
+.st.drafting { color: var(--warn); }
+.st.planned { color: var(--soft); }
+footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+/* pattern-page blocks */
+.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
+.pattern-box .words { color: var(--soft); }
+.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
+.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
+.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
+figure { margin: 1.2rem 0; }
+figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
+.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
+.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
+.eq { text-align: center; margin: 1.1rem 0; }
+mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
+figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
+details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
+summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P58 · the thirteenth move of tier 5</p>
+  <h1>Ergodic correspondence</h1>
+  <p class="tagline">When a deterministic orbit wanders without invariant traps, replace impossible long-time tracking along one trajectory with a single spatial integral over the invariant measure.</p>
+</header>
+
+<aside class="onramp">
+  <strong>Invariant measure \(\mu\), ergodicity, and the time-equals-space bridge.</strong>
+  Given a state space \(X\) and a step rule \(T : X \to X\), a probability measure \(\mu\) on \(X\) (\(\mu(X) = 1\)) is <em>\(T\)-invariant</em> if every region \(E \subset X\) has the exact same weight as its preimage \(T^{-1}(E) = \{x \in X : T(x) \in E\}\), i.e., \(\mu(T^{-1}E) = \mu(E)\). The system \((X, \mu, T)\) is <em>ergodic</em> if it cannot be split into two separate invariant worlds: any subset satisfying \(T^{-1}(E) = E\) has either \(\mu(E) = 0\) or \(\mu(E) = 1\). Under ergodicity, Birkhoff's theorem states that for \(\mu\)-almost every starting point \(x_0\), the long-time average \(\lim_{N\to\infty}\frac{1}{N}\sum_{n=0}^{N-1} f(T^n x_0)\) equals the space average \(\int_X f\,d\mu\).
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p><a href="p19-count-outcomes.html"><span class="pid">P19</span></a> taught us how to prove existence by averaging over a probability space of outcomes (as in Erdős's lower bound for Ramsey numbers), and <a href="p26-model-with-equation.html"><span class="pid">P26</span></a> showed us how to evolve a deterministic state forward in time step by step. <a href="p09-find-invariant.html"><span class="pid">P09</span></a> taught us to look for quantities preserved along every step of a process.</p>
+  <p>Here is the tension that unites deterministic dynamics (<a href="p26-model-with-equation.html"><span class="pid">P26</span></a>) with probabilistic counting (<a href="p19-count-outcomes.html"><span class="pid">P19</span></a>). Suppose a sequence is 100% deterministic — say, the powers of two \(1, 2, 4, 8, 16, 32, \dots\), or the continued-fraction digits of a real number, or a dense subset of integers \(A \subset \mathbb{N}\) — and we want to know the long-run fraction of steps \(n \in \{0, 1, \dots, N-1\}\) that land in a target set, or whether \(A\) contains \(k\)-term arithmetic progressions. Tracking a single trajectory through \(10^6\) nonlinear steps is hopeless because microscopic rounding errors amplify exponentially. How do we compute exact long-time frequencies and pattern counts along a deterministic orbit without ever computing the orbit?</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: why \(30.1\%\) of the powers of \(2\) begin with the digit \(1\)</h2>
+  <p>Write down the first twenty powers of two in base ten: \(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, \dots\) and tally their <strong>leading (leftmost) decimal digit</strong> \(d \in \{1, 2, \dots, 9\}\). Naive intuition says all nine digits \(1\) through \(9\) should share the lead equally (\(\frac{1}{9} \approx 11.1\%\) each). The actual census tells a completely different story:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Leading Digit \(d\)</th>
+        <th>First \(N = 20\) Powers</th>
+        <th>First \(N = 100\) Powers</th>
+        <th>First \(N = 1000\) Powers</th>
+        <th>Window \([\log_{10} d,\, \log_{10}(d+1))\)</th>
+        <th>Exact Limit \(\log_{10}\!\left(1 + \frac{1}{d}\right)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(d = 1\)</td>
+        <td>\(6 / 20 = 0.300\)</td>
+        <td>\(30 / 100 = 0.300\)</td>
+        <td>\(301 / 1000 = 0.3010\)</td>
+        <td>\([0.0000,\, 0.3010)\)</td>
+        <td>\(\mathbf{0.30103}\) (\(30.10\%\))</td>
+      </tr>
+      <tr>
+        <td>\(d = 2\)</td>
+        <td>\(4 / 20 = 0.200\)</td>
+        <td>\(17 / 100 = 0.170\)</td>
+        <td>\(176 / 1000 = 0.1760\)</td>
+        <td>\([0.3010,\, 0.4771)\)</td>
+        <td>\(\mathbf{0.17609}\) (\(17.61\%\))</td>
+      </tr>
+      <tr>
+        <td>\(d = 3\)</td>
+        <td>\(2 / 20 = 0.100\)</td>
+        <td>\(13 / 100 = 0.130\)</td>
+        <td>\(125 / 1000 = 0.1250\)</td>
+        <td>\([0.4771,\, 0.6021)\)</td>
+        <td>\(\mathbf{0.12494}\) (\(12.49\%\))</td>
+      </tr>
+      <tr>
+        <td>\(d = 4\)</td>
+        <td>\(2 / 20 = 0.100\)</td>
+        <td>\(10 / 100 = 0.100\)</td>
+        <td>\(97 / 1000 = 0.0970\)</td>
+        <td>\([0.6021,\, 0.6990)\)</td>
+        <td>\(\mathbf{0.09691}\) (\(9.69\%\))</td>
+      </tr>
+      <tr>
+        <td>\(d = 5\)</td>
+        <td>\(2 / 20 = 0.100\)</td>
+        <td>\(7 / 100 = 0.070\)</td>
+        <td>\(79 / 1000 = 0.0790\)</td>
+        <td>\([0.6990,\, 0.7782)\)</td>
+        <td>\(\mathbf{0.07918}\) (\(7.92\%\))</td>
+      </tr>
+      <tr>
+        <td>\(d = 9\)</td>
+        <td>\(0 / 20 = 0.000\)</td>
+        <td>\(5 / 100 = 0.050\)</td>
+        <td>\(45 / 1000 = 0.0450\)</td>
+        <td>\([0.9542,\, 1.0000)\)</td>
+        <td>\(\mathbf{0.04576}\) (\(4.58\%\))</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Why do the empirical frequencies at \(N = 1000\) lock onto \(\log_{10}(1 + 1/d)\) to four decimal places? Pin down the condition (<a href="p01-pin-down-problem.html"><span class="pid">P01</span></a>) that \(2^n\) begins with digit \(d\): there exists an integer power \(10^k\) such that \(d \cdot 10^k \le 2^n &lt; (d+1) \cdot 10^k\). Take base-10 logarithms (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>) and look at the fractional part \(\{x\} = x - \lfloor x \rfloor \in [0, 1)\):</p>
+  <p class="eq">\[\log_{10} d + k \;\le\; n\log_{10} 2 \;&lt;\; \log_{10}(d+1) + k \quad\Longleftrightarrow\quad \bigl\{n\alpha\bigr\} \in I_d = \bigl[\log_{10} d,\; \log_{10}(d+1)\bigr),\]</p>
+  <p>where \(\alpha = \log_{10} 2 \approx 0.30103\). Suddenly the arithmetic of \(2^n\) has dressed in different clothes (<a href="p16-structural-isomorphism.html"><span class="pid">P16</span></a>): the sequence \(x_n = \{n\alpha\}\) is simply the orbit of \(x_0 = 0\) under the circle rotation \(T_\alpha(x) = x + \alpha \bmod 1\) on the unit circle \(X = \mathbb{R}/\mathbb{Z}\)! Because \(\alpha = \log_{10} 2\) is irrational (\(2^q = 10^p\) is impossible for positive integers \(p, q\) by unique prime factorization), no Fourier wave \(e^{2\pi i m x}\) (\(m \ne 0\)) is fixed by \(T_\alpha\): \(e^{2\pi i m(x+\alpha)} = e^{2\pi i m\alpha} e^{2\pi i m x} \ne e^{2\pi i m x}\). Therefore the uniform length measure \(d\mu = dx\) is the unique ergodic invariant probability measure on \(\mathbb{R}/\mathbb{Z}\), and the long-time fraction of visits to the arc \(I_d\) equals the arc's spatial length:</p>
+  <p class="eq">\[\lim_{N\to\infty} \frac{1}{N}\#\bigl\{0 \le n &lt; N : \text{lead digit}(2^n) = d\bigr\} = \int_{I_d} 1\,dx = \log_{10}(d+1) - \log_{10} d = \log_{10}\!\left(1 + \frac{1}{d}\right).\]</p>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 205" role="img" aria-label="Fig P58.1: Left: the unit circle R/Z partitioned into the 9 Benford arcs I_d = [log10(d), log10(d+1)) traversed by irrational rotation alpha = log10(2). Right: bar chart comparing N=1000 empirical frequencies of 2^n against the spatial arc lengths log10(1 + 1/d).">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Unit interval [0,1) wrapped as a circle with Benford arcs -->
+      <text x="145" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Circle Rotation  T(x) = x + log₁₀ 2  mod 1</text>
+      <circle cx="145" cy="112" r="64" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.8"/>
+      <!-- Highlight Arc I_1 from angle -90 deg (x=0, top) clockwise by 0.3010 * 360 = 108.37 deg to angle +18.37 deg:
+           start = (145, 48), end = (145 + 64*cos(18.37 deg), 112 + 64*sin(18.37 deg)) = (205.7, 132.2) -->
+      <path d="M 145,112 L 145,48 A 64,64 0 0,1 205.7,132.2 Z" fill="#d9ece9" stroke="#0f5c57" stroke-width="2"/>
+      <!-- Tick marks on circle for d=1 (0.0), d=2 (0.301), d=3 (0.477), d=4 (0.602), d=5 (0.699), d=6 (0.778), d=7 (0.845), d=8 (0.903), d=9 (0.954) -->
+      <circle cx="145" cy="48" r="4" fill="#0f5c57"/>
+      <circle cx="205.7" cy="132.2" r="4" fill="#0f5c57"/>
+      <circle cx="154.2" cy="175.3" r="3.5" fill="#1a1a1a"/>
+      <circle cx="106.7" cy="163.3" r="3.5" fill="#1a1a1a"/>
+      <circle cx="84.3" cy="132.1" r="3.5" fill="#1a1a1a"/>
+      <circle cx="82.0" cy="100.7" r="3.5" fill="#1a1a1a"/>
+      <circle cx="92.0" cy="76.0" r="3.5" fill="#1a1a1a"/>
+      <circle cx="108.4" cy="59.5" r="3.5" fill="#1a1a1a"/>
+      <circle cx="126.8" cy="50.6" r="3.5" fill="#8a4b08"/>
+
+      <text x="180" y="92" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Arc I₁</text>
+      <text x="180" y="106" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="middle">30.1%</text>
+      <text x="145" y="38" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">x = 0</text>
+      <text x="220" y="140" font-family="Georgia, serif" font-size="10" fill="#0f5c57">log₁₀ 2</text>
+      <text x="166" y="191" font-family="Georgia, serif" font-size="10" fill="#1a1a1a">log₁₀ 3</text>
+      <text x="98" y="47" font-family="Georgia, serif" font-size="9.5" fill="#8a4b08" text-anchor="end">I₉ (4.6%)</text>
+
+      <!-- Divider -->
+      <line x1="295" y1="18" x2="295" y2="195" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Bar chart of Digit probabilities d=1..9 -->
+      <text x="448" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Time Average (N=1000) vs. Space Integral μ(I_d)</text>
+      <line x1="330" y1="168" x2="575" y2="168" stroke="#8a94a3" stroke-width="1.2"/>
+      <line x1="330" y1="38" x2="330" y2="168" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- Bars for d=1..9 at x = 342 + 25*(d-1), height = 380 * log10(1 + 1/d) -->
+      <!-- d=1: h=114.4 (y=53.6); d=2: h=66.9 (y=101.1); d=3: h=47.5 (y=120.5); d=4: h=36.8 (y=131.2);
+           d=5: h=30.1 (y=137.9); d=6: h=25.4 (y=142.6); d=7: h=22.0 (y=146.0); d=8: h=19.4 (y=148.6); d=9: h=17.4 (y=150.6) -->
+      <rect x="338" y="53.6" width="16" height="114.4" fill="#0f5c57"/>
+      <rect x="364" y="101.1" width="16" height="66.9" fill="#5a8f8b"/>
+      <rect x="390" y="120.5" width="16" height="47.5" fill="#5a8f8b"/>
+      <rect x="416" y="131.2" width="16" height="36.8" fill="#5a8f8b"/>
+      <rect x="442" y="137.9" width="16" height="30.1" fill="#5a8f8b"/>
+      <rect x="468" y="142.6" width="16" height="25.4" fill="#5a8f8b"/>
+      <rect x="494" y="146.0" width="16" height="22.0" fill="#5a8f8b"/>
+      <rect x="520" y="148.6" width="16" height="19.4" fill="#5a8f8b"/>
+      <rect x="546" y="150.6" width="16" height="17.4" fill="#8a4b08"/>
+
+      <text x="346" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+      <text x="372" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">2</text>
+      <text x="398" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">3</text>
+      <text x="424" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">4</text>
+      <text x="450" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">5</text>
+      <text x="476" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">6</text>
+      <text x="502" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">7</text>
+      <text x="528" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">8</text>
+      <text x="554" y="182" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">9</text>
+      <text x="450" y="197" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Leading decimal digit d of 2ⁿ</text>
+    </svg>
+    <figcaption><strong>Fig P58.1.</strong> <strong>(A)</strong> Taking base-10 logarithms modulo \(1\) maps the sequence \(2^n\) onto an irrational rotation \(x_{n+1} = x_n + \log_{10} 2 \bmod 1\), where leading digit \(d\) corresponds to the arc \(I_d = [\log_{10} d, \log_{10}(d+1))\). <strong>(B)</strong> By ergodicity, the time fraction spent in \(I_d\) converges to the spatial length \(\log_{10}(1 + 1/d)\).</figcaption>
+  </figure>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+  <p>The correspondence between temporal orbit averages and spatial measure integrals runs in both directions:
+  <ul>
+    <li><strong>Dynamics \(\to\) Statistics (Birkhoff–von Neumann Ergodic Theorem):</strong> Replace a hard long-time sum \(\frac{1}{N}\sum_{n=0}^{N-1} f(T^n x)\) along an orbit by a spatial integral \(\int_X f\,d\mu\) against the invariant measure \(\mu\).</li>
+    <li><strong>Combinatorics \(\to\) Dynamics (Furstenberg's Correspondence Principle):</strong> Given a subset \(A \subset \mathbb{N}\) with positive upper density \(\overline{d}(A) = \limsup_{N\to\infty} \frac{|A \cap [1,N]|}{N} &gt; 0\), view the indicator sequence \(\omega = (\mathbf{1}_A(1), \mathbf{1}_A(2), \dots) \in \{0,1\}^{\mathbb{N}}\) as a point in sequence space equipped with the left shift \(T(\omega)_n = \omega_{n+1}\). Weak-* compactness (<a href="p21-limit-point.html"><span class="pid">P21</span></a>) extracts a shift-invariant probability measure \(\mu\) on \(X = \overline{\{T^n \omega\}}\) such that the cylinder set \(E = \{\eta \in X : \eta_0 = 1\}\) has \(\mu(E) = \overline{d}(A) &gt; 0\), turning combinatorial patterns in \(A\) into joint return probabilities \(\mu(E \cap T^{-r_1}E \cap \cdots \cap T^{-r_k}E) &gt; 0\)!</li>
+  </ul>
+
+  <div class="pattern-box" id="box-p58">
+    <p><strong>Pattern P58 — Ergodic correspondence.</strong> To evaluate asymptotic time averages \(\lim_{N\to\infty} \frac{1}{N}\sum_{n=0}^{N-1} f(T^n x)\) of a deterministic map \(T : X \to X\) or prove that a dense subset \(A \subset \mathbb{N}\) contains structured configurations:</p>
+    <p class="eq">\[\lim_{N\to\infty} \frac{1}{N}\sum_{n=0}^{N-1} f(T^n x) = \int_X f(y)\,d\mu(y) \quad (\mu\text{-almost everywhere}), \qquad \overline{d}\bigl(A \cap (A - r_1) \cap \cdots \cap (A - r_k)\bigr) \ge \mu\bigl(E \cap T^{-r_1}E \cap \cdots \cap T^{-r_k}E\bigr).\]</p>
+    <p class="words"><strong>Or, in words:</strong> Stop chasing individual steps of a long orbit. Find the probability measure \(\mu\) that the step rule leaves unchanged, verify that the space cannot be split into separate invariant islands (ergodicity), and compute the time average as a static volume integral — or translate a dense set of integers into an event of positive measure and use recurrence.</p>
+  </div>
+
+  <div class="pattern-box" id="box-p58a">
+    <p><strong>Box P58.A — The three obligations of an ergodic bridge.</strong></p>
+    <ol>
+      <li><strong>Measure Invariance Lock (<span class="pid">P09</span>):</strong> Identify a probability measure \(\mu\) on \(X\) preserved by \(T\): \(\mu(T^{-1}E) = \mu(E)\) for every measurable set \(E\) (equivalently, the Koopman operator \(Uf = f \circ T\) preserves integrals: \(\int Uf\,d\mu = \int f\,d\mu\)).</li>
+      <li><strong>Ergodicity / Spectral Lock (<span class="pid">P24</span>):</strong> Prove that every \(T\)-invariant function \(f(Tx) = f(x)\) in \(L^2(X, \mu)\) is constant almost everywhere (often checked by expanding \(f\) in a Fourier/character basis <span class="pid">P36</span> and verifying that \(U\) has no non-constant fixed modes).</li>
+      <li><strong>Pointwise vs. Unique Ergodicity Audit:</strong> Remember that Birkhoff's theorem holds for \(\mu\)-<em>almost every</em> starting point \(x_0\). To guarantee that the limit holds for a <strong>specific</strong> deterministic starting point \(x_0\) (such as \(x_0 = 0\) in Section 2), verify <em>unique ergodicity</em> (that \(\mu\) is the <em>only</em> invariant Borel probability measure on \(X\), so every continuous function \(f\) converges uniformly for <em>all</em> \(x_0 \in X\)).</li>
+    </ol>
+  </div>
+
+  <div class="pattern-box" id="box-p58b">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claim type</strong></td>
+          <td>An exact asymptotic frequency \(\lim_{N\to\infty}\frac{1}{N}\sum_{n &lt; N} f(x_n)\) along a deterministic sequence, or existence of arithmetic progressions / constellations inside any subset \(A \subset \mathbb{N}\) of positive upper density.</td>
+        </tr>
+        <tr>
+          <td><strong>Problem shape</strong></td>
+          <td>Iterated dynamics \(x_{n+1} = T(x_n)\) where direct \(N\)-step algebraic formulas explode in complexity, or unstructured dense subsets of \(\mathbb{N}\) where algebraic identities are absent.</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td><strong>Tools at hand</strong></td>
+          <td>Perron–Frobenius transfer operator \(\mathcal{L}\rho(y) = \sum_{Tx=y} \frac{\rho(x)}{|T'(x)|}\), Fourier/Koopman spectrum, and Furstenberg shift-space compactification.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P58</span> whenever a question asks for long-term averages of an iterated map or patterns inside an arbitrary dense subset of integers.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P58.2: Furstenberg's Correspondence dictionary translating a dense subset A of integers into a cylinder event E in shift space {0,1}^N where arithmetic progressions become multiple recurrence intersections.">
+      <defs>
+        <marker id="arr-p58" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
+
+      <!-- Left box: Combinatorial World (N, subset A) -->
+      <rect x="28" y="32" width="232" height="132" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="4"/>
+      <text x="144" y="54" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Combinatorial World (ℕ)</text>
+      <text x="144" y="80" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Subset  A ⊂ ℕ  with  d*(A) &gt; 0</text>
+      <text x="144" y="106" font-family="Georgia, serif" font-size="11" fill="#5a5a5a" text-anchor="middle">Shift  A − r = {n : n + r ∈ A}</text>
+      <rect x="44" y="122" width="200" height="28" fill="#ffffff" stroke="#d8d4cc"/>
+      <text x="144" y="140" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">k-AP:  a, a+r, …, a+(k−1)r ∈ A</text>
+
+      <!-- Middle Bridge Arrows -->
+      <line x1="268" y1="84" x2="332" y2="84" stroke="#0f5c57" stroke-width="2.2" marker-end="url(#arr-p58)"/>
+      <line x1="332" y1="112" x2="268" y2="112" stroke="#0f5c57" stroke-width="2.2" marker-end="url(#arr-p58)"/>
+      <text x="300" y="74" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">ω_n = 1_A(n)</text>
+      <text x="300" y="128" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Return time r</text>
+
+      <!-- Right box: Ergodic Dynamical World (X, mu, T) -->
+      <rect x="340" y="32" width="232" height="132" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
+      <text x="456" y="54" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Ergodic World (X, μ, T)</text>
+      <text x="456" y="80" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Event  E ⊂ X  with  μ(E) = d*(A) &gt; 0</text>
+      <text x="456" y="106" font-family="Georgia, serif" font-size="11" fill="#5a5a5a" text-anchor="middle">Preimage  T⁻ʳ E  (measure-preserving)</text>
+      <rect x="352" y="122" width="208" height="28" fill="#ffffff" stroke="#0f5c57"/>
+      <text x="456" y="140" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">μ(E ∩ T⁻ʳE ∩ … ∩ T⁻⁽ᵏ⁻¹⁾ʳE) &gt; 0</text>
+    </svg>
+    <figcaption><strong>Fig P58.2.</strong> Furstenberg's ergodic correspondence dictionary: an unstructured subset \(A \subset \mathbb{N}\) of positive upper density \(\overline{d}(A) &gt; 0\) translates into a measurable event \(E\) of probability \(\mu(E) = \overline{d}(A) &gt; 0\) in a compact shift system \((X, \mu, T)\), turning arithmetic progressions into multiple recurrence of \(E\).</figcaption>
+  </figure>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 · Weyl equidistribution and why irrational rotations are uniquely ergodic</h3>
+  <p>In Section 2, we claimed that the specific orbit \(x_n = \{n\log_{10} 2\}\) starting at \(x_0 = 0\) visits every arc \(I \subset \mathbb{R}/\mathbb{Z}\) with frequency equal to its length \(|I|\). Why didn't \(x_0 = 0\) land in the zero-measure exceptional set allowed by Birkhoff's theorem (Box P58.A, Obligation 3)?</p>
+  <p>Split the observable \(f(x)\) into waves (<a href="p24-split-into-waves.html"><span class="pid">P24</span></a>): for any non-zero Fourier mode \(e_m(x) = e^{2\pi i m x}\) (\(m \in \mathbb{Z}\setminus\{0\}\)) and <em>any</em> starting point \(x_0 \in \mathbb{R}/\mathbb{Z}\), the finite-time orbit average is a finite geometric series that telescopes (<a href="p69-telescoping.html"><span class="pid">P69</span></a>):</p>
+  <p class="eq">\[\frac{1}{N}\sum_{n=0}^{N-1} e_m(x_0 + n\alpha) = \frac{e^{2\pi i m x_0}}{N}\sum_{n=0}^{N-1} \bigl(e^{2\pi i m\alpha}\bigr)^n = \frac{e^{2\pi i m x_0}}{N}\cdot\frac{e^{2\pi i m N\alpha} - 1}{e^{2\pi i m\alpha} - 1}.\]</p>
+  <p>Because \(\alpha \notin \mathbb{Q}\), the denominator \(|e^{2\pi i m\alpha} - 1| = 2|\sin(\pi m\alpha)| &gt; 0\) is strictly non-zero, while the numerator has magnitude at most \(2\). Squeezed (<a href="p15-squeeze.html"><span class="pid">P15</span></a>) by \(1/N\),</p>
+  <p class="eq">\[\left|\frac{1}{N}\sum_{n=0}^{N-1} e_m(x_0 + n\alpha)\right| \;\le\; \frac{2}{N\,\bigl|e^{2\pi i m\alpha} - 1\bigr|} \;\xrightarrow{N \to \infty}\; 0 = \int_0^1 e_m(x)\,dx\]</p>
+  <p>uniformly for <em>every</em> \(x_0 \in \mathbb{R}/\mathbb{Z}\)! By linearity, the time average equals the integral \(\int_0^1 P(x)\,dx\) for every trigonometric polynomial \(P\), and by sandwiching any indicator \(\mathbf{1}_{[a,b]}\) between smooth trigonometric polynomials above and below (<a href="p15-squeeze.html"><span class="pid">P15</span></a>), every individual orbit equidistributes with zero exceptions.</p>
+
+  <h3>Exemplar 2 · Gauss's continued-fraction map \(T(x) = \{1/x\}\) and the \(41.5\%\) prevalence of \(1\)'s</h3>
+  <p>Every irrational number \(x \in (0, 1)\) expands into a continued fraction \(x = \cfrac{1}{a_1 + \cfrac{1}{a_2 + \cfrac{1}{a_3 + \cdots}}}\) whose integer digits \(a_n = \lfloor 1/x_{n-1} \rfloor \in \{1, 2, 3, \dots\}\) are generated by iterating the <strong>Gauss map</strong></p>
+  <p class="eq">\[T(x) = \left\{\frac{1}{x}\right\} = \frac{1}{x} - \left\lfloor\frac{1}{x}\right\rfloor, \qquad x \in (0, 1).\]</p>
+  <p>Notice that the \(n\)-th digit \(a_n\) equals \(k\) if and only if the \((n-1)\)-st iterate lands in the interval \(I_k = \left(\frac{1}{k+1}, \frac{1}{k}\right]\). What is the long-run fraction of digits equal to \(k\) for a typical real number? You might guess it is the length \(\frac{1}{k} - \frac{1}{k+1} = \frac{1}{k(k+1)}\) (\(\frac{1}{2} = 50\%\) for \(k=1\)), <em>but ordinary length \(dx\) is not invariant under \(T\)</em>! Why? Because \(T'(x) = -1/x^2\) stretches small \(x\) violently.</p>
+  <p>In an 1800 notebook entry, Carl Friedrich Gauss found the exact invariant probability measure (<a href="p09-find-invariant.html"><span class="pid">P09</span></a>):</p>
+  <p class="eq">\[d\mu(x) = \frac{1}{\ln 2}\frac{dx}{1 + x}.\]</p>
+  <p>Let us verify Obligation 1 of Box P58.A in two lines of calculus. For any target interval \([0, y] \subset [0, 1]\), a point \(x\) satisfies \(T(x) = \frac{1}{x} - k \in [0, y]\) on the \(k\)-th branch if and only if \(k \le \frac{1}{x} \le k + y\), meaning \(x \in \left[\frac{1}{k+y}, \frac{1}{k}\right]\). Summing the Gauss measure over all preimage branches \(k = 1, 2, 3, \dots\) gives a telescoping series (<a href="p69-telescoping.html"><span class="pid">P69</span></a>):</p>
+  <p class="eq">\[\mu\bigl(T^{-1}[0,y]\bigr) = \frac{1}{\ln 2}\sum_{k=1}^{\infty} \int_{\frac{1}{k+y}}^{\frac{1}{k}} \frac{dx}{1+x} = \frac{1}{\ln 2}\sum_{k=1}^{\infty} \left[\ln\!\left(\frac{k+1}{k}\right) - \ln\!\left(\frac{k+1+y}{k+y}\right)\right] = \frac{\ln(1+y)}{\ln 2} = \mu\bigl([0,y]\bigr).\]</p>
+  <p>Because \((0,1], \mu, T\) is ergodic, Birkhoff's theorem (<span class="pid">P58</span>) immediately converts the asymptotic frequency of every continued-fraction digit \(k\) and the geometric mean of the digits into elementary integrals:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>CF Digit \(k\)</th>
+        <th>Window \(I_k = (\frac{1}{k+1}, \frac{1}{k}]\)</th>
+        <th>Naive Length \(\frac{1}{k(k+1)}\) (Wrong!)</th>
+        <th>Exact Gauss Frequency \(\mu(I_k) = \log_2\!\left(1 + \frac{1}{k(k+2)}\right)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(k = 1\)</td>
+        <td>\((1/2,\, 1]\)</td>
+        <td>\(0.500000\)</td>
+        <td>\(\log_2(4/3) \approx \mathbf{0.415037}\) (\(41.50\%\))</td>
+      </tr>
+      <tr>
+        <td>\(k = 2\)</td>
+        <td>\((1/3,\, 1/2]\)</td>
+        <td>\(0.166667\)</td>
+        <td>\(\log_2(9/8) \approx \mathbf{0.169925}\) (\(16.99\%\))</td>
+      </tr>
+      <tr>
+        <td>\(k = 3\)</td>
+        <td>\((1/4,\, 1/3]\)</td>
+        <td>\(0.083333\)</td>
+        <td>\(\log_2(16/15) \approx \mathbf{0.093109}\) (\(9.31\%\))</td>
+      </tr>
+      <tr>
+        <td>\(k = 4\)</td>
+        <td>\((1/5,\, 1/4]\)</td>
+        <td>\(0.050000\)</td>
+        <td>\(\log_2(25/24) \approx \mathbf{0.058894}\) (\(5.89\%\))</td>
+      </tr>
+      <tr>
+        <td>\(k = 5\)</td>
+        <td>\((1/6,\, 1/5]\)</td>
+        <td>\(0.033333\)</td>
+        <td>\(\log_2(36/35) \approx \mathbf{0.040642}\) (\(4.06\%\))</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Even more remarkably, applying <span class="pid">P58</span> to \(f(x) = \ln(\lfloor 1/x \rfloor)\) proves that for almost every real number \(x\), the geometric mean \((a_1 a_2 \cdots a_N)^{1/N}\) converges to <strong>Khinchin's universal constant</strong> \(K_0 = \exp\!\left(\int_0^1 \ln\lfloor 1/x \rfloor\,d\mu(x)\right) = \prod_{k=1}^\infty \left(1 + \frac{1}{k(k+2)}\right)^{\log_2 k} \approx 2.685452\).</p>
+
+  <h3>Exemplar 3 · Furstenberg's correspondence and Hilbert-space recurrence (\(\overline{d}(A \cap (A-r)) \ge \overline{d}(A)^2\))</h3>
+  <p>Suppose \(A \subset \mathbb{N}\) is any subset of positive upper density \(\overline{d}(A) = \delta &gt; 0\) with no algebraic structure whatsoever. How does Furstenberg's dictionary (<strong>Fig P58.2</strong>) guarantee quantitative return shifts \(r \ge 1\) where \(\overline{d}(A \cap (A - r)) \ge \delta^2\)?</p>
+  <p>Translate \(A\) via Box P58 into a measure-preserving system \((X, \mu, T)\) and an event \(E \subset X\) with \(\mu(E) = \delta &gt; 0\). In the Hilbert space \(\mathcal{H} = L^2(X, \mu)\), the Koopman operator \((Uf)(x) = f(Tx)\) is an isometry (\(\langle Uf, Ug \rangle = \langle f, g \rangle\)). Let \(P_{\text{inv}}\) be the orthogonal projection onto the subspace \(\mathcal{H}_{\text{inv}} = \{g \in \mathcal{H} : Ug = g\}\) of \(T\)-invariant functions. By von Neumann's mean ergodic theorem, the time-averaged operators \(\frac{1}{N}\sum_{r=0}^{N-1} U^r\) converge in \(L^2\) to \(P_{\text{inv}}\). Take the inner product with \(f = \mathbf{1}_E\):</p>
+  <p class="eq">\[\lim_{N\to\infty} \frac{1}{N}\sum_{r=0}^{N-1} \mu\bigl(E \cap T^{-r}E\bigr) = \lim_{N\to\infty} \left\langle \mathbf{1}_E,\; \frac{1}{N}\sum_{r=0}^{N-1} U^r \mathbf{1}_E \right\rangle = \bigl\langle \mathbf{1}_E,\, P_{\text{inv}}\mathbf{1}_E \bigr\rangle = \bigl\|P_{\text{inv}}\mathbf{1}_E\bigr\|_{L^2}^2.\]</p>
+  <p>Because the constant function \(1\) lies inside \(\mathcal{H}_{\text{inv}}\), Orthogonal projection onto \(\mathcal{H}_{\text{inv}}\) preserves expectations: \(\int_X P_{\text{inv}}\mathbf{1}_E\,d\mu = \int_X \mathbf{1}_E\,d\mu = \mu(E) = \delta\). By the Cauchy–Schwarz inequality (<a href="p15-squeeze.html"><span class="pid">P15</span></a>),</p>
+  <p class="eq">\[\bigl\|P_{\text{inv}}\mathbf{1}_E\bigr\|_{L^2}^2 \;\ge\; \left(\int_X P_{\text{inv}}\mathbf{1}_E\,d\mu\right)^2 = \mu(E)^2 = \delta^2.\]</p>
+  <p>Since the average of \(\mu(E \cap T^{-r}E)\) over \(r \in [0, N-1]\) is at least \(\delta^2\) (count outcomes, <a href="p19-count-outcomes.html"><span class="pid">P19</span></a>), a positive-density set of step sizes \(r\) must satisfy \(\overline{d}(A \cap (A - r)) \ge \mu(E \cap T^{-r}E) \ge \delta^2 &gt; 0\)! Extending this single orthogonal decomposition to a tower of compact and weak-mixing extensions is how Hillel Furstenberg (1977) proved Szemerédi's theorem for \(k\)-term arithmetic progressions of arbitrary length \(k\).</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+  <p>The ergodic bridge is exact when its three obligations hold, and fails instructively when any one of them breaks:</p>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Zero-measure exceptional orbits in non-uniquely ergodic maps (why quadratic irrationals disobey Khinchin's constant!).</strong> In Exemplar 2, we proved that for Lebesgue-<em>almost every</em> \(x \in (0,1)\), the Gauss map orbit visits digit \(1\) \(41.50\%\) of the time and has geometric mean \(K_0 \approx 2.685\). Yet if you test \(x_0 = \frac{\sqrt{5}-1}{2} = [0; 1, 1, 1, \dots]\), its continued fraction consists of \(100\%\) ones (geometric mean \(= 1\)), and if you test any rational \(p/q\), its orbit terminates in finitely many steps! Why did <span class="pid">P58</span> fail at \(x_0 = \frac{\sqrt{5}-1}{2}\)? Because the Gauss map is <strong>not uniquely ergodic</strong>: the point \(x_0 = \frac{\sqrt{5}-1}{2}\) is a fixed point \(T(x_0) = x_0\) carrying its own singular invariant Dirac measure \(\delta_{x_0}\)!</p>
+    <p><em>Mitigation:</em> Always distinguish <em>unique ergodicity</em> (like irrational circle rotation, where every orbit converges) from <em>metric ergodicity with periodic orbits</em> (like the Gauss map or doubling map \(2x \bmod 1\), which have countably many periodic orbits of measure \(0\)).</p>
+    <p><em>Price:</em> For non-uniquely ergodic maps, pointwise statements hold for <em>almost every</em> \(x_0\) unless you independently prove your specific \(x_0\) is generic.</p>
+    <p><em>Default:</em> Check Obligation 3 of Box P58.A before applying an ergodic integral to one specific number.</p>
+  </div>
+
+  <figure class="fig-tight">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 195" role="img" aria-label="Fig P58.3: Left: branches of the Gauss map T(x) = {1/x} and the smooth invariant density 1/((1+x) ln 2) alongside the fixed point x_0 = (sqrt(5)-1)/2. Right: partitioned phase space breaking ergodicity into two invariant islands.">
+      <rect x="0" y="0" width="600" height="195" fill="#ffffff"/>
+      <!-- Left panel: Gauss map T(x) = {1/x} branches and fixed point 1/x - 1 = x -->
+      <text x="150" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Gauss Map T(x) = {1/x} &amp; Periodic Traps</text>
+      <rect x="45" y="36" width="210" height="130" fill="#f9f8f4" stroke="#8a94a3" stroke-width="1.2"/>
+      <!-- Diagonal y = x -->
+      <line x1="45" y1="166" x2="255" y2="36" stroke="#8a94a3" stroke-width="1.2" stroke-dasharray="3,3"/>
+      <!-- Branch k=1: x in (1/2, 1] -> x_svg in (150, 255], y = 1/x - 1 -->
+      <path d="M 150.0,36.0 Q 192.0,115.0 255.0,166.0" fill="none" stroke="#0f5c57" stroke-width="2.2"/>
+      <!-- Branch k=2: x in (1/3, 1/2] -> x_svg in (115, 150] -->
+      <path d="M 115.0,36.0 Q 130.0,112.0 150.0,166.0" fill="none" stroke="#0f5c57" stroke-width="1.8"/>
+      <!-- Branch k=3: x in (1/4, 1/3] -> x_svg in (97.5, 115] -->
+      <path d="M 97.5,36.0 Q 105.0,110.0 115.0,166.0" fill="none" stroke="#0f5c57" stroke-width="1.5"/>
+      <!-- Branch k=4: x in (1/5, 1/4] -->
+      <line x1="87" y1="36" x2="97.5" y2="166" stroke="#0f5c57" stroke-width="1.2"/>
+
+      <!-- Fixed point x_0 = 0.618 -> x_svg = 45 + 0.618*210 = 174.8, y_svg = 166 - 0.618*130 = 85.7 -->
+      <circle cx="174.8" cy="85.7" r="5" fill="#8a4b08"/>
+      <text x="183" y="83" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08">Fixed pt x₀ = (√5−1)/2</text>
+      <text x="183" y="96" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08">(Dirac trap δ_{x₀}!)</text>
+      <text x="150" y="182" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">x ∈ (0, 1] · Branches k = 1, 2, 3, …</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="18" x2="300" y2="182" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+
+      <!-- Right panel: Non-ergodic phase space split into two invariant islands E_1 and E_2 -->
+      <text x="450" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Non-Ergodic Split: Two Invariant Islands</text>
+      <rect x="335" y="36" width="230" height="130" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.4" rx="4"/>
+      <ellipse cx="395" cy="101" rx="46" ry="42" fill="#e1f0ee" stroke="#0f5c57" stroke-width="2"/>
+      <ellipse cx="505" cy="101" rx="46" ry="42" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2"/>
+      <text x="395" y="96" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Island E₁</text>
+      <text x="395" y="112" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="middle">T⁻¹E₁ = E₁</text>
+      <text x="505" y="96" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Island E₂</text>
+      <text x="505" y="112" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">T⁻¹E₂ = E₂</text>
+      <text x="450" y="182" font-family="system-ui, sans-serif" font-size="10" fill="#8a4b08" text-anchor="middle">Time average depends on which island x₀ starts in!</text>
+    </svg>
+    <figcaption><strong>Fig P58.3.</strong> Two ways naive ergodic replacement fails: <strong>(A)</strong> In expanding maps like the Gauss map \(T(x) = \{1/x\}\), isolated periodic points such as \(x_0 = \frac{\sqrt{5}-1}{2}\) carry zero-measure Dirac traps that disobey the smooth Gauss–Kuzmin average. <strong>(B)</strong> When the phase space splits into invariant islands \(T^{-1}E_i = E_i\) with \(0 &lt; \mu(E_i) &lt; 1\), time averages converge only to the <em>conditional</em> average on the island containing \(x_0\).</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Rational resonances split the phase space into invariant islands (Obligation 2 fails).</strong> In a two-dimensional torus rotation \(T(x, y) = (x + \alpha_1, y + \alpha_2) \bmod 1\), if the frequencies satisfy an integer resonance \(m_1\alpha_1 + m_2\alpha_2 \in \mathbb{Z}\) for some \((m_1, m_2) \ne (0,0)\), then the function \(g(x,y) = \cos(2\pi(m_1 x + m_2 y))\) is a non-constant invariant (<a href="p09-find-invariant.html"><span class="pid">P09</span></a>)! Every trajectory stays trapped forever on a 1-dimensional closed loop \(m_1 x + m_2 y = \text{const}\), and the 2D torus integral \(\iint_{\mathbb{T}^2} f\,dx\,dy\) gives the wrong answer.</p>
+    <p><em>Mitigation:</em> Restrict the state space \(X\) to the minimal invariant subtorus (ergodic decomposition) before integrating.</p>
+    <p><em>Price:</em> Checking linear independence of \((1, \alpha_1, \dots, \alpha_d)\) over \(\mathbb{Q}\).</p>
+    <p><em>Default:</em> Always run the Fourier/Koopman invariant-mode test (Obligation 2 of Box P58.A) before replacing a time average with a full-space integral.</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Purely qualitative ergodic proofs hide double-exponential or tower-type quantitative bounds.</strong> While Furstenberg's ergodic correspondence (<span class="pid">P58</span>) gives conceptual, structural proofs of Szemerédi's theorem and its polynomial/multidimensional generalizations where Fourier methods struggled, passing to a weak-* limit measure \(\mu\) on \(\{0,1\}^{\mathbb{N}}\) uses compactness (<a href="p21-limit-point.html"><span class="pid">P21</span></a>) and gives no direct rate for \(N(\delta, k)\)!</p>
+    <p><em>Mitigation:</em> When explicit quantitative density bounds \(\delta(N)\) are required, combine ergodic structure theorems (host–Kra characteristic factors) with quantitative Fourier/major-minor arc analysis (<a href="p38-major-minor-arcs.html"><span class="pid">P38</span></a>) or polynomial-method density increment arguments.</p>
+    <p><em>Price:</em> Replacing soft compactness limits with quantitative norm increment loops.</p>
+    <p><em>Default:</em> Use <span class="pid">P58</span> first to discover the structural decomposition (structured vs. pseudorandom/weak-mixing parts), then finitize if explicit bounds are needed.</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this orientation page.</strong> We proved unique ergodicity explicitly for irrational rotations (Exemplar 1), verified measure invariance explicitly for the Gauss map (Exemplar 2), and proved \(k=2\) recurrence via Hilbert-space projection (Exemplar 3). For \(k \ge 3\) arithmetic progressions, the simple split \(\mathcal{H} = \mathcal{H}_{\text{inv}} \oplus \mathcal{H}_{\text{erg}}\) is replaced by Furstenberg's tower of <em>compact extensions</em> vs. <em>weak-mixing extensions</em> (and Host–Kra nilmanifold factors), because weak-mixing functions have negligible correlations while compact extensions behave like almost-periodic rotations.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When you need quantitative bounds on patterns in primes or dense sets by splitting Fourier modes into large structured peaks and small pseudorandom tails:</strong> Step directly to <a href="p38-major-minor-arcs.html"><span class="pid">P38</span> · Major and minor arcs</a> (the analytic-number-theory twin of Furstenberg's structured-vs.-weak-mixing dichotomy).</li>
+    <li><strong>When the dynamics is driven by continuous-time Brownian noise \(dX_t = \mu(X_t)\,dt + \sigma(X_t)\,dW_t\) rather than a discrete map:</strong> Combine <span class="pid">P58</span> with <a href="p37-ito-calculus.html"><span class="pid">P37</span> · Itô calculus</a> to find the stationary invariant density \(\rho_\infty(x)\) via the adjoint Fokker–Planck equation \(\mathcal{L}^*\rho_\infty = -\partial_x(\mu\rho_\infty) + \frac{1}{2}\partial_{xx}(\sigma^2\rho_\infty) = 0\).</li>
+    <li><strong>When a combinatorial counting problem involves joint projections or entropy of random variables rather than shift invariance:</strong> Pair invariant measures with <a href="p59-shearer-entropy.html"><span class="pid">P59</span> · Shearer entropy counting</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Boltzmann's 1884 Ergodenhypothese and Weyl's 1916 equidistribution to Birkhoff–von Neumann and Furstenberg's 1977 correspondence.</strong> Ludwig Boltzmann coined the word "ergodic" (from Greek <em>ergon</em>, work/energy, and <em>hodos</em>, path) in 1884 to justify replacing long-time averages of gas molecules on a constant-energy shell with microcanonical phase-space integrals. In 1916 Hermann Weyl (<em>Mathematische Annalen</em> 77, 313–352) proved that polynomial sequences \(\{P(n)\}\) with an irrational leading coefficient equidistribute modulo \(1\) by bounding trigonometric exponential sums (<a href="p24-split-into-waves.html"><span class="pid">P24</span></a>). In 1931–1932 John von Neumann (<em>PNAS</em> 18, 70–82) proved the \(L^2\) mean ergodic theorem using unitary Koopman operators in Hilbert space, and weeks later George David Birkhoff (<em>PNAS</em> 17, 656–660) proved the pointwise almost-everywhere ergodic theorem. In 1977 Hillel Furstenberg (<em>Journal d'Analyse Mathématique</em> 31, 204–256) revolutionized additive combinatorics by introducing his Ergodic Correspondence Principle to reprove Endre Szemerédi's 1975 theorem on \(k\)-term arithmetic progressions, launching ergodic Ramsey theory (later culminating in the 2004 Green–Tao theorem that the prime numbers contain arbitrarily long arithmetic progressions).</p>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <h3>Exercise 1 ●○○ — Second-digit frequencies of \(2^n\) and Powers of \(3\) that start with \(7\)</h3>
+  <p>(a) Using the irrational circle rotation method of Section 2 (noting that \(\log_{10} 3 \approx 0.477121\) is irrational), find the exact asymptotic fraction of powers of three \(3^n\) (\(n = 0, 1, 2, \dots\)) whose leftmost decimal digit is \(7\), and evaluate it to four decimal places.<br>
+  (b) A power \(2^n\) has first two leftmost decimal digits equal to "\(10\)" (as in \(1024 = 2^{10}\)) if and only if \(10 \cdot 10^k \le 2^n &lt; 11 \cdot 10^k\) for some integer \(k \ge 0\). Compute the exact asymptotic fraction of powers \(2^n\) that begin with the two digits "\(10\)", and compare it to the fraction that begin with "\(19\)".</p>
+  <details><summary>Hint</summary><p>In (a), \(7 \cdot 10^k \le 3^n &lt; 8 \cdot 10^k \iff \{n\log_{10} 3\} \in [\log_{10} 7, \log_{10} 8)\). In (b), divide \(10 \cdot 10^k \le 2^n &lt; 11 \cdot 10^k\) by \(10^{k+1}\) so that \(1.0 \le 2^n / 10^{k+1} &lt; 1.1\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Powers of \(3\) beginning with \(7\):</strong> Since \(3^q = 10^p\) has no positive integer solution, \(\beta = \log_{10} 3\) is irrational, so \(x_n = \{n\beta\}\) is uniquely ergodic with respect to \(dx\) on \(\mathbb{R}/\mathbb{Z}\). The condition \(7\cdot 10^k \le 3^n &lt; 8\cdot 10^k\) holds if and only if \(\{n\log_{10} 3\} \in [\log_{10} 7, \log_{10} 8)\). By <span class="pid">P58</span>, the asymptotic frequency is</p>
+    <p class="eq">\[\log_{10} 8 - \log_{10} 7 = \log_{10}\!\left(\frac{8}{7}\right) \approx 0.05799 \quad (5.80\%,\;\text{identical to } 2^n!).\]</p>
+    <p><strong>(b) Two-digit prefixes "\(10\)" versus "\(19\)":</strong> Rewriting \(10\cdot 10^k \le 2^n &lt; 11\cdot 10^k\) as \(1.0\cdot 10^{k+1} \le 2^n &lt; 1.1\cdot 10^{k+1}\) gives \(\{n\log_{10} 2\} \in [\log_{10}(1.0), \log_{10}(1.1)) = [0, \log_{10}(11/10))\). Thus the asymptotic frequency of prefix "\(10\)" is</p>
+    <p class="eq">\[\mu\bigl(I_{10}\bigr) = \log_{10}\!\left(\frac{11}{10}\right) \approx 0.04139 \quad (4.14\%).\]</p>
+    <p>Similarly, prefix "\(19\)" corresponds to \(\{n\log_{10} 2\} \in [\log_{10}(1.9), \log_{10}(2.0))\), with asymptotic frequency</p>
+    <p class="eq">\[\mu\bigl(I_{19}\bigr) = \log_{10}\!\left(\frac{20}{19}\right) \approx 0.02228 \quad (2.23\%).\]</p>
+    <p>Notice that summing \(\sum_{m=10}^{19} \log_{10}\!\left(\frac{m+1}{m}\right) = \log_{10}\!\left(\frac{20}{10}\right) = \log_{10} 2 \approx 0.30103\) telescopes (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) back to the total frequency of leading digit \(1\).</p>
+  </details>
+
+  <h3>Exercise 2 ●●○ — The logistic map at full chaos \(T(x) = 4x(1-x)\) and the arcsine invariant density</h3>
+  <p>Consider the quadratic logistic map at parameter \(r = 4\) on \(X = [0, 1]\):</p>
+  <p class="eq">\[T(x) = 4x(1 - x).\]</p>
+  <p>(a) Apply the trigonometric substitution (<a href="p16-structural-isomorphism.html"><span class="pid">P16</span></a>) \(x = \sin^2\!\left(\frac{\pi\theta}{2}\right)\) for \(\theta \in [0, 1]\), and show that \(T(x)\) conjugates to the piecewise-linear <em>tent map</em> \(\widetilde{T}(\theta) = 1 - |2\theta - 1|\), which preserves the uniform measure \(d\theta\) on \([0,1]\).<br>
+  (b) Push the uniform measure \(d\theta\) forward under \(x = \sin^2(\pi\theta/2)\) to derive the invariant probability density \(\rho(x)\,dx = \frac{dx}{\pi\sqrt{x(1-x)}}\) of \(T(x) = 4x(1-x)\), and use <span class="pid">P58</span> to compute the exact Lyapunov exponent \(\Lambda = \lim_{N\to\infty}\frac{1}{N}\sum_{n=0}^{N-1} \ln|T'(x_n)| = \int_0^1 \ln|4 - 8x|\,\rho(x)\,dx\) for almost every orbit.</p>
+  <details><summary>Hint</summary><p>In (a), use \(4\sin^2(\alpha)(1 - \sin^2(\alpha)) = (2\sin\alpha\cos\alpha)^2 = \sin^2(2\alpha)\). In (b), solve \(\theta = \frac{2}{\pi}\arcsin\sqrt{x}\) and differentiate with respect to \(x\); for the Lyapunov integral, substitute \(x = \sin^2(\pi\theta/2)\) so \(4 - 8x = 4\cos(\pi\theta)\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Conjugacy to the tent map (<span class="pid">P16</span>):</strong> Substituting \(x = \sin^2(\pi\theta/2)\) into \(4x(1-x)\) gives</p>
+    <p class="eq">\[T(x) = 4\sin^2\!\left(\frac{\pi\theta}{2}\right)\cos^2\!\left(\frac{\pi\theta}{2}\right) = \sin^2(\pi\theta) = \sin^2\!\left(\frac{\pi}{2}\widetilde{T}(\theta)\right),\]</p>
+    <p>where \(\widetilde{T}(\theta) = 2\theta\) for \(\theta \in [0, \frac{1}{2}]\) and \(\widetilde{T}(\theta) = 2 - 2\theta\) for \(\theta \in [\frac{1}{2}, 1]\). Because each branch of \(\widetilde{T}\) has constant slope \(\pm 2\), any subinterval \(I \subset [0,1]\) has two preimages of half its length (\(\frac{1}{2}|I| + \frac{1}{2}|I| = |I|\)), so \(d\theta\) is invariant and ergodic under \(\widetilde{T}\).</p>
+    <p><strong>(b) Arcsine density and Lyapunov exponent:</strong> Differentiating \(\theta(x) = \frac{2}{\pi}\arcsin(\sqrt{x})\) gives the invariant beta\((1/2, 1/2)\) arcsine density:</p>
+    <p class="eq">\[d\mu(x) = \frac{d\theta}{dx}\,dx = \frac{2}{\pi}\cdot\frac{1}{\sqrt{1-x}}\cdot\frac{1}{2\sqrt{x}}\,dx = \frac{dx}{\pi\sqrt{x(1-x)}}.\]</p>
+    <p>By Birkhoff's ergodic theorem (<span class="pid">P58</span>), for Lebesgue-almost every \(x_0 \in (0,1)\), the Lyapunov exponent equals the space integral (evaluated cleanly in the \(\theta\)-coordinate where \(T'(x) = 4(1 - 2x) = 4\cos(\pi\theta)\) and \(\int_0^1 \ln|\cos(\pi\theta)|\,d\theta = -\ln 2\)):</p>
+    <p class="eq">\[\Lambda = \int_0^1 \ln\bigl|4 - 8x\bigr|\,\frac{dx}{\pi\sqrt{x(1-x)}} = \int_0^1 \ln\bigl|4\cos(\pi\theta)\bigr|\,d\theta = \ln 4 + (-\ln 2) = \ln 2 \approx 0.69315 &gt; 0.\]</p>
+  </details>
+
+  <h3>Exercise 3 ●●● — Quantitative recurrence bound on finite cyclic groups via Cauchy–Schwarz</h3>
+  <p>Let \(X = \mathbb{Z}/M\mathbb{Z}\) equipped with uniform probability measure \(\mu(E) = |E|/M\) and shift \(T(x) = x + 1 \bmod M\). Suppose \(E \subset \mathbb{Z}/M\mathbb{Z}\) has density \(\mu(E) = \delta &gt; 0\).<br>
+  (a) Compute the exact average \(\frac{1}{M}\sum_{r=0}^{M-1} \mu\bigl(E \cap (E - r)\bigr)\) over all shifts \(r \in \mathbb{Z}/M\mathbb{Z}\).<br>
+  (b) Suppose \(\delta &gt; \frac{1}{\sqrt{M}}\). Prove that there exists a <em>non-zero</em> shift \(r \in \{1, 2, \dots, M-1\}\) such that \(\mu\bigl(E \cap (E - r)\bigr) \ge \frac{M\delta^2 - \delta}{M - 1} &gt; 0\).</p>
+  <details><summary>Hint</summary><p>Write \(\mu(E \cap (E-r)) = \frac{1}{M}\sum_{x \in X} \mathbf{1}_E(x)\mathbf{1}_E(x+r)\) and swap the order of summation (<a href="p70-double-counting.html"><span class="pid">P70</span></a>). In (b), separate the \(r = 0\) term (which equals \(\mu(E) = \delta\)) from the remaining \(M - 1\) non-zero shifts.</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Exact shift average by double counting (<span class="pid">P70</span>):</strong> Expanding the intersection measure and exchanging the sums over \(r\) and \(x\) gives</p>
+    <p class="eq">\[\frac{1}{M}\sum_{r=0}^{M-1} \mu\bigl(E \cap (E - r)\bigr) = \frac{1}{M^2}\sum_{x \in X} \mathbf{1}_E(x) \sum_{r=0}^{M-1} \mathbf{1}_E(x + r) = \frac{|E|^2}{M^2} = \delta^2.\]</p>
+    <p><strong>(b) Guaranteeing a non-zero return shift \(r \ne 0\):</strong> Separate the trivial shift \(r = 0\) (where \(\mu(E \cap E) = \delta\)) from the \(M - 1\) non-zero shifts \(r \in \{1, \dots, M-1\}\):</p>
+    <p class="eq">\[\sum_{r=1}^{M-1} \mu\bigl(E \cap (E - r)\bigr) = M\delta^2 - \delta.\]</p>
+    <p>By the pigeonhole / averaging principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>, <a href="p19-count-outcomes.html"><span class="pid">P19</span></a>), at least one non-zero shift \(r \in \{1, \dots, M-1\}\) must be at least the average over those \(M - 1\) terms:</p>
+    <p class="eq">\[\max_{1 \le r \le M-1} \mu\bigl(E \cap (E - r)\bigr) \;\ge\; \frac{M\delta^2 - \delta}{M - 1} &gt; 0 \quad\text{whenever } \delta &gt; \frac{1}{M} \text{ (and } |E \cap (E-r)| \ge 1 \text{ whenever } |E| \ge 2\text{)}.\]</p>
+  </details>
+
+  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: ergodic integral, invariant trap, or wrong measure?</h3>
+  <p>Diagnose each asymptotic average claim below:</p>
+  <ol>
+    <li>On the 2-torus \(\mathbb{T}^2 = (\mathbb{R}/\mathbb{Z})^2\), a point moves by \(T(x, y) = (x + \sqrt{2},\; y + 2\sqrt{2}) \bmod 1\) starting from \((x_0, y_0) = (0, 0)\). You claim that \(\lim_{N\to\infty}\frac{1}{N}\sum_{n=0}^{N-1} \cos(2\pi(2x_n - y_n)) = \iint_{\mathbb{T}^2} \cos(2\pi(2x - y))\,dx\,dy = 0\).</li>
+    <li>You iterate the Gauss map \(T(x) = \{1/x\}\) starting at \(x_0 = \sqrt{2} - 1\) and claim that the fraction of steps landing in \((1/2, 1]\) converges to \(\log_2(4/3) \approx 0.4150\).</li>
+    <li>You want to compute \(\lim_{N\to\infty} \frac{1}{N}\sum_{n=0}^{N-1} \sin^2(n)\) (where \(n\) is in radians).</li>
+  </ol>
+  <details><summary>Worked answer</summary>
+    <ol>
+      <li><strong>False claim — fails Obligation 2 (Rational resonance / Invariant Island, Exhibit B):</strong> Here \(\alpha_1 = \sqrt{2}\) and \(\alpha_2 = 2\sqrt{2}\) satisfy the linear integer resonance \(2\alpha_1 - \alpha_2 = 0\)! Consequently, \(2x_n - y_n \equiv 2x_0 - y_0 = 0 \pmod 1\) is a conserved invariant (<a href="p09-find-invariant.html"><span class="pid">P09</span></a>) at every step \(n\), so \(\cos(2\pi(2x_n - y_n)) = \cos(0) = 1\) for all \(n\), and the true time average is \(1\), not \(0\)!</li>
+      <li><strong>False claim — fails Obligation 3 (Exceptional periodic orbit, Exhibit A):</strong> For \(x_0 = \sqrt{2} - 1 \approx 0.41421\), we have \(\frac{1}{x_0} = \frac{1}{\sqrt{2}-1} = \sqrt{2} + 1 = 2 + (\sqrt{2}-1)\), so \(T(x_0) = x_0\) is a fixed point with pure continued fraction \([0; 2, 2, 2, \dots]\)! The orbit sits forever at \(0.41421 \notin (1/2, 1]\), so the fraction of visits to \((1/2, 1]\) is \(0\), not \(0.4150\).</li>
+      <li><strong>Genuine <span class="pid">P58</span> (Unique ergodicity of irrational rotation by \(1\) radian):</strong> Since \(\pi\) is irrational, a step of \(1\) radian corresponds to \(\alpha = \frac{1}{2\pi} \notin \mathbb{Q}\) on \(\mathbb{R}/\mathbb{Z}\). By Exemplar 1, every orbit equidistributes, so \(\lim_{N\to\infty}\frac{1}{N}\sum_{n=0}^{N-1} \sin^2(n) = \frac{1}{2\pi}\int_0^{2\pi} \sin^2(\theta)\,d\theta = \frac{1}{2}\).</li>
+    </ol>
+  </details>
+
+  <h3>Exercise 5 ◐ — Exploration: The Perron–Frobenius transfer operator and discovering invariant densities</h3>
+  <p>How could you have <em>discovered</em> Gauss's invariant density \(\rho(x) = \frac{1}{(\ln 2)(1+x)}\) or the logistic map's arcsine density \(\rho(x) = \frac{1}{\pi\sqrt{x(1-x)}}\) if nobody handed it to you? For any piecewise monotone map \(T : X \to X\), a probability density \(\rho(x)\) is invariant (\(\int_{T^{-1}E} \rho(x)\,dx = \int_E \rho(y)\,dy\)) if and only if it is a fixed point \(\mathcal{L}\rho = \rho\) of the <strong>Perron–Frobenius transfer operator</strong>:</p>
+  <p class="eq">\[(\mathcal{L}\rho)(y) = \sum_{x \in T^{-1}(y)} \frac{\rho(x)}{\bigl|T'(x)\bigr|}.\]</p>
+  <p>(a) Derive this formula by changing variables \(y = T(x)\) (\(dy = |T'(x)|\,dx\)) on each monotone branch of \(T^{-1}(E)\).<br>
+  (b) Verify directly that \(\rho(x) = \frac{1}{1+x}\) satisfies \((\mathcal{L}\rho)(y) = \rho(y)\) for the Gauss map \(T(x) = \frac{1}{x} - k\) (where the preimages of \(y \in (0,1)\) are \(x_k = \frac{1}{k+y}\) for \(k \ge 1\) with \(|T'(x_k)| = \frac{1}{x_k^2} = (k+y)^2\)) by partial-fractions telescoping (<a href="p69-telescoping.html"><span class="pid">P69</span></a>).</p>
+  <details><summary>Hint</summary><p>In (b), substitute \(x_k = \frac{1}{k+y}\) and \(|T'(x_k)| = (k+y)^2\) into \(\frac{\rho(x_k)}{|T'(x_k)|}\), and simplify \(\frac{1}{1 + 1/(k+y)} \cdot \frac{1}{(k+y)^2} = \frac{1}{(k+y)(k+y+1)} = \frac{1}{k+y} - \frac{1}{k+y+1}\).</p></details>
+  <details><summary>Worked answer</summary>
+    <p><strong>(a) Change-of-variables derivation of the transfer operator:</strong> Partition the domain into monotone branches \(I_k\) on which \(T|_{I_k}\) is a bijection with inverse \(x_k(y)\) and Jacobian \(\left|\frac{dx_k}{dy}\right| = \frac{1}{|T'(x_k(y))|}\). Then for any test interval \(E\),</p>
+    <p class="eq">\[\int_{T^{-1}(E)} \rho(x)\,dx = \sum_k \int_{T|_{I_k}^{-1}(E)} \rho(x)\,dx = \sum_k \int_E \rho\bigl(x_k(y)\bigr)\left|\frac{dx_k}{dy}\right| dy = \int_E \left(\sum_{x \in T^{-1}(y)} \frac{\rho(x)}{|T'(x)|}\right) dy.\]</p>
+    <p>Thus \(\int_{T^{-1}(E)} \rho\,dx = \int_E \rho\,dy\) holds for all \(E\) if and only if \(\mathcal{L}\rho(y) = \rho(y)\).</p>
+    <p><strong>(b) Partial-fractions telescoping for \(\rho(x) = \frac{1}{1+x}\):</strong> For \(T(x) = \{1/x\}\), the preimages of \(y \in (0,1)\) are \(x_k = \frac{1}{k+y}\) (\(k = 1, 2, 3, \dots\)) with \(|T'(x_k)| = x_k^{-2} = (k+y)^2\). Evaluating the \(k\)-th branch term of \(\mathcal{L}\rho(y)\) gives</p>
+    <p class="eq">\[\frac{\rho(x_k)}{|T'(x_k)|} = \frac{1}{1 + \frac{1}{k+y}} \cdot \frac{1}{(k+y)^2} = \frac{1}{(k+y+1)(k+y)} = \frac{1}{k+y} - \frac{1}{k+1+y}.\]</p>
+    <p>Summing over \(k = 1, 2, 3, \dots\) telescopes (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) immediately to the \(k=1\) leading term:</p>
+    <p class="eq">\[(\mathcal{L}\rho)(y) = \sum_{k=1}^{\infty} \left(\frac{1}{k+y} - \frac{1}{k+1+y}\right) = \frac{1}{1 + y} = \rho(y).\]</p>
+  </details>
+</section>
+
+<footer>
+  <p><em>The Patterns Atlas</em> — P58 · Ergodic correspondence. <a href="index.html">Return to the index</a> · Previous: <a href="p57-nash-moser.html">P57 · Nash-Moser fast Newton</a> · Next: <a href="p59-shearer-entropy.html">P59 · Shearer entropy counting →</a></p>
+</footer>
+
+</body>
+</html>

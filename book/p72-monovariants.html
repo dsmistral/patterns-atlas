@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P72 · Monovariants — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Tier 2 · Canon Foundations</p>
+  <h1><span class="pid">P72</span> · Monovariants</h1>
+  <p class="lede">Attach a numeric gauge to a dynamical process that ratchets strictly in one direction at every legal move — proving that the process can never cycle and must hit its floor or ceiling in finitely many steps.</p>
+  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p09-invariant.html">P09 · Find the invariant</a>, <a href="p71-extremal-principle.html">P71 · The extremal principle</a></p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — Invariant (<span class="pid">P09</span>) vs. Monovariant (<span class="pid">P72</span>).</strong> In <a href="p09-invariant.html"><span class="pid">P09</span> · Find the invariant</a>, we tracked a quantity \(\Phi(S)\) that stays <em>constant</em> across every move (\(\Phi(S_{t+1}) = \Phi(S_t)\)), proving that any state \(S_{\text{target}}\) with a different value of \(\Phi\) is unreachable. A <strong>monovariant</strong> (also called a <em>semi-invariant</em> or <em>discrete Lyapunov function</em>) is a quantity \(\Phi(S)\) that changes strictly in <strong>one direction</strong> at every move:</p>
+  \[
+    \Phi(S_0) \;&lt;\; \Phi(S_1) \;&lt;\; \Phi(S_2) \;&lt;\; \cdots \qquad\text{or}\qquad \Phi(S_0) \;&gt;\; \Phi(S_1) \;&gt;\; \Phi(S_2) \;&gt;\; \cdots.
+  \]
+  <p>Because a strictly increasing (or strictly decreasing) number can never return to an earlier value, a monovariant immediately makes <strong>loops impossible</strong>. If \(\Phi(S)\) also takes integer values (or steps by at least \(\delta &gt; 0\)) inside a bounded interval, the process <strong>must terminate</strong>!</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — How a monovariant manufactures an extremal state.</strong> Notice how <a href="p71-extremal-principle.html"><span class="pid">P71</span> · The extremal principle</a> and <span class="pid">P72</span> are two sides of the same coin: in <span class="pid">P71</span>, we jumped straight to the global minimizer \(x^* \in \arg\min f(x)\) to prove a static existence theorem. In <span class="pid">P72</span>, we watch a step-by-step algorithm \(S_0 \to S_1 \to S_2 \to \cdots\) improve \(\Phi\) at every step until no legal move remains — constructively arriving at a local extremum!</p>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>Remember the \(4 \times 4\) sign-flipping grid from <a href="p09-invariant.html"><span class="pid">P09</span> · Find the invariant</a>: multiplying any row or column of \(\pm 1\)s by \(-1\) preserved the parity of the number of minus signs. Now suppose we fill the grid with arbitrary integers and change the question from <em>"Can we reach all plus signs?"</em> to <em>"If we only flip rows or columns whose current sum is negative, must we eventually stop?"</em></p>
+  <p>Here parity is no longer helpful — you want to rule out an infinite loop and bound the number of moves. By tracking a single scalar ratchet \(\Phi\) that climbs by at least \(+2\) at every move while trapped below a fixed ceiling, <strong>Monovariants (<span class="pid">P72</span>)</strong> turns a chaotic multi-step game into a finite staircase.</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: the negative-row-and-column flipping game</h2>
+  <p>An \(m \times n\) rectangular grid is filled with integers \(A_{i,j} \in \mathbb{Z}\). At each step, you may look for <em>any</em> row whose entries have a strictly negative sum (\(R_i &lt; 0\)) or <em>any</em> column whose entries have a strictly negative sum (\(C_j &lt; 0\)), and multiply every entry in that row or column by \(-1\).</p>
+  <p>At first glance, this game looks like a whack-a-mole trap: flipping a negative row makes that row positive, which can flip several columns from positive to negative; flipping those columns can turn the first row negative again! Could a player get trapped in an infinite cycle of row and column flips?</p>
+  <p>Let us play the game on a concrete \(3 \times 3\) integer grid \(A_0\):</p>
+  \[
+    A_0 \;=\;
+    \begin{pmatrix}
+      -4 &amp; +1 &amp; -2 \\
+      +3 &amp; -5 &amp; +1 \\
+      -1 &amp; +2 &amp; -3
+    \end{pmatrix}
+    \begin{matrix}
+      \text{Row 1 sum } = -5 &lt; 0 \\
+      \text{Row 2 sum } = -1 &lt; 0 \\
+      \text{Row 3 sum } = -2 &lt; 0
+    \end{matrix}
+  \]
+  <p>Instead of watching individual rows and columns fight each other, watch the <strong>grand total of all nine entries</strong> in the grid, \(\Phi(A) := \sum_{i=1}^3 \sum_{j=1}^3 A_{i,j}\):</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Step \(t\) &amp; Legal Move Chosen</th>
+        <th>Grid State \(A_t\)</th>
+        <th>Row Sums \((R_1, R_2, R_3)\)</th>
+        <th>Col Sums \((C_1, C_2, C_3)\)</th>
+        <th>Grand Total \(\Phi(A_t)\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Start (\(t = 0\))</strong></td>
+        <td>\(\bigl[\begin{smallmatrix}-4 &amp; +1 &amp; -2\\+3 &amp; -5 &amp; +1\\-1 &amp; +2 &amp; -3\end{smallmatrix}\bigr]\)</td>
+        <td>\((-5,\; -1,\; -2)\)</td>
+        <td>\((-2,\; -2,\; -4)\)</td>
+        <td><strong>\(-8\)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>\(t = 1\): Flip Row 1</strong> (\(R_1 = -5 &lt; 0\))</td>
+        <td>\(\bigl[\begin{smallmatrix}+4 &amp; -1 &amp; +2\\+3 &amp; -5 &amp; +1\\-1 &amp; +2 &amp; -3\end{smallmatrix}\bigr]\)</td>
+        <td>\((+5,\; -1,\; -2)\)</td>
+        <td>\((+6,\; -4,\; 0)\)</td>
+        <td><strong>\(+2\)</strong> (\(\Delta\Phi = +10\))</td>
+      </tr>
+      <tr>
+        <td><strong>\(t = 2\): Flip Col 2</strong> (\(C_2 = -4 &lt; 0\))</td>
+        <td>\(\bigl[\begin{smallmatrix}+4 &amp; +1 &amp; +2\\+3 &amp; +5 &amp; +1\\-1 &amp; -2 &amp; -3\end{smallmatrix}\bigr]\)</td>
+        <td>\((+7,\; +9,\; -6)\)</td>
+        <td>\((+6,\; +4,\; 0)\)</td>
+        <td><strong>\(+10\)</strong> (\(\Delta\Phi = +8\))</td>
+      </tr>
+      <tr>
+        <td><strong>\(t = 3\): Flip Row 3</strong> (\(R_3 = -6 &lt; 0\))</td>
+        <td>\(\bigl[\begin{smallmatrix}+4 &amp; +1 &amp; +2\\+3 &amp; +5 &amp; +1\\+1 &amp; +2 &amp; +3\end{smallmatrix}\bigr]\)</td>
+        <td>\((+7,\; +9,\; +6)\)</td>
+        <td>\((+8,\; +8,\; +6)\)</td>
+        <td><strong>\(+22\)</strong> (\(\Delta\Phi = +12\))</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Why did \(\Phi(A_t)\) jump upward at every single step, and why was it guaranteed to stop? Check two facts valid for <em>any</em> \(m \times n\) integer grid:</p>
+  <ol>
+    <li><strong>Strict Ratchet (\(\Delta \Phi \ge +2\)):</strong> Whenever you flip a row (or column) whose current sum is \(S &lt; 0\), the entries are integers so \(S \le -1\). Flipping that row replaces its sum \(S\) with \(-S\), while leaving the sum of all other rows unchanged! Therefore the grand total increases by
+      \[
+        \Phi(A_{t+1}) - \Phi(A_t) \;=\; (-S) - S \;=\; -2S \;\ge\; +2.
+      \]
+    </li>
+    <li><strong>Hard Ceiling (\(\Phi(A_t) \le M\)):</strong> Flipping signs never changes the absolute value \(|A_{i,j}|\) of any cell! Therefore \(\Phi(A_t)\) can never exceed the sum of the absolute values of all cells:
+      \[
+        \Phi(A_t) \;=\; \sum_{i,j} A_{i,j}^{(t)} \;\le\; \sum_{i,j} |A_{i,j}| \;=:\; M \quad (\text{here } M = 22).
+      \]
+    </li>
+  </ol>
+  <p>Because \(\Phi(A_t)\) starts at \(\Phi(A_0) = -8\), climbs by at least \(+2\) at every move, and can never exceed \(M = 22\), the game <strong>must terminate in at most \(\frac{22 - (-8)}{2} = 15\) moves</strong> (and in fact halted in \(3\) moves) — at a grid where every row sum and every column sum is nonnegative!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+
+  <div class="pattern-box" id="box-p72">
+    <h3>Box P72 · The Monovariant Move</h3>
+    <p>Given a step-by-step process or game \(S_0 \to S_1 \to S_2 \to \cdots\) on a state space \(\mathcal{X}\), construct a scalar function \(\Phi : \mathcal{X} \to \mathbb{R}\) (a <strong>monovariant</strong>) such that for every legal transition \(S_t \to S_{t+1}\):</p>
+    \[
+      \Phi(S_{t+1}) - \Phi(S_t) \;\ge\; \delta &gt; 0 \quad (\text{climbing to a ceiling } \Phi(S_t) \le M)
+      \qquad\text{or}\qquad
+      \Phi(S_{t+1}) - \Phi(S_t) \;\le\; -\delta &lt; 0 \quad (\text{descending to a floor } \Phi(S_t) \ge m).
+    \]
+    <p>Then:</p>
+    <ul>
+      <li><strong>No Cycles:</strong> The process can never revisit a previous state (\(S_t \neq S_s\) for all \(t &gt; s\)).</li>
+      <li><strong>Guaranteed Termination &amp; Step Bound:</strong> The process must halt in at most \(\left\lfloor \frac{M - \Phi(S_0)}{\delta} \right\rfloor\) (or \(\left\lfloor \frac{\Phi(S_0) - m}{\delta} \right\rfloor\)) steps!</li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Staircase trajectory of the monovariant Phi(A_t) in the 3x3 sign-flipping game climbing from -8 to +2, +10, and hitting the hard ceiling M = +22 at t = 3">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">The Monovariant Staircase: Climbing by ΔΦ ≥ 2 Against a Hard Ceiling M = ∑|Aᵢⱼ| = 22</text>
+      <!-- Axes: t in [0, 4] along x=75..525; Phi in [-10, 25] along y=175..35 (scale: 4px per unit of Phi; Phi=0 at y=135) -->
+      <line x1="60" y1="135" x2="550" y2="135" stroke="#d8d2c7" stroke-width="1"/>
+      <line x1="75" y1="180" x2="75" y2="28" stroke="#1a1a1a" stroke-width="1.3"/>
+      <line x1="60" y1="175" x2="550" y2="175" stroke="#1a1a1a" stroke-width="1.3"/>
+      <!-- Hard ceiling M = +22 at y = 135 - 88 = 47 -->
+      <line x1="60" y1="47" x2="550" y2="47" stroke="#8b2635" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="545" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="end">Hard Ceiling M = ∑|Aᵢⱼ| = +22 (No state can cross!)</text>
+      <!-- Points: t=0 (x=100, Phi=-8 -> y=167), t=1 (x=230, Phi=+2 -> y=127), t=2 (x=360, Phi=+10 -> y=95), t=3 (x=490, Phi=+22 -> y=47) -->
+      <polyline points="100,167 230,167 230,127 360,127 360,95 490,95 490,47" fill="none" stroke="#3a6073" stroke-width="2.5"/>
+      <circle cx="100" cy="167" r="5" fill="#8b2635"/>
+      <circle cx="230" cy="127" r="5" fill="#8b2635"/>
+      <circle cx="360" cy="95" r="5" fill="#8b2635"/>
+      <circle cx="490" cy="47" r="5.5" fill="#b85d19"/>
+      <text x="100" y="157" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">t=0: Φ = −8</text>
+      <text x="200" y="118" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">t=1: Φ = +2 (+10)</text>
+      <text x="330" y="86" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">t=2: Φ = +10 (+8)</text>
+      <text x="485" y="65" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">t=3: Φ = +22 (HALTS!)</text>
+      <text x="300" y="196" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550" text-anchor="middle">Maximum possible steps from Φ₀ = −8 with ΔΦ ≥ +2 is (22 − (−8)) / 2 = 15 steps</text>
+    </svg>
+    <figcaption><strong>Fig P72.1.</strong> The monovariant staircase for the \(3 \times 3\) grid sign-flipping game (Section 2). Each flip of a negative-sum row or column increases the integer sum \(\Phi(A_t)\) by \(-2S \ge +2\). Trapped below the hard ceiling \(M = \sum |A_{i,j}| = 22\), the trajectory \(-8 \to +2 \to +10 \to +22\) is forced to halt in finitely many steps.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p72a">
+    <h3>Box P72.A · The Four Verification Obligations of a Monovariant</h3>
+    <ol>
+      <li><strong>Define the State Function \(\Phi(S)\) Cleanly:</strong> Write \(\Phi(S)\) as a well-defined function of the instantaneous configuration \(S\) (such as \(\sum x_i\), \(\sum x_i^2\), inversion count \(\operatorname{inv}(\pi)\), or a base-\(B\) positional weight \(\sum c_k B^{-k}\)).</li>
+      <li><strong>Prove Strict Monotonicity Across Every Legal Move:</strong> Compute the exact difference \(\Delta \Phi = \Phi(S_{t+1}) - \Phi(S_t)\) for an arbitrary legal move and verify that \(\Delta \Phi\) has the <em>same strict sign</em> (\(&gt; 0\) or \(&lt; 0\)) in every case.</li>
+      <li><strong>Audit the Minimum Step Size \(\delta &gt; 0\) (No Zeno Creeping):</strong> Confirm either that \(\Phi(S)\) takes values in a discrete lattice like \(\mathbb{Z}\) (so \(|\Delta \Phi| \ge 1\)), or that the state space \(\mathcal{X}\) is finite (where strict monotonicity alone prevents cycles and forces termination).</li>
+      <li><strong>Establish the Hard Floor or Ceiling:</strong> Prove that \(\Phi(S_t)\) is bounded below (if decreasing) or bounded above (if increasing) across all reachable states \(S_t\).</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 195" width="100%" role="img" aria-label="Three workhorse monovariant templates: Sum of Squares for smoothing/averaging, Inversion Count for permutation/sorting games, and Exponential Positional Weights for coin-splitting games">
+      <rect x="0" y="0" width="600" height="195" fill="#ffffff"/>
+      <!-- Card 1: Sum of Squares -->
+      <rect x="15" y="20" width="175" height="158" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="102" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">1. Quadratic Energy ∑ xᵢ²</text>
+      <text x="102" y="64" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">When ∑ xᵢ is invariant (P09):</text>
+      <text x="102" y="86" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">(a, b) ↦ (a−1, b+1)</text>
+      <text x="102" y="104" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(for a ≥ b + 2)</text>
+      <text x="102" y="128" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Δ(∑ xᵢ²) = −2(a−b−1) ≤ −2</text>
+      <text x="102" y="156" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Smoothing lowers ∑ xᵢ²; spreading raises it</text>
+
+      <!-- Card 2: Inversion / Crossing Count -->
+      <rect x="212" y="20" width="175" height="158" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="300" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2. Inversion Count inv(π)</text>
+      <text x="300" y="64" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">In adjacent swap games:</text>
+      <text x="300" y="86" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">(…, B, A, …) ↦ (…, A, B, …)</text>
+      <text x="300" y="104" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(when B &gt; A)</text>
+      <text x="300" y="128" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Δ inv(π) = −1,  0 ≤ inv ≤ C(n,2)</text>
+      <text x="300" y="156" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Halts in ≤ n(n−1)/2 swaps</text>
+
+      <!-- Card 3: Positional / Lexicographic Weight -->
+      <rect x="410" y="20" width="175" height="158" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="497" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">3. Positional Weight ∑ cₖ B⁻ᵏ</text>
+      <text x="497" y="64" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 coin at k → M coins at k+1:</text>
+      <text x="497" y="86" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Choose base B = M + 1</text>
+      <text x="497" y="108" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">ΔΦ = M·B⁻⁽ᵏ⁺¹⁾ − B⁻ᵏ &lt; 0</text>
+      <text x="497" y="132" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(or Lexicographic tuple)</text>
+      <text x="497" y="156" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Tames exploding item counts!</text>
+    </svg>
+    <figcaption><strong>Fig P72.2.</strong> The three workhorse monovariant families. (1) When the linear sum \(\sum x_i\) is conserved, the quadratic energy \(\sum x_i^2\) strictly decreases whenever two unequal values move closer together. (2) In permutation and queue-swapping games, the inversion count \(\operatorname{inv}(\pi)\) drops by \(1\) at every untangling swap. (3) When one object at position \(k\) spawns \(M\) objects at position \(k+1\), weighting position \(k\) by \((M+1)^{-k}\) (or using lexicographic order) turns an exploding population into a decreasing monovariant.</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p72b">
+    <h3>Box P72.B · Three-Key Recognition Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> "Prove that the game/algorithm must eventually terminate (regardless of the sequence of moves)" or "Find the maximum possible number of steps before halting."</li>
+      <li><strong>Problem shape:</strong> A state that evolves via local transitions \(S_t \to S_{t+1}\) (chip transfers, row/column flips, adjacent swaps, graph uncrossings, or coin splits) where the choice of move at each step is nondeterministic.</li>
+      <li><strong>Tools at hand:</strong> Linear sums \(\sum x_i\), quadratic variance \(\sum x_i^2\), inversion counts \(\operatorname{inv}(\pi)\), exponential positional weights \(\sum c_k B^{-k}\) (Conway's golden-ratio / base-\(B\) potentials), and lexicographic well-ordering.</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 (Combinatorics &amp; Sorting Games) · The face-to-face soldiers puzzle and the inversion monovariant</h3>
+  <p><strong>Problem.</strong> A line of \(n\) new recruits stands in a row, each facing either Left (<code>&lt;</code>) or Right (<code>&gt;</code>). Whenever two adjacent recruits find themselves facing <em>each other</em> (<code>&gt;&lt;</code>), they simultaneously pivot \(180^\circ\) so they face <em>away</em> from each other (<code>&lt;&gt;</code>). Prove that no matter how many pairs pivot or in what order, all pivoting must eventually stop, and find the exact maximum number of individual pair-pivots that can occur for a line of \(n\) recruits.</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Translate directions into \(1\)s and \(0\)s and define the inversion count).</strong> Replace each Right-facing recruit (<code>&gt;</code>) with the digit \(1\) and each Left-facing recruit (<code>&lt;</code>) with the digit \(0\). Then a face-to-face pivot <code>&gt;&lt;</code> \(\mapsto\) <code>&lt;&gt;</code> is simply an adjacent swap \(10 \mapsto 01\)! Define the <strong>inversion monovariant</strong> \(\Phi(S)\) to be the number of pairs of positions \((i, j)\) with \(1 \le i &lt; j \le n\) such that recruit \(i\) is \(1\) (<code>&gt;</code>) and recruit \(j\) is \(0\) (<code>&lt;</code>):</p>
+  \[
+    \Phi(S) \;:=\; \#\bigl\{(i, j) \;:\; 1 \le i &lt; j \le n,\; s_i = 1,\; s_j = 0\bigr\} \;\in\; \mathbb{Z}_{\ge 0}.
+  \]
+
+  <p><strong>Step 2 (Check the step change \(\Delta \Phi = -1\) and the floor \(\Phi \ge 0\)).</strong> When an adjacent pair at positions \((k, k+1)\) pivots from \(s_k s_{k+1} = 10\) to \(01\):</p>
+  <ul>
+    <li>The pair \((k, k+1)\) itself changes from an inversion (\(10\)) to a non-inversion (\(01\)), decreasing \(\Phi\) by \(1\).</li>
+    <li>For any third recruit \(m \notin \{k, k+1\}\), the set of values \(\{s_k, s_{k+1}\} = \{0, 1\}\) and their relative position to \(m\) (both to the left of \(m\), or both to the right of \(m\)) do not change!</li>
+  </ul>
+  <p>Thus every single pair-pivot changes \(\Phi\) by <strong>\(\Delta \Phi = -1\)</strong>. Since \(\Phi(S) \in \mathbb{Z}_{\ge 0}\) cannot drop below \(0\), the pivoting must stop after at most \(\Phi(S_0)\) pair-pivots! If \(r\) recruits initially face Right (\(1\)) and \(n - r\) face Left (\(0\)), \(\Phi(S_0) \le r(n - r) \le \lfloor n^2 / 4 \rfloor\) (achieved when the left half all face Right <code>&gt;&gt;...&gt;</code> and the right half all face Left <code>&lt;&lt;...&lt;</code>).</p>
+
+  <h3>Exemplar 2 (Algebraic Chip-Transfer) · Balancing piles via the quadratic energy monovariant \(\sum x_i^2\)</h3>
+  <p><strong>Problem.</strong> Suppose \(n\) piles contain \(x_1, x_2, \dots, x_n\) chips. A legal move chooses any two piles \(i, j\) that differ by at least \(2\) chips (\(x_i \ge x_j + 2\)) and transfers \(1\) chip from the larger pile to the smaller pile: \((x_i, x_j) \mapsto (x_i - 1,\; x_j + 1)\). Prove that any sequence of legal moves must terminate in finitely many steps, and describe the final configuration.</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Why linear sums fail and quadratic energy succeeds).</strong> Because \(1\) chip is moved from pile \(i\) to pile \(j\), the total number of chips \(\sum_{k=1}^n x_k = N\) is an <strong>invariant</strong> (<a href="p09-invariant.html"><span class="pid">P09</span></a>) — it equals \(N\) forever and cannot prove termination. To measure how concentrated or spread out the piles are, define the <strong>sum of squares monovariant</strong>:</p>
+  \[
+    \Phi(x_1, \dots, x_n) \;:=\; \sum_{k=1}^n x_k^2 \;\in\; \mathbb{Z}_{\ge 0}.
+  \]
+
+  <p><strong>Step 2 (Compute \(\Delta \Phi\) at a chip transfer).</strong> When \((x_i, x_j) \mapsto (x_i - 1, x_j + 1)\) with \(x_i - x_j \ge 2\), all other piles \(k \notin \{i, j\}\) remain unchanged, so</p>
+  \[
+    \begin{aligned}
+      \Delta \Phi &\;=\; \bigl[(x_i - 1)^2 + (x_j + 1)^2\bigr] \,-\, \bigl[x_i^2 + x_j^2\bigr] \\
+      &\;=\; -2x_i + 1 + 2x_j + 1 \;=\; -2\bigl(x_i - x_j - 1\bigr) \;\le\; -2(2 - 1) \;=\; -2 &lt; 0.
+    \end{aligned}
+  \]
+  <p>Thus \(\Phi\) is a positive integer that drops by at least \(2\) at every move! By Cauchy–Schwarz, \(\Phi(\mathbf{x}) \ge \frac{1}{n}(\sum x_k)^2 = \frac{N^2}{n}\) (for instance, starting from \((9, 2, 1)\) with \(N = 12\) and \(\Phi_0 = 86\), \(\Phi\) drops \(86 \to 72 \to 62 \to 54 \to 50 \to 48 = \frac{12^2}{3}\) in \(5\) steps). The process must halt in at most \(\frac{\Phi(\mathbf{x}_0) - \lceil N^2 / n \rceil}{2}\) steps, and when it halts no two piles can differ by \(\ge 2\), so every pair of piles differs by at most \(1\)!</p>
+
+  <h3>Exemplar 3 (Positional Weights &amp; Lexicographic Order) · Taming exploding coin populations</h3>
+  <p><strong>Problem.</strong> Along a row of \(n\) boxes labeled \(1, 2, \dots, n\) from left to right, each box initially holds some nonnegative integer number of coins \((c_1, c_2, \dots, c_n)\). A legal move removes \(1\) coin from any box \(k \in \{1, \dots, n-1\}\) and places \(10\) coins into the box immediately to its right, box \(k + 1\). Even though every move increases the total number of coins by \(+9\), prove that the game must terminate in finitely many steps.</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Weight boxes exponentially by their distance from the right end).</strong> A single coin in box \(k\) can spawn \(10\) coins in box \(k + 1\). To make \(1\) coin in box \(k\) worth strictly <em>more</em> than \(10\) coins in box \(k + 1\), assign box \(k\) the base-\(11\) positional weight \(w_k = 11^{n - k}\), and define the integer monovariant</p>
+  \[
+    \Phi(c_1, c_2, \dots, c_n) \;:=\; \sum_{k=1}^n c_k \cdot 11^{n - k} \;\in\; \mathbb{Z}_{\ge 0}.
+  \]
+
+  <p><strong>Step 2 (Verify that \(\Delta \Phi \le -1\) at every split).</strong> When \(1\) coin is removed from box \(k\) (\(\Delta c_k = -1\)) and \(10\) coins are added to box \(k + 1\) (\(\Delta c_{k+1} = +10\)), the change in \(\Phi\) is</p>
+  \[
+    \Delta \Phi \;=\; (-1) \cdot 11^{n - k} \,+\, (+10) \cdot 11^{n - k - 1} \;=\; (10 - 11) \cdot 11^{n - k - 1} \;=\; -11^{n - k - 1} \;\le\; -1 &lt; 0.
+  \]
+  <p>Because \(\Phi \in \mathbb{Z}_{\ge 0}\) starts at the finite integer \(\Phi_0 = \sum_{k=1}^n c_k^{(0)} 11^{n-k}\) and decreases by at least \(1\) at every move while bounded below by \(0\) (when all coins sit in box \(n\), no more moves can be made), the game must terminate in at most \(\Phi_0\) moves!</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — The Zeno Creep Trap: strict decrease over \(\mathbb{R}\) without a minimum step size \(\delta &gt; 0\) does not force termination.</strong> Suppose a continuous-state process has \(\Phi(S_t) = 1 + 2^{-t}\) for \(t = 0, 1, 2, \dots\) (Fig P72.3, left). Then \(\Phi(S_t) &gt; 0\) is bounded below, and \(\Phi(S_{t+1}) - \Phi(S_t) = -2^{-(t+1)} &lt; 0\) is strictly decreasing at every step — yet the process <strong>never terminates</strong> because the step sizes shrink to zero!</p>
+    <p><em>Mitigation:</em> Always verify Obligation 3 of Box P72.A: either clear denominators so \(\Phi(S) \in \mathbb{Z}\) takes integer values (forcing \(|\Delta \Phi| \ge 1\)), or prove that the state space \(\mathcal{X}\) itself is finite.</p>
+    <p><em>Price:</em> Scaling fractional weights \(11^{-k}\) up to integers \(11^{n-k}\) (as we did in Exemplar 3).</p>
+    <p><em>Default:</em> Whenever possible, normalize your monovariant to take values in \(\mathbb{Z}_{\ge 0}\).</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Zeno creep Phi_t = 1 + 2^{-t} approaching 1 forever vs discrete integer monovariant hitting 0 in finite steps. Right: Weak monotonicity plateau where Delta Phi = 0 allows an infinite cycle">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Exhibit A — Zeno Creep vs Discrete Step Floor -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Exhibit A: Zeno Creep (ΔΦ → 0) vs. Integer Step (ΔΦ ≤ −1)</text>
+      <line x1="35" y1="165" x2="280" y2="165" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="45" y1="175" x2="45" y2="30" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- Asymptote y = 115 (Phi = 1) -->
+      <line x1="45" y1="115" x2="275" y2="115" stroke="#b85d19" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Zeno curve: (45, 55) -> (85, 85) -> (125, 100) -> (165, 107.5) -> (205, 111.2) -> (245, 113.1) -->
+      <polyline points="45,55 85,85 125,100 165,107.5 205,111.2 245,113.1 270,114" fill="none" stroke="#b85d19" stroke-width="2.2"/>
+      <circle cx="45" cy="55" r="3.5" fill="#b85d19"/>
+      <circle cx="85" cy="85" r="3.5" fill="#b85d19"/>
+      <circle cx="125" cy="100" r="3.5" fill="#b85d19"/>
+      <circle cx="165" cy="107.5" r="3.5" fill="#b85d19"/>
+      <circle cx="205" cy="111.2" r="3.5" fill="#b85d19"/>
+      <!-- Discrete step curve hitting floor y = 165 at t = 4 -->
+      <polyline points="45,55 95,82 145,110 195,137 245,165" fill="none" stroke="#3a6073" stroke-width="2.5"/>
+      <circle cx="95" cy="82" r="4" fill="#3a6073"/>
+      <circle cx="145" cy="110" r="4" fill="#3a6073"/>
+      <circle cx="195" cy="137" r="4" fill="#3a6073"/>
+      <circle cx="245" cy="165" r="4.5" fill="#8b2635"/>
+      <text x="195" y="96" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19">Φ_t = 1 + 2⁻ᵗ (never halts!)</text>
+      <text x="135" y="152" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073">ΔΦ ≤ −δ (halts!)</text>
+      <text x="155" y="192" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Strict decrease over ℝ needs a step floor δ &gt; 0</text>
+
+      <!-- Right panel: Exhibit B — Weak Monotonicity Plateau Cycle -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Exhibit B: Weak Inequality (ΔΦ ≤ 0) Allows Plateau Loops</text>
+      <rect x="315" y="30" width="265" height="145" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- Plateau oval at Phi = c with a cycle S1 -> S2 -> S3 -> S1 -->
+      <ellipse cx="450" cy="105" rx="95" ry="42" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.8" stroke-dasharray="4,2"/>
+      <circle cx="390" cy="95" r="12" fill="#ffffff" stroke="#8b2635" stroke-width="2"/>
+      <circle cx="510" cy="95" r="12" fill="#ffffff" stroke="#8b2635" stroke-width="2"/>
+      <circle cx="450" cy="132" r="12" fill="#ffffff" stroke="#8b2635" stroke-width="2"/>
+      <line x1="402" y1="95" x2="498" y2="95" stroke="#8b2635" stroke-width="2"/>
+      <line x1="500" y1="103" x2="461" y2="126" stroke="#8b2635" stroke-width="2"/>
+      <line x1="439" y1="126" x2="400" y2="103" stroke="#8b2635" stroke-width="2"/>
+      <text x="390" y="99" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">S₁</text>
+      <text x="510" y="99" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">S₂</text>
+      <text x="450" y="136" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">S₃</text>
+      <text x="450" y="52" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Level Set Φ(S) = c (where ΔΦ = 0)</text>
+      <text x="450" y="192" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Fix: Add a tie-breaking secondary monovariant Ψ on {ΔΦ = 0}</text>
+    </svg>
+    <figcaption><strong>Fig P72.3.</strong> Two classic monovariant pitfalls. <em>Left (Exhibit A):</em> A real-valued quantity like \(\Phi_t = 1 + 2^{-t}\) can decrease strictly at every step and stay positive yet run forever because its step size \(\Delta \Phi_t \to 0\). <em>Right (Exhibit B):</em> If a move only satisfies the weak inequality \(\Phi(S_{t+1}) \le \Phi(S_t)\), the system can loop forever inside a flat plateau \(\Phi(S_1) = \Phi(S_2) = \Phi(S_3) = c\) unless a secondary tie-breaking monovariant \(\Psi\) strictly changes whenever \(\Delta \Phi = 0\).</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Weak monotonicity (\(\Delta \Phi \le 0\) instead of \(\Delta \Phi &lt; 0\)) permits infinite cycles on level plateaus.</strong> In Exemplar 2, suppose we allowed transferring \(1\) chip from pile \(i\) to pile \(j\) whenever \(x_i \ge x_j + 1\) (instead of \(x_i \ge x_j + 2\)). When \(x_i = x_j + 1\) (say \((4, 3) \mapsto (3, 4)\)), our formula gives \(\Delta \Phi = -2(x_i - x_j - 1) = 0\)! And indeed, \((4, 3) \to (3, 4) \to (4, 3)\) cycles forever on the level set \(\Phi = 25\).</p>
+    <p><em>Mitigation:</em> If a process has moves with \(\Delta \Phi = 0\), construct a secondary monovariant \(\Psi(S)\) so that the lexicographic pair \(\bigl(\Phi(S), \Psi(S)\bigr)\) strictly changes at every move.</p>
+    <p><em>Price:</em> Checking \(\Delta \Psi &lt; 0\) on the neutral transitions where \(\Delta \Phi = 0\).</p>
+    <p><em>Default:</em> Verify that your inequality \(\Delta \Phi &lt; 0\) is <strong>strict</strong> on every legal move (Obligation 2 of Box P72.A).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Unbounded monovariants: when \(\Phi\) can march to \(\pm\infty\) forever.</strong> Proving \(\Phi(S_{t+1}) \le \Phi(S_t) - 1\) proves that the system never cycles, but it does <em>not</em> prove termination unless \(\Phi\) has a floor \(m\)! For example, the counter \(x_{t+1} = x_t - 1\) on \(x \in \mathbb{Z}\) decreases by \(1\) at every step and never cycles, yet runs forever because \(\mathbb{Z}\) is not bounded below.</p>
+    <p><em>Mitigation:</em> Always pair \(\Delta \Phi \le -\delta\) with an explicit lower bound \(\Phi(S) \ge m\) (Obligation 4 of Box P72.A).</p>
+    <p><em>Price:</em> Using Cauchy–Schwarz or nonnegativity to establish the floor \(m\).</p>
+    <p><em>Default:</em> Never declare termination until both the step sign and the barrier in that direction are proved.</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> In discrete mathematics and theoretical computer science, monovariants are called <em>ranking functions</em> or <em>termination potentials</em> (including ordinal-valued potentials up to \(\varepsilon_0\) for processes like Goodstein's theorem and the Hydra game). In continuous dynamical systems \(\dot{x} = F(x)\) and thermodynamics, a monovariant is a <strong>Lyapunov function</strong> (\(\frac{d}{dt} V(x(t)) = \nabla V \cdot F(x) &lt; 0\)) or physical <strong>entropy</strong>.</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When a discrete process or recurrence has an exact rule and you want to package the entire infinite sequence \(a_0, a_1, a_2, \dots\) into a single algebraic function \(A(x) = \sum a_n x^n\):</strong> Step forward to the next chapter, <a href="p73-generating-functions.html"><span class="pid">P73</span> · Generating functions</a>.</li>
+    <li><strong>When a monovariant shows that a game cannot reach a target threshold (as in Conway's Soldiers in Exercise P72.5):</strong> Compare with <a href="p09-invariant.html"><span class="pid">P09</span> · Find the invariant</a> and <a href="p75-coloring-arguments.html"><span class="pid">P75</span> · Coloring arguments</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From Clausius's entropy and Lyapunov's stability functions to Turing's ranking functions and IMO 1986 Problem 3 (1865 – 1986).</strong></p>
+    <ul>
+      <li><strong>Rudolf Clausius (1865) &amp; Ludwig Boltzmann (1872):</strong> While energy \(E\) is an <em>invariant</em> of an isolated physical system (the First Law of Thermodynamics, <a href="p09-invariant.html"><span class="pid">P09</span></a>), Clausius and Boltzmann discovered that irreversible macroscopic processes require a <em>monovariant</em> — <strong>entropy</strong> \(S\) (the Second Law, \(\Delta S \ge 0\), and Boltzmann's \(H\)-theorem \(\frac{dH}{dt} \le 0\)) — to give time an arrow and force approach to thermal equilibrium.</li>
+      <li><strong>Aleksandr Lyapunov (1892):</strong> In his doctoral thesis <em>The General Problem of the Stability of Motion</em>, Lyapunov proved that one can establish asymptotic convergence \(x(t) \to x^*\) of a nonlinear differential equation \(\dot{x} = F(x)\) without ever solving the equation explicitly: it suffices to exhibit a positive-definite scalar function \(V(x) &gt; 0\) whose directional derivative satisfies \(\dot{V}(x) = \nabla V(x) \cdot F(x) &lt; 0\).</li>
+      <li><strong>Alan Turing (1949) &amp; Robert W. Floyd (1967):</strong> In his 1949 paper <em>Checking a Large Routine</em>, Turing introduced the method of proving that a computer program loop terminates by mapping program states into a well-ordered set (usually \(\mathbb{Z}_{\ge 0}\)) so each iteration strictly decreases the ordinal value — what Floyd (1967) codified as a <strong>ranking function</strong> or loop variant.</li>
+      <li><strong>John Horton Conway (1961) &amp; the 1986 Warsaw IMO (Problem 3):</strong> Conway invented his golden-ratio potential \(\sum \varphi^{-d_i}\) to solve the peg-jumping game <em>Conway's Soldiers</em>. At the 1986 International Mathematical Olympiad in Warsaw, Problem 3 (the Pentagon Reflection Game, Exercise P72.4 below) stumped nearly the entire competition until Joseph Keane and a handful of contestants discovered the breathtaking quadratic monovariant \(\Phi(\mathbf{x}) = \sum_{k=1}^5 (x_k - x_{k+2})^2\), whose step change is \(\Delta \Phi = 2 x_i S &lt; 0\)!</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise P72.1 (●○○ — The chocolate-bar splitting game: monovariant meets invariant).</strong> A single integer \(N = 20\) is written on a blackboard. At each step, you choose any integer \(m \ge 2\) currently on the board, erase it, split it into two positive integers \(a, b \ge 1\) with \(a + b = m\), write both \(a\) and \(b\) on the board, and add \(a \cdot b\) points to your score. The game ends when only \(1\)s remain on the board.</p>
+    <ol>
+      <li>Identify a monovariant that changes by \(\pm 1\) at every move and proves the game always terminates in <em>exactly</em> \(N - 1 = 19\) moves, regardless of how you split the numbers.</li>
+      <li>Let \(m_1, \dots, m_k\) be the numbers on the board after \(t\) moves, and let \(S_t\) be your cumulative score. Compute the change in \(\sum_{i=1}^k \binom{m_i}{2}\) at a split \(m \mapsto (a, b)\) to prove that \(S_t + \sum_{i=1}^k \binom{m_i}{2}\) is an <strong>invariant</strong> (<a href="p09-invariant.html"><span class="pid">P09</span></a>), and deduce your exact final score!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>For Part 1, count how many numbers \(k\) are written on the board after each split. For Part 2, check the algebraic identity \(\binom{a+b}{2} - \binom{a}{2} - \binom{b}{2} = ab\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Number-of-pieces monovariant.</strong> Let \(k_t\) be the number of integers written on the board after \(t\) moves (while their sum \(\sum m_i = N = 20\) stays invariant). Each move erases \(1\) number and writes \(2\) numbers, so</p>
+      \[
+        \Delta k \;=\; k_{t+1} - k_t \;=\; 2 - 1 \;=\; +1.
+      \]
+      <p>Since every number on the board is a positive integer \(\ge 1\) and their sum is \(20\), \(k_t \le 20\) is a hard ceiling, reached if and only if all \(20\) numbers equal \(1\). Starting from \(k_0 = 1\), the game must halt in exactly \(20 - 1 = 19\) moves.</p>
+      <p><strong>2. Score invariant and final score.</strong> When \(m = a + b\) is split into \(a\) and \(b\), the sum of \(\binom{m_i}{2}\) changes by</p>
+      \[
+        \binom{a}{2} + \binom{b}{2} - \binom{a + b}{2} \;=\; \frac{a(a-1) + b(b-1) - (a+b)(a+b-1)}{2} \;=\; -ab,
+      \]
+      <p>while your score \(S_t\) increases by \(+ab\)! Therefore \(I_t := S_t + \sum_{i=1}^{k_t} \binom{m_i}{2}\) is constant across every move (\(\Delta I = +ab - ab = 0\)). At the start (\(t = 0\)), \(I_0 = 0 + \binom{20}{2} = 190\). At the end (\(t = 19\), twenty \(1\)s on the board), \(\sum_{i=1}^{20} \binom{1}{2} = 0\), so your final score is <strong>always \(S_{19} = 190\)</strong>.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P72.2 (●●○ — Why uncrossing segments in any order must terminate).</strong> Given \(n\) Red points and \(n\) Blue points in general position in the plane, suppose we start with an arbitrary bijection \(\pi_0 : \text{Red} \to \text{Blue}\) connecting each \(R_i\) to \(\pi_0(R_i)\) by a straight segment. At each step \(t\), we pick <em>any</em> two segments \(\overline{R_i B_i}\) and \(\overline{R_j B_j}\) that cross at a point \(X\) and replace them with the uncrossed pair \(\overline{R_i B_j}\) and \(\overline{R_j B_i}\).</p>
+    <p>As we saw in Exhibit B of <a href="p71-extremal-principle.html"><span class="pid">P71</span></a>, a single uncrossing move can actually <em>increase</em> the total number of crossings in the drawing! Prove using a monovariant that, nevertheless, <strong>every possible sequence of uncrossing moves must terminate in finitely many steps</strong> at a crossing-free matching. (Be sure to explain how Obligation 3 of Box P72.A is satisfied even though segment lengths are real numbers!)</p>
+    <details>
+      <summary>Hint</summary>
+      <p>Use the total Euclidean length \(\Phi(\pi) = \sum_{i=1}^n |R_i \pi(R_i)|\). Why can't \(\Phi(\pi_t)\) suffer from Zeno's creep when there are only \(n!\) possible bijections \(\pi\)?</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Strict decrease of total Euclidean length.</strong> Define \(\Phi(\pi) = \sum_{i=1}^n |R_i \pi(R_i)|\). Whenever two crossing segments \(\overline{R_i B_i}\) and \(\overline{R_j B_j}\) (meeting at \(X\)) are replaced by \(\overline{R_i B_j}\) and \(\overline{R_j B_i}\), the strict triangle inequality in \(\triangle R_i X B_j\) and \(\triangle R_j X B_i\) gives</p>
+      \[
+        \Phi(\pi_{t+1}) - \Phi(\pi_t) \;=\; \bigl(|R_i B_j| + |R_j B_i|\bigr) \,-\, \bigl(|R_i B_i| + |R_j B_j|\bigr) \;&lt;\; 0.
+      \]
+      <p><strong>2. Why Zeno's creep is impossible (finiteness of the state space).</strong> Because \(\Phi(\pi_0) &gt; \Phi(\pi_1) &gt; \Phi(\pi_2) &gt; \cdots\) is strictly decreasing, no bijection \(\pi\) can ever be visited twice! Since the total number of bijections between \(n\) Red points and \(n\) Blue points is <strong>finite</strong> (\(|\mathcal{X}| = n! &lt; \infty\)), a sequence of distinct bijections can have length at most \(n!\) (and the minimum gap \(\delta = \min_{\Phi(\pi') &lt; \Phi(\pi)} (\Phi(\pi) - \Phi(\pi')) &gt; 0\) over the finite set of pairs is automatically positive). Thus the process must halt in at most \(n! - 1\) moves at a matching with zero crossings.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P72.3 (●●● — The \(n \times n\) chessboard infection puzzle and the perimeter monovariant).</strong> On an \(n \times n\) chessboard, \(m\) unit squares are initially "infected". At each time step \(t = 1, 2, \dots\), any uninfected square that shares an edge with <strong>at least \(2\)</strong> already-infected squares becomes infected itself (and infected squares stay infected forever).</p>
+    <ol>
+      <li>Let \(P(t)\) denote the <strong>total perimeter</strong> of the infected region at step \(t\) (the total number of unit grid segments separating an infected square from an uninfected square or from the outside of the board). Prove that \(P(t)\) is a non-increasing monovariant: \(P(t+1) \le P(t)\) at every infection event!</li>
+      <li>Use \(P(t)\) to prove that if the infection eventually spreads to all \(n^2\) squares of the \(n \times n\) chessboard, then at least \(m \ge n\) squares must have been infected at the start (\(t = 0\)).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>When a single uninfected unit square \(s\) becomes infected, it has \(4\) edges. At least \(k \ge 2\) of those \(4\) edges are shared with already-infected neighbors: what happens to those \(k\) boundary edges, and what happens to the remaining \(4 - k\) edges?</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Non-increasing perimeter \(P(t)\).</strong> Decompose each step into single-square infections. When an uninfected unit square \(s\) becomes infected, suppose it shares \(k \in \{2, 3, 4\}\) of its \(4\) edges with already-infected squares:</p>
+      <ul>
+        <li>Those \(k\) shared edges were previously boundary edges of the infected region, and now become interior edges between two infected squares — <strong>erasing \(k\) units of perimeter</strong>.</li>
+        <li>The remaining \(4 - k\) edges of \(s\) become new boundary edges of the infected region — <strong>adding \(4 - k\) units of perimeter</strong>.</li>
+      </ul>
+      <p>Since \(k \ge 2\), the net change in perimeter is</p>
+      \[
+        \Delta P \;=\; (4 - k) - k \;=\; 4 - 2k \;\le\; 4 - 2(2) \;=\; 0.
+      \]
+      <p>Thus \(P(t+1) \le P(t)\) across the entire process! (While the number of infected squares \(A(t)\) strictly increases by \(\Delta A \ge +1\) bounded by \(n^2\), proving termination in \(\le n^2\) steps.)</p>
+      <p><strong>2. Lower bound \(m \ge n\) for full infection.</strong> At \(t = 0\), \(m\) unit squares are infected; since each unit square has \(4\) sides, their union has perimeter \(P(0) \le 4m\). If the entire \(n \times n\) board becomes infected at some final time \(T\), the infected region is an \(n \times n\) square of perimeter \(P(T) = 4n\). Since \(P(t)\) never increases,</p>
+      \[
+        4n \;=\; P(T) \;\le\; P(0) \;\le\; 4m \quad\implies\quad m \;\ge\; n.
+      \]
+      <p>(And \(m = n\) is achievable by infecting the \(n\) squares along the main diagonal!)</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P72.4 (◆ — Pattern-unknown diagnosis: IMO 1986 Problem 3, The Pentagon Game).</strong> To each vertex of a regular pentagon, an integer \(x_1, x_2, x_3, x_4, x_5 \in \mathbb{Z}\) is assigned (with indices read modulo \(5\)), such that the sum of all five integers is strictly positive:</p>
+    \[
+      S \;=\; x_1 + x_2 + x_3 + x_4 + x_5 \;&gt;\; 0.
+    \]
+    <p>If at least one vertex holds a strictly negative integer \(x_i &lt; 0\), you may choose any such vertex \(i\) and replace the triple \((x_{i-1},\; x_i,\; x_{i+1})\) with</p>
+    \[
+      \bigl(x_{i-1} + x_i,\;\; -x_i,\;\; x_{i+1} + x_i\bigr),
+    \]
+    <p>leaving the other two vertices unchanged. Prove that this game must always terminate in finitely many steps!</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern diagnosis (<a href="p09-invariant.html"><span class="pid">P09</span> · Find the invariant</a> + <a href="p72-monovariants.html"><span class="pid">P72</span> · Monovariants</a>).</strong> First check what happens to the total sum \(S = \sum_{k=1}^5 x_k\) under the move at vertex \(i\):</p>
+      \[
+        (x_{i-1} + x_i) + (-x_i) + (x_{i+1} + x_i) + x_{i+2} + x_{i+3} \;=\; x_1 + x_2 + x_3 + x_4 + x_5 \;=\; S.
+      \]
+      <p>Thus the total sum \(S \ge 1\) is a positive integer <strong>invariant</strong>! To prove termination, we need a nonnegative integer <strong>monovariant</strong> \(\Phi(\mathbf{x}) \in \mathbb{Z}_{\ge 0}\) that strictly decreases whenever \(x_i &lt; 0\) is flipped.</p>
+      <p><strong>2. The Zagier–Keane chord-difference monovariant.</strong> Define \(\Phi\) as the sum of the squares of the five "diagonal chord differences" (vertices at distance \(2\) around the pentagon):</p>
+      \[
+        \Phi(x_1, x_2, x_3, x_4, x_5) \;:=\; \sum_{k=1}^5 \bigl(x_k - x_{k+2}\bigr)^2 \;=\; (x_1 - x_3)^2 + (x_2 - x_4)^2 + (x_3 - x_5)^2 + (x_4 - x_1)^2 + (x_5 - x_2)^2.
+      \]
+      <p>By <a href="p68-wlog.html"><span class="pid">P68</span> · WLOG</a> (cyclic symmetry of the pentagon), suppose the move is performed at vertex \(i = 2\) where \(x_2 \le -1 &lt; 0\), sending \((x_1, x_2, x_3, x_4, x_5) \mapsto (x_1 + x_2,\, -x_2,\, x_3 + x_2,\, x_4,\, x_5)\). Inspect how each of the five squared chord differences changes:</p>
+      <ul>
+        <li>\((x_1 - x_3) \mapsto (x_1 + x_2) - (x_3 + x_2) = x_1 - x_3\) (<strong>unchanged!</strong>)</li>
+        <li>\((x_2 - x_4)^2 \mapsto (-x_2 - x_4)^2 = (x_2 + x_4)^2 = (x_2 - x_4)^2 + 4 x_2 x_4\)</li>
+        <li>\((x_5 - x_2)^2 \mapsto (x_5 + x_2)^2 = (x_5 - x_2)^2 + 4 x_2 x_5\)</li>
+        <li>\((x_3 - x_5)^2 \mapsto (x_3 + x_2 - x_5)^2 = (x_3 - x_5)^2 + 2 x_2 (x_3 - x_5) + x_2^2\)</li>
+        <li>\((x_4 - x_1)^2 \mapsto (x_4 - x_1 - x_2)^2 = (x_4 - x_1)^2 + 2 x_2 (x_1 - x_4) + x_2^2\)</li>
+      </ul>
+      <p>Adding the five changes together, the terms with \(x_4\) and \(x_5\) combine miraculously:</p>
+      \[
+        \begin{aligned}
+          \Delta \Phi &\;=\; 0 \,+\, 4x_2 x_4 \,+\, 4x_2 x_5 \,+\, 2x_2(x_3 - x_5) + x_2^2 \,+\, 2x_2(x_1 - x_4) + x_2^2 \\
+          &\;=\; 2x_2\bigl(x_1 + x_2 + x_3 + x_4 + x_5\bigr) \;=\; 2\,x_2\,S!
+        \end{aligned}
+      \]
+      <p>Because \(S \ge 1\) is a positive integer and \(x_2 \le -1\) is a negative integer, \(\Delta \Phi = 2 x_2 S \le -2S \le -2 &lt; 0\) at every move! Since \(\Phi(\mathbf{x}) = \sum (x_k - x_{k+2})^2 \in \mathbb{Z}_{\ge 0}\) cannot drop below \(0\), the game must terminate in at most \(\lfloor \Phi(\mathbf{x}_0) / (2S) \rfloor\) steps.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P72.5 (◐ — Exploration: Conway's Soldiers and the Golden-Ratio Monovariant).</strong> Imagine an infinite checkerboard split by a horizontal line: every square on or below row \(y = 0\) can initially hold a soldier (peg), while rows \(y = 1, 2, 3, 4, 5, \dots\) above the line are initially empty. A soldier may jump horizontally or vertically over an adjacent soldier into an empty square two steps away, removing the jumped soldier (exactly as in peg solitaire). Can a finite army of soldiers below \(y = 0\) ever place a single soldier onto row \(y = 5\)?</p>
+    <p>John Conway solved this in 1961 by picking a target square \(T\) on row \(y = 5\) and assigning every square \(s\) at Manhattan distance \(d(s, T) = |x - x_T| + |y - y_T|\) the weight \(w(s) = \alpha^{d(s, T)}\), where \(\alpha \in (0, 1)\) satisfies \(\alpha^2 + \alpha = 1\) (so \(\alpha = \frac{\sqrt{5} - 1}{2} = \varphi^{-1}\)).</p>
+    <ol>
+      <li>Verify how the total army weight \(\Phi = \sum_{s \text{ occupied}} \alpha^{d(s, T)}\) changes under (a) a jump <em>toward</em> \(T\) (replacing pegs at distances \(d+2\) and \(d+1\) by a peg at distance \(d\)), (b) a jump <em>away</em> from \(T\), and (c) a jump where one step is toward \(T\) and one step is away from \(T\).</li>
+      <li>Using the geometric series \(\sum_{k=0}^\infty \alpha^k = \frac{1}{1 - \alpha} = \frac{1}{\alpha^2} = \varphi^2\), compute the total weight of the <em>entire infinite half-plane</em> \(y \le 0\) when \(T = (0, 5)\) sits on row \(y = 5\), and explain why no finite army can ever reach row \(y = 5\)!</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Because \(\alpha^2 + \alpha = 1\), multiplying by \(\alpha^d\) gives \(\alpha^{d+2} + \alpha^{d+1} = \alpha^d\), so a jump toward \(T\) has \(\Delta \Phi = \alpha^d - (\alpha^{d+1} + \alpha^{d+2}) = 0\), while the other two jump types have \(\Delta \Phi &lt; 0\)! For Part 2, sum \(\alpha^{|x| + (5 - y)}\) over all \(x \in \mathbb{Z}\) and \(y \le 0\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Non-increasing golden-ratio monovariant (\(\Delta \Phi \le 0\)).</strong> Since \(\alpha = \frac{\sqrt{5}-1}{2} \in (0, 1)\) satisfies \(\alpha^2 + \alpha = 1\):</p>
+      <ul>
+        <li><strong>Jump toward \(T\) (\(d+2, d+1 \mapsto d\)):</strong> \(\Delta \Phi = \alpha^d - \bigl(\alpha^{d+1} + \alpha^{d+2}\bigr) = \alpha^d(1 - \alpha - \alpha^2) = 0\).</li>
+        <li><strong>Mixed jump (\(d, d+1 \mapsto d\)):</strong> \(\Delta \Phi = \alpha^d - (\alpha^d + \alpha^{d+1}) = -\alpha^{d+1} &lt; 0\).</li>
+        <li><strong>Jump away from \(T\) (\(d, d+1 \mapsto d+2\)):</strong> \(\Delta \Phi = \alpha^{d+2} - (\alpha^d + \alpha^{d+1}) &lt; 0\).</li>
+      </ul>
+      <p>Thus \(\Phi\) never increases (\(\Phi_t \le \Phi_0\))!</p>
+      <p><strong>2. Total weight of the entire half-plane \(y \le 0\) relative to \(T = (0, 5)\).</strong> A soldier on \(T = (0, 5)\) has distance \(0\) from \(T\) and therefore requires \(\Phi_{\text{final}} \ge \alpha^0 = 1\). Yet even if we filled <em>every single square</em> \((x, y)\) in the infinite half-plane \(y \le 0\) (using \(\sum_{n=0}^\infty \alpha^n = \frac{1}{1-\alpha} = \alpha^{-2}\)), the total initial weight would be</p>
+      \[
+        \Phi_{\text{half-plane}} \;=\; \sum_{y = -\infty}^{0} \sum_{x = -\infty}^{\infty} \alpha^{|x| + (5 - y)} \;=\; \left(\sum_{k=0}^\infty \alpha^{5 + k}\right) \left(1 + 2\sum_{x=1}^\infty \alpha^x\right) \;=\; \frac{\alpha^5}{1 - \alpha} \cdot \frac{1 + \alpha}{1 - \alpha} \;=\; \alpha^3 \cdot \frac{1 + \alpha}{\alpha^2} \;=\; \alpha + \alpha^2 \;=\; 1!
+      \]
+      <p>Any <em>finite</em> initial army occupies only a finite subset of the half-plane \(y \le 0\), so its initial potential satisfies \(\Phi_0 &lt; \Phi_{\text{half-plane}} = 1\). Since \(\Phi_t \le \Phi_0 &lt; 1\), no finite army can ever reach \(\Phi_t \ge 1\) on row \(y = 5\)!</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p71-extremal-principle.html">← Previous: P71 · The extremal principle</a> ·
+    <a href="p73-generating-functions.html">Next: P73 · Generating functions →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>
