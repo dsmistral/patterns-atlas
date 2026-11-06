@@ -8,7 +8,11 @@
    was missing the house stylesheet assets/style.css, which the binding authoring rules
    REQUIRE on every page ("the one shared stylesheet book/assets/style.css"). The page was
    correct; the checker whitelist was widened by exactly that one entry. Smoke
-   discrimination unaffected (the BAD fixture's Q03 violations were non-stylesheet hrefs). */
+   discrimination unaffected (the BAD fixture's Q03 violations were non-stylesheet hrefs).
+   Second fix the same day, honestly recorded: the first edit accidentally REPLACED the
+   index-whitelist line (hh.indexOf("index") === 0) instead of adding the stylesheet entry
+   alongside it, so index.html flagged on the second part-3 pass; restored. Net change vs
+   the original piece: exactly the one stylesheet entry. */
 (function () {
   var T = globalThis.PAGE_TEXT || "";
   if (!T) {
@@ -29,7 +33,7 @@
   for (k = 0; k < hrefs.length; k++) {
     hh = hrefs[k].slice(6, -1);
     if (hh.charAt(0) === "#") { continue; }
-    goodH = hh === "assets/style.css";
+    goodH = hh === "assets/style.css" || hh.indexOf("index") === 0;
     if (!goodH) { for (i = 0; i < pref.length; i++) { if (hh.indexOf(pref[i]) === 0) { goodH = true; break; } } }
     if (!goodH) { bad.push(hh); }
   }

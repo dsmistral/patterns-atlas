@@ -14,7 +14,7 @@ Files (bytes on disk / md5):
 - p65-W.js 6498 / 1df61b80d34964ebc4ce74cfd854d462
 - p65-C.js 6266 / 6b9b16d587becc910b62339c58ede665
 - p65-D.js 6036 / 9e99e4ea7780f49d196ac3b7560cb68c
-- p65-Q.js 4247 / a266119703670cc8f237a8afa6b5d49f (FIXED at freeze 2026-11-06: Q03 whitelist was missing the house stylesheet assets/style.css required by the authoring rules; page was correct, checker widened by one entry; was 3768 / e192c7bf72721d0a9cbd3a696c3c6b27)
+- p65-Q.js 4602 / 0afb970b374f4ebc247b798612cf8d91 (FIXED at freeze 2026-11-06, two passes recorded in the piece header: (1) Q03 whitelist was missing the house stylesheet assets/style.css required by the authoring rules; (2) the first edit accidentally dropped the index-whitelist line — restored. Net change vs the original: exactly the one stylesheet entry. Original: 3768 / e192c7bf72721d0a9cbd3a696c3c6b27; first attempt: 4247 / a266119703670cc8f237a8afa6b5d49f)
 - p65-S.js 5892 / c763465958d0e371b4efd5ae65b490bd
 - p65-lab-head.txt 4306 / 023f38671aca211ee5a147fcfc355c84
 - p65-freeze-runner.js 4118 / 85396b4ad93420e7e7788832e7303ec8 (4118 B = 4116 JS chars, one em-dash; superseded in use by wip/p65-freeze-run.js, the lean-parts scratch-safe edition)
