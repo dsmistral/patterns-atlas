@@ -1,0 +1,93 @@
+/* P65 lab — Floer homology from holomorphic strips (book/p65-floer-homology.html)
+   Pieces: H (helpers, this header) / A (circle census) / B (Hamiltonian torus) /
+   C (Morse complex and compactness) / D (figure receipts) / Q (hygiene) /
+   S (census against the frozen page — reads PAGE_TEXT if the runner sets it).
+   All arithmetic that the page prints as exact runs in integers; floats are
+   for flows and geometry only. No recursion, no BigInt. */
+var OUT = [];
+function vCheck(id, ok, desc) { OUT.push(id + " " + (ok ? "PASS" : "FAIL") + " " + desc); }
+function igcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = a % b; a = b; b = t; } return a; }
+/* iterative Smith normal form, integer matrices (m x n, small); returns
+   {rank: r, torsion: diagonal entries > 1 in order, kernelDim: n - r, cokernelFree: m - r} */
+function snf(mat) {
+  var M = [], m = mat.length, n = mat[0].length, i, j;
+  for (i = 0; i < m; i++) { M.push(mat[i].slice()); }
+  var r = 0, rr = 0, cc = 0, guard = 0, k, done;
+  while (rr < m && cc < n && guard < 200) {
+    guard++;
+    /* find smallest nonzero |entry| in the submatrix [rr..m)x[cc..n) */
+    var bi = -1, bj = -1, bv = 0;
+    for (i = rr; i < m; i++) for (j = cc; j < n; j++) {
+      if (M[i][j] !== 0 && (bv === 0 || Math.abs(M[i][j]) < bv)) { bv = Math.abs(M[i][j]); bi = i; bj = j; }
+    }
+    if (bv === 0) { break; }
+    /* swap pivot to (rr,cc) */
+    var tmp;
+    if (bi !== rr) { for (j = 0; j < n; j++) { tmp = M[rr][j]; M[rr][j] = M[bi][j]; M[bi][j] = tmp; } }
+    if (bj !== cc) { for (i = 0; i < m; i++) { tmp = M[i][cc]; M[i][cc] = M[i][bj]; M[i][bj] = tmp; } }
+    done = false;
+    while (!done && guard < 400) {
+      guard++;
+      done = true;
+      /* clear row and column by division; if a remainder survives, swap it in */
+      for (i = rr + 1; i < m; i++) {
+        var q = M[i][cc] / M[rr][cc]; q = Math.round(q);
+        if (q !== 0) for (j = 0; j < n; j++) { M[i][j] -= q * M[rr][j]; }
+        if (M[i][cc] !== 0) done = false;
+      }
+      for (j = cc + 1; j < n; j++) {
+        var q2 = M[rr][j] / M[rr][cc]; q2 = Math.round(q2);
+        if (q2 !== 0) for (i = 0; i < m; i++) { M[i][j] -= q2 * M[i][cc]; }
+        if (M[rr][j] !== 0) done = false;
+      }
+      if (!done) {
+        /* move a surviving nonzero into the pivot slot */
+        var moved = false;
+        for (i = rr + 1; i < m && !moved; i++) if (M[i][cc] !== 0) { for (j = 0; j < n; j++) { tmp = M[rr][j]; M[rr][j] += M[i][j]; M[i][j] = tmp; } moved = true; }
+        for (j = cc + 1; j < n && !moved; j++) if (M[rr][j] !== 0) { for (i = 0; i < m; i++) { tmp = M[i][cc]; M[i][cc] += M[i][bj]; M[i][bj] = tmp; } moved = true; }
+      }
+    }
+    rr++; cc++;
+  }
+  var rank = 0, tors = [];
+  for (i = 0; i < Math.min(m, n); i++) {
+    if (Math.abs(M[i][i]) > 0) { rank++; if (Math.abs(M[i][i]) > 1) { tors.push(Math.abs(M[i][i])); } }
+  }
+  return { rank: rank, torsion: tors, kernelDim: n - rank, cokernelFree: m - rank, diag: M };
+}
+/* classic RK4 for an autonomous or t-dependent vector field f(y,t) -> array */
+function rk4(f, y0, t0, t1, n) {
+  var d = y0.length, h = (t1 - t0) / n, y = y0.slice(), t = t0, i, j;
+  var k1 = [], k2 = [], k3 = [], k4 = [], yt = [];
+  function load(k) { for (j = 0; j < d; j++) { yt[j] = y[j] + k[j] * h * 0.5; } }
+  for (i = 0; i < n; i++) {
+    var a1 = f(y, t), a2, a3, a4;
+    for (j = 0; j < d; j++) { k1[j] = a1[j]; }
+    load(k1); a2 = f(yt, t + 0.5 * h);
+    for (j = 0; j < d; j++) { k2[j] = a2[j]; }
+    load(k2); a3 = f(yt, t + 0.5 * h);
+    for (j = 0; j < d; j++) { k3[j] = a3[j]; }
+    for (j = 0; j < d; j++) { yt[j] = y[j] + k3[j] * h; }
+    a4 = f(yt, t + h);
+    for (j = 0; j < d; j++) { k4[j] = a4[j]; }
+    for (j = 0; j < d; j++) { y[j] = y[j] + (h / 6) * (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]); }
+    t += h;
+  }
+  return y;
+}
+function bisect(f, a, b, it) {
+  var fa = f(a), i, m, fm;
+  for (i = 0; i < it; i++) {
+    m = 0.5 * (a + b); fm = f(m);
+    if (fa * fm <= 0) { b = m; } else { a = m; fa = fm; }
+  }
+  return 0.5 * (a + b);
+}
+function utf8len(s) {
+  var b = 0, i, c;
+  for (i = 0; i < s.length; i++) {
+    c = s.charCodeAt(i);
+    if (c < 0x80) { b += 1; } else if (c < 0x800) { b += 2; } else if (c >= 0xD800 && c <= 0xDBFF) { b += 4; i++; } else { b += 3; }
+  }
+  return b;
+}
