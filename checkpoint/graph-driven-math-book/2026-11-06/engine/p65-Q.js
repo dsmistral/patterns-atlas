@@ -3,7 +3,12 @@
    armed note and exits. Checks (frozen design): the six banned tokens; TeX balance with
    no $$; the href whitelist; the moon row; structure counts (8 h2, 3 h3, 3 svg, 10 details
    = 5 Hint + 5 Worked, >= 2 boxes, >= 2 asides); footer next -> p54, atlas-home -> p43.
-   No recursion, no BigInt. */
+   No recursion, no BigInt.
+   Freeze-time fix 2026-11-06 (found by part-3 pass 1, recorded honestly): Q03's whitelist
+   was missing the house stylesheet assets/style.css, which the binding authoring rules
+   REQUIRE on every page ("the one shared stylesheet book/assets/style.css"). The page was
+   correct; the checker whitelist was widened by exactly that one entry. Smoke
+   discrimination unaffected (the BAD fixture's Q03 violations were non-stylesheet hrefs). */
 (function () {
   var T = globalThis.PAGE_TEXT || "";
   if (!T) {
@@ -24,11 +29,11 @@
   for (k = 0; k < hrefs.length; k++) {
     hh = hrefs[k].slice(6, -1);
     if (hh.charAt(0) === "#") { continue; }
-    goodH = hh.indexOf("index") === 0;
+    goodH = hh === "assets/style.css";
     if (!goodH) { for (i = 0; i < pref.length; i++) { if (hh.indexOf(pref[i]) === 0) { goodH = true; break; } } }
     if (!goodH) { bad.push(hh); }
   }
-  vCheck("Q03", bad.length === 0, "href whitelist: " + hrefs.length + " hrefs checked, " + (bad.length ? "VIOLATIONS: " + bad.join(", ") : "all within the frozen whitelist (p09/p10/p17/p21/p25/p26/p29/p33/p43/p53/p54/index/in-page anchors)"));
+  vCheck("Q03", bad.length === 0, "href whitelist: " + hrefs.length + " hrefs checked, " + (bad.length ? "VIOLATIONS: " + bad.join(", ") : "all within the frozen whitelist (the house stylesheet assets/style.css, p09/p10/p17/p21/p25/p26/p29/p33/p43/p53/p54/index/in-page anchors)"));
   var moons = ["\u25CF\u25CB\u25CB", "\u25CF\u25CF\u25CB", "\u25CF\u25CF\u25CF", "\u25C6", "\u25D0"], mMiss = [];
   for (i = 0; i < moons.length; i++) { if (T.indexOf(moons[i]) < 0) { mMiss.push(moons[i]); } }
   vCheck("Q04", mMiss.length === 0, "moon row: \u25CF\u25CB\u25CB \u25CF\u25CF\u25CB \u25CF\u25CF\u25CF \u25C6 \u25D0 — " + (mMiss.length ? "MISSING: " + mMiss.join(" ") : "all five marks found"));
