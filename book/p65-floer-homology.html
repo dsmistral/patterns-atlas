@@ -1,580 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>P65 · Floer homology from holomorphic strips · The Patterns Atlas</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <style>
-/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
-:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
-* { box-sizing: border-box; }
-body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
-main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
-.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
-.kicker a { color: var(--accent); text-decoration: none; }
-h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
-h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
-.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
-nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
-nav.toc a { color: var(--accent); text-decoration: none; }
-table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
-th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
-td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
-td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
-.st { font-family: system-ui, sans-serif; font-size: .75rem; }
-.st.published { color: #1c6b2f; }
-.st.reviewed { color: var(--accent); }
-.st.drafting { color: var(--warn); }
-.st.planned { color: var(--soft); }
-footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
-/* pattern-page blocks */
-.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
-.pattern-box .words { color: var(--soft); }
-.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
-.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
-.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
-figure { margin: 1.2rem 0; }
-figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
-figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
-.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
-.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
-.eq { text-align: center; margin: 1.1rem 0; }
-mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
-figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
-figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
-details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
-summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
-details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-  </style>
-  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P65 · Floer homology from holomorphic strips · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
-  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P65 · the twentieth move of tier 5</p>
-  <h1>Floer homology from holomorphic strips</h1>
-  <p class="tagline">When the energy landscape has infinitely many downhill directions at every rest point, stop counting dimensions and start counting the rigid two-dimensional strips stretched between them.</p>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P65 · the thirteenth move of tier 5</p>
+<h1>Floer homology from holomorphic strips</h1>
+<p class="tagline">One flow answers one question; a chain complex built from a flow's trajectories answers all of them at once — provided the flow is honest enough to count. This is the page where the geometry's own tears become the proof that the books balance.</p>
 </header>
 
-<aside class="onramp">
-  <strong>Phase space, Lagrangians, and the Cauchy–Riemann strip equation.</strong>
-  A mechanical system on a curve or surface \(Q\) has a <em>phase space</em> \(T^*Q\) whose points \((q,p)\) record both position \(q\) and momentum \(p\), equipped with the signed area form \(\omega = dp \wedge dq\). A <em>Lagrangian submanifold</em> \(L \subset T^*Q\) is a slice of half the total dimension on which signed area vanishes — on a two-dimensional cylinder \((q \bmod 2\pi,\, p \in \mathbb{R})\), any smooth loop \(p = g(q)\) is a Lagrangian curve. A <em>holomorphic strip</em> is a map \(u(s,t) = (q(s,t), p(s,t))\) from the infinite ribbon \(\mathbb{R}_s \times [0,1]_t\) into phase space satisfying the Cauchy–Riemann equations \(\partial_s q - \partial_t p = 0\) and \(\partial_s p + \partial_t q = 0\), with its bottom edge \(t=0\) on \(L_0\) and its top edge \(t=1\) on \(L_1\).
-</aside>
+<aside class="onramp"><strong>New word: Floer homology.</strong> Five ideas stand at the door, and each is a careful generalization of something school geometry already gave you. <em>(1) A symplectic form is an area book.</em> The plane measures the signed area \(\mathrm{d}x \wedge \mathrm{d}y\) of the parallelogram spanned by any two arrows; a <em>symplectic</em> space is any space carrying such a book, and the maps we care about — <em>Hamiltonian diffeomorphisms</em> — are the ones that preserve it, entry by entry, the way a fluid with no viscosity preserves the area of each drifting patch. <em>(2) A Lagrangian is a shore.</em> A subspace (or curve, or surface) on which the book reads zero for every pair of its tangent vectors — in the plane, the \(x\)-axis: two vectors along it span no area. <em>(3) An almost-complex structure \(J\)</em> is a chosen quarter-turn of every tangent space, installed so that the book stays honest under it — areas come out positive. A map is <em>holomorphic</em> when it respects \(J\), exactly as "complex-differentiable" respects the plane's usual quarter-turn. <em>(4) A holomorphic strip</em> is a map from an infinite ribbon \(\mathbb{R} \times [0,1]\) into the space — holomorphic in its interior, resting its two long edges on two chosen Lagrangians (its shores), and settling down at the far ends \(s \to \pm\infty\) to intersection points of those shores. <em>(5) Floer homology</em> is the census made homological: generators are the intersection points of the two shores, and the differential counts strips from one point to another. Nothing else is needed — a book of areas, two shores, a quarter-turn, a ribbon, and the discipline of counting.</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p><a href="p29-energy-methods.html"><span class="pid">P29</span></a> taught us how a monotone energy ledger controls the long-time fate of an evolving field, and <a href="p43-flow-with-surgery.html"><span class="pid">P43</span></a> used that ledger — on the dented blob \(r(\theta) = 1 + 0.35\cos(3\theta)\) and the pinching peanut surface — to simplify geometric objects by flowing downhill and cutting cleanly when necks form. <a href="p33-sheaf-cohomology-bridge.html"><span class="pid">P33</span></a> showed us how a boundary-of-a-boundary rule \(\delta \circ \delta = 0\) (first seen when three mountain surveyors recorded elevation legs \(+40\,\text{m}\), \(+60\,\text{m}\), and \(-90\,\text{m}\)) extracts global topological invariants out of local discrepancies.</p>
-  <p>Here is the tension that closes Tier 5. On a finite-dimensional surface, we can count rest points of a height function \(f\) by their <em>Morse index</em> — the number of independent directions in which \(f\) curves downward — and connect index-\(k\) rest points to index-\((k-1)\) rest points along steepest-descent paths. But in mechanics and symplectic geometry, the natural functional lives on the infinite-dimensional space of all paths \((q(t),p(t))\), and at <em>every</em> stationary path there are infinitely many Fourier modes curving upward and infinitely many curving downward. The Morse index is \(\infty - \infty\), and the gradient flow is an ill-posed partial differential equation that explodes backward and forward at the same time. How do you run a steepest-descent census when every critical point sits at an infinite-dimensional saddle?</p>
+<h2>1 · Before we begin</h2>
+<p><a href="p43-flow-with-surgery.html">P43</a> taught the discipline of letting the object simplify itself: run the flow, schedule the tear, price the cut in the books' coin, restart on the pieces. And its far door named this page precisely: <em>"One flow answers one question; a chain complex built from the space of a flow's trajectories answers all of them at once. The construction needs a flow honest enough to count — gradient-like, with books that survive the cuts — and this page is one of its two ladders."</em> We inherit that standard in full. The surgery itself will stay in its sheath here — the geometry below is already tear-free in the sense that matters — but the honesty clause is binding: a flow whose books survive is a flow whose trajectories can be counted.</p>
+<p><a href="p33-sheaf-cohomology-bridge.html">P33</a> taught the census machine: when answers live on patches and refuse to assemble, do not mourn the failure — collect the data and the pairwise disagreements into cochains, and let the always-true law \(\delta \circ \delta = 0\) <em>"a telescoping, every time"</em> certify what is repairable. P33's door set this page's commission explicitly: <em>"P52, P54, and P65 wait behind these, each a customer of the same cochain bookkeeping."</em> And <a href="p53-deformation-cohomology.html">P53</a>, already waiting in that doorway, phrased the order: <em>"P54 adds the boundary; P65 counts strips where the walls are the analysis."</em></p>
+<p>Here, then, is the tension between the two inheritances. P33's machine runs on complexes you can write down — finitely many cochains, a difference operator you can check by hand. P43's flows run on spaces you cannot write down — the fixed points we must count are solutions of a differential equation, points of a shape that flexes through infinitely many dimensions, and no matrix is ever handed to us.</p>
+<p>And the classical escape — just do Morse theory on that big a space — is not merely inconvenient; it drowns, and the drowning is computable. Diagonalize the action book on the circle's loop space: a loop \(\gamma(t) = \sum_k c_k\,e^{2\pi i k t}\) carries quadratic action \(A_0 = \pi \sum_k k\,|c_k|^2\), and each Fourier mode \(k\) curves its direction by \(2\pi k\) — infinitely many uphill curvatures, infinitely many downhill, an index of \(\infty - \infty\) with no ledger to write. The action runs unbounded in both directions at once: a single mode of radius 10 at \(k = 1\) books \(+100\pi\); at \(k = -1\), \(-100\pi\). Worse, the classical gradient flow detonates: under descent, the \(k = -100\) mode of your loop grows by a factor \(e^{200\pi} \approx 7.5 \times 10^{272}\) per unit time — the trajectory is gone before it settles anywhere. (Every number in this paragraph is machine-checked in the page's lab, down to the twelve-decimal diagonalization and the explosion factor.) This is why the machine this page builds counts solutions pinned at both ends — boundary-value problems, strips between intersections — instead of chasing them down an exploding flow.</p>
+<p>The move this page names is the marriage: make the flow's own trajectories the cochains, make the flow's own tears — the ways a one-parameter family of strips breaks — the \(\delta \circ \delta = 0\) law, and let the geometry prove the census is deformation-proof. What you need first is exactly the two ladders: <a href="p43-flow-with-surgery.html">P43</a> for the flows, <a href="p33-sheaf-cohomology-bridge.html">P33</a> for the census. Nothing outside this book is assumed.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: four crossings on a cylinder, two of them fake</h2>
-  <p>Roll a flat strip of paper into a vertical cylinder of circumference \(2\pi\), with angle \(q \in [0, 2\pi)\) running around the waist and height \(p \in \mathbb{R}\) running up the wall. Draw the equator circle \(L_0 = \{p = 0\}\). Now deform \(L_0\) by an area-preserving vertical shear \(p = f'(q)\), where the potential is</p>
-  <p class="eq">\[f(q) = 2\cos q + \cos(2q), \qquad L_1 = \bigl\{\,(q, p) \in S^1 \times \mathbb{R} \;:\; p = f'(q) = -2\sin q - 2\sin(2q)\,\bigr\}.\]</p>
-  <p>Why must \(L_1\) cross \(L_0\)? The net signed area between \(L_1\) and \(L_0\) around the whole cylinder is \(\int_0^{2\pi} f'(q)\,dq = f(2\pi) - f(0) = 0\). A periodic curve of zero net area that does not vanish identically must cross the equator at least twice — once going down, once going up. Yet if we solve \(f'(q) = -2\sin q\,(1 + 2\cos q) = 0\) on \([0,2\pi)\), we find not two crossings, but <strong>four</strong>:</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Crossing \(x_i\)</th>
-        <th>Angle \(q_i\)</th>
-        <th>Action \(f(q_i)\)</th>
-        <th>Slope \(f''(q_i)\)</th>
-        <th>Relative Grade \(\mu(x_i)\)</th>
-        <th>Geometric Role on \(f(q)\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(M_1\)</td>
-        <td>\(0\)</td>
-        <td>\(+3\)</td>
-        <td>\(-6 &lt; 0\)</td>
-        <td>\(1\)</td>
-        <td>Global peak (tall maximum)</td>
-      </tr>
-      <tr>
-        <td>\(m_1\)</td>
-        <td>\(\frac{2\pi}{3}\)</td>
-        <td>\(-\frac{3}{2}\)</td>
-        <td>\(+3 &gt; 0\)</td>
-        <td>\(0\)</td>
-        <td>Left trough (global minimum)</td>
-      </tr>
-      <tr>
-        <td>\(M_2\)</td>
-        <td>\(\pi\)</td>
-        <td>\(-1\)</td>
-        <td>\(-2 &lt; 0\)</td>
-        <td>\(1\)</td>
-        <td>Shallow dimple peak (local maximum)</td>
-      </tr>
-      <tr>
-        <td>\(m_2\)</td>
-        <td>\(\frac{4\pi}{3}\)</td>
-        <td>\(-\frac{3}{2}\)</td>
-        <td>\(+3 &gt; 0\)</td>
-        <td>\(0\)</td>
-        <td>Right trough (global minimum)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Two of those four crossings — the shallow peak \(M_2\) at \(q=\pi\) and one of the troughs beside it — were born purely because we wiggled the \(\cos(2q)\) harmonic hard enough to push a small fold across \(p=0\). If we dial the second harmonic down to \(f_\varepsilon(q) = 2\cos q + \varepsilon\cos(2q)\) with \(|\varepsilon| &lt; \frac{1}{2}\), the factor \(1 + 2\varepsilon\cos q\) never vanishes, \(M_2\) merges with a trough and disappears, and only \(q=0\) and \(q=\pi\) remain.</p>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 225" role="img" aria-label="Fig P65.1: Four Lagrangian intersections on the cylinder with two large holomorphic bigons of area 9/2 and two small bigons of area 1/2.">
-      <defs>
-        <marker id="arr-teal" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
-        </marker>
-        <marker id="arr-warn" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8a4b08"/>
-        </marker>
-      </defs>
-      <!-- Shaded holomorphic bigons (strips) between L0 and L1 -->
-      <!-- Bigon 1: M1 (60) to m1 (220), area 9/2 -->
-      <path d="M 60.0,110.0 L 65.0,119.8 L 70.0,129.5 L 75.0,138.9 L 80.0,147.9 L 85.0,156.3 L 90.0,164.0 L 95.0,170.7 L 100.0,176.5 L 105.0,181.2 L 110.0,184.7 L 115.0,186.9 L 120.0,187.9 L 125.0,187.7 L 130.0,186.2 L 135.0,183.6 L 140.0,179.8 L 145.0,175.0 L 150.0,169.3 L 155.0,162.8 L 160.0,155.7 L 165.0,148.1 L 170.0,140.2 L 175.0,132.1 L 180.0,124.0 L 185.0,116.1 L 190.0,108.5 L 195.0,101.4 L 200.0,94.9 L 205.0,89.1 L 210.0,84.1 L 215.0,80.1 L 220.0,110.0 Z" fill="#e1f0ee" opacity="0.85"/>
-      <!--Wait: let's use exact bigon polygon paths from q=0 to 2pi/3, 2pi/3 to pi, pi to 4pi/3, 4pi/3 to 2pi -->
-      <rect x="0" y="0" width="600" height="225" fill="#ffffff"/>
-      <!-- Grid & cylinder seam lines -->
-      <line x1="60" y1="20" x2="60" y2="195" stroke="#d8d4cc" stroke-dasharray="4,4"/>
-      <line x1="540" y1="20" x2="540" y2="195" stroke="#d8d4cc" stroke-dasharray="4,4"/>
-      <line x1="220" y1="20" x2="220" y2="195" stroke="#ece9e2"/>
-      <line x1="300" y1="20" x2="300" y2="195" stroke="#ece9e2"/>
-      <line x1="380" y1="20" x2="380" y2="195" stroke="#ece9e2"/>
-      <!-- Shaded Bigons: exact coordinates -->
-      <!-- Left large bigon M1(60) -> m1(220), p < 0 (y > 110) -->
-      <polygon points="60.0,110.0 70.0,129.5 80.0,147.9 90.0,164.0 100.0,176.5 110.0,184.7 120.0,187.9 130.0,186.2 140.0,179.8 150.0,169.3 160.0,155.7 170.0,140.2 180.0,124.0 190.0,108.5 200.0,94.9 210.0,84.1 220.0,110.0" fill="none"/>
-      <path d="M 60.0,110.0 L 70.0,129.5 L 80.0,147.9 L 90.0,164.0 L 100.0,176.5 L 110.0,184.7 L 120.0,187.9 L 130.0,186.2 L 140.0,179.8 L 150.0,169.3 L 160.0,155.7 L 170.0,141.5 L 180.0,128.8 L 195.0,117.5 L 210.0,111.8 L 220.0,110.0 Z" fill="#d9ece9"/>
-      <!-- Small left bigon m1(220) <- M2(300), p > 0 (y < 110) -->
-      <path d="M 220.0,110.0 L 235.0,103.5 L 250.0,96.2 L 265.0,93.8 L 280.0,97.5 L 290.0,103.2 L 300.0,110.0 Z" fill="#f7e6d4"/>
-      <!-- Small right bigon M2(300) -> m2(380), p < 0 (y > 110) -->
-      <path d="M 300.0,110.0 L 310.0,116.8 L 320.0,122.5 L 335.0,126.2 L 350.0,123.8 L 365.0,116.5 L 380.0,110.0 Z" fill="#f7e6d4"/>
-      <!-- Right large bigon m2(380) <- M1(540), p > 0 (y < 110) -->
-      <path d="M 380.0,110.0 L 390.0,108.2 L 405.0,102.5 L 420.0,91.2 L 430.0,78.5 L 440.0,64.3 L 450.0,50.7 L 460.0,40.2 L 470.0,33.8 L 480.0,32.1 L 490.0,35.3 L 500.0,43.5 L 510.0,56.0 L 520.0,72.1 L 530.0,90.5 L 540.0,110.0 Z" fill="#d9ece9"/>
-
-      <!-- Equator L0: p = 0 -->
-      <line x1="40" y1="110" x2="560" y2="110" stroke="#1a1a1a" stroke-width="2"/>
-      <!-- Deformed curve L1: p = -2sin(q) - 2sin(2q) -->
-      <path d="M 60.0,110.0 L 70.0,129.5 L 80.0,147.9 L 90.0,164.0 L 100.0,176.5 L 110.0,184.7 L 120.0,187.9 L 130.0,186.2 L 140.0,179.8 L 150.0,169.3 L 160.0,155.7 L 170.0,141.5 L 180.0,128.8 L 195.0,117.5 L 210.0,111.8 L 220.0,110.0 L 235.0,103.5 L 250.0,96.2 L 265.0,93.8 L 280.0,97.5 L 290.0,103.2 L 300.0,110.0 L 310.0,116.8 L 320.0,122.5 L 335.0,126.2 L 350.0,123.8 L 365.0,116.5 L 380.0,110.0 L 390.0,108.2 L 405.0,102.5 L 420.0,91.2 L 430.0,78.5 L 440.0,64.3 L 450.0,50.7 L 460.0,40.2 L 470.0,33.8 L 480.0,32.1 L 490.0,35.3 L 500.0,43.5 L 510.0,56.0 L 520.0,72.1 L 530.0,90.5 L 540.0,110.0" fill="none" stroke="#0f5c57" stroke-width="2.4"/>
-
-      <!-- Strip flow arrows -->
-      <line x1="115" y1="145" x2="165" y2="125" stroke="#0f5c57" stroke-width="1.6" marker-end="url(#arr-teal)"/>
-      <line x1="285" y1="102" x2="245" y2="102" stroke="#8a4b08" stroke-width="1.5" marker-end="url(#arr-warn)"/>
-      <line x1="315" y1="118" x2="355" y2="118" stroke="#8a4b08" stroke-width="1.5" marker-end="url(#arr-warn)"/>
-      <line x1="485" y1="75" x2="435" y2="95" stroke="#0f5c57" stroke-width="1.6" marker-end="url(#arr-teal)"/>
-
-      <!-- Intersection dots -->
-      <circle cx="60" cy="110" r="4.5" fill="#0f5c57"/>
-      <circle cx="220" cy="110" r="4.5" fill="#1a1a1a"/>
-      <circle cx="300" cy="110" r="4.5" fill="#8a4b08"/>
-      <circle cx="380" cy="110" r="4.5" fill="#1a1a1a"/>
-      <circle cx="540" cy="110" r="4.5" fill="#0f5c57"/>
-
-      <!-- Labels -->
-      <text x="58" y="98" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">M₁ (q=0)</text>
-      <text x="218" y="128" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">m₁ (2π/3)</text>
-      <text x="300" y="96" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">M₂ (π)</text>
-      <text x="382" y="128" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">m₂ (4π/3)</text>
-      <text x="538" y="98" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">M₁ (2π)</text>
-
-      <text x="128" y="168" font-family="Georgia, serif" font-size="11" fill="#0f5c57" text-anchor="middle">Area = 9/2</text>
-      <text x="260" y="86" font-family="Georgia, serif" font-size="11" fill="#8a4b08" text-anchor="middle">Area = 1/2</text>
-      <text x="340" y="142" font-family="Georgia, serif" font-size="11" fill="#8a4b08" text-anchor="middle">Area = 1/2</text>
-      <text x="472" y="62" font-family="Georgia, serif" font-size="11" fill="#0f5c57" text-anchor="middle">Area = 9/2</text>
-      <text x="48" y="114" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="end">L₀</text>
-      <text x="505" y="34" font-family="Georgia, serif" font-size="11" fill="#0f5c57">L₁: p = f′(q)</text>
-    </svg>
-    <figcaption><strong>Fig P65.1.</strong> On the phase cylinder \(T^*S^1\), the equator \(L_0 = \{p=0\}\) and the exact deformation \(L_1 = \{p = -2\sin q - 2\sin(2q)\}\) cross at four points \(M_1, m_1, M_2, m_2\). The shaded lunes (bigons) are holomorphic strips directed from index-1 peaks (\(M_1, M_2\)) to index-0 troughs (\(m_1, m_2\)); their geometric areas \(\int |f'(q)|\,dq\) equal the exact action drops \(\frac{9}{2}\) and \(\frac{1}{2}\).</figcaption>
-  </figure>
-
-  <p>How can we tell — looking only at the static snapshot of \(L_0\) and \(L_1\) — which crossings are forced by the topology of the cylinder and which can be peeled away by a deformation? Look at the shaded lunes (<em>bigons</em>) trapped between \(L_0\) and \(L_1\) in <strong>Fig P65.1</strong>. Each lune is bounded by an arc of \(L_0\) at the bottom, an arc of \(L_1\) at the top, and two corners where \(L_0\) and \(L_1\) meet. By the Riemann mapping theorem, each shaded lune is conformally a flat strip \(\mathbb{R}_s \times [0,1]_t\) running from an index-1 peak \(M_i\) at \(s=-\infty\) to an index-0 trough \(m_j\) at \(s=+\infty\). And the area of each strip is an exact difference of endpoint actions:</p>
-  <p class="eq">\[\operatorname{Area}(M_1 \to m_1) = \int_{0}^{2\pi/3} \bigl(-f'(q)\bigr)\,dq = f(0) - f\!\left(\frac{2\pi}{3}\right) = 3 - \left(-\frac{3}{2}\right) = \frac{9}{2},\]</p>
-  <p class="eq">\[\operatorname{Area}(M_2 \to m_1) = \int_{2\pi/3}^{\pi} f'(q)\,dq = f(\pi) - f\!\left(\frac{2\pi}{3}\right) = -1 - \left(-\frac{3}{2}\right) = \frac{1}{2}.\]</p>
-  <p>By symmetry across \(q=\pi\), the two right-hand strips have areas \(\operatorname{Area}(M_2 \to m_2) = \frac{1}{2}\) and \(\operatorname{Area}(M_1 \to m_2) = \frac{9}{2}\). Now build a boundary operator \(\partial : C_1 \to C_0\) that counts the oriented strips leaving each peak: from \(M_1\) one strip goes right to \(m_1\) (\(+m_1\)) and one wraps left across \(2\pi\) to \(m_2\) (\(-m_2\)); from \(M_2\) one strip goes left to \(m_1\) (\(+m_1\)) and one goes right to \(m_2\) (\(-m_2\)). Thus:</p>
-  <p class="eq">\[\partial(M_1) = m_1 - m_2, \qquad \partial(M_2) = m_1 - m_2.\]</p>
-  <p>Look at the kernel and cokernel of \(\partial\). The two troughs \(m_1\) and \(m_2\) become homologous (\(m_1 - m_2 = \partial M_2\) is a boundary), leaving a one-dimensional quotient \(HF_0 = \mathbb{Z}\langle [m_1] \rangle\). Meanwhile, the difference cycle \(M_1 - M_2\) has \(\partial(M_1 - M_2) = (m_1 - m_2) - (m_1 - m_2) = 0\), leaving a one-dimensional kernel \(HF_1 = \mathbb{Z}\langle [M_1 - M_2] \rangle\). The two small strips of area \(\frac{1}{2}\) pair the false peak \(M_2\) against the duplicate trough, cancelling two superfluous intersections and leaving behind the true homology of the circle: \(\operatorname{rank} HF_1 = 1\), \(\operatorname{rank} HF_0 = 1\), total essential intersections \(= 2\).</p>
+<h2>2 · Meet the problem</h2>
+<p>Begin with the smallest honest case. Take a sphere and rotate it — any axis, any angle short of a full turn. Which points return to themselves? Exactly two: the poles. The count is forced. And the rotation preserves area everywhere it goes — in the language of the on-ramp, it is a Hamiltonian diffeomorphism, the symplectic world's gentlest motion.</p>
+<p>Vladimir Arnold, in the 1960s, asked the question that opens this page: is the rotation's count of two a coincidence? His conjecture says no: <em>any</em> Hamiltonian diffeomorphism of a compact symplectic shape, so long as its fixed points are isolated and individually robust — each fixed point <em>nondegenerate</em>, meaning the linearization there moves no direction back to itself — must have at least as many fixed points as the shape has holes, counted homologically. That census is the sum of the Betti numbers: the same census <a href="p33-sheaf-cohomology-bridge.html">P33</a>'s machine computes from boundary data.</p>
+<div class="digit-table">
+<table>
+<caption>The census the conjecture promises, against the one classical count topology supplies (every number in this table is machine-verified in the page's lab, by exact \(\mathbb{Z}/2\) linear algebra on boundary matrices)</caption>
+<tr><th>Shape</th><th>b<sub>0</sub></th><th>b<sub>1</sub></th><th>b<sub>2</sub></th><th>Promised floor (sum)</th><th>Old topological count</th></tr>
+<tr><td>Sphere \(S^2\)</td><td>1</td><td>0</td><td>1</td><td>2</td><td>Lefschetz number \(\chi = 2\) — agrees</td></tr>
+<tr><td>Torus \(T^2\)</td><td>1</td><td>2</td><td>1</td><td>4</td><td>Lefschetz number \(\chi = 0\) — silent</td></tr>
+</table>
+</div>
+<p>On the sphere the conjecture is met exactly: the rotation has two fixed points and two is the floor. But look at the torus row before celebrating. The Lefschetz number — for maps deformable to the identity, just the Euler characteristic — reads \(2\) on the sphere and \(0\) on the torus. On the torus the old count is not merely weak; it is silent: nothing, while the conjecture promises four. Whatever delivers those four fixed points, it cannot be topology. It must come from the area book itself.</p>
+<p>And the book's hypothesis is load-bearing, not decorative. Slide the torus rigidly: \((x, y) \mapsto (x + \tfrac{1}{2}, y)\), coordinates taken mod 1. This map preserves area perfectly — yet it has no fixed points at all. What it fails is Hamiltonian-ness: its drift is a steady flux, the kind no time-dependent height function on the torus can generate. The conjecture never made a promise to such maps — and this example is the cheapest proof that a promise made to all area-preservers would have been false.</p>
+<p>Now the hard part — the part that makes this a tier-5 page rather than an exercise. Where would a proof of four even begin? A fixed point of the time-one flow of a Hamiltonian \(H\) is a closed loop that the flow returns to itself: a solution of an equation on the <em>space of loops</em>. That space is infinite-dimensional — a "point" of it is an entire closed curve — and the equation is a differential equation. There is no matrix to reduce and no list to enumerate: the linear algebra that ended every earlier tier's counting story is, here, unavailable at the ground floor. Worse: deform \(H\) slightly and the fixed points themselves move, merge, vanish — a naive count is foam that reforms at every touch. We need a count that is not a number but a <em>homology class</em>: something that survives the deformation the way <a href="p33-sheaf-cohomology-bridge.html">P33</a>'s quotient survives repair. The machine that answers is the pattern this page names.</p>
 </section>
 
-<section id="pattern">
-  <h2>3 · Name the move</h2>
-  <p>Andreas Floer realized in 1988 that the lune-counting dictionary on the cylinder is not a coincidence of one-dimensional calculus. In any symplectic manifold \((M, \omega)\), a path between two Lagrangian submanifolds \(L_0, L_1\) is an element of the infinite-dimensional path space \(\mathcal{P}(L_0, L_1) = \{\gamma : [0,1] \to M \mid \gamma(0) \in L_0,\, \gamma(1) \in L_1\}\). On this path space, the <em>symplectic action functional</em> \(\mathcal{A}(\gamma)\) measures the symplectic area swept out by \(\gamma\) relative to a reference path, and its stationary points \(\delta \mathcal{A}(\gamma) = 0\) are precisely the constant paths at the intersections \(x \in L_0 \cap L_1\).</p>
-
-  <aside class="onramp">
-    <strong>Relative Maslov index and Fredholm index.</strong>
-    At any intersection \(x \in L_0 \cap L_1\), the Hessian of the symplectic action \(\mathcal{A}\) on path space has infinitely many positive and infinitely many negative eigenvalues, so no finite Morse index exists. However, along any strip \(u(s,t)\) connecting \(x_-\) at \(s=-\infty\) to \(x_+\) at \(s=+\infty\), the tangent planes of \(L_0\) and \(L_1\) rotate relative to one another by a well-defined integer winding number called the <em>relative Maslov index</em> \(\mu(x_-, x_+) \in \mathbb{Z}\). By the Atiyah–Patodi–Singer index theorem, the space \(\widehat{\mathcal{M}}(x_-, x_+)\) of holomorphic strips from \(x_-\) to \(x_+\) is a finite-dimensional smooth manifold of dimension \(\mu(x_-, x_+)\) (and dimension \(\mu(x_-, x_+) - 1\) after dividing out the shift \(s \mapsto s + s_0\)).
-  </aside>
-
-  <p>If we write the formal \(L^2\)-gradient flow \(\partial_s \gamma_s = -\nabla_{L^2}\mathcal{A}(\gamma_s)\) for a family of paths \(\gamma_s(t) = u(s,t)\) using an \(\omega\)-compatible almost-complex structure \(J\) (a quarter-turn rotation rule \(J^2 = -\operatorname{Id}\) on each tangent space), the ill-posed infinite-dimensional ODE turns into an <strong>elliptic partial differential equation</strong> on the two-dimensional strip \(\mathbb{R}_s \times [0,1]_t\) — the Cauchy–Riemann equation \(\partial_s u + J(u)\,\partial_t u = 0\).</p>
-
-  <div class="pattern-box" id="box-p65">
-    <p><strong>Pattern P65 — Floer homology from holomorphic strips.</strong> Let \(\mathcal{A}\) be a symplectic action functional whose critical points \(\operatorname{Crit}(\mathcal{A})\) have infinite Morse index and co-index, so that the \(L^2\)-gradient ODE on path space is ill-posed. Rewrite a family of paths \(\gamma_s(t)\) as a two-dimensional strip \(u : \mathbb{R} \times [0,1] \to M\) satisfying the perturbed Cauchy–Riemann equation</p>
-    <p class="eq">\[\frac{\partial u}{\partial s} + J(u)\!\left(\frac{\partial u}{\partial t} - X_H(u)\right) = 0, \qquad \lim_{s \to -\infty} u(s,t) = x_-(t), \quad \lim_{s \to +\infty} u(s,t) = x_+(t).\]</p>
-    <p>Grade the generators \(CF_* = \bigoplus_{x \in \operatorname{Crit}(\mathcal{A})} \mathbb{Z}\langle x \rangle\) by the relative Maslov (or Conley–Zehnder) index, and define the boundary map \(\partial x_-\) by counting rigid (\(\mu(x_-, x_+) = 1\)) holomorphic strips modulo \(s\)-translation. Compactness and gluing of \(\mu(x_-, z) = 2\) strips force \(\partial \circ \partial = 0\), making the homology \(HF_* = \ker \partial / \operatorname{im} \partial\) invariant under Hamiltonian deformations.</p>
-    <p class="words"><strong>Or, in words:</strong> When infinite-dimensional steepest descent explodes as an initial-value ODE, reinterpret the trajectory of a path as a two-dimensional soap-film strip with fixed endpoints; count the rigid strips of index difference \(1\) to build the boundary map, and let broken two-stage strips of index difference \(2\) cancel in pairs so the homology survives every deformation.</p>
-  </div>
-
-  <div class="pattern-box" id="box-p65a">
-    <p><strong>Box P65.A — The three obligations of a Floer complex.</strong></p>
-    <ol>
-      <li><strong>The Energy Identity (Gromov compactness lock, <span class="pid">P29</span>):</strong> Every solution of the strip equation satisfies \(\mathcal{E}(u) = \int_{\mathbb{R}\times[0,1]} |\partial_s u|^2\,ds\,dt = \mathcal{A}(x_-) - \mathcal{A}(x_+) \ge 0\). Strips flow strictly down the action ledger; bounded action drop prevents infinite-energy oscillation.</li>
-      <li><strong>Transversality and Relative Index (Fredholm lock):</strong> For a generic metric/almost-complex pair \((g, J)\), the unparametrized moduli space \(\mathcal{M}(x_-, x_+) = \widehat{\mathcal{M}}(x_-, x_+) / \mathbb{R}\) has dimension \(\mu(x_-, x_+) - 1\). When \(\mu(x_-, x_+) = 1\), \(\mathcal{M}(x_-, x_+)\) is a finite set of isolated points.</li>
-      <li><strong>Broken-Strip Compactification and Gluing (<span class="pid">P33</span> + <span class="pid">P43</span>):</strong> When \(\mu(x_-, z) = 2\), \(\mathcal{M}(x_-, z)\) is a one-dimensional manifold whose ends compactify (absent sphere/disk bubbling) exclusively by two-story broken strips \(\bigsqcup_{\mu(x_-, y)=1} \mathcal{M}(x_-, y) \times \mathcal{M}(y, z)\). Since the signed boundary count of any compact 1-manifold is zero, \(\langle \partial^2 x_-, z \rangle = 0\).</li>
-    </ol>
-  </div>
-
-  <div class="pattern-box" id="box-p65b">
-    <table>
-      <thead>
-        <tr>
-          <th>Key</th>
-          <th>Signature</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Claim type</strong></td>
-          <td>A lower bound on intersections \(\#(L_0 \cap \phi_H^1(L_1))\) or periodic orbits of a Hamiltonian system that persists under arbitrarily large symplectic deformations.</td>
-        </tr>
-        <tr>
-          <td><strong>Problem shape</strong></td>
-          <td>Variational functional \(\mathcal{A}\) on loop/path space whose second variation has unbounded positive and negative spectrum (\(\text{index} = \infty\)), blocking classical Morse theory (<span class="pid">P41</span>).</td>
-        </tr>
-        <tr>
-          <td><strong>Tools at hand</strong></td>
-          <td>Symplectic form \(\omega\), compatible almost-complex structure \(J\), action ledger \(\mathcal{A}\), and Fredholm/gluing theory for elliptic Cauchy–Riemann operators.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P65</span> whenever a geometric intersection or periodic-orbit problem is governed by an action principle whose critical points have infinite Morse index, but whose connecting trajectories satisfy a two-dimensional elliptic PDE with a positive energy drop.</p>
-  </div>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 245" role="img" aria-label="Fig P65.2: The 1-dimensional moduli space of index-2 trajectories from P=(1,1) to B=(-1,-1) breaking into two cancelling two-story paths through S_a=(1,-1) and S_b=(-1,1).">
-      <rect x="0" y="0" width="600" height="245" fill="#ffffff"/>
-      <!-- Left panel: Square [-1,1]^2 phase portrait of (x(s), y(s)) = (-tanh(s), -tanh(s - tau)) -->
-      <rect x="95" y="35" width="170" height="170" fill="#f9f8f4" stroke="#d8d4cc" stroke-width="1"/>
-      <!-- Axes -->
-      <line x1="95" y1="120" x2="265" y2="120" stroke="#e2dfd7" stroke-dasharray="3,3"/>
-      <line x1="180" y1="35" x2="180" y2="205" stroke="#e2dfd7" stroke-dasharray="3,3"/>
-
-      <!-- 1-parameter family of smooth trajectories for tau = -3.0, -1.2, 0.0, 1.2, 3.0 -->
-      <!-- tau = -3.0 (near broken path P -> S_a -> B) -->
-      <polyline points="264.9,35.4 264.6,36.2 263.5,39.2 259.9,49.8 249.6,78.1 227.6,120.0 196.7,161.9 167.3,185.0 140.8,196.2 119.8,201.3 105.9,203.5 98.4,204.4 95.1,204.9" fill="none" stroke="#0f5c57" stroke-width="1.8" stroke-dasharray="4,2"/>
-      <!-- tau = -1.2 -->
-      <polyline points="264.9,35.1 262.0,39.8 251.1,56.5 227.6,88.6 192.6,128.8 154.5,162.8 124.4,185.0 105.9,197.2 95.1,204.9" fill="none" stroke="#5a8f8b" stroke-width="1.4"/>
-      <!-- tau = 0.0 (diagonal x = y) -->
-      <line x1="265" y1="35" x2="95" y2="205" stroke="#8a94a3" stroke-width="1.3"/>
-      <!-- tau = +1.2 -->
-      <polyline points="264.9,35.1 254.1,42.8 235.6,55.0 205.5,77.2 167.4,111.2 132.4,151.4 108.9,183.5 98.0,200.2 95.1,204.9" fill="none" stroke="#5a8f8b" stroke-width="1.4"/>
-      <!-- tau = +3.0 (near broken path P -> S_b -> B) -->
-      <polyline points="264.9,35.1 261.6,35.6 254.1,36.5 240.2,38.7 219.2,43.8 192.7,55.0 163.3,78.1 132.4,120.0 110.4,161.9 100.1,190.2 96.5,200.8 95.4,203.8 95.1,204.6" fill="none" stroke="#8a4b08" stroke-width="1.8" stroke-dasharray="4,2"/>
-
-      <!-- Boundary broken edges (thick outer walls) -->
-      <line x1="265" y1="35" x2="265" y2="205" stroke="#0f5c57" stroke-width="2.5"/>
-      <line x1="265" y1="205" x2="95" y2="205" stroke="#0f5c57" stroke-width="2.5"/>
-      <line x1="265" y1="35" x2="95" y2="35" stroke="#8a4b08" stroke-width="2.5"/>
-      <line x1="95" y1="35" x2="95" y2="205" stroke="#8a4b08" stroke-width="2.5"/>
-
-      <!-- Corner vertices -->
-      <circle cx="265" cy="35" r="5" fill="#1a1a1a"/>
-      <circle cx="265" cy="205" r="5" fill="#0f5c57"/>
-      <circle cx="95" cy="35" r="5" fill="#8a4b08"/>
-      <circle cx="95" cy="205" r="5" fill="#1a1a1a"/>
-
-      <text x="272" y="32" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a">P (1,1) · μ=2</text>
-      <text x="272" y="216" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57">Sₐ (1,−1) · μ=1</text>
-      <text x="88" y="30" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="end">S_b (−1,1) · μ=1</text>
-      <text x="88" y="216" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">B (−1,−1) · μ=0</text>
-
-      <!-- Right panel: 1D Moduli Space Interval M(P, B) -->
-      <text x="455" y="48" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Moduli interval  𝓜(P, B) ≅ [−∞, +∞]</text>
-      <line x1="365" y1="115" x2="545" y2="115" stroke="#1a1a1a" stroke-width="2.5"/>
-      <circle cx="365" cy="115" r="5.5" fill="#0f5c57"/>
-      <circle cx="455" cy="115" r="4" fill="#8a94a3"/>
-      <circle cx="545" cy="115" r="5.5" fill="#8a4b08"/>
-
-      <text x="365" y="96" font-family="Georgia, serif" font-size="11" fill="#0f5c57" text-anchor="middle">τ → −∞</text>
-      <text x="365" y="138" font-family="system-ui, sans-serif" font-size="10.5" fill="#0f5c57" text-anchor="middle">(P → Sₐ) # (Sₐ → B)</text>
-      <text x="365" y="154" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">sign = +1</text>
-
-      <text x="455" y="96" font-family="Georgia, serif" font-size="11" fill="#5a5a5a" text-anchor="middle">τ = 0</text>
-      <text x="455" y="138" font-family="system-ui, sans-serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">smooth diagonal</text>
-
-      <text x="545" y="96" font-family="Georgia, serif" font-size="11" fill="#8a4b08" text-anchor="middle">τ → +∞</text>
-      <text x="545" y="138" font-family="system-ui, sans-serif" font-size="10.5" fill="#8a4b08" text-anchor="middle">(P → S_b) # (S_b → B)</text>
-      <text x="545" y="154" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">sign = −1</text>
-
-      <rect x="355" y="172" width="200" height="32" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1"/>
-      <text x="455" y="192" font-family="Georgia, serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle">⟨∂(∂P), B⟩ = (+1) + (−1) = 0</text>
-    </svg>
-    <figcaption><strong>Fig P65.2.</strong> Why \(\partial \circ \partial = 0\): the one-parameter family of index-2 trajectories \((x(s), y(s)) = (-\tanh s, -\tanh(s-\tau))\) from \(P=(1,1)\) to \(B=(-1,-1)\) forms an open interval \(\tau \in (-\infty, +\infty)\). Its two ends compactify at \(\tau \to -\infty\) and \(\tau \to +\infty\) into two-stage broken paths passing through the index-1 saddles \(S_a=(1,-1)\) and \(S_b=(-1,1)\) with opposite boundary orientations.</figcaption>
-  </figure>
-</section>
-<section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
-
-  <h3>Exemplar 1 · The closed-form broken-strip diamond (\(\partial \circ \partial = 0\) by hand)</h3>
-  <p>Why do two-stage broken trajectories always cancel in pairs? We can watch the entire compactification and gluing mechanism (<a href="p43-flow-with-surgery.html"><span class="pid">P43</span></a> + <a href="p33-sheaf-cohomology-bridge.html"><span class="pid">P33</span></a>) unfold in closed form on the four-corner potential in \(\mathbb{R}^2\) (equivalently, for the exact Lagrangian \(L_1 = \{p = \nabla F(x,y)\}\) crossing \(L_0 = \{p = 0\}\) in \(T^*\mathbb{R}^2\)):</p>
-  <p class="eq">\[F(x,y) = \left(x - \frac{x^3}{3}\right) + \left(y - \frac{y^3}{3}\right), \qquad \nabla F(x,y) = \bigl(1 - x^2,\; 1 - y^2\bigr).\]</p>
-  <p>Setting \(\nabla F(x,y) = (0,0)\) pins down (<a href="p01-pin-down-problem.html"><span class="pid">P01</span></a>) four rest points at the corners of the square \([-1,1]^2\), with Hessian matrix \(\operatorname{Hess} F(x,y) = \operatorname{diag}(-2x, -2y)\):</p>
-  <ul>
-    <li><strong>Peak \(P = (1,1)\):</strong> \(\operatorname{Hess} F = \operatorname{diag}(-2, -2)\) has two negative eigenvalues, so relative index \(\mu(P) = 2\) and action \(F(P) = \frac{2}{3} + \frac{2}{3} = +\frac{4}{3}\).</li>
-    <li><strong>Two saddles \(S_a = (1,-1)\) and \(S_b = (-1,1)\):</strong> \(\operatorname{Hess} F\) has signs \((-2, +2)\) and \((+2, -2)\), so \(\mu(S_a) = \mu(S_b) = 1\) and action \(F(S_a) = F(S_b) = 0\).</li>
-    <li><strong>Bowl \(B = (-1,-1)\):</strong> \(\operatorname{Hess} F = \operatorname{diag}(+2, +2)\) has zero negative eigenvalues, so \(\mu(B) = 0\) and action \(F(B) = -\frac{4}{3}\).</li>
-  </ul>
-  <p>For a strip \(u(s,t)\) independent of \(t\) (the zero-mode locus where Cauchy–Riemann reduces to steepest descent \(\dot{u}(s) = -\nabla F(u(s))\)), the equations decouple (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>) into \(\dot{x} = x^2 - 1\) and \(\dot{y} = y^2 - 1\). Because \(\frac{d}{ds}(-\tanh s) = -\operatorname{sech}^2 s = \tanh^2 s - 1\), the unique downward connector on \([-1,1]\) modulo time shift is \(-\tanh(s)\). Therefore:
-  <ul>
-    <li>The rigid (\(\Delta\mu = 1\)) moduli spaces each consist of a single trajectory: \(\mathcal{M}(P, S_a) = \{(1, -\tanh s)\}\), \(\mathcal{M}(P, S_b) = \{(-\tanh s, 1)\}\), \(\mathcal{M}(S_a, B) = \{(-\tanh s, -1)\}\), and \(\mathcal{M}(S_b, B) = \{(-1, -\tanh s)\}\). Each dissipates exact energy (<a href="p29-energy-methods.html"><span class="pid">P29</span></a>) \(\int_{-\infty}^{\infty} \operatorname{sech}^4(s)\,ds = \frac{4}{3} = \Delta F\).</li>
-    <li>The index-difference-2 (\(\Delta\mu = 2\)) trajectories from \(P=(1,1)\) to \(B=(-1,-1)\) have two independent shift times \(s_1, s_2\): \(x(s) = -\tanh(s - s_1)\) and \(y(s) = -\tanh(s - s_2)\). Dividing out overall time translation \(s \mapsto s + s_1\) leaves a single internal delay parameter \(\tau = s_2 - s_1 \in (-\infty, +\infty)\):
-      <p class="eq">\[u_\tau(s) = \bigl(-\tanh(s),\; -\tanh(s - \tau)\bigr), \qquad \mathcal{E}(u_\tau) = \frac{4}{3} + \frac{4}{3} = \frac{8}{3} = F(P) - F(B).\]</p>
-    </li>
-  </ul>
-  <p>Now inspect the two ends of the moduli interval \(\tau \in (-\infty, +\infty)\) illustrated in <strong>Fig P65.2</strong>. When \(\tau \to -\infty\), \(y(s)\) completes its drop from \(+1\) to \(-1\) around \(s \approx \tau \ll 0\) while \(x(s) \approx +1\) is still parked at the top edge; only later around \(s \approx 0\) does \(x(s)\) drop from \(+1\) to \(-1\) along \(y = -1\). That limit is the broken two-story trajectory \((P \to S_a) \,\#\, (S_a \to B)\). Conversely, when \(\tau \to +\infty\), \(x(s)\) drops first around \(s \approx 0\) to reach \(S_b = (-1,1)\), and \(y(s)\) drops second around \(s \approx \tau \gg 0\) to reach \(B = (-1,-1)\) — the broken trajectory \((P \to S_b) \,\#\, (S_b \to B)\). In matrix form, with standard determinant orientations on the tangent spaces:</p>
-  <p class="eq">\[\partial_2 = \begin{pmatrix} +1 \\ -1 \end{pmatrix} : \mathbb{Z}\langle P \rangle \to \mathbb{Z}\langle S_a, S_b \rangle, \qquad \partial_1 = \begin{pmatrix} +1 &amp; +1 \end{pmatrix} : \mathbb{Z}\langle S_a, S_b \rangle \to \mathbb{Z}\langle B \rangle,\]</p>
-  <p class="eq">\[\partial_1 \circ \partial_2(P) = (+1)(+1)\,B + (+1)(-1)\,B = (1 - 1)\,B = 0.\]</p>
-  <p><em>How you could have found this:</em> whenever two independent coordinates each want to jump from \(+1\) to \(-1\), there is one continuous degree of freedom measuring <em>which coordinate jumps first</em> (\(\tau = s_2 - s_1\)). The two boundary extremes of "who goes first" are "coordinate \(y\) goes infinitely earlier" (\(\tau = -\infty\), passing through \(S_a\)) and "coordinate \(x\) goes infinitely earlier" (\(\tau = +\infty\), passing through \(S_b\)).</p>
-
-  <h3>Exemplar 2 · Why the naive Morse index is \(\infty - \infty\): Fourier modes on loop space</h3>
-  <p>To see why classical Morse theory (<a href="p41-mountain-pass.html"><span class="pid">P41</span></a>) fails on loop spaces while the Cauchy–Riemann strip equation succeeds, take the simplest phase space \(M = \mathbb{R}^2 \cong \mathbb{C}\) with coordinate \(z = q + ip\) and quarter-turn multiplication \(J_0 = i\). On the space of smooth 1-periodic loops \(\gamma : \mathbb{R}/\mathbb{Z} \to \mathbb{C}\), the unperturbed symplectic action is the signed area enclosed by the loop:</p>
-  <p class="eq">\[\mathcal{A}_0(\gamma) = \frac{1}{2}\int_0^1 \langle -i\dot{\gamma}(t),\, \gamma(t) \rangle\,dt.\]</p>
-  <p>Split the loop into waves (<a href="p24-split-into-waves.html"><span class="pid">P24</span></a>) via its Fourier expansion \(\gamma(t) = \sum_{k \in \mathbb{Z}} c_k e^{2\pi i k t}\) with \(c_k \in \mathbb{C}\). Because \(\dot{\gamma}(t) = \sum_{k \in \mathbb{Z}} (2\pi i k) c_k e^{2\pi i k t}\) and \(-i(2\pi i k) = 2\pi k\), orthogonality of the modes \(\int_0^1 e^{2\pi i(k-m)t}\,dt = \delta_{km}\) diagonalizes \(\mathcal{A}_0\) immediately:</p>
-  <p class="eq">\[\mathcal{A}_0(\gamma) = \pi \sum_{k=-\infty}^{\infty} k\,|c_k|^2 = \pi\bigl(|c_1|^2 + 2|c_2|^2 + 3|c_3|^2 + \cdots\bigr) - \pi\bigl(|c_{-1}|^2 + 2|c_{-2}|^2 + 3|c_{-3}|^2 + \cdots\bigr).\]</p>
-  <p>At the critical point \(\gamma \equiv 0\), the Hessian operator \(-i\frac{d}{dt}\) has eigenvalue \(\lambda_k = 2\pi k\) on the \(k\)-th Fourier mode. Every positive winding number \(k \ge 1\) curves upward (\(\lambda_k &gt; 0\)), and every negative winding number \(k \le -1\) curves downward (\(\lambda_k &lt; 0\)). Both the Morse index and co-index are \(\infty\). Worse, the formal downward gradient flow \(\partial_s c_k(s) = -2\pi k\,c_k(s)\) has solution</p>
-  <p class="eq">\[c_k(s) = c_k(0)\,e^{-2\pi k s}.\]</p>
-  <p>Look at what happens for \(k = -100\): \(c_{-100}(s) = c_{-100}(0)\,e^{+200\pi s}\) grows by a factor of \(e^{200\pi} \approx 10^{272}\) in a single unit of \(s\)! As an initial-value problem given \(\gamma(0,t)\), the equation explodes instantaneously. Floer's move (<span class="pid">P65</span>) rescues the PDE by switching from an initial-value problem at \(s=0\) to a <em>two-sided boundary value problem</em> on \(s \in (-\infty, +\infty)\) with bounded total energy \(\mathcal{E}(u) = \sum_{k \in \mathbb{Z}} (2\pi k)^2 \int_{-\infty}^{\infty} |c_k(s)|^2\,ds &lt; \infty\): positive modes \(k &gt; 0\) can only decay forward (\(s \to +\infty\)), negative modes \(k &lt; 0\) can only decay backward (\(s \to -\infty\)), and only finitely many modes can cross zero when a Hamiltonian perturbation \(H(t,z)\) shifts the spectrum.</p>
-
-  <h3>Exemplar 3 · Arnold's conjecture on the 2-torus \(\mathbb{T}^2\): four fixed points where topology predicts zero</h3>
-  <p>On the two-dimensional torus \(\mathbb{T}^2 = (\mathbb{R}/2\pi\mathbb{Z})^2\) with area form \(\omega = dq_1 \wedge dq_2\), the Euler characteristic is \(\chi(\mathbb{T}^2) = 1 - 2 + 1 = 0\). A pure translation \((q_1, q_2) \mapsto (q_1 + c_1, q_2 + c_2)\) moves every point and has <em>zero</em> fixed points. Vladimir Arnold conjectured that if a transformation is generated by a periodic Hamiltonian \(H_t(q_1, q_2)\) (meaning zero net momentum drift around the cycles), then any non-degenerate time-1 map \(\phi_H^1\) must have at least \(\sum_{i=0}^{2} b_i(\mathbb{T}^2) = 1 + 2 + 1 = 4\) fixed points.</p>
-  <p>Let us verify how Hamiltonian Floer homology proves this on the explicit autonomous Hamiltonian \(H(q_1, q_2) = \alpha\cos q_1 + \beta\cos q_2\) with \(0 &lt; \beta &lt; \alpha &lt; \frac{1}{2}\). Hamilton's equations \(\dot{q}_1 = \partial H / \partial q_2 = -\beta\sin q_2\) and \(\dot{q}_2 = -\partial H / \partial q_1 = \alpha\sin q_1\) have four stationary 1-periodic orbits at \((q_1, q_2) \in \{0, \pi\}^2\):</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Orbit \(x\)</th>
-        <th>Coordinates \((q_1, q_2)\)</th>
-        <th>Action \(\mathcal{A}_H(x) = H(x)\)</th>
-        <th>Conley–Zehnder Index \(\mu_{\text{CZ}}(x)\)</th>
-        <th>Connecting Strips to Lower Grade</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(x_{++}\)</td>
-        <td>\((0, 0)\)</td>
-        <td>\(+\alpha + \beta\)</td>
-        <td>\(2\)</td>
-        <td>\(2\) strips to \(x_{+-}\) (area \(2\beta\)), \(2\) strips to \(x_{-+}\) (area \(2\alpha\))</td>
-      </tr>
-      <tr>
-        <td>\(x_{+-}\)</td>
-        <td>\((0, \pi)\)</td>
-        <td>\(+\alpha - \beta\)</td>
-        <td>\(1\)</td>
-        <td>\(2\) strips to \(x_{--}\) (area \(2\alpha\))</td>
-      </tr>
-      <tr>
-        <td>\(x_{-+}\)</td>
-        <td>\((\pi, 0)\)</td>
-        <td>\(-\alpha + \beta\)</td>
-        <td>\(1\)</td>
-        <td>\(2\) strips to \(x_{--}\) (area \(2\beta\))</td>
-      </tr>
-      <tr>
-        <td>\(x_{--}\)</td>
-        <td>\((\pi, \pi)\)</td>
-        <td>\(-\alpha - \beta\)</td>
-        <td>\(0\)</td>
-        <td>None (\(\mu = 0\))</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Along each circle factor of \(\mathbb{T}^2\), the two connecting strips between \(0\) and \(\pi\) run down the left half \((-\pi, 0)\) and the right half \((0, \pi)\) with identical action drops (\(2\alpha\) or \(2\beta\)) and opposite orientations \((+1) + (-1) = 0\). Therefore the Floer boundary operator vanishes identically on all grades: \(\partial_2 = 0\) and \(\partial_1 = 0\). By invariance of \(HF_*(\mathbb{T}^2)\) under any time-dependent continuation \(H_s\), <em>every</em> non-degenerate Hamiltonian diffeomorphism of \(\mathbb{T}^2\) must generate a chain complex \(CF_*\) whose homology has rank at least \(\operatorname{rank} HF_2 + \operatorname{rank} HF_1 + \operatorname{rank} HF_0 = 1 + 2 + 1 = 4\). Hence \(\# \operatorname{Fix}(\phi_H^1) \ge 4\) always holds.</p>
+<section id="name-the-move">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p65">
+<p><strong>Pattern P65 — Floer homology from holomorphic strips.</strong> When the question asks for the count of solutions of a differential equation — and the count must survive deformation of the equation — do not hunt the solutions one by one. Instead: (1) make the solutions the generators of a chain complex; (2) make the one-parameter families of solutions the differential, each family counted with a sign; (3) prove the law \(\partial \circ \partial = 0\) from the way families degenerate: a one-family can only break into a two-story pair, and the broken pairs cancel against each other, so the ledger balances; (4) take homology, and prove that flexing the equation is an isomorphism of ledgers. The homology is the invariant; when it is computable on one honest instance, it is won for every instance that instance can deform into.</p>
+<p class="words">Or, in words: stop counting solutions; count the connections between solutions, and keep the ledger — because the ledger's forced self-cancellation, every break paired with a partner, is exactly the theorem you could not have proven by counting solutions directly. What one good special case gives you, every deformable case inherits.</p>
+</div>
+<p>Three keys decide whether a problem fits the pattern — and each names the way it jams.</p>
+<p><strong>First key — the question is a census that must survive deformation.</strong> You are asked "how many at least", not "where exactly"; the equation comes in a family, and the answer must not depend on the member. <em>How it jams:</em> if you need locations, or the family is one rigid equation with nothing to deform through, the machine's invariance is sold for nothing — count directly, and pay less.</p>
+<p><strong>Second key — the equation keeps books.</strong> Behind the differential equation stands an action or an energy whose value falls along every solution and is bounded below across the whole family. <em>How it jams:</em> without the book, solutions escape to infinity without a trace — nothing compactifies, the ledger has no pages, and \(\partial\) is undefined.</p>
+<p><strong>Third key — degeneration can be named.</strong> When a one-parameter family of solutions reaches its limit, the limit can be written down: a broken, two-story configuration, and the breakings pair (gluing: near every break there are exactly the right companion solutions). <em>How it jams:</em> if the limit set holds configurations you cannot name or pair — tears without surgery terms, spheres without prices — the law \(\partial \circ \partial = 0\) fails, and the matrix you built is not a differential but a guess.</p>
+<p>How you could have found this move yourself: <a href="p43-flow-with-surgery.html">P43</a>'s door left the cue — one flow answers one question — so ask the next question: what answers all of them at once? The only candidate already on the shelf is the flow's own trajectories: bundle them, and you have "all the answers" in one object. The moment you commit to bundling trajectories, <a href="p33-sheaf-cohomology-bridge.html">P33</a>'s grammar takes over: a bundle of connections is a differential, its forced cancellations are the \(\delta \circ \delta = 0\) law, and the quotient is a census. Nothing has been invented — only two old moves pointed at a new kind of object. The one genuinely new demand is honesty about degeneration: you must be able to say what a family does at its limit. That demand, not any formula, is the research frontier's door.</p>
+<p>The rest of the page runs the pattern four times: first in a finite-dimensional miniature where every number is checked by machine; then in the genuine infinite-dimensional setting — the strips of the pattern's name; then in a closed-form census between two Lagrangian shores, where strips, areas, and both differentials come in exact numbers; and last through a deformation, watching the count refuse to move. Then we let it fail, honestly, and name its doors.</p>
 </section>
 
-<section id="fails">
-  <h2>5 · When the trick breaks</h2>
-  <p>Every pattern page owes an honest accounting of where its machinery breaks down. In Floer homology, three structural hazards can destroy the identity \(\partial \circ \partial = 0\) or drain the homology entirely:</p>
+<section id="the-move-at-work">
+<h2>4 · The move at work</h2>
 
-  <div class="aside">
-    <p><strong>Exhibit A — Disk and sphere bubbling steal energy and break \(\partial \circ \partial = 0\).</strong> Box P65.A relied on the claim that a 1-dimensional family of \(\Delta\mu = 2\) strips can only degenerate by splitting lengthwise into a two-story broken strip \((x_- \to y) \,\#\, (y \to z)\). In general symplectic manifolds, a family of strips \(u_\tau\) can concentrate energy \(\hbar &gt; 0\) at a single interior point or boundary point and pinch off a non-constant <em>holomorphic sphere</em> \(v : S^2 \to M\) or <em>holomorphic disk</em> \(w : (D^2, \partial D^2) \to (M, L_i)\) (just like the neckpinch singularity in <a href="p43-flow-with-surgery.html"><span class="pid">P43</span></a>). When a disk with Maslov index \(\mu(w) = 2\) bubbles off the side of a stationary constant strip \(x_-\), it creates a brand-new boundary endpoint in \(\mathcal{M}(x_-, x_-)\) that has no partner to cancel it, leaving \(\partial^2 x_- \ne 0\).</p>
-    <p><em>Mitigation:</em> Work in <strong>exact</strong> symplectic manifolds (\(\omega = d\lambda\)) with exact Lagrangians (\(\lambda|_{L_i} = df_i\)), or assume \(\pi_2(M) = \pi_2(M, L_i) = 0\) (aspherical targets such as \(\mathbb{T}^{2n}\) or surfaces of genus \(g \ge 1\)). By Stokes' theorem, any sphere or disk bubble in an exact setting has area \(\int_{D^2} \omega = \int_{\partial D^2} df_i = 0\), so non-constant bubbles cannot exist. When bubbles cannot be ruled out, upgrade the boundary equation to an \(A_\infty\) curved algebra (Fukaya–Oh–Ohta–Ono obstruction theory, connecting to <a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a> and <span class="pid">P64</span>).</p>
-    <p><em>Price:</em> Full virtual perturbation and bounding-cochain machinery if \(\omega\) is not exact.</p>
-    <p><em>Default:</em> Always check the exactness audit \(\int_{S^2}\omega = 0\) and \(\int_{D^2}\omega = 0\) before writing \(\partial^2 = 0\).</p>
-  </div>
+<h3>Example 1 (the circle) — the ledger, checked by machine</h3>
+<p>The finite-dimensional miniature of everything below is Morse's own: forget symplectic geometry, take a round circle parametrized by \(\theta \in [0, 2\pi)\), and hang a height on it, \(h(\theta) = \sin\theta\). The critical points are the top, \(\theta = \pi/2\), height \(1\), and the bottom, \(\theta = 3\pi/2\), height \(-1\). Exactly two — the count of a rotation's fixed points already rhymes.</p>
+<p>Now run the flow of <a href="p43-flow-with-surgery.html">P43</a> downhill. From the top, two arcs descend to the bottom: the eastern arc through \(\theta = 0\) and the western arc through \(\theta = \pi\). Two flow lines; no more, no fewer. The ledger over \(\mathbb{Z}/2\) (signs deferred — halves of counts are all we need for the census) has one generator per critical point, graded by how many directions fall away from it: the bottom is rung 0, the top is rung 1. The differential counts flow lines, modulo two:</p>
+<p class="eq">\(\partial(\text{top}) \;=\; (\text{2 lines mod } 2)\cdot\text{bottom} \;=\; 0.\)</p>
+<p>The homology: the bottom generates \(H_0\) — every point of the circle can slide down to it, so it is one class, not two points' worth of accidents; the top survives too (its boundary is zero), generating \(H_1\), the circle's one loop. Ledger read: \((1, 1)\) — exactly the census \(b_0 = 1\), \(b_1 = 1\) that the page's lab recomputes independently, from boundary matrices on a triangulated circle, with no flows in sight. Two machines, one answer: the flow's ledger reproduces the shape's census.</p>
+<p>But the count — the thing folklore imagines is the invariant — is foam. Push the height from \(\sin\theta\) toward \(\sin 2\theta\), one tilt at a time. At tilt zero there are two critical points; at full tilt, four: two maxima at \(\pi/4, 5\pi/4\), two minima at \(3\pi/4, 7\pi/4\). Somewhere in between a new maximum and a new minimum are born together at one degenerate instant — and the instant is exact, not vague: the slope and the curvature both vanish at \(\theta = \pi\) precisely when \(a = \tfrac{1}{3}\), since there \(h'(\pi) = 3a - 1\); the lab watches the count sit at two below that tilt and at four just above it. Run the ledger at full tilt: each maximum spills one arc to each minimum, so \(\partial(\max_i) = \min_1 + \min_2\) for both \(i\); the kernel upstairs is \(\{(a, a)\}\), one class; the quotient downstairs is two minima modulo their difference, one class. Ledger read: \((1,1)\) again. The count moved from two to four; the homology never moved. We have not yet <em>proved</em> invariance — we have watched it, twice, the way P33's quotient watched repair swallow accident. What Example 4 proves is the watching itself.</p>
+<p>And the ledger's law — \(\partial \circ \partial = 0\), the mechanism Box P65.A will name — can be watched by hand, in a toy where every trajectory is a hyperbolic tangent. Let \(F(x, y) = (x - \tfrac{x^3}{3}) + (y - \tfrac{y^3}{3})\) on the plane. Its critical points are four corners: \(P = (1,1)\) the top, \(S_a = (1,-1)\) and \(S_b = (-1,1)\) the saddles, \(B = (-1,-1)\) the bottom, with actions \(\tfrac{4}{3},\ 0,\ 0,\ -\tfrac{4}{3}\). The downward flow \(\dot{x} = x^2 - 1\) solves in closed form, \(x(s) = -\tanh(s - c)\) — check it against \(-\operatorname{sech}^2 s = \tanh^2 s - 1\) — and each leg pays the exact toll \(\int_{-\infty}^{\infty} \operatorname{sech}^4 s \,\mathrm{d}s = \tfrac{4}{3}\), antiderivative \(\tanh s - \tfrac{\tanh^3 s}{3}\) evaluated at \(\pm\infty\). Delay one coordinate's leg by a time \(\tau\): the two-leg journey from \(P\) to \(B\) still costs \(\tfrac{4}{3} + \tfrac{4}{3} = \tfrac{8}{3} = F(P) - F(B)\), for every \(\tau\) — a translated leg pays the same toll. And as \(\tau \to \pm\infty\) the family comes apart in plain sight: the journey breaks into two stories, \(P \to S_a \to B\) or \(P \to S_b \to B\), each broken story still totalling \(\tfrac{8}{3}\). That is the whole mechanism at miniature scale — the family cannot evaporate (its energy is pinned at \(\tfrac{8}{3}\)), so it can only break, and it breaks into exactly two stories, which cancel in the ledger: \(\partial(P) = S_a - S_b\), \(\partial(S_a) = B\), \(\partial(S_b) = B\), so \(\partial \circ \partial (P) = (1 - 1)\,B = 0\). Two honesty clauses, because the toy cheats twice. Each saddle sends exactly <em>one</em> arc down to \(B\): its other unstable half-arc escapes toward \(x = +\infty\), where \(F\) plunges without bound — a pathology the real machine's compactness forbids. And the unbroken \(P \to B\) family is one-parameter, not isolated, so this toy is not Morse–Smale; we claim no homology from it, only the energy ledger and the paired breaking — which is precisely the part the law needs. Every number here is closed-form and machine-checked.</p>
+<p class="pid">Moves used: <a href="p43-flow-with-surgery.html">P43</a> (run the flow, keep the books — the height is the book), <a href="p33-sheaf-cohomology-bridge.html">P33</a> (the census as a quotient, not a tally), <a href="p09-invariant.html">P09</a> (ask first what survives).</p>
 
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 195" role="img" aria-label="Fig P65.3: Comparison of legitimate two-story strip breaking (which cancels in pairs) versus boundary disk bubbling on L_1 (which steals energy and obstructs d^2 = 0).">
-      <rect x="0" y="0" width="600" height="195" fill="#ffffff"/>
-      <!-- Left panel: Legitimate two-story strip breaking -->
-      <text x="150" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Legitimate Strip Breaking (∂² = 0 holds)</text>
-      <path d="M 35,75 C 75,50 115,50 148,95 C 180,50 220,50 265,75 L 265,115 C 220,140 180,140 148,95 C 115,140 75,140 35,115 Z" fill="#e1f0ee" stroke="#0f5c57" stroke-width="2"/>
-      <circle cx="35" cy="95" r="4.5" fill="#1a1a1a"/>
-      <circle cx="148" cy="95" r="4.5" fill="#0f5c57"/>
-      <circle cx="265" cy="95" r="4.5" fill="#1a1a1a"/>
-      <text x="35" y="138" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">x₋ (μ=2)</text>
-      <text x="148" y="138" font-family="Georgia, serif" font-size="11" fill="#0f5c57" text-anchor="middle">y (μ=1)</text>
-      <text x="265" y="138" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">z (μ=0)</text>
-      <text x="92" y="99" font-family="Georgia, serif" font-size="10.5" fill="#0f5c57" text-anchor="middle">u₁ (Δμ=1)</text>
-      <text x="206" y="99" font-family="Georgia, serif" font-size="10.5" fill="#0f5c57" text-anchor="middle">u₂ (Δμ=1)</text>
-      <text x="150" y="168" font-family="system-ui, sans-serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Splits along s → ±∞; paired against second saddle</text>
+<h3>Example 2 (the shores) — strips, and why the square is zero</h3>
+<p>Now the genuine setting — the one that gives the pattern its name. Two shores in the plane with its standard area book \(\mathrm{d}x \wedge \mathrm{d}y\): the \(x\)-axis, \(L_0\), and the parabola \(L_1 : y = x^2 - 1\). Every curve in the plane is Lagrangian in the on-ramp's sense — a one-dimensional direction never spans area with itself — so these two are honest shores. They cross where \(x^2 - 1 = 0\): at \(p_+ = (1, 0)\) and \(p_- = (-1, 0)\). Two crossings; two generators, exactly as the circle had two critical points.</p>
+<p>Between the crossings the shores bound a cap — the region below the axis and above the parabola, from \(-1\) to \(1\) (Fig P65.1). Its area is the machine-checkable number of this example:</p>
+<p class="eq">\(\int_{-1}^{1} (1 - x^2)\,\mathrm{d}x \;=\; \left[x - \tfrac{x^3}{3}\right]_{-1}^{1} \;=\; \tfrac{2}{3} + \tfrac{2}{3} \;=\; \tfrac{4}{3},\)</p>
+<p>and this area is the <em>drop in the action book</em> between the two crossings: the book's entries on the two shores disagree by exactly the swept area, so with labels chosen so the cap runs from \(p_+\) down to \(p_-\), any strip connecting them must pay \(\tfrac{4}{3}\) — it sweeps the cap — and the payment fixes the direction of the ledger: downhill only. A strip that ran the other way would need the area book to run uphill, and the book does not.</p>
+<p>Count the strips: from \(p_+\) to \(p_-\), exactly one — the cap itself, swept once. From \(p_-\) to \(p_+\), none. This uniqueness is honest analysis — the maximum principle walls a strip between its own shores into the cap, and a winding-number count then says the cap is swept exactly once — and we label it what it is: a sketch, with the analysis named as the wall. <a href="p53-deformation-cohomology.html">P53</a> called it in advance: <em>"P65 counts strips where the walls are the analysis."</em> In full generality those walls carry names — transversality, compactness, gluing — and §5 lets each of them fail in turn. Here the ledger closes without incident:</p>
+<figure class="fig-tight">
+<svg viewBox="0 0 640 360" role="img" aria-label="Two Lagrangian shores crossing at two points, with the shaded cap between them and one strip arrow from the right crossing to the left crossing">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<path d="M 140,190 L 158.0,190 L 176.0,190 L 194.0,190 L 212.0,190 L 230.0,190 L 248.0,190 L 266.0,190 L 284.0,190 L 302.0,190 L 320.0,190 L 338.0,190 L 356.0,190 L 374.0,190 L 392.0,190 L 410.0,190 L 428.0,190 L 446.0,190 L 464.0,190 L 482.0,190 L 500.0,190 L 500.0,190.0 L 482.0,209.0 L 464.0,226.0 L 446.0,241.0 L 428.0,254.0 L 410.0,265.0 L 392.0,274.0 L 374.0,281.0 L 356.0,286.0 L 338.0,289.0 L 320.0,290.0 L 302.0,289.0 L 284.0,286.0 L 266.0,281.0 L 248.0,274.0 L 230.0,265.0 L 212.0,254.0 L 194.0,241.0 L 176.0,226.0 L 158.0,209.0 L 140.0,190.0 Z" fill="currentColor" opacity="0.12"/>
+<path d="M41.0,49.7 L50.0,65.0 L59.0,79.8 L68.0,94.0 L77.0,107.7 L86.0,121.0 L95.0,133.8 L104.0,146.0 L113.0,157.8 L122.0,169.0 L131.0,179.8 L140.0,190.0 L149.0,199.8 L158.0,209.0 L167.0,217.8 L176.0,226.0 L185.0,233.8 L194.0,241.0 L203.0,247.8 L212.0,254.0 L221.0,259.8 L230.0,265.0 L239.0,269.8 L248.0,274.0 L257.0,277.8 L266.0,281.0 L275.0,283.8 L284.0,286.0 L293.0,287.8 L302.0,289.0 L311.0,289.8 L320.0,290.0 L329.0,289.8 L338.0,289.0 L347.0,287.8 L356.0,286.0 L365.0,283.8 L374.0,281.0 L383.0,277.8 L392.0,274.0 L401.0,269.8 L410.0,265.0 L419.0,259.8 L428.0,254.0 L437.0,247.8 L446.0,241.0 L455.0,233.8 L464.0,226.0 L473.0,217.7 L482.0,209.0 L491.0,199.8 L500.0,190.0 L509.0,179.8 L518.0,169.0 L527.0,157.7 L536.0,146.0 L545.0,133.8 L554.0,121.0 L563.0,107.7 L572.0,94.0 L581.0,79.8 L590.0,65.0 L599.0,49.7 " fill="none" stroke="currentColor" stroke-width="2.5"/>
+<line x1="41" y1="190" x2="599" y2="190" stroke="currentColor" stroke-width="2.5"/>
+<path d="M 500,190 Q 320,300 140,190" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#ah)"/>
+<circle cx="140" cy="190" r="5" fill="currentColor"/><circle cx="500" cy="190" r="5" fill="currentColor"/>
+<text x="320" y="238" text-anchor="middle" font-size="16" fill="currentColor">cap area = 4/3</text>
+<text x="112" y="214" font-size="16" fill="currentColor">p_-</text>
+<text x="512" y="214" font-size="16" fill="currentColor">p_+</text>
+<text x="30" y="178" font-size="16" fill="currentColor">L0</text>
+<text x="552" y="72" font-size="16" fill="currentColor">L1</text>
+</svg>
+<figcaption><strong>Fig P65.1.</strong> Example 2&rsquo;s two shores: the axis L<sub>0</sub> and the parabola L<sub>1</sub> : y = x<sup>2</sup> &minus; 1, crossing at p<sub>&plusmn;</sub> = (&plusmn;1, 0). The shaded cap has area 4/3 &mdash; the action drop the strip from p<sub>+</sub> to p<sub>&minus;</sub> must pay, and the arrow is that strip: the cap, swept once. Crossings and cap area are machine-checked against the drawn coordinates.</figcaption>
+</figure>
+<p class="eq">\(\partial(p_+) \;=\; 1 \cdot p_- \;=\; p_-, \qquad \partial(p_-) \;=\; 0.\)</p>
+<div class="pattern-box" id="box-p65-A"><p><strong>Box P65.A — the ledger's law.</strong> The deep law is not \(\partial = 0\); it is \(\partial \circ \partial = 0\), and it deserves its mechanism in plain sight. \(\partial \circ \partial\) counts <em>two-story configurations</em>: a strip from \(p\) to \(q\), stacked on a strip from \(q\) to \(r\). Why must these cancel? Because they are the two halves of a broken family. Take a one-parameter family of strips from \(p\) to \(r\) and let the parameter degenerate: compactness — Gromov's wall — says the family cannot evaporate; it can only settle into a limit, and the limit of a family of once-swept caps is either one unbroken strip or a two-story configuration through some middle crossing \(q\) (Fig P65.2). Gluing — the constructive half of the wall — answers with the companion: near every two-story break there is exactly one family that breaks that way at that point, so breaks arrive in pairs, and paired entries cancel in the ledger. The ledger squares to zero not because we chose nice entries but because the space of strips is <em>honest enough to count</em>: its degenerations have names, and the named degenerations pair. This is P43's "books that survive the cuts" and P33's "a telescoping, every time", married — the flow's tears, which in P43 needed surgery to continue, are here the very mechanism that balances the books.</p></div>
+<figure class="fig-tight">
+<svg viewBox="0 0 640 360" role="img" aria-label="Schematic: a one-parameter family of strips degenerating into a broken two-story configuration through a middle crossing, with the companion family supplied by gluing">
+<defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<line x1="340" y1="20" x2="340" y2="340" stroke="currentColor" stroke-width="1" opacity="0.25" stroke-dasharray="6 6"/>
+<path d="M 130,50 C 210,110 210,250 130,310" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+<path d="M 130,50 C 270,110 270,250 130,310" fill="none" stroke="currentColor" stroke-width="2" opacity="0.75"/>
+<path d="M 130,50 C 330,110 330,250 130,310" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#ah2)"/>
+<circle cx="130" cy="50" r="5" fill="currentColor"/><circle cx="130" cy="310" r="5" fill="currentColor"/>
+<text x="100" y="46" font-size="16" fill="currentColor">p</text>
+<text x="100" y="330" font-size="16" fill="currentColor">r</text>
+<text x="230" y="350" text-anchor="middle" font-size="16" fill="currentColor">one family, flexing</text>
+<path d="M 440,50 C 520,90 555,130 560,172" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#ah2)"/>
+<path d="M 560,188 C 555,230 520,270 440,310" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#ah2)"/>
+<circle cx="440" cy="50" r="5" fill="currentColor"/><circle cx="560" cy="180" r="5" fill="currentColor"/><circle cx="440" cy="310" r="5" fill="currentColor"/>
+<text x="412" y="46" font-size="16" fill="currentColor">p</text>
+<text x="576" y="186" font-size="16" fill="currentColor">q</text>
+<text x="412" y="330" font-size="16" fill="currentColor">r</text>
+<text x="440" y="350" text-anchor="middle" font-size="16" fill="currentColor">the break, two stories</text>
+</svg>
+<figcaption><strong>Fig P65.2.</strong> The ledger&rsquo;s law, schematically: a one-parameter family of strips (left) either sweeps unbroken or settles, at its limit, into a broken two-story configuration through a middle crossing q (right) &mdash; and gluing supplies the companion family for every way to break, so the breaks cancel in pairs and the ledger squares to zero. No scale: the picture carries the mechanism, not measurements.</figcaption>
+</figure>
+<p class="pid">Moves used: <a href="p26-model-with-equation.html">P26</a> (write the sentence the geometry obeys — the strip equation), <a href="p43-flow-with-surgery.html">P43</a> (the action's gradient flow, and tears with names), <a href="p33-sheaf-cohomology-bridge.html">P33</a> (cochains, and \(\delta \circ \delta = 0\) as bookkeeping law).</p>
 
-      <!-- Divider -->
-      <line x1="300" y1="18" x2="300" y2="178" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+<h3>Example 3 (the cylinder) — the census in closed form</h3>
+<p>Example 2 closed a two-generator ledger, but its \(\partial \circ \partial\) was vacuous — with no middle crossing, there was nothing to break at. Here is the smallest instance where the whole machine runs in exact numbers: crossings, strips with exact areas, both differentials, and a genuine cancellation. Take the cylinder \(T^*\mathbb{S}^1\) — coordinates \((q, p)\), book \(\mathrm{d}q \wedge \mathrm{d}p\) — and two shores: the zero section \(L_0 = \{p = 0\}\) and the graph \(L_1 = \{p = f'(q)\}\) of the height \(f(q) = 2\cos q + \cos 2q\). The crossings are the critical points of \(f\): \(f'(q) = -2\sin q\,(1 + 2\cos q)\) vanishes exactly at \(q = 0, \tfrac{2\pi}{3}, \pi, \tfrac{4\pi}{3}\) — two maxima \(M_1\) (action \(3\)) and \(M_2\) (action \(-1\)), two minima \(m_1, m_2\) (action \(-\tfrac{3}{2}\) each), alternating around the circle, with slopes \(f'' = -6, +3, -2, +3\) fixing the grading exactly as Example 1 graded its circle.</p>
+<p>In this exact one-dimensional setting the strip equation collapses — with the standard quarter-turn and its compatible ruler — to the downward gradient flow of \(f\): the strips <em>are</em> the four bigons into which the two shores cut the cylinder, and each strip's energy is exactly the action drop, which is the bigon's area. (That collapse is the one piece of analysis this example takes from the shelf; it is Floer's own opening case, and §5 audits the walls behind it.) The ledger's numbers are closed-form, and the lab checks each one: the bigon from \(M_1\) down to \(m_1\) costs \(f(0) - f(\tfrac{2\pi}{3}) = 3 + \tfrac{3}{2} = \tfrac{9}{2}\); the bigon from \(M_2\) to \(m_1\) costs \(f(\pi) - f(\tfrac{2\pi}{3}) = \tfrac{1}{2}\); and the two partners on the far side of the circle cost the same pair again — total variation \(10\). Each maximum sends one strip to each minimum, so the ledger reads</p>
+<p class="eq">\(\partial(M_1) \;=\; m_1 - m_2, \qquad \partial(M_2) \;=\; m_1 - m_2,\)</p>
+<p>with signs from the strip-orientation convention (any consistent convention gives the same homology here — what is forced is the count of strips, and the lab verified that too). The matrix has rank 1 over \(\mathbb{Z}\) and over \(\mathbb{Z}/2\): the kernel upstairs is one class, \(M_1 - M_2\); the quotient downstairs collapses the two minima to one. Ledger read:</p>
+<p class="eq">\(HF \;=\; (1, 1) \;=\; H_*(\mathbb{S}^1)\)</p>
+<p>— the homology of the circle itself, computed from nothing but strip counts between two shores. Count the strips between Lagrangians; the count is an invariant: the atlas's one-line description of this page, here drawn in full.</p>
+<p>And the census survives the foam, exactly as Example 1's did. Deform the height to \(f_\varepsilon = 2\cos q + \varepsilon \cos 2q\): while \(|\varepsilon| &lt; \tfrac{1}{2}\) the factor \(1 + 2\varepsilon\cos q\) never vanishes, and only the two essential crossings \(q = 0, \pi\) survive — a two-generator ledger, still \((1,1)\). At \(\varepsilon = \tfrac{1}{2}\) a tangency is born at \(q = \pi\) without a sign change; past it, four crossings again — and the newcomers' strips cancel in the ledger, as Example 1's born pair did. The count is 2, then 4; the census is \((1,1)\) throughout, and the lab watched the exact birth in between.</p>
+<p class="pid">Moves used: <a href="p26-model-with-equation.html">P26</a> (write the sentence the geometry obeys — here it collapses to the height's own flow), <a href="p25-machine-cases.html">P25</a> (every closed-form number checked by machine, all cases of the \(\varepsilon\)-family), <a href="p43-flow-with-surgery.html">P43</a> (the height is the book), <a href="p33-sheaf-cohomology-bridge.html">P33</a> (the census as a quotient).</p>
 
-      <!-- Right panel: Boundary disk bubble on L1 -->
-      <text x="450" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Boundary Disk Bubble (obstructs ∂² = 0)</text>
-      <!-- Main strip -->
-      <path d="M 335,105 C 385,82 515,82 565,105 L 565,135 C 515,152 385,152 335,135 Z" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.8"/>
-      <!-- Pinched disk bubble on top boundary t=1 (L1) -->
-      <circle cx="450" cy="60" r="26" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2.2"/>
-      <circle cx="450" cy="86" r="4" fill="#8a4b08"/>
-      <circle cx="335" cy="120" r="4.5" fill="#1a1a1a"/>
-      <circle cx="565" cy="120" r="4.5" fill="#1a1a1a"/>
-      <text x="450" y="57" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Bubble w</text>
-      <text x="450" y="71" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">∫ ω &gt; 0</text>
-      <text x="335" y="156" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">x₋</text>
-      <text x="565" y="156" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">z</text>
-      <text x="450" y="168" font-family="system-ui, sans-serif" font-size="10.5" fill="#8a4b08" text-anchor="middle">Unpaired boundary endpoint at t = 1 on L₁</text>
-    </svg>
-    <figcaption><strong>Fig P65.3.</strong> Two ways a family of holomorphic strips can degenerate: <strong>(A)</strong> lengthwise neck stretching as \(s \to \pm\infty\) produces a legitimate two-story broken strip through an intermediate generator \(y \in L_0 \cap L_1\); <strong>(B)</strong> transverse energy concentration at the boundary \(t=1\) pinches off a disk bubble \(w : (D^2, \partial D^2) \to (M, L_1)\), creating an unpaired boundary in moduli space unless \(\int_{D^2} \omega = 0\).</figcaption>
-  </figure>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Non-Hamiltonian drifts push every intersection off to infinity.</strong> On the cylinder \(T^*S^1\), if we shift \(L_0 = \{p = 0\}\) upward by a constant momentum \(c \ne 0\) to \(L_c = \{p = c\}\), then \(L_0 \cap L_c = \varnothing\) — there are <em>zero</em> intersections! Why didn't Floer invariance forbid this? Because \(p = c\) has net area \(\int_0^{2\pi} c\,dq = 2\pi c \ne 0\); it is generated by the multi-valued angle \(c\,q\), which is a closed 1-form (\(c\,dq\)) that is <em>not exact</em> on \(S^1\).</p>
-    <p><em>Mitigation:</em> Verify the <strong>flux condition</strong> (\([L_1 - L_0] = 0 \in H^1(Q;\mathbb{R})\)) before claiming intersection persistence.</p>
-    <p><em>Price:</em> One cohomology check on the perturbing 1-form.</p>
-    <p><em>Default:</em> Restrict deformations to globally defined single-valued Hamiltonians \(H_t : M \to \mathbb{R}\).</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Non-compact ends let strips escape to infinity.</strong> On a non-compact phase space such as a cotangent bundle \(T^*Q\), a sequence of strips \(u_k\) with bounded energy \(\mathcal{E}(u_k) \le C\) could bulge infinitely far out along the momentum fiber \(|p| \to \infty\), violating Gromov compactness even when no bubbles form.</p>
-    <p><em>Mitigation:</em> Impose convexity at infinity (or a maximum-principle barrier via subharmonic functions \(\Delta |p|^2 \ge 0\)) so strips cannot cross a high-momentum shell.</p>
-    <p><em>Price:</em> Controlling the asymptotic behavior of \(J\) and \(H\) outside a compact set.</p>
-    <p><em>Default:</em> Either work on compact symplectic manifolds or enforce standard conical/contact structure at infinity.</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this orientation page.</strong> Our explicit calculations on the cylinder \(T^*S^1\), the two-variable diamond potential, and the torus \(\mathbb{T}^2\) operate in exact or aspherical settings where transversality is visible by inspection and bubble energy vanishes identically. In general non-exact manifolds, proving that perturbed moduli spaces are smooth manifolds requires infinite-dimensional Sard–Smale Fredholm theory on Sobolev spaces \(W^{1,p}(\mathbb{R}\times[0,1])\), and handling multiply-covered sphere bubbles of negative Chern class requires virtual fundamental cycles (<span class="pid">P64</span>).</p>
-  </aside>
+<h3>Example 4 (the torus) — the count, the floor, and the census pinned</h3>
+<p>Return to the conjecture that opened the page, on the shape where the old count ran silent. Give the torus \(\mathbb{T}^2\) — coordinates \((x, y)\) mod 1, area book \(\mathrm{d}x \wedge \mathrm{d}y\) — the height</p>
+<p class="eq">\(H(x, y) \;=\; \varepsilon \sin 2\pi x \sin 2\pi y, \qquad \varepsilon = 0.01,\)</p>
+<p>and run its Hamiltonian flow for one unit of time, writing the sentence the geometry obeys as <a href="p26-model-with-equation.html">P26</a> taught: \(\dot{x} = 2\pi\varepsilon \sin 2\pi x \cos 2\pi y\), \(\dot{y} = -2\pi\varepsilon \cos 2\pi x \sin 2\pi y\). The stationary points of the flow are exactly eight — the algebra forces \(\sin 2\pi x \cos 2\pi y = 0\) <em>and</em> \(\cos 2\pi x \sin 2\pi y = 0\), whose solutions are the four half-integer stations \((0,0)\), \((\tfrac{1}{2},0)\), \((0,\tfrac{1}{2})\), \((\tfrac{1}{2},\tfrac{1}{2})\) and the four quarter stations \((\tfrac{1}{4},\tfrac{1}{4})\), \((\tfrac{1}{4},\tfrac{3}{4})\), \((\tfrac{3}{4},\tfrac{1}{4})\), \((\tfrac{3}{4},\tfrac{3}{4})\) — and a stationary point is fixed by the time-one flow exactly, whatever \(\varepsilon\) is. The lab does what algebra cannot: it integrates the flow from 1600 stations spread over the torus and polishes every candidate by Newton's method — and finds exactly those eight fixed points and no others, with Jacobian determinants \(\det(D\varphi_1 - I) \approx -0.158\) at the half-integer stations (hyperbolic: the flow's linearization there pulls one direction out and pushes one in) and \(\approx +0.154\) at the quarter stations (elliptic: the flow there turns like a slow wheel). Eight fixed points, every one nondegenerate — the hypothesis of the conjecture, checked by machine, <a href="p25-machine-cases.html">P25</a>'s discipline in tier-5 clothes.</p>
+<p>Now hold the census beside the count. The floor the conjecture promises on the torus is \(b_0 + b_1 + b_2 = 1 + 2 + 1 = 4\) — Example 1's boundary-matrix census. The count delivered eight. These are two facts, not one mistake: the conjecture's promise is a floor, not an exact tally; and the ledger's job is to reconcile eight generators down to the census's four. That reconciliation is Floer's theorem for the torus: the strip-counted homology \(HF^*(\mathbb{T}^2)\) is isomorphic to the shape's own census \(H^*(\mathbb{T}^2)\), rank 4 — four of the eight generators cancel against the other four in the strip ledger, and <em>which</em> four is precisely what the strip analysis computes. This page sketches that analysis (it is Example 2's compactness-and-gluing wall, one dimension up); the complete wall — the Fredholm theory that makes solution spaces finite-dimensional manifolds, transversality, the gluing estimates — is the research literature's, and §7 cites it honestly.</p>
+<p>Last, watch the deformation. Shrink \(\varepsilon\): for every positive value the eight stations stay exactly fixed (the algebra never used the size of \(\varepsilon\)) and the lab's scan saw no others; the theorem pins the ledger's homology at rank 4 through it all — the invariant refuses to move while the equation flexes, which is the machine's whole design. But at \(\varepsilon = 0\) the flow stops dead: the time-one map is the identity, every point of the torus is fixed, degenerate beyond counting. The machine is silent at the cliff — not because the wall failed, but because the hypothesis did. What that silence is worth is §5's first exhibit.</p>
+<p class="pid">Moves used: <a href="p26-model-with-equation.html">P26</a> (write the sentence the geometry obeys), <a href="p25-machine-cases.html">P25</a> (check the hypothesis by machine, all cases), <a href="p43-flow-with-surgery.html">P43</a> (the flow, and tears with names), <a href="p33-sheaf-cohomology-bridge.html">P33</a> (the census as a quotient).</p>
 </section>
 
-<section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When sphere or disk bubbles appear at the boundary of moduli space:</strong> Do not throw away the degenerating maps — package the bubble trees systematically using <a href="p54-stable-compactification.html"><span class="pid">P54</span> · Compactify by stable degenerations</a>, which replaces missing limit maps by nodal trees of curves with finite automorphism groups.</li>
-    <li><strong>When multiply-covered bubbles break transversality so \(\mathcal{M}(x_-, x_+)\) has the wrong dimension:</strong> Pass to <a href="p64-virtual-classes.html"><span class="pid">P64</span> · Virtual classes from obstruction theory</a> (and <a href="p53-deformation-cohomology.html"><span class="pid">P53</span> · Deformation cohomology</a>), which extracts a cycle of the expected Fredholm dimension from the Kuranishi obstruction bundle.</li>
-    <li><strong>When the two Lagrangians are small perturbations \(L_1 = \operatorname{graph}(df)\) of the same base \(L_0\):</strong> Adiabatic rescaling (<a href="p56-rescale-asymptotic.html"><span class="pid">P56</span> · Rescale for asymptotic geometry</a>) collapses holomorphic strips of width \(\varepsilon \to 0\) directly onto finite-dimensional Morse gradient trajectories of \(f\) on \(L_0\), recovering <a href="p29-energy-methods.html"><span class="pid">P29</span></a> and <a href="p41-mountain-pass.html"><span class="pid">P41</span></a> as the thin-strip limit of <span class="pid">P65</span>.</li>
-  </ul>
+<section id="when-it-fails">
+<h2>5 · When the move fails</h2>
+<p>The three keys of §3 each name a jam — and each jam, let fully loose, is an exhibit below. Notice as they run that the machine never fails by giving a wrong answer: it fails by going <em>silent</em> — a ledger entry undefined, a family uncounted. Where the machine is silent, it is the hypothesis, not the geometry, that moved.</p>
+
+<h3>Exhibit A — the cliff of degeneracy</h3>
+<p><strong>What broke:</strong> the census's raw material. In the circle toy, the height flattens at the tilt \(a = \tfrac{1}{3}\): at that instant the arriving pair is a single terrace point — neither maximum nor minimum — and the ledger has no generator for it and no differential across it. The torus shows the same cliff at landscape scale: as \(\varepsilon \to 0\) the eight fixed points dissolve into a continuum, until at \(\varepsilon = 0\) every point is fixed and every point is degenerate. <strong>Mitigation:</strong> nondegeneracy is generic — perturb the height, perturb \(H\), and the machine wakes up; and an isolated <em>cancelling</em> birth like the toy's is survivable in hindsight: the lab watched the ledger read \((1,1)\) on both sides of the \(a = \tfrac{1}{3}\) cliff, because the born pair arrives with its books already balanced. <strong>Price:</strong> the invariant is defined only along families that stay nondegenerate except at isolated, nameable cliffs; a family that must pass through a degenerate epoch (the torus at \(\varepsilon = 0\)) needs a different machine — and the conjecture's promise, in degenerate settings, weakens. <strong>Default habit:</strong> assume nondegenerate; if the instance is not, perturb first, and afterwards ask what the perturbation crossed.</p>
+
+<h3>Exhibit B — the wall of transversality</h3>
+<p><strong>What broke:</strong> the ledger's counting premise. The strip equation, unperturbed, can produce solution families of the wrong shape — a constant strip sitting frozen at one crossing, or a strip sweeping a region twice over — and "count the one-families" is meaningless until the families are honestly one-dimensional. <strong>Mitigation:</strong> demand genericity — flex the quarter-turn \(J\), perturb the equation — until every family the ledger counts is cut out cleanly. Example 2's cap came with this gift included: the plane's standard \(J\) happens to cut the cap out cleanly. That was luck of the setting, not a law of nature. <strong>Price:</strong> the count is of a <em>perturbed</em> equation's solutions; the invariant is unchanged, but the honest sentence names the perturbation. <strong>Default habit:</strong> never count an unperturbed equation whose solution families you have not seen cut out.</p>
+
+<h3>Exhibit C — the escape of energy (bubbling)</h3>
+<p><strong>What broke:</strong> compactness itself. A family of strips can degenerate into something other than a two-story break: a <em>bubble</em> — a whole sphere's worth of swept area detaching from the strip and vanishing from the ledger's pages. Example 2 was walled in by the maximum principle, and its two shores were exact; on closed shapes the sphere's own entry in the area book must be strictly positive — the exact and monotone settings — so that any bubble has a price the count can read. Without that hypothesis the ledger can lose entire families, and Box P65.A's pairing then fails <em>silently</em> — the worst failure, because the ledger looks balanced and is not. <strong>Mitigation:</strong> exactness or monotonicity; or the far door of virtual classes, where the invisible walls are priced by obstruction theory rather than forbidden. <strong>Price:</strong> the theorem holds only where the book covers the bubbles; broad classes of shapes are covered and §7 names them, but the machine of this page, unperturbed, does not reach every symplectic shape. <strong>Default habit:</strong> audit the area book before trusting any ledger built from strips.</p>
+
+<aside class="warn"><strong>Scope, honestly.</strong> This page built the machine's moving parts in miniature: generators from solutions, a differential from one-families, \(\partial \circ \partial = 0\) from named degeneration, invariance from ledger isomorphisms. It did not build the walls — the Fredholm theory that makes solution spaces into finite-dimensional manifolds, the transversality theorems that cut them cleanly, Gromov's compactness with its bubble trees, the gluing estimates that pair the breaks. Those are the research literature's work, the machine stands on them, and the lineage section says so directly rather than letting the sketches of §4 carry more weight than they earn.</aside>
 </section>
+
+<section id="what-next">
+<h2>6 · What to try next</h2>
+<p>Four doors lead out of this page — two within the frontier's own construction, two back into machines this book has already built. Each carries a distance and a cargo.</p>
+<p><strong>The boundary door — compactify by stable degenerations.</strong> This page's compactness paired breaks by naming them; P54's move is to make the naming systematic — add the degenerate limits to the space itself, so that families which "want" to escape are already standing in the census when they arrive. Distance: near — it is Exhibit A's discipline made into a general method. What it carries: the habit of building the boundary before counting what runs into it.</p>
+<p><strong>The obstruction door — virtual classes from obstruction theory.</strong> Exhibit C's far door: where the walls cannot be made honest by perturbation — where bubbles and ghosts resist every generic flexing of \(J\) — price them instead, by obstruction theory, and let the priced walls count. P64 is that pricing scheme. Distance: far — it presumes P54's boundary and this page's ledger both as floors. What it carries: a census for geometries this page's machine must refuse.</p>
+<p><strong>The filter door — <a href="p46-spectral-sequences.html">P46 · Spectral sequences</a>.</strong> The action book does not merely pay for strips; it grades the generators by height. Filter the ledger by height, take the census one window at a time, and turn the page: that machine — a spectral sequence — was the opening move of this tier, and Floer's construction hands it back a natural instance, the filtration by the action itself. Distance: medium. What it carries: the census of a tall ledger read window by window, with the strips as the turning mechanism.</p>
+<p><strong>The propagation door — <a href="p52-microlocal-propagation.html">P52 · Microlocal propagation of singularities</a>.</strong> The strip equation is an analysis statement before it is a census statement, and analysis has its own cartography: singularities and regularity propagate along characteristic directions. Where this page said "the walls are the analysis" and left the walls unnamed, P52's microlocal methods say where the wall stands and how news travels along it. Distance: medium-far. What it carries: the ability to predict where a solution's regularity must fail, which is often the difference between a countable family and a silent one.</p>
+</section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Poincaré's last geometric theorem to Gromov's pseudoholomorphic curves and Floer's strips.</strong> In 1912 Henri Poincaré conjectured (and George Birkhoff proved in 1913) that an area-preserving twist map of an annulus must have at least two fixed points. Vladimir Arnold generalized this in the 1960s (<em>Mathematical Methods of Classical Mechanics</em>, Appendix 9) to the conjecture that Hamiltonian diffeomorphisms on a closed symplectic manifold \((M,\omega)\) possess at least as many fixed points as a smooth function has critical points. In 1983 Charles Conley and Eduard Zehnder proved Arnold's conjecture for the flat torus \(\mathbb{T}^{2n}\) by Fourier cutoff (<a href="p24-split-into-waves.html"><span class="pid">P24</span></a>), reducing the loop space to a high-dimensional finite slab. Two years later, Mikhail Gromov (<em>Inventiones Mathematicae</em>, 1985) revolutionized symplectic topology by introducing pseudoholomorphic curves \(\bar{\partial}_J u = 0\) and proving his compactness theorem via bubble trees (<a href="p54-stable-compactification.html"><span class="pid">P54</span></a>). In 1988–1989 Andreas Floer (<em>Journal of Differential Geometry</em> 28, 513–547; <em>Communications on Pure and Applied Mathematics</em> 42, 335–362) fused Witten's 1982 Morse complex (\(\partial^2 = 0\) from gradient trajectories) with Gromov's elliptic Cauchy–Riemann curves, creating both Lagrangian intersection Floer homology and instanton Floer homology on 3-manifolds.</p>
-  </aside>
+<h2>7 · Lineage</h2>
+<p>The idea that a flow's ledger is a homology was written down before it was believed. <strong>Edward Witten, 1982</strong>, showed that supersymmetric quantum mechanics re-derives Morse theory: the physicists' canceling states and the topologists' canceling flow lines were the same bookkeeping — a hint that the ledger, not the count, was the invariant.</p>
+<p><strong>Charles Conley and Eduard Zehnder, 1983</strong>, proved the torus case of Arnold's conjecture — the very row of §2's table where the classical count reads zero — by direct variational analysis, before any homology existed to explain why four had to be there. The Zehnder of that paper is the same Eduard Zehnder who supervised Andreas Floer's doctorate at Bochum the following year: the conjecture and its future machine were already sharing an office.</p>
+<p><strong>Mikhail Gromov, 1985</strong>, introduced pseudo-holomorphic curves and proved their compactness — the wall. Without Gromov's theorem there is no way to say what a degenerating family of strips does; with it, the infinite-dimensional census acquires its finitely many names.</p>
+<p><strong>Andreas Floer, 1988–1989</strong>, assembled the machine this page has built in miniature: <em>Morse theory for Lagrangian intersections</em> (Journal of Differential Geometry, 1988) — the strips; <em>An instanton-invariant for 3-manifolds</em> (Communications in Mathematical Physics, 1988) — the same machine moved into gauge theory, counting instantons where this page counts strips; and cuplength estimates for Lagrangian intersections (1989) — the first honest step toward the degenerate settings of Exhibit A. Floer died in 1991, at thirty-four. The fields the machine opened — Lagrangian Floer theory, Hamiltonian Floer homology, instanton Floer homology, Heegaard Floer homology, Seiberg–Witten Floer homology — carry his name into decades of work he did not live to see.</p>
+<p>One line each for the diaspora: <strong>Clifford Taubes</strong> proved the Weinstein conjecture for all closed three-manifolds using a variant of Seiberg–Witten Floer homology, marrying this page's machine to gauge theory on contact three-shapes. <strong>Peter Ozsváth and Zoltán Szabó</strong> built Heegaard Floer homology — a census of three-dimensional shapes from holomorphic disks, the strip's cousin — now among the workhorses of low-dimensional topology. And in mirror symmetry, the strips themselves became an algebra's morphisms: the Fukaya category, where this page's ledger is promoted to a whole system of ledgers — and the geometry of Lagrangian shores becomes an algebra's dictionary. The machine, born to count fixed points, ended by telling different geometries how to speak to each other.</p>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
+<h2>8 · Exercises</h2>
 
-  <h3>Exercise 1 ●○○ — Six intersections on the cylinder and bigon cancellation</h3>
-  <p>On the phase cylinder \(T^*S^1 = S^1_q \times \mathbb{R}_p\), let \(L_0 = \{p = 0\}\) and let \(L_1 = \{p = f'(q)\}\) for the potential</p>
-  <p class="eq">\[f(q) = 3\cos q + \cos(3q), \qquad q \in [0, 2\pi).\]</p>
-  <p>(a) Use the triple-angle identity \(\sin(3q) = 3\sin q - 4\sin^3 q\) to factor \(f'(q)\) completely and find all intersections \(x \in L_0 \cap L_1\) on \([0,2\pi)\), together with their actions \(f(q)\) and relative grades \(\mu(x) \in \{0,1\}\).<br>
-  (b) Compute the exact geometric area \(\int |f'(q)|\,dq\) of every bigon between adjacent intersections, write the Floer boundary matrix \(\partial : CF_1 \to CF_0\), and verify that \(\operatorname{rank} HF_1 = \operatorname{rank} HF_0 = 1\).</p>
-  <details><summary>Hint</summary><p>Differentiate to get \(f'(q) = -3\sin q - 3\sin(3q) = -6\sin q\,(2 - 2\sin^2 q) = -12\sin q\,\cos^2 q\)? Be careful with signs: \(\sin q + \sin(3q) = \sin q + (3\sin q - 4\sin^3 q) = 4\sin q\,(1 - \sin^2 q) = 4\sin q\cos^2 q\).Wait — if \(\cos^2 q\) appears, \(q = \pi/2\) is a degenerate grazing tangency! To get six transverse intersections, flip the sign: consider \(g(q) = 2\cos q - \cos(3q)\), so \(g'(q) = -2\sin q + 3\sin(3q) = \sin q\,(7 - 12\sin^2 q)\). Let us solve both: first check why \(3\cos q + \cos(3q)\) has degenerate grazing points at \(q = \pi/2, 3\pi/2\), and then compute the six transverse intersections and bigon areas for \(g(q) = 2\cos q - \cos(3q)\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Degenerate vs. transverse potentials:</strong> For \(f(q) = 3\cos q + \cos(3q)\), differentiating gives \(f'(q) = -3\sin q - 3\sin(3q) = -3\sin q\,(4 - 4\sin^2 q) = -12\sin q\cos^2 q\). This vanishes at \(q = 0, \pi\) (transverse: \(f''(0) = -12 \ne 0\), \(f''(\pi) = +12 \ne 0\)) and at \(q = \frac{\pi}{2}, \frac{3\pi}{2}\) where \(\cos^2 q = 0\) creates a double root \(f''(\pi/2) = 0\) (a cubic inflection point where \(L_1\) kisses \(L_0\) without crossing).<br>
-    Now perturb or flip to \(g(q) = 2\cos q - \cos(3q)\), where \(g'(q) = -2\sin q + 3\sin(3q) = \sin q\,(7 - 12\sin^2 q) = 0\). This gives <strong>six</strong> transverse intersections on \([0,2\pi)\): two at \(\sin q = 0\) (\(q = 0, \pi\)) and four at \(\sin^2 q = \frac{7}{12}\) (\(\cos^2 q = \frac{5}{12}\)). Using \(\cos(3q) = \cos q\,(1 - 4\sin^2 q) = \cos q\,(1 - \frac{7}{3}) = -\frac{4}{3}\cos q\), we have \(g(q) = 2\cos q - (-\frac{4}{3}\cos q) = \frac{10}{3}\cos q\) at the four side roots:</p>
-    <ul>
-      <li>\(q_1 = 0\): \(g(0) = 2 - 1 = +1\), \(g''(0) = -2 + 9 = +7 &gt; 0\) (\(\mu = 0\), local minimum).</li>
-      <li>\(q_2 = \arcsin\sqrt{7/12} \in (0, \frac{\pi}{2})\): \(\cos q_2 = +\sqrt{5/12}\), \(g(q_2) = +\frac{10}{3}\sqrt{\frac{5}{12}} = \frac{5\sqrt{15}}{9} \approx +2.1517\) (\(\mu = 1\), global maximum).</li>
-      <li>\(q_3 = \pi - q_2 \in (\frac{\pi}{2}, \pi)\): \(\cos q_3 = -\sqrt{5/12}\), \(g(q_3) = -\frac{5\sqrt{15}}{9} \approx -2.1517\) (\(\mu = 0\), global minimum).</li>
-      <li>\(q_4 = \pi\): \(g(\pi) = -2 - (-1) = -1\), \(g''(\pi) = 2 - 9 = -7 &lt; 0\) (\(\mu = 1\), local maximum).</li>
-      <li>\(q_5 = \pi + q_2\): \(g(q_5) = -\frac{5\sqrt{15}}{9}\) (\(\mu = 0\), global minimum).</li>
-      <li>\(q_6 = 2\pi - q_2\): \(g(q_6) = +\frac{5\sqrt{15}}{9}\) (\(\mu = 1\), global maximum).</li>
-    </ul>
-    <p><strong>(b) Bigon areas and boundary matrix:</strong> The six intersections alternate in grade \(\mu = 0, 1, 0, 1, 0, 1\) around the circle. The six bigon areas \(\Delta g = g(\text{max}) - g(\text{min})\) are:</p>
-    <ul>
-      <li>Two short bigons flanking \(q_1 = 0\): \(\operatorname{Area}(q_2 \to q_1) = \operatorname{Area}(q_6 \to q_1) = \frac{5\sqrt{15}}{9} - 1 \approx 1.1517\).</li>
-      <li>Two tall bigons crossing \(q = \frac{\pi}{2}\) and \(q = \frac{3\pi}{2}\): \(\operatorname{Area}(q_2 \to q_3) = \operatorname{Area}(q_6 \to q_5) = \frac{10\sqrt{15}}{9} \approx 4.3033\).</li>
-      <li>Two short bigons flanking \(q_4 = \pi\): \(\operatorname{Area}(q_4 \to q_3) = \operatorname{Area}(q_4 \to q_5) = -1 - \left(-\frac{5\sqrt{15}}{9}\right) = \frac{5\sqrt{15}}{9} - 1 \approx 1.1517\).</li>
-    </ul>
-    <p>In the chain complex \(CF_1 = \mathbb{Z}\langle q_2, q_4, q_6 \rangle \xrightarrow{\partial} CF_0 = \mathbb{Z}\langle q_1, q_3, q_5 \rangle\), each index-1 generator sends one strip to its left neighbor and one to its right neighbor: \(\partial(q_2) = q_3 - q_1\), \(\partial(q_4) = q_5 - q_3\), and \(\partial(q_6) = q_1 - q_5\). Notice that \(\partial(q_2 + q_4 + q_6) = (q_3 - q_1) + (q_5 - q_3) + (q_1 - q_5) = 0\), while \(\operatorname{rank}(\partial) = 2\). Therefore \(\ker \partial = \mathbb{Z}\langle q_2 + q_4 + q_6 \rangle\) has rank \(3 - 2 = 1\), and \(\operatorname{coker} \partial = CF_0 / \operatorname{im}\partial\) has rank \(3 - 2 = 1\), confirming \(\operatorname{rank} HF_1 = \operatorname{rank} HF_0 = 1\).</p>
-  </details>
+<h3>Exercise 1 ●○○ · The poles, by the book</h3>
+<p>Rotate the sphere by a right angle. (a) Show that the fixed points are exactly the two poles. (b) Check that both are nondegenerate: no direction of the tangent linearization returns to itself. (c) What is the census floor on the sphere, and does the rotation meet it?</p>
+<details><summary>Hint</summary><p>For (a), write the \((x,y)\)-block of the rotation minus the identity and take its determinant. For (b): the tangent linearization at a pole is a rotation of the tangent plane — by the same angle.</p></details>
+<details><summary>Worked answer</summary><p>(a) The \((x,y)\)-block of \(R - I\) has determinant \(2 - 2\cos\theta = 4\sin^2(\theta/2) > 0\) for a right angle, so the block is invertible and forces \(x = y = 0\): only \((0,0,\pm 1)\) survive. (b) At each pole the tangent map is rotation by \(\theta \neq 0\), so no tangent direction is an eigenvector with eigenvalue 1; \(\det(D\varphi - I) = 4\sin^2(\theta/2) = 2\) — nonzero, so nondegenerate. (c) The floor is \(b_0 + b_2 = 1 + 1 = 2\), and the rotation delivers exactly two: the floor met with nothing to spare. (The lab checked (a)–(b) by machine: both poles exactly fixed, all 1000 scan stations displaced.)</p></details>
 
-  <h3>Exercise 2 ●●○ — Gluing delay and energy partition on an asymmetric diamond</h3>
-  <p>Modify the two-variable diamond potential of Exemplar 1 so the two coordinates have unequal steepness parameters \(a, b &gt; 0\):</p>
-  <p class="eq">\[F_{a,b}(x,y) = a\!\left(x - \frac{x^3}{3}\right) + b\!\left(y - \frac{y^3}{3}\right), \qquad (x,y) \in [-1,1]^2.\]</p>
-  <p>(a) Find the actions \(F_{a,b}\) and Morse/Maslov indices at all four corners \(P=(1,1)\), \(S_a=(1,-1)\), \(S_b=(-1,1)\), and \(B=(-1,-1)\). When \(a \ne b\), do the two intermediate saddles \(S_a, S_b\) sit at the same action height?<br>
-  (b) Solve the steepest-descent equations \(\dot{x} = -a(1-x^2)\), \(\dot{y} = -b(1-y^2)\) explicitly, verify that the total energy \(\int_{-\infty}^{\infty} (\dot{x}^2 + \dot{y}^2)\,ds\) along any trajectory in \(\mathcal{M}(P, B)\) is independent of the delay parameter \(\tau\), and verify that \(\partial_1 \circ \partial_2 = 0\) still holds even when \(F_{a,b}(S_a) \ne F_{a,b}(S_b)\).</p>
-  <details><summary>Hint</summary><p>Rescale time in each coordinate: if \(\dot{x} = a(x^2 - 1)\), then \(x(s) = -\tanh(a(s - s_1))\). Compute \(\int_{-\infty}^{\infty} \dot{x}(s)^2\,ds\) by substituting \(u = a(s - s_1)\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Corner actions and indices:</strong> Since \(\nabla F_{a,b}(x,y) = (a(1-x^2),\, b(1-y^2))\) and \(\operatorname{Hess} F_{a,b}(x,y) = \operatorname{diag}(-2ax, -2by)\) with \(a, b &gt; 0\), the signs of the eigenvalues at the four corners are unchanged:</p>
-    <ul>
-      <li>\(P = (1,1)\): eigenvalues \((-2a, -2b) \Rightarrow \mu(P) = 2\), action \(F_{a,b}(P) = \frac{2}{3}(a + b)\).</li>
-      <li>\(S_a = (1,-1)\): eigenvalues \((-2a, +2b) \Rightarrow \mu(S_a) = 1\), action \(F_{a,b}(S_a) = \frac{2}{3}(a - b)\).</li>
-      <li>\(S_b = (-1,1)\): eigenvalues \((+2a, -2b) \Rightarrow \mu(S_b) = 1\), action \(F_{a,b}(S_b) = \frac{2}{3}(b - a) = -F_{a,b}(S_a)\).</li>
-      <li>\(B = (-1,-1)\): eigenvalues \((+2a, +2b) \Rightarrow \mu(B) = 0\), action \(F_{a,b}(B) = -\frac{2}{3}(a + b)\).</li>
-    </ul>
-    <p>When \(a \ne b\), the two saddles sit at <em>different</em> action heights \(\pm \frac{2}{3}(a-b)\).</p>
-    <p><strong>(b) Explicit trajectories and cancellation:</strong> The decoupled ODEs \(\dot{x} = a(x^2-1)\) and \(\dot{y} = b(y^2-1)\) have general downward solutions \(x(s) = -\tanh(a(s - s_1))\) and \(y(s) = -\tanh(b(s - s_2))\). Modulo overall shift \(s_1 = 0\), the 1-parameter family is parameterized by \(\tau = s_2 \in (-\infty, +\infty)\):</p>
-    <p class="eq">\[u_\tau(s) = \bigl(-\tanh(as),\; -\tanh(b(s - \tau))\bigr).\]</p>
-    <p>The energy along \(u_\tau\) is</p>
-    <p class="eq">\[\mathcal{E}(u_\tau) = \int_{-\infty}^{\infty} a^2\operatorname{sech}^4(as)\,ds + \int_{-\infty}^{\infty} b^2\operatorname{sech}^4(b(s-\tau))\,ds = a\!\left(\frac{4}{3}\right) + b\!\left(\frac{4}{3}\right) = \frac{4}{3}(a+b) = F_{a,b}(P) - F_{a,b}(B),\]</p>
-    <p>which is completely independent of \(\tau\). Along the \(\tau \to -\infty\) end, the trajectory breaks at \(S_a\) with energy split \(\frac{4}{3}b + \frac{4}{3}a\); along the \(\tau \to +\infty\) end, it breaks at \(S_b\) with energy split \(\frac{4}{3}a + \frac{4}{3}b\). Both ends have total energy \(\frac{4}{3}(a+b)\) and opposite boundary orientations on the interval \(\tau \in [-\infty, +\infty]\), so \(\partial_1 \partial_2(P) = (+1)B + (-1)B = 0\) holds regardless of the asymmetry \(a \ne b\).</p>
-  </details>
+<h3>Exercise 2 ●●○ · The ledger at full tilt</h3>
+<p>Hang \(h(\theta) = \sin 2\theta\) on the circle. (a) Locate all critical points. (b) Build the \(\mathbb{Z}/2\) ledger: generators, grading, differential. (c) Compute the homology. (d) The count doubled from the \(\sin\theta\) case — why did the homology not move?</p>
+<details><summary>Hint</summary><p>Each maximum spills one downhill arc to each of its two neighboring minima — nothing else.</p></details>
+<details><summary>Worked answer</summary><p>(a) Maxima at \(\theta = \pi/4, 5\pi/4\); minima at \(3\pi/4, 7\pi/4\). (b) Rung 1 generated by the two maxima, rung 0 by the two minima; from each maximum one arc reaches each minimum, so \(\partial(\max_i) = \min_1 + \min_2\) — both columns read \((1,1)\). (c) The differential has rank 1: \(H_1 = \{(a,a)\}\) is one class, and \(H_0 = \langle \min_1, \min_2\rangle / \langle \min_1 + \min_2\rangle\) is one class — \((1,1)\). (d) The new pair arrived at the \(a = \tfrac13\) cliff already cancelled in the ledger's coin (Exhibit A): the count is foam, the census is the homology. (Lab B verified all of it: \(\partial = [[1,1],[1,1]]\), \((H_1, H_0) = (1,1)\), zero anomalies.)</p></details>
 
-  <h3>Exercise 3 ●●● — Explicit Cauchy–Riemann strip and energy identity on \(\mathbb{R} \times [0,1]\)</h3>
-  <p>Consider the flat symplectic plane \(\mathbb{C} = \mathbb{R}_q \times \mathbb{R}_p\) with \(z(s,t) = q(s,t) + i p(s,t)\), \(J_0 = i\), and two linear Lagrangian lines crossing transversely at the origin: \(L_0 = \mathbb{R}\) (where \(p = 0\) at \(t = 0\)) and \(L_1 = e^{i\theta}\mathbb{R}\) (where \(p = (\tan\theta)\,q\) at \(t = 1\), with \(0 &lt; \theta &lt; \pi\)), closed at the right by a vertical perturbation at \(q = 1\).<br>
-  (a) Verify that the holomorphic wedge map \(z(s,t) = e^{\theta(s + it)}\) on the strip \((s,t) \in (-\infty, 0] \times [0,1]\) satisfies the Cauchy–Riemann equation \(\partial_s z + i\partial_t z = 0\), maps \(t=0\) to \(L_0\), maps \(t=1\) to \(L_1\), and converges to the intersection \(z=0\) as \(s \to -\infty\).<br>
-  (b) Compute the Dirichlet energy \(\mathcal{E}(z) = \int_{-\infty}^{0}\int_{0}^{1} |\partial_s z(s,t)|^2\,dt\,ds\) directly by integration, and verify that it equals the exact symplectic area \(\iint_{(-\infty,0]\times[0,1]} z^*(dp \wedge dq)\) of the circular sector of radius \(1\) and angle \(\theta\).</p>
-  <details><summary>Hint</summary><p>Differentiate \(z(s,t) = e^{\theta s}(\cos(\theta t) + i\sin(\theta t))\) with respect to \(s\) and \(t\). Note that \(|\partial_s z|^2 = \theta^2 e^{2\theta s}\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Cauchy–Riemann and boundary conditions:</strong> Writing \(z(s,t) = e^{\theta s} e^{i\theta t}\), we have \(\partial_s z = \theta e^{\theta(s+it)}\) and \(\partial_t z = i\theta e^{\theta(s+it)}\), so</p>
-    <p class="eq">\[\partial_s z + i\,\partial_t z = \theta e^{\theta(s+it)} + i(i\theta e^{\theta(s+it)}) = (\theta - \theta)e^{\theta(s+it)} = 0.\]</p>
-    <p>At \(t = 0\), \(z(s,0) = e^{\theta s} \in \mathbb{R} = L_0\). At \(t = 1\), \(z(s,1) = e^{\theta s} e^{i\theta} \in e^{i\theta}\mathbb{R} = L_1\). Since \(\theta &gt; 0\), \(\lim_{s \to -\infty} |z(s,t)| = \lim_{s \to -\infty} e^{\theta s} = 0\), so the strip asymptotes to the intersection \(0 \in L_0 \cap L_1\) at rate \(e^{\theta s}\) (governed by the crossing angle \(\theta\)).</p>
-    <p><strong>(b) Dirichlet energy equals sector area:</strong> Integrating \(|\partial_s z(s,t)|^2 = \theta^2 e^{2\theta s}\) over \(t \in [0,1]\) and \(s \in (-\infty, 0]\) gives</p>
-    <p class="eq">\[\mathcal{E}(z) = \int_{-\infty}^{0} \left(\int_{0}^{1} \theta^2 e^{2\theta s}\,dt\right) ds = \theta^2 \left[\frac{e^{2\theta s}}{2\theta}\right]_{s=-\infty}^{s=0} = \frac{\theta^2}{2\theta}(1 - 0) = \frac{\theta}{2}.\]</p>
-    <p>Meanwhile, the image of \((-\infty, 0] \times [0,1]\) under \(z(s,t) = r e^{i\phi}\) (with \(r = e^{\theta s} \in (0,1]\) and \(\phi = \theta t \in [0,\theta]\)) is the circular sector of radius \(R = 1\) and central angle \(\theta\), whose Euclidean/symplectic area is \(\frac{1}{2}R^2\theta = \frac{\theta}{2}\). The analytic energy and the symplectic area match identically.</p>
-  </details>
+<h3>Exercise 3 ●●● · Eight is not the promise</h3>
+<p>Return to Example 4's torus run, \(H = \varepsilon \sin 2\pi x \sin 2\pi y\). (a) Do the algebra: show the stationary points of the flow are exactly the eight stations. (b) Why is each of them fixed by the time-one flow, whatever \(\varepsilon\) is? (c) Linearize the flow at a half-integer station and at a quarter station; with \(a = 4\pi^2\varepsilon \approx 0.395\), compute \(\det(D\varphi_1 - I)\) to leading order at each type, and compare with the lab's measured \(-0.158\) and \(+0.154\). (d) State the conjecture's floor and the delivered count, and say exactly what the machine must reconcile.</p>
+<details><summary>Hint</summary><p>At \((0,0)\) the linearized flow is \(\dot{x} = ax,\ \dot{y} = -ay\); its time-one map is \(\operatorname{diag}(e^{a}, e^{-a})\). At \((\tfrac14, \tfrac14)\) it is a quarter-turn with angular speed \(a\).</p></details>
+<details><summary>Worked answer</summary><p>(a) Stationarity forces \(\sin 2\pi x \cos 2\pi y = 0\) and \(\cos 2\pi x \sin 2\pi y = 0\). If \(\sin 2\pi x = 0\) then the second equation needs \(\sin 2\pi y = 0\): the four half-integer stations; if instead \(\cos 2\pi x = 0\), the first equation needs \(\cos 2\pi y = 0\): the four quarter stations. Mixed cases are impossible — \(\sin\) and \(\cos\) never vanish together. (b) A stationary point never moves: its whole trajectory is a point, so every time-\(t\) map fixes it, \(\varepsilon\) notwithstanding. (c) Half-integer: \(\det = (e^{a} - 1)(e^{-a} - 1) = 2 - 2\cosh a = -0.157889\). Quarter: the time-one map is (to leading order) a rotation by \(a\), so \(\det = 2 - 2\cos a = +0.153841\). Both predictions match the lab's measured determinants to all six printed decimals. Both nonzero: all eight fixed points nondegenerate — the hypothesis checked, not assumed. (d) The floor is \(b_0 + b_1 + b_2 = 4\); the count is 8; the machine must cancel four generators against four in the strip ledger, and Floer's theorem pins what remains at the census's rank 4.</p></details>
 
-  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: three intersection claims</h3>
-  <p>For each scenario below, decide whether <span class="pid">P65</span> (Floer homology from holomorphic strips) is the right tool, or whether a simpler pattern from earlier in the Atlas solves or invalidates the claim:</p>
-  <ol>
-    <li>On the cylinder \(T^*S^1\), you compare \(L_0 = \{p = 0\}\) against \(L_1 = \{p = 2 + \cos q\}\) and want to prove \(L_0 \cap L_1 \ne \varnothing\).</li>
-    <li>On the flat 2-torus \(\mathbb{T}^2\), you apply a time-dependent Hamiltonian flow generated by \(H(t, q_1, q_2) = \sin(q_1)\cos(2\pi t) + \cos(q_2)\sin(2\pi t) + \frac{1}{2}\sin(q_1 + q_2)\) and want to prove the time-1 map \(\phi_H^1\) has at least \(4\) fixed points (assuming non-degeneracy).</li>
-    <li>On the unit 2-sphere \(S^2 \subset \mathbb{R}^3\), you rotate every point around the \(z\)-axis by angle \(\alpha \in (0, 2\pi)\) and want to prove there are at least \(2\) fixed points.</li>
-  </ol>
-  <details><summary>Worked answer</summary>
-    <ol>
-      <li><strong>False claim — fails the zero-flux requirement (Exhibit B):</strong> Since \(\cos q \ge -1\), we have \(p = 2 + \cos q \ge 1 &gt; 0\) everywhere on \(S^1\), so \(L_0 \cap L_1 = \varnothing\)! <span class="pid">P65</span> does not apply because \(L_1\) has non-zero net flux \(\int_0^{2\pi} (2 + \cos q)\,dq = 4\pi \ne 0\) and is not a Hamiltonian deformation of \(L_0\). A direct bound (<a href="p15-squeeze.html"><span class="pid">P15</span></a>) settles it immediately.</li>
-      <li><strong>Genuine <span class="pid">P65</span> (Hamiltonian Floer homology):</strong> Because \(H(t, q_1, q_2)\) is a single-valued periodic Hamiltonian on \(\mathbb{T}^2\), yet the coupling term \(\frac{1}{2}\sin(q_1 + q_2)\) and explicit time dependence prevent reducing \(\phi_H^1\) to a static gradient flow on \(\mathbb{T}^2\), the fixed points correspond to 1-periodic orbits of an infinite-dimensional action functional. Invariance of \(HF_*(\mathbb{T}^2) \cong H_*(\mathbb{T}^2)\) under <span class="pid">P65</span> guarantees at least \(\sum b_i(\mathbb{T}^2) = 4\) non-degenerate fixed points.</li>
-      <li><strong>Simpler finite-dimensional pattern suffices (<span class="pid">P29</span> / <span class="pid">P33</span> / Euler characteristic):</strong> While rotation around the \(z\)-axis is generated by the Hamiltonian \(H(z) = \alpha z\) on \(S^2\), you do not need infinite-dimensional strip PDEs: \(S^2\) has Euler characteristic \(\chi(S^2) = 2 \ne 0\), so the classical Lefschetz/Poincaré–Hopf theorem (or finite-dimensional Morse theory on the height function \(z\)) already forces the North and South poles as fixed points.</li>
-    </ol>
-  </details>
+<h3>Exercise 4 ●●● · A strip you can solve: energy = swept area</h3>
+<p>Take the two shores \(L_0 = \mathbb{R}\) (the real axis) and \(L_1 = e^{i\theta}\mathbb{R}\) (the line through the origin at angle \(\theta\), with \(0 &lt; \theta &lt; \pi\)), crossing once, at the origin. Consider \(z(s, t) = e^{\theta(s + it)}\) on the half-ribbon \((-\infty, 0] \times [0, 1]\). (a) Show \(z\) satisfies the strip equation \(\partial_s z + i\,\partial_t z = 0\). (b) Check the edges: \(t = 0\) lies on \(L_0\), \(t = 1\) lies on \(L_1\), and \(z \to 0\) as \(s \to -\infty\). (c) Compute the energy \(E = \int\!\!\int |\partial_s z|^2\,\mathrm{d}s\,\mathrm{d}t\) and the area of the sector \(\{0 \leq \arg \leq \theta,\ |z| \leq 1\}\), and compare. (d) Honesty: in what sense is this only <em>half</em> a strip — what does a genuine strip have that this object lacks, and what would completing it require?</p>
+<details><summary>Hint</summary><p>For (c), the \(t\)-integral is trivial once you notice the integrand does not depend on \(t\); for the sector, shoelace or the school formula \(\tfrac{1}{2}R^2\theta\).</p></details>
+<details><summary>Worked answer</summary><p>(a) \(\partial_s z = \theta e^{\theta(s+it)}\) and \(\partial_t z = i\theta e^{\theta(s+it)}\), so \(\partial_s z + i\,\partial_t z = (1 + i \cdot i)\,\theta e^{\theta(s+it)} = 0\). (b) \(z(s, 0) = e^{\theta s} \in \mathbb{R}\); \(z(s, 1) = e^{\theta s}e^{i\theta} \in e^{i\theta}\mathbb{R}\); \(|z| = e^{\theta s} \to 0\). (c) \(E = \int_{-\infty}^{0} \theta^2 e^{2\theta s}\,\mathrm{d}s = \tfrac{\theta}{2}\), and the sector's area is \(\tfrac{1}{2} \cdot 1^2 \cdot \theta = \tfrac{\theta}{2}\): for a map that respects the quarter-turn, the energy <em>is</em> the swept area — Example 2's action-drop principle, here in the one case you can integrate by hand. (d) A genuine strip needs two distinct intersection points, one pinned at each end \(s \to \pm\infty\); this object has only its puncture at \(s \to -\infty\) — the \(s = 0\) edge is a truncation at radius 1, not an intersection. Completing it means bending the shores to cross a second time and closing the far end with the matching half; the full strip's energy is then the total swept area between the crossings. (The lab verified (a)–(c) by machine: equation and conformality to \(\sim\!10^{-10}\), boundary lines exact, energy = sector area = \(\tfrac{\theta}{2}\) for \(\theta \in \{\tfrac{\pi}{6}, \tfrac{\pi}{3}, \tfrac{\pi}{2}\}\).)</p></details>
 
-  <h3>Exercise 5 ◐ — Exploration: Catenoid neck-pinching vs. Novikov ring weights when strips wrap around the cylinder</h3>
-  <p>In Section 2, we worked with an exact deformation \(L_1 = \{p = f'(q)\}\) on \(T^*S^1\). Now replace \(T^*S^1\) with a compact torus \(\mathbb{T}^2 = S^1_q \times S^1_p\) of total area \(A &gt; 0\), where the momentum coordinate \(p\) is also periodic modulo \(A\). Let \(L_0 = \{p = 0\}\) and let \(L_1\) be a Hamiltonian perturbation that crosses \(L_0\) at two points \(x_+, x_-\) splitting the equator into two segments.<br>
-  (a) Notice that in \(\mathbb{T}^2\), strips from \(x_+\) to \(x_-\) don't just form two bigons of areas \(a_1\) and \(a_2\) (with \(a_1 = a_2\) by zero flux); a strip can also wrap \(k \ge 0\) additional full times around the vertical \(S^1_p\) cylinder, acquiring area \(a_1 + kA\)! Why does an unweighted sum \(1 - 1 + 1 - 1 + \cdots\) over all wrapping numbers \(k \ge 0\) fail to converge?<br>
-  (b) Formulate how weighting each strip \(u\) by the formal power \(T^{\operatorname{Area}(u)}\) (the <em>Novikov ring</em> \(\Lambda = \{\sum c_i T^{\lambda_i} \mid \lambda_i \to +\infty\}\)) restores convergence and turns \(\partial\) into a well-defined matrix of formal power series.</p>
-  <details><summary>Hint</summary><p>Group the strips by their symplectic area \(\mathcal{E}(u) = a_1 + kA\). Since \(A &gt; 0\), how many strips have area below any given cutoff \(E_{\max}\)?</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Divergence of unweighted counts:</strong> When the vertical fiber \(S^1_p\) is compact, every homotopy class of strips wrapping \(k \ge 0\) times around the vertical cylinder contains rigid holomorphic strips of Maslov index \(1\) and symplectic area \(a_1 + kA\). An unweighted count \(\langle \partial x_+, x_- \rangle = \sum_{k=0}^{\infty} (\pm 1)\) is an infinite series of integers that does not converge in \(\mathbb{Z}\).</p>
-    <p><strong>(b) Novikov weight restoration:</strong> By Gromov compactness (Box P65.A, Obligation 1), for any fixed energy ceiling \(E_{\max} &gt; 0\), there are only <em>finitely many</em> rigid strips with \(\operatorname{Area}(u) \le E_{\max}\) (here \(k \le (E_{\max} - a_1)/A\)). If we weight each strip \(u\) by \(T^{\operatorname{Area}(u)}\), the matrix entry becomes</p>
-    <p class="eq">\[\langle \partial x_+, x_- \rangle = \sum_{k=0}^{\infty} \bigl(\varepsilon^+_k - \varepsilon^-_k\bigr)\,T^{a_1 + kA} \in \Lambda.\]</p>
-    <p>Because the exponents \(a_1 + kA \to +\infty\) as \(k \to \infty\), the coefficient of every individual power \(T^\lambda\) is a finite sum that cancels pairwise (\((+1) + (-1) = 0\)) at each energy level \(\lambda = a_1 + kA\) independently. The Novikov parameter \(T\) records the area ledger directly inside the algebra of the chain complex.</p>
-  </details>
+<h3>Exercise 5 ◆ · The cartographer's diagnosis</h3>
+<p>A cartographer must count the exact number of light rays from a lamp to a target in one fixed, rigid optical system — one given instance, no family, no flexing — and she needs the exact number, not a floor. A colleague proposes running the strip ledger, since the rays obey an equation with an energy book. Diagnose: which of §3's keys jam, and what would you reach for instead?</p>
+
+<h3>Exercise 6 ◐ · Tilt further</h3>
+<p>Push past \(\sin 2\theta\): hang \(h(\theta) = \sin 3\theta\) on the circle, then \(\sin 4\theta\). Build each \(\mathbb{Z}/2\) ledger — generators, differential, homology — and watch the count against the census. Then guess the law for \(\sin k\theta\), every \(k \geq 1\), and check your guess by machine where you can. What never moves? (For orientation, the lab's receipts: critical counts \(2, 4, 6, 8\) for \(k = 1, \dots, 4\); the differentials read \([0]\), then \((1,1)\)-columns pairwise, then cycle-shaped matrices; the homology reads \((1,1)\) every time, with zero anomalies. The count climbs without end; the census does not move at all.)</p>
 </section>
 
 <footer>
-  <p><em>The Patterns Atlas</em> — P65 · Floer homology from holomorphic strips. <a href="index.html">Return to the index</a> · Previous: <a href="p64-virtual-classes.html">P64 · Virtual classes from obstruction theory</a> · Next: <a href="p66-induction.html">P66 · Prove by induction →</a></p>
+<p><strong>Next:</strong> <a href="p46-spectral-sequences.html">P46 · Spectral sequences</a> — the filter door opens both ways. The census this page pinned can be graded by the action book's rungs, and reading it one window at a time — turning the page until the windows settle — is exactly the machine that opened this tier; Floer's strips hand it back its most natural instance.</p>
+<p class="atlas-home"><a href="index.html">The Patterns Atlas</a> · <a href="p43-flow-with-surgery.html">P43 · Flow with surgery</a> · <a href="p33-sheaf-cohomology-bridge.html">P33 · The sheaf cohomology bridge</a></p>
 </footer>
-
 </body>
 </html>
