@@ -1,580 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>P54 · Compactify by stable degenerations · The Patterns Atlas</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <style>
-/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
-:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
-* { box-sizing: border-box; }
-body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
-main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
-.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
-.kicker a { color: var(--accent); text-decoration: none; }
-h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
-h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
-.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
-nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
-nav.toc a { color: var(--accent); text-decoration: none; }
-table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
-th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
-td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
-td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
-.st { font-family: system-ui, sans-serif; font-size: .75rem; }
-.st.published { color: #1c6b2f; }
-.st.reviewed { color: var(--accent); }
-.st.drafting { color: var(--warn); }
-.st.planned { color: var(--soft); }
-footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
-/* pattern-page blocks */
-.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
-.pattern-box .words { color: var(--soft); }
-.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
-.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
-.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
-figure { margin: 1.2rem 0; }
-figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
-figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
-.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
-.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
-.eq { text-align: center; margin: 1.1rem 0; }
-mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
-figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
-figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
-details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
-summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
-details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-  </style>
-  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P54 · Compactify by stable degenerations · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
-  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P54 · the ninth move of tier 5</p>
-  <h1>Compactify by stable degenerations</h1>
-  <p class="tagline">When marked points collide or a smooth surface pinches its neck, do not let them crash — zoom in at the collision rate to sprout a new component, and keep only trees that have no continuous symmetries.</p>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P54 · the fourteenth move of tier 5</p>
+<h1>Compactify by stable degenerations</h1>
+<p class="tagline">A family that runs out of room is not a failed family — it is a census that forgot to count its own escapes. The move: design the boundary on purpose, admit the degenerate limits under a stability clause, and the counting machine always has a place to stop.</p>
 </header>
 
-<aside class="onramp">
-  <strong>Projective line \(\mathbb{P}^1\), Möbius transformations, and moduli spaces.</strong>
-  The <em>projective line</em> \(\mathbb{P}^1 = \mathbb{C} \cup \{\infty\}\) is the complex plane closed up into a sphere by adding one point at infinity. A <em>Möbius transformation</em> is a fractional linear map \(z \mapsto \frac{az+b}{cz+d}\) with \(ad - bc \ne 0\); given any three distinct points \((z_1, z_2, z_3)\) on \(\mathbb{P}^1\), there is a <strong>unique</strong> Möbius transformation that places them at \((0, 1, \infty)\). A <em>moduli space</em> \(\mathcal{M}_{0,n}\) is the parameter space of all configurations of \(n\) distinct labeled points \((z_1, \dots, z_n)\) on \(\mathbb{P}^1\), where two configurations count as the same if a Möbius transformation carries one to the other.
-</aside>
+<aside class="onramp"><strong>New word: compactification.</strong> Four ideas stand at the door, and each is a careful extension of something this book already built. <em>(1) Compact</em> is the grown-up name for <em>closed and bounded</em>: <a href="p21-limit-point.html">P21</a> proved that in such a room every endless family must crowd somewhere — that crowd is the catch. <em>(2) A degeneration</em> is what a family becomes in the limit when it stops being a member of its own kind: two marked points collide, a component shrinks to nothing, a trajectory breaks in the middle, a shape thins out to a segment. <em>(3) Stability</em> is the naming discipline: a degenerate object is admitted only if it is rigid enough to carry only finitely many names — no continuous family of self-symmetries left to blur the count. <em>(4) A moduli room</em> is a space whose points <em>are</em> the objects themselves: one point per configuration, two points close together when the configurations are near-twins. <a href="p05-canonical-form.html">P05</a> taught the normalization habit that builds such rooms; this page teaches what to do when the room comes out with holes.</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p><a href="p21-limit-point.html"><span class="pid">P21</span></a> taught us why compactness is the gold standard of existence arguments: on the 1-metre target strip, halving the interval guarantees that sixteen shots accumulate at a limit point inside the strip. <a href="p33-sheaf-cohomology-bridge.html"><span class="pid">P33</span></a> showed us how local patches glue across overlaps to define global invariants, and <a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a> counted the infinitesimal knob-turns \(H^1\) and obstructions \(H^2\) of a smooth family.</p>
-  <p>Here is the tension that <a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a> left on its doorstep. Suppose each point in our parameter space represents a <em>smooth geometric object</em> — say, five distinct beacons on a sphere \(\mathbb{P}^1\), or a smooth surface of genus \(g\). As long as the beacons stay apart and the surface stays smooth, we can move our knobs freely. But if we follow a sequence where two or three beacons drift together, the limit configuration has <em>fewer</em> distinct points and falls right out of the moduli space! Because the space of smooth configurations is open (non-compact), sequences can escape through the missing boundary, and intersection counts or integrals over the parameter space fail to be well-defined. How do we seal the missing boundary so that every degenerating sequence lands on a unique, well-behaved limit object?</p>
+<h2>1 · Before we begin</h2>
+<p><a href="p21-limit-point.html">P21</a> caught the limit point: in a closed and bounded room, every endless family crowds, and the crowd is the catch. P21's far door named this page precisely: "Exhibit A taught the repair — close the room, admit the boundary — as an emergency measure. P54 practises it deliberately: a family of objects that refuses to have a limit point is completed on purpose, the boundary points are added with ceremony, and what was a bug in a record becomes a compact room in which every endless family must crowd." This page is that deliberate practice.</p>
+<p><a href="p33-sheaf-cohomology-bridge.html">P33</a> left the waiting-room line in its own words — "P52, P54, and P65 wait behind these, each a customer of the same cochain bookkeeping" — and this page is the second name on that list: the census below is read by the same cochain ledger that reads rise tables and strips. <a href="p53-deformation-cohomology.html">P53</a> sharpened the errand from the other side: "A family's walls are cleanest at its boundary — P54 adds the boundary; P65 counts strips where the walls are the analysis." And P53's last exploration honestly handed over the baton: which reals give the same flat torus "is a moduli question, the deeper bookkeeping this page only points at." This page is that deeper bookkeeping.</p>
+<p><a href="p65-floer-homology.html">P65</a>, published ahead of this page in tier 5, already spent the pattern once: its boundary door read "P54's move is to make the naming systematic — add the degenerate limits to the space itself, so that families which 'want' to escape are already standing in the census when they arrive. Distance: near — it is Exhibit A's discipline made into a general method. What it carries: the habit of building the boundary before counting what runs into it." This page builds that method from its first small case to the boundary P65 counted strips against.</p>
+<p>Here is the tension this page resolves. P21's machine closes the trap only when the room is <em>already</em> closed and bounded. But the rooms where counting actually happens — rooms of configurations, of curves, of flow lines — are born with holes: exactly at the degenerations the objects are running toward. A counting machine that needs limits (and <a href="p65-floer-homology.html">P65</a> needed them for \(\partial \circ \partial = 0\), and <a href="p64-virtual-classes.html">P64</a> will need them for every count it makes) cannot operate over a room with holes. The move of this page: do not repair the room by accident, as P21's Exhibit A did — <em>design the boundary on purpose</em>, admit the degenerate limits as first-class named points under a stability clause, and verify that the enlarged room is compact. Then every family crowds somewhere in it, and the census can begin.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: three beacons colliding at two different speeds</h2>
-  <p>Suppose we place five distinct labeled beacons \((z_1, z_2, z_3, z_4, z_5)\) on the projective line \(\mathbb{P}^1\). Using our canonical-form reflex (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>), we spend the unique Möbius transformation on the first three beacons to lock</p>
-  <p class="eq">\[z_1 = 0, \qquad z_2 = 1, \qquad z_3 = \infty.\]</p>
-  <p>Once \((z_1, z_2, z_3) = (0, 1, \infty)\) are pinned down, the entire configuration is recorded by the remaining two coordinates \((z_4, z_5)\), subject to the rule that no two beacons may occupy the same spot: \(z_4, z_5 \notin \{0, 1, \infty\}\) and \(z_4 \ne z_5\). Now watch what happens along the one-parameter family parameterized by \(\varepsilon \to 0^+\) with a fixed ratio \(c \notin \{0, 1\}\):</p>
-  <p class="eq">\[z_1(\varepsilon) = 0, \quad z_2(\varepsilon) = 1, \quad z_3(\varepsilon) = \infty, \quad z_4(\varepsilon) = \varepsilon, \quad z_5(\varepsilon) = c\,\varepsilon.\]</p>
-  <p>Take the naive limit \(\varepsilon \to 0\) in the original coordinate \(z\): both \(z_4(\varepsilon) \to 0\) and \(z_5(\varepsilon) \to 0\), so beacons \(1, 4,\) and \(5\) crash into a single pile at \(z = 0\)! Worse still, the naive limit \((0, 1, \infty, 0, 0)\) has completely forgotten the number \(c\): whether \(z_5\) approached \(z_1\) at half the distance of \(z_4\) (\(c = \frac{1}{2}\)) or ten times the distance (\(c = 10\)), the naive crash looks identical.</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Coordinate View</th>
-        <th>Transformation Rule</th>
-        <th>Beacon \(z_1\)</th>
-        <th>Beacon \(z_2\)</th>
-        <th>Beacon \(z_3\)</th>
-        <th>Beacon \(z_4\)</th>
-        <th>Beacon \(z_5\)</th>
-        <th>Limit as \(\varepsilon \to 0\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Macroscope \(z\)</strong></td>
-        <td>\(z\) (original scale)</td>
-        <td>\(0\)</td>
-        <td>\(1\)</td>
-        <td>\(\infty\)</td>
-        <td>\(\varepsilon\)</td>
-        <td>\(c\varepsilon\)</td>
-        <td>\(z_1, z_4, z_5\) crash at \(z=0\); \(z_2=1, z_3=\infty\) survive</td>
-      </tr>
-      <tr>
-        <td><strong>Microscope \(w\)</strong></td>
-        <td>\(w = z / \varepsilon\) (zoom by \(\varepsilon^{-1}\))</td>
-        <td>\(0\)</td>
-        <td>\(1/\varepsilon\)</td>
-        <td>\(\infty\)</td>
-        <td>\(1\)</td>
-        <td>\(c\)</td>
-        <td>\(w_1=0, w_4=1, w_5=c\) stay distinct; \(w_2, w_3\) flee to \(w=\infty\)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Look at the second row of the table. Before \(\varepsilon\) reaches zero, point a microscope at \(z=0\) with magnification \(1/\varepsilon\), defining a rescaled coordinate \(w = z/\varepsilon\) (<a href="p56-rescale-asymptotic.html"><span class="pid">P56</span></a>). In the microscope coordinate \(w\), beacon \(1\) sits at \(w_1 = 0\), beacon \(4\) sits at \(w_4 = \varepsilon/\varepsilon = 1\), and beacon \(5\) sits at \(w_5 = c\varepsilon/\varepsilon = c\). As \(\varepsilon \to 0\), these three beacons <em>never collide at all</em> on the \(w\)-sphere! Meanwhile, the distant beacons \(z_2 = 1\) and \(z_3 = \infty\) have \(w\)-coordinates \(1/\varepsilon \to \infty\) and \(\infty\), so from the microscope's point of view they merge into the point at \(w = \infty\).</p>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 215" role="img" aria-label="Fig P54.1: Rescaling a triple collision z1=0, z4=eps, z5=c*eps on P1 into a stable two-sphere bubble tree joined at a node N.">
-      <defs>
-        <marker id="arr-p54" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
-        </marker>
-      </defs>
-      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
-
-      <!-- Left panel: Smooth P^1 just before collision (eps > 0 small) -->
-      <text x="135" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Before limit (ε &gt; 0 small): single ℙ¹</text>
-      <circle cx="135" cy="112" r="64" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="2"/>
-      <ellipse cx="135" cy="112" rx="64" ry="18" fill="none" stroke="#d8d4cc" stroke-dasharray="3,3"/>
-      <!-- Zoom magnifier dashed circle around z=0 on the right side of sphere -->
-      <circle cx="195" cy="112" r="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.5" stroke-dasharray="3,2"/>
-      <!-- Points on left sphere -->
-      <circle cx="88" cy="70" r="4.5" fill="#1a1a1a"/>
-      <text x="78" y="64" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="end">z₃ = ∞</text>
-      <circle cx="88" cy="154" r="4.5" fill="#1a1a1a"/>
-      <text x="78" y="164" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="end">z₂ = 1</text>
-
-      <!-- Crowded triple inside zoom circle -->
-      <circle cx="187" cy="112" r="3.8" fill="#0f5c57"/>
-      <circle cx="196" cy="103" r="3.8" fill="#0f5c57"/>
-      <circle cx="203" cy="120" r="3.8" fill="#8a4b08"/>
-      <text x="195" y="148" font-family="system-ui, sans-serif" font-size="10" fill="#0f5c57" text-anchor="middle">z₁=0, z₄=ε, z₅=cε</text>
-
-      <!-- Arrow to limit -->
-      <line x1="230" y1="112" x2="288" y2="112" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p54)"/>
-      <text x="259" y="102" font-family="Georgia, serif" font-size="11" font-style="italic" fill="#0f5c57" text-anchor="middle">ε → 0</text>
-      <text x="259" y="128" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">w = z / ε</text>
-
-      <!-- Right panel: Two-component Nodal Curve in the limit eps = 0 -->
-      <text x="445" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Stable limit (ε = 0): two ℙ¹ screens glued at node N</text>
-      <!-- Macro sphere P^1_z -->
-      <circle cx="368" cy="112" r="56" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="2"/>
-      <ellipse cx="368" cy="112" rx="56" ry="15" fill="none" stroke="#d8d4cc" stroke-dasharray="3,3"/>
-      <!-- Micro bubble sphere P^1_w touching at x = 424, y = 112 -->
-      <circle cx="480" cy="112" r="56" fill="#f2f7f6" stroke="#0f5c57" stroke-width="2"/>
-      <ellipse cx="480" cy="112" rx="56" ry="15" fill="none" stroke="#b8d8d4" stroke-dasharray="3,3"/>
-
-      <!-- Node N at (424, 112) -->
-      <circle cx="424" cy="112" r="5.5" fill="#8a4b08"/>
-      <text x="424" y="96" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Node N</text>
-      <text x="424" y="133" font-family="Georgia, serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">(z=0 ≡ w=∞)</text>
-
-      <!-- Points on Macro P^1_z -->
-      <circle cx="332" cy="72" r="4.5" fill="#1a1a1a"/>
-      <text x="325" y="66" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="end">z₃ = ∞</text>
-      <circle cx="332" cy="152" r="4.5" fill="#1a1a1a"/>
-      <text x="325" y="162" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="end">z₂ = 1</text>
-      <text x="368" y="185" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">3 special pts (rigid)</text>
-
-      <!-- Points on Micro P^1_w -->
-      <circle cx="480" cy="64" r="4.5" fill="#0f5c57"/>
-      <text x="480" y="54" font-family="Georgia, serif" font-size="11" fill="#0f5c57" text-anchor="middle">w₁ = 0</text>
-      <circle cx="518" cy="144" r="4.5" fill="#0f5c57"/>
-      <text x="526" y="156" font-family="Georgia, serif" font-size="11" fill="#0f5c57">w₄ = 1</text>
-      <circle cx="524" cy="96" r="4.5" fill="#8a4b08"/>
-      <text x="534" y="99" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08">w₅ = c</text>
-      <text x="485" y="185" font-family="system-ui, sans-serif" font-size="10" fill="#0f5c57" text-anchor="middle">4 special pts (keeps c!)</text>
-    </svg>
-    <figcaption><strong>Fig P54.1.</strong> Instead of letting \(z_1=0, z_4=\varepsilon, z_5=c\varepsilon\) crash into a single point as \(\varepsilon \to 0\), zooming in with \(w = z/\varepsilon\) sprouts a second sphere \(\mathbb{P}^1_w\) attached to the original sphere \(\mathbb{P}^1_z\) at a single crossing point (node \(N\), where \(z=0\) meets \(w=\infty\)). Both spheres remain smooth and all five beacons stay distinct.</figcaption>
-  </figure>
-
-  <p>Glue the two views together at the point where the microscope attaches to the macroscope — setting \(z=0\) on the original sphere equal to \(w=\infty\) on the zoomed sphere, as drawn in <strong>Fig P54.1</strong>. In the limit \(\varepsilon = 0\), our single sphere has become a <strong>nodal curve</strong> with two smooth \(\mathbb{P}^1\) components joined at a node \(N\):
-  <ul>
-    <li>The <strong>macro component \(\mathbb{P}^1_z\)</strong> carries beacons \(z_2 = 1\), \(z_3 = \infty\), and the attachment node \(N\) at \(z = 0\) — <strong>three</strong> special points in total, which pins down its Möbius coordinates completely.</li>
-    <li>The <strong>bubble component \(\mathbb{P}^1_w\)</strong> carries beacons \(w_1 = 0\), \(w_4 = 1\), \(w_5 = c\), and the attachment node \(N\) at \(w = \infty\) — <strong>four</strong> special points in total, preserving the exact relative ratio \(c \in \mathbb{P}^1 \setminus \{0, 1, \infty\}\)!</li>
-  </ul>
-  Nothing crashed, no information was lost, and if \(c\) itself later drifts toward \(0, 1,\) or \(\infty\), a <em>second</em> microscope sprouts a third sphere so the three spheres form a chain.</p>
+<h2>2 · Meet the problem</h2>
+<p>Four labeled points on a line, considered up to stretch-and-slide. Stretch the line, slide it, turn it over — the four labels ride along. What survives? <a href="p05-canonical-form.html">P05</a>'s move: normalize. There is exactly one stretch-and-slide carrying the first, second, and fourth labeled points to the positions \(0\), \(1\), and \(\infty\), namely</p>
+\[ M(z) = \frac{(z - z_1)(z_2 - z_4)}{(z_2 - z_1)(z - z_4)}, \]
+<p>and it parks the third point at a single number \(t = M(z_3)\). That number — the <em>cross-ratio</em> in canonical form — is the entire room: one point per configuration, so the room of all four-point configurations is the \(t\)-line. Almost. The normalization demands the four points distinct, and distinctness punctures the line three times:</p>
+<ul>
+<li>\(z_3\) colliding with \(z_1\) forces \(t \to 0\);</li>
+<li>\(z_3\) colliding with \(z_2\) forces \(t \to 1\);</li>
+<li>\(z_3\) escaping toward \(z_4\)'s parking spot forces \(t \to \infty\).</li>
+</ul>
+<p>The room of four-point configurations is the \(t\)-line with three holes: \(t \in \mathbb{R}\) minus \(\{0, 1\}\), with the third hole waiting at \(\infty\). Now the failure, in one sentence: take the family of configurations with \(z_3\) sliding toward \(z_1\) — the family is perfectly decent, each member a configuration of four distinct points, but its canonical coordinate marches \(t \to 0\), and the limit it wants to have <em>is not in the room</em>. The family escapes through a hole. P21's machine is useless here: the room is not compact, so no crowd is forced, so no catch is guaranteed. Counting anything over this room — averaging over it, integrating over it, taking limits in it — is unsafe while the exits are open. And the exits are exactly the degenerations: the collisions.</p>
+<p>The second artifact is P21's own Exhibit A, grown one dimension. On the square with corners \((1,1)\), \((1,-1)\), \((-1,1)\), \((-1,-1)\), run the downhill flow of \(F(x,y) = (x - x^3/3) + (y - y^3/3)\) — the very function <a href="p65-floer-homology.html">P65</a> used for its diamond census. The trajectories from the top corner \(P\) to the bottom corner \(B\) that pass near the saddle \(S_a = (1,-1)\) have a dwell that grows without bound: the nearer the approach, the longer the family lingers at the saddle, and in the limit the single trajectory <em>breaks</em> into the pair \(P \to S_a \to B\) — a concatenation, not a trajectory. The room of trajectories has a hole shaped like the broken pair. Same disease, different body: the family wants a limit, and the room refuses to hold it.</p>
 </section>
 
-<section id="pattern">
-  <h2>3 · Name the move</h2>
-  <p>Why didn't we sprout a new bubble sphere when only <em>one</em> beacon sat by itself? Suppose a bubble sphere \(\mathbb{P}^1_w\) carried only one beacon \(w_1 = 0\) and one attachment node \(N\) at \(w = \infty\) — just <strong>two</strong> special points in total. Then every rescaling \(w \mapsto \lambda w\) with \(\lambda \in \mathbb{C}^*\) would fix both \(0\) and \(\infty\), giving an infinite continuous group of automorphisms that all represent the exact same geometric object! If you allow components with infinite automorphism groups into your boundary, the quotient space fails to be Hausdorff (distinct boundary points cannot be separated by open neighborhoods).</p>
-
-  <aside class="onramp">
-    <strong>Nodal curve, special points, and the stability condition \(2g - 2 + n &gt; 0\).</strong>
-    A <em>nodal curve</em> is a connected union of smooth curves (components) meeting only at transverse double points called <em>nodes</em> (locally modeled by \(zw = 0\) as \(\varepsilon \to 0\) in \(zw = \varepsilon\)). On any single component \(C_i\) of genus \(g_i\), its <em>special points</em> are the marked beacons landing on \(C_i\) together with the half-nodes where \(C_i\) meets other components (or itself). A nodal curve is <em>Deligne–Mumford stable</em> if it has no marked points at nodes and every component \(C_i\) has only finitely many automorphisms fixing its special points — which holds if and only if \(2g_i - 2 + n_i &gt; 0\) on every component (at least \(n_i \ge 3\) special points when \(g_i = 0\), and at least \(n_i \ge 1\) when \(g_i = 1\)).
-  </aside>
-
-  <div class="pattern-box" id="box-p54">
-    <p><strong>Pattern P54 — Compactify by stable degenerations.</strong> When a moduli space \(\mathcal{M}\) of smooth geometric objects (marked curves, algebraic varieties, or holomorphic maps) is non-compact because marked points can collide or necks can pinch, do not collapse colliding configurations to a single singular point. Instead, enlarge \(\mathcal{M}\) to \(\overline{\mathcal{M}}\) by adjoining <em>nodal trees of components</em> formed by rescaling each collision or neck-pinch at its natural separation rate, subject to the <strong>stability condition</strong>:</p>
-    <p class="eq">\[\bigl|\operatorname{Aut}(C, p_1, \dots, p_n)\bigr| &lt; \infty \quad \Longleftrightarrow \quad 2g_i - 2 + n_i &gt; 0 \;\;\text{on every irreducible component } C_i.\]</p>
-    <p>The resulting Deligne–Mumford–Kontsevich compactification \(\overline{\mathcal{M}}\) is compact (<span class="pid">P21</span>), Hausdorff, and stratified by normal-crossing boundary divisors whose strata are products of lower-dimensional moduli spaces glued at nodes (<span class="pid">P33</span>).</p>
-    <p class="words"><strong>Or, in words:</strong> Never let two marked points touch or a neck pinch into nothing. Whenever \(k \ge 2\) points approach one another on a sphere, zoom in at their separation speed to sprout a new bubble sphere at the collision point, and enforce the three-anchor rule (\(n_i \ge 3\) special points per sphere) so every bubble is rigidly pinned down.</p>
-  </div>
-
-  <div class="pattern-box" id="box-p54a">
-    <p><strong>Box P54.A — The three rules of the stability audit.</strong></p>
-    <ol>
-      <li><strong>No collisions on any component:</strong> Marked points \(p_1, \dots, p_n\) must remain pairwise distinct and may never sit on a node \(N\). Whenever \(k \ge 2\) points try to collide at \(z_0\), replace \(z_0\) by a node \(N\) and transfer the \(k\) colliding points onto a new \(\mathbb{P}^1\) bubble.</li>
-      <li><strong>The three-anchor floor on genus \(0\) (\(2g_i - 2 + n_i &gt; 0\)):</strong> Count special points \(n_i = (\text{marked points on } C_i) + (\text{half-nodes on } C_i)\). If \(g_i = 0\), require \(n_i \ge 3\); if \(g_i = 1\), require \(n_i \ge 1\); if \(g_i \ge 2\), require \(n_i \ge 0\). (For stable maps \(u : C \to X\), unstable components with \(2g_i - 2 + n_i \le 0\) are permitted <em>only</em> if \(\int_{C_i} u^*\omega &gt; 0\), i.e., the map is non-constant on \(C_i\).)</li>
-      <li><strong>Contract unstable ghosts:</strong> If any component violates Rule 2 (for instance, a genus-0 bridge with \(n_i = 2\) nodes and \(0\) beacons, or a cap with \(n_i = 1\) node and \(1\) beacon), collapse that component to a point so its special points merge into a single node or marked point.</li>
-    </ol>
-  </div>
-
-  <div class="pattern-box" id="box-p54b">
-    <table>
-      <thead>
-        <tr>
-          <th>Key</th>
-          <th>Signature</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Claim type</strong></td>
-          <td>Well-defined intersection numbers, Gromov–Witten invariants, or recursive boundary identities across an entire parameter family of curves or maps.</td>
-        </tr>
-        <tr>
-          <td><strong>Problem shape</strong></td>
-          <td>An open moduli space \(\mathcal{M}_{g,n}\) or \(\mathcal{M}_{g,n}(X,\beta)\) where degenerating sequences escape through missing collision or neck-pinching loci.</td>
-        </tr>
-        <tr>
-          <td><strong>Tools at hand</strong></td>
-          <td>Local plumbing coordinates \(zw = t\) at nodes, automorphism group dimension \(3g - 3 + n\), and recursive tree combinatorics of boundary strata.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P54</span> whenever a family of smooth curves, configurations, or holomorphic maps loses compactness through point collisions or neck pinches and you need a smooth, boundary-stratified closure.</p>
-  </div>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 205" role="img" aria-label="Fig P54.2: The three-anchor stability audit on genus-0 components comparing unstable n=1 and n=2 components against stable n=3 and n=4 components.">
-      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
-      <!-- Panel 1: n=1 (Unstable) -->
-      <rect x="18" y="18" width="132" height="170" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.2"/>
-      <text x="84" y="36" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">n = 1 · UNSTABLE</text>
-      <circle cx="84" cy="95" r="34" fill="#ffffff" stroke="#8a4b08" stroke-width="1.8"/>
-      <circle cx="84" cy="61" r="4.5" fill="#8a4b08"/>
-      <text x="84" y="53" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">N (∞)</text>
-      <text x="84" y="148" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">w ↦ a w + b</text>
-      <text x="84" y="164" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">dim Aut = 2 (contract!)</text>
-
-      <!-- Panel 2: n=2 (Unstable) -->
-      <rect x="162" y="18" width="132" height="170" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.2"/>
-      <text x="228" y="36" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">n = 2 · UNSTABLE</text>
-      <circle cx="228" cy="95" r="34" fill="#ffffff" stroke="#8a4b08" stroke-width="1.8"/>
-      <circle cx="228" cy="61" r="4.5" fill="#8a4b08"/>
-      <circle cx="228" cy="129" r="4.5" fill="#1a1a1a"/>
-      <text x="228" y="53" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">N (∞)</text>
-      <text x="242" y="133" font-family="Georgia, serif" font-size="10" fill="#1a1a1a">p₁ (0)</text>
-      <text x="228" y="152" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">w ↦ λ w  (λ ∈ ℂ*)</text>
-      <text x="228" y="168" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">dim Aut = 1 (contract!)</text>
-
-      <!-- Panel 3: n=3 (Stable, rigid) -->
-      <rect x="306" y="18" width="132" height="170" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.5"/>
-      <text x="372" y="36" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">n = 3 · STABLE (RIGID)</text>
-      <circle cx="372" cy="95" r="34" fill="#ffffff" stroke="#0f5c57" stroke-width="2"/>
-      <circle cx="372" cy="61" r="4.5" fill="#8a4b08"/>
-      <circle cx="343" cy="112" r="4.5" fill="#0f5c57"/>
-      <circle cx="401" cy="112" r="4.5" fill="#0f5c57"/>
-      <text x="372" y="53" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">N (∞)</text>
-      <text x="343" y="126" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="middle">0</text>
-      <text x="401" y="126" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="middle">1</text>
-      <text x="372" y="150" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">|Aut| = 1, dim 𝓜₀,₃ = 0</text>
-      <text x="372" y="166" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">Unique point!</text>
-
-      <!-- Panel 4: n=4 (Stable, 1D moduli) -->
-      <rect x="450" y="18" width="132" height="170" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.5"/>
-      <text x="516" y="36" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">n = 4 · STABLE (1D)</text>
-      <circle cx="516" cy="95" r="34" fill="#ffffff" stroke="#0f5c57" stroke-width="2"/>
-      <circle cx="516" cy="61" r="4.5" fill="#8a4b08"/>
-      <circle cx="487" cy="112" r="4.5" fill="#0f5c57"/>
-      <circle cx="545" cy="112" r="4.5" fill="#0f5c57"/>
-      <circle cx="516" cy="129" r="4.5" fill="#8a4b08"/>
-      <text x="516" y="53" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">N (∞)</text>
-      <text x="484" y="124" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">0</text>
-      <text x="548" y="124" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">1</text>
-      <text x="530" y="136" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08">λ</text>
-      <text x="516" y="150" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">|Aut| = 1, dim 𝓜₀,₄ = 1</text>
-      <text x="516" y="166" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">Cross-ratio λ ∈ ℙ¹</text>
-    </svg>
-    <figcaption><strong>Fig P54.2.</strong> The three-anchor stability threshold on a genus-0 sphere \(\mathbb{P}^1\): with \(n=1\) or \(n=2\) special points, continuous Möbius symmetries survive (\(\dim \operatorname{Aut} = 2\) or \(1\)); at \(n=3\), the component locks rigidly (\(\dim \mathcal{M}_{0,3} = 0\)); at \(n=4\), the fourth point moves along a 1-dimensional cross-ratio coordinate \(\lambda\).</figcaption>
-  </figure>
+<section id="move">
+<h2>3 · Name the move</h2>
+<div class="pattern"><p><strong>Compactify by stable degenerations.</strong> When the objects you count live in a room that is not compact, enlarge the room by adjoining the degenerate limits themselves — each admitted under a stability clause that keeps its naming finite — and work in the enlarged room, where every endless family must crowd.</p></div>
+<p><strong>In words:</strong> do not treat the escape as a failure of the family; treat it as a missing point of the room. Walk the boundary on purpose: list the ways the family can degenerate, check each degeneration for stability (does it carry a continuous family of self-symmetries that would make one object wear infinitely many names? then it is not yet honestly named — refine or exclude), add the stable ones as new points of the room, and verify the enlarged room is closed and bounded. What was a bug in a record — a family that "wants" to escape — becomes a point of the census.</p>
+<p><strong>Three-key diagnosis.</strong> <em>Claim type:</em> an existence-of-limits claim in the service of a count — you are not proving the limit for its own sake; you are making a later count possible. <em>Problem shape:</em> a room of configurations whose families run toward degenerate positions the room does not contain — collisions, collapses, breaks, escapes to infinity. <em>Tools at hand:</em> P21's closed-and-bounded (the enlarged room must be compact or the whole design fails), P05's canonical form (to name the room's points and spot the holes), and a stability filter — the one genuinely new tool, and the design work of the move: the clause that decides which degenerations are admitted.</p>
 </section>
-<section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
 
-  <h3>Exemplar 1 · The thrice-punctured sphere \(\mathcal{M}_{0,4}\) and its three nodal boundary trees</h3>
-  <p>Take four distinct labeled points \((z_1, z_2, z_3, z_4)\) on \(\mathbb{P}^1\). Using <a href="p05-canonical-form.html"><span class="pid">P05</span></a> (Reduce to canonical form), apply the unique Möbius map that sends \((z_1, z_2, z_3) \mapsto (0, 1, \infty)\). That map moves the fourth point to the <em>cross-ratio</em></p>
-  <p class="eq">\[\lambda = \frac{(z_4 - z_1)(z_2 - z_3)}{(z_4 - z_3)(z_2 - z_1)} \in \mathbb{P}^1 \setminus \{0, 1, \infty\}.\]</p>
-  <p>Thus the open moduli space is the thrice-punctured sphere \(\mathcal{M}_{0,4} \cong \mathbb{P}^1 \setminus \{0, 1, \infty\}\). What lives at the three missing punctures \(\lambda \in \{0, 1, \infty\}\)?
-  <ul>
-    <li><strong>As \(\lambda \to 0\) (\(z_4 \to z_1 = 0\)):</strong> Zoom in around \(z = 0\) with microscope \(w = z/\lambda\). On the bubble sphere \(\mathbb{P}^1_w\), \(z_1\) stays at \(w=0\), \(z_4\) stays at \(w=1\), and the node \(N\) sits at \(w=\infty\); on the macro sphere \(\mathbb{P}^1_z\), the node \(N\) sits at \(z=0\) alongside \(z_2=1\) and \(z_3=\infty\). Each component carries \(2\) marked points plus \(1\) half-node (\(n_i = 3\), rigid!), forming the balanced tree \((14 \mid 23)\).</li>
-    <li><strong>As \(\lambda \to 1\) (\(z_4 \to z_2 = 1\)):</strong> Zoom in around \(z = 1\) with \(w = (z-1)/(\lambda-1)\). Beacons \(\{2, 4\}\) land on the bubble sphere while \(\{1, 3\}\) remain on the macro sphere, forming the balanced tree \((24 \mid 13)\).</li>
-    <li><strong>As \(\lambda \to \infty\) (\(z_4 \to z_3 = \infty\)):</strong> Zoom in around \(z = \infty\) with \(w = \lambda/z\). Beacons \(\{3, 4\}\) land on the bubble sphere while \(\{1, 2\}\) remain on the macro sphere, forming the balanced tree \((34 \mid 12)\).</li>
-  </ul>
-  <p>Adjoining those three two-sphere nodal curves fills in the three punctures cleanly: \(\overline{\mathcal{M}}_{0,4} \cong \mathbb{P}^1\). Notice a remarkable combinatorial dividend: because any two points on \(\mathbb{P}^1\) are homologous in \(H_0(\mathbb{P}^1; \mathbb{Z})\), the three boundary trees represent the <em>same</em> homology class \([(14 \mid 23)] = [(24 \mid 13)] = [(34 \mid 12)]\).</p>
+<section id="atwork">
+<h2>4 · The move at work</h2>
 
-  <h3>Exemplar 2 · Blowing up the three triple-collision corners in \(\overline{\mathcal{M}}_{0,5}\) (the Petersen graph)</h3>
-  <p>Return to our Encounter with five beacons \((z_1, \dots, z_5)\), where \((z_1, z_2, z_3) = (0, 1, \infty)\) and the free pair \((z_4, z_5)\) moves inside the product of two spheres \(\mathbb{P}^1 \times \mathbb{P}^1\). Why isn't \(\mathbb{P}^1 \times \mathbb{P}^1\) already the right compactification of \(\mathcal{M}_{0,5}\)? Count the prohibited collision lines inside \(\mathbb{P}^1 \times \mathbb{P}^1\):</p>
-  <ul>
-    <li>Three vertical lines where \(z_4\) hits a fixed beacon: \(z_4 = 0\) (collision \(\{1,4\}\)), \(z_4 = 1\) (\(\{2,4\}\)), \(z_4 = \infty\) (\(\{3,4\}\)).</li>
-    <li>Three horizontal lines where \(z_5\) hits a fixed beacon: \(z_5 = 0\) (\(\{1,5\}\)), \(z_5 = 1\) (\(\{2,5\}\)), \(z_5 = \infty\) (\(\{3,5\}\)).</li>
-    <li>One diagonal line where the two moving beacons hit each other: \(z_4 = z_5\) (\(\{4,5\}\)).</li>
-  </ul>
-  <p>That is only \(3 + 3 + 1 = 7\) collision lines — yet five beacons treat all five labels symmetrically (<a href="p08-divide-by-symmetry.html"><span class="pid">P08</span></a>), so there must be \(\binom{5}{2} = 10\) boundary divisors \(D_{ij}\) (one for each pair \(\{i,j\} \subset \{1,2,3,4,5\}\) bubbling off onto a 3-pointed sphere while the complementary trio \(\{k,l,m\}\) plus the node \(N\) sits on a 4-pointed sphere)! Where are the missing \(10 - 7 = 3\) divisors \(D_{23}, D_{13}, D_{12}\)?</p>
-  <p>Look at the three corners \((0,0)\), \((1,1)\), and \((\infty,\infty)\) in \(\mathbb{P}^1 \times \mathbb{P}^1\). At \((0,0)\), three lines (\(z_4 = 0\), \(z_5 = 0\), and \(z_4 = z_5\)) all pass through the same point! As we proved in Section 2, approaching \((0,0)\) along slope \(z_5 = c\,z_4\) sprouts a 4-pointed bubble carrying \(\{1, 4, 5, N\}\) and leaves \(\{2, 3, N\}\) on the macro sphere — which is the exact tree of divisor \(D_{23}\)! Replacing each of the three triple-collision points \((0,0), (1,1), (\infty,\infty)\) by its \(\mathbb{P}^1\) of approach slopes \(c = z_5/z_4\) (the algebraic operation of <em>blowing up</em> a point) inserts the three missing divisors \(D_{23}, D_{13}, D_{12}\):</p>
+<h3>Exemplar 1 · The line's two doors to infinity — designing the boundary is choosing the names</h3>
+<p>The simplest room with an escape: the line itself. The family \(x_n = n\) wants a limit. The move, in miniature: <em>add the escape as a point.</em> But there is more than one way to do it, and the choice is the design.</p>
+<p><em>Door one: add a single point \(\infty\).</em> Wrap the line onto the unit circle by stereographic projection, \(x \mapsto \left( \tfrac{2x}{1+x^2},\, \tfrac{x^2-1}{1+x^2} \right)\) — the wrap is onto, and the north pole is unoccupied. Declare it the point \(\infty\), and measure with the chordal distance it inherits from the circle:</p>
+\[ d(x, y) = \frac{2|x - y|}{\sqrt{(1+x^2)(1+y^2)}}, \qquad d(x, \infty) = \frac{2}{\sqrt{1+x^2}}. \]
+<p>Then \(x_n = n\) converges: \(d(n, \infty) = 2/\sqrt{1+n^2}\), and indeed \(n \cdot d(n,\infty) \to 2\) — the convergence is honest and its rate is exactly \(1/n\) (at \(n = 10, 100, 1000\) the product reads \(1.9901\), \(1.99990\), \(1.9999990\)). The enlarged room is a closed bounded circle: compact, by design. But notice what the single door did to the naming: the family \(x_n = n\) and the family \(y_n = -n\) now have the <em>same</em> limit — the two escapes share one name, and indeed the chordal distance between the two families' members vanishes, \(d(n, -n) = \tfrac{4n}{1+n^2} \to 0\) (reading \(0.396\), \(0.040\), \(0.0040\) at \(n = 10, 100, 1000\)). The room cannot tell the two escapes apart.</p>
+<p><em>Door two: add two points \(+\infty\) and \(-\infty\),</em> and measure with the arctangent metric \(d(x,y) = |\arctan x - \arctan y|\), extended by \(\arctan(\pm\infty) = \pm\tfrac{\pi}{2}\). The enlarged room is a closed interval — compact again — but now \(x_n = n\) and \(y_n = -n\) have <em>different</em> limits, and their distance stays bounded away from zero: \(d(n, -n) = 2\arctan n \to \pi\) (reading \(2.942\), \(3.122\), \(3.1396\) at \(n = 10, 100, 1000\), against \(\pi = 3.1416\)).</p>
+<p>Both rooms are compact; both satisfy P21; the difference is pure design — which degenerations get names, and how many. This is the move's first lesson, and it is the one P21's Exhibit A skipped in the emergency: <em>the boundary is not found, it is designed</em>, and the design space is real. The rest of this page is the design discipline at work.</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Stratum Codimension</th>
-        <th>Complex Dimension</th>
-        <th>Geometric Meaning</th>
-        <th>Combinatorial Count in \(\overline{\mathcal{M}}_{0,5}\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Codimension \(0\)</td>
-        <td>\(2\)</td>
-        <td>Single smooth \(\mathbb{P}^1\) with \(5\) distinct beacons</td>
-        <td>\(1\) open top cell \(\mathcal{M}_{0,5}\)</td>
-      </tr>
-      <tr>
-        <td>Codimension \(1\)</td>
-        <td>\(1\)</td>
-        <td>Two \(\mathbb{P}^1\)'s joined at \(1\) node: partition \(\{i,j\} \mid \{k,l,m\}\)</td>
-        <td>\(\binom{5}{2} = 10\) divisors \(D_{ij} \cong \overline{\mathcal{M}}_{0,4} \cong \mathbb{P}^1\)</td>
-      </tr>
-      <tr>
-        <td>Codimension \(2\)</td>
-        <td>\(0\)</td>
-        <td>Chain of three \(\mathbb{P}^1\)'s joined at \(2\) nodes: \(\{i,j\} \mid \{m\} \mid \{k,l\}\)</td>
-        <td>\(5 \times 3 = 15\) corner points (\(D_{ij} \cap D_{kl}\) for \(\{i,j\}\cap\{k,l\}=\varnothing\))</td>
-      </tr>
-    </tbody>
-  </table>
+<h3>Exemplar 2 · Four points, three holes, three names — the census that matches</h3>
+<p>Back to the room of \(\S 2\): the \(t\)-line with three holes at \(\{0, 1, \infty\}\). The move says: the holes are degenerations; the degenerations are collisions; so <em>name the collisions and add them.</em></p>
+<p>The naming must be honest, so run the full census. There are six ways a pair among \(\{z_1, z_2, z_3, z_4\}\) can collide, and the machine census of this page's lab pins each one's escape: colliding \(z_1\) with \(z_2\) drives \(t \to \infty\) — and so does colliding \(z_3\) with \(z_4\). Colliding \(z_1\) with \(z_3\) drives \(t \to 0\) — and so does colliding \(z_2\) with \(z_4\). Colliding \(z_1\) with \(z_4\) drives \(t \to 1\) — and so does colliding \(z_2\) with \(z_3\). The six arrivals pair off perfectly: two collisions per hole, and the pairing is the partition of the four labels into two pairs:</p>
+<table>
+<thead><tr><th>Hole</th><th>Arriving collisions</th><th>Partition name</th></tr></thead>
+<tbody>
+<tr><td>\(t = \infty\)</td><td>\(z_1 \to z_2\) and \(z_3 \to z_4\)</td><td>\(\{12 \mid 34\}\)</td></tr>
+<tr><td>\(t = 0\)</td><td>\(z_1 \to z_3\) and \(z_2 \to z_4\)</td><td>\(\{13 \mid 24\}\)</td></tr>
+<tr><td>\(t = 1\)</td><td>\(z_1 \to z_4\) and \(z_2 \to z_3\)</td><td>\(\{14 \mid 23\}\)</td></tr>
+</tbody>
+</table>
+<p>And the count of unordered two-pair partitions of four labels is exactly three — \(12\mid34\), \(13\mid24\), \(14\mid23\) — matching the count of holes. Three holes, three names, a systematic dictionary: this is the "naming made systematic" that P65's boundary door asked for, in its first honest case.</p>
+<p>Now the stability clause, which decides what the added points <em>are</em>. The degenerate configuration behind the hole \(t = \infty\) is not "four points with two merged": it is better read as <em>two components</em> — one carrying the colliding pair \(\{z_1, z_2\}\), one carrying the pair \(\{z_3, z_4\}\) — joined at a single <em>node</em> where the original line pinched. The clause demands each component carry at least three <em>special points</em> (marks or nodes): here each component carries two marks plus the node, three exactly — the configuration is <em>stable</em>, it has no room for a continuous family of self-symmetries, and it is admitted with a finite name. The clause is not decoration: with only two special points a component could slide its marks symmetrically forever, wearing infinitely many names — the naming would blur, the census would lie. Admitting exactly the stable degenerations, the room of four-point configurations closes to the entire \(t\)-line plus its three holes — the full circle: compact. The open room \(\mathbb{R} \setminus \{0,1\}\) has become the compact room \(\mathbb{R} \cup \{\infty\}\), with every hole holding a named, stable degeneration.</p>
 
-  <p><em>How you could have found this:</em> two boundary divisors \(D_{ij}\) and \(D_{kl}\) can happen simultaneously (forming a 2-node chain of three spheres) if and only if the two pairs of colliding beacons are <em>disjoint</em>: \(\{i,j\} \cap \{k,l\} = \varnothing\). The graph whose \(10\) vertices are the 2-element subsets of \(\{1,2,3,4,5\}\) and whose \(15\) edges connect disjoint pairs is the famous <strong>Petersen graph</strong> drawn in <strong>Fig P54.3</strong>.</p>
+<figure>
+<svg viewBox="0 0 300 150" width="300" height="150" role="img" aria-label="Fig P54.1: the t-line with three holes, each holding a stable degeneration: two components joined at a node, named by a pair partition">
+<line x1="20" y1="118" x2="280" y2="118" stroke="#444" stroke-width="2"/>
+<text x="14" y="132" font-size="11" fill="#444">0</text>
+<text x="146" y="132" font-size="11" fill="#444">1</text>
+<text x="272" y="132" font-size="11" fill="#444">∞</text>
+<circle cx="20" cy="118" r="5" fill="#b23a2f"/>
+<circle cx="150" cy="118" r="5" fill="#b23a2f"/>
+<circle cx="280" cy="118" r="5" fill="#b23a2f"/>
+<circle cx="20" cy="30" r="9" fill="none" stroke="#235f8c" stroke-width="2"/>
+<circle cx="20" cy="76" r="9" fill="none" stroke="#235f8c" stroke-width="2"/>
+<line x1="20" y1="39" x2="20" y2="67" stroke="#235f8c" stroke-width="2"/>
+<circle cx="20" cy="53" r="2.5" fill="#b23a2f"/>
+<line x1="20" y1="85" x2="20" y2="113" stroke="#235f8c" stroke-width="2"/>
+<text x="36" y="34" font-size="11" fill="#235f8c">{12 ∣ 34}</text>
+<text x="36" y="80" font-size="11" fill="#235f8c">z₁z₂ ∙ z₃z₄</text>
+<circle cx="150" cy="30" r="9" fill="none" stroke="#235f8c" stroke-width="2"/>
+<circle cx="150" cy="76" r="9" fill="none" stroke="#235f8c" stroke-width="2"/>
+<line x1="150" y1="39" x2="150" y2="67" stroke="#235f8c" stroke-width="2"/>
+<circle cx="150" cy="53" r="2.5" fill="#b23a2f"/>
+<line x1="150" y1="85" x2="150" y2="113" stroke="#235f8c" stroke-width="2"/>
+<text x="166" y="34" font-size="11" fill="#235f8c">{13 ∣ 24}</text>
+<text x="166" y="80" font-size="11" fill="#235f8c">z₁z₃ ∙ z₂z₄</text>
+<circle cx="280" cy="30" r="9" fill="none" stroke="#235f8c" stroke-width="2"/>
+<circle cx="280" cy="76" r="9" fill="none" stroke="#235f8c" stroke-width="2"/>
+<line x1="280" y1="39" x2="280" y2="67" stroke="#235f8c" stroke-width="2"/>
+<circle cx="280" cy="53" r="2.5" fill="#b23a2f"/>
+<line x1="280" y1="85" x2="280" y2="113" stroke="#235f8c" stroke-width="2"/>
+<text x="196" y="34" font-size="11" fill="#235f8c">{14 ∣ 23}</text>
+<text x="196" y="80" font-size="11" fill="#235f8c">z₁z₄ ∙ z₂z₃</text>
+</svg>
+<figcaption><strong>Fig P54.1.</strong> The room of four-point configurations: the \(t\)-line with three holes (filled markers). Above each hole, its stable degeneration: two components (circles) joined at a node (small filled marker), carrying the pair the census named. Coordinates: holes at the three punctures \(\{0, 1, \infty\}\) of \(\S 2\); names from the lab's collision census.</figcaption>
+</figure>
 
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 218" role="img" aria-label="Fig P54.3: Left: blowing up (P1)^2 at (0,0), (1,1), (inf,inf) to separate triple collisions. Right: the Petersen graph of 10 boundary divisors D_ij and 15 normal-crossing corners in M_0,5.">
-      <rect x="0" y="0" width="600" height="218" fill="#ffffff"/>
-      <!-- Left panel: Blowup of (P^1)^2 at (0,0), (1,1), (inf,inf) -->
-      <text x="155" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Blowing up (0,0), (1,1), (∞,∞) in ℙ¹ × ℙ¹</text>
-      <!-- 3 horizontal lines z5 = 0, 1, inf -->
-      <line x1="45" y1="165" x2="255" y2="165" stroke="#5a5a5a" stroke-width="1.5"/>
-      <line x1="45" y1="110" x2="255" y2="110" stroke="#5a5a5a" stroke-width="1.5"/>
-      <line x1="45" y1="55" x2="255" y2="55" stroke="#5a5a5a" stroke-width="1.5"/>
-      <!-- 3 vertical lines z4 = 0, 1, inf -->
-      <line x1="75" y1="38" x2="75" y2="182" stroke="#5a5a5a" stroke-width="1.5"/>
-      <line x1="155" y1="38" x2="155" y2="182" stroke="#5a5a57" stroke-width="1.5"/>
-      <line x1="235" y1="38" x2="235" y2="182" stroke="#5a5a5a" stroke-width="1.5"/>
-      <!-- Diagonal z4 = z5 -->
-      <line x1="55" y1="179" x2="252" y2="43" stroke="#0f5c57" stroke-width="1.8"/>
+<h3>Exemplar 3 · The broken pair — the census P65 already spent</h3>
+<p>The flow-line artifact of \(\S 2\), made honest by machine. On the square with \(F(x,y) = (x - x^3/3) + (y - y^3/3)\): the critical points are \(P = (1,1)\) with \(F = \tfrac43\), the saddles \(S_a = (1,-1)\) and \(S_b = (-1,1)\) with \(F = 0\), and \(B = (-1,-1)\) with \(F = -\tfrac43\) — P65's diamond, and its corner drops are exactly \(F(P) - F(S_a) = \tfrac43\), \(F(S_a) - F(B) = \tfrac43\), total \(F(P) - F(B) = \tfrac83\). Two edges of the square are flow lines, and they are <em>exact</em>: the edge \(x = 1\) carries the trajectory \((1, -\tanh s)\) from \(P\) down to \(S_a\), and the edge \(y = -1\) carries \((-\tanh s, -1)\) from \(S_a\) to \(B\) — both verified as solutions to machine precision in this page's lab.</p>
+<p>Now the family: trajectories from \(P\) to \(B\) that leave \(P\) a hair's breadth inside the \(S_a\) corner, started at \((1 - \varepsilon^2,\; 1 - \varepsilon)\). The lab integrates the flow for \(\varepsilon = 10^{-3}, 10^{-4}, 10^{-5}\) and the census reads:</p>
+<ul>
+<li><em>Convergence to the broken pair.</em> The greatest distance from the trajectory to the two edges — \(\min(|x - 1|, |y + 1|)\), the honest measure of "how close to the concatenation" — reads \(0.0606\), \(0.0195\), \(0.0063\): shrinking with \(\varepsilon\), so on every fixed window the family converges to the pair \(P \to S_a \to B\). The limit exists — as a <em>broken</em> trajectory.</li>
+<li><em>The dwell grows logarithmically.</em> Time spent within a fixed ball of the saddle: \(0.93\), \(2.09\), \(3.24\) — growth \(1.159\) per decade of \(\varepsilon\), against the theoretical \(\ln(10)/2 = 1.151\): the trajectory's escape from the saddle is governed by the linear rate \(2\) there, and the dwell diverges as \(\varepsilon \to 0\). The family does not pass the saddle; it lingers, longer and longer, and in the limit it rests there forever — which is precisely what "broken" means.</li>
+<li><em>The books balance at every \(\varepsilon\).</em> The total drop \(F(P) - F(B) = \tfrac83\) is carried by every family member, and in the limit it splits exactly as \(\tfrac43 + \tfrac43\) across the two legs. Nothing is lost in the breaking — the account P65's ledger needed.</li>
+</ul>
+<p>The move's verdict: the room of \(P \to B\) trajectories — an open one-dimensional family, quotiented by time-shift — acquires its boundary by adjoining the broken pairs. How many? The index-1 critical points standing between \(P\) and \(B\): exactly two, \(S_a\) and \(S_b\). So the compactified room is an open interval plus its two endpoints — a <em>closed</em> interval: compact, with the boundary named. This is the one-dimensional census whose boundary pairing, in the full theory, is the mechanism behind \(\partial \circ \partial = 0\): the broken configurations are the boundary of the census, and the boundary of a boundary is empty. P65's strip census ran this machine at the research scale; this page has now built the machine itself.</p>
 
-      <!-- 3 Blowup Exceptional Divisors D_23, D_13, D_12 -->
-      <circle cx="75" cy="165" r="15" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2.2"/>
-      <circle cx="155" cy="110" r="15" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2.2"/>
-      <circle cx="235" cy="55" r="15" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2.2"/>
-      <text x="75" y="169" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">D₂₃</text>
-      <text x="155" y="114" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">D₁₃</text>
-      <text x="235" y="59" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">D₁₂</text>
+<figure>
+<svg viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="Fig P54.2: the diamond with a trajectory family member converging to the broken pair through the saddle">
+<rect x="33" y="35" width="234" height="232" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+<line x1="267" y1="35" x2="267" y2="267" stroke="#b23a2f" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="267" y1="267" x2="33" y2="267" stroke="#b23a2f" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="267" y1="35" x2="33" y2="267" stroke="#b23a2f" stroke-width="2" stroke-dasharray="6,4" opacity="0.35"/>
+<polyline points="267,35 267,37 267,39 267,43 266,51 266,62 266,79 266,103 265,133 264,166 261,196 258,220 251,238 241,249 226,256 203,261 174,263 142,265 111,266 85,266 66,266 53,266 45,267 40,267 37,267 33,267" fill="none" stroke="#235f8c" stroke-width="2"/>
+<circle cx="267" cy="35" r="4" fill="#444"/>
+<circle cx="33" cy="267" r="4" fill="#444"/>
+<circle cx="267" cy="267" r="4" fill="#b23a2f"/>
+<circle cx="33" cy="35" r="4" fill="#b23a2f"/>
+<text x="272" y="32" font-size="12" fill="#444">P</text>
+<text x="272" y="281" font-size="12" fill="#b23a2f">S_a</text>
+<text x="18" y="281" font-size="12" fill="#444">B</text>
+<text x="18" y="32" font-size="12" fill="#b23a2f">S_b</text>
+</svg>
+<figcaption><strong>Fig P54.2.</strong> One member of the \(\varepsilon\)-family (solid), integrated from \(P = (1,1)\) to \(B = (-1,-1)\) on \(F = (x - x^3/3) + (y - y^3/3)\), cutting the corner near the saddle \(S_a = (1,-1)\). The dashed legs are the exact edge trajectories \((1,-\tanh s)\) and \((-\tanh s,-1)\) — the broken pair the family converges to as \(\varepsilon \to 0\). All coordinates machine-checked in this page's lab.</figcaption>
+</figure>
 
-      <text x="75" y="196" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">z₄=0 (D₁₄)</text>
-      <text x="155" y="196" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">z₄=1 (D₂₄)</text>
-      <text x="235" y="196" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">z₄=∞ (D₃₄)</text>
-      <text x="38" y="168" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="end">D₁₅</text>
-      <text x="38" y="113" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="end">D₂₅</text>
-      <text x="38" y="58" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="end">D₃₅</text>
-      <text x="202" y="92" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57">D₄₅</text>
+<h3>Exemplar 4 · Five points: the census one dimension up — walls, corners, and the graph that matches</h3>
+<p>Four points made a line with three holes. Five points make a room of dimension \(n - 3 = 2\) — and for the first time the boundary is too big to name point by point; it must be censused and drawn. Park \((z_1, z_2, z_3)\) at \((0, 1, \infty)\) by P05's normalization: the room is the set of positions for the pair \((z_4, z_5)\), each free label required to stay clear of the parked three and of the other free one. Its natural home is the plane of pairs \((\mathbb{P}^1)^2\) with the collision loci removed — and the removed loci are the design material.</p>
+<p><em>The seven visible walls.</em> \(z_4\) can collide with each parked label: the loci \(z_4 = 0\), \(z_4 = 1\), \(z_4 = \infty\) — three walls, named by the partitions \(D_{14}\), \(D_{24}\), \(D_{34}\). The same for \(z_5\): three more walls, \(D_{15}\), \(D_{25}\), \(D_{35}\). And \(z_4\) can collide with \(z_5\): the diagonal \(z_4 = z_5\), the seventh wall, \(D_{45}\). Each wall is a copy of the four-point room of Exemplar 2 — \(D_{ij} \cong \overline{M}_{0,4} \cong \mathbb{P}^1\), because freezing one collision of five labels leaves four labels to name — so the census nests: the five-point boundary is stitched from copies of the four-point room.</p>
+<p><em>The three hidden divisors.</em> Exercise 3 counted ten boundary divisors; seven walls are only seven, and the missing three are the move's second lesson. Walk toward the corner \((z_4, z_5) \to (0, 0)\): both free labels collide with \(z_1\) — a <em>triple</em> collision that no crossing of walls can name. Its stable name is the partition \(\{1,4,5\} \mid \{2,3\}\), the divisor \(D_{23}\): a whole exceptional divisor the corner acquires when the room is enlarged, because the bubble carrying \(\{1,4,5\}\) has room for internal bookkeeping of its own — how \(z_4\) and \(z_5\) made their approach — and that room is the new divisor. The same at \((1,1)\): the divisor \(D_{13}\). The same at the \((\infty, \infty)\) corner: \(D_{12}\). Seven walls plus three exceptional divisors: ten — the census that matches, with its arithmetic in the open: \(\binom{5}{2} = 10\), one divisor per pair of labels, wall or corner alike.</p>
+<p><em>The corners, and the graph.</em> A corner is where two divisors meet, and two divisors \(D_{ij}\), \(D_{kl}\) meet exactly when their label-pairs share no label: \(\{1,4\}\) can coexist with \(\{2,3\}\) on one degenerate configuration, but \(\{1,4\}\) with \(\{1,5\}\) cannot — the label \(1\) cannot sit on two bubbles at once. The count: choose the four labels a corner engages, \(\binom{5}{4} = 5\) ways, and split them into two pairs, 3 ways: fifteen corners. Ten divisors as vertices, fifteen corners as edges, adjacency by disjointness — the boundary census is a graph, and the graph is the Petersen graph (Fig P54.3). The machine audit of this page's lab regenerates every vertex of the figure from exact trigonometry and certifies all fifteen edges: disjoint, unique, an exact cover of the fifteen pairs. What was a count of holes in Exemplar 2 has become, one dimension up, a drawn object with structure — a census the rest of the book will keep meeting.</p>
 
-      <!-- Divider -->
-      <line x1="305" y1="18" x2="305" y2="198" stroke="#d8d4cc" stroke-dasharray="4,4"/>
+<figure>
+<svg viewBox="0 0 300 185" width="300" height="185" role="img" aria-label="Fig P54.3: the Petersen graph — ten boundary divisors of the five-point compactification as vertices, fifteen corners as edges, adjacency when the label-pairs are disjoint">
+<line x1="150" y1="20" x2="221.3" y2="71.8" stroke="#444" stroke-width="2"/>
+<line x1="221.3" y1="71.8" x2="194.1" y2="155.7" stroke="#444" stroke-width="2"/>
+<line x1="194.1" y1="155.7" x2="105.9" y2="155.7" stroke="#444" stroke-width="2"/>
+<line x1="105.9" y1="155.7" x2="78.7" y2="71.8" stroke="#444" stroke-width="2"/>
+<line x1="78.7" y1="71.8" x2="150" y2="20" stroke="#444" stroke-width="2"/>
+<line x1="169.4" y1="68.3" x2="150" y2="128" stroke="#444" stroke-width="2"/>
+<line x1="150" y1="128" x2="130.6" y2="68.3" stroke="#444" stroke-width="2"/>
+<line x1="130.6" y1="68.3" x2="181.4" y2="105.2" stroke="#444" stroke-width="2"/>
+<line x1="181.4" y1="105.2" x2="118.6" y2="105.2" stroke="#444" stroke-width="2"/>
+<line x1="118.6" y1="105.2" x2="169.4" y2="68.3" stroke="#444" stroke-width="2"/>
+<line x1="150" y1="20" x2="169.4" y2="68.3" stroke="#444" stroke-width="2"/>
+<line x1="221.3" y1="71.8" x2="181.4" y2="105.2" stroke="#444" stroke-width="2"/>
+<line x1="194.1" y1="155.7" x2="150" y2="128" stroke="#444" stroke-width="2"/>
+<line x1="105.9" y1="155.7" x2="118.6" y2="105.2" stroke="#444" stroke-width="2"/>
+<line x1="78.7" y1="71.8" x2="130.6" y2="68.3" stroke="#444" stroke-width="2"/>
+<circle cx="150" cy="20" r="4" fill="#b23a2f"/>
+<circle cx="221.3" cy="71.8" r="4" fill="#b23a2f"/>
+<circle cx="194.1" cy="155.7" r="4" fill="#b23a2f"/>
+<circle cx="105.9" cy="155.7" r="4" fill="#b23a2f"/>
+<circle cx="78.7" cy="71.8" r="4" fill="#b23a2f"/>
+<circle cx="169.4" cy="68.3" r="4" fill="#235f8c"/>
+<circle cx="181.4" cy="105.2" r="4" fill="#235f8c"/>
+<circle cx="150" cy="128" r="4" fill="#235f8c"/>
+<circle cx="118.6" cy="105.2" r="4" fill="#235f8c"/>
+<circle cx="130.6" cy="68.3" r="4" fill="#235f8c"/>
+<text x="150" y="13" font-size="11" fill="#444" text-anchor="middle">D₁₂</text>
+<text x="233" y="68" font-size="11" fill="#444" text-anchor="middle">D₃₄</text>
+<text x="199" y="172" font-size="11" fill="#444" text-anchor="middle">D₁₅</text>
+<text x="101" y="172" font-size="11" fill="#444" text-anchor="middle">D₂₃</text>
+<text x="67" y="68" font-size="11" fill="#444" text-anchor="middle">D₄₅</text>
+<text x="173" y="63" font-size="10" fill="#444" text-anchor="middle">D₃₅</text>
+<text x="193" y="110" font-size="10" fill="#444" text-anchor="middle">D₂₅</text>
+<text x="150" y="143" font-size="10" fill="#444" text-anchor="middle">D₂₄</text>
+<text x="107" y="110" font-size="10" fill="#444" text-anchor="middle">D₁₄</text>
+<text x="127" y="63" font-size="10" fill="#444" text-anchor="middle">D₁₃</text>
+</svg>
+<figcaption><strong>Fig P54.3.</strong> The corner census of the five-point room, drawn: ten boundary divisors as vertices (outer pentagon and inner star), a corner — two divisors whose label-pairs are disjoint — as an edge. Fifteen edges, and the graph is the Petersen graph; the pentagon/star split is a drawing convenience, not a census distinction. Every vertex coordinate is exact trigonometry, regenerated and certified edge by edge in this page's lab.</figcaption>
+</figure>
 
-      <!-- Right panel: Petersen Graph (10 vertices = D_ij, 15 edges = disjoint intersections) -->
-      <text x="450" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Petersen Graph of 10 Divisors &amp; 15 Corners</text>
-      <!-- Outer pentagon edges: (450,36)-(518.5,85.8)-(492.3,166.2)-(407.7,166.2)-(381.5,85.8) -->
-      <polygon points="450.0,38.0 518.5,87.8 492.3,168.2 407.7,168.2 381.5,87.8" fill="none" stroke="#0f5c57" stroke-width="1.8"/>
-      <!-- Inner 5-star edges: connect i to i+2 mod 5 on inner vertices (450,76), (482.3,99.5), (470,137.5), (430,137.5), (417.7,99.5) -->
-      <polygon points="450.0,76.0 470.0,137.5 417.7,99.5 482.3,99.5 430.0,137.5" fill="none" stroke="#8a4b08" stroke-width="1.6"/>
-      <!-- 5 Spokes connecting outer to inner -->
-      <line x1="450.0" y1="38.0" x2="450.0" y2="76.0" stroke="#5a5a5a" stroke-width="1.6"/>
-      <line x1="518.5" y1="87.8" x2="482.3" y2="99.5" stroke="#5a5a5a" stroke-width="1.6"/>
-      <line x1="492.3" y1="168.2" x2="470.0" y2="137.5" stroke="#5a5a5a" stroke-width="1.6"/>
-      <line x1="407.7" y1="168.2" x2="430.0" y2="137.5" stroke="#5a5a5a" stroke-width="1.6"/>
-      <line x1="381.5" y1="87.8" x2="417.7" y2="99.5" stroke="#5a5a5a" stroke-width="1.6"/>
-
-      <!-- Outer vertices -->
-      <circle cx="450.0" cy="38.0" r="4.5" fill="#0f5c57"/>
-      <circle cx="518.5" cy="87.8" r="4.5" fill="#0f5c57"/>
-      <circle cx="492.3" cy="168.2" r="4.5" fill="#0f5c57"/>
-      <circle cx="407.7" cy="168.2" r="4.5" fill="#0f5c57"/>
-      <circle cx="381.5" cy="87.8" r="4.5" fill="#0f5c57"/>
-      <!-- Inner vertices -->
-      <circle cx="450.0" cy="76.0" r="4.2" fill="#8a4b08"/>
-      <circle cx="482.3" cy="99.5" r="4.2" fill="#8a4b08"/>
-      <circle cx="470.0" cy="137.5" r="4.2" fill="#8a4b08"/>
-      <circle cx="430.0" cy="137.5" r="4.2" fill="#8a4b08"/>
-      <circle cx="417.7" cy="99.5" r="4.2" fill="#8a4b08"/>
-
-      <!-- Labels on outer pentagon (adjacent disjoint pairs in cyclic order: 12, 34, 15, 23, 45) -->
-      <text x="450" y="30" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">D₁₂</text>
-      <text x="534" y="90" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57">D₃₄</text>
-      <text x="506" y="180" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57">D₁₅</text>
-      <text x="394" y="180" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="end">D₂₃</text>
-      <text x="366" y="90" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="end">D₄₅</text>
-      <!-- Labels on inner star (35, 25, 24, 14, 13) -->
-      <text x="462" y="75" font-family="system-ui, sans-serif" font-size="8.5" fill="#8a4b08">D₃₅</text>
-      <text x="492" y="111" font-family="system-ui, sans-serif" font-size="8.5" fill="#8a4b08">D₂₅</text>
-      <text x="460" y="153" font-family="system-ui, sans-serif" font-size="8.5" fill="#8a4b08">D₂₄</text>
-      <text x="415" y="153" font-family="system-ui, sans-serif" font-size="8.5" fill="#8a4b08">D₁₄</text>
-      <text x="396" y="111" font-family="system-ui, sans-serif" font-size="8.5" fill="#8a4b08">D₁₃</text>
-
-      <text x="450" y="202" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">10 vertices (divisors D_ij) · 15 edges (corners D_ij ∩ D_kl)</text>
-    </svg>
-    <figcaption><strong>Fig P54.3.</strong> <strong>(A)</strong> Blowing up the three triple-collision points \((0,0), (1,1), (\infty,\infty)\) in \(\mathbb{P}^1 \times \mathbb{P}^1\) inserts the three exceptional curves \(D_{23}, D_{13}, D_{12}\) so that no three boundary divisors meet at a single point. <strong>(B)</strong> The dual incidence graph of the \(10\) boundary divisors \(D_{ij}\) and \(15\) normal-crossing corner points in \(\overline{\mathcal{M}}_{0,5}\) is the Petersen graph.</figcaption>
-  </figure>
-
-  <h3>Exemplar 3 · Kontsevich stable maps and counting curves by boundary recursion</h3>
-  <p>What if our objects are not bare curves \(C\), but holomorphic maps \(u : C \to \mathbb{P}^2\) of degree \(d\) passing through \(3d - 1\) generic points in the projective plane? Maxim Kontsevich adapted <span class="pid">P54</span> to maps by modifying Rule 2 of Box P54.A: a genus-0 component \(C_i \subset C\) is <em>map-stable</em> if either
-  <ul>
-    <li>\(u|_{C_i}\) is a <strong>constant map</strong> (\(d_i = 0\)) and \(C_i\) carries at least \(n_i \ge 3\) special points, or</li>
-    <li>\(u|_{C_i}\) has <strong>positive degree</strong> (\(d_i \ge 1\)), in which case the image curve \(u(C_i) \subset \mathbb{P}^2\) already locks down the continuous Möbius group even if \(C_i\) carries fewer than \(3\) special points!</li>
-  </ul>
-  Look at what happens when we pull back the fundamental homology equivalence \([(12 \mid 34)] = [(13 \mid 24)]\) from \(\overline{\mathcal{M}}_{0,4} \cong \mathbb{P}^1\) (Exemplar 1) via the forgetful map \(\overline{\mathcal{M}}_{0, 3d}(\mathbb{P}^2, d) \to \overline{\mathcal{M}}_{0,4}\). For degree \(d = 2\) (conics in \(\mathbb{P}^2\), which depend on \(3(2) - 1 = 5\) points), choose four marked points \(p_1, p_2, p_3, p_4\) plus two extra constraints. A degenerate degree-2 map at the boundary \((12 \mid 34)\) must split its total degree \(d = 2\) across two components \(C_L \cup_N C_R\) as \(d_L + d_R = 2\) with \(d_L = 1, d_R = 1\) (two intersecting lines, each determined by \(2\) points, intersecting in \(d_L d_R = 1 \cdot 1 = 1\) node!). Consequently, if \(N_d\) denotes the number of rational degree-\(d\) curves through \(3d - 1\) generic points in \(\mathbb{P}^2\), equates the two boundary splittings to give Kontsevich's recursion:</p>
-  <p class="eq">\[N_d = \sum_{d_1 + d_2 = d} N_{d_1} N_{d_2} \left[ d_1^2 d_2^2 \binom{3d-4}{3d_1-2} - d_1^3 d_2 \binom{3d-4}{3d_1-1} \right].\]</p>
-  <p>Starting from the single base fact \(N_1 = 1\) (one straight line through two points), plug \(d = 2\) (\(d_1 = d_2 = 1\), where \(3d - 4 = 2\)) into the formula:
-  <p class="eq">\[N_2 = (1)(1)\left[ 1^2\cdot 1^2 \binom{2}{1} - 1^3\cdot 1 \binom{2}{2} \right] = 2 - 1 = 1 \quad\text{(one conic through 5 points)}.\]</p>
-  <p>Plug in \(d = 3\) (\(3d - 4 = 5\), summing over \((d_1, d_2) \in \{(1,2), (2,1)\}\)):
-  <p class="eq">\[N_3 = \left[4\binom{5}{1} - 2\binom{5}{2}\right] + \left[4\binom{5}{4} - 8\binom{5}{5}\right] = (20 - 20) + (20 - 8) = 12 \quad\text{(12 rational cubics through 8 points!)}.\]</p>
-  <p>By compactifying the space of smooth curves with nodal two-component degenerations, an enumerative geometry question in degree \(d\) reduces algebraically to products of lower degrees \(d_1 + d_2 = d\).</p>
+<h3>Exemplar 5 · Stable maps: the count the compactification buys</h3>
+<p>Curves that carry a map are where the move pays rent. A degree-\(d\) <em>rational plane curve</em> is the image of a map \(u: \mathbb{P}^1 \to \mathbb{P}^2\) of degree \(d\), counted up to reparametrizing the domain, and the oldest census in the business asks: how many pass through \(3d - 1\) general points? The number \(3d - 1\) is not a mystery but a dimension count — P53's audit, verbatim: deformations minus obstructions. The room of degree-\(d\) maps with \(n\) marked domain points has dimension \(3d + n - 1\); a marked point pinned to a fixed target point imposes two conditions; and at \(n = 3d - 1\) the books balance exactly: room dimension \(6d - 2\), conditions \(2(3d - 1) = 6d - 2\), a zero-dimensional, finite census. The base cases are the schoolroom facts: \(d = 1\), lines through \(2\) points — one line, \(N_1 = 1\); \(d = 2\), conics through \(5\) — one conic, \(N_2 = 1\).</p>
+<p>But the room of maps has the same disease as every room in this book: families escape at the degenerations, and for maps the degenerations are <em>splittings</em> — the domain breaks at a node, the degree divides \(d = d_1 + d_2\), and the two components' images must agree at the node's image. The compactification is Kontsevich's: admit the split domains as nodal curves carrying their maps — <em>stable maps</em> — under a stability clause with two halves. A component the map <em>collapses to a point</em> needs Deligne–Mumford's clause verbatim: at least three special points. A component the map <em>covers</em> names itself: a reparametrization commuting with a nonconstant map is finite in number — the parabola \(z \mapsto (1 : z : z^2)\) admits none at all, its double-covered line \(z \mapsto (1 : z^2 : 0)\) exactly one — and finite naming is all the clause asks. The marks ride along and remember where they land; the node carries the ledger's matching condition; the enlarged room is closed, and the count can begin.</p>
+<p>The count is a recursion, and the recursion is a boundary census — the move's pattern, worn openly. On the compactified room, look at the boundary where a degree-\(d\) map splits into degrees \(d_1 + d_2 = d\). The census equates two boundary divisors, and the equation is Exemplar 2's fact read as divisors: \(\overline{M}_{0,4} \cong \mathbb{P}^1\), and on \(\mathbb{P}^1\) any two points are <em>linearly equivalent</em> — divisors of equal degree cut the same class — so the three boundary points of the four-point room can be equated in the ledger. Pull that relation back along the forgetful map (drop the map, keep the marks, stabilize by the clause) and read it against the point constraints: the two sides of the equation count the two-component maps in two different ways, and equating them gives Kontsevich's recursion:</p>
+\[ N_d \;=\; \sum_{d_1 + d_2 = d} N_{d_1}\, N_{d_2} \left( d_1^2 d_2^2 \binom{3d-4}{3d_1-2} \;-\; d_1^3 d_2 \binom{3d-4}{3d_1-1} \right), \qquad N_1 = 1, \]
+<p>where the binomials are the census of how the remaining fixed points distribute across the two components, and the two weight terms are the two splittings' multiplicities — whose exact provenance is the derivation's business (Kontsevich 1995, this page's §7), not a sketch's. What this page verifies is the verdict, and the verdict is famous: the recursion returns \(N_1 = 1\), \(N_2 = 1\), \(N_3 = 12\) — twelve rational cubics through eight general points — then \(N_4 = 620\), Zeuthen's 1873 hand count reproduced in one machine pass, then \(N_5 = 87{,}304\). Every value is exact-integer machine-checked in this page's lab, term by term at \(d = 4\): \(-144 + 224 + 540 = 620\).</p>
+<p>Two honest notes, one per clause. For the plane, these are honest counts — the compactified room is so well-behaved that its zero-dimensional census needs no repair; for general targets the same census runs on rooms whose books do not quite balance, and repairing them is P64's virtual audit, the near door of \(\S 6\) — the reason the stable-map room is its stage. And the compactification itself is Gromov's wall from \(\S 5\), in action: a family of maps can bubble — degree escaping onto ever smaller spheres — but the area budget bounds the bubbling, the stability clause names each bubble, and the boundary tree is finite. Compactify by stable degenerations, then count: the move, end to end.</p>
 </section>
 
 <section id="fails">
-  <h2>5 · When the trick breaks</h2>
-  <p>Stable compactification solves the missing-limit problem by trading open varieties for stratified nodal boundaries, but three sharp obstacles govern where it breaks or changes behavior:</p>
-
-  <div class="aside">
-    <p><strong>Exhibit A — Allowing unstable components (\(2g_i - 2 + n_i \le 0\)) destroys Hausdorffness.</strong> Suppose you forget Rule 3 of Box P54.A and allow a chain of bare \(\mathbb{P}^1\) bridges with only two nodes (\(n_i = 2\)) and zero marked points. Because scaling \(w \mapsto \lambda w\) on an \(n_i = 2\) sphere is an isomorphism, a family with plumbing parameter \(zw = \varepsilon\) can absorb any factor \(\lambda\) into \(w\), making it impossible to separate distinct limit configurations in the quotient topology.</p>
-    <p><em>Mitigation:</em> Enforce the stability inequality \(2g_i - 2 + n_i &gt; 0\) (or positive map energy \(\int_{C_i} u^*\omega &gt; 0\)) on every component and contract all unstable ghosts automatically.</p>
-    <p><em>Price:</em> Forgetting a marked point (\(\overline{\mathcal{M}}_{g, n+1} \to \overline{\mathcal{M}}_{g, n}\)) requires a stabilization pass whenever removing the \(n+1\)-st point drops a component from \(n_i = 3\) down to \(n_i = 2\).</p>
-    <p><em>Default:</em> Always run the \(2g_i - 2 + n_i &gt; 0\) component check after any forgetting or gluing operation.</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Multiply-covered map bubbles jump in dimension and obstruct smoothness.</strong> While the moduli space of stable curves \(\overline{\mathcal{M}}_{g,n}\) is always a smooth orbifold (Deligne–Mumford stack) of pure complex dimension \(3g - 3 + n\) (because \(H^2 = 0\) in its deformation complex, <a href="p53-deformation-cohomology.html"><span class="pid">P53</span></a>), the space of stable maps \(\overline{\mathcal{M}}_{g,n}(X, \beta)\) can have non-zero obstruction spaces \(H^1(C, u^*TX) \ne 0\) whenever a bubble component is a <em>multiple cover</em> \(z \mapsto z^k\) (\(k \ge 2\)) of a sphere with negative normal bundle.</p>
-    <p><em>Mitigation:</em> Replace the naive fundamental class of \(\overline{\mathcal{M}}_{g,n}(X, \beta)\) with the virtual fundamental class \([\overline{\mathcal{M}}_{g,n}(X, \beta)]^{\text{vir}}\) constructed in <a href="p64-virtual-classes.html"><span class="pid">P64</span></a>.</p>
-    <p><em>Price:</em> Invariants become rational numbers \(\in \mathbb{Q}\) (due to finite automorphism groups \(\mathbb{Z}/k\mathbb{Z}\) of \(k\)-fold covers) rather than naive integer counts.</p>
-    <p><em>Default:</em> Check convexity of the target (\(H^1(\mathbb{P}^1, u^*TX) = 0\), which holds for \(X = \mathbb{P}^m\) in genus \(0\)) before equating virtual counts with literal geometric curve counts.</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Higher-dimensional varieties need more than one rescaling parameter (KSBA vs. GIT).</strong> For curves (dimension \(1\)), every neck pinch is locally a double point \(zw = \varepsilon\), which has a canonical minimal resolution. For surfaces and higher-dimensional varieties, degenerations can develop log-canonical singularities or depend on the choice of an ample polarization line bundle (Geometric Invariant Theory).</p>
-    <p><em>Mitigation:</em> Specify the canonical bundle positivity condition (\(K_X\) ample for Kollár–Shepherd-Barron–Alexeev stable surfaces) or fix the stability chamber explicitly.</p>
-    <p><em>Price:</em> Birational flips (wall-crossings) when the stability polarization changes.</p>
-    <p><em>Default:</em> Use Deligne–Mumford stability directly for 1-dimensional domains (curves and strips).</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this orientation page.</strong> We proved compactness and smoothness explicitly on genus-0 configuration spaces \(\overline{\mathcal{M}}_{0,4}\) and \(\overline{\mathcal{M}}_{0,5}\), where every component is a sphere \(\mathbb{P}^1\) with trivial automorphism group. For higher genus \(g \ge 1\), smooth curves can possess finite non-trivial automorphism groups (for instance, every elliptic curve \((E, p_1)\) has the involution \(x \mapsto -x\) of order \(2\), and the hyperelliptic curve \(y^2 = x^6 - 1\) has extra symmetries), so \(\overline{\mathcal{M}}_{g,n}\) is a smooth <em>orbifold</em> (Deligne–Mumford stack) rather than a manifold.</p>
-  </aside>
+<h2>5 · When the move fails</h2>
+<p>The move has three honest failure modes, and each is a real design hazard, not a footnote.</p>
+<p><strong>Names can refuse to separate.</strong> Build a room by adding <em>two</em> points \(0_+\) and \(0_-\) to the line at the origin, declaring sequences approaching from above to converge to \(0_+\) and from below to \(0_-\). The intent is honest — two names for two one-sided escapes — but the room fails the separation audit: every neighborhood of \(0_+\) contains points arbitrarily close to \(0_-\), and no design of the neighborhoods repairs it, because the line itself cannot tell the two names apart. A room whose points cannot be separated cannot carry honest counts — limits would be ambiguous, and the census would report crowds that cannot be pinned. The research literature's answer — assign the ambiguity a room of its own and count it — is a deeper pattern, and \(\S 6\)'s near door names it.</p>
+<p><strong>The stability clause can admit nothing.</strong> Take three labeled points on the line, up to stretch-and-slide. The canonical form parks \((z_1, z_2) \to (0, 1)\) and leaves no free coordinate: the room is a single point, \(M_{0,3}\), dimension \(n - 3 = 0\). It is already compact — but try to name its degenerations: a collision of two of the three marks gives a component carrying two marks and no node — two special points, one short of the stability clause. Every degeneration of the three-point configuration is unstable; the clause excludes them all; the compactification adds nothing. That is the honest verdict here (nothing needed adding), but the same clause, run on rooms where the objects themselves shrink, can come up empty-handed even when limits are wanted — the classical hazard of quotient rooms, where the stability audit can reject every candidate boundary point. The clause is not a formality; it is the load-bearing design decision, and it can refuse to carry any load.</p>
+<p><strong>Without a budget, degeneration is uncontrolled.</strong> Consider the family of bumps \(u_\sigma(s) = \operatorname{sech}(s/\sigma)\) as \(\sigma \to 0\): each member is a perfectly decent bell, but the family's Dirichlet energy \(\int (u_\sigma')^2\,ds\) — the quantity a flow's trajectories must budget, and the exact currency of <a href="p65-floer-homology.html">P65</a>'s strip energy — reads \(\tfrac{2}{3\sigma}\): \(0.667\), \(6.667\), \(66.67\) at \(\sigma = 1, 0.1, 0.01\). The budget explodes, and with it the number of places the family could degenerate: nothing stops the bump from splitting into ever more, ever smaller copies, and no naming scheme can census an unlimited tree. Contrast the budgeted family \(v_\sigma(s) = \sigma^{-1/2}\operatorname{sech}(s/\sigma)\): its total \(\int v_\sigma^2\,ds = 2\) exactly, for every \(\sigma\) — the books are forced to balance — while its mass still concentrates: the fraction inside \(|s| \leq W\sigma\) is exactly \(\tanh W\), so \(76.2\%\) within one half-width, \(99.5\%\) within three, \(99.99\%\) within five, and the full \(99\%\) at \(W = 2.647\). Concentration with a budget has finitely many names: with total budget \(E\) and each visible bubble costing at least \(\varepsilon\), there are at most \(\lfloor E/\varepsilon \rfloor\) of them — with \(E = 2\pi\), at most \(12\) bubbles of size \(\tfrac12\), at most \(62\) of size \(0.1\). This is Gromov's wall in miniature: <em>the area budget is what makes the degenerations nameable at all.</em> Without it, the move fails not by mislabeling the boundary but by never finishing the naming.</p>
+<aside class="warn"><strong>Scope, honestly.</strong> This page built the design discipline: the census that matches holes to degenerations, the stability clause as the naming filter, the budget as the finiteness engine, and worked compactifications in geometry (four points, five points), in flows (the broken pair), and in enumeration (stable maps). It did not build the analytic walls the research machine stands on: the elliptic estimates behind Gromov's compactness, the energy identity's error terms, the transversularity that cuts the census cleanly, the gluing that runs the broken-pair picture in reverse. Those are the literature's work; the lineage section names them, and no sketch in \(\S 4\) should be read as more than the census the walls protect.</aside>
 </section>
 
-<section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When stable map spaces \(\overline{\mathcal{M}}_{g,n}(X, \beta)\) have excess dimension or non-zero obstruction \(H^2\) (<span class="pid">P53</span>):</strong> Step directly to <a href="p64-virtual-classes.html"><span class="pid">P64</span> · Virtual classes from obstruction theory</a>, which uses the compact nodal boundary built on this page to extract a deformation-invariant cycle of the expected dimension.</li>
-    <li><strong>When the algebraic operations of gluing boundary strata \(\overline{\mathcal{M}}_{0, k+1} \times \overline{\mathcal{M}}_{0, l+1} \to \overline{\mathcal{M}}_{0, k+l}\) repeat across all arities:</strong> Package the tree-gluing maps using <a href="p63-operad-algebra.html"><span class="pid">P63</span> · Recognize the operad algebra</a>, where the spaces \(\{\overline{\mathcal{M}}_{0, n+1}\}_{n \ge 2}\) form the archetypal topological operad and cohomology \(H^*(X)\) becomes a quantum / Frobenius algebra over it.</li>
-    <li><strong>When degenerations happen along open strips between Lagrangians rather than closed spheres:</strong> Combine nodal disk trees with <a href="p65-floer-homology.html"><span class="pid">P65</span> · Floer homology from holomorphic strips</a> to build the \(A_\infty\) Fukaya category.</li>
-  </ul>
+<section id="what-next">
+<h2>6 · What to try next</h2>
+<p><strong>The doors this page opens.</strong> The nearest door: <a href="p64-virtual-classes.html">P64 · Virtual classes from obstruction theory</a>. Once the room is compact, count with signs — and P64's whole trade is integrating over rooms that do not quite exist, certified by exactly the obstruction bookkeeping of <a href="p53-deformation-cohomology.html">P53</a>. P53's \(H^2\) is P64's starting ledger; this page's boundary is P64's stage: every virtual count is a count over a compactified census whose degenerations were named first. Exemplar 5's stable-map rooms are that stage in miniature: for the plane the counts are honest; for a general target the same census needs P64's virtual weights to balance. The waiting-room line from P33 ends here and begins again.</p>
+<p>The middle door: <a href="p65-floer-homology.html">P65 · Floer homology from holomorphic strips</a>, reread from this side of the boundary. Its \(\partial \circ \partial = 0\) is this page's Exemplar 3 at research scale — the broken strips were the named degenerations all along, and its bubble trees were the budgeted census of \(\S 5\). One page later, the machine reads as the move's largest customer.</p>
+<p>The far door: <a href="p56-asymptotic-rescaling.html">P56 · Rescale for asymptotic geometry</a>. Bubbles are rescalings: the concentrated bump of \(\S 5\) only shows its face after the zoom — and after the substitution \(w = s/\sigma\) the family is <em>the same shape again</em>, which is precisely why the naming could stay finite. Where this page adjoins the degenerate limits, P56 asks what the limits look like scale after scale, and the two reads combine: the boundary tree, level by level.</p>
+<p><strong>Default habit.</strong> When a count needs limits — an average over configurations, a boundary of a census, a limit of trajectories — name the escapes <em>before</em> counting: list the degenerations the family can run toward, audit each with the stability clause (would it wear infinitely many names? refine or exclude), check the budget (what quantity bounds the degeneration, and does it force finitely many names?), and only then close the room and let P21's machine run. The price, paid up front: the boundary can refuse to separate, the clause can come up empty, and the budget can be missing — each failure is a finding about the problem, not about the method.</p>
 </section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Bernhard Riemann's \(3g - 3\) count to Deligne–Mumford curves and Kontsevich's stable maps.</strong> Bernhard Riemann calculated in his 1857 memoir on Abelian functions that a compact Riemann surface of genus \(g \ge 2\) depends on \(3g - 3\) complex parameters ("moduli"), yet for over a century geometers lacked a canonical way to close the moduli space without introducing intractable singularities. In 1969 Pierre Deligne and David Mumford (<em>Publications Mathématiques de l'IHÉS</em> 36, 75–109) proved the irreducibility of \(\mathcal{M}_g\) in arbitrary characteristic by introducing <em>stable curves</em> — nodal curves satisfying \(2g_i - 2 + n_i &gt; 0\) — and showing that \(\overline{\mathcal{M}}_{g,n}\) is a smooth, proper Deligne–Mumford stack with normal-crossing boundary divisors. Finn Knudsen (<em>Mathematica Scandinavica</em>, 1983) proved that the stabilization-and-contraction functor makes \(\overline{\mathcal{M}}_{g,n+1}\) the universal curve over \(\overline{\mathcal{M}}_{g,n}\). In 1985 Mikhail Gromov discovered bubble-tree compactness for pseudoholomorphic curves, and in 1994 Maxim Kontsevich (<em>Enumeration of rational curves via torus actions</em>, Birkhäuser 1995) combined Deligne–Mumford stability with Gromov's bubble trees to define the space of stable maps \(\overline{\mathcal{M}}_{g,n}(X, \beta)\) and solve the century-old problem of counting rational plane curves of arbitrary degree \(d\).</p>
-  </aside>
+<h2>7 · Lineage</h2>
+<p>The census that needed a boundary is older than the boundary itself. <strong>Bernhard Riemann, 1857</strong>, counting the shapes a surface of genus \(g\) can wear, found the number \(3g - 3\) — a count of a <em>room</em> of structures, one of the first times geometry counted configurations rather than objects, and a count whose families degenerate exactly at the surfaces that pinch, the boundary this page's pattern was born to name.</p>
+<p><strong>David Mumford, 1965</strong>, in <em>Geometric Invariant Theory</em>, faced the quotient version of the naming problem — when a room is divided by a symmetry group, which orbits deserve to be points? — and answered with the stability clause: admitted are the points whose self-symmetry group is finite, the exact "finitely many names" filter of \(\S 3\), here first written as a general principle: the boundary is not found, it is earned by an audit.</p>
+<p><strong>Pierre Deligne and David Mumford, 1969</strong>, compactified Riemann's room: adjoining the stable degenerations — surfaces allowed to pinch into nodes, each component carrying at least three special points — they proved the enlarged room compact and irreducible. The three-point clause of this page's Exemplar 2 is their clause, verbatim; the pair-partition dictionary of the four-point room is their boundary, in its smallest honest case.</p>
+<p><strong>Mikhail Gromov, 1985</strong>, carried the pattern into symplectic geometry: pseudo-holomorphic curves with bounded area form families whose only escape is bubbling — and the budget makes the bubble tree finite, the degenerations stable, and the compactified census closed. This is the wall <a href="p65-floer-homology.html">P65</a> stood on; this page's \(\S 5\) is its miniature, budget and all.</p>
+<p><strong>Maxim Kontsevich, 1995</strong>, fused the two censuses: stable maps — curves plus maps to a target, compactified by their degenerations (the idea proposed around 1992, published in 1995) — gave enumeration the compact room it integrates over. The counts that followed (and the virtual classes certifying them) are the near door of \(\S 6\): P64's stage, built from this page's move.</p>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
-
-  <h3>Exercise 1 ●○○ — Two-rate collision on \(\mathcal{M}_{0,5}\) and the cross-ratio on the bubble</h3>
-  <p>Consider the family of five beacons on \(\mathbb{P}^1\) given for \(\varepsilon &gt; 0\) by</p>
-  <p class="eq">\[z_1(\varepsilon) = 0, \quad z_2(\varepsilon) = 1, \quad z_3(\varepsilon) = \infty, \quad z_4(\varepsilon) = 2\varepsilon + \varepsilon^2, \quad z_5(\varepsilon) = 6\varepsilon - \varepsilon^2.\]</p>
-  <p>(a) Introduce the microscope coordinate \(w = z / \varepsilon\) around \(z = 0\) and find the limiting positions \(w_1, w_4, w_5, w_N\) on the bubble sphere \(\mathbb{P}^1_w\) as \(\varepsilon \to 0\).<br>
-  (b) Apply a Möbius normalization (<a href="p05-canonical-form.html"><span class="pid">P05</span></a>) on \(\mathbb{P}^1_w\) that sends \((w_1, w_4, w_N) \mapsto (0, 1, \infty)\), and find the exact canonical cross-ratio coordinate of \(w_5\). Which boundary divisor \(D_{ij}\) of \(\overline{\mathcal{M}}_{0,5}\) contains this limit point?</p>
-  <details><summary>Hint</summary><p>Divide each coordinate by \(\varepsilon\) and let \(\varepsilon \to 0\). On the bubble \(\mathbb{P}^1_w\), the node \(w_N\) where the macro sphere attaches is at \(w_N = \infty\); to map \((0, 2, \infty) \mapsto (0, 1, \infty)\), simply divide \(w\) by \(2\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Microscope limits on \(\mathbb{P}^1_w\):</strong> Substituting \(w = z/\varepsilon\) gives</p>
-    <p class="eq">\[w_1(\varepsilon) = 0, \quad w_4(\varepsilon) = 2 + \varepsilon \xrightarrow{\varepsilon \to 0} 2, \quad w_5(\varepsilon) = 6 - \varepsilon \xrightarrow{\varepsilon \to 0} 6,\]</p>
-    <p>while the distant beacons \(z_2 = 1\) and \(z_3 = \infty\) move to \(w_2(\varepsilon) = 1/\varepsilon \to \infty\) and \(w_3(\varepsilon) = \infty\), merging into the attachment node \(w_N = \infty\). Thus on \(\mathbb{P}^1_w\) the four special points are \((w_1, w_4, w_5, w_N) = (0, 2, 6, \infty)\).</p>
-    <p><strong>(b) Canonical cross-ratio and divisor label:</strong> The unique Möbius map on \(\mathbb{P}^1_w\) sending \((w_1, w_4, w_N) = (0, 2, \infty) \mapsto (0, 1, \infty)\) is \(\widetilde{w} = w/2\). Under this map, \(w_5 = 6\) lands at</p>
-    <p class="eq">\[\widetilde{w}_5 = \frac{6}{2} = 3 \in \mathbb{P}^1 \setminus \{0, 1, \infty\}.\]</p>
-    <p>Because beacons \(\{2, 3\}\) remain on the rigid 3-pointed macro sphere \(\mathbb{P}^1_z\) (carrying \(\{z_2=1, z_3=\infty, z_N=0\}\)) while \(\{1, 4, 5\}\) sit on \(\mathbb{P}^1_w\), this stable curve lies in the interior of the boundary divisor \(D_{23}\) (equivalently \(D_{145}\)) at cross-ratio coordinate \(\lambda = 3\).</p>
-  </details>
-
-  <h3>Exercise 2 ●●○ — Two-scale cascade: sprouting a three-sphere chain</h3>
-  <p>Now modify the family of Exercise 1 so that beacons \(4\) and \(5\) approach \(z_1 = 0\) at <em>two different powers</em> of \(\varepsilon\):</p>
-  <p class="eq">\[z_1(\varepsilon) = 0, \quad z_2(\varepsilon) = 1, \quad z_3(\varepsilon) = \infty, \quad z_4(\varepsilon) = \varepsilon, \quad z_5(\varepsilon) = \varepsilon^2.\]</p>
-  <p>(a) Show that a single zoom \(w = z/\varepsilon\) separates \(z_4\) from \(z_1\), but leaves \(z_1\) and \(z_5\) colliding at \(w = 0\).<br>
-  (b) Introduce a second microscope \(u = z/\varepsilon^2 = w/\varepsilon\) to resolve the collision of \(z_1\) and \(z_5\). Draw the resulting 3-component stable tree, count the special points \(n_i\) on each of the three \(\mathbb{P}^1\) components, and identify the exact edge \(D_{ij} \cap D_{kl}\) of the Petersen graph (<strong>Fig P54.3</strong>) where this limit point sits.</p>
-  <details><summary>Hint</summary><p>At scale \(w = z/\varepsilon\), beacon 4 stops at \(w_4 = 1\), while beacons 1 and 5 both go to \(w = 0\). Zooming a second time with \(u = w/\varepsilon\) puts \(u_1 = 0\), \(u_5 = 1\), and sends \(w_4 = 1\) to \(u = 1/\varepsilon \to \infty\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) First microscope \(w = z/\varepsilon\):</strong> In the \(w\)-coordinate, \(w_4(\varepsilon) = 1\) and \(w_2(\varepsilon) = 1/\varepsilon \to \infty\) (forming node \(N_1\) joining \(\mathbb{P}^1_z\) and \(\mathbb{P}^1_w\)). However, \(w_1(\varepsilon) = 0\) and \(w_5(\varepsilon) = \varepsilon^2/\varepsilon = \varepsilon \to 0\), so beacons \(1\) and \(5\) still collide at \(w = 0\).</p>
-    <p><strong>(b) Second microscope \(u = z/\varepsilon^2\) and the 3-sphere chain:</strong> Zooming around \(w = 0\) with \(u = w/\varepsilon = z/\varepsilon^2\) gives \(u_1(\varepsilon) = 0\), \(u_5(\varepsilon) = \varepsilon^2/\varepsilon^2 = 1\), while \(w_4 = 1\) moves off to \(u_4(\varepsilon) = 1/\varepsilon \to \infty\), creating a second node \(N_2\) (where \(w = 0\) on \(\mathbb{P}^1_w\) attaches to \(u = \infty\) on \(\mathbb{P}^1_u\)). The limit is a chain of three \(\mathbb{P}^1\) components:</p>
-    <ul>
-      <li><strong>Left sphere \(\mathbb{P}^1_z\):</strong> carries beacons \(\{2, 3\}\) and node \(N_1\) (\(n_1 = 2 + 1 = 3\) special points, rigid).</li>
-      <li><strong>Middle sphere \(\mathbb{P}^1_w\):</strong> carries beacon \(\{4\}\) and both nodes \(N_1, N_2\) (\(n_2 = 1 + 2 = 3\) special points, rigid).</li>
-      <li><strong>Right sphere \(\mathbb{P}^1_u\):</strong> carries beacons \(\{1, 5\}\) and node \(N_2\) (\(n_3 = 2 + 1 = 3\) special points, rigid).</li>
-    </ul>
-    <p>Every component has \(n_i = 3\), so the limit has \(0\) remaining continuous parameters: it is the isolated codimension-2 corner point \(D_{23} \cap D_{15}\) corresponding to the tree \(\{2,3\} - \{4\} - \{1,5\}\), which is the edge connecting vertex \(D_{23}\) and vertex \(D_{15}\) on the outer pentagon of the Petersen graph in <strong>Fig P54.3</strong>.</p>
-  </details>
-
-  <h3>Exercise 3 ●●● — Boundary strata census of \(\overline{\mathcal{M}}_{0,6}\) and Kontsevich's \(N_4 = 620\)</h3>
-  <p>(a) In \(\overline{\mathcal{M}}_{0,6}\) (complex dimension \(6 - 3 = 3\)), every codimension-1 boundary divisor corresponds to a 1-node tree splitting the \(6\) labeled beacons into two groups \(A \sqcup B\) with \(|A|, |B| \ge 2\). Count how many boundary divisors have a \((2 \mid 4)\) split versus a \((3 \mid 3)\) split, and compute the total number of codimension-1 boundary divisors in \(\overline{\mathcal{M}}_{0,6}\).<br>
-  (b) Using \(N_1 = 1\), \(N_2 = 1\), and \(N_3 = 12\) from Exemplar 3, evaluate Kontsevich's recursion formula for \(d = 4\) to find the exact number \(N_4\) of rational degree-4 plane curves passing through \(3(4) - 1 = 11\) generic points in \(\mathbb{P}^2\).</p>
-  <details><summary>Hint</summary><p>For (a), remember that a \((3 \mid 3)\) partition is unordered: splitting \(\{1,2,3\} \mid \{4,5,6\}\) is the same divisor as \(\{4,5,6\} \mid \{1,2,3\}\), so divide \(\binom{6}{3}\) by \(2\). For (b), at \(d=4\) we have \(3d - 4 = 8\), and \((d_1, d_2)\) ranges over \((1,3)\), \((2,2)\), and \((3,1)\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Boundary divisors of \(\overline{\mathcal{M}}_{0,6}\):</strong> A 1-node stable tree on \(6\) marked points partitions \(\{1,2,3,4,5,6\}\) into two blocks \(A \sqcup B\) of size at least \(2\) (so each component has \(|A|+1 \ge 3\) and \(|B|+1 \ge 3\) special points):</p>
-    <ul>
-      <li><strong>\((2 \mid 4)\) splits:</strong> Determined uniquely by choosing which \(2\) beacons form the smaller block: \(\binom{6}{2} = 15\) divisors (each isomorphic to \(\overline{\mathcal{M}}_{0,3} \times \overline{\mathcal{M}}_{0,5} \cong \overline{\mathcal{M}}_{0,5}\)).</li>
-      <li><strong>\((3 \mid 3)\) splits:</strong> Determined by choosing an unordered partition into two blocks of \(3\): \(\frac{1}{2}\binom{6}{3} = \frac{20}{2} = 10\) divisors (each isomorphic to \(\overline{\mathcal{M}}_{0,4} \times \overline{\mathcal{M}}_{0,4} \cong \mathbb{P}^1 \times \mathbb{P}^1\)).</li>
-    </ul>
-    <p>Total codimension-1 boundary divisors in \(\overline{\mathcal{M}}_{0,6}\): \(15 + 10 = 25 = 2^{6-1} - 6 - 1\).</p>
-    <p><strong>(b) Computing \(N_4\) via Kontsevich's recursion:</strong> For \(d = 4\), \(3d - 4 = 8\), and we sum over \((d_1, d_2) \in \{(1,3), (2,2), (3,1)\}\) using \(N_1 = 1, N_2 = 1, N_3 = 12\):</p>
-    <ul>
-      <li><strong>Term \((d_1, d_2) = (1, 3)\):</strong> \(N_1 N_3 \left[ 1^2\cdot 3^2 \binom{8}{1} - 1^3\cdot 3 \binom{8}{2} \right] = 12 \bigl[ 9(8) - 3(28) \bigr] = 12(72 - 84) = -144\).</li>
-      <li><strong>Term \((d_1, d_2) = (2, 2)\):</strong> \(N_2 N_2 \left[ 2^2\cdot 2^2 \binom{8}{4} - 2^3\cdot 2 \binom{8}{5} \right] = 1 \bigl[ 16(70) - 16(56) \bigr] = 1120 - 896 = +224\).</li>
-      <li><strong>Term \((d_1, d_2) = (3, 1)\):</strong> \(N_3 N_1 \left[ 3^2\cdot 1^2 \binom{8}{7} - 3^3\cdot 1 \binom{8}{8} \right] = 12 \bigl[ 9(8) - 27(1) \bigr] = 12(72 - 27) = +540\).</li>
-    </ul>
-    <p>Summing the three boundary contributions gives \(N_4 = -144 + 224 + 540 = 620\) rational quartic curves through \(11\) generic points in \(\mathbb{P}^2\) (first computed by Hieronymus Zeuthen in 1873 by painstaking degeneration analysis, and recovered here in three lines of arithmetic).</p>
-  </details>
-
-  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: stable, unstable, or wrong tool?</h3>
-  <p>Inspect each geometric degeneration below and diagnose how to handle it:</p>
-  <ol>
-    <li>A genus-0 nodal curve consists of three smooth spheres \(C_1 - C_2 - C_3\) linked in a chain (nodes \(N_{12}\) and \(N_{23}\)). Beacons \(\{1, 2, 3\}\) sit on \(C_1\), beacon \(\{4\}\) sits on \(C_3\), and \(C_2\) carries no beacons at all. Is this curve in \(\overline{\mathcal{M}}_{0,4}\)?</li>
-    <li>A smooth torus (\(g = 1\)) with zero marked points (\(n = 0\)) pinches a non-contractible loop to form a nodal rational curve (a sphere \(\mathbb{P}^1\) with two points \(0\) and \(\infty\) glued together at a single self-node). Does this self-nodal curve satisfy \(2g_i - 2 + n_i &gt; 0\)?</li>
-    <li>You want to find the maximum of \(f(x,y) = x^2 y - x^4 - y^4\) on the closed disk \(x^2 + y^2 \le 1\).</li>
-  </ol>
-  <details><summary>Worked answer</summary>
-    <ol>
-      <li><strong>Unstable in \(\overline{\mathcal{M}}_{0,4}\) — apply Rule 3 of Box P54.A (contract two components!):</strong> Count special points on each sphere: \(C_1\) has \(3\) beacons \(+ 1\) node \(= 4\) (stable); \(C_2\) has \(0\) beacons \(+ 2\) nodes \(= 2\) (unstable, \(2(0)-2+2 = 0 \ngtr 0\)); \(C_3\) has \(1\) beacon \(+ 1\) node \(= 2\) (unstable). Contracting the tail \(C_3\) deposits beacon \(4\) onto the node of \(C_2\), and contracting \(C_2\) deposits beacon \(4\) onto the node of \(C_1\). The stabilized curve is a <em>single</em> smooth sphere \(C_1\) carrying all four beacons \(\{1, 2, 3, 4\}\).</li>
-      <li><strong>Unstable without a marked point (\(2(1)-2+0 = 0\)):</strong> A bare genus-1 torus with \(n = 0\) marked points has a 1-dimensional continuous translation group \(z \mapsto z + c\), and its pinched limit (\(\mathbb{P}^1\) with \(0\) and \(\infty\) glued, giving \(n_i = 2\) half-nodes on \(\mathbb{P}^1\)) has the multiplicative group \(\mathbb{C}^*\) (\(w \mapsto \lambda w\)). To apply <span class="pid">P54</span> in genus \(1\), you must pin down at least \(n \ge 1\) marked point (\(\overline{\mathcal{M}}_{1,1}\)), which gives the pinched \(\mathbb{P}^1\) two half-nodes plus one marked point (\(n_i = 3 &gt; 2\), stable!).</li>
-      <li><strong>Simpler pattern suffices (<a href="p21-limit-point.html"><span class="pid">P21</span> · Catch the limit point</a> / Weierstrass extreme value theorem):</strong> The closed disk \(x^2 + y^2 \le 1\) in \(\mathbb{R}^2\) is already compact and \(f\) is continuous; no moduli blowup or nodal compactification (<span class="pid">P54</span>) is needed.</li>
-    </ol>
-  </details>
-
-  <h3>Exercise 5 ◐ — Exploration: Stasheff associahedra and the real manifold \(\overline{\mathcal{M}}_{0, n}(\mathbb{R})\)</h3>
-  <p>Restrict the five beacons \((z_1, z_2, z_3, z_4, z_5)\) to lie on the <em>real</em> projective circle \(\mathbb{RP}^1 = \mathbb{R} \cup \{\infty\}\) in cyclic clockwise order \(z_1 &lt; z_2 &lt; z_3 &lt; z_4 &lt; z_5\).<br>
-  (a) When the cyclic order is fixed, only <em>adjacent</em> blocks of beacons can collide without crossing one another. Show that out of the \(10\) complex boundary divisors \(D_{ij}\) of \(\overline{\mathcal{M}}_{0,5}\), exactly \(5\) divisors can bound the cyclic chamber \(0 = z_1 &lt; z_4 &lt; z_5 &lt; z_2 = 1 &lt; z_3 = \infty\), forming a pentagon (the 2-dimensional <em>Stasheff associahedron</em> \(K_4\)).<br>
-  (b) Verify that the \(5\) vertices of this pentagon correspond to the \(C_3 = \frac{1}{4}\binom{6}{3} = 5\) binary parenthesizations of four factors \(((ab)c)d\), \((a(bc))d\), \((ab)(cd)\), \(a((bc)d)\), and \(a(b(cd))\).</p>
-  <details><summary>Hint</summary><p>In the cyclic order \((1, 4, 5, 2, 3)\) around the circle, the five adjacent pairs are \(\{1,4\}\), \(\{4,5\}\), \(\{5,2\}\), \(\{2,3\}\), and \(\{3,1\}\). Look at the region \(0 &lt; z_4 &lt; z_5 &lt; 1\) inside the square \([0,1]^2\) in <strong>Fig P54.3A</strong>: it is a right triangle whose two acute corners \((0,0)\) and \((1,1)\) are blown up into edges!</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) From a triangle to a pentagon by blowing up two corners:</strong> With \(z_1 = 0\), \(z_2 = 1\), \(z_3 = \infty\), the cyclic ordering \(0 = z_1 &lt; z_4 &lt; z_5 &lt; z_2 = 1\) cuts out the open triangle \(\{(z_4, z_5) \in \mathbb{R}^2 \mid 0 &lt; z_4 &lt; z_5 &lt; 1\}\). Its three sides are \(z_4 = 0\) (\(D_{14}\)), \(z_4 = z_5\) (\(D_{45}\)), and \(z_5 = 1\) (\(D_{25}\)). Blowing up the bottom-left triple collision \((0,0)\) (where \(z_1, z_4, z_5\) meet) replaces that vertex with the edge \(D_{145} = D_{23}\), and blowing up the top-right triple collision \((1,1)\) (where \(z_4, z_5, z_2\) meet) replaces that vertex with the edge \(D_{245} = D_{13}\). Chopping two corners off a triangle produces a <strong>pentagon</strong> with \(5\) edges (\(D_{14}, D_{23}, D_{45}, D_{13}, D_{25}\)) and \(5\) vertices!</p>
-    <p><strong>(b) Equivalence with the \(C_3 = 5\) Catalan parenthesizations:</strong> Viewbeacon \(z_3 = \infty\) as the root output of a tree and the remaining four beacons Ordered left-to-right as \((a, b, c, d) = (z_1, z_4, z_5, z_2)\). Each codimension-1 edge of the pentagon brackets either two or three consecutive letters (e.g., \((ab)cd\) for \(D_{14}\), \((abc)d\) for \(D_{23}\), \(a(bc)d\) for \(D_{45}\), \(a(bcd)\) for \(D_{13}\), and \(ab(cd)\) for \(D_{25}\)), and each of the \(5\) corners where two compatible brackets meet gives a complete binary parenthesization: \(((ab)c)d\), \((a(bc))d\), \(a((bc)d)\), \(a(b(cd))\), and \((ab)(cd)\). In general, the closure of a single cyclic chamber in \(\overline{\mathcal{M}}_{0, n+1}(\mathbb{R})\) is the \((n-2)\)-dimensional Stasheff associahedron \(K_{n-1}\) with \(C_{n-1}\) vertices.</p>
-  </details>
+<h2>8 · Exercises</h2>
+<p class="ex"><strong>Exercise 1</strong> ●○○ — Two distances that agree. On the one-point-compactified line of Exemplar 1: (a) compute \(d(1,2)\) exactly, by the chordal formula. (b) Compute \(d(3, \infty)\). (c) The two answers agree — explain, without computation, why some symmetry of the room had to make them agree.</p>
+<details><summary>Hint</summary><p>(a), (b): substitute into \(d(x,y) = 2|x - y|/\sqrt{(1+x^2)(1+y^2)}\) and \(d(x,\infty) = 2/\sqrt{1+x^2}\). (c): the room is a circle; distances on a circle are chords.</p></details>
+<details><summary>Worked answer</summary><p>(a) \(d(1,2) = \frac{2 \cdot 1}{\sqrt{(1+1)(1+4)}} = \frac{2}{\sqrt{10}} \approx 0.6325\). (b) \(d(3, \infty) = \frac{2}{\sqrt{1+9}} = \frac{2}{\sqrt{10}} \approx 0.6325\) — identical. (c) The enlarged room is the unit circle under stereographic projection, and the chordal distance is the circle's own chord length: \(d = 2\sin(\Delta\theta/2)\) where \(\Delta\theta\) is the central angle. The points \(1, 2\) sit at central angles \(2\arctan x - \tfrac{\pi}{2}\) reading \(0^\circ\) and \(36.87^\circ\); the points \(3, \infty\) sit at \(53.13^\circ\) and \(90^\circ\). Both pairs subtend exactly \(36.87^\circ\), and on a circle any two chords of equal length are related by a rotation — a symmetry of the room carrying one pair to the other. The agreement was forced by the room's symmetry, exactly as \(\S 3\)'s diagnosis predicts: the boundary design (a circle) determined the distance book. Machine-verified in this page's lab.</p></details>
+<p class="ex"><strong>Exercise 2</strong> ●●○ — The six values of one configuration. Take \((z_1, z_2, z_3, z_4) = (0, 1, 2, 4)\). (a) Compute the canonical coordinate \(t = M(z_3)\). (b) Re-order the same four points — there are \(24\) orderings — and show the canonical coordinates take exactly six distinct values; list them. (c) Show each value is hit exactly four times, and explain the count via the room's symmetries.</p>
+<details><summary>Hint</summary><p>(a) Substitute into \(M\). (b) The symmetries of the four-point room are the stretch-slide maps fixing the set of holes \(\{0, 1, \infty\}\); there are six of them — write down what each does to \(t\).</p></details>
+<details><summary>Worked answer</summary><p>(a) \(t = \frac{(2-0)(1-4)}{(1-0)(2-4)} = \frac{-6}{-2} = 3\). (b) The six orderings of the hole-set \(\{0,1,\infty\}\) give the six maps \(t \mapsto \{t,\; 1/t,\; 1 - t,\; 1/(1-t),\; (t-1)/t,\; t/(t-1)\}\); at \(t = 3\) these read \(3,\; \tfrac13,\; -2,\; -\tfrac12,\; \tfrac23,\; \tfrac32\) — six distinct values. (c) The machine census of this page's lab runs all \(24\) orderings: each of the six values is hit exactly \(4\) times, because the four configurations sharing a value differ only by which labeled point the normalization parked at \(\infty\) — four labels, four orderings per value. Six values, four hits each, twenty-four orderings: the books balance. Machine-verified.</p></details>
+<p class="ex"><strong>Exercise 3</strong> ●●● — The next census: five points. The room of five labeled points on the line up to stretch-and-slide has dimension \(n - 3 = 2\). Its compactification adjoins the stable degenerations. (a) List the degenerations where exactly one collision happens — the room's <em>boundary divisors</em> — by naming them as partitions of the five labels. (b) Count them and verify against the lab census. (c) Check each against the stability clause: which component could ever fail it, and why does that failure never occur here?</p>
+<details><summary>Hint</summary><p>(a) One collision splits the five labels into two groups — but the node counts as a special point for each side. (b) Count unordered splits. (c) The smallest possible group carries two labels plus the node.</p></details>
+<details><summary>Worked answer</summary><p>(a) A single collision degenerates the line into two components joined at a node, splitting the labels into a group of \(k\) and a group of \(5 - k\), each group inheriting the node as an extra special point. The list, unordered: \(12\mid345,\; 13\mid245,\; 14\mid235,\; 15\mid234,\; 23\mid145,\; 24\mid135,\; 25\mid134,\; 34\mid125,\; 35\mid124,\; 45\mid123\). (b) Ten — the count of unordered splits of five labels into groups of \(2\) and \(3\): \(\binom{5}{2} = 10\), and the machine census of this page's lab confirms exactly these ten — and Exemplar 4, below, draws this census as a graph. (c) The stability clause demands three special points per component: a group of \(k\) labels carries \(k\) marks plus the node, so the smallest possible component carries \(2 + 1 = 3\) — exactly stable, never short. The clause is what rules out the \(1 \mid 4\) splits: a lone label plus the node is only two special points, unstable, excluded — and indeed a one-label group cannot collide with anything without merging into a neighbor's collision, which the census already named. Machine-verified.</p></details>
+<p class="ex"><strong>Exercise 4</strong> ●●● — The two-scale cascade. Park \((z_1, z_2, z_3)\) at \((0, 1, \infty)\) and send \(z_4 = \varepsilon\), \(z_5 = \varepsilon^2\) — a perfectly decent family of five-point configurations for every \(\varepsilon > 0\). (a) Under the microscope \(w = z/\varepsilon\): compute the five limits and name the collisions the \(w\)-room sees. (b) Under the second microscope \(u = z/\varepsilon^2\): compute the five limits again — and notice the two microscopes disagree about who collides with whom. (c) Write the stable tree the family converges to (three components), audit each component against the stability clause, and name the corner divisor of \(\overline{M}_{0,5}\) the limit lies in; verify the corner is an edge of Fig P54.3's graph.</p>
+<details><summary>Hint</summary><p>(a) \(1/\varepsilon \to \infty\). (b) \(\varepsilon/\varepsilon^2 = 1/\varepsilon\). (c) The tree must record every collision either microscope sees; a corner is a pair of divisors with disjoint label-pairs.</p></details>
+<details><summary>Worked answer</summary><p>(a) \(w = (0,\; 1/\varepsilon,\; \infty,\; 1,\; \varepsilon) \to (0, \infty, \infty, 1, 0)\): the \(w\)-room sees \(z_5\) colliding with \(z_1\) (both at \(0\)) and \(z_2\) sliding toward \(z_3\)'s home (\(\infty\)); \(z_4\) rides along at \(1\), colliding with nothing. (b) \(u = (0,\; 1/\varepsilon^2,\; \infty,\; 1/\varepsilon,\; 1) \to (0, \infty, \infty, \infty, 1)\): the \(u\)-room sees \(z_4\) joining the \(\infty\)-crowd with \(z_2, z_3\), and \(z_5\) <em>not</em> colliding with anything — a unit from \(z_1\). The two microscopes disagree — at the \(\varepsilon\)-scale \(\{1,5\}\) collide, at the \(\varepsilon^2\)-scale they are far apart — and neither lies: each sees one scale, and the family's limit carries both readings at once. (c) The stable tree: three components in a chain \(\{2,3\} - \{4\} - \{1,5\}\). The \(\{2,3\}\) and \(\{1,5\}\) components record the two microscopes' collisions; the middle \(\{4\}\) component is the honest broker between the scales. Stability audit: \(\{2,3\}\) carries two marks plus a node, \(\{4\}\) one mark plus two nodes, \(\{1,5\}\) two marks plus a node — three special points each, all stable. The two splits \(\{2,3\} \mid \{1,4,5\}\) and \(\{1,5\} \mid \{2,3,4\}\) name the corner \(D_{23} \cap D_{15}\); the pairs \(\{2,3\}\) and \(\{1,5\}\) are disjoint, so the corner is an edge of Fig P54.3's Petersen graph — an edge of its outer pentagon. Machine-verified: both microscopes' limits, the component audit, and the corner census run in this page's lab.</p></details>
+<p class="ex"><strong>Exercise 5</strong> ◆ — The consultant's rectangles.</p>
+<details><summary>Worked answer</summary><p>A family of axis-parallel rectangles of area \(1\), considered up to translation: the room is the width \(w \in (0, \infty)\) — one-dimensional, open at both ends, with the two escapes \(w \to 0\) and \(w \to \infty\). The move's audit: the degenerations are the infinitely thin, infinitely long limits — and these are genuinely new kinds of objects, not rectangles; the room \((0,\infty)\) compactifies to the closed interval \([0, \infty]\) with two added boundary points, each naming a degenerate object with a marked direction (horizontal at \(w \to 0\), vertical at \(w \to \infty\), if orientation is tracked — otherwise one point, by the same design choice as Exemplar 1's two doors). The stability clause passes: a degenerate segment carries no continuous family of self-symmetries (its aspect is frozen), so each escape has finitely many names. The census stands: two boundary points, both named. The honest price, and the finding: the boundary objects live outside the original category — the compactified room counts them anyway, and any count over the family (an average over shapes, say) must decide, as part of its design, whether the boundary carries weight. That decision is not the pattern's to make; it is the problem's — and naming it is exactly what the pattern is for.</p></details>
+<p class="ex"><strong>Exercise 6</strong> ◐ — Concentration, scale by scale. The budgeted family \(v_\sigma(s) = \sigma^{-1/2}\operatorname{sech}(s/\sigma)\) of \(\S 5\) concentrates: the fraction of its total \(2\) inside \(|s| \leq W\sigma\) is exactly \(\tanh W\). (a) Find the half-width \(W\) that captures \(90\%\), \(99\%\), \(99.9\%\) — exactly, and verify each. (b) Show the law is honest to the family's shape: substitute \(w = s/\sigma\) and read the total and the fraction as one and the same integral. (c) Open end: build the same census for the Gaussian family \(g_\sigma(s) = \sigma^{-1/2} e^{-s^2/2\sigma^2}\) — which fraction law replaces \(\tanh\), and which family concentrates faster, in units of its own half-width? What does the comparison say about "half-width" as a unit?</p>
+<details><summary>Hint</summary><p>(a) Invert \(\tanh\): the half-width for fraction \(f\) is \(\operatorname{arctanh}(f) = \tfrac12 \ln\frac{1+f}{1-f}\). (b) \(\int \operatorname{sech}^2 w \, dw = \tanh w\). (c) The Gaussian's integral is the error function.</p></details>
+<details><summary>Worked answer</summary><p>(a) \(W = \operatorname{arctanh}(f) = \tfrac12\ln\frac{1+f}{1-f}\): for \(f = 0.90\), \(W = 1.4722\); for \(f = 0.99\), \(W = 2.6467\); for \(f = 0.999\), \(W = 3.8002\). Each verified by the lab: the machine-computed fractions at those half-widths read \(0.900000\), \(0.990000\), \(0.999000\). (b) The substitution \(w = s/\sigma\) carries \(\int v_\sigma^2\,ds\) to \(\int \operatorname{sech}^2 w\,dw\) — total \(2\) for every \(\sigma\) — and the windowed fraction to \(\frac{1}{2}\int_{-W}^{W}\operatorname{sech}^2 w\,dw = \tanh W\): total and fraction are literally the same integral, windowed or not. This is the self-similarity of \(\S 6\)'s far door, in one line: after the rescaling the family is the same shape, which is why one number, \(\tanh W\), carries the whole concentration story. (c) For the Gaussian, the same substitution gives total \(\sqrt{\pi}\) and fraction \(\operatorname{erf}(W)\): the half-widths for \(90\%\), \(99\%\), \(99.9\%\) read approximately \(1.163\), \(1.821\), \(2.327\) — smaller than the sech's \(1.472\), \(2.647\), \(3.800\) at every level: the Gaussian concentrates faster in units of its own half-width, at all three depths. The open finding stands: "half-width" is not a neutral unit — each family measures concentration in its own coin, and the comparison only becomes honest after both are renormalized to the same budget, exactly as \(\S 5\) renormalized the bump. Machine-verified where closed; the tail trade-offs are the exploration's open end.</p></details>
+<p class="ex"><strong>Exercise 7</strong> ◐ — The real room: chambers, walls, and the associahedron. Keep every coordinate real: five labeled points on the circle \(\mathbb{RP}^1\), parked at \((z_1, z_2, z_3) = (0, 1, \infty)\), and the chamber \(0 < z_4 < z_5 < 1\) — one of the \(\tfrac{(5-1)!}{2} = 12\) chambers, one per cyclic ordering. (a) The chamber's closure in \(\overline{M}_{0,5}(\mathbb{R})\) meets exactly five boundary divisors — list them, and explain why the list is the census of adjacent pairs in one cyclic order. (b) The chamber in coordinates is the open triangle \(0 < z_4 < z_5 < 1\), and its compactified closure is a pentagon: three edges from the triangle's walls, two from blown-up corners. Name the two corners that blow up, name the corner that does not, and check \(3 + 2 = 5\) against the Catalan number \(C_3 = \tfrac{1}{4}\binom{6}{3}\). (c) Open end: the closure of one chamber of the \((n+1)\)-point real room \(\overline{M}_{0,n+1}(\mathbb{R})\) is the Stasheff associahedron \(K_n\) — dimension \(n - 2\), vertices the Catalan number \(C_{n-1}\). Audit the claim at \(n = 4\) (this exercise's own room), and say what \(K_3\) and \(K_5\) are.</p>
+<details><summary>Hint</summary><p>(a) A degeneration reachable from inside the chamber is a collision of adjacent labels in the cyclic order \((1, 4, 5, 2, 3)\). (b) Which corners of the triangle are triple collisions, and which are two separate ones? (c) \(C_{n-1} = \tfrac{1}{n}\binom{2n-2}{n-1}\).</p></details>
+<details><summary>Worked answer</summary><p>(a) The chamber fixes the cyclic order \((1, 4, 5, 2, 3)\) around the circle, and a degeneration reachable from inside it is a collision of <em>adjacent</em> labels in that order: \(\{1,4\}\), \(\{4,5\}\), \(\{5,2\}\), \(\{2,3\}\), \(\{3,1\}\) — divisors \(D_{14}\), \(D_{45}\), \(D_{25}\), \(D_{23}\), \(D_{13}\), five, and the lab's census confirms the list. (b) The triangle's three sides are the walls \(D_{14}\) (\(z_4 \to 0\)), \(D_{45}\) (\(z_5 \to z_4\)), \(D_{25}\) (\(z_5 \to 1\)). Of the corners: \((0, 1)\) is two <em>separate</em> collisions — \(z_4 \to z_1\), \(z_5 \to z_2\) — with no internal freedom left to name, so it stays a single vertex where \(D_{14}\) meets \(D_{25}\). But \((0,0)\) and \((1,1)\) are <em>triple</em> collisions — Exemplar 4's corners — and each is blown up: the \((0,0)\) corner becomes a new edge, a piece of \(D_{23}\), carrying the bubble's internal bookkeeping (how \(z_4\) and \(z_5\) made their approach to \(z_1\)); the \((1,1)\) corner becomes a piece of \(D_{13}\). Three walls plus two blowup edges: \(3 + 2 = 5\), and the pentagon's five vertices — the chamber's five maximal degenerations — are counted by \(C_3 = \tfrac{1}{4}\binom{6}{3} = 5\). (c) At \(n = 4\) (five points): dimension \(n - 2 = 2\), vertices \(C_3 = 5\) — the pentagon, this exercise's own answer, so \(K_4\) is the honest face of the five-point room. \(K_3\) (four points): dimension 1, \(C_2 = \tfrac{1}{3}\binom{4}{2} = 2\) vertices — an interval; indeed each chamber of the real four-point room is an open interval whose closure adds two boundary points, Exemplar 2's three holes taken one chamber at a time. \(K_5\) (six points): dimension 3, \(C_4 = \tfrac{1}{5}\binom{8}{4} = 14\) vertices — the first associahedron this book's rooms cannot draw flat. Machine-verified: the adjacent-pair census, the wall list, the blowup count, and all three Catalan numbers.</p></details>
+<p class="moons">Difficulty: ●○○ ●●○ ●●● ●●● ◆ ◐ ◐</p>
 </section>
 
 <footer>
-  <p><em>The Patterns Atlas</em> — P54 · Compactify by stable degenerations. <a href="index.html">Return to the index</a> · Previous: <a href="p53-deformation-cohomology.html">P53 · Deformation cohomology</a> · Next: <a href="p55-current-mass.html">P55 · Current mass minimization →</a></p>
+<p><strong>Next:</strong> <a href="p53-deformation-cohomology.html">P53 · Deformation cohomology</a> — the walls this page's boundary just named are the walls P53 counts: \(H^1\) the moves a family can make inside the compactified room, \(H^2\) the walls standing at its boundary strata. P53's door said P54 adds the boundary; read from here, the boundary is where P53's audit sets up its instruments.</p>
+<p class="atlas-home"><a href="index.html">The Patterns Atlas</a> · <a href="p21-limit-point.html">P21 · Catch the limit point</a> · <a href="p33-sheaf-cohomology-bridge.html">P33 · The sheaf cohomology bridge</a></p>
 </footer>
-
 </body>
 </html>
