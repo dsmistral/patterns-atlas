@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P30 · Localize at a prime · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P30 · the sixth move of tier 3</p>
+<h1>Localize at a prime</h1>
+<p class="tagline">A question about all the integers at once is a crowd scene. Every prime owns a small quiet room where the same question is easy — and, more often than you would guess, the quiet answers assemble into the whole.</p>
+</header>
+
+<aside class="onramp"><strong>New word: valuation.</strong> For a prime \(p\) and a nonzero whole number \(n\), the <em>valuation</em> \(v_p(n)\) is the number of times \(p\) divides \(n\): the largest \(k\) with \(p^k\) dividing \(n\). So \(v_2(40) = 3\) (because \(40 = 8 \cdot 5\)), \(v_3(45) = 2\) (because \(45 = 9 \cdot 5\)), \(v_5(45) = 1\), and \(v_2(45) = 0\) — a prime that does not divide \(n\) gets the valuation \(0\). The valuation is exactly "how much \(p\)" the number carries; every other factor is invisible to it. <strong>New word: squarefree.</strong> A number is <em>squarefree</em> when no prime square divides it: \(70 = 2 \cdot 5 \cdot 7\) is squarefree, \(45 = 9 \cdot 5\) is not.</aside>
+
+<section id="bridge">
+<h2>1 · Before we begin</h2>
+<p>The ladder so far: <a href="p05-canonical-form.html">P05</a> taught that every messy object has one canonical representative — and for whole numbers the canonical form is the prime-by-prime factor list, the exponents \(2^4, 3^2, 5^2\) that make \(16 \cdot 9 \cdot 25 = 3600\). <a href="p09-invariant.html">P09</a> taught the hunt for the quantity nothing can change, and its digit-sum engine: powers of \(10\) are all \(\equiv 1 \pmod 9\), so the digit sum rides along untouched — the invariant does the arguing. <a href="p13-descent.html">P13</a> taught the ground floor of the integers: a smallest criminal cannot denounce a smaller accomplice, and its proofs strip common factors to trap the criminal.</p>
+<p>Two of those pages closed with a commission for exactly this one. P09's, verbatim: <em>Localize at a prime</em> (P30) is the digit-sum trick grown up: work one prime at a time, where the invariant is "divisibility by \(p\)," and reassemble — it needs the descent move (P13) first. And P13's, verbatim: <strong>P30 — localize at a prime.</strong> The strip's modern descendant: instead of stripping all common factors at once, work one prime at a time and reassemble the answers. P13 also named the terrain: the square factor shrinks an equation toward its squarefree core, "where the real wall stands."</p>
+<p>Here is the tension this page resolves. Each prime supports its own complete, finite, checkable arithmetic — <a href="b02-congruence-classes.html">B02</a>'s residue teams — and the fundamental theorem says the primes' exponents are a whole number's canonical coordinates. Yet questions asked about the integers themselves — is this number a sum of two squares? is that square root rational? does this equation have a solution? — do not visibly decompose. What does it even mean to ask a question at one prime? When do per-prime answers reassemble into a global one, and when do they refuse? This page builds the lens that makes the phrase "at a prime" honest, runs it by hand where censuses are finite, and — just as important — shows you a famous case where every quiet room answers yes and the assembly still says no.</p>
+</section>
+
+<section id="problem">
+<h2>2 · The encounter: a census that splits prime by prime</h2>
+<p>Take a question with no prime visible in it anywhere: <em>which whole numbers are sums of two squares?</em> Allow \(0\) as a square, so every perfect square \(n = n + 0\) trivially qualifies, and run the census up to \(50\). The answers:</p>
+<p><strong>Yes:</strong> \(1, 2, 4, 5, 8, 9, 10, 13, 16, 17, 18, 20, 25, 26, 29, 32, 34, 36, 37, 40, 41, 45, 49, 50\). <strong>No:</strong> \(3, 6, 7, 11, 12, 14, 15, 19, 21, 22, 23, 24, 27, 28, 30, 31, 33, 35, 38, 39, 42, 43, 44, 46, 47, 48\).</p>
+<p>Stare at the wreckage until the pattern surfaces. \(3\) fails. \(6\) fails. \(7\) fails. \(11\) fails. \(12 = 4 \cdot 3\) fails, \(14 = 2 \cdot 7\) fails, \(21 = 3 \cdot 7\), \(33 = 3 \cdot 11\), \(42 = 2 \cdot 3 \cdot 7\) — all fail. But \(45 = 9 \cdot 5\) succeeds, \(45 = 36 + 9\); \(18 = 2 \cdot 9\) succeeds, \(18 = 9 + 9\); \(49 = 49 + 0\) succeeds even though \(7\) kills \(7\), \(14\), \(21\), \(28\), \(35\). The census is trying to say something about primes: the primes \(3, 7, 11, 19, 23, 31, 43, 47\) are lethal when they appear to an <em>odd</em> power, harmless when squared. The friendly primes \(2, 5, 13, 17, 29, 37, 41\) never kill anything — and the number's fate is decided prime by prime, one exponent at a time, as if the question itself factored.</p>
+<p>What is the mechanism? Why can't \(3\) divide a sum of two squares it doesn't divide twice? Count: the squares mod \(3\) are \(0\) and \(1\), and the only way two of them sum to \(0\) mod \(3\) is \(0 + 0\). So \(3 \mid a^2 + b^2\) already forces \(3 \mid a\) and \(3 \mid b\) — the prime cannot sneak into a sum except by dividing both summands. Check the friendly prime \(5\) the same way: squares mod \(5\) are \(0, 1, 4\), and \(1 + 4 = 5 \equiv 0\) — \(5\) sneaks in happily (\(1 + 4 = 5\) itself). One prime, one tiny census, and the fate of every multiple is settled. The same one-prime check explains the digit-sum trick of P09 — but grown up: not just one modulus \(9\) riding along, a whole family of quiet rooms, one per prime, each answering a question the crowd scene cannot.</p>
+<p>And now the question this page exists to answer. The one-prime censuses are easy — but the original question was about the integers, not about remainders. When, and why, and how far do the quiet answers assemble into the loud one?</p>
+</section>
+
+<section id="move">
+<h2>3 · Name the move</h2>
+<div class="pattern-box">
+<p><strong>Localize at a prime — ask the question one prime at a time, where it answers, then reassemble.</strong> Fix the prime the question turns on. Rebuild the question inside the \(p\)-lens — the arithmetic of all fractions whose denominators \(p\) does not divide — where a number's only visible size is its valuation \(v_p\), and answer there: censuses are finite, units are everywhere, and descent has traction. Then reassemble the per-prime answers into the global one, and check, honestly, whether the assembly glues.</p>
+<p class="words">In words: factor the question the way the integers factor. A prime is a lens, not just a divisor. Through the \(p\)-lens, two numbers are distinguishable exactly by their \(p\)-content — the valuation is the invariant the lens keeps, P09's question asked of arithmetic itself; the prime-exponent list is P05's canonical form read as coordinates; and a wall discovered in the lens is P13's wall, stripped one prime at a time instead of all at once. The assembly is the step that earns respect: sometimes the quiet answers glue (this page's headline theorem), sometimes they refuse (§5), and the refusal is itself information a later page measures.</p>
+</div>
+<p><strong>Three-key diagnosis.</strong> Claim type: divisibility, representation, and solvability claims about whole numbers — "is \(n\) of this form?", "does this equation have integer solutions?". Problem shape: the question decomposes into per-prime data — residues mod \(p\) and valuations \(v_p\) — that do not interact with one another; the full-scale question looks monolithic but factors underneath. Tools at hand: congruence censuses (<a href="b01-remainders.html">B01</a>, <a href="b02-congruence-classes.html">B02</a>), the valuation as a preserved quantity (P09), descent for the lens's walls (P13), and composition identities for the reassembly (<a href="b12-brahmagupta-fibonacci.html">B12</a> behind <a href="p06-compose-identity.html">P06</a>).</p>
+<p><strong>The lens, built honestly.</strong> Fix a prime \(p\), say \(p = 3\). The 3-lens is the arithmetic of all fractions \(a/b\) whose denominator \(3\) does not divide: \(5\), \(7/2\), \(-10/7\), \(1/2\) live in the lens; \(1/3\) does not. A number is invertible in the lens — a <em>unit</em> — exactly when the prime does not divide it: \(2\), \(5\), \(10\) are units of the 3-lens, \(3\) and \(12\) are not. What survives the trip through the lens, for any number, is exactly its \(p\)-content — its valuation — and nothing else; the lens's bookkeeping is additive, \[ v_p(xy) \;=\; v_p(x) + v_p(y), \qquad v_p\!\left(\tfrac{x}{y}\right) \;=\; v_p(x) - v_p(y), \] which is an invariant in its purest form: multiplication cannot touch it except by adding. The 3-lens even has its own idea of size: a number is "small at 3" when it carries many factors of \(3\) — the ruler of Fig P30.2, where every integer is drawn at the size the lens assigns. The mathematicians' name for this lens is the ring \(\mathbb{Z}_{(p)}\), and the honest slogan is: it is <a href="b02-congruence-classes.html">B02</a>'s residue arithmetic with the modulus removed — the census made into a number system.</p>
+<figure>
+<svg viewBox="0 0 600 210" xmlns="http://www.w3.org/2000/svg">
+<line x1="20" y1="170" x2="600" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+<rect x="50" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="70" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="90" y="156.7" width="12" height="13.3" fill="#8a4b08"/>
+<rect x="110" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="130" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="150" y="156.7" width="12" height="13.3" fill="#8a4b08"/>
+<rect x="170" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="190" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="210" y="165.6" width="12" height="4.4" fill="#8a4b08"/>
+<rect x="230" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="250" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="270" y="156.7" width="12" height="13.3" fill="#8a4b08"/>
+<rect x="290" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="310" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="330" y="156.7" width="12" height="13.3" fill="#8a4b08"/>
+<rect x="350" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="370" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="390" y="165.6" width="12" height="4.4" fill="#8a4b08"/>
+<rect x="410" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="430" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="450" y="156.7" width="12" height="13.3" fill="#8a4b08"/>
+<rect x="470" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="490" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="510" y="156.7" width="12" height="13.3" fill="#8a4b08"/>
+<rect x="530" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="550" y="130" width="12" height="40" fill="#0f5c57"/>
+<rect x="570" y="168.5" width="12" height="1.5" fill="#8a4b08"/>
+<text x="56" y="122" font-size="11" text-anchor="middle" fill="#1a1a1a">1</text>
+<text x="96" y="148" font-size="11" text-anchor="middle" fill="#8a4b08">3</text>
+<text x="216" y="158" font-size="11" text-anchor="middle" fill="#8a4b08">9</text>
+<text x="576" y="161" font-size="11" text-anchor="middle" fill="#8a4b08">27</text>
+<text x="300" y="195" font-size="11" text-anchor="middle" fill="#5a5a5a">the integers 1 through 27, each drawn at the size the 3-lens assigns: 40 · 3^(−v₃(n))</text>
+</svg>
+<figcaption><strong>Fig P30.2 — The 3-lens and its idea of size.</strong> A number is small in the \(3\)-lens exactly when it carries many factors of \(3\): the units stand at full height, \(3\), \(6\), \(12\), \(15\), \(21\), \(24\) shrink to a third, \(9\) and \(18\) to a ninth, \(27\) to a twenty-seventh. Every prime owns such a ruler; no two of them agree, and §5's ledger shows they are all needed at once.</figcaption>
+</figure>
+</section>
+
+<section id="work">
+<h2>4 · Worked exemplars</h2>
+<h3>Exemplar 1 · The question behind two squares: is \(-1\) a square?</h3>
+<p>The census of §2 reduced "is \(n\) a sum of two squares?" to one question per prime: can the prime divide \(a^2 + b^2\) without dividing \(a\) and \(b\) both? Mod \(p\), a sneaky prime satisfies \(a^2 \equiv -b^2\) with \(b\) a unit, so \((a \cdot b^{-1})^2 \equiv -1\): the sneaking question is exactly "is \(-1\) a square mod \(p\)?" — and that is a census, finite and checkable, prime by prime (Fig P30.1).</p>
+<figure>
+<svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg">
+<line x1="80" y1="95" x2="600" y2="95" stroke="#1a1a1a" stroke-width="1"/>
+<circle cx="96" cy="70" r="9" fill="#0f5c57"/>
+<circle cx="114" cy="70" r="9" fill="#8a4b08"/>
+<circle cx="150" cy="70" r="9" fill="#0f5c57"/>
+<circle cx="186" cy="70" r="9" fill="#8a4b08"/>
+<circle cx="258" cy="70" r="9" fill="#8a4b08"/>
+<circle cx="294" cy="70" r="9" fill="#0f5c57"/>
+<circle cx="366" cy="70" r="9" fill="#0f5c57"/>
+<circle cx="402" cy="70" r="9" fill="#8a4b08"/>
+<circle cx="474" cy="70" r="9" fill="#8a4b08"/>
+<circle cx="582" cy="70" r="9" fill="#0f5c57"/>
+<text x="96" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">2</text>
+<text x="114" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">3</text>
+<text x="150" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">5</text>
+<text x="186" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">7</text>
+<text x="258" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">11</text>
+<text x="294" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">13</text>
+<text x="366" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">17</text>
+<text x="402" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">19</text>
+<text x="474" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">23</text>
+<text x="582" y="45" font-size="11" text-anchor="middle" fill="#1a1a1a">29</text>
+<text x="96" y="118" font-size="10" text-anchor="middle" fill="#5a5a5a">1²+1²</text>
+<text x="150" y="118" font-size="10" text-anchor="middle" fill="#5a5a5a">2²≡−1</text>
+<text x="294" y="118" font-size="10" text-anchor="middle" fill="#5a5a5a">5²≡−1</text>
+<text x="366" y="118" font-size="10" text-anchor="middle" fill="#5a5a5a">4²≡−1</text>
+<text x="582" y="118" font-size="10" text-anchor="middle" fill="#5a5a5a">12²≡−1</text>
+</svg>
+<figcaption><strong>Fig P30.1 — Every prime answers the same quiet question, and the answers split by \(p \bmod 4\).</strong> Green: \(-1\) is a square mod \(p\), witnessed by the labeled square. Brown: the census of squares mod \(p\) comes up empty for \(-1\). The primes \(3, 7, 11, 19, 23\) all say no; \(2, 5, 13, 17, 29\) say yes — and up to \(29\) not one exception blurs the split.</figcaption>
+</figure>
+<p>Run the census. Mod \(3\): squares are \(\{0, 1\}\), and \(-1 \equiv 2\) is not among them. Mod \(7\): squares are \(\{0, 1, 2, 4\}\), and \(6\) is not among them. Mod \(11\): \(\{0, 1, 3, 4, 5, 9\}\), no \(10\). Mod \(19\): \(\{0, 1, 4, 5, 6, 7, 9, 11, 16, 17\}\), no \(18\). Mod \(23\): \(\{0, 1, 2, 3, 4, 6, 8, 9, 12, 13, 16, 18\}\), no \(22\). On the friendly side, witnesses stand in the open: \(2^2 = 4 \equiv -1 \pmod 5\), \(5^2 = 25 \equiv -1 \pmod{13}\), \(4^2 = 16 \equiv -1 \pmod{17}\), \(12^2 = 144 \equiv -1 \pmod{29}\), and mod \(2\), \(-1 \equiv 1\) is trivially a square. Up to every prime you can census by hand the split is exact: \(-1\) is a square mod \(p\) precisely for \(p = 2\) and \(p \equiv 1 \pmod 4\). The <em>general</em> law — that this split persists for every prime, proved once and for all — is Euler's criterion and quadratic reciprocity, named doors on §6's list; this page runs the census and states the general law as a door, honestly.</p>
+<p>The local lemma follows immediately, prime by prime. If \(p \equiv 3 \pmod 4\) divides \(a^2 + b^2\): reduce mod \(p\). If \(b\) were a unit, \((a \cdot b^{-1})^2 \equiv -1\) would exhibit \(-1\) as a square — the census says no. So \(p \mid b\), and then \(a^2 \equiv 0\) forces \(p \mid a\) too. For \(p = 3\) and \(p = 7\) the census is written out above; for every \(p \equiv 3 \pmod 4\) the lemma needs the general law — the door. This is the wall P13 promised: a prime \(3 \bmod 4\) cannot enter a sum of two squares except by dividing both summands — which is exactly why it must appear to an even power in any \(n\) it does not kill.</p>
+<h3>Exemplar 2 · The grown-up digit sum: \(\sqrt{n}\) one prime at a time</h3>
+<p>P09's commission called this page "the digit-sum trick grown up". Watch it happen on the oldest irrational of them all. Suppose \(\sqrt{2} = p/q\) in lowest terms — P05's uniform — so \(p^2 = 2q^2\). Now ask only the 2-question: how many factors of \(2\) does each side carry? The left side carries \(v_2(p^2) = 2\,v_2(p)\), an <em>even</em> number; the right carries \(v_2(2q^2) = 1 + 2\,v_2(q)\), an <em>odd</em> number. Even cannot equal odd: no cancellation, no infinite process, one prime's parity settles a question about all of \(\mathbb{Q}\). This is P13's proof re-read — the descent's engine was always the 2-lens — and it is P09's invariant at its purest: \(v_2\) cannot be touched by squaring except doubled, so its parity is untouchable.</p>
+<p>Now let the lens sweep across \(n\). \(\sqrt{12}\): \(12 = 2^2 \cdot 3\), and the 3-lens sees an odd exponent — irrational (\(\sqrt{12} = 2\sqrt{3}\)). \(\sqrt{18}\): \(18 = 2 \cdot 3^2\), the 2-lens objects — irrational (\(3\sqrt{2}\)). \(\sqrt{36}\): \(36 = 2^2 \cdot 3^2\), every lens satisfied — rational, \(6\), as promised. \(\sqrt{50} = 5\sqrt{2}\) and \(\sqrt{72} = 6\sqrt{2}\): the 2-lens objects to both (\(v_2(50) = 1\), \(v_2(72) = 3\)). The global question "which \(\sqrt{n}\) are rational?" has split into independent per-prime parity questions: <em>\(\sqrt{n}\) is rational exactly when every prime's exponent in \(n\) is even</em> — when \(n\) is a square times a squarefree core, and the core is \(1\) or the wall stands (P13's phrase, §1). No prime consults any other; the census up to \(50\) is §2's machinery in a second life, and the pattern extends without a wobble.</p>
+<h3>Exemplar 3 · Reassembly: the glue is an identity</h3>
+<p>Local answers are easy; the honest step is assembly. The friendly primes all come with representations — \(5 = 1^2 + 2^2\), \(13 = 2^2 + 3^2\), \(2 = 1^2 + 1^2\) — but why should the <em>product</em> \(65 = 5 \cdot 13\) inherit one? Because the assembly is itself a move this book owns: B12's Brahmagupta–Fibonacci identity behind P06, \[ (a^2 + b^2)(c^2 + d^2) \;=\; (ac - bd)^2 + (ad + bc)^2, \] the composition that carries representations across products. Feed it \((1, 2)\) and \((2, 3)\): \((1 \cdot 2 - 2 \cdot 3)^2 + (1 \cdot 3 + 2 \cdot 2)^2 = (-4)^2 + 7^2 = 16 + 49 = 65\). The two quiet answers glued.</p>
+<p>The obstruction side assembles just as cleanly. \(21 = 3 \cdot 7\): both primes hostile, each lethal alone, and B12 cannot help — there is nothing to glue. And the inert side: \(45 = 3^2 \cdot 5\), where \(3\)'s exponent is even. The lemma says the \(3^2\) must divide both summands of any representation, so strip it: \(45 = 9 \cdot 5 = 9 \cdot (1^2 + 2^2) = 3^2 + 6^2 = 9 + 36\) ✓. An even-powered hostile prime passes through as a common factor, contributing nothing — which is why \(49 = 49 + 0\) survives its own \(7\). Now every part of §2's census has its reason: <em>hostile primes to odd powers kill; to even powers they ride along; friendly primes and \(2\) contribute representations that B12 multiplies; and \(n\) is a sum of two squares exactly when every \(p \equiv 3 \pmod 4\) occurs to an even power.</em> That is Fermat's two-squares theorem, assembled. The census up to \(50\) confirms it row by row — \(50 = 1 + 49 = 25 + 25\), \(65 = 1 + 64 = 16 + 49\), \(85 = 4 + 81 = 36 + 49\) — and the audit of §5 pins it up to \(100\). The general proof — the descent that gives the theorem for every \(n\) at once — is the multi-pattern page M02's to run, deferred by name; this page's job was the lens, and the lens has delivered.</p>
+</section>
+
+<section id="fails">
+<h2>5 · When it fails: every quiet room says yes</h2>
+<h3>Exhibit A · Three keys, no door</h3>
+<p>Here is a question with a local answer at every prime and no global answer at all: does \((x^2 - 2)(x^2 - 17)(x^2 - 34) = 0\) have a whole-number solution? In the integers, plainly not: a solution is a square root of \(2\), of \(17\), or of \(34\), and none of the three is a square — Exemplar 2's lens, one glance. But ask the same equation in the quiet rooms and the answer is yes, every time. Mod \(2\): \(x = 0\), since \(x^2 - 2 \equiv x^2\). Mod \(3\): \(x = 1\), since \(1 - 34 = -33 = -11 \cdot 3\). Mod \(5\): \(x = 2\), since \(4 - 34 = -30\). Mod \(7\): \(x = 3\), since \(9 - 2 = 7\). Mod \(11\): \(x = 1\), the same \(-33\). Mod \(13\): \(x = 2\), since \(4 - 17 = -13\). Mod \(17\): \(x = 0\). Mod \(19\): \(x = 6\), since \(36 - 17 = 19\). Mod \(23\): \(x = 5\), since \(25 - 2 = 23\). Mod \(29\): \(x = 11\), since \(121 - 34 = 87 = 3 \cdot 29\). Every prime up to \(29\), witnessed by hand; every prime beyond, guaranteed by a pattern this page must state as a door: at each prime, at least one of \(2\), \(17\), \(34\) is a square mod \(p\) — three keys whose compatibilities never leave a room locked, a fact whose full proof is quadratic reciprocity, §6's door.</p>
+<p>So the assembly fails in the worst way: no local obstruction anywhere — and the global answer is no. The lens answered every question asked of it; the question "do the answers glue?" is a different question, and its answer is a property of the equation, not of any single prime.</p>
+<h3>Exhibit B · Selmer's cubic</h3>
+<p>The professional version of Exhibit A is famous. Selmer (1951) showed that \(3x^3 + 4y^3 + 5z^3 = 0\) has solutions in the real numbers and in every \(p\)-lens, every \(p\), and no solution at all in ordinary whole numbers. For quadratic questions — degree \(2\), like §4's — the assembly is a theorem (Hasse–Minkowski, §6's door): local answers everywhere <em>do</em> glue. For cubics they do not, and Selmer's equation is the standing witness. The failure is not noise: it is a measurable invariant — the obstruction that a later page of this book, <a href="p33-sheaf-cohomology-bridge.html">P33</a>, counts in general: local answers that fail to glue are themselves a quantity.</p>
+<h3>Exhibit C · The lens forgets the everyday size</h3>
+<p>The last failure is a blindness, not a lie. In every \(p\)-lens, the numbers \(2\) and \(\tfrac{1}{2}\) are both units — the same size, interchangeable as far as the lens can see. Only the everyday ("archimedean") lens of the real line tells them apart, by a factor of \(4\) between \(2\) and \(\tfrac{1}{2}\)... and in fact no single lens can be trusted alone: the conservation law that ties the whole family into one ledger is the product formula of Exercise 5, where every lens, the real one included, contributes its size and the contributions cancel to \(1\) exactly. The lens answers "how much \(p\)?"; it cannot answer "how big?", and a page that forgets which question it asked will assemble nothing.</p>
+<p class="warn-box"><strong>Scope, honestly.</strong> The audited counts on this page run at fixed, census-scale size: the two-squares census up to \(50\) and its criterion pinned up to \(100\); the \(-1\)-square census for every prime up to \(29\); the local lemma proved from censuses for \(p = 3\) and \(p = 7\), with the general \(p \equiv 3 \pmod 4\) law stated as a door; Exhibit A's roots witnessed by hand for every prime up to \(29\) (and up to \(30\) on the audit); and the valuation ledgers exact. The research-scale construction — Euler's criterion and quadratic reciprocity, Hasse–Minkowski's assembly theorem, Hensel lifting, the \(p\)-adic numbers as completed systems, Selmer's obstruction and its modern measure — is stated as named doors with every gap named; nothing on this page proves the general cases. What this page settles is the lens itself: the per-prime question made honest, the reassembly run by hand where it glues, and the failure exhibited where it does not.</p>
+</section>
+
+<section id="what-next">
+<h2>6 · What to try next</h2>
+<p><strong>Default.</strong> Any divisibility or solvability question about whole numbers — sums of special forms, square roots, integer solutions of equations — deserves one reflex before anything else: ask which primes it turns on, and census those primes. The lens is cheap, finite, and decisive more often than its price suggests.</p>
+<p><strong>Mitigation when the assembly fails.</strong> Local answers that refuse to glue are not a dead end; they are an invariant. The refusal itself can be counted — the way P33's obstruction counts the ways honest answers fail to paste together — and the count answers new questions. The professional's next doors, by name: ideal arithmetic (P32, planned) localizes entire rings of numbers at once, so that "divisibility by \(p\)" becomes algebra with objects you can factor; the optimized sieve (P39, planned) puts the lens to work at scale; and the multi-pattern page on sums of two squares (M02, planned) runs the descent proof behind this page's headline theorem in full. For quadratic equations the assembly always works — Hasse–Minkowski — and for the general story of solvability, Hasse's principle and its failures are the door Selmer's cubic stands in.</p>
+<p><strong>Price.</strong> The lens sees one prime and nothing else. Cross-prime cooperation is invisible to it (that is the point), everyday size is invisible to it (Exhibit C), and the assembly step — gluing — is extra work with its own tools: identities that respect the property (B12), descent that strips what the lens found (P13), or, when gluing fails, an obstruction to be named (P12's move, <a href="p33-sheaf-cohomology-bridge.html">P33</a>'s machinery). Keep the ledger of which lens told you what; the product formula of Exercise 5 is the full ledger's conservation law.</p>
+</section>
+
+<section id="lineage">
+<h2>7 · Lineage interlude</h2>
+<p>The lens has a paper trail, and it begins with a letter.</p>
+<ul>
+<li><strong>1640 — Fermat.</strong> A Christmas letter to Mersenne announces the two-squares theorem, proved by descent: the local lemma — a prime \(3 \bmod 4\) entering \(a^2 + b^2\) must divide both — already at work, in embryo, inside the proof by stripping.</li>
+<li><strong>1801 — Gauss.</strong> <em>Disquisitiones Arithmeticae</em> systematizes the quiet rooms: quadratic reciprocity proves the \(-1\) census's law for every prime at once — the census split of §4 made a theorem.</li>
+<li><strong>1897 — Hensel.</strong> The lens becomes a number system: the \(p\)-adic numbers, in which "divisible by \(p\) many times" <em>means</em> "small" — §3's ruler completed with limits, and the census of B02 grown into analysis.</li>
+<li><strong>1920s — Hasse.</strong> The local-global principle for quadratic forms: solvability in the everyday lens and in every \(p\)-lens implies solvability over the rationals — the assembly certified as a theorem for a whole class of questions.</li>
+<li><strong>1951 — Selmer.</strong> The cubic \(3x^3 + 4y^3 + 5z^3 = 0\): locally solvable everywhere, globally dead — the principle's honest limit, and the seed of the obstruction theories that now measure such failures.</li>
+<li><strong>The modern door.</strong> All the lenses at once — the adeles — turn the product formula's ledger into a single space where local questions are asked simultaneously; this book reaches it only by name.</li>
+</ul>
+</section>
+
+<section id="exercises">
+<h2>8 · Exercises</h2>
+<p class="moons">Difficulty: ●○○ ●●○ ●●● ◆ ◐ ◐</p>
+<p class="ex"><strong>Exercise 1</strong> ●○○ — Read a number through its lenses. Write \(3600\) as a product of primes and read off \(v_2, v_3, v_5, v_7\). Then, using only the valuations, decide which of \(\sqrt{12}, \sqrt{18}, \sqrt{36}, \sqrt{45}, \sqrt{50}, \sqrt{72}\) are rational, and write each irrational one as an integer times the square root of a squarefree number.</p>
+<details><summary>Hint</summary>
+<p>The only question any lens asks is: is the exponent of my prime even? Factor each number completely first — the canonical form is the whole game.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>\(3600 = 16 \cdot 9 \cdot 25 = 2^4 \cdot 3^2 \cdot 5^2\), so \(v_2 = 4\), \(v_3 = 2\), \(v_5 = 2\), \(v_7 = 0\) — and the product formula of Exercise 5 will cash this same ledger in. The decisions: \(12 = 2^2 \cdot 3\) — the 3-exponent is odd, so \(\sqrt{12} = 2\sqrt{3}\), irrational; \(18 = 2 \cdot 3^2\) — the 2-exponent is odd, \(\sqrt{18} = 3\sqrt{2}\); \(36 = 2^2 \cdot 3^2\) — all even, \(\sqrt{36} = 6\), rational; \(45 = 3^2 \cdot 5\) — the 5-exponent is odd, \(\sqrt{45} = 3\sqrt{5}\); \(50 = 2 \cdot 5^2\) — the 2-exponent is odd, \(\sqrt{50} = 5\sqrt{2}\); \(72 = 2^3 \cdot 3^2\) — the 2-exponent is \(3\), odd, \(\sqrt{72} = 6\sqrt{2}\). One rational, five walls, each a single prime's odd exponent.</p>
+</details>
+<p class="ex"><strong>Exercise 2</strong> ●●○ — Find the witnesses. For each of \(p = 5, 13, 17, 29\), find a number \(x\) with \(x^2 \equiv -1 \pmod p\), by census if you must, and verify it. Then explain why the same task is hopeless for \(p = 3, 7, 11, 19, 23\), and state the split you see in terms of \(p \bmod 4\).</p>
+<details><summary>Hint</summary>
+<p>A census is a table of \(x^2 \bmod p\) for \(x = 1, \ldots, p-1\); half the entries repeat, so you only need \(x\) up to \((p-1)/2\). Hopeless here means: the census itself is the proof of hopelessness — it comes up empty.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>Witnesses: mod \(5\), \(x = 2\), \(2^2 = 4 \equiv -1\); mod \(13\), \(x = 5\), \(5^2 = 25 = 26 - 1 \equiv -1\); mod \(17\), \(x = 4\), \(4^2 = 16 = 17 - 1 \equiv -1\); mod \(29\), \(x = 12\), \(12^2 = 144 = 145 - 1 = 5 \cdot 29 - 1 \equiv -1\). (Each has a twin, \(p - x\): \(3, 8, 13, 17\).) For the hopeless primes the census shows the squares mod \(p\) and \(-1\) is never among them: mod \(3\), squares \(\{1\}\) and \(-1 \equiv 2\); mod \(7\), \(\{1, 2, 4\}\) and \(-1 \equiv 6\); mod \(11\), \(\{1, 3, 4, 5, 9\}\) and \(-1 \equiv 10\); mod \(19\), \(\{1, 4, 5, 6, 7, 9, 11, 16, 17\}\) and \(-1 \equiv 18\); mod \(23\), \(\{1, 2, 3, 4, 6, 8, 9, 12, 13, 16, 18\}\) and \(-1 \equiv 22\). The split: the witnesses exist exactly when \(p \equiv 1 \pmod 4\) (and trivially at \(p = 2\)); the census up to \(29\) never blurs it, and the general law is the door named in §4.</p>
+</details>
+<p class="ex"><strong>Exercise 3</strong> ●●● — Build a wall by census, then use it. (a) List the squares mod \(7\), and check every pair of them for a sum \(\equiv 0 \pmod 7\); conclude the local lemma for \(7\): if \(7 \mid a^2 + b^2\) then \(7 \mid a\) and \(7 \mid b\). (b) Use the lemma to prove that \(21\) and \(42\) are not sums of two squares, without any census of sums. (c) Now run the full census: list all \(n \le 30\) that are sums of two squares, and check your list against the criterion of Exemplar 3.</p>
+<details><summary>Hint</summary>
+<p>For (b): suppose \(n = a^2 + b^2\) and ask where the hostile prime's factors went — the lemma says they divided both summands, so count them twice, once per summand. For (c): the criterion says a hostile prime to an odd power kills; check each failure really fails by the lemma, and each survivor really survives by exhibiting the squares.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) Squares mod \(7\): \(1, 4, 2, 2, 4, 1\), so the set is \(\{0, 1, 2, 4\}\). Pairs summing to \(0 \bmod 7\): \(1 + 6\) — but \(6\) is not a square; \(2 + 5\) — no; \(4 + 3\) — no; only \(0 + 0\). So \(a^2 + b^2 \equiv 0 \pmod 7\) forces \(a \equiv b \equiv 0\): the lemma. (b) \(21 = 3 \cdot 7\). If \(21 = a^2 + b^2\), then mod \(7\) gives \(7 \mid a, b\) by the lemma, so \(49 \mid a^2 + b^2 = 21\) — false, since \(49 \nmid 21\). No census needed; same for \(42 = 2 \cdot 3 \cdot 7\): \(7 \mid a, b\) forces \(49 \mid 42\), false. (c) Sums of two squares up to \(30\): \(1, 2, 4, 5, 8, 9, 10, 13, 16, 17, 18, 20, 25, 26, 29\). Every one survives the criterion (\(18 = 2 \cdot 3^2\) and \(20 = 2^2 \cdot 5\) carry their hostile primes to even powers; \(25 = 5^2\) and \(29\) carry none); every failure — \(3, 6, 7, 11, 12, 14, 15, 19, 21, 22, 23, 24, 27, 28, 30\) — carries a \(3, 7, 11, 19,\) or \(23\) to an odd power, and the lemma (for \(3\) and \(7\)) or its general door explains each.</p>
+</details>
+<p class="ex"><strong>Exercise 4</strong> ◆ — Diagnose, then prove: the equation \(x^2 + y^2 = 3z^2\) has no solution in positive integers. Decide which of this book's patterns settles it, then settle it.</p>
+<details><summary>Worked answer</summary>
+<p>Diagnosis: the claim is an impossibility in whole numbers whose obstruction lives at a single prime — the move is localization at \(3\), feeding descent (P13), with P09's valuation parity as the bookkeeping. Proof: suppose \(x^2 + y^2 = 3z^2\) with positive \(x, y, z\). Mod \(3\): the left side is \(\equiv 0\), and §2's census (squares mod \(3\) are \(0, 1\); only \(0 + 0\) vanishes) forces \(3 \mid x\) and \(3 \mid y\). Write \(x = 3x_1\), \(y = 3y_1\): \(9x_1^2 + 9y_1^2 = 3z^2\), so \(3(x_1^2 + y_1^2) = z^2\), forcing \(3 \mid z^2\), hence \(3 \mid z\): \(z = 3z_1\). Then \(x_1^2 + y_1^2 = 3z_1^2\) — a smaller positive solution, and the descent (P13) manufactures an infinite descending family from one criminal. No smallest criminal can do that: no solution at all. The lens found the wall; the ground floor of the integers closed the case; and the same one-two — localize, then descend — is exactly the engine M02 will run for the two-squares theorem in full.</p>
+</details>
+<p class="ex"><strong>Exercise 5</strong> ◐ — Build the 3-lens's ruler and meet the conservation law. Define the 3-size of a nonzero integer \(n\) as \(|n|_3 = 3^{-v_3(n)}\) — the heights of §3's ruler are exactly these. (a) Compute \(|n|_3\) for \(n = 1, \ldots, 27\), and verify multiplicativity, \(|mn|_3 = |m|_3 \, |n|_3\), on the pairs \((6, 10)\), \((9, 12)\), \((5, 7)\). (b) Find a pair where \(|m + n|_3\) is strictly smaller than the larger of \(|m|_3, |n|_3\), and a pair where equality holds; this "ultrametric" strictness is a property no everyday size has — find the everyday counterexample. (c) Now the ledger: define \(|n|_p = p^{-v_p(n)}\) for every prime, and \(|n|_\infty = n\) as the everyday size of the positive integer \(n\). Compute the product \(|n|_2 \, |n|_3 \, |n|_5 \, |n|_\infty\) for \(n = 3600\) and for \(n = 12\), and conjecture the law. Where does the honest proof of your conjecture live?</p>
+<details><summary>Hint</summary>
+<p>For (b): think about what "strictly smaller" needs — the two sizes must be equal, so that the 3-factors can reinforce; the everyday failure is \(1 + 1\) against \(|2|\). For (c): use the canonical form of \(3600\) from Exercise 1 — every prime's exponent, all at once.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) \(|n|_3 = 1\) for \(n\) not divisible by \(3\) (\(1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 19, 20, 22, 23, 25, 26\)); \(|n|_3 = 1/3\) for \(3, 6, 12, 15, 21, 24\); \(1/9\) for \(9, 18\); \(1/27\) for \(27\). Multiplicativity: \(|6 \cdot 10|_3 = |60|_3 = 1/3 = (1/3)(1) = |6|_3 |10|_3\) ✓; \(|9 \cdot 12|_3 = |108|_3 = 1/27 = (1/9)(1/3)\) ✓ (for \(108 = 4 \cdot 27\)); \(|5 \cdot 7|_3 = 1 = 1 \cdot 1\) ✓. (b) Strict: \(m = 3, n = 6\): \(|9|_3 = 1/9 < \max(1/3, 1/3) = 1/3\) — the 3-content of a sum can exceed both summands', which everyday addition can never do with size. Equality: \(m = 1, n = 2\): \(|3|_3 = 1/3 \le \max(1, 1) = 1\). Everyday counterexample to strictness-as-law: \(|1 + 1| = 2 > \max(1, 1) = 1\) — with everyday size the sum can be larger than both parts, so the "no bigger than the max" behavior is genuinely a lens phenomenon. (c) \(3600 = 2^4 3^2 5^2\): \(|3600|_2 = 1/16\), \(|3600|_3 = 1/9\), \(|3600|_5 = 1/25\), \(|3600|_\infty = 3600\), and \((1/16)(1/9)(1/25)(3600) = 3600/3600 = 1\). \(12 = 2^2 \cdot 3\): \(|12|_2 |12|_3 |12|_5 |12|_\infty = (1/4)(1/3)(1)(12) = 12/12 = 1\). Conjecture: for every positive integer (and, with sign bookkeeping, every rational), the product of the sizes over all lenses, the real one included, is exactly \(1\) — the product formula. Its honest proof is the fundamental theorem of arithmetic, P05's canonical form: the \(p\)-sizes contribute exactly the prime factorization, and \(|n|_\infty\) hands it back. The formula's research-scale home — the adeles, where the ledger becomes one space — is §7's modern door.</p>
+</details>
+<p class="ex"><strong>Exercise 6</strong> ◐ — Extend the census and count the witnesses. Run the two-squares census for all \(n \le 100\). (a) Verify the criterion: every \(n\) with all hostile primes to even powers appears, and nothing else does. (b) Find every \(n \le 100\) with <em>two different</em> representations as a sum of two nonzero squares, and compare your list with the factorizations. (c) Conjecture how the number of representations depends on the friendly part of \(n\)'s factorization, test the conjecture at \(65\) and \(85\), and say what a proof would need.</p>
+<details><summary>Hint</summary>
+<p>(b) Sort by "two different representations": for each surviving \(n\), list all pairs \((a, b)\) with \(a \le b\) and \(a^2 + b^2 = n\). (c) \(65 = 5 \cdot 13\) and \(85 = 5 \cdot 17\) each have two; what does a single friendly prime give, and what does a friendly product give?</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) The survivors up to \(100\) are the criterion's own: \(1, 2, 4, 5, 8, 9, 10, 13, 16, 17, 18, 20, 25, 26, 29, 32, 34, 36, 37, 40, 41, 45, 49, 50, 52 = 4 \cdot 13\), \(53\), \(58 = 2 \cdot 29\), \(61\), \(64\), \(65 = 5 \cdot 13\), \(68 = 4 \cdot 17\), \(72 = 8 \cdot 9\), \(73\), \(74 = 2 \cdot 37\), \(80 = 16 \cdot 5\), \(81\), \(82 = 2 \cdot 41\), \(85 = 5 \cdot 17\), \(89\), \(90 = 9 \cdot 10\), \(97\), \(98 = 2 \cdot 49\), \(100\) — each carries only friendly primes and even-powered hostile ones (\(45 = 3^2 \cdot 5\), \(72 = 2^3 \cdot 3^2\), \(90 = 2 \cdot 3^2 \cdot 5\), \(98 = 2 \cdot 7^2\)); every other \(n\) carries a \(3, 7, 11, 19, 23, 31, 43, 47, 59, 67, 71, 79,\) or \(83\) to an odd power and dies. (b) Two representations, both squares nonzero: \(50 = 1 + 49 = 25 + 25\); \(65 = 1 + 64 = 16 + 49\); \(85 = 4 + 81 = 36 + 49\); also \(25\) only counts its \(16 + 9\) beside \(25 + 0\) — with the nonzero rule, \(25\) has one. (c) Each single friendly prime gives exactly one representation (up to order and signs): \(5, 13, 17, 29, 37, 41\) each have one; a product of two friendly primes gives two (\(65, 85\)); the conjecture the census points at is that the number of essentially different representations is a divisor-count of the friendly part — and a proof would need both the descent of M02 (to handle hostile primes) and the identity of B12 run in reverse (to show the count cannot exceed the divisor-count). The full formula — representations counted by a divisor sum — is a named door; the census up to \(100\) is its detector, not its proof.</p>
+</details>
+</section>
+
+<footer>
+<p><strong>Next:</strong> this page's own sequel — ideal arithmetic (P32, planned), which localizes whole rings of numbers at a prime and turns "divisibility by \(p\)" into algebra with factorable objects — is not yet on the shelf. For the assembly's failures, the measure already is: <a href="p33-sheaf-cohomology-bridge.html">P33 · The sheaf cohomology bridge</a>, which counts the ways honest answers refuse to glue.</p>
+<p class="atlas-home"><a href="index.html">The Patterns Atlas</a> · <a href="p05-canonical-form.html">P05 · Reduce to canonical form</a> · <a href="p09-invariant.html">P09 · Find the invariant</a> · <a href="p13-descent.html">P13 · Infinite descent</a></p>
+</footer>
+</body>
+</html>
