@@ -1,597 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>P39 · The optimized sieve · The Patterns Atlas</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <style>
-/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
-:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
-* { box-sizing: border-box; }
-body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
-main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
-.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
-.kicker a { color: var(--accent); text-decoration: none; }
-h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
-h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
-.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
-nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
-nav.toc a { color: var(--accent); text-decoration: none; }
-table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
-th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
-td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
-td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
-.st { font-family: system-ui, sans-serif; font-size: .75rem; }
-.st.published { color: #1c6b2f; }
-.st.reviewed { color: var(--accent); }
-.st.drafting { color: var(--warn); }
-.st.planned { color: var(--soft); }
-footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
-/* pattern-page blocks */
-.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
-.pattern-box .words { color: var(--soft); }
-.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
-.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
-.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
-figure { margin: 1.2rem 0; }
-figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
-figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
-.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
-.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
-.eq { text-align: center; margin: 1.1rem 0; }
-mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
-figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
-figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
-details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
-summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
-details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-  </style>
-  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P39 · The optimized sieve · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
-  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P39 · the fifth move of tier 4</p>
-  <h1>The optimized sieve</h1>
-  <p class="tagline">When exact inclusion–exclusion explodes into \(2^k\) rounding errors, replace the rigid Möbius signs with the square of a truncated divisor sum and minimize the resulting quadratic form.</p>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P39 · the ninth move of tier 4</p>
+<h1>The optimized sieve</h1>
+<p class="tagline">Crossing out multiples is free; counting what survives the crossing-out is not — the honest count has \(2^k\) terms, each carrying a rounding error. When the exact bookkeeping drowns, stop counting exactly: build a square that sits above the truth, and let a minimization pick the weights.</p>
 </header>
 
-<aside class="onramp">
-  <strong>Sieve primorial \(P(z)\), the Möbius function \(\mu(d)\), and quadratic majorants.</strong>
-  To count elements in a finite integer set \(\mathcal{A} \subset [1, X]\) that are divisible by no prime \(p &lt; z\), form the <em>primorial</em> \(P(z) = \prod_{p &lt; z} p\); an integer \(n \in \mathcal{A}\) survives the sieve if and only if \(\gcd(n, P(z)) = 1\). The <em>Möbius function</em> \(\mu(d)\) equals \((-1)^r\) if \(d = p_1\cdots p_r\) is a product of \(r\) distinct primes, and \(0\) if \(d\) is divisible by a square \(p^2\). While exact inclusion–exclusion uses \(\sum_{d \mid \gcd(n, P(z))} \mu(d) = \mathbf{1}_{\gcd(n,P(z))=1}\), a <em>quadratic majorant</em> replaces that exact sum with \(\bigl(\sum_{d \mid n,\, d \le R} \lambda_d\bigr)^2 \ge \mathbf{1}_{\gcd(n,P(z))=1}\) for real weights \(\lambda_d\) normalized by \(\lambda_1 = 1\).
-</aside>
+<aside class="onramp"><strong>New word: sieve.</strong> A <em>sieve</em> is a crossing-out procedure plus its bookkeeping: fix a list of primes \(p &lt; z\), cross out every multiple of each, and ask what is left. The word is Eratosthenes' ancient one, and the whole subject is what the bookkeeping can honestly certify about the leftovers. <strong>New word: survivor.</strong> A <em>survivor</em> is an integer the sieve leaves uncrossed — a number divisible by none of the listed primes. Counting survivors is the sieve's one job. <strong>New word: majorant.</strong> A <em>majorant</em> is a quantity that sits pointwise above the thing you actually want: \(w(n) \ge \mathbf{1}_{\text{\(n\) is a survivor}}\) for every \(n\), no exceptions. A good majorant is easier to sum than the truth is to count — and its sum is a certified ceiling, not an estimate.</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p><a href="p10-pigeonhole.html"><span class="pid">P10</span></a> taught us how to force collisions when objects outnumber boxes, and <a href="p04-complete-the-square.html"><span class="pid">P04</span></a> showed us how completing the square reveals the exact minimum of a quadratic expression. <a href="p30-localize-at-prime.html"><span class="pid">P30</span></a> analyzed divisibility one prime \(p\) at a time, and <a href="p38-major-minor-arcs.html"><span class="pid">P38</span></a> showed us that binary prime problems (\(N = p_1 + p_2\) or twin primes \(p' - p = 2\)) hit a brick wall on the frequency circle because the Parseval \(L^2\) energy swamps the main term.</p>
-  <p>Here is why naive sieving hits an equally brutal wall. Suppose we want to count primes in \([1, X]\) by crossing out multiples of all primes \(p &lt; z = \sqrt{X}\) using Legendre's inclusion–exclusion formula (<a href="p76-inclusion-exclusion.html"><span class="pid">P76</span></a>): \(\sum_{d \mid P(z)} \mu(d)\,\lfloor X/d \rfloor\). Each floor \(\lfloor X/d \rfloor = \frac{X}{d} - \{X/d\}\) carries a fractional rounding error of size up to \(1\). And how many squarefree divisors \(d \mid P(z)\) are there? Exactly \(2^{\pi(z)}\)! Already at \(X = 2500\) (\(z = 50\), where there are \(\pi(50) = 15\) primes), there are \(2^{15} = 32{,}768\) rounding errors — more than <em>thirteen times larger</em> than the entire interval \(X = 2500\)! Worse still, if you simply chop the sum off at \(d \le R\), the truncated sum \(\sum_{d \mid n,\, d \le R} \mu(d)\) oscillates wildly in sign, so you lose both upper and lower bounds. How do you truncate a sieve to \(d \le R\) while keeping a valid inequality and choosing the best possible weights?</p>
+<h2>1 · Before we begin</h2>
+<p>The ladder so far: <a href="p10-pigeonhole.html">P10</a> taught that more objects than boxes forces a collision, and — the part this page needs — that the boxes can be <a href="b02-congruence-classes.html">congruence classes</a>: a prime \(p\) owns \(p\) boxes, and crossing out multiples is herding integers into the boxes numbered \(0\). <a href="p30-localize-at-prime.html">P30</a> sharpened the lens to one prime at a time: the valuation \(v_p\) measures exactly how much of \(p\) a number carries, and the \(p\)-local room is where divisibility questions become easy. This page runs the whole battery at once — every prime below a threshold, simultaneously, over a whole interval — and asks the question the single lens never faces: what can you <em>certify</em> when the primes are too many for exact bookkeeping?</p>
+<p>Both parents commissioned this page by name. P30's door: "the optimized sieve (P39, planned) puts the lens to work at scale." And <a href="p10-pigeonhole.html">P10</a>, handing over its boxes: "(P39) carries this move into number-theoretic territory where the boxes are residue classes and the objects are primes — it needs the localize-at-a-prime move (P30) first." The commission is honest about the scale of the difficulty: this is a tier-4 page, and its central trick — replacing a rigid sign-sum by an optimized square — is the kind of move that looks strange until you watch it certify a bound that the exact count cannot.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: sieving by \(\{2, 3, 5\}\) with only five divisors instead of eight</h2>
-  <p>Test the truncation crisis on a concrete toy sieve: we want to bound the fraction of integers \(n \in [1, X]\) that are coprime to \(P(6) = 2 \times 3 \times 5 = 30\), using <strong>only divisors \(d \le R = 6\)</strong>. Out of the \(2^3 = 8\) divisors of \(30\), only <strong>five</strong> belong to our truncated budget \(D = \{1, 2, 3, 5, 6\}\) (omitting \(10, 15, 30\)).</p>
-  <p>Look at what happens if we naively truncate the Möbius sum \(\sum_{d \in D, d \mid n} \mu(d)\) at \(n = 30\): the five divisors in \(D\) all divide \(30\), giving \(\mu(1) + \mu(2) + \mu(3) + \mu(5) + \mu(6) = 1 - 1 - 1 - 1 + 1 = -1 &lt; 0\) — a negative number that is <em>less</em> than the true indicator \(0\) at \(n=30\), while at \(n=10\) it gives \(1 - 1 - 1 = -1\) and at \(n=6\) it gives \(1 - 1 - 1 + 1 = 0\)! Naive truncation doesn't know whether it is an upper bound or a lower bound.</p>
-  <p>In 1947 Atle Selberg solved both problems in a single stroke. Let \(\lambda_1, \lambda_2, \lambda_3, \lambda_5, \lambda_6 \in \mathbb{R}\) be <em>any</em> real numbers subject to the single normalization \(\lambda_1 = 1\), and form the <strong>squared divisor sum</strong></p>
-  <p class="eq">\[w(n) = \left(\sum_{\substack{d \in D \\ d \mid n}} \lambda_d\right)^2.\]</p>
-  <p>Check \(w(n)\) on every integer \(n\):
-  <ul>
-    <li>If \(\gcd(n, 30) = 1\) (an unsieved survivor!), only \(d = 1\) divides \(n\), so \(w(n) = \lambda_1^2 = 1^2 = 1\).</li>
-    <li>If \(\gcd(n, 30) &gt; 1\) (a sieved composite!), \(w(n)\) is the <strong>square of a real number</strong>, so \(w(n) \ge 0\) always holds!</li>
-  </ul>
-  Therefore \(\mathbf{1}_{\gcd(n,30)=1} \le w(n)\) holds <em>pointwise for every \(n\)</em> and for <em>every choice of real numbers \(\lambda_2, \lambda_3, \lambda_5, \lambda_6\)</em>! Summing \(w(n)\) over \(1 \le n \le X\), a pair \((d_1, d_2) \in D \times D\) divides \(n\) if and only if \(\operatorname{lcm}(d_1, d_2) \mid n\), which happens \(\frac{X}{\operatorname{lcm}(d_1,d_2)} + O(1)\) times:</p>
-  <p class="eq">\[\sum_{n \le X} \mathbf{1}_{\gcd(n,30)=1} \;\le\; X \underbrace{\sum_{d_1, d_2 \in D} \frac{\lambda_{d_1}\lambda_{d_2}}{\operatorname{lcm}(d_1, d_2)}}_{Q(\lambda)} \;+\; O\bigl(|D|^2\bigr).\]</p>
-  <p>Now complete the square (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>) to minimize the quadratic form \(Q(\lambda)\)! Because \(\frac{1}{\operatorname{lcm}(d_1,d_2)} = \frac{\gcd(d_1,d_2)}{d_1 d_2}\) and Gauss's identity says \(\gcd(d_1, d_2) = \sum_{m \mid \gcd(d_1,d_2)} \phi(m)\), substituting \(u_m = \sum_{d \in D,\, m \mid d} \frac{\lambda_d}{d}\) diagonalizes \(Q(\lambda)\) instantly into a sum of vijf squares:</p>
-  <p class="eq">\[Q(\lambda) = \sum_{m \in D} \phi(m)\,u_m^2, \qquad \text{subject to}\quad \lambda_1 = \sum_{m \in D} \mu(m)\,u_m = 1.\]</p>
-  <p>By Cauchy–Schwarz (<a href="p15-squeeze.html"><span class="pid">P15</span></a>), \(1 = \bigl(\sum \mu(m)u_m\bigr)^2 \le \bigl(\sum_{m \in D} \frac{\mu(m)^2}{\phi(m)}\bigr)\bigl(\sum_{m \in D} \phi(m)u_m^2\bigr)\), so the exact minimum of \(Q(\lambda)\) is the reciprocal of \(V(D) = \sum_{m \in D} \frac{1}{\phi(m)}\):</p>
+<h2>2 · The encounter</h2>
+<p>Start with the smallest honest census. Take the primes \(2, 3, 5\), cross out their multiples, and count survivors up to \(30\). By hand: \(1, 7, 11, 13, 17, 19, 23, 29\) — eight of them. The exact bookkeeping also gives eight, without any listing: every survivor avoids each prime, and the counting runs by inclusion–exclusion over the eight divisors of \(30\),</p>
+<p class="eq">\[30 \;-\; 15 \;-\; 10 \;-\; 6 \;+\; 5 \;+\; 3 \;+\; 2 \;-\; 1 \;=\; 8,\]</p>
+<p>adding back the double-crossed, subtracting the triple-crossed. Each term is exact because each divisor of \(30\) divides \(30\) — no rounding anywhere. Push the interval to \(100\) and the rounding arrives: the same eight-term sum becomes \(100 - 50 - 33 - 20 + 16 + 10 + 6 - 3 = 26\), and only the floors — each term secretly carries an error up to \(1\) — keep it honest. Eight error terms against an interval of \(100\): a budget you can afford.</p>
+<p>Now scale the prime list. Cross out by every prime below \(50\) — there are fifteen — and the exact sum has \(2^{15} = 32{,}768\) signed terms, each carrying a rounding error up to \(1\), against an interval of length \(2{,}500\). The error budget alone is thirteen times the thing being counted. The exact bookkeeping has not become wrong; it has become <em>vacuous</em> — the certificate it produces is wider than the quantity.</p>
+<p>So truncate: keep only the small divisors, the ones a budget can afford. Five divisors of \(30\) fit inside a budget of \(6\): \(1, 2, 3, 5, 6\). Run the signs by hand at \(n = 10\) — the divisors within budget that divide \(10\) are \(1, 2, 5\), so the truncated sum gives \(1 - 1 - 1 = -1\). But the true indicator — "is \(10\) a survivor?" — is \(0\). The truncated sum is <em>below</em> the truth. At \(n = 30\) all five divide, giving \(1 - 1 - 1 - 1 + 1 = -1\), again below the truth. A sum that can dip below the truth cannot certify a ceiling: truncate the signs and the certificate dies, in either direction.</p>
+<p>The repair is the page's whole idea, and it is almost embarrassingly small: <em>square the truncated sum</em>. Give the five divisors real weights \(\lambda_1, \lambda_2, \lambda_3, \lambda_5, \lambda_6\) with the single anchor \(\lambda_1 = 1\), and at each \(n\) evaluate</p>
+<p class="eq">\[w(n) \;=\; \Bigl( \sum_{\substack{d \in \{1,2,3,5,6\} \\ d \mid n}} \lambda_d \Bigr)^{2}.\]</p>
+<p>Check the two cases by hand. A survivor shares no factor with \(30\), so only \(d = 1\) divides it: \(w(n) = \lambda_1^2 = 1\) — the square sits exactly on the truth. A crossed-out number gets the square of <em>some</em> real sum — and a square is never negative: \(w(n) \ge 0\), always, for <em>every</em> choice of the remaining weights. So \(w\) is a majorant of the survivor indicator, pointwise, no matter how the weights are chosen; the entire question of quality becomes a question of <em>which</em> weights make the sum of \(w\) smallest — an optimization with a real answer. Fig P39.1 shows the census that makes the contrast sharp: across all eight gcd-profiles of \(30\), the truncated sign-sum dips below the indicator exactly where the crossing-out overlaps — while the square, whatever weights it wears, never dips below zero. The rest of the page is that optimization, run honestly.</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Divisor \(d \in D\)</th>
-        <th>Totient \(\phi(d)\)</th>
-        <th>Reciprocal \(1/\phi(d)\)</th>
-        <th>Naive Möbius \(\mu(d)\)</th>
-        <th>Optimal Selberg Weight \(\lambda_d^*\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(d = 1\)</td>
-        <td>\(1\)</td>
-        <td>\(1\)</td>
-        <td>\(+1\)</td>
-        <td>\(\mathbf{1} = +1.0000\)</td>
-      </tr>
-      <tr>
-        <td>\(d = 2\)</td>
-        <td>\(1\)</td>
-        <td>\(1\)</td>
-        <td>\(-1\)</td>
-        <td>\(\mathbf{-12/13} \approx -0.9231\)</td>
-      </tr>
-      <tr>
-        <td>\(d = 3\)</td>
-        <td>\(2\)</td>
-        <td>\(1/2\)</td>
-        <td>\(-1\)</td>
-        <td>\(\mathbf{-12/13} \approx -0.9231\)</td>
-      </tr>
-      <tr>
-        <td>\(d = 5\)</td>
-        <td>\(4\)</td>
-        <td>\(1/4\)</td>
-        <td>\(-1\)</td>
-        <td>\(\mathbf{-5/13} \approx -0.3846\)</td>
-      </tr>
-      <tr>
-        <td>\(d = 6\)</td>
-        <td>\(2\)</td>
-        <td>\(1/2\)</td>
-        <td>\(+1\)</td>
-        <td>\(\mathbf{+12/13} \approx +0.9231\)</td>
-      </tr>
-      <tr>
-        <td><strong>Total / Density</strong></td>
-        <td>—</td>
-        <td>\(V(D) = \mathbf{13/4} = 3.25\)</td>
-        <td>Sign-indefinite!</td>
-        <td>\(Q_{\min} = \frac{1}{V(D)} = \mathbf{4/13} \approx 0.3077\)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Look at the last column: instead of abrupt \(\pm 1\) cutoff weights, Selberg's optimization tapers \(\lambda_5^* = -5/13\) smoothly near the boundary \(R = 6\) and achieves a certified upper-bound density of \(\frac{4}{13} \approx 0.3077\) (within \(4\%\) of the true \(8\)-divisor density \(\frac{4}{15} \approx 0.2667\)) while using only \(5\) divisors!</p>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210" role="img" aria-label="Fig P39.1: Left: Exponential explosion of inclusion-exclusion error 2^pi(z) versus polynomial remainder R^2 of Selberg's sieve. Right: Pointwise comparison showing why (sum lambda_d)^2 >= 1_{gcd=1} is always a valid upper bound while truncated Mobius dips below zero.">
-      <rect x="0" y="0" width="600" height="210" fill="#ffffff"/>
-
-      <!-- Left panel: Remainder Error 2^pi(z) vs R^2 -->
-      <text x="150" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Remainder Error:  2^π(z)  vs.  Selberg  R²</text>
-      <line x1="45" y1="168" x2="268" y2="168" stroke="#8a94a3" stroke-width="1.2"/>
-      <line x1="45" y1="32" x2="45" y2="172" stroke="#8a94a3" stroke-width="1.2"/>
-
-      <!-- Exponential curve 2^pi(z) shooting vertically off the chart -->
-      <path d="M 55,162 C 95,158 135,130 175,34" fill="none" stroke="#8a4b08" stroke-width="2.4"/>
-      <!-- Controlled Selberg R^2 <= X / (ln X)^2 staying below the X ceiling line -->
-      <line x1="45" y1="78" x2="265" y2="78" stroke="#1a1a1a" stroke-width="1.3" stroke-dasharray="4,3"/>
-      <path d="M 55,164 Q 155,152 255,96" fill="none" stroke="#0f5c57" stroke-width="2.4"/>
-
-      <text x="182" y="44" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08">Legendre  2^π(z) ≫ X</text>
-      <text x="262" y="72" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="end">Interval size ceiling X</text>
-      <text x="255" y="114" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="end">Selberg error  R² ≪ X</text>
-      <text x="155" y="192" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Sieve threshold  z, R</text>
-
-      <!-- Divider -->
-      <line x1="300" y1="18" x2="300" y2="198" stroke="#d8d4cc" stroke-dasharray="4,4"/>
-
-      <!-- Right panel: Pointwise Majorant (sum lambda_d)^2 >= 0 vs Truncated Mobius dipping to -1 -->
-      <text x="450" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Pointwise Weights at  n = 1, 2, 5, 10, 30</text>
-      <!-- Zero line at y = 132; y = 1 at y = 68 (scale 64px per unit) -->
-      <line x1="330" y1="132" x2="572" y2="132" stroke="#1a1a1a" stroke-width="1.4"/>
-      <line x1="330" y1="68" x2="572" y2="68" stroke="#d8d4cc" stroke-dasharray="3,3"/>
-      <text x="324" y="72" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="end">+1</text>
-      <text x="324" y="135" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="end">0</text>
-      <text x="324" y="176" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="end">−1</text>
-
-      <!-- x positions for n = 1 (360), n = 2 (405), n = 5 (450), n = 10 (495), n = 30 (540) -->
-      <!-- At n = 1: both = +1 (y=68) -->
-      <circle cx="360" cy="68" r="5" fill="#0f5c57"/>
-      <!-- At n = 2: Selberg w(2) = (1 - 12/13)^2 = 1/169 (y=131.6 >= 0); Mobius = 0 -->
-      <circle cx="405" cy="131" r="4.5" fill="#0f5c57"/>
-      <!-- At n = 5: Selberg w(5) = (1 - 5/13)^2 = 64/169 = 0.379 (y=107.8 >= 0); Mobius = 0 -->
-      <circle cx="450" cy="107.8" r="4.5" fill="#0f5c57"/>
-      <circle cx="450" cy="132" r="3.5" fill="#8a4b08"/>
-      <!-- At n = 10 (divisors in D: 1, 2, 5):
-           Truncated Mobius = 1 - 1 - 1 = -1 (y=176 < 0, INVALID!)
-           Selberg w(10) = (1 - 12/13 - 5/13)^2 = (-4/13)^2 = 16/169 = +0.095 >= 0 (y=125.9, VALID!) -->
-      <line x1="495" y1="132" x2="495" y2="176" stroke="#8a4b08" stroke-width="2.5"/>
-      <circle cx="495" cy="176" r="4.5" fill="#8a4b08"/>
-      <circle cx="495" cy="125.9" r="4.5" fill="#0f5c57"/>
-      <!-- At n = 30 (divisors in D: 1, 2, 3, 5, 6):
-           Truncated Mobius = 1 - 1 - 1 - 1 + 1 = -1 (y=176 < 0, INVALID!)
-           Selberg w(30) = (1 - 12/13 - 12/13 - 5/13 + 12/13)^2 = (-4/13)^2 = +16/169 >= 0 (y=125.9, VALID!) -->
-      <line x1="540" y1="132" x2="540" y2="176" stroke="#8a4b08" stroke-width="2.5"/>
-      <circle cx="540" cy="176" r="4.5" fill="#8a4b08"/>
-      <circle cx="540" cy="125.9" r="4.5" fill="#0f5c57"/>
-
-      <text x="360" y="148" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">n=1</text>
-      <text x="405" y="148" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">n=2</text>
-      <text x="450" y="148" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">n=5</text>
-      <text x="495" y="148" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">n=10</text>
-      <text x="540" y="148" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">n=30</text>
-      <text x="462" y="54" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Selberg (∑ λ_d)² ≥ 0 everywhere</text>
-      <text x="518" y="193" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">Truncated ∑ μ(d) = −1 &lt; 0!</text>
-    </svg>
-    <figcaption><strong>Fig P39.1.</strong> <strong>(A)</strong> Full inclusion–exclusion accumulates \(2^{\pi(z)}\) remainder terms, exploding past \(X\); Selberg's truncated quadratic form caps the remainder at \(R^2 \ll X\). <strong>(B)</strong> Naive truncation of \(\sum \mu(d)\) dips to \(-1 &lt; 0\) at \(n = 10\) and \(n = 30\), ruining the inequality; squaring \(\bigl(\sum \lambda_d\bigr)^2 \ge 0\) guarantees a valid upper bound at every integer.</figcaption>
-  </figure>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" role="img" aria-label="Pointwise values at the eight gcd profiles of 30. The truncated sign-sum over the budget 1,2,3,5,6 takes values 1, 0, 0, 0, 0, minus 1, minus 1, minus 1, dipping below zero at profiles 10, 15 and 30; the squared majorant with the optimal weights takes values 1, about 0.006, about 0.006, about 0.379, about 0.006, about 0.095, about 0.095, about 0.095, always at or above zero.">
+<rect x="0" y="0" width="600" height="230" fill="#ffffff"/>
+<line x1="60" y1="115" x2="570" y2="115" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="60" y1="55" x2="570" y2="55" stroke="#d8d4cc" stroke-dasharray="3,3"/>
+<line x1="60" y1="175" x2="570" y2="175" stroke="#d8d4cc" stroke-dasharray="3,3"/>
+<text x="52" y="59" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="end">+1</text>
+<text x="52" y="119" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="end">0</text>
+<text x="52" y="179" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="end">−1</text>
+<text x="95" y="48" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">+1</text>
+<circle cx="95" cy="55" r="4.5" fill="#0f5c57"/>
+<text x="95" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=1</text>
+<text x="150" y="108" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">0</text>
+<circle cx="150" cy="114" r="4.5" fill="#0f5c57"/>
+<text x="150" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=2</text>
+<text x="205" y="108" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">0</text>
+<circle cx="205" cy="114" r="4.5" fill="#0f5c57"/>
+<text x="205" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=3</text>
+<text x="260" y="108" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">0</text>
+<circle cx="260" cy="92" r="4.5" fill="#0f5c57"/>
+<text x="260" y="84" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">0.379</text>
+<text x="260" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=5</text>
+<text x="315" y="108" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">0</text>
+<circle cx="315" cy="114" r="4.5" fill="#0f5c57"/>
+<text x="315" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=6</text>
+<line x1="370" y1="115" x2="370" y2="175" stroke="#8a4b08" stroke-width="2.5"/>
+<circle cx="370" cy="175" r="4.5" fill="#8a4b08"/>
+<circle cx="370" cy="109" r="4.5" fill="#0f5c57"/>
+<text x="370" y="101" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">0.095</text>
+<text x="370" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=10</text>
+<line x1="425" y1="115" x2="425" y2="175" stroke="#8a4b08" stroke-width="2.5"/>
+<circle cx="425" cy="175" r="4.5" fill="#8a4b08"/>
+<circle cx="425" cy="109" r="4.5" fill="#0f5c57"/>
+<text x="425" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=15</text>
+<line x1="480" y1="115" x2="480" y2="175" stroke="#8a4b08" stroke-width="2.5"/>
+<circle cx="480" cy="175" r="4.5" fill="#8a4b08"/>
+<circle cx="480" cy="109" r="4.5" fill="#0f5c57"/>
+<text x="480" y="200" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">δ=30</text>
+<text x="310" y="222" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Profile δ = gcd(n, 30) · truncated signs (orange, dips invalid below 0) · squared majorant (green, never below 0)</text>
+<text x="310" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pointwise at 30: the truncated signs dip; the square cannot</text>
+</svg>
+<figcaption><strong>Fig P39.1.</strong> The eight gcd-profiles of \(30\). Orange: the truncated sign-sum over the budget \(\{1,2,3,5,6\}\) — at or above zero for the left profiles, but \(-1\) at \(\delta = 10, 15, 30\), where it falls below the true indicator and forfeits the ceiling. Green: the squared majorant with the §4 weights — \(1\) at the survivor profile \(\delta = 1\), small but strictly non-negative everywhere else. The dip is a property of the signs; the non-negativity is a property of the square.</figcaption>
+</figure>
 </section>
 
 <section id="pattern">
-  <h2>3 · Name the move</h2>
-  <p>The Selberg–Maynard–Tao sieve framework generalizes our five-divisor calculation to any finite set \(\mathcal{A}\) of integers (or \(k\)-tuples of linear forms) where multiples of squarefree \(d \mid P(z)\) occur with local density \(g(d)/d\) (meaning \(|\mathcal{A}_d| = \frac{g(d)}{d}|\mathcal{A}| + r_d\), where \(g(p)\,p^{-1}\) is the fraction of elements divisible by \(p\), such as \(\frac{1}{p}\) for single integers or \(\frac{2}{p}\) for twin-prime pairs \((n, n+2)\)).</p>
-
-  <aside class="onramp">
-    <strong>Multiplicative density \(g(d)\), the regenerative totient \(h(m)\), and the sieve sum \(V(R)\).</strong>
-    Suppose each prime \(p \mid P(z)\) removes a fraction \(\omega(p)/p\) of the set \(\mathcal{A}\), with \(0 \le \omega(p) &lt; p\). By the Chinese Remainder Theorem (<a href="b04-bezout.html"><span class="pid">B04</span></a>), a squarefree divisor \(d = p_1\cdots p_r\) removes a fraction \(\prod_{p \mid d} \frac{\omega(p)}{p}\). Define the multiplicative function \(h(m) = \prod_{p \mid m} \frac{p - \omega(p)}{\omega(p)}\) so that \(\frac{d}{\omega(d)} = \sum_{m \mid d} h(m)\) (when \(\omega(p) = 1\), \(h(m) = \phi(m)\) is Euler's totient!). The <em>sieve denominator</em> is \(V(R) = \sum_{m \le R,\, m \mid P(z)} \frac{1}{h(m)}\).
-  </aside>
-
-  <div class="pattern-box" id="box-p39">
-    <p><strong>Pattern P39 — The optimized sieve.</strong> To upper-bound (or detect) elements of a finite set \(\mathcal{A}\) having no prime factors \(p &lt; z\), replace the exact indicator \(\mathbf{1}_{\gcd(n, P(z)) = 1}\) with the non-negative quadratic form \(\bigl(\sum_{d \mid \gcd(n, P(z)),\, d \le R} \lambda_d\bigr)^2\) anchored at \(\lambda_1 = 1\). Diagonalize the resulting main-term quadratic form via the change of basis \(u_m = \sum_{m \mid d \le R} \lambda_d \frac{\omega(d)}{d}\) (<span class="pid">P04</span> + <span class="pid">P05</span>) and minimize over \(u_m\) subject to \(\sum_{m \le R} \mu(m)u_m = 1\):</p>
-    <p class="eq">\[S(\mathcal{A}, P(z)) \;\le\; \frac{|\mathcal{A}|}{\displaystyle\sum_{\substack{m \le R \\ m \mid P(z)}} \frac{\mu(m)^2}{h(m)}} \;+\; \sum_{d_1, d_2 \le R} |\lambda_{d_1}\lambda_{d_2}|\,|r_{\operatorname{lcm}(d_1,d_2)}|, \qquad \lambda_d^* = \frac{d}{\omega(d)\,V(R)}\sum_{\substack{k \le R/d \\ \gcd(k,d)=1}} \frac{\mu(d)\mu(k)}{h(dk)}.\]</p>
-    <p class="words"><strong>Or, in words:</strong> Never sum \(2^{\pi(z)}\) raw inclusion–exclusion signs. Majorize the indicator by the square of a short divisor sum (\(d \le R\)), diagonalize the \(\operatorname{lcm}(d_1, d_2)\) matrix by Möbius inversion into independent squares, and let Cauchy–Schwarz pick the exact weights that minimize the main term while keeping the remainder under \(R^2\).</p>
-  </div>
-
-  <div class="pattern-box" id="box-p39a">
-    <p><strong>Box P39.A — The three obligations of an optimized quadratic sieve.</strong></p>
-    <ol>
-      <li><strong>Anchor and Pointwise Positivity (\(\lambda_1 = 1\)):</strong> Fix \(\lambda_1 = 1\) (or for lower-bound Maynard–Tao sieves, normalize the baseline quadratic form \(\sum w_n\)) so that unsieved elements carry positive weight while composite elements carry non-negative squared weight \(\bigl(\sum_{d \mid n} \lambda_d\bigr)^2 \ge 0\).</li>
-      <li><strong>Möbius Diagonalization (<span class="pid">P04</span> + <span class="pid">P05</span>):</strong> Factor the coupled coupling \(\frac{\omega(\operatorname{lcm}(d_1,d_2))}{\operatorname{lcm}(d_1,d_2)} = \frac{\omega(d_1)\omega(d_2)}{d_1 d_2}\sum_{m \mid \gcd(d_1,d_2)} h(m)\) to convert the off-diagonal quadratic form \(\sum_{d_1, d_2} \lambda_{d_1}\lambda_{d_2}\frac{\omega([d_1,d_2])}{[d_1,d_2]}\) into the diagonal sum of squares \(\sum_{m \le R} h(m)\,u_m^2\).</li>
-      <li><strong>Support Level Calibration (\(R^2 \ll |\mathcal{A}|\)):</strong> Choose the truncation radius \(R\) so that the \(R^2\) remainder sum \(\sum_{d_1, d_2 \le R} |r_{[d_1, d_2]}|\) (controlled by simple lattice counting or the Bombieri–Vinogradov distribution level) is of strictly smaller order than the main term \(|\mathcal{A}| / V(R)\).</li>
-    </ol>
-  </div>
-
-  <div class="pattern-box" id="box-p39b">
-    <table>
-      <thead>
-        <tr>
-          <th>Key</th>
-          <th>Signature</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Claim type</strong></td>
-          <td>Sharp upper bounds on primes in short intervals or twin-prime constellations (Brun–Titchmarsh, Hardy–Littlewood \(2\times\) bounds), or bounded gaps between primes via multidimensional quadratic weights.</td>
-        </tr>
-        <tr>
-          <td><strong>Problem shape</strong></td>
-          <td>Counting integers \(n \in \mathcal{A}\) avoiding local residue classes \(\bmod\;p\) across many primes \(p &lt; z\) where inclusion–exclusion has \(2^{\pi(z)} \gg |\mathcal{A}|\) terms.</td>
-        </tr>
-        <tr>
-          <td><strong>Tools at hand</strong></td>
-          <td>Chinese Remainder Theorem (<span class="pid">B04</span>), Möbius inversion on divisor lattices, and quadratic form optimization (<span class="pid">P04</span>).</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P39</span> whenever you need to filter out multiples of many primes at once and exact inclusion–exclusion blows up.</p>
-  </div>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P39.2: The Mobius change-of-basis bridge diagonalizing the dense coupled matrix 1/lcm(d_1, d_2) in lambda-coordinates into the diagonal matrix diag(phi(m)) in u-coordinates.">
-      <defs>
-        <marker id="arr-p39" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
-        </marker>
-      </defs>
-      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
-
-      <!-- Left box: Coupled Quadratic Form in lambda_d -->
-      <rect x="24" y="34" width="224" height="124" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="4"/>
-      <text x="136" y="56" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Coupled Basis  (λ_d)</text>
-      <text x="136" y="82" font-family="Georgia, serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Q(λ) = ∑_{d₁,d₂ ≤ R}  λ_{d₁} λ_{d₂} / lcm(d₁, d₂)</text>
-      <text x="136" y="108" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Constraint:  λ₁ = 1</text>
-      <text x="136" y="134" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">Dense matrix: every pair (d₁, d₂) interacts!</text>
-
-      <!-- Middle Transformation Arrows -->
-      <line x1="256" y1="82" x2="344" y2="82" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p39)"/>
-      <line x1="344" y1="110" x2="256" y2="110" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p39)"/>
-      <text x="300" y="72" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">u_m = ∑_{m|d} λ_d / d</text>
-      <text x="300" y="126" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">λ_d = d ∑_k μ(k) u_{dk}</text>
-
-      <!-- Right box: Diagonalized Sum of Squares in u_m -->
-      <rect x="352" y="34" width="224" height="124" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
-      <text x="464" y="56" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Diagonal Basis  (u_m)</text>
-      <text x="464" y="82" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q(u) = ∑_{m ≤ R}  ϕ(m) u_m²</text>
-      <text x="464" y="108" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">Constraint:  ∑_{m ≤ R} μ(m) u_m = 1</text>
-      <text x="464" y="134" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Minimum:  u_m* = μ(m) / (ϕ(m) V(R))</text>
-    </svg>
-    <figcaption><strong>Fig P39.2.</strong> How Selberg diagonalizes the \(\operatorname{lcm}(d_1, d_2)\) matrix without numerical matrix inversion: writing \(\gcd(d_1, d_2) = \sum_{m \mid d_1,\, m \mid d_2} \phi(m)\) turns the coupled quadratic form in \(\lambda_d\) into a diagonal sum of squares \(\sum \phi(m) u_m^2\) subject to one linear constraint \(\sum \mu(m) u_m = 1\).</figcaption>
-  </figure>
+<h2>3 · Name the move</h2>
+<p>Here is the general ledger. Fix a sieve interval \(1 \le n \le X\) and a prime list \(p &lt; z\); write \(P(z)\) for their product and \(S(X, z)\) for the count of \(n\) divisible by none of them. The exact count is an alternating sum over all squarefree \(d \mid P(z)\), with one rounding error per divisor and \(2^{\pi(z)}\) divisors. Selberg's 1947 move — this is the pattern's name — replaces the rigid signs by the anchored square:</p>
+<div class="pattern-box" id="box-p39">
+<p><strong>Pattern P39 — The optimized sieve.</strong> Majorize the survivor indicator by the square of a short divisor sum — \(w(n) = \bigl( \sum_{d \mid n, \, d \le R} \lambda_d \bigr)^2\) with \(\lambda_1 = 1\) — so the inequality \(\mathbf{1}_{\text{survivor}}(n) \le w(n)\) holds pointwise for <em>every</em> choice of the other weights. Summing over the interval turns the total into a quadratic form in the weights,</p>
+<p class="eq">\[\sum_{n \le X} w(n) \;=\; X \underbrace{\sum_{d_1, d_2 \le R} \frac{\lambda_{d_1}\lambda_{d_2}}{\operatorname{lcm}(d_1, d_2)}}_{Q(\lambda)} \;+\; O(R^2),\]</p>
+<p>and then <a href="p04-complete-the-square.html">P04</a>'s move, not luck, picks the weights: the change of basis \(u_m = \sum_{m \mid d \le R} \lambda_d / d\) diagonalizes \(Q\) into \(\sum_{m \le R} \varphi(m) u_m^2\) under the single constraint \(\sum_{m \le R} \mu(m) u_m = 1\), and <a href="p15-squeeze.html">P15</a>'s squeeze (Cauchy–Schwarz, once) pins the minimum exactly:</p>
+<p class="eq">\[S(X, z) \;\le\; \frac{X}{V(R)} + O(R^2), \qquad V(R) \;=\; \sum_{\substack{m \le R \\ m \mid P(z)}} \frac{\mu(m)^2}{\varphi(m)}.\]</p>
+<p class="words"><strong>Or, in words:</strong> never sum \(2^{\pi(z)}\) signed rounding errors. Majorize the indicator by the square of a short divisor sum, so the inequality survives truncation; diagonalize the resulting quadratic form by a totient change of basis; and let one Cauchy–Schwarz choose the weights that minimize the main term. The ceiling you get is certified — and the only price is the \(R^2\) remainder, which the budget \(R\) must be chosen to afford.</p>
+</div>
+<p>The shape of the answer deserves a pause. The main term is \(X / V(R)\), and \(V(R)\) — a sum of reciprocal totients over squarefree \(m \le R\) — grows like \(\log R\): every prime in the list contributes, through \(1/\varphi\), its fair share. And the depth has a one-line certificate against the bare logarithm — every truncated budget on this page stays below its prime horizon, so the sum ranges over every squarefree \(m \le R\): group the harmonic sum by radicals — the integers with \(\operatorname{rad}(n) = m\) contribute at most \(\frac{1}{m}\prod_{p \mid m}\bigl(1 + \tfrac{1}{p} + \cdots\bigr) = \frac{1}{\varphi(m)}\) — so \(V(R) \ge \sum_{n \le R} \frac{1}{n} > \log R\). So a deeper budget buys a proportionally tighter ceiling, and the only brake is the \(R^2\) remainder swelling behind it. The whole architecture of the bound — main term in front, budget squaring behind — is visible already in the five-divisor census of §2, and the worked exemplars make the numbers honest.</p>
 </section>
+
 <section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
+<h2>4 · Worked exemplars</h2>
 
-  <h3>Exemplar 1 · Two one-line miracles: why \(|\lambda_d^*| \le 1\) and why \(V(R) &gt; \ln R\)</h3>
-  <p>Why does Selberg's sieve give clean, explicit bounds without requiring complex analysis? Two elementary inequalities do all the heavy lifting:</p>
-  <ul>
-    <li><strong>Why \(|\lambda_d^*| \le 1\) always holds (controlling the remainder):</strong> In Box P39, for any squarefree \(d \le R\), every \(m \le R\) starts either with a divisor of \(d\) or not. Factoring \(m = r k\) with \(r \mid d\) and \(\gcd(k, d) = 1\) shows that
-      <p class="eq">\[V(R) = \sum_{m \le R} \frac{\mu(m)^2}{\phi(m)} \;\ge\; \left(\sum_{r \mid d} \frac{\mu(r)^2}{\phi(r)}\right) \sum_{\substack{k \le R/d \\ \gcd(k,d)=1}} \frac{\mu(k)^2}{\phi(k)} = \frac{d}{\phi(d)} \sum_{\substack{k \le R/d \\ \gcd(k,d)=1}} \frac{\mu(k)^2}{\phi(k)}.\]</p>
-      Comparing the right-hand side with the formula for \(\lambda_d^*\) in Box P39 shows that \(|\lambda_d^*|\) is a positive subsum of \(V(R)\) divided by \(V(R)\), so \(\bigl|\lambda_d^*\bigr| \le 1\) for every \(d \le R\) (<a href="p15-squeeze.html"><span class="pid">P15</span></a>)! Thus the remainder \(\sum_{d_1, d_2 \le R} |\lambda_{d_1}^*\lambda_{d_2}^*| \le R^2\) never blows up.</li>
-    <li><strong>Why \(V(R) &gt; \ln R\) (controlling the main term):</strong> For any squarefree \(m \le R\), expand \(\frac{1}{\phi(m)} = \frac{1}{m}\prod_{p \mid m}\frac{1}{1 - 1/p} = \frac{1}{m}\prod_{p \mid m}\bigl(1 + \frac{1}{p} + \frac{1}{p^2} + \cdots\bigr)\). Every integer \(n \le R\) has all of its prime factors dividing some squarefree \(m \le R\) (namely the radical \(m = \operatorname{rad}(n) \le n \le R\)). Therefore summing \(\frac{\mu(m)^2}{\phi(m)}\) over \(m \le R\) includes \(\frac{1}{n}\) for <em>every</em> integer \(1 \le n \le R\):
-      <p class="eq">\[V(R) = \sum_{m \le R} \frac{\mu(m)^2}{\phi(m)} \;\ge\; \sum_{n=1}^{\lfloor R \rfloor} \frac{1}{n} &gt; \ln R.\]</p>
-      On any interval \([X, X + Y]\), choosing \(R = \frac{\sqrt{Y}}{\ln Y}\) immediately yields the <strong>Brun–Titchmarsh theorem</strong>:
-      <p class="eq">\[\pi(X + Y) - \pi(X) \;\le\; \frac{Y}{\ln R} + R^2 = \frac{2Y}{\ln Y} + O\!\left(\frac{Y}{(\ln Y)^2}\right).\]</p>
-    </li>
-  </ul>
+<h3>Exemplar 1 · Five divisors instead of eight: the census certified</h3>
+<p>Run the pattern on the §2 census, exactly. Budget \(R = 6\), divisor set \(D = \{1, 2, 3, 5, 6\}\), primes \(\{2, 3, 5\}\). The capacity is a five-term sum of reciprocal totients:</p>
+<p class="eq">\[V \;=\; \frac{1}{\varphi(1)} + \frac{1}{\varphi(2)} + \frac{1}{\varphi(3)} + \frac{1}{\varphi(5)} + \frac{1}{\varphi(6)} \;=\; 1 + 1 + \tfrac12 + \tfrac14 + \tfrac12 \;=\; \frac{13}{4}.\]</p>
+<p>Cauchy–Schwarz then hands back the optimal weights in closed form, \(\lambda_d = \mu(d)\,\frac{d}{\varphi(d)} \cdot V_d / V\), where \(V_d\) sums \(1/\varphi(m)\) over the \(m \le R/d\) coprime to \(d\). Evaluating term by term: \(\lambda_1 = 1\), \(\lambda_2 = \lambda_3 = -\tfrac{12}{13}\), \(\lambda_5 = -\tfrac{5}{13}\), \(\lambda_6 = +\tfrac{12}{13}\). The weights also carry a built-in guarantee the remainder needs: factoring every \(m \le R\) as \(m = rk\) with \(r \mid d\) and \(\gcd(k, d) = 1\) shows \(V \ge \frac{d}{\varphi(d)} \cdot V_d\), so every optimal weight satisfies \(|\lambda_d| = \frac{d}{\varphi(d)} \cdot \frac{V_d}{V} \le 1\) — each of the \(R^2\) divisor pairs contributes at most one unit to the remainder, the hypothesis Exercise 6 takes as given. The certified ceiling on the survivor density is \(Q_{\min} = 1/V = \frac{4}{13} \approx 0.3077\), against the true density \(\frac{8}{30} = \frac{4}{15} \approx 0.2667\) — a ceiling fifteen percent above the truth, certified using five divisors instead of eight, with a bound that <em>never dips below it</em>. Notice the shape of the weights: not the rigid signs \(\pm 1\), but tapered amplitudes — the optimizer pulls \(\lambda_5\) toward zero (the boundary divisor is trusted less) and lets \(\lambda_6\) turn positive to cancel the double-counting on multiples of \(6\).</p>
 
-  <h3>Exemplar 2 · Twin primes \((p, p+2)\) and Brun's theorem that \(\sum_{p\text{ twin}} \frac{1}{p} &lt; \infty\)</h3>
-  <p>In <a href="p38-major-minor-arcs.html"><span class="pid">P38</span></a> (Exhibit A), the circle method failed on twin primes because the \(L^2\) energy swamped the main term. Let us bound the number \(\pi_2(X)\) of twin primes \(p \le X\) (such that \(p + 2\) is also prime) using <span class="pid">P39</span>. Set \(\mathcal{A} = \{n(n+2) : 1 \le n \le X\}\) and sieve by all primes \(p \le z\). How many residue classes \(n \bmod p\) make \(p \mid n(n+2)\)?
-  <ul>
-    <li>For \(p = 2\): \(n(n+2)\) is even iff \(n \equiv 0 \pmod 2\) (\(\omega(2) = 1\) bad residue class out of \(2\)).</li>
-    <li>For every odd prime \(p \ge 3\): \(p \mid n(n+2)\) iff \(n \equiv 0\) or \(n \equiv -2 \pmod p\), which are <strong>two</strong> distinct residue classes modulo \(p\) (\(\omega(p) = 2\) bad classes out of \(p\))!</li>
-  </ul>
-  Therefore \(h(p) = \frac{p - 2}{2}\) for odd \(p\), and for every squarefree odd \(m\), \(\frac{1}{h(m)} = \prod_{p \mid m} \frac{2}{p-2} \ge \frac{2^{\nu(m)}}{m} = \sum_{d \mid m} \frac{1}{m} = \frac{\tau(m)}{m}\) (where \(\tau(m) = 2^{\nu(m)}\) is the divisor count). Summing over \(m \le R\) gives a quadratic logarithm growth:</p>
-  <p class="eq">\[V_2(R) = \sum_{m \le R} \frac{\mu(m)^2}{h(m)} \;\ge\; c\,(\ln R)^2.\]</p>
-  <p>Choosing \(R = X^{1/3}\) so the remainder \(\sum_{d_1, d_2 \le R} 2^{\nu([d_1,d_2])} \ll R^2 \ln R \ll X^{2/3}\ln X\) is negligible compared to \(X / (\ln X)^2\), Box P39 proves the upper bound</p>
-  <p class="eq">\[\pi_2(X) \;\le\; \frac{X}{V_2(X^{1/3})} + O\bigl(X^{2/3}\ln X\bigr) \;\ll\; \frac{X}{(\ln X)^2}.\]</p>
-  <p>Now decompose the twin primes into dyadic shells \(2^j \le p &lt; 2^{j+1}\) (<a href="p42-dyadic-decomposition.html"><span class="pid">P42</span></a>): in the \(j\)-th shell there are at most \(O(2^j / j^2)\) twin primes, each with \(\frac{1}{p} \le \frac{1}{2^j}\). Summing over \(j \ge 1\) proves Viggo Brun's landmark 1919 theorem:</p>
-  <p class="eq">\[\sum_{p\text{ twin}} \frac{1}{p} \;\ll\; \sum_{j=1}^{\infty} \frac{1}{2^j}\cdot\frac{2^j}{j^2} = \sum_{j=1}^{\infty} \frac{1}{j^2} = \frac{\pi^2}{6} &lt; \infty.\]</p>
-  <p>While the reciprocals of all primes diverge (\(\sum_p \frac{1}{p} = \infty\)), the reciprocals of twin primes converge to Brun's constant \(B_2 \approx 1.90216\).</p>
+<h3>Exemplar 2 · The budget ladder: deeper is tighter, and full is exact</h3>
+<p>Watch the ceiling close in as the budget deepens. Sieve by \(\{2, 3\}\) with \(R = 3\): \(D = \{1, 2, 3\}\), \(V = 1 + 1 + \tfrac12 = \tfrac52\), ceiling \(\tfrac25 = 0.4\), truth \(\tfrac13 \approx 0.333\). By \(\{2, 3, 5\}\) with \(R = 6\): ceiling \(\tfrac{4}{13} \approx 0.308\), truth \(\tfrac{4}{15} \approx 0.267\). By \(\{2, 3, 5, 7\}\) with \(R = 10\): the divisor set grows to \(\{1, 2, 3, 5, 6, 7, 10\}\), \(V = \tfrac{13}{4} + \tfrac{1}{\varphi(7)} + \tfrac{1}{\varphi(10)} = \tfrac{13}{4} + \tfrac16 + \tfrac14 = \tfrac{11}{3}\), ceiling \(\tfrac{3}{11} \approx 0.273\), truth \(\tfrac{8}{35} \approx 0.229\). And at full budget — all sixteen divisors of \(210\) — the capacity factors completely, \(V = \prod_{p &lt; 7} \bigl(1 + \tfrac{1}{\varphi(p)}\bigr) = \tfrac{35}{8}\), and the ceiling \(\tfrac{8}{35}\) <em>equals the truth exactly</em>: with no truncation there is no gap. Fig P39.2 shows the ladder — every rung a certified ceiling, none below the truth, converging to it as the budget deepens. That is the pattern's honesty in one picture: the bound never lies downward, and every extra unit of budget buys a provably tighter ceiling.</p>
 
-  <h3>Exemplar 3 · The Maynard–Tao multidimensional sieve and bounded gaps between primes</h3>
-  <p>How can an upper-bound quadratic weight \(w(n) = \bigl(\sum \lambda_d\bigr)^2 \ge 0\) ever prove a <strong>lower bound</strong> that forces primes to exist close together? In 2013 James Maynard and Terence Tao (building on Goldston–Pintz–Yıldırım and Yitang Zhang) replaced a single divisor sum on \(n\) with a \(k\)-dimensional divisor sum on an admissible \(k\)-tuple \((n + h_1, n + h_2, \dots, n + h_k)\):</p>
-  <p class="eq">\[w(n) = \left(\sum_{\substack{d_i \mid (n + h_i) \\ d_1 d_2 \cdots d_k \le R}} \lambda_{d_1, d_2, \dots, d_k}\right)^2 \;\ge\; 0.\]</p>
-  <p>Because \(w(n) \ge 0\) is non-negative at <em>every</em> integer \(n \in [X, 2X]\), compare two weighted sums over \(n \in [X, 2X]\):
-  <ul>
-    <li><strong>The baseline quadratic form \(S_1 = \sum_{n=X}^{2X} w(n)\):</strong> measures the total weight of all \(n\).</li>
-    <li><strong>The prime-weighted quadratic form \(S_2 = \sum_{n=X}^{2X} \left(\sum_{i=1}^k \mathbf{1}_{\mathbb{P}}(n + h_i)\right) w(n)\):</strong> weights each \(n\) by how many of the \(k\) shifted numbers \(n + h_1, \dots, n + h_k\) are actually prime!</li>
-  </ul>
-  Diagonalizing both \(k\)-dimensional quadratic forms simultaneously via Box P39.A (Obligation 2) and parameterizing \(\lambda_{d_1,\dots,d_k}\) by a smooth function \(F(t_1, \dots, t_k)\) on the \(k\)-simplex \(\sum_{i=1}^k t_i \le 1\) reduces the ratio \(S_2 / S_1\) to a finite-dimensional Rayleigh quotient (<a href="p29-energy-methods.html"><span class="pid">P29</span></a>):
-  <p class="eq">\[\frac{S_2}{S_1} \;\sim\; \frac{\theta}{2}\,M_k(F), \qquad M_k(F) = \frac{\displaystyle\sum_{i=1}^k \idotsint \left(\int_0^{1-\sum_{j\ne i} t_j} F(t)\,dt_i\right)^2 dt_1\cdots\widehat{dt_i}\cdots dt_k}{\displaystyle\idotsint F(t_1, \dots, t_k)^2\,dt_1\cdots dt_k}.\]</p>
-  <p>Using the Bombieri–Vinogradov distribution level \(\theta = \frac{1}{2}\), Maynard proved \(M_k(F) \asymp \ln k \to \infty\) as \(k \to \infty\), and already at \(k = 105\) (later reduced by Polymath8b to \(k = 50\), with span \(h_{50} - h_1 = 246\)), \(\frac{\theta}{2}M_k(F) &gt; 1\), meaning \(S_2 &gt; S_1\), or</p>
-  <p class="eq">\[\sum_{n=X}^{2X} \left(\sum_{i=1}^k \mathbf{1}_{\mathbb{P}}(n + h_i) - 1\right) w(n) &gt; 0.\]</p>
-  <p>By the pigeonhole principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>), since \(w(n) \ge 0\), at least one \(n \in [X, 2X]\) must have \(\sum_{i=1}^k \mathbf{1}_{\mathbb{P}}(n + h_i) &gt; 1\) — forcing at least <strong>two primes</strong> inside \((n + h_1, \dots, n + h_k)\) and proving \(\liminf_{n\to\infty}(p_{n+1} - p_n) \le 246\)!</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" role="img" aria-label="The budget ladder: grouped bars give the certified ceiling from the optimized sieve against the true survivor density at budgets R = 3, 6, 10 and full; the ceilings are 0.400, 0.308, 0.273, 0.229 and the truths 0.333, 0.267, 0.229, 0.229; each ceiling sits above its truth and the last meets it.">
+<rect x="0" y="0" width="600" height="250" fill="#ffffff"/>
+<line x1="70" y1="171" x2="560" y2="171" stroke="#8a94a3" stroke-width="1.2"/>
+<line x1="70" y1="30" x2="70" y2="171" stroke="#8a94a3" stroke-width="1.2"/>
+<text x="40" y="38" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0.45</text>
+<text x="40" y="83" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0.30</text>
+<text x="40" y="129" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0.15</text>
+<text x="40" y="175" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0.00</text>
+<line x1="70" y1="79" x2="560" y2="79" stroke="#d8d4cc" stroke-dasharray="3,3"/>
+<line x1="70" y1="125" x2="560" y2="125" stroke="#d8d4cc" stroke-dasharray="3,3"/>
+<rect x="105" y="49" width="34" height="122" fill="#0f5c57"/>
+<text x="122" y="43" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">0.400</text>
+<line x1="148" y1="69" x2="163" y2="69" stroke="#8a4b08" stroke-width="2.6"/>
+<text x="155" y="61" font-family="Georgia, serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">0.333</text>
+<text x="122" y="188" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">R = 3 · {2, 3}</text>
+<rect x="220" y="77" width="34" height="94" fill="#0f5c57"/>
+<text x="237" y="71" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">0.308</text>
+<line x1="263" y1="90" x2="278" y2="90" stroke="#8a4b08" stroke-width="2.6"/>
+<text x="270" y="82" font-family="Georgia, serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">0.267</text>
+<text x="237" y="188" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">R = 6 · {2, 3, 5}</text>
+<rect x="335" y="88" width="34" height="83" fill="#0f5c57"/>
+<text x="352" y="82" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">0.273</text>
+<line x1="378" y1="101" x2="393" y2="101" stroke="#8a4b08" stroke-width="2.6"/>
+<text x="385" y="93" font-family="Georgia, serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">0.229</text>
+<text x="352" y="188" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">R = 10 · {2, 3, 5, 7}</text>
+<rect x="450" y="101" width="34" height="70" fill="#0f5c57"/>
+<line x1="493" y1="101" x2="508" y2="101" stroke="#8a4b08" stroke-width="2.6"/>
+<circle cx="500" cy="101" r="4.5" fill="#8a4b08"/>
+<text x="500" y="93" font-family="Georgia, serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">0.229 = truth</text>
+<text x="467" y="95" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">0.229</text>
+<text x="467" y="188" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">full · all 16 divisors</text>
+<text x="300" y="240" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Sieve budget deepens left to right; the green ceiling provably never dips below the orange truth, and meets it at full budget.</text>
+<text x="315" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Certified ceiling vs truth, as the divisor budget deepens</text>
+</svg>
+<figcaption><strong>Fig P39.2.</strong> The budget ladder. Each bar is the optimized ceiling \(1/V\) on the survivor density; each orange mark is the true density. Every ceiling sits above its truth; deepening the budget \(R = 3 \to 6 \to 10 \to\) full tightens the ceiling from \(0.400\) to the exact \(0.229\), where truncation vanishes and the bound meets the truth.</figcaption>
+</figure>
+
+<h3>Exemplar 3 · Twin primes at census scale: two boxes per prime</h3>
+<p>Count \(n \le X\) such that both \(n\) and \(n+2\) survive — the twin-prime census. The sieve is the same machine with one changed input: how many boxes does each prime own? For \(p = 2\): \(n(n+2)\) is even only when \(n \equiv 0\), so one box, \(\omega(2) = 1\). For every odd prime: \(n \equiv 0\) or \(n \equiv -2\), two distinct boxes, \(\omega(p) = 2\). The capacity swaps each totient for the two-box analogue \(h(m)\): with the budget \(D = \{1, 2, 3, 5, 6\}\),</p>
+<p class="eq">\[V_{\text{twin}} \;=\; 1 + 1 + 2 + \tfrac{2}{3} + 2 \;=\; \frac{20}{3}, \qquad \text{ceiling } \frac{3}{20} = 0.15 \;\text{ vs. truth } \tfrac{1}{10},\]</p>
+<p>where the \(2\) at \(m = 3\) is the two-box signature — an odd prime's removal power is doubled, and its reciprocal capacity is doubled with it. Scale the budget up and \(V_{\text{twin}}(R)\) grows like a <em>squared</em> logarithm, \(\log^2 R\): two-box sieving is doubly logarithmic, which is why the certified bound on twin pairs up to \(X\) lands at order \(X/\log^2 X\) — the true conjectured order, from above. And the ceiling, run through the dyadic shells of <a href="p42-dyadic-decomposition.html">P42</a>, assembles into Viggo Brun's 1919 theorem: the \(j\)-th shell \(2^j \le p &lt; 2^{j+1}\) holds at most a constant times \(2^j/j^2\) twin primes, each contributing at most \(2^{-j}\) to the reciprocal sum, so \(\sum_{p \text{ twin}} \frac{1}{p} \le C \sum_{j} \frac{1}{j^2} = \frac{C\pi^2}{6} &lt; \infty\) — the ledger of Exercise 5. The twin reciprocals converge (to Brun's constant, \(B_2 \approx 1.902\)): a census that never once located a pair of twins certified that their reciprocals cannot diverge. What the census cannot do — a floor under the count, a proof that the pairs never run out — is the subject of §5's first exhibit, and the honest boundary of this page.</p>
 </section>
 
 <section id="fails">
-  <h2>5 · When the trick breaks</h2>
-  <p>Sieve optimization is the sharpest general tool for multiplicative filtering, but three deep structural obstructions limit what pure sieves can prove alone:</p>
+<h2>5 · When the move breaks</h2>
 
-  <div class="aside">
-    <p><strong>Exhibit A — Selberg's parity barrier (why pure sieves cannot distinguish \(1\) prime factor from \(2\) prime factors!).</strong> In Exemplar 1, the Brun–Titchmarsh bound \(\pi(X) \le (2 + o(1))\frac{X}{\ln X}\) overshot the true Prime Number Theorem \(\frac{X}{\ln X}\) by a factor of \(2\) — and a single 1-dimensional sieve can <em>never</em> produce a non-trivial lower bound for primes! Atle Selberg discovered in 1949 why: any sieve that depends only on divisor densities \(|\mathcal{A}_d| \approx \frac{\omega(d)}{d}|\mathcal{A}|\) gives the exact same asymptotic answer on the set \(\mathcal{A}_{\text{odd}}\) of integers with an <strong>odd</strong> number of prime factors (\(\lambda(n) = -1\), including all primes!) and the set \(\mathcal{A}_{\text{even}}\) of integers with an <strong>even</strong> number of prime factors (\(\lambda(n) = +1\), which contains <em>zero</em> primes!). Because an adversary can feed \(\mathcal{A}_{\text{even}}\) into the sieve axioms without changing a single input \(|\mathcal{A}_d|\), any valid lower bound for primes must be \(\le 0\), and any valid upper bound on all integers must cover both \(\mathcal{A}_{\text{odd}}\) and \(\mathcal{A}_{\text{even}}\) (losing a factor of \(2\))!</p>
-    <p><em>Mitigation:</em> Either accept almost-primes \(P_2\) (numbers with \(1\) or \(2\) prime factors, as in Chen's theorem \(N = p + P_2\)), use the Maynard–Tao pigeonhole ratio across \(k \ge 50\) linear forms (Exemplar 3), or inject <strong>Type II bilinear information</strong> (Fouvry–Iwaniec, Friedlander–Iwaniec \(x^2 + y^4\), Harman's sieve) that breaks parity symmetry.</p>
-    <p><em>Price:</em> Proving bilinear exponential-sum cancellation beyond pure divisor densities.</p>
-    <p><em>Default:</em> Never expect a single-variable linear/quadratic sieve using only \(|\mathcal{A}_d|\) to isolate primes from products of two primes \(p_1 p_2\).</p>
-  </div>
+<div class="aside">
+<p><strong>Exhibit A — The parity wall: a census cannot count prime factors.</strong> The optimized sieve, however deep its budget, reads only <em>which boxes each \(n\) falls into</em> — the divisibility census, nothing else. Now invent an adversary: the set of integers with an <em>even</em> number of prime factors. It fills exactly the same boxes as the primes do, to any depth the sieve can afford — and it contains no primes at all beyond the composites it shares them with. A machine that cannot distinguish one prime factor from two must certify its ceilings over <em>both</em> populations at once, and the standard cost is a factor of \(2\) in the prime-counting bound; worse, no lower bound for primes can survive the adversary at all. This is the parity barrier, discovered in this same tradition in 1949, and it is a wall, not a fence: pure census sieves do not climb it.</p>
+<p><em>Mitigation:</em> change the input, not the optimizer — sieve \(k\)-tuples and compare two weighted sums (the bounded-gaps story of §7), or feed in bilinear cancellation that sees beyond residue boxes.</p>
+<p><em>Price:</em> each route demands distribution information — equidistribution of the sifted set in arithmetic progressions — that the census alone cannot supply.</p>
+<p><em>Default:</em> never ask a residue-box machine to separate primes from products of two primes; check what your inputs actually see before trusting the certificate's sharpness.</p>
+</div>
 
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P39.3: The Parity Barrier: a sieve reading only divisor counts |A_d| cannot distinguish the set of primes (Omega(n)=1, odd parity) from products of two primes p_1 p_2 (Omega(n)=2, even parity), forcing a factor-of-2 upper bound.">
-      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
-      <text x="300" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Selberg's Parity Barrier:  What the Sieve Sees vs. What It Cannot Separate</text>
+<div class="aside">
+<p><strong>Exhibit B — The remainder's budget: \(R^2\) eats the main term.</strong> The ceiling is \(X/V(R) + O(R^2)\), and the two terms race. Deepen the budget and \(V(R)\) grows only logarithmically while the remainder grows <em>quadratically</em>: at interval length \(Y = 10^6\), a budget of \(R = 10^3\) already spends its entire length on the remainder — \(R^2 = Y\), and the ceiling is vacuous. The classic escape is calibration, not power: on an interval of length \(Y\), choose \(R \approx \sqrt{Y}/\log Y\), where the remainder stays a vanishing fraction and the main term delivers a ceiling of the honest shape \(2Y/\log Y\) — the classical interval-bound for primes, a named door ahead. Where the interval is short or the set is thin, the budget that makes \(V(R)\) big is the same budget that drowns it, and no choice of weights repairs a mis-calibrated \(R\).</p>
+<p><em>Mitigation:</em> sieve <em>well-factorable</em> moduli, or prove equidistribution beyond \(R \approx \sqrt{X}\) (distribution level — the deep results of §7's last bullet live exactly here).</p>
+<p><em>Price:</em> restricting the shape of the moduli costs flexibility; proving distribution costs the hardest analytic work in the subject.</p>
+<p><em>Default:</em> set the budget from the remainder first — \(R^2 \ll X/V(R)\) — and only then ask how tight the ceiling is.</p>
+</div>
 
-      <!-- Left box: Odd parity Omega(n) = 1, 3, ... (Primes live here) -->
-      <rect x="35" y="42" width="230" height="106" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
-      <text x="150" y="64" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Odd Parity  Ω(n) ≡ 1 (mod 2)</text>
-      <text x="150" y="88" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Primes  p   (Ω = 1)</text>
-      <text x="150" y="108" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">plus  p₁ p₂ p₃  (Ω = 3)</text>
-      <text x="150" y="132" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Density = 50% of unsieved survivors</text>
+<div class="aside">
+<p><strong>Exhibit C — The tuple that sieves itself: \(\omega(p) = p\).</strong> Apply the two-box logic of Exemplar 3 to the triple \((n, n+2, n+4)\). Modulo \(3\), the three shifts cover <em>every</em> residue — \(0, 2, 1\) — so every \(n\) lands in a forbidden box and \(\omega(3) = 3\): the prime owns as many boxes as there are residues, the "removal fraction" \(\omega(p)/p\) hits \(1\), and the capacity's term \(1/h(3)\) divides by zero. The sieve is not merely weak here; it is undefined, because the tuple is <a href="p10-pigeonhole.html">P10</a>'s collision turned against you: three objects, three boxes, a collision forced in advance for every single \(n\). P10 taught you to aim at collisions; this exhibit is the same anatomy with the aim reversed — the adversary forced it first.</p>
+<p><em>Mitigation:</em> check admissibility before sieving — no prime may own all its boxes — and widen the tuple's diameter until every prime leaves at least one box free: \((n, n+2, n+6)\) leaves the \(n \equiv 2\) box free and sieves honestly.</p>
+<p><em>Price:</em> a wider diameter weakens the density gains the tuple was chosen for.</p>
+<p><em>Default:</em> admissibility is step zero; a tuple that fails it has no ceiling to optimize.</p>
+</div>
 
-      <!-- Right box: Even parity Omega(n) = 2, 4, ... (Semiprimes p1 p2 live here) -->
-      <rect x="335" y="42" width="230" height="106" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="4"/>
-      <text x="450" y="64" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Even Parity  Ω(n) ≡ 0 (mod 2)</text>
-      <text x="450" y="88" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Semiprimes  p₁ p₂   (Ω = 2)</text>
-      <text x="450" y="108" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Zero primes, yet identical |𝒜_d|!</text>
-      <text x="450" y="132" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Density = 50% of unsieved survivors</text>
+<p>One hinge deserves to be shown even though its door stays shut. This page's square certifies ceilings — how could it ever force primes to <em>exist</em> close together? The Maynard–Tao move (2013) keeps the square and changes the question: sieve an admissible \(k\)-tuple \((n + h_1, \dots, n + h_k)\) with the same non-negative \(w(n) = \bigl(\sum \lambda_{d_1 \cdots d_k}\bigr)^2\), and compare two of its sums over \(n \le X\) — the total weight \(S_1\), and the prime-weighted \(S_2\), which counts how many of the \(k\) shifts land on primes. A distribution-level input — primes spreading evenly over residue classes, Bombieri–Vinogradov's theorem for the large tuples, Zhang's deeper level for the small ones — pins the ratio \(S_2/S_1\) at order \(\log k\), which exceeds \(1\) once \(k\) is large enough. Then P10's pigeonhole, running backwards, does the forcing: \(S_2 > S_1\) with \(w \ge 0\) means some single \(n\) carries two prime shifts — two primes inside the tuple's span, which admissibility keeps bounded; fifty shifts within a span of \(246\) are known to suffice. The ratio computation itself is the door left open; the hinge is P10's, and the square's.</p>
 
-      <!-- Indistinguishable symbol -->
-      <text x="300" y="98" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#8a4b08" text-anchor="middle">≡</text>
-      <text x="300" y="116" font-family="system-ui, sans-serif" font-size="9" fill="#5a5a5a" text-anchor="middle">same |𝒜_d|</text>
-
-      <text x="300" y="170" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Result: Pure sieve upper bound covers BOTH boxes (2× factor); pure lower bound for primes is 0 unless broken by Type II / k-tuples</text>
-    </svg>
-    <figcaption><strong>Fig P39.3.</strong> Why pure sieves hit the parity barrier: amongst integers with no small prime factors \(p \le X^{1/3}\), half have an odd number of prime factors (\(p\) or \(p_1 p_2 p_3\)) and half have an even number (\(p_1 p_2\)). Both halves produce the exact same divisor multiples \(|\mathcal{A}_d|\) for \(d \le R\).</figcaption>
-  </figure>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Inadmissible \(k\)-tuples fail at a small prime \(p \le k\) (\(\omega(p) = p\)).</strong> Suppose you apply the Maynard–Tao sieve (Exemplar 3) to the triple \((n, n+2, n+4)\). Modulo \(3\), for <em>every</em> integer \(n\), one of \(n, n+2, n+4\) is divisible by \(3\) (\(\omega(3) = 3 = p\)), so \(h(3) = \frac{3 - 3}{3} = 0\) and \(1/h(3) = \infty\) blows up!</p>
-    <p><em>Mitigation:</em> Always verify <strong>admissibility</strong> (\(\omega(p) &lt; p\) for every prime \(p\)) before sieving a tuple \((n + h_1, \dots, n + h_k)\) — for instance, \((n, n+2, n+6)\) avoids \(1 \bmod 3\) and has \(\omega(3) = 2 &lt; 3\).</p>
-    <p><em>Price:</em> Widening the tuple diameter \(h_k - h_1\) so that at least one residue class modulo \(p\) remains free for every \(p \le k\).</p>
-    <p><em>Default:</em> Check \(\omega(p) &lt; p\) for all primes \(p \le k\) as step zero of any tuple sieve.</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Pushing the support cutoff \(R\) past \(X^{1/2}\) causes the \(R^2\) remainder to explode.</strong> Even under the Generalized Riemann Hypothesis or the Bombieri–Vinogradov theorem, the remainder sum over \(d_1, d_2 \le R\) requires \(\operatorname{lcm}(d_1, d_2) \le R^2 \ll X^{1/2 - \varepsilon}\) (so \(R \le X^{1/4 - \varepsilon}\)) when querying primes in arithmetic progressions!</p>
-    <p><em>Mitigation:</em> Exploit the <em>well-factorable</em> structure of Rosser–Iwaniec linear sieve weights or Zhang's smooth-modulus equi-distribution beyond \(X^{1/2}\).</p>
-    <p><em>Price:</em> Restricting moduli to smooth or factorable integers.</p>
-    <p><em>Default:</em> Respect the \(R^2 \le X^\theta\) level-of-distribution budget in Obligation 3 of Box P39.A.</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this chapter.</strong> Our explicit calculations diagonalize Selberg's \(\Lambda^2\) upper-bound sieve cleanly in finite terms. When constructing lower bounds for almost-primes \(P_2\) (such as Chen's theorem that every large even \(N = p + P_2\)), one pairs Selberg's quadratic upper bound on auxiliary prime-weighted sums with Buchstab's identity \(S(\mathcal{A}, z) = S(\mathcal{A}, z_0) - \sum_{z_0 \le p &lt; z} S(\mathcal{A}_p, p)\) (or uses the Rosser–Iwaniec alternating \(\beta\)-sieve).</p>
-  </aside>
+<aside class="aside warn">
+<p><strong>Honest scope of this page.</strong> Everything built here is an <em>upper-bound</em> machine: squares sit above the truth, and minima certify ceilings. Lower-bound sieving — proving survivors <em>exist</em> — is a different architecture (weighted \(k\)-tuple ratios, distribution levels, bilinear cancellation), and this page only names its doors: the bounded-gaps breakthroughs of §7, the almost-prime theorems that split the parity wall, and the analytic large sieve that duality-builds the same ceilings from exponential sums. None of them is built here; each is a door with its name on it. The sketch above shows the bounded-gaps hinge — the square, the ratio, the pigeonhole — while stating its distribution-level input, not proving it; the other doors keep their names only.</p>
+</aside>
 </section>
 
 <section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When an additive problem has \(s \ge 3\) summands so Fourier \(L^2\) energy is smaller than the main term:</strong> Use <span class="pid">P39</span> to supply majorants or upper bounds on primes, and feed them into <a href="p38-major-minor-arcs.html"><span class="pid">P38</span> · Major and minor arcs</a> (or the Green–Tao transference theorem, <a href="p58-ergodic-correspondence.html"><span class="pid">P58</span></a>) to obtain exact asymptotic counts.</li>
-    <li><strong>When you want to test local admissibility \(\omega(p) &lt; p\) or lift polynomial congruences \(F(n) \equiv 0 \pmod{p^r}\):</strong> Pair the sieve with <a href="p30-localize-at-prime.html"><span class="pid">P30</span> · Localize at a prime</a>.</li>
-    <li><strong>When you want to turn exponential/polynomial algebraic equations into piecewise-linear polyhedral optimization problems:</strong> Step forward to the next chapter in Tier 4, <a href="p40-tropicalize.html"><span class="pid">P40</span> · Tropicalize</a>.</li>
-  </ul>
+<h2>6 · What to try next</h2>
+<ul>
+<li><strong>When a question is really about one prime</strong> — which prime divides what, lifting congruences, valuations — go back to the lens: <a href="p30-localize-at-prime.html">P30 · Localize at a prime</a>, and mind the two moves' division of labor: P30 answers <em>at</em> a prime, this page bounds <em>across</em> all of them at once.</li>
+<li><strong>When the boxes themselves are the story</strong> — forced collisions, residue-class pigeonholes, admissibility — the grammar is <a href="p10-pigeonhole.html">P10 · Force a collision</a>, running forwards for existence and backwards (Exhibit C) for inadmissibility.</li>
+<li><strong>When a count over all sizes needs summing shell by shell</strong> — dyadic decomposition turns one divergent-looking sum into a convergent ledger; see <a href="p42-dyadic-decomposition.html">P42 · Decompose by scale</a>, the engine behind §8's twin-prime sum.</li>
+<li><strong>When the problem is additive</strong> — primes as summands, where sieves supply the minor-arc ceilings — the analytic end of the story is major and minor arcs (P38, planned): not yet on the shelf; this page's ceilings are among its standard inputs.</li>
+<li><strong>Named doors ahead</strong>, in order of appearance on this page: Brun's constant (the convergent sum of reciprocal twin primes), the interval bound \(2Y/\log Y\) for primes, Chen's almost-prime theorem, the parity problem, and the large sieve. Each door opens onto the research shelf; each is named so you can find it when you need it. The interval-bound door is this page's own theorem: at \(R = \sqrt{Y}/\log Y\) the certified ceiling \(Y/V(R) + R^2\) is at most \(\frac{Y}{\log R} + \frac{Y}{\log^2 Y}\), and §3's radical argument makes \(\log R = \tfrac{1}{2}\log Y - \log\log Y\), so the ceiling reads \(\frac{2Y}{\log Y}\) to first order — Brun–Titchmarsh, earned from the box.</li>
+</ul>
 </section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Eratosthenes' parchment table to Selberg's quadratic form and Maynard's polytopes (c. 240 BCE – 2013).</strong></p>
-    <ul>
-      <li><strong>Eratosthenes of Cyrene (c. 240 BCE) &amp; Adrien-Marie Legendre (1808):</strong> Eratosthenes introduced the mechanical stencil of crossing out multiples of \(2, 3, 5, \dots\), and Legendre converted the stencil into an exact algebraic formula via the Möbius function \(\mu(d)\) (<a href="p76-inclusion-exclusion.html"><span class="pid">P76</span></a>). Yet Legendre noticed that the \(2^{\pi(z)}\) floor remainders prevented his formula from reaching past \(z \approx \ln X\).</li>
-      <li><strong>Viggo Brun (1915–1919):</strong> Working in Oslo, Brun realized that truncating inclusion–exclusion at an even vs. odd number of prime factors produces rigorous upper and lower brackets (\(\sum_{\nu(d) \le 2k} \mu(d) \le \mathbf{1}_{n=1} \le \sum_{\nu(d) \le 2k+1} \mu(d)\)). With this combinatorially truncated sieve, Brun proved that the sum of the reciprocals of twin primes \(\sum_{p, p+2 \text{ prime}} (\frac{1}{p} + \frac{1}{p+2}) &lt; \infty\) converges — the first non-trivial result toward the twin prime conjecture in two millennia.</li>
-      <li><strong>Atle Selberg (1947):</strong> Another Norwegian mathematician, Atle Selberg, replaced Brun's delicate combinatorial indicator inequalities with a single transparent algebraic move: majorize \(\mathbf{1}_{\gcd(n, P(z)) = 1}\) by the square \((\sum_{d \mid n, d \le R} \lambda_d)^2\) with \(\lambda_1 = 1\) and minimize the resulting positive-definite quadratic form (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>). In 1949, Selberg and Paul Erdős used sieve weights to give the first elementary proof of the Prime Number Theorem.</li>
-      <li><strong>Chen Jingrun (1966–1973) &amp; Henryk Iwaniec (1980):</strong> Selberg also discovered the <em>parity barrier</em> (1949), explaining why pure divisor-density sieves cannot distinguish primes from products of two primes \(P_2\). By combining Selberg's upper-bound sieve with prime-switching, Chen proved that every sufficiently large even integer is \(p + P_2\); Iwaniec later developed the bilinear Rosser–Iwaniec \(\beta\)-sieve.</li>
-      <li><strong>Yitang Zhang, James Maynard &amp; Terence Tao (2013):</strong> In 2013, Zhang broke the \(X^{1/2}\) Bombieri–Vinogradov barrier for smooth moduli to prove \(\liminf (p_{n+1} - p_n) &lt; 7 \times 10^7\). Months later, Maynard and Tao generalized Selberg's quadratic weights \(\lambda_d\) to multidimensional tuple weights \(\lambda_{d_1, \dots, d_k} = \frac{\mu(d)}{d} F(\frac{\ln d_1}{\ln R}, \dots, \frac{\ln d_k}{\ln R})\) on the simplex, reducing the gap to \(600\) (and \(246\) in the Polymath8b collaboration) and proving the existence of arbitrarily many primes in bounded intervals without unproved conjectures.</li>
-    </ul>
-  </aside>
+<h2>7 · Lineage interlude</h2>
+<aside class="aside">
+<p><strong>From a parchment stencil to a quadratic form (c. 240 BCE – today).</strong></p>
+<ul>
+<li><strong>Eratosthenes (c. 240 BCE):</strong> the stencil — cross out multiples, keep what remains. A procedure, no bookkeeping: fine for finding primes, useless for <em>certifying counts</em>.</li>
+<li><strong>Legendre (1808):</strong> the stencil becomes an exact formula — the alternating divisor sum with its \(2^{\pi(z)}\) terms — and the counting problem is born, together with its rounding-error plague.</li>
+<li><strong>Viggo Brun (1915–1919):</strong> the first honest truncation — keep the inclusion–exclusion running to a bounded number of prime factors per divisor, and the signs stay under control long enough to prove the twin-prime reciprocal sum converges: the first real theorem about twins in two millennia, and the birth of the truncation budget.</li>
+<li><strong>Atle Selberg (1947):</strong> the square. Majorize the indicator by \((\sum \lambda_d)^2\), diagonalize the quadratic form, minimize — truncation without sign-indefiniteness, weights chosen by optimization. Two years later, with Erdős, sieve weights powered the first elementary proof of the prime number theorem; and the same tradition's 1949 parity observation — this page's Exhibit A — drew the wall that pure censuses still do not climb.</li>
+<li><strong>Chen (1966–1973) and Iwaniec (1978–1980):</strong> the wall is outflanked, not climbed — Chen splits it with a switched sieve to prove every large even number is prime-plus-almost-prime; Iwaniec's bilinear sieve feeds the machine cancellation that no census contains.</li>
+<li><strong>Zhang, Maynard, Tao (2013):</strong> the modern dividend — \(k\)-tuple weights plus a new distribution level prove gaps between consecutive primes are bounded: the sieve, optimized and fed, certifies existence at last. The bound has fallen from millions to a few hundred and continues to fall.</li>
+</ul>
+</aside>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
+<h2>8 · Exercises</h2>
+<p class="moons">●○○ ●●○ ●●● ◆ ◐ ◐</p>
 
-  <div class="exercise">
-    <p><strong>Exercise P39.1 (●○○ — Diagonalizing a 3-divisor Selberg sieve by hand).</strong> Let \(\mathcal{P} = \{2, 3\}\) so \(P(3) = 6\), and suppose we truncate the divisor support at \(R = 3\), so the permissible divisor set is \(\mathcal{D} = \{1, 2, 3\}\) (dropping \(d = 6\)).</p>
-    <ol>
-      <li>Compute the diagonal capacity \(V(3) = \sum_{m \in \{1, 2, 3\}} \frac{1}{\varphi(m)}\) and the minimum main-term density \(Q_{\min} = 1 / V(3)\). Compare \(Q_{\min}\) against the exact Euler product \(\prod_{p \in \{2,3\}} (1 - \frac{1}{p}) = \frac{1}{3}\).</li>
-      <li>Using Box P39.B, compute the optimal orthogonal variables \(u_m = \frac{\mu(m)}{\varphi(m) V(3)}\) for \(m \in \{1, 2, 3\}\) and invert them via \(\lambda_d = d \sum_{k : dk \in \mathcal{D}} \mu(k) u_{dk}\) to find the exact rational weights \(\lambda_1, \lambda_2, \lambda_3\).</li>
-      <li>Verify directly that \(\sum_{d_1, d_2 \in \{1, 2, 3\}} \frac{\lambda_{d_1} \lambda_{d_2}}{\operatorname{lcm}(d_1, d_2)} = Q_{\min}\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Use \(\varphi(1) = 1\), \(\varphi(2) = 1\), \(\varphi(3) = 2\). Since \(6 \notin \mathcal{D}\), for \(d = 2\) and \(d = 3\) the only multiple \(dk \in \mathcal{D}\) has \(k = 1\), so \(\lambda_2 = 2 u_2\) and \(\lambda_3 = 3 u_3\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Diagonal capacity and minimum density.</strong> Since \(\varphi(1) = 1\), \(\varphi(2) = 1\), and \(\varphi(3) = 2\), we have</p>
-      \[
-        V(3) \;=\; \frac{1}{\varphi(1)} + \frac{1}{\varphi(2)} + \frac{1}{\varphi(3)} \;=\; 1 + 1 + \frac{1}{2} \;=\; \frac{5}{2},
-        \qquad
-        Q_{\min} \;=\; \frac{1}{V(3)} \;=\; \frac{2}{5} \;=\; 0.4.
-      \]
-      <p>Dropping the single composite divisor \(d = 6\) raises the density slightly from the exact Euler product \(\frac{1}{3} \approx 0.3333\) to \(\frac{2}{5} = 0.4000\).</p>
-      <p><strong>2. Optimal orthogonal coordinates and weights.</strong> From \(u_m = \frac{\mu(m)}{\varphi(m) V(3)}\) with \(V(3) = \frac{5}{2}\):</p>
-      \[
-        u_1 \;=\; \frac{+1}{1 \cdot (5/2)} \;=\; \frac{2}{5},
-        \qquad
-        u_2 \;=\; \frac{-1}{1 \cdot (5/2)} \;=\; -\frac{2}{5},
-        \qquad
-        u_3 \;=\; \frac{-1}{2 \cdot (5/2)} \;=\; -\frac{1}{5}.
-      \]
-      <p>Now invert \(\lambda_d = d \sum_{k : dk \in \{1,2,3\}} \mu(k) u_{dk}\):</p>
-      <ul>
-        <li>For \(d = 1\): \(\lambda_1 = 1 \cdot (\mu(1) u_1 + \mu(2) u_2 + \mu(3) u_3) = \frac{2}{5} - (-\frac{2}{5}) - (-\frac{1}{5}) = \frac{5}{5} = 1\).</li>
-        <li>For \(d = 2\): only \(k = 1\) keeps \(2k \in \{1, 2, 3\}\), so \(\lambda_2 = 2 \cdot \mu(1) u_2 = -\frac{4}{5}\).</li>
-        <li>For \(d = 3\): only \(k = 1\) keeps \(3k \in \{1, 2, 3\}\), so \(\lambda_3 = 3 \cdot \mu(1) u_3 = -\frac{3}{5}\).</li>
-      </ul>
-      <p><strong>3. Direct verification of the quadratic form.</strong> Summing \(\frac{\lambda_{d_1} \lambda_{d_2}}{\operatorname{lcm}(d_1, d_2)}\) over \(d_1, d_2 \in \{1, 2, 3\}\):</p>
-      \[
-        \begin{aligned}
-          Q(\lambda) &\;=\; \frac{\lambda_1^2}{1} + \frac{\lambda_2^2}{2} + \frac{\lambda_3^2}{3} + 2\frac{\lambda_1 \lambda_2}{2} + 2\frac{\lambda_1 \lambda_3}{3} + 2\frac{\lambda_2 \lambda_3}{6} \\
-          &\;=\; 1 + \frac{16/25}{2} + \frac{9/25}{3} + \left(-\frac{4}{5}\right) + \left(-\frac{2}{5}\right) + \frac{12/25}{3} \\
-          &\;=\; 1 + \frac{8}{25} + \frac{3}{25} - \frac{30}{25} + \frac{4}{25} \;=\; \frac{25 + 8 + 3 - 30 + 4}{25} \;=\; \frac{10}{25} \;=\; \frac{2}{5} \;=\; Q_{\min}.
-        \end{aligned}
-      \]
-    </details>
-  </div>
+<p class="ex"><strong>Exercise 1</strong> ●○○ — Run the pattern at the smallest honest scale. Sieve by \(\{2, 3\}\) with budget \(R = 3\), so \(D = \{1, 2, 3\}\). (a) Compute the capacity \(V = \sum_{m \in D} 1/\varphi(m)\) and the ceiling \(Q_{\min} = 1/V\); compare with the true density \(\frac{1}{2} \cdot \frac{2}{3} = \frac13\). (b) Recover the optimal weights from the diagonal coordinates \(u_m = \mu(m)/(\varphi(m) V)\) via \(\lambda_d = d \sum_{k\,:\, dk \in D} \mu(k)\, u_{dk}\), and confirm \(\lambda_1 = 1\). (c) Verify \(Q(\lambda) = \sum_{d_1, d_2 \in D} \lambda_{d_1}\lambda_{d_2}/\operatorname{lcm}(d_1,d_2)\) equals your \(Q_{\min}\) exactly.</p>
+<details><summary>Hint</summary>
+<p>\(\varphi(1) = \varphi(2) = 1\), \(\varphi(3) = 2\); since \(6 \notin D\), for \(d = 2\) and \(d = 3\) the inversion sum has only the \(k = 1\) term.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) \(V = 1 + 1 + \frac12 = \frac52\), so \(Q_{\min} = \frac25 = 0.4\), against truth \(\frac13 \approx 0.333\) — a ceiling twenty percent above, from three divisors instead of four. (b) \(u_1 = \frac{2}{5}\), \(u_2 = -\frac{2}{5}\), \(u_3 = -\frac{1}{5}\). Then \(\lambda_1 = u_1 - u_2 - u_3 = \frac{2}{5} + \frac{2}{5} + \frac{1}{5} = 1\) ✓; \(\lambda_2 = 2u_2 = -\frac45\); \(\lambda_3 = 3u_3 = -\frac35\). (c) \[Q = 1 + \frac{(4/5)^2}{2} + \frac{(3/5)^2}{3} - \frac45 + 2\cdot\frac{(-3/5)}{3} + \frac{(4/5)(3/5)}{6}\cdot 2\] — collecting over \(25\): \(25 + 8 + 3 - 20 - 10 + 4 = 10\), so \(Q = \frac{10}{25} = \frac25 = Q_{\min}\) ✓. The minimizer certified by Cauchy–Schwarz is the true minimizer.</p>
+</details>
 
-  <div class="exercise">
-    <p><strong>Exercise P39.2 (●●○ — Pointwise majorant check across all residue profiles).</strong> Consider the 5-divisor Selberg sieve \(\mathcal{D} = \{1, 2, 3, 5, 6\}\) from Section 2 with optimal weights \(\lambda_1 = 1\), \(\lambda_2 = -\frac{12}{13}\), \(\lambda_3 = -\frac{12}{13}\), \(\lambda_5 = -\frac{5}{13}\), \(\lambda_6 = +\frac{12}{13}\).</p>
-    <ol>
-      <li>For an integer \(n\), the Selberg weight \(W(n) = \bigl(\sum_{d \mid \gcd(n, 30),\, d \le 6} \lambda_d\bigr)^2\) depends only on \(\delta = \gcd(n, 30) \in \{1, 2, 3, 5, 6, 10, 15, 30\}\). Compute \(W(\delta)\) for all 8 possible values of \(\delta\) and verify that \(W(\delta) \ge \mathbf{1}_{\delta = 1}\) in every case.</li>
-      <li>Verify that the weighted average of \(W(\delta)\) over a full period of \(30\) consecutive integers — where each divisor \(\delta \mid 30\) occurs exactly \(\varphi(30/\delta)\) times — equals \(\frac{4}{13}\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>For each \(\delta \mid 30\), sum \(\lambda_d\) over all \(d \in \{1, 2, 3, 5, 6\}\) that divide \(\delta\), then square the result. To take the average over \(1 \le n \le 30\), compute \(\frac{1}{30} \sum_{\delta \mid 30} \varphi(30/\delta) W(\delta)\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Pointwise evaluation for all 8 greatest common divisors \(\delta = \gcd(n, 30)\).</strong></p>
-      <ul>
-        <li>\(\delta = 1\) (\(\varphi(30) = 8\) residues): divisors in \(\mathcal{D}\) are \(\{1\}\), sum \(= 1\), so \(W(1) = 1^2 = 1 = \mathbf{1}_{\delta=1}\).</li>
-        <li>\(\delta = 2\) (\(\varphi(15) = 8\) residues): divisors in \(\mathcal{D}\) are \(\{1, 2\}\), sum \(= 1 - \frac{12}{13} = \frac{1}{13}\), so \(W(2) = \frac{1}{169} \ge 0\).</li>
-        <li>\(\delta = 3\) (\(\varphi(10) = 4\) residues): divisors in \(\mathcal{D}\) are \(\{1, 3\}\), sum \(= 1 - \frac{12}{13} = \frac{1}{13}\), so \(W(3) = \frac{1}{169} \ge 0\).</li>
-        <li>\(\delta = 5\) (\(\varphi(6) = 2\) residues): divisors in \(\mathcal{D}\) are \(\{1, 5\}\), sum \(= 1 - \frac{5}{13} = \frac{8}{13}\), so \(W(5) = \frac{64}{169} \ge 0\).</li>
-        <li>\(\delta = 6\) (\(\varphi(5) = 4\) residues): divisors in \(\mathcal{D}\) are \(\{1, 2, 3, 6\}\), sum \(= 1 - \frac{12}{13} - \frac{12}{13} + \frac{12}{13} = \frac{1}{13}\), so \(W(6) = \frac{1}{169} \ge 0\).</li>
-        <li>\(\delta = 10\) (\(\varphi(3) = 2\) residues): divisors in \(\mathcal{D}\) are \(\{1, 2, 5\}\), sum \(= 1 - \frac{12}{13} - \frac{5}{13} = -\frac{4}{13}\), so \(W(10) = \frac{16}{169} \ge 0\).</li>
-        <li>\(\delta = 15\) (\(\varphi(2) = 1\) residue): divisors in \(\mathcal{D}\) are \(\{1, 3, 5\}\), sum \(= 1 - \frac{12}{13} - \frac{5}{13} = -\frac{4}{13}\), so \(W(15) = \frac{16}{169} \ge 0\).</li>
-        <li>\(\delta = 30\) (\(\varphi(1) = 1\) residue): divisors in \(\mathcal{D}\) are \(\{1, 2, 3, 5, 6\}\), sum \(= 1 - \frac{12}{13} - \frac{12}{13} - \frac{5}{13} + \frac{12}{13} = -\frac{4}{13}\), so \(W(30) = \frac{16}{169} \ge 0\).</li>
-      </ul>
-      <p>Notice two features: first, the positive composite weight \(\lambda_6 = +\frac{12}{13}\) cancels the double-subtraction of \(\lambda_2\) and \(\lambda_3\) on multiples of \(6\), driving \(W(6)\) down to \(\frac{1}{169}\); second, whenever the linear sum is negative (\(\delta \in \{10, 15, 30\}\)), squaring flips it positive so \(W(\delta) \ge \mathbf{1}_{\delta=1}\) everywhere.</p>
-      <p><strong>2. Average over one full period of length 30.</strong> Summing \(\varphi(30/\delta) W(\delta)\) over all 8 divisors:</p>
-      \[
-        \frac{1}{30} \sum_{\delta \mid 30} \varphi(30/\delta) W(\delta)
-        \;=\; \frac{8(169) + 8(1) + 4(1) + 2(64) + 4(1) + 2(16) + 1(16) + 1(16)}{30 \cdot 169}
-        \;=\; \frac{1352 + 8 + 4 + 128 + 4 + 32 + 16 + 16}{5070}
-        \;=\; \frac{1560}{5070} \;=\; \frac{4}{13} \;=\; Q_{\min}.
-      \]
-    </details>
-  </div>
+<p class="ex"><strong>Exercise 2</strong> ●●○ — Check the majorant, profile by profile. With \(D = \{1, 2, 3, 5, 6\}\) and the weights of Exemplar 1, the value \(w(n) = (\sum_{d \in D, d \mid n} \lambda_d)^2\) depends only on \(\delta = \gcd(n, 30)\). (a) Compute \(w\) for all eight profiles \(\delta \in \{1, 2, 3, 5, 6, 10, 15, 30\}\) and verify \(w(\delta) \ge \mathbf{1}_{\delta = 1}\) in every one. (b) Each profile occurs \(\varphi(30/\delta)\) times per period of \(30\); verify the period average \(\frac{1}{30}\sum_{\delta \mid 30} \varphi(30/\delta)\, w(\delta) = \frac{4}{13}\), the certified density itself.</p>
+<details><summary>Hint</summary>
+<p>For each profile, sum the weights of the divisors in \(D\) that divide \(\delta\), then square: e.g. at \(\delta = 10\), \(1 - \frac{12}{13} - \frac{5}{13} = -\frac{4}{13}\), and the square is \(\frac{16}{169}\). For (b), put everything over \(169\) and multiply by the profile counts \(8, 8, 4, 2, 4, 2, 1, 1\).</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) \(w(1) = 1\); \(w(2) = w(3) = w(6) = \frac{1}{169}\); \(w(5) = \frac{64}{169}\); \(w(10) = w(15) = w(30) = \frac{16}{169}\). All are \(\ge 0\), and \(w(1) = 1\) exactly — the majorant sits on the truth at survivors and above it (trivially, by non-negativity) everywhere else. (b) \[\frac{8(169) + 8(1) + 4(1) + 2(64) + 4(1) + 2(16) + 1(16) + 1(16)}{30 \cdot 169} = \frac{1352 + 8 + 4 + 128 + 4 + 32 + 16 + 16}{5070} = \frac{1560}{5070} = \frac{4}{13}.\] The average of the majorant over one full period is exactly the certified ceiling — the quadratic form's value at the optimizer, computed by pure census.</p>
+</details>
 
-  <div class="exercise">
-    <p><strong>Exercise P39.3 (●●● — Exact finite Selberg sieve for twin primes).</strong> To sieve for twin primes \((n, n+2)\) using primes \(\mathcal{P} = \{2, 3, 5\}\), we forbid \(n \equiv 0 \pmod 2\) (\(\omega(2) = 1\)) and \(n \equiv 0, -2 \pmod p\) for \(p \in \{3, 5\}\) (\(\omega(3) = \omega(5) = 2\)).</p>
-    <ol>
-      <li>Using the general Selberg formula \(h(d) = \prod_{p \mid d} \frac{p - \omega(p)}{\omega(p)}\) from Exemplar 2, compute \(h(m)\) and \(1/h(m)\) for each \(m \in \mathcal{D} = \{1, 2, 3, 5, 6\}\).</li>
-      <li>Compute the twin-prime diagonal capacity \(V_{\text{twin}}(6) = \sum_{m \in \mathcal{D}} \frac{1}{h(m)}\) and the minimum main-term density \(Q_{\text{twin}} = 1 / V_{\text{twin}}(6)\). Compare \(Q_{\text{twin}}\) against the exact local twin-prime Euler density \(\prod_{p \in \{2,3,5\}} \bigl(1 - \frac{\omega(p)}{p}\bigr) = \frac{1}{2} \cdot \frac{1}{3} \cdot \frac{3}{5} = \frac{1}{10}\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Evaluate \(\frac{p - \omega(p)}{\omega(p)}\) at \(p = 2\) (\(\frac{2-1}{1} = 1\)), \(p = 3\) (\(\frac{3-2}{2} = \frac{1}{2}\)), and \(p = 5\) (\(\frac{5-2}{2} = \frac{3}{2}\)), then use multiplicativity \(h(6) = h(2)h(3)\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Multiplicative factors \(h(m)\) and \(1/h(m)\).</strong></p>
-      <ul>
-        <li>\(m = 1\): \(h(1) = 1 \implies 1/h(1) = 1\).</li>
-        <li>\(m = 2\): \(\omega(2) = 1 \implies h(2) = \frac{2-1}{1} = 1 \implies 1/h(2) = 1\).</li>
-        <li>\(m = 3\): \(\omega(3) = 2 \implies h(3) = \frac{3-2}{2} = \frac{1}{2} \implies 1/h(3) = 2\).</li>
-        <li>\(m = 5\): \(\omega(5) = 2 \implies h(5) = \frac{5-2}{2} = \frac{3}{2} \implies 1/h(5) = \frac{2}{3}\).</li>
-        <li>\(m = 6 = 2 \cdot 3\): by multiplicativity, \(h(6) = h(2) h(3) = 1 \cdot \frac{1}{2} = \frac{1}{2} \implies 1/h(6) = 2\).</li>
-      </ul>
-      <p><strong>2. Twin-prime capacity \(V_{\text{twin}}(6)\) and minimum density \(Q_{\text{twin}}\).</strong> Summing \(1/h(m)\) over \(\mathcal{D} = \{1, 2, 3, 5, 6\}\):</p>
-      \[
-        V_{\text{twin}}(6) \;=\; 1 + 1 + 2 + \frac{2}{3} + 2 \;=\; 6 + \frac{2}{3} \;=\; \frac{20}{3},
-        \qquad
-        Q_{\text{twin}} \;=\; \frac{1}{V_{\text{twin}}(6)} \;=\; \frac{3}{20} \;=\; 0.15.
-      \]
-      <p>Using only the 5 divisors \(d \le 6\) already brings the upper-bound density to \(0.15\), within \(50\%\) of the full \(P(5) = 30\) local density \(0.10\) (and if we include all 8 divisors of \(30\), \(V_{\text{twin}}(30) = (1+1)(1+2)(1+\frac{2}{3}) = 2 \cdot 3 \cdot \frac{5}{3} = 10\), recovering \(Q_{\text{twin}} = \frac{1}{10}\) identically).</p>
-    </details>
-  </div>
+<p class="ex"><strong>Exercise 3</strong> ●●● — Sieve for twins at the census scale. To count \(n\) with \(n, n+2\) both surviving, the box counts are \(\omega(2) = 1\) and \(\omega(p) = 2\) for odd \(p\), and the capacity's per-prime factor becomes \(1/h(p) = \frac{\omega(p)}{p - \omega(p)}\). (a) Compute \(1/h(m)\) for each \(m \in D = \{1, 2, 3, 5, 6\}\). (b) Compute \(V_{\text{twin}}\) and the ceiling \(Q_{\text{twin}} = 1/V_{\text{twin}}\), and compare with the exact local density \(\frac{1}{2} \cdot \frac{1}{3} \cdot \frac{3}{5} = \frac{1}{10}\). (c) Verify that the full budget — all eight divisors — recovers \(Q_{\text{twin}} = \frac{1}{10}\) identically, via the factorization \(V = \prod_{p &lt; 7} (1 + 1/h(p))\).</p>
+<details><summary>Hint</summary>
+<p>\(1/h\) is multiplicative: \(1/h(6) = (1/h(2))(1/h(3))\). For (c), \((1 + 1/h(2))(1 + 1/h(3))(1 + 1/h(5))\).</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) \(1/h(1) = 1\); \(1/h(2) = \frac{1}{2-1} = 1\); \(1/h(3) = \frac{2}{3-2} = 2\); \(1/h(5) = \frac{2}{5-2} = \frac23\); \(1/h(6) = 1 \cdot 2 = 2\). (b) \(V_{\text{twin}} = 1 + 1 + 2 + \frac23 + 2 = \frac{20}{3}\), so \(Q_{\text{twin}} = \frac{3}{20} = 0.15\) — a ceiling fifty percent above the truth \(\frac{1}{10}\), from five of eight divisors. (c) \(V_{\text{full}} = (1+1)(1+2)(1+\frac23) = 2 \cdot 3 \cdot \frac53 = 10\), so \(Q = \frac{1}{10}\) — the exact density, no truncation, no gap: the two-box sieve's Euler product, met exactly like the budget ladder's last rung.</p>
+</details>
 
-  <div class="exercise">
-    <p><strong>Exercise P39.4 (◆ — Pattern-unknown diagnosis).</strong> You want to prove an upper bound of the true order of magnitude \(O(X / \ln X)\) for the number of integers \(1 \le n \le X\) such that \(n^2 + 1\) is a prime number.</p>
-    <ol>
-      <li>Explain why both naive inclusion–exclusion and the Hardy–Littlewood circle method fail to solve this problem directly, identify the pattern from this atlas that succeeds, and write down the exact local obstruction count \(\omega(p)\) for every prime \(p\) in this setup.</li>
-      <li>Using the prime ideal theorem / Dirichlet's theorem on primes \(p \equiv 1 \pmod 4\) vs. \(p \equiv 3 \pmod 4\), explain why \(\sum_{p \le R} \frac{\omega(p)}{p} = \ln\ln R + O(1)\) and conclude that the count of primes of the form \(n^2 + 1\) with \(n \le X\) is \(O(X / \ln X)\).</li>
-    </ol>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Pattern diagnosis and local obstruction counts \(\omega(p)\).</strong></p>
-      <ul>
-        <li><em>Why <a href="p76-inclusion-exclusion.html"><span class="pid">P76</span> · Sieve by inclusion-exclusion</a> fails:</em> Sieving \(n^2 + 1\) up to \(z = X^{1/4}\) involves \(\pi(z) \sim z / \ln z\) primes, so the \(2^{\pi(z)}\) inclusion–exclusion remainder terms exceed \(X\) by an exponential factor.</li>
-        <li><em>Why <a href="p38-major-minor-arcs.html"><span class="pid">P38</span> · Major and minor arcs</a> fails:</em> We are intersecting two sparse sets of size \(\le X\) inside \([1, X^2 + 1]\) (squares plus one and primes), a binary sparse problem where the \(L^2\) energy on minor arcs exceeds the main term.</li>
-        <li><em>Why <a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a> succeeds:</em> Define \(\mathcal{A} = \{n^2 + 1 : 1 \le n \le X\}\). For any modulus \(d\), the congruence \(n^2 + 1 \equiv 0 \pmod d\) splits across prime powers by the Chinese Remainder Theorem (<a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>). By quadratic reciprocity / Fermat's Euler criterion, \(\omega(2) = 1\) (since \(1^2 + 1 \equiv 0 \pmod 2\)), \(\omega(p) = 2\) if \(p \equiv 1 \pmod 4\), and \(\omega(p) = 0\) if \(p \equiv 3 \pmod 4\).</li>
-      </ul>
-      <p><strong>2. Capacity growth and the \(O(X / \ln X)\) upper bound.</strong> By Dirichlet's theorem in arithmetic progressions, half of the primes lie in \(p \equiv 1 \pmod 4\) (where \(\omega(p) = 2\)) and half lie in \(p \equiv 3 \pmod 4\) (where \(\omega(p) = 0\)). Thus the average of \(\omega(p)\) is \(\frac{1}{2}(2) + \frac{1}{2}(0) = 1\), so</p>
-      \[
-        \sum_{p \le R} \frac{\omega(p)}{p} \;=\; \frac{1}{2} + \sum_{\substack{p \le R \\ p \equiv 1 \pmod 4}} \frac{2}{p} \;=\; 2 \cdot \left(\frac{1}{2} \ln\ln R + O(1)\right) \;=\; \ln\ln R + O(1).
-      \]
-      <p>Consequently, the multiplicative Selberg capacity \(V(R) = \sum_{m \le R} \mu(m)^2 \prod_{p \mid m} \frac{\omega(p)}{p - \omega(p)}\) grows as \(c \ln R\) with \(c = \frac{1}{2} \prod_{p &gt; 2} \bigl(1 - \frac{\chi_{-4}(p)}{p-1}\bigr) &gt; 0\). Choosing \(R = X^{1/2 - \varepsilon}\) keeps the remainder \(O(R^2 \ln^2 R) = o(X / \ln X)\), yielding</p>
-      \[
-        \#\{n \le X : n^2 + 1 \text{ is prime}\} \;\le\; \frac{X}{V(X^{1/2 - \varepsilon})} + O(X^{1 - \varepsilon}) \;=\; O\!\left(\frac{X}{\ln X}\right).
-      \]
-    </details>
-  </div>
+<p class="ex"><strong>Exercise 4</strong> ◆ — Diagnose, then bound: "how many twin pairs are there up to \(X\), and does this page's move prove there are infinitely many?" (a) Say what the sieve inputs are (the set, the boxes, \(\omega\)), and what ceiling the pattern certifies for the count \(\pi_2(X)\), using Exercise 3's capacity shape \(V_{\text{twin}}(R) \asymp \log^2 R\) with the calibration of Exhibit B. (b) Explain — via Exhibit A — why the same machine cannot certify a positive lower bound for primes or twin pairs, and name what extra input the modern lineage (§7's last bullet) fed it to prove bounded gaps anyway.</p>
+<details><summary>Worked answer</summary>
+<p>(a) The set is \(\{n(n+2) : n \le X\}\), the boxes are the residue classes \(0\) and \(-2\) (one box at \(p = 2\)), and the certified ceiling is \(\pi_2(X) \le (X + R^2)/V_{\text{twin}}(R)\); with \(V_{\text{twin}}(R)\) growing like \(\log^2 R\) and \(R\) calibrated so \(R^2 \ll X/\log^2 X\), this is \(\pi_2(X) \ll X/\log^2 X\) — the conjectured true order, certified from above. (b) The parity wall: a machine reading only residue boxes cannot distinguish one prime factor from two, and the even-parity adversary population fills the same boxes with no primes in it — so any census-certified lower bound for twins must survive on a set that could be prime-free, forcing it to zero. The modern route does not climb the wall: it changes the population, sieving \(k\)-tuples and comparing two weighted sums so that <em>some</em> tuple member being prime is forced by a ratio exceeding \(1\) — plus a distribution level for the sifted set beyond what the census alone provides. Diagnosis: this page bounds twins from above at the true order; existence needed a different question, asked of \(k\) tuples at once.</p>
+</details>
 
-  <div class="exercise">
-    <p><strong>Exercise P39.5 (◐ — Exploration: The Large Sieve as the dual of Selberg's sieve).</strong> In 1941, Yuri Linnik introduced the <strong>Large Sieve</strong>, which Hugh Montgomery (1968) proved is dual (<a href="p17-duality.html"><span class="pid">P17</span></a>) to Fourier exponential sums (<a href="p24-waves.html"><span class="pid">P24</span></a>):</p>
-    \[
-      \sum_{q \le Q} \sum_{\substack{a = 1 \\ \gcd(a, q) = 1}}^{q} \left| \sum_{n = M+1}^{M+N} c_n e\!\left(\frac{a n}{q}\right) \right|^2 \;\le\; \bigl(N - 1 + Q^2\bigr) \sum_{n = M+1}^{M+N} |c_n|^2.
-    \]
-    <p>Suppose \(\mathcal{A} \subseteq [1, X]\) avoids \(\omega(p)\) residue classes modulo every prime \(p \le Q\), and let \(c_n = \mathbf{1}_{n \in \mathcal{A}}\) so \(\sum |c_n|^2 = |\mathcal{A}|\). Using Ramanujan's sum identity or Cauchy–Schwarz on each prime \(p \mid q\), one shows that for every squarefree \(q \le Q\),</p>
-    \[
-      \sum_{\substack{a = 1 \\ \gcd(a, q) = 1}}^{q} \left| \sum_{n \in \mathcal{A}} e\!\left(\frac{a n}{q}\right) \right|^2 \;\ge\; |\mathcal{A}|^2 \prod_{p \mid q} \frac{\omega(p)}{p - \omega(p)}.
-    \]
-    <p>Sum this lower bound over all squarefree \(q \le Q\) and compare with the Large Sieve inequality to deduce Montgomery's universal upper bound for \(|\mathcal{A}|\). Why is this called a "large" sieve compared to Selberg's combinatorial sieve?</p>
-    <details>
-      <summary>Hint</summary>
-      <p>Factor \(|\mathcal{A}|^2\) out of the sum over squarefree \(q \le Q\), note that \(\sum_{q \le Q} \mu(q)^2 \prod_{p \mid q} \frac{\omega(p)}{p - \omega(p)} = V(Q)\) is the exact Selberg capacity, and divide both sides by \(|\mathcal{A}| V(Q)\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Deducing Montgomery's inequality.</strong> Summing the Ramanujan lower bound over all squarefree \(q \le Q\) and bounding above by the Large Sieve inequality with \(c_n = \mathbf{1}_{n \in \mathcal{A}}\) (\(\sum |c_n|^2 = |\mathcal{A}|\), \(N = X\)) gives</p>
-      \[
-        |\mathcal{A}|^2 \sum_{q \le Q} \mu(q)^2 \prod_{p \mid q} \frac{\omega(p)}{p - \omega(p)}
-        \;\le\; \sum_{q \le Q} \sum_{\substack{a=1 \\ \gcd(a,q)=1}}^{q} \left|\sum_{n \in \mathcal{A}} e\!\left(\frac{an}{q}\right)\right|^2
-        \;\le\; \bigl(X + Q^2\bigr) |\mathcal{A}|.
-      \]
-      <p>Recognizing the sum on the left as the exact Selberg capacity \(V(Q) = \sum_{q \le Q} \mu(q)^2 \prod_{p \mid q} \frac{\omega(p)}{p - \omega(p)}\) and dividing both sides by \(|\mathcal{A}| V(Q)\) yields</p>
-      \[
-        |\mathcal{A}| \;\le\; \frac{X + Q^2}{V(Q)}.
-      \]
-      <p><strong>2. Why it is a "large" sieve.</strong> In Selberg's combinatorial divisor sieve, each prime \(p\) has an individual remainder term of size \(O(R^2)\), which diverges if \(\omega(p)\) grows like \(\frac{1}{2} p\). In the Large Sieve, the analytic \(L^2\) orthogonality of the Farey fractions \(a/q\) absorbs <em>all</em> remainder errors simultaneously into the single additive factor \(+Q^2\) in the numerator! Thus \(\omega(p)\) can be a <em>large</em> proportion of the residues modulo \(p\) (for example \(\omega(p) = \frac{p-1}{2}\) when sieving out quadratic non-residues) without blowing up the remainder.</p>
-    </details>
-  </div>
+<p class="ex"><strong>Exercise 5</strong> ◐ — Brun's ledger, by shells. Suppose a certified ceiling says the interval \([2^j, 2^{j+1})\) holds at most \(C \cdot 2^j / j^2\) twin pairs, for some constant \(C\) and all \(j \ge 1\). (a) Show the reciprocal sum over all twin primes converges, bounded by \(K \sum_{j \ge 1} 1/j^2\) for a constant \(K\) you should identify in terms of \(C\). (b) Evaluate \(\sum_{j \ge 1} 1/j^2\) numerically to three decimals and explain, in one sentence each, (i) why the shell decomposition makes the divergent-looking sum converge and (ii) why the analogous sum over <em>all</em> primes diverges anyway.</p>
+<details><summary>Hint</summary>
+<p>Each twin prime \(p\) in shell \(j\) contributes at most \(1/2^j\) to the reciprocal sum; count the pairs first, then sum the shells. For (ii): the all-primes ceiling is \(X/\log X\), not \(X/\log^2 X\) — compare shell sums \(\sum 1/j\) against \(\sum 1/j^2\), with <a href="p42-dyadic-decomposition.html">P42</a>.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) Shell \(j\) contributes at most \((C \cdot 2^j/j^2) \cdot (1/2^j) = C/j^2\), so the total is at most \(K \sum_{j\ge1} 1/j^2\) with \(K = 2C\) — each member of a pair contributes its own reciprocal. (b) \(\sum_{j \ge 1} 1/j^2 = \pi^2/6 \approx 1.645\). (i) The shell bound \(C/j^2\) decays fast enough that the infinite sum of shells converges — the \(2^j\) in the count and the \(1/2^j\) in the reciprocals cancel exactly, leaving a summable \(1/j^2\); the decomposition converts one enormous sum into a ledger of shrinking ones. (ii) For all primes the same cancellation leaves \(\sim 1/j\) per shell — the harmonic series — and that diverges: the sieve's doubly-logarithmic twin ceiling is precisely what makes the twins' ledger converge where the primes' does not.</p>
+</details>
+
+<p class="ex"><strong>Exercise 6</strong> ◐ — Calibrate a budget under fire. You must certify a ceiling for survivors on the interval \([10^6, 2 \cdot 10^6]\), and your error control guarantees each divisor pair contributes at most \(1\) to the remainder — so the remainder's total is at most \(R^2\) for budget \(R\). (a) With the main term's capacity about \(\log R\) deep in budget, write the ceiling's two terms and find, to the nearest power of ten, the largest \(R\) keeping the remainder below one percent of the interval. (b) Evaluate the ceiling's order at that \(R\), and compare with the interval's honest prime-scale \(Y/\log Y\); state which is larger and by what factor. (c) Say in one sentence what doubling \(R\) would do to each term, and why that is the wrong move here.</p>
+<details><summary>Hint</summary>
+<p>Interval \(Y = 10^6\); one percent is \(10^4\), so \(R^2 \le 10^4\). For (b), the capacity is §3's sum \(\sum_{m \le R} \mu(m)^2/\varphi(m)\) over squarefree \(m\) — evaluate it exactly at \(R = 100\), and expect it to sit above the natural logarithm: §3's growth carries a constant too. \(\log 10^6 = 13.8\) to one decimal.</p>
+</details>
+<details><summary>Worked answer</summary>
+<p>(a) Ceiling: \(Y/V(R) + R^2\). One percent of \(Y = 10^6\) is \(10^4\), so \(R \le 10^2\): budget a hundred, to the nearest power of ten. (b) The capacity at that budget is \(\sum_{m \le 100} \mu(m)^2/\varphi(m) \approx 5.9\) — §3's logarithm plus the constant it already carries at this scale — so the ceiling is about \(10^6/5.9 + 10^4 \approx 1.8 \times 10^5\), against the honest prime-scale \(Y/\log Y = 10^6/13.8 \approx 7.2 \times 10^4\): the certified ceiling is about two-and-a-half times larger — the factor-of-two parity slack of Exhibit A plus a rough budget's tax — exactly the shape Exhibit B predicted. (c) Doubling \(R\) deepens \(V\) only additively (about \(+\log 2 \approx 0.7\), a twelve-percent gain on a capacity of \(5.9\)) while quadrupling the remainder past the one-percent line — quadrupling is the killer: the remainder's \(R^2\) is a <em>budget</em>, and budgets square; the correct move is a bigger interval or better error control, not a deeper budget on the same one.</p>
+</details>
 </section>
 
 <footer>
-  <nav>
-    <a href="index.html">← Atlas index</a> ·
-    <a href="p38-major-minor-arcs.html">← Previous: P38 · Major and minor arcs</a> ·
-    <a href="p40-tropicalize.html">Next: P40 · Tropicalize →</a>
-  </nav>
+<p><strong>Next:</strong> the additive end of the counting story — major and minor arcs (P38, planned), where sieves supply ceilings and the circle method supplies asymptotics — is not yet on the shelf. The shell ledger that sums what ceilings bound already is: <a href="p42-dyadic-decomposition.html">P42 · Decompose by scale</a>.</p>
+<p class="atlas-home"><a href="index.html">The Patterns Atlas</a> · <a href="p30-localize-at-prime.html">P30 · Localize at a prime</a> · <a href="p10-pigeonhole.html">P10 · Force a collision</a></p>
 </footer>
-</main>
 </body>
 </html>
