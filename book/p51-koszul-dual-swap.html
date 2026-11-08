@@ -1,539 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>P51 · The Koszul dual swap · The Patterns Atlas</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <style>
-/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
-:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
-* { box-sizing: border-box; }
-body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
-main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
-.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
-.kicker a { color: var(--accent); text-decoration: none; }
-h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
-h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
-.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
-nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
-nav.toc a { color: var(--accent); text-decoration: none; }
-table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
-th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
-td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
-td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
-.st { font-family: system-ui, sans-serif; font-size: .75rem; }
-.st.published { color: #1c6b2f; }
-.st.reviewed { color: var(--accent); }
-.st.drafting { color: var(--warn); }
-.st.planned { color: var(--soft); }
-footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
-/* pattern-page blocks */
-.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
-.pattern-box .words { color: var(--soft); }
-.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
-.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
-.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
-figure { margin: 1.2rem 0; }
-figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
-figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
-.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
-.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
-.eq { text-align: center; margin: 1.1rem 0; }
-mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
-figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
-figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
-details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
-summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
-details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-  </style>
-  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P51 · The Koszul dual swap · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
-  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P51 · the sixth move of tier 5</p>
-  <h1>The Koszul dual swap</h1>
-  <p class="tagline">When an infinite-dimensional quadratic algebra makes resolutions explode, flip its degree-2 relations to their orthogonal complement in the dual space — trading commuting variables for anticommuting ones and infinite towers for finite complexes.</p>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P51 · the nineteenth move of tier 5</p>
+<h1>The Koszul dual swap</h1>
+<p class="tagline">A quadratic algebra and its dual answer for one another: each side's hard questions about resolutions become the other side's multiplication table. The swap is not a metaphor — it is a construction with a certificate, and this page runs the certificate by machine.</p>
 </header>
-
-<aside class="onramp">
-  <strong>Quadratic algebras \(T(V)/(R)\), the orthogonal annihilator \(R^\perp\), and Hilbert series \(h_A(t)\).</strong>
-  Given a \(d\)-dimensional vector space of generators \(V = \operatorname{Span}\{x_1, \dots, x_d\}\), the <em>tensor algebra</em> \(T(V) = \bigoplus_{k \ge 0} V^{\otimes k}\) is the algebra of all non-commuting words in \(x_1, \dots, x_d\). A <em>quadratic algebra</em> \(A = T(V)/(R)\) imposes degree-\(2\) relations spanned by a subspace \(R \subset V \otimes V\). In the dual tensor square \(V^* \otimes V^*\) (with dual basis \(\xi_1, \dots, \xi_d\)), the <em>orthogonal annihilator</em> \(R^\perp = \{\phi \in V^* \otimes V^* : \phi(r) = 0 \text{ for all } r \in R\}\) defines the <em>quadratic dual algebra</em> \(A^! = T(V^*)/(R^\perp)\). The <em>Hilbert series</em> \(h_A(t) = \sum_{k=0}^\infty (\dim A_k)\,t^k\) records the dimension of each graded piece \(A_k\).
-</aside>
-
+<aside class="onramp"><strong>New word: quadratic algebra.</strong> The letters of a vector space \(V\) make words; concatenating them is the tensor algebra \(T(V)\), graded by word length — \(T(V)_n\) is the span of the \(n\)-letter words. Impose relations that are <em>combinations of two-letter words</em>, \(R \subseteq V \otimes V\), and the quotient \(A = T(V)/(R)\) is a quadratic algebra. The polynomial room is the archetype: impose \(xy - yx\) and every word collapses to \(x^a y^b\). The floors multiply upward, \(A_m \cdot A_k \subseteq A_{m+k}\), so each algebra is a ladder of finite-dimensional rooms.</aside>
+<aside class="onramp"><strong>New word: orthogonal complement.</strong> Dual letters score letters: if \(\xi, \eta\) are dual to \(x, y\), the value \(\langle \xi \otimes \eta, x \otimes y \rangle = \xi(x)\eta(y)\) extends entry by entry to a pairing between \(V^{\ast} \otimes V^{\ast}\) and \(V \otimes V\). The dual tensors scoring zero on every relation form the orthogonal complement \(R^{\perp}\). The ledger is honest before any counting starts: \(\dim R + \dim R^{\perp} = (\dim V)^2\).</aside>
+<aside class="onramp"><strong>New word: Hilbert series.</strong> An algebra's growth ledger is its Hilbert series \(H_A(t) = \sum_n \dim(A_n)\, t^n\) — one coefficient per floor. The polynomial room's is \(1/(1-t)^2\), floor \(n\) holding the \(n+1\) words \(x^a y^b\); the exterior room's is \((1+t)^2\), because its floors stop at \(n = 2\). This page makes the census pass arithmetic: the two ledgers of a swapped pair will multiply to exactly \(1\), coefficient by coefficient, or the pairing has failed.</aside>
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p><a href="p17-duality.html"><span class="pid">P17</span></a> taught us how flipping a space \(V\) to its linear dual \(V^*\) reverses arrows and turns subspaces into annihilators. <a href="p36-character-counting.html"><span class="pid">P36</span></a> and <a href="p50-double-centralizer.html"><span class="pid">P50</span></a> decomposed the two-slot tensor square \(V \otimes V = \operatorname{Sym}^2(V) \oplus \bigwedge^2(V)\) into symmetric and skew-symmetric pieces under the swap \(\tau = (12) \in S_2\), and <a href="p33-sheaf-cohomology-bridge.html"><span class="pid">P33</span></a> showed us how cochain complexes \(d \circ d = 0\) measure global obstructions.</p>
-  <p>Here is the tension that arises when we combine graded algebras with cohomology. Suppose we want to resolve a module or compute cohomology (relations among relations, called <em>syzygies</em>) over the ordinary polynomial ring \(A = \mathbb{C}[x_1, x_2, x_3]\) in three commuting variables. Because \(A\) is infinite-dimensional (\(\dim A_k = \binom{k+2}{2} = 1, 3, 6, 10, 15, \dots\)), the standard universal bar complex \(A \otimes A_+^{\otimes m}\) has infinitely many generators in every degree and never terminates! Yet in 1890 David Hilbert discovered that the minimal free resolution of \(\mathbb{C}\) over \(\mathbb{C}[x_1, x_2, x_3]\) stops dead after <strong>three steps</strong>, with ranks \(1, 3, 3, 1\). Why do three commuting variables with infinitely many monomials produce a finite \(3\)-step resolution with binomial ranks \(\binom{3}{m}\)? Because sitting in the orthogonal shadow of the commuting polynomial ring \(A = \operatorname{Sym}(V)\) is the finite-dimensional <em>exterior algebra</em> \(A^! = \bigwedge(V^*)\), and each algebra builds the minimal resolution of the other!</p>
+<h2>1 · Before we begin</h2>
+<p><a href="p36-character-counting.html">P36</a> taught the census that symmetry pays for: actions become characters, inner products count waves, and a room splits into floors labeled by irreducibles. <a href="p17-duality.html">P17</a> named the broader habit — when a structure's questions stall, hand the structure to a dual and ask again. This page is where those habits meet an unexpected customer: not a group action but an <em>algebra presentation</em>, and not a character census but a growth census — the Hilbert series — policed by the same bookkeeping instinct.</p>
+<p>The reader arriving from <a href="p50-double-centralizer.html">P50</a> has already met the pairing style: two structures commuting inside one construction, each answering for the other, with the bookkeeping certified by machine. Here the two structures are algebras, the one construction is a differential built from a single element that lives in both at once, and the answers are literal: the dual algebra <em>is</em> the answer book to the first algebra's extension questions — a claim this page will make precise and then verify coefficient by coefficient.</p>
+<p>The parent page promised this door and named the stakes. P36's doors section called it the far door, and said exactly what it carries: <em>the far machinery splits whole categories of spaces into dual waves, exchanging the roles of generators and relations; characters survive there as graded traces — each wave keeping its amplitude book.</em> P36 also named the climb: <a href="p33-sheaf-cohomology-bridge.html">P33's bridge</a> comes first on this road, because the swap's natural outputs are resolutions — homological bookkeeping's daily bread.</p>
 </section>
-
 <section id="encounter">
-  <h2>2 · Meet the problem: how the finite sequence \(1, 3, 3, 1\) annihilates the infinite sequence \(1, 3, 6, 10, 15, \dots\)</h2>
-  <p>Take a \(3\)-dimensional space \(V = \operatorname{Span}\{x_1, x_2, x_3\}\) and its dual \(V^* = \operatorname{Span}\{\xi_1, \xi_2, \xi_3\}\). Look at the \(9\)-dimensional space of two-letter words \(V \otimes V\), which splits under the swap \(\tau(x_i \otimes x_j) = x_j \otimes x_i\) (<a href="p50-double-centralizer.html"><span class="pid">P50</span></a>, Exercise 1) into a \(3\)-dimensional skew-symmetric subspace and a \(6\)-dimensional symmetric subspace:</p>
-  <ul>
-    <li><strong>The Polynomial Algebra \(A = \operatorname{Sym}(V) = \mathbb{C}[x_1, x_2, x_3]\):</strong> To make variables commute (\(x_i x_j = x_j x_i\)), we quotient \(T(V)\) by the \(3\)-dimensional skew-symmetric subspace \(R = \bigwedge^2(V) = \operatorname{Span}\{x_i \otimes x_j - x_j \otimes x_i : 1 \le i &lt; j \le 3\}\). Its graded pieces \(A_k = \operatorname{Sym}^k(V)\) have dimensions \(\dim A_k = \binom{k+2}{2} = 1, 3, 6, 10, 15, 21, \dots\) with Hilbert series
-      <p class="eq">\[h_A(t) = \sum_{k=0}^{\infty} \binom{k+2}{2} t^k = \frac{1}{(1 - t)^3}.\]</p>
-    </li>
-    <li><strong>The Exterior Algebra \(A^! = \bigwedge(V^*) = \bigwedge(\xi_1, \xi_2, \xi_3)\):</strong> What is the orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\) of all functionals vanishing on \(x_i \otimes x_j - x_j \otimes x_i\)? It is the \(6\)-dimensional symmetric subspace \(R^\perp = \operatorname{Sym}^2(V^*) = \operatorname{Span}\{\xi_i \otimes \xi_i,\; \xi_i \otimes \xi_j + \xi_j \otimes \xi_i\}\)! Quotienting \(T(V^*)\) by \(R^\perp\) forces \(\xi_i^2 = 0\) and \(\xi_i \xi_j = -\xi_j \xi_i\). Its graded pieces \(A^!_m = \bigwedge^m(V^*)\) have dimensions \(\dim A^!_m = \binom{3}{m} = 1, 3, 3, 1, 0, 0, \dots\) with Hilbert polynomial
-      <p class="eq">\[h_{A^!}(t) = 1 + 3t + 3t^2 + t^3 = (1 + t)^3.\]</p>
-    </li>
-  </ul>
-  <p>Now watch what happens when we multiply \(h_A(t)\) by \(h_{A^!}(-t)\): \((1 - t)^{-3} \cdot (1 - t)^3 = 1\)! Expanding the coefficient of \(t^N\) in \(h_{A^!}(-t)\,h_A(t) = 1\) shows that for <em>every</em> total weight \(N = m + k \ge 1\), the alternating sum of dimensions of the tensor boxes \(K_{m,k} = \bigwedge^m V \otimes \operatorname{Sym}^k V\) is identically zero:</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Total Weight \(N = m + k\)</th>
-        <th>\(m = 0\)<br>\(\dim \bigwedge^0 \cdot \dim A_N\)</th>
-        <th>\(m = 1\)<br>\(-\dim \bigwedge^1 \cdot \dim A_{N-1}\)</th>
-        <th>\(m = 2\)<br>\(+\dim \bigwedge^2 \cdot \dim A_{N-2}\)</th>
-        <th>\(m = 3\)<br>\(-\dim \bigwedge^3 \cdot \dim A_{N-3}\)</th>
-        <th>Alternating Euler Sum</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(N = 0\)</td>
-        <td>\(+1 \times 1 = +1\)</td>
-        <td>\(0\)</td>
-        <td>\(0\)</td>
-        <td>\(0\)</td>
-        <td>\(\mathbf{+1}\) (ground field \(\mathbb{C}\))</td>
-      </tr>
-      <tr>
-        <td>\(N = 1\)</td>
-        <td>\(+1 \times 3 = +3\)</td>
-        <td>\(-3 \times 1 = -3\)</td>
-        <td>\(0\)</td>
-        <td>\(0\)</td>
-        <td>\(3 - 3 = \mathbf{0}\)</td>
-      </tr>
-      <tr>
-        <td>\(N = 2\)</td>
-        <td>\(+1 \times 6 = +6\)</td>
-        <td>\(-3 \times 3 = -9\)</td>
-        <td>\(+3 \times 1 = +3\)</td>
-        <td>\(0\)</td>
-        <td>\(6 - 9 + 3 = \mathbf{0}\)</td>
-      </tr>
-      <tr>
-        <td>\(N = 3\)</td>
-        <td>\(+1 \times 10 = +10\)</td>
-        <td>\(-3 \times 6 = -18\)</td>
-        <td>\(+3 \times 3 = +9\)</td>
-        <td>\(-1 \times 1 = -1\)</td>
-        <td>\(10 - 18 + 9 - 1 = \mathbf{0}\)</td>
-      </tr>
-      <tr>
-        <td>\(N = 4\)</td>
-        <td>\(+1 \times 15 = +15\)</td>
-        <td>\(-3 \times 10 = -30\)</td>
-        <td>\(+3 \times 6 = +18\)</td>
-        <td>\(-1 \times 3 = -3\)</td>
-        <td>\(15 - 30 + 18 - 3 = \mathbf{0}\)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>That exact cancellation at every weight \(N \ge 1\) is not an accident of binomial coefficients — it is the shadow of a canonical boundary operator \(d : \bigwedge^m V \otimes A_k \to \bigwedge^{m-1} V \otimes A_{k+1}\) that strips one exterior wedge \(e_i\) from the left factor and multiplies it as a commuting variable \(x_i\) onto the right factor:</p>
-  <p class="eq">\[d\bigl(e_{i_1} \wedge \cdots \wedge e_{i_m} \otimes f\bigr) = \sum_{j=1}^m (-1)^{j-1} e_{i_1} \wedge \cdots \wedge \widehat{e_{i_j}} \wedge \cdots \wedge e_{i_m} \otimes (x_{i_j} f).\]</p>
-  <p>Why does \(d \circ d = 0\)? Because stripping \(e_a\) then \(e_b\) vs. stripping \(e_b\) then \(e_a\) picks up opposite signs from the exterior wedge on the left while producing the <em>same</em> commuting product \(x_a x_b = x_b x_a\) on the right! The anticommutativity of \(A^!\) cancels the commutativity of \(A\) term by term.</p>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 205" role="img" aria-label="Fig P51.1: Top: orthogonal decomposition of V (x) V into R (dim r) and R^perp (dim d^2 - r). Bottom: the 4-term Koszul complex for d=3 where stripping an exterior wedge from A^!^* and multiplying onto A satisfies d^2 = 0.">
-      <defs>
-        <marker id="arr-p51" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
-        </marker>
-      </defs>
-      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
-
-      <!-- Top half: Orthogonal Split of V (x) V (dim d^2 = 9) vs V^* (x) V^* -->
-      <text x="300" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Orthogonal Swap of Quadratic Relations in  V ⊗ V  (dim d² = 9)</text>
-      <rect x="65" y="30" width="160" height="44" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.8"/>
-      <rect x="225" y="30" width="310" height="44" fill="#f7e6d4" stroke="#8a4b08" stroke-width="1.8"/>
-      <text x="145" y="49" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">R = ⋀²V  (dim = 3)</text>
-      <text x="145" y="64" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">Relations of A:  xᵢ xⱼ − xⱼ xᵢ = 0</text>
-      <text x="380" y="49" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">R^⊥ = Sym²(V*)  (dim = 9 − 3 = 6)</text>
-      <text x="380" y="64" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">Relations of A^!:  ξᵢ² = 0,  ξᵢ ξⱼ + ξⱼ ξᵢ = 0</text>
-
-      <!-- Bottom half: The 4-step Koszul Resolution at d=3 -->
-      <text x="300" y="102" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · The Finite Koszul Resolution  (A^!)^* ⊗ A ⟶ ℂ   (Ranks  1 → 3 → 3 → 1)</text>
-
-      <rect x="25" y="116" width="96" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
-      <text x="73" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀³V ⊗ A</text>
-      <text x="73" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 1</text>
-
-      <rect x="155" y="116" width="96" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
-      <text x="203" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀²V ⊗ A</text>
-      <text x="203" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 3</text>
-
-      <rect x="285" y="116" width="96" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
-      <text x="333" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀¹V ⊗ A</text>
-      <text x="333" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 3</text>
-
-      <rect x="415" y="116" width="82" height="50" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.6" rx="3"/>
-      <text x="456" y="137" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">⋀⁰V ⊗ A</text>
-      <text x="456" y="154" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">rank = 1</text>
-
-      <rect x="528" y="116" width="48" height="50" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="3"/>
-      <text x="552" y="145" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ℂ</text>
-
-      <!-- Arrows -->
-      <line x1="121" y1="141" x2="153" y2="141" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51)"/>
-      <text x="137" y="133" font-family="Georgia, serif" font-size="10.5" font-style="italic" fill="#0f5c57" text-anchor="middle">d₃</text>
-      <line x1="251" y1="141" x2="283" y2="141" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51)"/>
-      <text x="267" y="133" font-family="Georgia, serif" font-size="10.5" font-style="italic" fill="#0f5c57" text-anchor="middle">d₂</text>
-      <line x1="381" y1="141" x2="413" y2="141" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51)"/>
-      <text x="397" y="133" font-family="Georgia, serif" font-size="10.5" font-style="italic" fill="#0f5c57" text-anchor="middle">d₁</text>
-      <line x1="497" y1="141" x2="526" y2="141" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr-p51)"/>
-      <text x="511" y="133" font-family="Georgia, serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ε</text>
-
-      <text x="300" y="188" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">d² = 0  because  R^⊥ (in A^!)  is orthogonal to  R (in A)  under the Casimir contraction ∑ xᵢ ⊗ ξᵢ</text>
-    </svg>
-    <figcaption><strong>Fig P51.1.</strong> <strong>(A)</strong> Inside the \(9\)-dimensional space of degree-2 words, the \(3\) relations \(R = \bigwedge^2 V\) of the polynomial ring \(A\) and the \(6\) relations \(R^\perp = \operatorname{Sym}^2 V^*\) of the exterior algebra \(A^!\) are orthogonal complements. <strong>(B)</strong> Tensoring \((A^!)^*\) with \(A\) builds the 4-term Koszul resolution of \(\mathbb{C}\).</figcaption>
-  </figure>
+<h2>2 · The encounter</h2>
+<p>Two rooms, both old friends. The polynomial room \(k[x,y]\): commutative, infinite, one more word per floor — dimensions \(1, 2, 3, 4, \ldots\). The exterior room \(\wedge(V^{\ast})\): letters \(\xi, \eta\) with \(\xi^2 = \eta^2 = \xi\eta + \eta\xi = 0\), silent above floor two — dimensions \(1, 2, 1, 0, \ldots\). Nothing about the exterior room suggests it is holding the polynomial room's answer key. It is.</p>
+<p>Here is the swap machine. Write the polynomial room as a quadratic algebra: \(A = T(V)/(R)\) with \(V = \mathrm{span}\{x, y\}\) and \(R = \mathrm{span}\{x \otimes y - y \otimes x\}\) — commutativity, said in two-letter words. The dual letters score the relation tensor: \(\langle \xi \otimes \eta, x \otimes y - y \otimes x \rangle = 1\), \(\langle \eta \otimes \xi, \cdot \rangle = -1\), and the diagonal tensors score \(0\). The dual tensors scoring zero on all of \(R\) are \(R^{\perp} = \mathrm{span}\{\xi \otimes \xi,\; \xi \otimes \eta + \eta \otimes \xi,\; \eta \otimes \eta\}\) — three relations, matching the ledger \(\dim R^{\perp} = (\dim V)^2 - \dim R = 3\). Impose them on the dual letters and the exterior room appears: \(A^{!} = T(V^{\ast})/(R^{\perp}) = \wedge(V^{\ast})\). One algebra's relations, run through the pairing, are the other algebra.</p>
+<p>Now the single element that couples the two rooms: the <em>Casimir</em> \(c = x \otimes \xi + y \otimes \eta\), living in \(A \otimes A^{!}\). Square it, term by term:</p>
+<p>\[ c^2 \; = \; x^2 \otimes \xi^2 \; + \; xy \otimes \xi\eta \; + \; yx \otimes \eta\xi \; + \; y^2 \otimes \eta^2 . \]</p>
+<p>The end terms die first: \(\xi^2 = \eta^2 = 0\). The middle terms trade through each algebra's own relation — \(yx = xy\) in \(A\), \(\eta\xi = -\xi\eta\) in \(A^{!}\) — and cancel: \(xy \otimes \xi\eta + xy \otimes (-\xi\eta) = 0\). So \(c^2 = 0\): a two-line certificate that the pairing itself is doing the bookkeeping. The machine runs this certificate, for this pair and for a one-parameter family, with the arithmetic in integers.</p>
+<p>And \(c^2 = 0\) is exactly what a differential is: left multiplication by \(c\) on the room of blocks \(A_m \otimes (A^{!})^{\ast}_k\) — the first algebra's floors against the second's — squares to zero, because each step applies \(c\) twice. The resulting complex is the <em>Koszul complex</em>, a staircase in which every diagonal \(m + k = N\) is a finite room. Two claims will decide everything:</p>
+<ul>
+<li><strong>The staircase resolves the trivial module.</strong> Over the polynomial room, the complex built from the exterior room's floors is exact — this is the oldest result in the subject: Hilbert counted these resolutions' syzygies in 1890, decades before anyone said <em>Koszul</em>. Exactness means the staircase is a free resolution of the ground field \(k\), the smallest module there is.</li>
+<li><strong>The dual is the answer book.</strong> When the staircase is exact, the extensions of the trivial module over \(A\) multiply exactly like \(A^{!}\): \(\mathrm{Ext}^{\ast}_A(k, k) \cong A^{!}\). Questions that stall inside \(A\) — what extends what, which maps close, what the resolution's next floor holds — become multiplication tables in the swap's mirror. Questions become answers, literally.</li>
+</ul>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Fig P51.1 — the Koszul staircase for the polynomial/exterior pair: a grid of blocks A_m tensor (A!)_k dual, with columns m = 0 to 3, rows k = 0 to 2; block dimensions (m+1) times 1, 2, or 1; the anti-diagonal N = m + k = 2 is shaded, its blocks of dimensions 1, 4 and 3 walked by a differential arrow built from the Casimir; exactness on the diagonal balances 1 into 4 and 4 onto 3">
+<text x="320" y="28" font-size="15" text-anchor="middle">the Koszul staircase for the pair (polynomial, exterior)</text>
+<rect x="150" y="70" width="95" height="65" fill="#99c1f1"/>
+<rect x="255" y="70" width="95" height="65" fill="#eaf2fb"/>
+<rect x="360" y="70" width="95" height="65" fill="#eaf2fb"/>
+<rect x="465" y="70" width="95" height="65" fill="#eaf2fb"/>
+<rect x="150" y="145" width="95" height="65" fill="#eaf2fb"/>
+<rect x="255" y="145" width="95" height="65" fill="#99c1f1"/>
+<rect x="360" y="145" width="95" height="65" fill="#eaf2fb"/>
+<rect x="465" y="145" width="95" height="65" fill="#eaf2fb"/>
+<rect x="150" y="220" width="95" height="65" fill="#eaf2fb"/>
+<rect x="360" y="220" width="95" height="65" fill="#99c1f1"/>
+<rect x="255" y="220" width="95" height="65" fill="#eaf2fb"/>
+<rect x="465" y="220" width="95" height="65" fill="#eaf2fb"/>
+<text x="197" y="108" font-size="18" text-anchor="middle">1</text>
+<text x="302" y="108" font-size="18" text-anchor="middle">2</text>
+<text x="407" y="108" font-size="18" text-anchor="middle">3</text>
+<text x="512" y="108" font-size="18" text-anchor="middle">4</text>
+<text x="197" y="183" font-size="18" text-anchor="middle">2</text>
+<text x="302" y="183" font-size="18" text-anchor="middle">4</text>
+<text x="407" y="183" font-size="18" text-anchor="middle">6</text>
+<text x="512" y="183" font-size="18" text-anchor="middle">8</text>
+<text x="197" y="258" font-size="18" text-anchor="middle">1</text>
+<text x="302" y="258" font-size="18" text-anchor="middle">2</text>
+<text x="407" y="258" font-size="18" text-anchor="middle">3</text>
+<text x="512" y="258" font-size="18" text-anchor="middle">4</text>
+<text x="128" y="108" font-size="13" text-anchor="end">k = 2</text>
+<text x="128" y="183" font-size="13" text-anchor="end">k = 1</text>
+<text x="128" y="258" font-size="13" text-anchor="end">k = 0</text>
+<text x="197" y="303" font-size="13" text-anchor="middle">m = 0</text>
+<text x="302" y="303" font-size="13" text-anchor="middle">m = 1</text>
+<text x="407" y="303" font-size="13" text-anchor="middle">m = 2</text>
+<text x="512" y="303" font-size="13" text-anchor="middle">m = 3</text>
+<line x1="245" y1="120" x2="272" y2="165" stroke="#1a5fb4" stroke-width="2" marker-end="url(#p51arrow)"/>
+<line x1="350" y1="195" x2="377" y2="240" stroke="#1a5fb4" stroke-width="2" marker-end="url(#p51arrow)"/>
+<defs><marker id="p51arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1a5fb4"/></marker></defs>
+<text x="320" y="338" font-size="13" text-anchor="middle">block A_m ⊗ (A^!)*_k, dimension (m+1)·(1,2,1)_k; shaded diagonal N = 2: blocks 1, 4, 3</text>
+<text x="320" y="356" font-size="13" text-anchor="middle">the differential built from the Casimir walks each diagonal; exactness is the certificate</text>
+</svg>
+<figcaption>Fig P51.1 — the Koszul staircase for the polynomial/exterior pair. Each block is a tensor floor \(A_m \otimes (A^{!})^{\ast}_k\); the shaded diagonal \(N = m + k = 2\) holds blocks of dimensions \(1\), \(4\), \(3\), walked by the Casimir-built differential. Exactness on the diagonal — rank \(1\) into the \(4\), rank \(3\) out of it — is the machine's certificate, run as rank arithmetic, diagonal by diagonal.</figcaption>
+</figure>
 </section>
-
 <section id="pattern">
-  <h2>3 · Name the move</h2>
-  <p>Stewart Priddy (1970) discovered that the symmetry between \(\operatorname{Sym}(V)\) and \(\bigwedge(V^*)\) holds for a huge class of quadratic algebras \(A = T(V)/(R)\) — and Victor Ginzburg and Mikhail Kapranov (1994) showed that the exact same quadratic dual swap works for <em>operads</em> (<a href="p63-operad-algebra.html"><span class="pid">P63</span></a>, types of algebras defined by binary operations and three-variable quadratic identities).</p>
-
-  <div class="pattern-box" id="box-p51">
-    <p><strong>Pattern P51 — The Koszul dual swap.</strong> Given a quadratic algebra \(A = T(V)/(R)\) generated by a finite-dimensional space \(V\) with relations \(R \subset V \otimes V\), define its <strong>quadratic dual algebra</strong> by passing to the orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\):</p>
-    <p class="eq">\[A^! = \frac{T(V^*)}{(R^\perp)}, \qquad \dim R + \dim R^\perp = (\dim V)^2.\]</p>
-    <p>Equip the tensor product \(K_\bullet(A) = (A^!)^* \otimes A\) with the differential \(d\) given by contracting with the identity Casimir element \(\sum_{i=1}^d x_i \otimes \xi_i \in V \otimes V^*\). Because \(R^\perp\) annihilates \(R\), \(d \circ d = 0\) holds automatically. When \(K_\bullet(A) \to \mathbb{C}\) is exact (\(A\) is <em>Koszul</em>), the cohomology algebra \(\operatorname{Ext}_A^\bullet(\mathbb{C}, \mathbb{C})\) is canonically isomorphic to \(A^!\), and their Hilbert series satisfy the reciprocity identity:</p>
-    <p class="eq">\[h_A(t)\,h_{A^!}(-t) = 1.\]</p>
-    <p class="words"><strong>Or, in words:</strong> When a quadratic algebra has too many words to resolve directly, build its twin algebra in the dual generators using the orthogonal complement of its relations; the dual algebra is the cohomology ring of the original, and tensoring the two together produces a minimal resolution whose alternating dimension sum cancels to \(1\).</p>
-  </div>
-
-  <div class="pattern-box" id="box-p51a">
-    <p><strong>Box P51.A — The three obligations of a Koszul dual swap.</strong></p>
-    <ol>
-      <li><strong>Homogeneous Quadratic Presentation:</strong> Present the algebra \(A = T(V)/(R)\) (or quadratic operad \(\mathcal{P} = \mathcal{F}(E)/(R)\)) with generators in weight \(1\) and relations \(R\) purely in weight \(2\) (\(R \subset V \otimes V\)). If inhomogeneous terms \(v_1 v_2 - v_3\) appear (as in a Lie enveloping algebra \(U(\mathfrak{g})\)), filter by degree first and pass to the associated graded quadratic algebra.</li>
-      <li><strong>Orthogonal Annihilator Check (\(\dim R + \dim R^\perp = d^2\)):</strong> Compute \(R^\perp \subset V^* \otimes V^*\) under the canonical pairing \(\langle \xi_i \otimes \xi_j,\, x_a \otimes x_b \rangle = \delta_{ia}\delta_{jb}\) (twisted by the sign representation for operads), and verify that \(\sum_{i,j} (x_i x_j) \otimes (\xi_i \xi_j) = 0 \in A_2 \otimes A^!_2\), which guarantees \(d^2 = 0\).</li>
-      <li><strong>Koszul Exactness &amp; Reciprocity Test:</strong> Check the necessary numerical gate \(h_A(t)\,h_{A^!}(-t) = 1\) (or \(f_{\mathcal{P}}(-f_{\mathcal{P}^!}(-t)) = t\) for operads) — ensuring all coefficients of \(h_A(t) = 1/h_{A^!}(-t)\) are non-negative integers matching \(\dim A_k\) — and verify acyclicity of \(K_\bullet(A)\) (for instance via a quadratic Gröbner / Poincaré–Birkhoff–Witt basis).</li>
-    </ol>
-  </div>
-
-  <div class="pattern-box" id="box-p51b">
-    <table>
-      <thead>
-        <tr>
-          <th>Key</th>
-          <th>Signature</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Claim type</strong></td>
-          <td>Minimal free resolutions, \(\operatorname{Ext}\) / deformation cohomology algebras (<span class="pid">P53</span>), or inversion of generating series \(h_A(t)\).</td>
-        </tr>
-        <tr>
-          <td><strong>Problem shape</strong></td>
-          <td>A graded algebra or operad defined by quadratic relations \(R \subset V \otimes V\) where the naive bar resolution is intractably infinite.</td>
-        </tr>
-        <tr>
-          <td><strong>Tools at hand</strong></td>
-          <td>Linear duality \(R \leftrightarrow R^\perp\) (<span class="pid">P17</span>), Casimir differential \(d = \sum L_{x_i} \otimes R_{\xi_i}^*\), and generating function inversion (<span class="pid">P73</span>).</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P51</span> whenever you need a small resolution, cohomology ring, or dimension series for an algebra or operad governed by degree-2 relations.</p>
-  </div>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P51.2: The bigraded staircase of the Koszul complex K_{m,k} = (A^!)_m^* (x) A_k where the differential d steps right by +1 in k and down by -1 in m along constant total weight diagonals m+k = N.">
-      <defs>
-        <marker id="arr-p51-diag" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
-        </marker>
-      </defs>
-      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
-      <text x="300" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Weight-Preserving Diagonal Strands  N = m + k  in the Koszul Complex  (d = 3)</text>
-
-      <!-- Grid headers: k = 0, 1, 2, 3 horizontally; m = 3, 2, 1, 0 vertically -->
-      <text x="165" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 0 (dim 1)</text>
-      <text x="275" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 1 (dim 3)</text>
-      <text x="385" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 2 (dim 6)</text>
-      <text x="495" y="44" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#5a5a5a" text-anchor="middle">k = 3 (dim 10)</text>
-
-      <text x="95" y="68" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 3 (dim 1)</text>
-      <text x="95" y="98" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 2 (dim 3)</text>
-      <text x="95" y="128" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 1 (dim 3)</text>
-      <text x="95" y="158" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="end">m = 0 (dim 1)</text>
-
-      <!-- Highlight the N = 3 diagonal strand: (m=3,k=0)[1] -> (m=2,k=1)[9] -> (m=1,k=2)[18] -> (m=0,k=3)[10] -->
-      <rect x="135" y="53" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
-      <text x="165" y="68" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">1 × 1 = 1</text>
-
-      <rect x="245" y="83" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
-      <text x="275" y="98" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">3 × 3 = 9</text>
-
-      <rect x="355" y="113" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
-      <text x="385" y="128" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">3 × 6 = 18</text>
-
-      <rect x="465" y="143" width="60" height="22" fill="#e1f0ee" stroke="#0f5c57" stroke-width="1.6" rx="2"/>
-      <text x="495" y="158" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">1 × 10 = 10</text>
-
-      <!-- Other cells in faint outline -->
-      <rect x="135" y="83" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
-      <text x="165" y="98" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">3 × 1 = 3</text>
-      <rect x="245" y="113" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
-      <text x="275" y="128" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">3 × 3 = 9</text>
-      <rect x="355" y="143" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
-      <text x="385" y="158" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">1 × 6 = 6</text>
-
-      <rect x="135" y="113" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
-      <text x="165" y="128" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">3 × 1 = 3</text>
-      <rect x="245" y="143" width="60" height="22" fill="#f9f8f4" stroke="#d8d4cc"/>
-      <text x="275" y="158" font-family="Georgia, serif" font-size="10" fill="#8a94a3" text-anchor="middle">1 × 3 = 3</text>
-
-      <rect x="135" y="143" width="60" height="22" fill="#fdf6f0" stroke="#8a4b08"/>
-      <text x="165" y="158" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">1 × 1 = 1</text>
-
-      <!-- Diagonal arrows for N=3 strand -->
-      <line x1="196" y1="71" x2="243" y2="87" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51-diag)"/>
-      <line x1="306" y1="101" x2="353" y2="117" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51-diag)"/>
-      <line x1="416" y1="131" x2="463" y2="147" stroke="#0f5c57" stroke-width="1.8" marker-end="url(#arr-p51-diag)"/>
-
-      <text x="330" y="180" font-family="system-ui, sans-serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">Highlighted strand N = 3:   0 → ℂ¹ → ℂ⁹ → ℂ¹⁸ → ℂ¹⁰ → 0   (1 − 9 + 18 − 10 = 0)</text>
-    </svg>
-    <figcaption><strong>Fig P51.2.</strong> Because the Koszul differential \(d\) removes one exterior generator (\(m \mapsto m - 1\)) and multiplies by one polynomial generator (\(k \mapsto k + 1\)), the infinite Koszul complex splits into finite, independent diagonal strands of constant total weight \(N = m + k\), each exact for \(N \ge 1\).</figcaption>
-  </figure>
+<h2>3 · The pattern</h2>
+<div class="pattern-box" id="box-p51">
+<p><strong>Pattern P51 — The Koszul dual swap.</strong> \[ A = T(V)/(R) \quad \longleftrightarrow \quad A^{!} = T(V^{\ast})/(R^{\perp}), \qquad c = \sum_i x_i \otimes \xi_i \in A \otimes A^{!}, \qquad c^2 = 0, \] and \(A\) is <em>Koszul</em> when the Koszul complex — the staircase of blocks \(A_m \otimes (A^{!})^{\ast}_k\) with differential \(d =\) left multiplication by \(c\) — is exact, resolving the trivial module \(k\). Then two receipts follow: the series gate \(H_A(t) \, H_{A^{!}}(-t) = 1\), and the answer book \(\mathrm{Ext}^{\ast}_A(k, k) \cong A^{!}\). Every clause is load-bearing: the dual is computed from the pairing, never guessed; \(c^2 = 0\) is a theorem of the pairing, checked in two lines; exactness is the definition of Koszul — the two receipts are consequences and gates, not the theorem itself.</p>
+<p class="words"><strong>Or, in words:</strong> impose relations, then hand the relations to the pairing machine — the orthogonal complement, imposed on dual letters, is a second algebra. One element built from the letters of both squares to zero, and its staircase — first algebra's floors against second algebra's floors — resolves the smallest module exactly when the second algebra is the first's answer book: every extension question over one side is a multiplication over the other. Two structures, one differential, each the other's resolution.</p>
+</div>
+<p><strong>Box P51.A — the three obligations.</strong> Before any exactness question, three cheap checks police the swap, and each is a different kind of arithmetic. <em>First</em>, the pairing ledger: \(\dim R^{\perp} = (\dim V)^2 - \dim R\), checked the moment the dual's relations are written — a dual with the wrong number of relations was copied, not computed. <em>Second</em>, the Casimir gate: \(c^2 = 0\) in \(A \otimes A^{!}\), a finite computation on floor two, free of charge — if it fails, nothing downstream can be trusted. <em>Third</em>, the series gate: \(H_A(t) \, H_{A^{!}}(-t) = 1\), coefficient by coefficient — pure integer arithmetic on the two growth ledgers, no linear algebra at all, and it catches a wrong census instantly. Only then does exactness — the real theorem, linear algebra on the staircase — earn its run.</p>
+<p>The staircase's bookkeeping deserves one more look, because it is where P36's promise gets kept. The complex is bigraded: block \((m, k)\) multiplies like the tensor product of the two floors, and the differential preserves each diagonal \(N = m + k\). On the shaded diagonal of the figure, the machine certifies exactness as rank arithmetic: a rank-\(1\) map into the \(4\)-dimensional block, a rank-\(3\) map out of it, homology \(4 - 1 - 3 = 0\). This is the character census one shelf up: the inner products became dimensions, the waves became floors, and the certificate is now a rank count instead of a trace count — graded traces, each wave keeping its amplitude book, exactly as the parent page said.</p>
+<p><strong>Diagnosis:</strong> the certified swap. <strong>Claim type:</strong> a structure theorem — an exact complex and an isomorphism of graded algebras, no error bars anywhere; its gates are integer arithmetic (pairing ledgers, series coefficients) and its certificate is linear algebra (ranks on the staircase). <strong>Problem shape:</strong> a quadratic presentation plus a question about resolutions or extensions. <strong>Tools at hand:</strong> build the dual from the pairing, run the three cheap gates, then rank arithmetic on the staircase — the question usually dissolves into multiplication in the mirror.</p>
+<p><em>How you could have found it:</em> the cheap gate comes first. Ask which two growth ledgers can multiply to \(1\), and the pairing forces the dual's relations on you before you know the algebra's name — \(R^{\perp}\) is computed, never guessed. Ledger, Casimir, series: three checks cheap enough to run on any quadratic presentation, and only when they pass does the staircase earn its linear algebra. That is the discovery order of every exemplar below — pairing, gates, staircase — and the order the lineage tells: count first, complex second, name last.</p>
 </section>
 <section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
-
-  <h3>Exemplar 1 · The non-commutative quantum plane \(A_q\) and its quantum exterior dual \(A_q^!\)</h3>
-  <p>Koszul duality is not restricted to commutative polynomials. Let \(V = \operatorname{Span}\{x, y\}\) have dimension \(d = 2\) and fix a non-zero complex parameter \(q \in \mathbb{C}^*\). The <em>quantum plane</em> \(A_q = \mathbb{C}\langle x, y \rangle / (xy - q\,yx)\) replaces ordinary commutativity with \(xy = q\,yx\). Here the relation subspace \(R = \operatorname{Span}\{x \otimes y - q\,y \otimes x\} \subset V \otimes V\) has dimension \(r = 1\) inside the \(2^2 = 4\)-dimensional tensor square.</p>
-  <p>Let us compute the quadratic dual \(A_q^! = T(V^*)/(R^\perp)\) using Obligation 2 of Box P51.A. Let \(\{\xi, \eta\}\) be the dual basis of \(V^*\). A general degree-\(2\) functional \(\phi = \alpha(\xi\otimes\xi) + \beta(\xi\otimes\eta) + \gamma(\eta\otimes\xi) + \delta(\eta\otimes\eta) \in V^* \otimes V^*\) annihilates the generator \(x \otimes y - q\,y \otimes x \in R\) if and only if</p>
-  <p class="eq">\[\langle \phi,\; x \otimes y - q\,y \otimes x \rangle = \beta - q\,\gamma = 0 \quad\Longleftrightarrow\quad \beta = q\,\gamma.\]</p>
-  <p>Therefore \(R^\perp\) has dimension \(4 - 1 = 3\), spanned by the three relations</p>
-  <p class="eq">\[\xi \otimes \xi = 0, \qquad \eta \otimes \eta = 0, \qquad \eta \otimes \xi + q\,\xi \otimes \eta = 0.\]</p>
-  <p>Thus \(A_q^! = \mathbb{C}\langle \xi, \eta \rangle / (\xi^2,\, \eta^2,\, \eta\xi + q\,\xi\eta)\) is the \(4\)-dimensional <em>quantum exterior plane</em> with basis \(\{1, \xi, \eta, \xi\eta\}\) and Hilbert polynomial \(h_{A_q^!}(t) = 1 + 2t + t^2 = (1 + t)^2\). Checking the Casimir element in \(A_q \otimes A_q^!\), we have \((x\otimes\xi + y\otimes\eta)^2 = x^2\otimes\xi^2 + xy\otimes\xi\eta + yx\otimes\eta\xi + y^2\otimes\eta^2 = (q\,yx)\otimes\xi\eta + yx\otimes(-q\,\xi\eta) = 0\), so the \(3\)-step quantum Koszul complex resolves \(A_q\) cleanly and confirms \(h_{A_q}(t) = 1/h_{A_q^!}(-t) = (1-t)^{-2}\).</p>
-
-  <h3>Exemplar 2 · Inhomogeneous Lie brackets \(U(\mathfrak{g})\) and the Chevalley–Eilenberg complex</h3>
-  <p>What if an algebra's defining relations mix degree \(2\) with degree \(1\)? In a Lie algebra \(\mathfrak{g}\) of dimension \(d\), the universal enveloping algebra \(U(\mathfrak{g}) = T(\mathfrak{g}) / (xy - yx - [x,y] : x, y \in \mathfrak{g})\) has relations \(xy - yx = [x,y]\) that equate a degree-\(2\) commutator to a degree-\(1\) vector \([x,y] \in \mathfrak{g}\).</p>
-  <p>Follow Obligation 1 of Box P51.A: filter \(U(\mathfrak{g})\) by word length \(\mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2 \subset \cdots\). In the associated graded algebra \(\operatorname{gr} U(\mathfrak{g}) = \bigoplus \mathcal{F}_k / \mathcal{F}_{k-1}\), the lower-degree term \([x,y] \in \mathcal{F}_1\) drops out of the degree-\(2\) quotient \(\mathcal{F}_2/\mathcal{F}_1\), leaving the purely quadratic commutative polynomial algebra \(\operatorname{gr} U(\mathfrak{g}) \cong \operatorname{Sym}(\mathfrak{g})\) (the Poincaré–Birkhoff–Witt theorem)! Its Koszul dual is the finite-dimensional exterior algebra \(A^! = \bigwedge(\mathfrak{g}^*)\).</p>
-  <p>When we lift the Koszul resolution \(\bigwedge^\bullet \mathfrak{g} \otimes \operatorname{Sym}(\mathfrak{g})\) back to the filtered algebra \(U(\mathfrak{g})\), the linear bracket \([x,y]\) adds a second term to the Koszul differential (and dualizes on \(\bigwedge^\bullet \mathfrak{g}^*\) to the <em>Chevalley–Eilenberg differential</em> \((d_{\text{CE}}\alpha)(x,y) = -\alpha([x,y])\)), whose square \(d_{\text{CE}}^2 = 0\) is equivalent to the Jacobi identity! Instead of computing Lie algebra cohomology \(H^\bullet(\mathfrak{g}; \mathbb{C}) = \operatorname{Ext}_{U(\mathfrak{g})}^\bullet(\mathbb{C}, \mathbb{C})\) via an infinite bar complex over \(U(\mathfrak{g})\), <span class="pid">P51</span> computes it inside the \(2^d\)-dimensional exterior algebra \(\bigwedge^\bullet(\mathfrak{g}^*)\).</p>
-
-  <h3>Exemplar 3 · Operadic Koszul duality: why \(\mathcal{C}om^! = \mathcal{L}ie\) and \(\mathcal{A}ss^! = \mathcal{A}ss\)</h3>
-  <p>In 1994 Victor Ginzburg and Mikhail Kapranov discovered that <span class="pid">P51</span> applies not only to individual algebras, but to <strong>entire species of algebras</strong> (operads, <a href="p63-operad-algebra.html"><span class="pid">P63</span></a>). Consider binary operations on three labeled inputs \((a, b, c)\). When a binary operation is symmetric (\(ab = ba\)) or skew-symmetric (\([a,b] = -[b,a]\)), there are exactly \(3\) distinct two-step parenthesizations of three variables: \(((ab)c)\), \(((bc)a)\), and \(((ca)b)\). Inside this \(3\)-dimensional space of degree-\(2\) tree compositions:</p>
-  <ul>
-    <li><strong>The Commutative Operad \(\mathcal{C}om\):</strong> Associativity \((ab)c = (bc)a = (ca)b\) requires all three trees to be equal, cutting out a \(2\)-dimensional relation subspace \(R_{\mathcal{C}om} = \operatorname{Span}\{((ab)c) - ((bc)a),\; ((bc)a) - ((ca)b)\}\) and leaving a \(3 - 2 = 1\)-dimensional space of \(3\)-ary operations (\(\dim \mathcal{C}om(n) = 1\) for all \(n \ge 1\)).</li>
-    <li><strong>The Lie Operad \(\mathcal{L}ie = \mathcal{C}om^!\):</strong> What is the orthogonal annihilator \(R_{\mathcal{C}om}^\perp\) (twisted by the sign of permutations) of the vectors whose coefficients sum to zero? It is the \(1\)-dimensional line where all three trees have <em>equal</em> coefficients \(1 : 1 : 1\) — which is the <strong>Jacobi identity</strong>!
-      <p class="eq">\[R_{\mathcal{L}ie} = R_{\mathcal{C}om}^\perp = \operatorname{Span}\bigl\{\,[[a,b],c] + [[b,c],a] + [[c,a],b]\,\bigr\} \qquad (\dim R_{\mathcal{L}ie} = 3 - 2 = 1),\]</p>
-      leaving a \(3 - 1 = 2\)-dimensional space of \(3\)-ary Lie brackets (\(\dim \mathcal{L}ie(n) = (n-1)!\) for all \(n \ge 1\)).</li>
-  </ul>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Operad \(\mathcal{P}\)</th>
-        <th>Arity Dimension \(\dim \mathcal{P}(n)\)</th>
-        <th>Exponential Series \(f_{\mathcal{P}}(t) = \sum_{n\ge 1} \dim \mathcal{P}(n)\frac{t^n}{n!}\)</th>
-        <th>Koszul Dual \(\mathcal{P}^!\)</th>
-        <th>Reciprocity Check \(f_{\mathcal{P}}\bigl(-f_{\mathcal{P}^!}(-t)\bigr) = t\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Commutative \(\mathcal{C}om\)</strong></td>
-        <td>\(1\)</td>
-        <td>\(e^t - 1\)</td>
-        <td><strong>Lie \(\mathcal{L}ie\)</strong></td>
-        <td>\(\exp\bigl(\ln(1+t)\bigr) - 1 = t\)</td>
-      </tr>
-      <tr>
-        <td><strong>Lie \(\mathcal{L}ie\)</strong></td>
-        <td>\((n-1)!\)</td>
-        <td>\(-\ln(1 - t)\)</td>
-        <td><strong>Commutative \(\mathcal{C}om\)</strong></td>
-        <td>\(-\ln\bigl(1 - (1 - e^{-t})\bigr) = t\)</td>
-      </tr>
-      <tr>
-        <td><strong>Associative \(\mathcal{A}ss\)</strong></td>
-        <td>\(n!\)</td>
-        <td>\(\frac{t}{1 - t}\)</td>
-        <td><strong>Associative \(\mathcal{A}ss\)</strong></td>
-        <td>\(\frac{t/(1+t)}{1 - t/(1+t)} = t\)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p><em>How you could have found this:</em> Just as polynomial algebras have Hilbert series \(h_A(t)\) that invert multiplicatively via \(h_A(t)h_{A^!}(-t) = 1\), tree-composition operads compose functions inside one another, so their exponential generating series invert compositionally via \(f_{\mathcal{P}}(-f_{\mathcal{P}^!}(-t)) = t\)!</p>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P51.3: The Operadic Trinity under Koszul duality: Com and Lie swap roles (2 relations vs 1 Jacobi relation inside the 3-dimensional space of 3-leaf binary trees), while Ass is self-dual.">
-      <defs>
-        <marker id="arr-p51-bi" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f5c57"/>
-        </marker>
-      </defs>
-      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
-
-      <!-- Left box: Commutative Operad Com -->
-      <rect x="28" y="36" width="168" height="118" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
-      <text x="112" y="58" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">Commutative  𝓒om</text>
-      <text x="112" y="80" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">ab = ba,  (ab)c = a(bc)</text>
-      <text x="112" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">dim 𝓒om(n) = 1</text>
-      <text x="112" y="124" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">f(t) = eᵗ − 1</text>
-      <text x="112" y="143" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">2 relations in 3-tree space</text>
-
-      <!-- Double arrow between Com and Lie -->
-      <line x1="204" y1="86" x2="262" y2="86" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p51-bi)"/>
-      <line x1="262" y1="104" x2="204" y2="104" stroke="#0f5c57" stroke-width="2" marker-end="url(#arr-p51-bi)"/>
-      <text x="233" y="76" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">R ↔ R^⊥</text>
-      <text x="233" y="122" font-family="Georgia, serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">f(−g(−t)) = t</text>
-
-      <!-- Middle box: Lie Operad Lie -->
-      <rect x="270" y="36" width="168" height="118" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="4"/>
-      <text x="354" y="58" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">Lie  𝓛ie = 𝓒om^!</text>
-      <text x="354" y="80" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">[a,b]=−[b,a],  Jacobi = 0</text>
-      <text x="354" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">dim 𝓛ie(n) = (n−1)!</text>
-      <text x="354" y="124" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">g(t) = −ln(1 − t)</text>
-      <text x="354" y="143" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">1 relation in 3-tree space</text>
-
-      <!-- Right box: Associative Operad Ass (Self-Dual) -->
-      <rect x="456" y="36" width="124" height="118" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.8" rx="4"/>
-      <text x="518" y="58" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Associative  𝓐ss</text>
-      <text x="518" y="80" font-family="Georgia, serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle">𝓐ss^! ≅ 𝓐ss</text>
-      <text x="518" y="102" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">dim 𝓐ss(n) = n!</text>
-      <text x="518" y="124" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">h(t) = t / (1 − t)</text>
-      <text x="518" y="143" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Self-dual (Hochschild)</text>
-    </svg>
-    <figcaption><strong>Fig P51.3.</strong> Under the Koszul dual swap on binary operads, the Commutative operad \(\mathcal{C}om\) and the Lie operad \(\mathcal{L}ie\) are orthogonal partners inside the \(3\)-dimensional space of cyclic binary trees, while the Associative operad \(\mathcal{A}ss\) is self-dual.</figcaption>
-  </figure>
+<h2>4 · Three exemplars</h2>
+<h3>Exemplar 1 · The polynomial room and its exterior mirror: the whole certificate</h3>
+<p>Run every obligation of Box P51.A on the pair of §2, with nothing taken on faith. The pairing ledger: one relation in, three out, \(1 + 3 = (\dim V)^2 = 4\). The census: polynomial floors \(1, 2, 3, 4, \ldots\), exterior floors \(1, 2, 1, 0, \ldots\), counted word by word. The Casimir gate: \(c^2 = 0\), the two-line cancellation of the encounter, verified by machine. The series gate: \(\frac{1}{(1-t)^2} \cdot (1-t)^2 = 1\), coefficient by coefficient — the machine multiplies the ledgers to order twelve and reads off zeros everywhere but the constant term. The exactness: on the staircase's \(N = 2\) diagonal, blocks \(3, 4, 1\) with ranks \(1\) and \(3\) — homology zero — and the same rank arithmetic runs one diagonal further, \(N = 3\): blocks \(4, 6, 2\), ranks \(2\) and \(4\), homology \(6 - 2 - 4 = 0\) again. What the certificate buys is the oldest answer in the subject: the resolution of \(k\) over the polynomial room is \(\;0 \to A(-2) \to A(-1)^{\oplus 2} \to A \to k \to 0\), Hilbert's syzygy ladder, and the exterior room's floors are its scaffolding. The mirror holds the answer key, and the arithmetic says so.</p>
+<h3>Exemplar 2 · The quantum plane, priced both ways</h3>
+<p>Deform the relation: \(A_q = k\langle x, y\rangle/(xy - q\,yx)\) with \(q \neq 0\) a parameter — the machine runs \(q = 2\) in integers, and the page's claim is the general \(q\). The census: every word sorts to \(x^a y^b\) (bubble \(x\)'s leftward, picking up \(q\)'s), so floors again run \(1, 2, 3, 4, \ldots\) and \(H_{A_q}(t) = 1/(1-t)^2\). The pairing machine: a dual tensor \(\alpha \xi \otimes \eta + \beta \eta \otimes \xi\) scores \(\alpha - q\beta\) on the relation, so \(R^{\perp} = \mathrm{span}\{\xi \otimes \xi,\; \eta \otimes \eta,\; q\,\xi\eta + \eta\xi\}\) — three relations again, ledger intact. The dual \(A^{!}_q = k\langle \xi, \eta \rangle/(\xi^2, \eta^2, q\,\xi\eta + \eta\xi)\) has floors \(1, 2, 1, 0, \ldots\): the single word \(\xi\eta\) survives floor two. The Casimir: \(c^2 = xy \otimes \xi\eta + yx \otimes \eta\xi\); trade \(xy = q\,yx\) in \(A_q\) and \(\eta\xi = -q\,\xi\eta\) in \(A^{!}_q\), and the terms cancel for <em>every</em> \(q \neq 0\) — the pairing's cancellation is \(q\)-blind. The series gate holds, \(\frac{1}{(1-t)^2}(1-t)^2 = 1\), and \(A_q\) is Koszul for every \(q\) — the machine's integer certificate at \(q = 2\) is \(2\,c^2 = 2\,xy \otimes \xi\eta + 2\,yx \otimes \eta\xi = 4\,yx \otimes \xi\eta - 4\,yx \otimes \xi\eta = 0\), no fractions anywhere. The mirror's shape interpolates: \(q = 1\) is the encounter's pair (symmetric against exterior), and as \(q\) wanders the two rooms keep their ledgers while the multiplication bends — the swap survives the deformation.</p>
+<h3>Exemplar 3 · The universal envelope and its cochains: the showcase, honestly a sketch</h3>
+<p>The largest room the swap has ever furnished: for a Lie algebra \(\mathfrak{g}\), the universal envelope \(U(\mathfrak{g})\) — the associative room where \(\mathfrak{g}\)'s bracket becomes a commutator. The Poincaré–Birkhoff–Witt theorem says the envelope's graded shadow is the symmetric room, so the quadratic bookkeeping of this page applies to it. Its Koszul dual is the Chevalley–Eilenberg complex: the exterior room on \(\mathfrak{g}^{\ast}\) with a differential built from the bracket, and the classical swap states the answer book exactly — \(\mathrm{Ext}^{\ast}_{U(\mathfrak{g})}(k, k) \cong H^{\ast}(\mathfrak{g})\), the cohomology of the cochains. Lie algebra cohomology, the workhorse of P33's bridge, is this page's swap run on the envelope. For \(\mathfrak{g}\) abelian the bracket is zero, the differential vanishes, and the swap degenerates to Exemplar 1's mirror; for \(\mathfrak{g}\) semisimple, the cochain room is finite-dimensional and Whitehead's vanishing prices it — the showcase is honest sketch territory, and this page does not pretend to verify it: the certificate here is the literature's, not the machine's.</p>
 </section>
-
-<section id="fails">
-  <h2>5 · When the trick breaks</h2>
-  <p>Every quadratic algebra \(A = T(V)/(R)\) has a well-defined quadratic dual \(A^! = T(V^*)/(R^\perp)\), but three sharp failure modes govern when \(A^!\) fails to resolve \(A\):</p>
-
-  <div class="aside">
-    <p><strong>Exhibit A — Higher-degree relations (cubic or quartic equations) are invisible to the quadratic dual \(A^!\).</strong> Suppose you take \(A = \mathbb{C}[x]/(x^3)\) (a single variable truncated at a <em>cubic</em> relation \(x^3 = 0\)). Because \(A\) has <em>zero</em> degree-2 relations (\(R = 0 \subset V \otimes V\)), its quadratic dual \(A^! = T(V^*)/(V^* \otimes V^*) = \mathbb{C}[\xi]/(\xi^2)\) thinks \(A\) is the full polynomial ring \(\mathbb{C}[x]\)! The Koszul complex \(K_\bullet(A)\) fails to be exact at weight \(3\), and the true cohomology algebra \(\operatorname{Ext}_A^\bullet(\mathbb{C}, \mathbb{C})\) requires an additional degree-2 generator (or an \(A_\infty\) higher multiplication \(m_3\) on \(A^!\)).</p>
-    <p><em>Mitigation:</em> Introduce auxiliary variables (<a href="p07-build-auxiliary-object.html"><span class="pid">P07</span></a>, e.g. \(y = x^2\)) to quadraticize the presentation, or equip \(A^!\) with higher \(A_\infty\) / \(L_\infty\) operations.</p>
-    <p><em>Price:</em> Enlarging the generator space \(V\) or tracking higher Massey products.</p>
-    <p><em>Default:</em> Always verify Obligation 1 (relations generated in weight \(2\)) before constructing \(K_\bullet(A)\).</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Quadratic algebras that fail the Hilbert-series positivity gate \(h_A(t)h_{A^!}(-t) = 1\) (non-Koszul quadratic algebras).</strong> Even when \(A = T(V)/(R)\) is purely quadratic, the Koszul complex \(K_\bullet(A)\) can fail to be exact! Worse, you can often detect this failure purely from the power series \(1 / h_{A^!}(-t)\): if expanding \(1 / h_{A^!}(-t)\) produces a <strong>negative coefficient</strong> (as discovered by Christer Lech and Jan-Erik Roos on specific 4-generator quadratic algebras), then \(h_A(t) = 1/h_{A^!}(-t)\) is impossible because \(\dim A_k \ge 0\) cannot be negative!</p>
-    <p><em>Mitigation:</em> Always run the numerical gate \(h_A(t)h_{A^!}(-t) = 1\) first, and verify that the defining relations \(R\) admit a quadratic Gröbner basis (Poincaré–Birkhoff–Witt property).</p>
-    <p><em>Price:</em> Checking the diamond lemma / overlap ambiguities in weight \(3\).</p>
-    <p><em>Default:</em> Never assume a quadratic algebra is Koszul without verifying weight-3 overlap consistency (or checking a PBW basis).</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Positivity of the Hilbert test \(h_A(t)h_{A^!}(-t) = 1\) is necessary, not sufficient (the Positselski–Polishchuk counterexamples).</strong> There exist cunningly crafted quadratic algebras where the dimensions \(\dim A_k\) and \(\dim A^!_m\) satisfy the formal series identity \(h_A(t)h_{A^!}(-t) = 1\) to all orders, yet in weight \(N = 3\) or \(4\) the Koszul differential \(d\) has a non-zero kernel balanced by an equal-dimensional cokernel in the next spot (so the alternating Euler characteristic is \(0\) even though the homology \(H_m(K_\bullet) \ne 0\))!</p>
-    <p><em>Mitigation:</em> Supplement the Hilbert-series check with a quadratic PBW basis check or explicit rank verification on the weight-3 strand \((R^\perp \otimes V^*) \cap (V^* \otimes R^\perp)\).</p>
-    <p><em>Price:</em> One linear-algebra rank check in degree \(3\).</p>
-    <p><em>Default:</em> Treat \(h_A(t)h_{A^!}(-t) = 1\) as a fast diagnostic sieve, and lock exactness via a PBW ordering.</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this orientation page.</strong> We worked over a field \(\mathbb{C}\) of characteristic \(0\) with finite-dimensional weight spaces \(A_k\). When Koszul duality is extended to differential graded algebras, curved algebras (as in <a href="p65-floer-homology.html"><span class="pid">P65</span></a> when disk bubbles appear), or geometric sheaves on dual projective bundles (Beilinson–Ginzburg–Soergel derived Koszul duality), the equivalence is a derived-category equivalence \(D^b(A\text{-mod}) \simeq D^b(A^!\text{-mod})\) that swaps simple modules for indecomposable projective modules.</p>
-  </aside>
+<section id="exhibits">
+<h2>5 · Three exhibits</h2>
+<h3>Exhibit A · Cubic blindness: the swap reads only floor two</h3>
+<p>Take \(B = k[x,y]/(x^3)\) — commutative, one cubic relation. Its quadratic data is exactly the polynomial room's: commutativity lives on floor two, and \(x^3\) lives on floor three, where the pairing machine never looks. Run the exterior mirror's gate against \(B\)'s <em>actual</em> ledger — floors \(1, 2, 3, 3, 3, \ldots\) (words \(x^a y^b\) with \(a \leq 2\)) — and the arithmetic refuses: \(H_B(t) \, H_{\wedge}(-t) = 1 - t^3\), the failure coefficient by coefficient, and the machine reads the cubing relation's fingerprint off the \(-t^3\). The gate did not merely fail; it named the invisible relation. <strong>Mitigation:</strong> a nonquadratic algebra must first be replaced by its quadratic shadow, and the shadow's honesty is a separate question — here the shadow kept the rooms commutative and lost the cube. <strong>Price:</strong> relations above floor two are invisible to the swap, and shadow failures surface as series defects. <strong>Default:</strong> before quoting a dual, name the floor the presentation lives on.</p>
+<h3>Exhibit B · The false conviction: a memory that convicts</h3>
+<p>Take \(A = k\langle x, y\rangle/(xy, yx)\) — monomial, letters never mixing: floors \(1, 2, 2, 2, \ldots\) (the words \(x^n\) and \(y^n\)). The pairing machine gives \(R^{\perp} = \mathrm{span}\{\xi \otimes \xi, \eta \otimes \eta\}\), so the dual is \(A^{!} = k\langle \xi, \eta\rangle/(\xi^2, \eta^2)\) with floors \(1, 2, 2, 2, \ldots\) (alternating words) — and the series gate <em>passes</em>: \(\frac{1+t}{1-t} \cdot \frac{1-t}{1+t} = 1\), coefficient by coefficient, machine-checked. Here is the trap. A plausible memory convicts \(A\): the two-letter paths \(x \to y\) and \(y \to x\) are both forbidden, and they chain — \(x \to y \to x\) — into the composite hop \(x \to x\), which is alive (\(x^2 \neq 0\)); a half-remembered "transitivity criterion" pronounces the forbidden-pair family dishonest, not Koszul, homology on the staircase. The machine was built to certify that conviction, and it acquitted instead: the staircase is exact on every diagonal through \(N = 6\), \(d^2 = 0\) everywhere — no homology at all. Ring theory agrees: \(yx - xy\) lies in the ideal (both generators are in it), so \(A \cong k[x,y]/(xy)\), a quadric hypersurface, and quadratic hypersurfaces are Koszul by a theorem of Tate. And the acquittal was never in doubt: every quadratic monomial algebra is Koszul (Backelin's criterion; the census ran all sixteen two-letter monomials through gate and staircase alike, and every one was clean) — a monomial sinner for this exhibit never existed. <strong>Mitigation:</strong> a recalled criterion is a memory, not a certificate; the machine recomputes what memory misquotes. <strong>Price:</strong> the genuinely unforgivable algebras — gate passing to every finite order, homology alive underneath — do exist, but they live outside the monomial class, in Exhibit C's territory. <strong>Default:</strong> when a pattern convicts, run the machine before publishing the verdict.</p>
+<h3>Exhibit C · Necessary, not sufficient: the Roos gate</h3>
+<p>Exhibit B's gate passed, and its conviction dissolved; the genuinely dangerous phenomenon lives here. Lech's example convicts by arithmetic alone: a commutative quadratic algebra with an innocent, finite ledger — four variables, five quadrics, floors \(1, 4, 5, 0\), nothing negative in sight — yet the gate forces the would-be dual's series to \(1/(1 - 4t + 5t^2)\), which turns negative at degree 6 (\(-29\)); no dual's floors can be negative, so the algebra is not Koszul, convicted before any staircase was built — the first known non-Koszul quadratic algebra, and the gate's sharpest catch. Roos (1993) built commutative algebras whose resolutions stay linear to arbitrarily high order — every finite staircase check passes — yet which are not Koszul; his counterexamples price the series gate's insufficiency, and Positselskii (1995) proved the duals' Hilbert-series relation implies nothing. The series is genuinely necessary and genuinely insufficient, and no amount of coefficient checking upgrades it to a certificate. <strong>Mitigation:</strong> in specific classes the facts harden into theorems: every quadratic monomial algebra is Koszul (Backelin's criterion — Exhibit B could never have been a sinner), and PBW-type algebras (Priddy, 1970) are Koszul by construction. <strong>Price:</strong> outside those classes, Koszulity is a property to be proved, not tested — and proofs are scarce on the ground. <strong>Default:</strong> quote a dual as an answer book only with a certificate in hand: exactness computed, or membership in a certified class, or the literature's theorem — named, never implied.</p>
 </section>
-
-<section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When you want to use \(\mathcal{C}om^! = \mathcal{L}ie\) and \(\mathcal{A}ss^! = \mathcal{A}ss\) to build deformation complexes and homotopy algebras (\(A_\infty, L_\infty, C_\infty\)):</strong> Step directly to <a href="p63-operad-algebra.html"><span class="pid">P63</span> · Recognize the operad algebra</a>, which packages multi-input operations into tree-composition operads and resolves them via their Koszul duals.</li>
-    <li><strong>When you want to compute the first-order deformations \(H^1\) and obstructions \(H^2\) of an associative or commutative algebra:</strong> Feed the Koszul dual resolution from this page directly into <a href="p53-deformation-cohomology.html"><span class="pid">P53</span> · Deformation cohomology</a>.</li>
-    <li><strong>When you need to invert power series \(h_A(t) = 1/h_{A^!}(-t)\) or compositional series \(f(-g(-t)) = t\) to count graded dimensions:</strong> Pair <span class="pid">P51</span> with <a href="p73-generating-functions.html"><span class="pid">P73</span> · Generating functions</a>.</li>
-  </ul>
+<section id="doors">
+<h2>6 · The doors this opens</h2>
+<aside class="aside"><p><strong>The operad door.</strong> The swap's largest generalization trades whole <em>species of algebraic structure</em>: operads. The commutative operad's Koszul dual is the Lie operad — commutativity's mirror is the bracket — and the associative operad is its own dual, up to a degree shift. This is Ginzburg–Kapranov's extension of the machine (1994), and the page P63 · Operad algebra carries the door forward from here. <strong>Mitigation:</strong> operadic duals carry grading shifts that scalar duals do not; the ledger arithmetic of Box P51.A does not transplant unchanged. <strong>Price:</strong> beyond a handful of classical operads, Koszulity must be certified family by family. <strong>Default:</strong> name the structure's category before swapping it.</p></aside>
+<aside class="aside"><p><strong>The geometry door.</strong> Beilinson–Ginzburg–Soergel (1996) ran the swap on entire categories of sheaves: on a flag variety, perverse sheaves and their graded mirrors exchange roles the way generators and relations do here, and the answer book becomes a graded algebra's module category. The road runs through <a href="p33-sheaf-cohomology-bridge.html">P33's bridge</a>, whose resolutions are the staircase's geometric descendants. <strong>Mitigation:</strong> the geometric swap is a statement of categories, with purity replacing exactness as the certificate. <strong>Price:</strong> the theorems live over algebraically closed fields and singular varieties complicate the ledger. <strong>Default:</strong> in geometry, quote the swap as category duality, never as a Hilbert-series identity.</p></aside>
+<aside class="aside"><p><strong>The physics door.</strong> Gauge theories run this swap under another name: BRST cohomology pairs a gauge symmetry's algebra with a ghost algebra, the Casimir-style differential is the BRST operator, and the physical states are its homology — the questions (which configurations are physical) become answers (cohomology classes) by exactly this page's mechanism. The mathematics underneath is Exemplar 3's: the envelope–cochain swap with the gauge algebra in the driver's seat. <strong>Mitigation:</strong> physics normalizations (ghost number conventions, field-antifield statistics) sit on top of the split, not inside it. <strong>Price:</strong> the gauge-fixed room is a derived room; quoting its naive homology underquotes the physics. <strong>Default:</strong> count the cohomology floors first, decorate with conventions after.</p></aside>
 </section>
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Hilbert's 1890 syzygy theorem and Koszul's 1950 homology complex to Priddy's 1970 quadratic duality and Ginzburg–Kapranov operads.</strong> In 1890 David Hilbert (<em>Mathematische Annalen</em> 36, 473–534) shocked invariant theorists by proving that every chain of syzygies over \(\mathbb{C}[x_1, \dots, x_d]\) terminates in at most \(d\) steps. Sixty years later, Jean-Louis Koszul (<em>Bulletin de la Société Mathématique de France</em> 78, 1950, 65–127) extracted the algebraic engine behind both Hilbert's syzygy theorem and Lie algebra cohomology (\(\bigwedge^\bullet \mathfrak{g} \otimes \operatorname{Sym}(\mathfrak{g})\)). In 1970 Stewart Priddy (<em>Transactions of the American Mathematical Society</em> 152, 39–60) generalized Koszul's construction to arbitrary homogeneous quadratic algebras \(A = T(V)/(R)\) and their orthogonal duals \(A^! = T(V^*)/(R^\perp)\). In 1988–1996 Alexander Beilinson, Victor Ginzburg, and Wolfgang Soergel (<em>Journal of the American Mathematical Society</em> 9, 1996, 473–527) discovered that Koszul duality governs the representation theory of perverse sheaves and Category \(\mathcal{O}\), while Victor Ginzburg and Mikhail Kapranov (<em>Duke Mathematical Journal</em> 76, 1994, 203–272) extended Koszul duality to quadratic operads (\(\mathcal{C}om^! = \mathcal{L}ie\), \(\mathcal{A}ss^! = \mathcal{A}ss\)).</p>
-  </aside>
+<h2>7 · Lineage</h2>
+<p>The staircase was counted before it was named. Hilbert's syzygy theorem (1890) proves the polynomial room's resolutions are free, with floors matching the exterior room's — the first certificate, computed by hand in Königsberg. Koszul (1950) built the complex that carries his name, for the symmetric/exterior pairing and for the Lie cohomology of Exemplar 3, in a paper whose title says Lie algebras and whose substance is this page's machinery. Priddy (1970) isolated the property — algebras whose staircase is exact he called Koszul — and proved the PBW class Koszul, giving Exhibit C its first certified class. Backelin (1981) gave the criterion under which every quadratic monomial algebra certifies Koszul — Exhibit B's acquittal rests on it — Roos (1993) priced the series gate's insufficiency with counterexamples whose resolutions stay linear to arbitrarily high order, and Positselskii (1995) proved the duals' passing series implies nothing. The swap scaled up twice at the century's end: Ginzburg–Kapranov (1994) traded operads, and Beilinson–Ginzburg–Soergel (1996) carried the pattern into representation theory, where it now organizes territory from flag varieties to the physics door's BRST bookkeeping.</p>
 </section>
-
 <section id="exercises">
-  <h2>8 · Exercises</h2>
-
-  <h3>Exercise 1 ●○○ — The Dual of a Free Algebra vs. a Zero-Square Algebra</h3>
-  <p>Let \(V = \operatorname{Span}\{x_1, \dots, x_d\}\) be a \(d\)-dimensional generator space.<br>
-  (a) Suppose \(A = T(V)\) is the <em>free associative algebra</em> on \(d\) generators, with <strong>zero</strong> relations (\(R = \{0\} \subset V \otimes V\)). Find its orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\), write down the quadratic dual algebra \(A^!\), compute both Hilbert series \(h_A(t)\) and \(h_{A^!}(t)\), and verify \(h_A(t)h_{A^!}(-t) = 1\).<br>
-  (b) Using your answer to (a), write down the minimal free resolution of the ground field \(\mathbb{C}\) over the free algebra \(A = \mathbb{C}\langle x_1, \dots, x_d \rangle\). How many steps long is it?</p>
-  <details><summary>Hint</summary><p>In (a), if \(R = \{0\}\), then \(R^\perp = V^* \otimes V^*\) kills <em>all</em> words of length \(2\) or higher in \(T(V^*)\)!</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Quadratic dual and Hilbert series:</strong> In \(A = T(V)\), the number of words of length \(k\) is \(d^k\), so \(h_A(t) = \sum_{k=0}^\infty d^k t^k = \frac{1}{1 - dt}\). Since \(R = \{0\}\), its annihilator is the entire degree-2 space \(R^\perp = V^* \otimes V^*\). Therefore</p>
-    <p class="eq">\[A^! = \frac{T(V^*)}{(V^* \otimes V^*)} = \mathbb{C} \oplus V^*,\]</p>
-    <p>where the product of any two generators is zero (\(\xi_i \xi_j = 0\) for all \(i, j\)). Thus \(\dim A^!_0 = 1\), \(\dim A^!_1 = d\), and \(\dim A^!_m = 0\) for all \(m \ge 2\), giving \(h_{A^!}(t) = 1 + dt\). Multiplying gives</p>
-    <p class="eq">\[h_A(t)\,h_{A^!}(-t) = \frac{1}{1 - dt}\cdot(1 - dt) = 1.\]</p>
-    <p><strong>(b) One-step resolution of a free algebra:</strong> Because \(A^!_m = 0\) for \(m \ge 2\), the Koszul complex \(K_\bullet(A) = (A^!)^* \otimes A\) has only <strong>two</strong> non-zero terms (\(m = 1\) and \(m = 0\)):</p>
-    <p class="eq">\[0 \longrightarrow V \otimes A \xrightarrow{\;d_1\;} A \xrightarrow{\;\varepsilon\;} \mathbb{C} \longrightarrow 0, \qquad d_1(x_i \otimes w) = x_i w.\]</p>
-    <p>Every free algebra has global dimension \(1\)!</p>
-  </details>
-
-  <h3>Exercise 2 ●●○ — The Jordan Plane \(A = \mathbb{C}\langle x, y \rangle / (yx - xy - x^2)\) and its Dual</h3>
-  <p>Consider the non-commutative <em>Jordan plane</em> generated by \(V = \operatorname{Span}\{x, y\}\) (\(\dim V = 2\)) with the single homogeneous quadratic relation</p>
-  <p class="eq">\[r = y \otimes x - x \otimes y - x \otimes x = 0.\]</p>
-  <p>(a) In the dual basis \(\{\xi, \eta\}\) of \(V^*\), compute the \(3\)-dimensional orthogonal annihilator \(R^\perp \subset V^* \otimes V^*\) and write down the defining relations of \(A^!\).<br>
-  (b) Verify that \(\dim A^!_0 = 1\), \(\dim A^!_1 = 2\), \(\dim A^!_2 = 1\) (spanned by \(\xi\eta\)), and \(\dim A^!_3 = 0\) (by proving \(\xi\eta\xi = 0\) and \(\eta\xi\eta = 0\) from the relations of \(A^!\)), confirming \(h_{A^!}(t) = (1+t)^2\).</p>
-  <details><summary>Hint</summary><p>A dual functional \(\alpha(\xi\otimes\xi) + \beta(\xi\otimes\eta) + \gamma(\eta\otimes\xi) + \delta(\eta\otimes\eta)\) annihilates \(r = -x\otimes x - x\otimes y + y\otimes x\) iff \(-\alpha - \beta + \gamma = 0 \iff \gamma = \alpha + \beta\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Orthogonal annihilator \(R^\perp\):</strong> Pairing \(\phi = \alpha(\xi\otimes\xi) + \beta(\xi\otimes\eta) + \gamma(\eta\otimes\xi) + \delta(\eta\otimes\eta)\) against \(r = -x\otimes x - x\otimes y + y\otimes x\) gives \(-\alpha - \beta + \gamma = 0\), or \(\gamma = \alpha + \beta\). Setting \((\alpha,\beta,\delta) = (0,0,1), (1,0,0), (0,1,0)\) gives the three basis relations of \(R^\perp\):</p>
-    <p class="eq">\[\eta^2 = 0, \qquad \xi^2 + \eta\xi = 0 \;\;(\eta\xi = -\xi^2), \qquad \xi\eta + \eta\xi = 0 \;\;(\eta\xi = -\xi\eta).\]</p>
-    <p>Combining the second and third relations shows that in \(A^!\), \(\xi^2 = \xi\eta = -\eta\xi\) and \(\eta^2 = 0\).</p>
-    <p><strong>(b) Vanishing in degree \(3\):</strong> In degree \(2\), all four monomials reduce to multiples of \(\xi\eta\) (\(\xi^2 = \xi\eta\), \(\eta\xi = -\xi\eta\), \(\eta^2 = 0\)), so \(\dim A^!_2 = 1\). In degree \(3\), use associativity and \(\eta^2 = 0\):</p>
-    <p class="eq">\[\xi\eta\eta = \xi(\eta^2) = 0, \qquad \xi^2\eta = (\xi\eta)\eta = \xi\eta^2 = 0, \qquad \xi\eta\xi = \xi(-\xi\eta) = -\xi^2\eta = 0, \qquad \xi^3 = \xi(\xi^2) = \xi(\xi\eta) = 0.\]</p>
-    <p>Every degree-\(3\) word vanishes identically! Thus \(\dim A^!_m = (1, 2, 1, 0, \dots)\) and \(h_{A^!}(t) = 1 + 2t + t^2 = (1+t)^2\).</p>
-  </details>
-
-  <h3>Exercise 3 ●●● — Explicit matrices of the weight-\(2\) Koszul strand for \(\mathbb{C}[x, y]\)</h3>
-  <p>Let \(A = \mathbb{C}[x, y]\) (\(d = 2\)) and consider the weight \(N = 2\) diagonal strand of the Koszul complex \(K_\bullet(A)\):</p>
-  <p class="eq">\[0 \longrightarrow \textstyle\bigwedge^2 V \otimes A_0 \xrightarrow{\;d_2\;} \bigwedge^1 V \otimes A_1 \xrightarrow{\;d_1\;} \bigwedge^0 V \otimes A_2 \longrightarrow 0.\]</p>
-  <p>(a) Using ordered bases \(\{e_1 \wedge e_2 \otimes 1\}\) (dimension \(1\)), \(\{e_1 \otimes x,\, e_1 \otimes y,\, e_2 \otimes x,\, e_2 \otimes y\}\) (dimension \(4\)), and \(\{1 \otimes x^2,\, 1 \otimes xy,\, 1 \otimes y^2\}\) (dimension \(3\)), write down the explicit \(4 \times 1\) matrix of \(d_2\) and the \(3 \times 4\) matrix of \(d_1\).<br>
-  (b) Verify by matrix multiplication that \(d_1 d_2 = 0\) and that \(\operatorname{rank}(d_2) = 1\) and \(\operatorname{rank}(d_1) = 3\), proving exactness (\(\ker d_1 = \operatorname{im} d_2\)) at weight \(N = 2\).</p>
-  <details><summary>Hint</summary><p>Apply the Koszul boundary formula: \(d_2(e_1 \wedge e_2 \otimes 1) = e_2 \otimes x - e_1 \otimes y\), and \(d_1(e_1 \otimes f) = 1 \otimes xf\), \(d_1(e_2 \otimes f) = 1 \otimes yf\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Explicit matrices of \(d_2\) and \(d_1\):</strong> By the boundary formula of Section 2, \(d_2(e_1 \wedge e_2 \otimes 1) = e_2 \otimes x - e_1 \otimes y = 0(e_1\otimes x) - 1(e_1\otimes y) + 1(e_2\otimes x) + 0(e_2\otimes y)\). Meanwhile, \(d_1\) sends the four basis vectors of \(\bigwedge^1 V \otimes A_1\) to \(x^2, xy, yx = xy, y^2\). Thus:</p>
-    <p class="eq">\[M(d_2) = \begin{pmatrix} 0 \\ -1 \\ 1 \\ 0 \end{pmatrix}, \qquad M(d_1) = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{pmatrix}.\]</p>
-    <p><strong>(b) Exactness check (\(\ker d_1 = \operatorname{im} d_2\)):</strong> Multiplying the two matrices gives</p>
-    <p class="eq">\[M(d_1)\,M(d_2) = \begin{pmatrix} 0 \\ -1 + 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}.\]</p>
-    <p>Clearly \(M(d_2)\) has rank \(1\) (non-zero column) and \(M(d_1)\) has rank \(3\) (three pivot columns \(1, 2, 4\)). By the rank–nullity theorem, \(\dim \ker(d_1) = 4 - 3 = 1 = \dim \operatorname{im}(d_2)\), so \(\ker d_1 = \operatorname{im} d_2\) and the weight-\(2\) strand is exact.</p>
-  </details>
-
-  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: passes the Hilbert gate or fails positivity?</h3>
-  <p>Diagnose each candidate algebra below:</p>
-  <ol>
-    <li>A quadratic algebra \(A\) has dual \(A^!\) with Hilbert polynomial \(h_{A^!}(t) = 1 + 2t + 2t^2\). Can \(A\) be a Koszul algebra?</li>
-    <li>You want to resolve the ground field \(\mathbb{C}\) over \(A = \mathbb{C}[x, y] / (x^2, xy, y^2)\) (where every degree-2 monomial vanishes).</li>
-    <li>You want to compute the cohomology of the 3-dimensional Lie algebra \(\mathfrak{su}_2 \cong \mathfrak{so}_3\) (\([e_1, e_2] = e_3\) cyclic).</li>
-  </ol>
-  <details><summary>Worked answer</summary>
-    <ol>
-      <li><strong>Impossible — fails the Hilbert positivity gate (Exhibit B)!</strong> If \(A\) were Koszul with \(h_{A^!}(t) = 1 + 2t + 2t^2\), then \(h_A(t) = \frac{1}{h_{A^!}(-t)} = \frac{1}{1 - 2t + 2t^2} = 1 + 2t + 2t^2 + 0t^3 - 4t^4 - 8t^5 + \cdots\)! Because the coefficient of \(t^4\) is \(-4 &lt; 0\) and \(\dim A_4\) cannot be negative, \(A\) cannot be Koszul!</li>
-      <li><strong>Genuine <span class="pid">P51</span> (Dual of a zero-square algebra is the free algebra, Exercise 1 in reverse!):</strong> Since \(A = \mathbb{C}[x,y]/(x^2,xy,y^2)\) kills <em>all</em> degree-2 products (\(R = V \otimes V\)), its dual has \(R^\perp = \{0\}\), so \(A^! = T(V^*) = \mathbb{C}\langle \xi, \eta \rangle\) is the free algebra with \(h_{A^!}(t) = \frac{1}{1-2t}\) and \(h_A(t) = 1 + 2t\)!</li>
-      <li><strong>Genuine <span class="pid">P51</span> (Filtered PBW Koszul dual / Chevalley–Eilenberg complex, Exemplar 2):</strong> Instead of an infinite resolution over \(U(\mathfrak{su}_2)\), compute on the \(2^3 = 8\)-dimensional exterior algebra \(\bigwedge^\bullet(\mathfrak{su}_2^*)\), where \(d\xi_1 = -\xi_2\wedge\xi_3\) cyclic gives \(H^0 = \mathbb{C}\), \(H^1 = H^2 = 0\), and \(H^3 = \mathbb{C}\langle\xi_1\wedge\xi_2\wedge\xi_3\rangle\) (matching \(H^\bullet(S^3)\)).</li>
-    </ol>
-  </details>
-
-  <h3>Exercise 5 ◐ — Exploration: Dualizing a Graph Algebra (Right-Angled Artin Commutation vs. Independence Polynomials)</h3>
-  <p>Let \(\Gamma = (V_\Gamma, E_\Gamma)\) be a finite simple graph with \(d\) vertices \(x_1, \dots, x_d\). Define the <em>partially commutative quadratic algebra</em> \(A(\Gamma)\) generated by \(x_1, \dots, x_d\) where two generators commute if and only if they are connected by an edge \(\{i, j\} \in E_\Gamma\), and their product is zero if they are not connected? Even cleaner: consider the <em>Frobenius graph exterior algebra</em> \(A^!(\Gamma)\) generated by \(\xi_1, \dots, \xi_d\) with relations \(\xi_i^2 = 0\), \(\xi_i \xi_j + \xi_j \xi_i = 0\) for all \(i, j\), and \(\xi_i \xi_j = 0\) whenever \(\{i, j\} \notin E_\Gamma\).<br>
-  (a) Show that \(\dim A^!(\Gamma)_m\) equals the number \(c_m(\Gamma)\) of \(m\)-cliques (complete subgraphs on \(m\) vertices) in \(\Gamma\), so \(h_{A^!(\Gamma)}(t) = \sum_{m=0}^d c_m(\Gamma)\,t^m\) is the <em>clique polynomial</em> of \(\Gamma\).<br>
-  (b) Find the quadratic dual algebra \(A(\Gamma) = (A^!(\Gamma))^!\) and use <span class="pid">P51</span> to express its Hilbert series \(h_{A(\Gamma)}(t)\) in terms of the clique polynomial of \(\Gamma\).</p>
-  <details><summary>Hint</summary><p>In \(A^!(\Gamma)\), a wedge product \(\xi_{i_1} \cdots \xi_{i_m}\) with \(i_1 &lt; \cdots &lt; i_m\) is non-zero if and only if every pair \(\{i_a, i_b\}\) is an edge of \(\Gamma\) (an \(m\)-clique). For \(A(\Gamma)\), take the orthogonal complement of the relations of \(A^!(\Gamma)\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Clique polynomial as the Hilbert series of \(A^!(\Gamma)\):</strong> Because \(\xi_i^2 = 0\) and \(\xi_i \xi_j = -\xi_j \xi_i\), any monomial in \(A^!(\Gamma)_m\) can be sorted into strictly increasing order \(\xi_{i_1}\xi_{i_2}\cdots\xi_{i_m}\) (\(i_1 &lt; \cdots &lt; i_m\)). Since \(\xi_a\xi_b = 0\) whenever \(\{a,b\} \notin E_\Gamma\), this basis monomial survives if and only if every pair of vertices in \(\{i_1, \dots, i_m\}\) is joined by an edge in \(\Gamma\) — that is, \(\{i_1, \dots, i_m\}\) is an \(m\)-clique! Thus \(\dim A^!(\Gamma)_m = c_m(\Gamma)\) and \(h_{A^!(\Gamma)}(t) = \sum_{m=0}^d c_m(\Gamma)\,t^m\).</p>
-    <p><strong>(b) The dual partially commutative algebra \(A(\Gamma)\):</strong> In \(A^!(\Gamma)\), for an edge \(\{i,j\} \in E_\Gamma\) only the symmetric sum \(\xi_i\otimes\xi_j + \xi_j\otimes\xi_i\) is zero, whereas for a non-edge \(\{i,j\} \notin E_\Gamma\) both \(\xi_i\otimes\xi_j\) and \(\xi_j\otimes\xi_i\) are zero. Taking the orthogonal annihilator \(R^\perp \subset V \otimes V\) gives</p>
-    <p class="eq">\[A(\Gamma) = \mathbb{C}\langle x_1, \dots, x_d \rangle / \bigl(\,x_i x_j - x_j x_i = 0 \text{ for } \{i,j\} \in E_\Gamma\,\bigr),\]</p>
-    <p>the <em>Cartier–Foata partially commutative monoid algebra</em> (where generators commute along edges of \(\Gamma\) and are completely free along non-edges!). By <span class="pid">P51</span>, \(A(\Gamma)\) is Koszul and its word-growth series is the exact reciprocal of the alternating clique polynomial:</p>
-    <p class="eq">\[h_{A(\Gamma)}(t) = \frac{1}{h_{A^!(\Gamma)}(-t)} = \frac{1}{1 - c_1(\Gamma)t + c_2(\Gamma)t^2 - c_3(\Gamma)t^3 + \cdots}.\]</p>
-  </details>
+<h2>8 · Exercises</h2>
+<p class="moons">●○○ ●●○ ●●● ◆ ◆ ◐ — six exercises, from the smallest honest swap to the frontier of certificates.</p>
+<p class="ex"><strong>Exercise 1 · The smallest honest swap</strong> ●○○<br>
+One letter: \(V = k \cdot x\), so \(R = 0\) and \(A = k[x]\). (a) Compute \(A^{!}\) from the pairing — the ledger says \(\dim R^{\perp} = 1\). (b) Square the Casimir \(c = x \otimes \xi\). (c) Run the series gate. (d) Write the staircase's resolution of \(k\) and check exactness by eye.</p>
+<details><summary>Hint</summary><p>(a) With no relations, every dual tensor scores zero on \(R\). (d) Two rooms and one map — what does multiplication by \(x\) do to constants?</p></details>
+<details><summary>Worked answer</summary><p>(a) \(R^{\perp} = \mathrm{span}\{\xi \otimes \xi\}\) — the whole of \(V^{\ast} \otimes V^{\ast}\), one relation, ledger intact — so \(A^{!} = k[\xi]/(\xi^2)\): floors \(1, 1, 0, \ldots\). (b) \(c^2 = x^2 \otimes \xi^2 = 0\) because \(\xi^2 = 0\). (c) \(H_A = \frac{1}{1-t}\), \(H_{A^{!}} = 1 + t\), and \(\frac{1}{1-t}(1 - t) = 1\) ✓. (d) \(0 \to A(-1) \xrightarrow{\,\cdot x\,} A \to k \to 0\): multiplication by \(x\) is injective on polynomials and surjective onto the positive floors, so the complex is exact — the tiniest staircase, resolved in one line.</p></details>
+<p class="ex"><strong>Exercise 2 · The monomial swap, priced</strong> ●●○<br>
+Let \(A = k\langle x, y\rangle/(xy)\). (a) Count the floors: which words survive, what are the dimensions? (b) Run the pairing machine: compute \(R^{\perp}\) and \(A^{!}\), and count its floors. (c) Verify the series gate. (d) Why is this algebra Koszul — which obligation of Box P51.A does the exactness certificate reduce to, and why is it vacuous here?</p>
+<details><summary>Hint</summary><p>(a) Once a \(y\) appears, no \(x\) may follow. (b) The dual forbids everything except \(\xi \otimes \eta\). (d) Which two-letter paths are forbidden, and can they ever chain? Why was Koszulity never in doubt for this algebra?</p></details>
+<details><summary>Worked answer</summary><p>(a) Surviving words are \(y^a x^b\): floors \(1, 2, 3, 4, \ldots\), so \(H_A = \frac{1}{(1-t)^2}\). (b) \(R = \mathrm{span}\{x \otimes y\}\); a dual tensor \(\alpha \xi\xi + \beta \xi\eta + \gamma \eta\xi + \delta \eta\eta\) scores \(\beta\), so \(R^{\perp} = \mathrm{span}\{\xi\xi, \eta\xi, \eta\eta\}\) and \(A^{!} = k\langle \xi, \eta\rangle/(\xi^2, \eta\xi, \eta^2)\): floors \(1, 2, 1, 0, \ldots\) (the words \(1\), \(\xi\), \(\eta\), \(\xi\eta\)). (c) \(\frac{1}{(1-t)^2}(1-t)^2 = 1\), coefficient by coefficient ✓. (d) Only \(x \to y\) is forbidden; a chain would need another forbidden pair to follow it, but no word starting with \(y\) is forbidden, so the chaining pattern never appears. The staircase is exact — and that is no accident: every quadratic monomial algebra is Koszul (Backelin's criterion), so the gate's success was guaranteed by class membership; the honest work was checking it anyway.</p></details>
+<p class="ex"><strong>Exercise 3 · The quantum plane's mirror</strong> ●●●<br>
+Let \(A_q = k\langle x, y \rangle/(xy - q\,yx)\) with \(q \neq 0\). (a) Compute \(R^{\perp}\) and \(A^{!}_q\) from the pairing. (b) Prove \(c^2 = 0\) for every \(q\), in two lines. (c) Count both floors and run the series gate. (d) What happens at \(q = 1\) and at \(q = -1\) — which shadows do the two rooms become?</p>
+<details><summary>Hint</summary><p>(a) Score \(\alpha \xi \otimes \eta + \beta \eta \otimes \xi\) against the relation. (b) Each algebra trades one product for the other. (d) At \(q = -1\), what does \(xy = -yx\) say about the letters themselves?</p></details>
+<details><summary>Worked answer</summary><p>(a) The tensor scores \(\alpha - q\beta\), so \(R^{\perp} = \mathrm{span}\{\xi\xi,\; \eta\eta,\; q\,\xi\eta + \eta\xi\}\) and \(A^{!}_q = k\langle \xi, \eta \rangle/(\xi^2, \eta^2, q\,\xi\eta + \eta\xi)\). (b) \(c^2 = xy \otimes \xi\eta + yx \otimes \eta\xi\); trading \(xy = q\,yx\) and \(\eta\xi = -q\,\xi\eta\) gives \(q\,yx \otimes \xi\eta - q\,yx \otimes \xi\eta = 0\) — \(q\)-blind. (c) Both rooms sort to \(x^a y^b\) and \(\xi\eta\)-type words: floors \(1, 2, 3, 4, \ldots\) and \(1, 2, 1, 0, \ldots\); the gate reads \(\frac{1}{(1-t)^2}(1-t)^2 = 1\) ✓. (d) \(q = 1\): the encounter's symmetric/exterior mirror. \(q = -1\): the letters anticommute, \(xy = -yx\) — a Clifford-type shadow — and the dual's floors stay \(1, 2, 1\): the swap survives, only the multiplication bends.</p></details>
+<p class="ex"><strong>Exercise 4 · The false conviction, priced</strong> ◆<br>
+Let \(A = k\langle x, y \rangle/(xy, yx)\). (a) Count the floors of \(A\). (b) Compute \(A^{!}\) and its floors. (c) Run the series gate — what does it say? (d) Now the trap: which two-letter paths are forbidden, what composite path do they chain, and what would a half-remembered criterion conclude? Run the staircase — what does the machine find, and why does the isomorphism \(A \cong k[x,y]/(xy)\) settle the question? What does the false conviction teach about certificates?</p>
+<details><summary>Hint</summary><p>(a) Letters never mix. (b) The dual forbids repetition, not mixing. (c) Compute \(\frac{1+t}{1-t} \cdot \frac{1-t}{1+t}\) before trusting your instincts.</p></details>
+<details><summary>Worked answer</summary><p>(a) Surviving words: \(x^n\) and \(y^n\) — floors \(1, 2, 2, 2, \ldots\), \(H_A = \frac{1+t}{1-t}\). (b) \(R^{\perp} = \mathrm{span}\{\xi\xi, \eta\eta\}\), so \(A^{!} = k\langle \xi, \eta\rangle/(\xi^2, \eta^2)\) with alternating words: floors \(1, 2, 2, 2, \ldots\). (c) The gate passes: \(\frac{1+t}{1-t} \cdot \frac{1-t}{1+t} = 1\) ✓ — the series forgives this algebra entirely. (d) The chaining pattern is real: the forbidden paths \(x \to y\) and \(y \to x\) chain into the composite \(x \to x\), which stays alive (\(x^2 \neq 0\)). But the conviction it once earned is false: the machine runs the staircase and finds every diagonal through \(N = 6\) exact, \(d^2 = 0\) everywhere — no homology at all. Ring theory agrees: \(yx - xy\) lies in the ideal (both generators are in it), so \(A \cong k[x,y]/(xy)\), a quadric hypersurface — and quadratic hypersurfaces are Koszul by a theorem of Tate. Deeper still, no quadratic monomial algebra could have been the sinner: all are Koszul (Backelin's criterion). The honest certificate is exactness, and here it acquits; the lesson is that a recalled pattern is a hypothesis, not a verdict — and the genuinely unforgivable algebras live outside the monomial class, in Exhibit C's territory.</p></details>
+<p class="ex"><strong>Exercise 5 · The certified class, priced</strong> ◆<br>
+Let \(A = k\langle x, y \rangle/(yx - xy - x^2)\) — the Jordan plane, one twist short of commutativity. (a) Compute \(R^{\perp}\) from the pairing. (b) Count both rooms' floors and run the series gate. (c) The relation rewrites every \(yx\) as \(xy + x^2\), sorting each word into \(x^a y^b\) form — a PBW re-ordering. Why does Priddy's theorem then certify Koszulity without running the staircase — and what does Exercise 4's price say about running it anyway?</p>
+<details><summary>Hint</summary><p>(a) Score \(\alpha \xi \otimes \xi + \beta \xi \otimes \eta + \gamma \eta \otimes \xi + \delta \eta \otimes \eta\) against the relation. (b) The dual's three relations leave a single two-letter word standing. (c) What does a PBW basis force the floors to be — and what did trusting a memory cost in Exercise 4?</p></details>
+<details><summary>Worked answer</summary><p>(a) The relation \(yx - xy - x^2\) scores \(-\alpha - \beta + \gamma\) on the dual tensor, so \(R^{\perp} = \mathrm{span}\{\xi\xi + \eta\xi,\; \xi\eta + \eta\xi,\; \eta\eta\}\). (b) The re-ordering \(yx \mapsto xy + x^2\) sorts every word to \(x^a y^b\): floors \(1, 2, 3, 4, \ldots\), \(H_A = \frac{1}{(1-t)^2}\). The dual kills \(\eta\eta\) and folds \(\xi\xi\) and \(\xi\eta\) into \(\eta\xi\): every word of degree three or more dies, floors \(1, 2, 1, 0, \ldots\), \(H_{A^{!}} = (1+t)^2\). The gate reads \(\frac{1}{(1-t)^2} \cdot (1-t)^2 = 1\) ✓. (c) Priddy's theorem certifies what the re-ordering implies: a PBW algebra's staircase is exact because the re-ordering and the dual's bookkeeping are compatible — Koszulity by class membership, no staircase run. Exercise 4's price runs it anyway: every diagonal exact through \(N = 4\), \(d^2 = 0\) everywhere — no homology at all. The pass was never in doubt; the audit was free.</p></details>
+<p class="ex"><strong>Exercise 6 · Cubic fingerprints, and the frontier</strong> ◐<br>
+(a) Why does \(B = k[x,y]/(x^3)\) have the same quadratic shadow as the polynomial room? (b) Count \(B\)'s floors. (c) Run the exterior mirror's gate against \(B\) and read the failure. (d) Show the fingerprint generalizes: for \(B_d = k[x,y]/(x^d)\), the same computation gives \(1 - t^d\) — which coefficient carries the signature, and why? (e) Exhibit C says the gate is necessary, not sufficient. What certificate settles Koszulity in general, and why is Exhibit C's Roos family a stronger witness than any series computation could catch?</p>
+<details><summary>Hint</summary><p>(b) \(x^a y^b\) with \(a \leq 2\). (d) Compute the \(d\)-th coefficient: which floors changed shape, and where does the corner sit?</p></details>
+<details><summary>Worked answer</summary><p>(a) The pairing machine reads only floor two: commutativity is the quadratic data, and \(x^3\) lives above its sightline. (b) Floors \(1, 2, 3, 3, 3, \ldots\) — words \(x^a y^b\) with \(a \leq 2\). (c) \(H_B \cdot H_{\wedge}(-t) = 1 - t^3\): every coefficient vanishes except the third, \(-1\), where the flat floors first fail the exterior mirror's demand — the invisible cubing relation, named by its exponent. (d) For \(B_d\), floors run \(1, 2, \ldots, d-1, d, d, \ldots\); the \(d\)-th coefficient of the product is \(h_d - 2h_{d-1} + h_{d-2} = d - 2d + (d-1) = -1\), and all other coefficients telescope to zero: the failure is \(1 - t^d\), the relation's fingerprint in its own exponent. (e) Exactness of the staircase — or membership in a certified class (PBW-type; quadratic monomial, always Koszul by Backelin's criterion), or the literature's theorem, named. Exhibit C carries the sharpest known form: Roos' algebras stay linear to arbitrarily high order — every finite check passes — yet are not Koszul, so no series computation, run to any length, could ever have caught them.</p></details>
 </section>
-
 <footer>
-  <p><em>The Patterns Atlas</em> — P51 · The Koszul dual swap. <a href="index.html">Return to the index</a> · Previous: <a href="p50-double-centralizer.html">P50 · Double centralizer decomposition</a> · Next: <a href="p52-microlocal-propagation.html">P52 · Microlocal propagation of singularities →</a></p>
+<p><strong>Next:</strong> the frontier's next published page — <a href="p52-microlocal-propagation.html">P52 · Microlocal propagation</a> — tracks where the roughness goes along rays; this page's swap is the algebra the rays lean on: exchange a structure for its dual, and the questions you could not answer become the answers you can.</p>
+<p class="atlas-home"><a href="index.html">The patterns atlas</a> · <a href="p36-character-counting.html">P36 · Count with characters</a></p>
 </footer>
-
 </body>
 </html>
