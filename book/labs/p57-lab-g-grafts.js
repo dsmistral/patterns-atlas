@@ -10,7 +10,7 @@ async function main() {
     chain.length === 5 && near(chain[1], 1e-3, 1e-9) && near(chain[2], 3.162278e-5, 0.001)
     && near(chain[3], 1.778279e-7, 0.001) && near(chain[4], 7.498942e-11, 0.001));
 
-  // G2: the balance point makes both terms equal — theta^{sigma+d} = E/e^2 (the external's E/e was a slip, caught on first run)
+  // G2: balance theta^{sigma+d} = E/e_k^2 — graft fix (their kappa = 1 + sigma/(sigma+d) fits their error-scaled model N^{-sigma}e_k; our entry-fee model needs E/e^2. Caught on first run.)
   const sg = 2, dd = 2, E = 0.01, ek = 1e-3;
   const th = Math.pow(E/(ek*ek), 1/(sg + dd));
   G('G2 balance point theta = (E/e^2)^{1/(sigma+d)}: quadratic and tail terms equal (1e-12)',
@@ -71,8 +71,8 @@ async function main() {
     dist(89) > 1/(Math.sqrt(5)*89));
   G('G-P2 external false Liouville rate caught: true remainder 1e-18 > claimed e^{-e^{10^6}} (underflows to 0; exact verdict recorded)',
     Math.pow(10, 6-24) > 0 && Math.exp(-Math.exp(1e6)) === 0);
-  const thW = Math.pow(E/ek, 1/(sg + dd));   // the external's slip: E/e instead of E/e^2
-  G('G-P3 external slip caught: (E/e)^{1/(sigma+d)} leaves the terms unequal (ratio e_k)',
+  const thW = Math.pow(E/ek, 1/(sg + dd));   // graft-adaptation slip: their kappa-form under our entry-fee model
+  G('G-P3 hybrid cap caught: (E/e)^{1/(sigma+d)} mixes their error-scaled kappa-form into our entry-fee model — leaves the terms unequal (ratio e_k)',
     Math.abs((Math.pow(thW, dd)*ek*ek)/(Math.pow(thW, -sg)*E) - 1) > 0.05);
   G('G-P4 home-room kappa rejected: 2s/(s+d) >= 2 needs d <= 0; superlinear needs s > d',
     (2*sg/(sg + 1)) < 2 && (2*4/(4+1)) < 2 && (2*sg/(sg + sg)) === 1 && (2*sg/(sg + 4)) < 1);
