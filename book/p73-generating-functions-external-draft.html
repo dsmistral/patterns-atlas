@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P73 · Generating functions — Patterns of Math</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --fg: #1a1a1a;
+    --muted: #5a5550;
+    --accent: #8b2635;
+    --accent-soft: #f3e6e8;
+    --rule: #d8d2c7;
+    --box-bg: #f2eee6;
+    --warn-bg: #f9ebe0;
+    --warn-border: #b85d19;
+    --onramp-bg: #eef3f7;
+    --onramp-border: #3a6073;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  header.chapter-header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .tier-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0.8rem;
+    font-style: italic;
+  }
+  .prereqs {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+  .prereqs a, a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin: 2.5rem 0 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  .pid {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .onramp {
+    background: var(--onramp-bg);
+    border-left: 4px solid var(--onramp-border);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .onramp p:last-child { margin-bottom: 0; }
+  .pattern-box {
+    background: var(--box-bg);
+    border: 1.5px solid var(--fg);
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+  }
+  .pattern-box h3 {
+    margin-top: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
+    margin-bottom: 0;
+  }
+  .aside {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  .aside.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+  }
+  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--box-bg);
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  figure {
+    margin: 1.6rem 0;
+    padding: 0.9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    text-align: center;
+  }
+  figcaption {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .exercise {
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  details {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.94rem;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header class="chapter-header">
+  <p class="tier-label">Tier 2 · Canon Foundations</p>
+  <h1><span class="pid">P73</span> · Generating functions</h1>
+  <p class="lede">Hang an entire infinite sequence \(a_0, a_1, a_2, \dots\) onto the powers of a formal variable \(x\) so that index shifts, convolutions, and combinatorial choices turn into ordinary high-school algebra on \(A(x) = \sum_{n \ge 0} a_n x^n\).</p>
+  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p05-canonical-form.html">P05 · Put it in canonical form</a>, <a href="p06-compose-identity.html">P06 · Compose with identity</a></p>
+</header>
+
+<aside class="onramp">
+  <p><strong>On-ramp 1 — What is a formal power series (and what is \(x\))?</strong> Given a sequence of numbers \(a_0, a_1, a_2, a_3, \dots\), its <strong>ordinary generating function (OGF)</strong> is the infinite polynomial</p>
+  \[
+    A(x) \;:=\; a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \cdots \;=\; \sum_{n=0}^\infty a_n x^n.
+  \]
+  <p>What value does \(x\) have? In combinatorics, \(x\) does not need a numerical value at all! It is a <strong>formal clothesline</strong> (in the words of Herbert Wilf): the exponent \(n\) in \(x^n\) is simply a price tag or clothes-hanger label keeping track of "size \(n\)", and the coefficient \(a_n\) — written <strong>\([x^n]\,A(x)\)</strong> — is the item hanging on hook \(n\).</p>
+</aside>
+
+<aside class="onramp">
+  <p><strong>On-ramp 2 — Why polynomial multiplication automatically counts combinations.</strong> Suppose you choose one item from a first menu (where a choice of size \(i\) occurs in \(a_i\) ways) and one item from a second menu (where a choice of size \(j\) occurs in \(b_j\) ways). How many ways can their combined size \(i + j\) equal \(n\)? By the law of exponents \(x^i \cdot x^j = x^{i+j}\), multiplying the two generating functions together automatically groups every pair \((i, j)\) with \(i + j = n\) onto the same power \(x^n\):</p>
+  \[
+    \left(\sum_{i=0}^\infty a_i x^i\right)\left(\sum_{j=0}^\infty b_j x^j\right) \;=\; \sum_{n=0}^\infty \left(\sum_{i + j = n} a_i b_j\right) x^n.
+  \]
+  <p>The coefficient \(\sum_{i+j=n} a_i b_j\) is called the <strong>convolution</strong> of \((a_n)\) and \((b_n)\).</p>
+</aside>
+
+<section id="bridge">
+  <h2>1 · Before we begin</h2>
+  <p>In <a href="p05-canonical-form.html"><span class="pid">P05</span> · Put it in canonical form</a>, we saw that expanding a polynomial into standard powers \(c_0 + c_1 x + c_2 x^2 + \cdots\) gives a unique fingerprint: two polynomials are identical if and only if their coefficients of \(x^n\) match for every \(n\). And in <a href="p06-compose-identity.html"><span class="pid">P06</span> · Compose with identity</a>, we multiplied algebraic expressions together so their cross-terms systematically generated new solutions.</p>
+  <p><strong>Generating functions (<span class="pid">P73</span>)</strong> fuse both moves and extend them to infinite sequences. Instead of wrestling with indices \(n, n-1, n-2\) one term at a time, you package the entire sequence into a single object \(A(x) = \sum_{n=0}^\infty a_n x^n\), use algebra (geometric series, partial fractions <a href="p69-telescoping.html"><span class="pid">P69</span></a>, or square roots) to solve for \(A(x)\), and read off the coefficient \([x^n]\,A(x)\).</p>
+</section>
+
+<section id="encounter">
+  <h2>2 · Meet the problem: making change for \(10\) rupees with \(1, 2, 5\)-rupee coins</h2>
+  <p>How many ways \(c_n\) can you make change for \(n = 10\) rupees using an unlimited supply of \(1\)-rupee, \(2\)-rupee, and \(5\)-rupee coins (where the order of coins does not matter)?</p>
+  <p>Equivalently, we want the number of nonnegative integer triples \((i, j, k) \in \mathbb{Z}_{\ge 0}^3\) such that</p>
+  \[
+    1 \cdot i \,+\, 2 \cdot j \,+\, 5 \cdot k \;=\; n.
+  \]
+  <p>Instead of listing cases for each \(n\), let us write down a polynomial factor for each coin denomination, where choosing \(m\) coins of value \(v\) is represented by the monomial \(x^{m v}\):</p>
+  <ul>
+    <li><strong>The \(1\)-rupee coin menu:</strong> Choosing \(i \in \{0, 1, 2, 3, \dots\}\) coins contributes \(0, 1, 2, 3, \dots\) rupees:
+      \[
+        1 + x^1 + x^2 + x^3 + \cdots \;=\; \frac{1}{1 - x}.
+      \]
+    </li>
+    <li><strong>The \(2\)-rupee coin menu:</strong> Choosing \(j \in \{0, 1, 2, 3, \dots\}\) coins contributes \(0, 2, 4, 6, \dots\) rupees:
+      \[
+        1 + x^2 + x^4 + x^6 + \cdots \;=\; \frac{1}{1 - x^2}.
+      \]
+    </li>
+    <li><strong>The \(5\)-rupee coin menu:</strong> Choosing \(k \in \{0, 1, 2, \dots\}\) coins contributes \(0, 5, 10, \dots\) rupees:
+      \[
+        1 + x^5 + x^{10} + \cdots \;=\; \frac{1}{1 - x^5}.
+      \]
+    </li>
+  </ul>
+  <p>When we multiply these three menus together, every triple of choices \((i, j, k)\) produces the product monomial \(x^i \cdot x^{2j} \cdot x^{5k} = x^{i + 2j + 5k}\). Therefore, the generating function for \(c_n\) is simply</p>
+  \[
+    C(x) \;=\; \sum_{n=0}^\infty c_n x^n \;=\; \frac{1}{(1 - x)(1 - x^2)(1 - x^5)}.
+  \]
+  <p>Watch how multiplying by \(\frac{1}{1-x}\), then by \(\frac{1}{1-x^2}\) (which adds \(a_{n-2}\) to \(a_n\)), and finally by \(\frac{1}{1-x^5}\) (which adds \(b_{n-5}\) to \(b_n\)) builds the entire table of coin-change counts up to \(n = 10\) in three lines of arithmetic:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Target amount \(n\)</th>
+        <th>\(0\)</th>
+        <th>\(1\)</th>
+        <th>\(2\)</th>
+        <th>\(3\)</th>
+        <th>\(4\)</th>
+        <th>\(5\)</th>
+        <th>\(6\)</th>
+        <th>\(7\)</th>
+        <th>\(8\)</th>
+        <th>\(9\)</th>
+        <th>\(10\)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Only \(\{1\}\) coins:</strong> \([x^n]\frac{1}{1-x}\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+      </tr>
+      <tr>
+        <td><strong>Coins \(\{1, 2\}\):</strong> \([x^n]\frac{1}{(1-x)(1-x^2)}\)</td>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\(2\)</td>
+        <td>\(2\)</td>
+        <td>\(3\)</td>
+        <td>\(3\)</td>
+        <td>\(4\)</td>
+        <td>\(4\)</td>
+        <td>\(5\)</td>
+        <td>\(5\)</td>
+        <td>\(6\)</td>
+      </tr>
+      <tr>
+        <td><strong>Coins \(\{1, 2, 5\}\):</strong> \(c_n = [x^n]\,C(x)\)</td>
+        <td><strong>\(1\)</strong></td>
+        <td><strong>\(1\)</strong></td>
+        <td><strong>\(2\)</strong></td>
+        <td><strong>\(2\)</strong></td>
+        <td><strong>\(3\)</strong></td>
+        <td><strong>\(4\)</strong></td>
+        <td><strong>\(5\)</strong></td>
+        <td><strong>\(6\)</strong></td>
+        <td><strong>\(7\)</strong></td>
+        <td><strong>\(8\)</strong></td>
+        <td><strong>\(10\)</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>For \(n = 10\), the third row simply adds the \(\{1, 2\}\)-coin counts for \(j=0\) fives (\(6\) ways), \(j=1\) five (\(3\) ways for the remaining \(5\) rupees), and \(j=2\) fives (\(1\) way for \(0\) rupees): \(c_{10} = 6 + 3 + 1 = 10\)!</p>
+</section>
+
+<section id="pattern">
+  <h2>3 · Name the move</h2>
+
+  <div class="pattern-box" id="box-p73">
+    <h3>Box P73 · The Generating Function Move</h3>
+    <p>To solve a recurrence relation, evaluate a convolution sum, or count composite structures of size \(n\), associate to the sequence \((a_n)_{n \ge 0}\) its <strong>Ordinary Generating Function (OGF)</strong> (for unlabeled/ordered combinations) or <strong>Exponential Generating Function (EGF)</strong> (for labeled structures):</p>
+    \[
+      A(x) \;:=\; \sum_{n=0}^\infty a_n x^n \qquad\text{or}\qquad \widehat{A}(x) \;:=\; \sum_{n=0}^\infty a_n \frac{x^n}{n!}.
+    \]
+    <p>Convert the recurrence or combinatorial build rules into a single algebraic or differential equation for \(A(x)\), solve for \(A(x)\), and extract the coefficient \([x^n]\,A(x)\) via partial fractions (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) or Newton's generalized binomial series:</p>
+    \[
+      (1 - x)^{-m} \;=\; \sum_{n=0}^\infty \binom{n + m - 1}{n} x^n, \qquad (1 + x)^\alpha \;=\; \sum_{n=0}^\infty \binom{\alpha}{n} x^n \quad\text{where } \binom{\alpha}{n} = \frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}.
+    \]
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="The Generating Function Clothesline Dictionary showing how sequence operations (shift, prefix sum, scaling by n, and convolution) translate into algebraic operations on A(x)">
+      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">The Clothesline Dictionary: Sequence Operations ↔ Algebra on A(x) = ∑ aₙ xⁿ</text>
+      <!-- Left column: Sequence operation on (a_n) -->
+      <rect x="20" y="30" width="250" height="168" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="145" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Sequence Domain: (aₙ)ₙ≥₀</text>
+      <text x="32" y="74" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">1. Right shift:  (0, a₀, a₁, a₂, …)</text>
+      <text x="32" y="102" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">2. Left shift:   (a₁, a₂, a₃, …)</text>
+      <text x="32" y="130" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">3. Index weight: (n · aₙ)</text>
+      <text x="32" y="158" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">4. Prefix sums:  sₙ = a₀ + a₁ + ⋯ + aₙ</text>
+      <text x="32" y="186" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a">5. Convolution:  cₙ = ∑_{i+j=n} aᵢ bⱼ</text>
+
+      <!-- Middle arrows -->
+      <text x="300" y="74" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8b2635" text-anchor="middle">⟷</text>
+      <text x="300" y="102" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8b2635" text-anchor="middle">⟷</text>
+      <text x="300" y="130" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8b2635" text-anchor="middle">⟷</text>
+      <text x="300" y="158" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8b2635" text-anchor="middle">⟷</text>
+      <text x="300" y="186" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8b2635" text-anchor="middle">⟷</text>
+
+      <!-- Right column: Function operation on A(x) -->
+      <rect x="330" y="30" width="250" height="168" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="455" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">Generating Function Domain: A(x)</text>
+      <text x="345" y="74" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">x · A(x)</text>
+      <text x="345" y="102" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">(A(x) − a₀) / x</text>
+      <text x="345" y="130" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">x · A'(x)</text>
+      <text x="345" y="158" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">A(x) / (1 − x)</text>
+      <text x="345" y="186" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">A(x) · B(x)</text>
+    </svg>
+    <figcaption><strong>Fig P73.1.</strong> The Generating Function Dictionary (<a href="p16-isomorphism.html"><span class="pid">P16</span></a>). Shifting an index by \(1\) corresponds to multiplying or dividing by \(x\) (after subtracting the initial term \(a_0\)); summing prefixes \(s_n = \sum_{k=0}^n a_k\) is simply convolving with \((1, 1, 1, \dots)\), which divides \(A(x)\) by \(1 - x\).</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p73a">
+    <h3>Box P73.A · The Four Verification Obligations of Generating Functions</h3>
+    <ol>
+      <li><strong>Select the Right Kernel (OGF vs. EGF):</strong> Use an <strong>OGF</strong> \(\sum a_n x^n\) when combining structures of sizes \(i\) and \(j\) has \(1\) way to merge (\(\sum_{i+j=n} a_i b_j\)). Use an <strong>EGF</strong> \(\sum a_n \frac{x^n}{n!}\) when combining labeled structures of sizes \(i\) and \(j\) requires choosing which \(i\) of the \(n\) labels go to the first structure (\(\sum_{i+j=n} \binom{n}{i} a_i b_j\)).</li>
+      <li><strong>Guard Base Cases When Summing Recurrences:</strong> If a recurrence holds for \(n \ge k\), sum over \(n \ge k\) only (or write \(A(x) = a_0 + a_1 x + \cdots + a_{k-1} x^{k-1} + \sum_{n=k}^\infty a_n x^n\)) so boundary terms \(a_0, \dots, a_{k-1}\) are never dropped or invented!</li>
+      <li><strong>Branch &amp; Root Selection:</strong> When solving a polynomial equation for \(A(x)\) (such as \(x C(x)^2 - C(x) + 1 = 0\)), select the root that is regular at \(x = 0\) and matches \(\lim_{x \to 0} A(x) = a_0\).</li>
+      <li><strong>Coefficient Extraction &amp; Small-Case Audit (<span class="pid">P02</span>):</strong> After extracting a closed-form formula for \([x^n]\,A(x)\), plug in \(n = 0, 1, 2\) and verify that it reproduces \(a_0, a_1, a_2\) exactly.</li>
+    </ol>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 190" width="100%" role="img" aria-label="Euler's infinite product telescoping showing why partitions into distinct parts equal partitions into odd parts">
+      <rect x="0" y="0" width="600" height="190" fill="#ffffff"/>
+      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Euler's Partition Identity via Infinite Product Telescoping (P06 + P69 + P73)</text>
+      <!-- Top box: Distinct parts prod (1 + x^k) -->
+      <rect x="30" y="32" width="540" height="38" rx="4" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
+      <text x="300" y="55" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">Distinct Parts:  D(x) = (1 + x)(1 + x²)(1 + x³)(1 + x⁴)⋯  [use each k at most once]</text>
+      <!-- Middle box: Replace (1 + x^k) = (1 - x^{2k}) / (1 - x^k) and cancel even factors! -->
+      <rect x="30" y="82" width="540" height="44" rx="4" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.5"/>
+      <text x="300" y="101" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Rewrite 1 + xᵏ = (1 − x²ᵏ)/(1 − xᵏ):   [(1−x²)(1−x⁴)(1−x⁶)⋯] / [(1−x)(1−x²)(1−x³)(1−x⁴)⋯]</text>
+      <text x="300" y="118" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">Every even factor (1 − x²ᵏ) in the numerator cancels the even factor in the denominator!</text>
+      <!-- Bottom box: Odd parts prod 1 / (1 - x^{2m-1}) -->
+      <rect x="30" y="138" width="540" height="38" rx="4" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.5"/>
+      <text x="300" y="161" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Odd Parts:  O(x) = 1 / [(1 − x)(1 − x³)(1 − x⁵)(1 − x⁷)⋯]  [use odd parts any number of times]</text>
+    </svg>
+    <figcaption><strong>Fig P73.2.</strong> Euler's Partition Theorem (Exemplar 3). How can the number of partitions of \(n\) into <em>distinct</em> parts always equal the number of partitions of \(n\) into <em>odd</em> parts? Replacing each distinct-part factor \(1 + x^k\) with \(\frac{1 - x^{2k}}{1 - x^k}\) (<a href="p06-compose-identity.html"><span class="pid">P06</span></a>) telescopes away every even factor \(1 - x^{2k}\) in the denominator (<a href="p69-telescoping.html"><span class="pid">P69</span></a>), leaving precisely the odd-part geometric factors \(\frac{1}{1 - x^{2m-1}}\)!</figcaption>
+  </figure>
+
+  <div class="pattern-box" id="box-p73b">
+    <h3>Box P73.B · Three-Key Recognition Diagnosis</h3>
+    <ul>
+      <li><strong>Claim type:</strong> A closed-form formula for a recurrence \(a_n\), a binomial or convolution sum \(\sum_{k=0}^n a_k b_{n-k}\), or an equinumerosity theorem between two restricted partition/counting classes.</li>
+      <li><strong>Problem shape:</strong> Linear shift recurrences \(a_n = c_1 a_{n-1} + c_2 a_{n-2} + g_n\), tree/parenthesis splitting recurrences \(C_{n+1} = \sum_{k=0}^n C_k C_{n-k}\), or integer partition constraints \(n = \lambda_1 + \cdots + \lambda_r\).</li>
+      <li><strong>Tools at hand:</strong> Geometric series \(\frac{1}{1-rx}\), partial fraction decomposition (<a href="p69-telescoping.html"><span class="pid">P69</span></a>), Newton's binomial series \((1 - 4x)^{1/2}\), and infinite product identities.</li>
+    </ul>
+  </div>
+</section>
+<section id="exemplars">
+  <h2>4 · Worked exemplars</h2>
+
+  <h3>Exemplar 1 (Linear Recurrences) · The Tower of Hanoi and Binet's Fibonacci formula without guessing</h3>
+  <p><strong>Problem.</strong></p>
+  <ol>
+    <li>Solve the Tower of Hanoi recurrence \(a_n = 2a_{n-1} + 1\) for \(n \ge 1\) with \(a_0 = 0\).</li>
+    <li>Solve the Fibonacci recurrence \(F_n = F_{n-1} + F_{n-2}\) for \(n \ge 2\) with \(F_0 = 0,\; F_1 = 1\).</li>
+  </ol>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Part 1 (Tower of Hanoi via geometric partial fractions).</strong> Define \(A(x) = \sum_{n=0}^\infty a_n x^n\). Since \(a_0 = 0\) and the recurrence holds for \(n \ge 1\), multiply \(a_n = 2a_{n-1} + 1\) by \(x^n\) and sum over \(n \ge 1\):</p>
+  \[
+    \sum_{n=1}^\infty a_n x^n \;=\; 2x \sum_{n=1}^\infty a_{n-1} x^{n-1} \,+\, \sum_{n=1}^\infty x^n
+    \quad\Longleftrightarrow\quad
+    A(x) \;=\; 2x\,A(x) + \frac{x}{1 - x}.
+  \]
+  <p>Solving for \(A(x)\) and splitting by partial fractions (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) gives</p>
+  \[
+    A(x) \;=\; \frac{x}{(1 - 2x)(1 - x)} \;=\; \frac{1}{1 - 2x} - \frac{1}{1 - x} \;=\; \sum_{n=0}^\infty \bigl(2^n - 1\bigr) x^n
+    \quad\implies\quad a_n \;=\; 2^n - 1.
+  \]
+
+  <p><strong>Part 2 (Fibonacci numbers via quadratic root factoring).</strong> Define \(F(x) = \sum_{n=0}^\infty F_n x^n\). Guarding the base cases \(F_0 = 0\) and \(F_1 = 1\) (Obligation 2 of Box P73.A), multiply \(F_n = F_{n-1} + F_{n-2}\) by \(x^n\) and sum over \(n \ge 2\):</p>
+  \[
+    \underbrace{F(x) - F_0 - F_1 x}_{\sum_{n \ge 2} F_n x^n} \;=\; x\underbrace{\bigl(F(x) - F_0\bigr)}_{\sum_{n \ge 2} F_{n-1} x^{n-1}} \,+\, x^2 \underbrace{F(x)}_{\sum_{n \ge 2} F_{n-2} x^{n-2}}
+    \quad\implies\quad
+    F(x) \;=\; \frac{x}{1 - x - x^2}.
+  \]
+  <p>Factor the denominator as \(1 - x - x^2 = (1 - \varphi x)(1 - \hat{\varphi} x)\) where \(\varphi = \frac{1 + \sqrt{5}}{2}\) and \(\hat{\varphi} = \frac{1 - \sqrt{5}}{2}\) (since \(\varphi + \hat{\varphi} = 1\) and \(\varphi\hat{\varphi} = -1\)). Partial fractions immediately give</p>
+  \[
+    F(x) \;=\; \frac{1}{\varphi - \hat{\varphi}} \left(\frac{1}{1 - \varphi x} - \frac{1}{1 - \hat{\varphi} x}\right) \;=\; \sum_{n=0}^\infty \frac{\varphi^n - \hat{\varphi}^n}{\sqrt{5}}\,x^n
+    \quad\implies\quad F_n \;=\; \frac{\varphi^n - \hat{\varphi}^n}{\sqrt{5}}.
+  \]
+
+  <h3>Exemplar 2 (Nonlinear Convolution Recurrences) · The Catalan numbers \(C_n = \frac{1}{n+1}\binom{2n}{n}\)</h3>
+  <p><strong>Problem.</strong> Let \(C_n\) denote the number of valid parenthesizations of \(n\) pairs of parentheses (or full binary trees with \(n\) internal nodes), where \(C_0 = 1\) and splitting at the first matched pair gives the convolution recurrence</p>
+  \[
+    C_{n+1} \;=\; \sum_{k=0}^n C_k\,C_{n-k} \qquad (n \ge 0).
+  \]
+  <p>Find the exact closed-form formula for \(C_n\).</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Turn the convolution into \(C(x)^2\)).</strong> Let \(C(x) = \sum_{n=0}^\infty C_n x^n\). By On-ramp 2, the right-hand side \(\sum_{k=0}^n C_k C_{n-k}\) is the exact coefficient of \(x^n\) in the square \(C(x)^2\)! Multiplying \(C_{n+1} = [x^n]\,C(x)^2\) by \(x^{n+1}\) and summing over \(n \ge 0\) (with \(C_0 = 1\)) gives the quadratic equation</p>
+  \[
+    C(x) - 1 \;=\; x\,C(x)^2 \quad\Longleftrightarrow\quad x\,C(x)^2 - C(x) + 1 \;=\; 0.
+  \]
+
+  <p><strong>Step 2 (Select the regular branch and expand \(\sqrt{1 - 4x}\)).</strong> The quadratic formula gives \(C(x) = \frac{1 \pm \sqrt{1 - 4x}}{2x}\). By Obligation 3 of Box P73.A, as \(x \to 0\) we need \(C(x) \to C_0 = 1\): the \(+\) sign gives \(\frac{2}{2x} \to \infty\), whereas the \(-\) sign gives \(\frac{1 - (1 - 2x - 2x^2 - \cdots)}{2x} \to 1\). Thus \(C(x) = \frac{1 - \sqrt{1 - 4x}}{2x}\). Expanding \((1 - 4x)^{1/2}\) by Newton's generalized binomial theorem:</p>
+  \[
+    \binom{1/2}{m} (-4x)^m \;=\; \frac{(\frac{1}{2})(-\frac{1}{2})(-\frac{3}{2})\cdots(\frac{3}{2} - m)}{m!}(-4)^m x^m \;=\; -\frac{2}{m} \binom{2m - 2}{m - 1} x^m \qquad (m \ge 1).
+  \]
+  <p>Substituting \(m = n + 1\) into \(C(x) = \frac{1 - (1 - 4x)^{1/2}}{2x}\) yields the famous Catalan formula:</p>
+  \[
+    C_n \;=\; [x^n]\,C(x) \;=\; \frac{1}{n + 1} \binom{2n}{n} \qquad \bigl(C_0..C_5 = 1, 1, 2, 5, 14, 42\bigr).
+  \]
+
+  <h3>Exemplar 3 (Infinite Products &amp; Partitions) · Euler's theorem: odd parts equal distinct parts</h3>
+  <p><strong>Problem.</strong> For any positive integer \(n\), prove <strong>Euler's Partition Theorem (1748)</strong>: the number of partitions of \(n\) into <strong>distinct</strong> positive integers equals the number of partitions of \(n\) into <strong>odd</strong> positive integers (possibly repeated).</p>
+
+  <p><strong>Solution.</strong></p>
+  <p><strong>Step 1 (Write the two infinite product generating functions).</strong></p>
+  <ul>
+    <li><strong>Distinct parts \(D(x)\):</strong> Each positive integer \(k \ge 1\) can be chosen either \(0\) times (\(x^0 = 1\)) or \(1\) time (\(x^k\)), so
+      \[
+        D(x) \;=\; (1 + x)(1 + x^2)(1 + x^3)(1 + x^4)\cdots \;=\; \prod_{k=1}^\infty \bigl(1 + x^k\bigr).
+      \]
+    </li>
+    <li><strong>Odd parts \(O(x)\):</strong> Each odd integer \(2m - 1 \ge 1\) can be chosen \(0, 1, 2, \dots\) times, contributing \(1 + x^{2m-1} + x^{2(2m-1)} + \cdots = \frac{1}{1 - x^{2m-1}}\), so
+      \[
+        O(x) \;=\; \frac{1}{(1 - x)(1 - x^3)(1 - x^5)(1 - x^7)\cdots} \;=\; \prod_{m=1}^\infty \frac{1}{1 - x^{2m-1}}.
+      \]
+    </li>
+  </ul>
+
+  <p><strong>Step 2 (Compose with the difference of squares and telescope).</strong> Using the identity \(1 + x^k = \frac{1 - x^{2k}}{1 - x^k}\) (<a href="p06-compose-identity.html"><span class="pid">P06</span></a>) on every factor of \(D(x)\) gives (Fig P73.2):</p>
+  \[
+    D(x) \;=\; \prod_{k=1}^\infty \frac{1 - x^{2k}}{1 - x^k} \;=\; \frac{(1 - x^2)(1 - x^4)(1 - x^6)(1 - x^8)\cdots}{(1 - x)(1 - x^2)(1 - x^3)(1 - x^4)(1 - x^5)(1 - x^6)\cdots}.
+  \]
+  <p>The numerator contains every <em>even</em> factor \((1 - x^{2k})\), while the denominator contains <em>all</em> factors \((1 - x^k)\). Canceling the even factors (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) leaves only the odd factors in the denominator: \(D(x) = O(x)\)!</p>
+</section>
+
+<section id="fails">
+  <h2>5 · When the trick breaks</h2>
+
+  <div class="aside">
+    <p><strong>Exhibit A — Picking the spurious root branch of an algebraic generating function.</strong> In Exemplar 2, solving \(x C(x)^2 - C(x) + 1 = 0\) gave two algebraic roots \(C_\pm(x) = \frac{1 \pm \sqrt{1 - 4x}}{2x}\) (Fig P73.3, left). If you pick the \(+\) sign, expanding at \(x = 0\) gives \(C_+(x) = x^{-1} - 1 - x - 2x^2 - 5x^3 - \cdots\), which has a pole \(x^{-1}\) and negative coefficients!</p>
+    <p><em>Mitigation:</em> Always test \(\lim_{x \to 0} A(x) = a_0\) (and \(A'(0) = a_1\)) to select the unique physical power-series branch (Obligation 3 of Box P73.A).</p>
+    <p><em>Price:</em> One L'Hôpital or Taylor check at \(x = 0\).</p>
+    <p><em>Default:</em> Never extract coefficients from a multi-valued radical until the \(x = 0\) value is verified.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: The regular Catalan branch C_-(x) passing through (0,1) vs the singular branch C_+(x) ~ 1/x. Right: OGF unlabeled convolution vs EGF labeled binomial convolution">
+      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
+      <!-- Left panel: Exhibit A — Regular vs Singular Branch of x C^2 - C + 1 = 0 -->
+      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Exhibit A: Selecting the Regular Branch at x = 0</text>
+      <line x1="35" y1="165" x2="275" y2="165" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="65" y1="178" x2="65" y2="28" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- Vertical line x = 1/4 at x_px = 215 (where the two branches meet at C = 2, y_px = 95!) -->
+      <line x1="215" y1="30" x2="215" y2="165" stroke="#5a5550" stroke-width="1.2" stroke-dasharray="3,3"/>
+      <!-- Regular branch C_-(x): from (0, 1)->(65, 130) to (1/4, 2)->(215, 95) -->
+      <path d="M 65 130 Q 165 122 215 95" fill="none" stroke="#8b2635" stroke-width="2.8"/>
+      <!-- Spurious branch C_+(x): from (68, 30) down to (215, 95) -->
+      <path d="M 75 32 Q 125 82 215 95" fill="none" stroke="#b85d19" stroke-width="2.2" stroke-dasharray="4,2"/>
+      <circle cx="65" cy="130" r="4.5" fill="#8b2635"/>
+      <circle cx="215" cy="95" r="4" fill="#1a1a1a"/>
+      <text x="115" y="142" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635">C₋(0) = 1 (Valid OGF!)</text>
+      <text x="155" y="55" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19">C₊(x) ∼ 1/x (Pole!)</text>
+      <text x="215" y="182" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">x = 1/4</text>
+      <text x="155" y="196" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">Only C₋(x) = (1 − √(1−4x))/(2x) matches C₀ = 1</text>
+
+      <!-- Right panel: Exhibit B — OGF vs EGF Convolution -->
+      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Exhibit B: Unlabeled (OGF) vs. Labeled (EGF) Merge</text>
+      <rect x="310" y="30" width="270" height="72" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="445" y="48" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Unlabeled Objects (Coins, Trees, Words): Use OGF</text>
+      <text x="445" y="68" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">cₙ = ∑_{k=0}ⁿ aₖ b_{n−k}   ⟷   C(x) = A(x)·B(x)</text>
+      <text x="445" y="88" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">No label-splitting choice needed when merging sizes k and n−k</text>
+
+      <rect x="310" y="114" width="270" height="72" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
+      <text x="445" y="132" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Labeled Objects (Permutations, Graphs): Use EGF</text>
+      <text x="445" y="152" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">cₙ = ∑_{k=0}ⁿ C(n,k) aₖ b_{n−k}   ⟷   Ĉ(x) = Â(x)·B̂(x)</text>
+      <text x="445" y="172" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">xⁿ/n! absorbs C(n,k) = n! / (k!(n−k)!) automatically!</text>
+    </svg>
+    <figcaption><strong>Fig P73.3.</strong> <em>Left (Exhibit A):</em> Of the two algebraic roots of \(x C(x)^2 - C(x) + 1 = 0\), only the lower branch \(C_-(x) = \frac{1 - \sqrt{1-4x}}{2x}\) is analytic at \(x = 0\) with \(C_-(0) = 1\). <em>Right (Exhibit B):</em> When merging labeled structures of sizes \(k\) and \(n - k\), there are \(\binom{n}{k}\) ways to distribute the \(n\) labels; dividing by \(n!\) in the Exponential Generating Function \(\widehat{A}(x) = \sum a_n \frac{x^n}{n!}\) absorbs the factorials automatically.</figcaption>
+  </figure>
+
+  <div class="aside">
+    <p><strong>Exhibit B — Using an OGF instead of an EGF when objects carry distinct labels.</strong> Suppose you want to count <strong>derangements</strong> \(D_n\) (permutations of \(\{1, \dots, n\}\) with zero fixed points). Grouping all \(n!\) permutations by the number \(k\) of fixed points gives \(n! = \sum_{k=0}^n \binom{n}{k} D_{n-k}\). Because of the binomial factor \(\binom{n}{k}\), this is <em>not</em> an OGF convolution (in fact, \(\sum D_n x^n\) has radius of convergence \(0\)!). Dividing by \(n!\) turns the identity into \(\frac{1}{n!} n! = \sum_{k=0}^n \frac{1}{k!} \frac{D_{n-k}}{(n-k)!}\), which is the exact product of the EGFs \(\sum \frac{x^n}{n!} = \frac{1}{1-x}\) and \(e^x \widehat{D}(x)\), giving \(\widehat{D}(x) = \frac{e^{-x}}{1 - x}\)!</p>
+    <p><em>Mitigation:</em> Whenever a recurrence contains \(\binom{n}{k}\), switch immediately to the Exponential Generating Function \(\widehat{A}(x) = \sum a_n \frac{x^n}{n!}\) (Obligation 1 of Box P73.A).</p>
+    <p><em>Price:</em> Multiplying the final extracted coefficient \([x^n]\,\widehat{A}(x)\) by \(n!\).</p>
+    <p><em>Default:</em> Unlabeled \(\implies\) OGF (\(\sum a_n x^n\)); Labeled \(\implies\) EGF (\(\sum a_n \frac{x^n}{n!}\)).</p>
+  </div>
+
+  <div class="aside">
+    <p><strong>Exhibit C — Dropping base-case boundary terms when shifting indices.</strong> In the Fibonacci recurrence \(F_n = F_{n-1} + F_{n-2}\) (\(n \ge 2\)), if you carelessly write \(\sum_{n=0}^\infty F_n x^n = x \sum_{n=0}^\infty F_n x^n + x^2 \sum_{n=0}^\infty F_n x^n\), you get \(F(x)(1 - x - x^2) = 0 \implies F(x) = 0\)! That happened because you applied the recurrence at \(n = 1\) (where \(F_1 = 1\) is a base case, not \(F_0 + F_{-1}\)).</p>
+    <p><em>Mitigation:</em> Always peel off the base-case terms \(a_0 + a_1 x\) on the left-hand side before substituting the recurrence for \(n \ge 2\) (Obligation 2 of Box P73.A).</p>
+    <p><em>Price:</em> Writing \(F(x) - F_0 - F_1 x\) explicitly.</p>
+    <p><em>Default:</em> Check your rational function at \(x = 0\) and its first derivative at \(x = 0\) to verify \(a_0\) and \(a_1\).</p>
+  </div>
+
+  <aside class="aside warn">
+    <p><strong>Honest scope of this chapter.</strong> Every identity in this chapter holds in the ring of <em>formal power series</em> \(\mathbb{Q}[[x]]\), where coefficient extraction \([x^n]\) is a finite algebraic operation that requires no convergence analysis at all. When you also want <em>asymptotic growth rates</em> as \(n \to \infty\) (such as \(C_n \sim \frac{4^n}{\sqrt{\pi n^3}}\) from the singularity at \(x = 1/4\) in Fig P73.3), you treat \(A(z)\) as an analytic function of a complex variable \(z \in \mathbb{C}\) and apply Cauchy's integral formula (<a href="p27-complex-for-integers.html"><span class="pid">P27</span> · Complex analysis for integer problems</a>).</p>
+  </aside>
+</section>
+
+<section id="next">
+  <h2>6 · What to try next</h2>
+  <ul>
+    <li><strong>When an inductive proof of a closed-form formula extracted from a generating function stalls because the induction hypothesis is slightly too weak:</strong> Step forward to the next chapter, <a href="p74-strengthen-the-claim.html"><span class="pid">P74</span> · Strengthen the claim</a>.</li>
+    <li><strong>When you want to count derangements \(D_n\) or surjections directly by alternating over subsets of fixed points:</strong> Compare the EGF \(\frac{e^{-x}}{1-x}\) with <a href="p76-inclusion-exclusion.html"><span class="pid">P76</span> · Inclusion-exclusion</a>.</li>
+    <li><strong>When you want to extract asymptotics of \([z^n]\,A(z)\) via contour integration around the nearest pole or branch point:</strong> Escalate to Tier 4's <a href="p27-complex-for-integers.html"><span class="pid">P27</span> · Complex analysis for integer problems</a>.</li>
+  </ul>
+</section>
+<section id="lineage">
+  <h2>7 · Lineage interlude</h2>
+  <aside class="aside">
+    <p><strong>From De Moivre's recurrent series and Euler's partition products to Laplace, Polya, and Flajolet (1718 – 2009).</strong></p>
+    <ul>
+      <li><strong>Abraham de Moivre (1718–1730) &amp; Daniel Bernoulli (1728):</strong> In <em>The Doctrine of Chances</em> and <em>Miscellanea Analytica</em>, De Moivre introduced "recurrent series" (\(\sum a_n x^n\) satisfying a rational denominator \(1 - c_1 x - c_2 x^2\)) to solve probability problems in dice games and derived the closed-form formula for the Fibonacci numbers over a century before Binet (1843).</li>
+      <li><strong>Leonhard Euler (1748–1751):</strong> In his <em>Introductio in analysin infinitorum</em>, Euler turned infinite products \(\prod (1 - x^k)^{-1}\) into a telescope into additive number theory — proving the odd-equals-distinct partition identity (Exemplar 3), discovering the Pentagonal Number Theorem \(\prod (1 - x^k) = \sum (-1)^m x^{m(3m-1)/2}\), and introducing the Catalan numbers \(C_n\) to count triangulations of a convex \((n+2)\)-gon.</li>
+      <li><strong>Pierre-Simon Laplace (1812):</strong> Laplace coined the name <strong>generating function</strong> (<em>fonction génératrice</em>) in his <em>Théorie analytique des probabilités</em>, systematically developing the calculus of finite differences via algebraic operators on \(\sum a_n x^n\) and paving the way for the continuous Laplace and Fourier transforms (<a href="p24-waves.html"><span class="pid">P24</span></a>).</li>
+      <li><strong>George Pólya (1937), Herbert Wilf (1990) &amp; Philippe Flajolet–Robert Sedgewick (2009):</strong> Pólya combined permutation group symmetry with generating functions to count chemical isomers; Wilf popularized the "clothesline" philosophy in <em>generatingfunctionology</em>; and Flajolet and Sedgewick created <em>Analytic Combinatorics</em>, turning the Symbolic construction of data structures directly into complex-analytic asymptotics (<a href="p27-complex-for-integers.html"><span class="pid">P27</span></a>).</li>
+    </ul>
+  </aside>
+</section>
+
+<section id="exercises">
+  <h2>8 · Exercises</h2>
+
+  <div class="exercise">
+    <p><strong>Exercise P73.1 (●○○ — Solving a second-order recurrence via partial fractions).</strong> Consider the sequence \((a_n)_{n \ge 0}\) defined by \(a_0 = 1,\; a_1 = 4\), and</p>
+    \[
+      a_n \;=\; 5a_{n-1} - 6a_{n-2} \qquad (n \ge 2).
+    \]
+    <ol>
+      <li>Form the ordinary generating function \(A(x) = \sum_{n=0}^\infty a_n x^n\). Carefully guard the base cases \(a_0 = 1\) and \(a_1 = 4\) to show that \((1 - 5x + 6x^2) A(x) = 1 - x\).</li>
+      <li>Factor \(1 - 5x + 6x^2 = (1 - 2x)(1 - 3x)\), decompose \(A(x)\) into partial fractions, extract the exact formula for \(a_n = [x^n]\,A(x)\), and check \(n = 0, 1, 2, 3\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>Write \(A(x) - 1 - 4x = 5x\bigl(A(x) - 1\bigr) - 6x^2 A(x)\). For partial fractions, solve \(\frac{1 - x}{(1 - 2x)(1 - 3x)} = \frac{\alpha}{1 - 2x} + \frac{\beta}{1 - 3x}\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Rational equation for \(A(x)\).</strong> Multiplying \(a_n = 5a_{n-1} - 6a_{n-2}\) by \(x^n\) and summing over \(n \ge 2\) gives</p>
+      \[
+        A(x) - a_0 - a_1 x \;=\; 5x\bigl(A(x) - a_0\bigr) - 6x^2 A(x).
+      \]
+      <p>Substituting \(a_0 = 1\) and \(a_1 = 4\) yields \(A(x) - 1 - 4x = 5x A(x) - 5x - 6x^2 A(x)\), so</p>
+      \[
+        \bigl(1 - 5x + 6x^2\bigr) A(x) \;=\; 1 + 4x - 5x \;=\; 1 - x.
+      \]
+      <p><strong>2. Partial fractions and coefficient extraction.</strong> Factoring \(1 - 5x + 6x^2 = (1 - 2x)(1 - 3x)\), we set</p>
+      \[
+        A(x) \;=\; \frac{1 - x}{(1 - 2x)(1 - 3x)} \;=\; \frac{\alpha}{1 - 2x} + \frac{\beta}{1 - 3x}.
+      \]
+      <p>Clearing denominators gives \(1 - x = \alpha(1 - 3x) + \beta(1 - 2x)\). At \(x = 1/2\), \(\frac{1}{2} = \alpha(-\frac{1}{2}) \implies \alpha = -1\); at \(x = 1/3\), \(\frac{2}{3} = \beta(\frac{1}{3}) \implies \beta = 2\). Expanding the two geometric series gives</p>
+      \[
+        A(x) \;=\; \frac{2}{1 - 3x} - \frac{1}{1 - 2x} \;=\; \sum_{n=0}^\infty \bigl(2 \cdot 3^n - 2^n\bigr) x^n \quad\implies\quad a_n \;=\; 2 \cdot 3^n - 2^n.
+      \]
+      <p>Check: \(a_0 = 2 - 1 = 1\), \(a_1 = 6 - 2 = 4\), \(a_2 = 18 - 4 = 14 = 5(4) - 6(1)\), \(a_3 = 54 - 8 = 46 = 5(14) - 6(4)\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P73.2 (●●○ — Vandermonde's convolution and constrained compositions).</strong></p>
+    <ol>
+      <li>By comparing the coefficient of \(x^k\) on both sides of the polynomial identity \((1 + x)^m (1 + x)^n = (1 + x)^{m+n}\), prove <strong>Vandermonde's Identity</strong>:
+        \[
+          \sum_{j=0}^k \binom{m}{j}\binom{n}{k - j} \;=\; \binom{m + n}{k},
+        \]
+        and specialize to \(m = n = k\) to evaluate \(\sum_{j=0}^n \binom{n}{j}^2\).</li>
+      <li>Using \((1 - x)^{-4} = \sum_{r=0}^\infty \binom{r + 3}{3} x^r\), find the number of ordered \(4\)-tuples of positive integers \((x_1, x_2, x_3, x_4) \in \mathbb{Z}_{\ge 1}^4\) such that \(x_1 + x_2 + x_3 + x_4 = 12\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>For Part 1, use \(\binom{n}{n-j} = \binom{n}{j}\) when \(m = n = k\). For Part 2, each \(x_i \ge 1\) has generating function \(x + x^2 + x^3 + \cdots = \frac{x}{1 - x}\), so the \(4\)-tuple has generating function \(\bigl(\frac{x}{1-x}\bigr)^4 = x^4 (1 - x)^{-4}\).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Vandermonde's identity.</strong> Expanding \((1 + x)^m = \sum_{j=0}^m \binom{m}{j} x^j\) and \((1 + x)^n = \sum_{i=0}^n \binom{n}{i} x^i\), the Cauchy product rule gives</p>
+      \[
+        [x^k]\bigl((1 + x)^m (1 + x)^n\bigr) \;=\; \sum_{j=0}^k \binom{m}{j}\binom{n}{k - j},
+      \]
+      <p>while the right-hand side \((1 + x)^{m+n}\) has \([x^k]\,(1 + x)^{m+n} = \binom{m+n}{k}\). Equating the two coefficients proves Vandermonde's identity! Setting \(m = n = k\) and using symmetry \(\binom{n}{n-j} = \binom{n}{j}\) yields \(\sum_{j=0}^n \binom{n}{j}^2 = \binom{2n}{n}\).</p>
+      <p><strong>2. Constrained compositions via \([x^{12}]\).</strong> Each variable \(x_i \in \{1, 2, 3, \dots\}\) contributes a factor \(x + x^2 + x^3 + \cdots = \frac{x}{1 - x}\). Multiplying across all \(4\) variables gives</p>
+      \[
+        [x^{12}]\,\left(\frac{x}{1 - x}\right)^4 \;=\; [x^{12}]\,\bigl(x^4 (1 - x)^{-4}\bigr) \;=\; [x^8]\,(1 - x)^{-4} \;=\; \binom{8 + 3}{3} \;=\; \binom{11}{3} \;=\; \frac{11 \times 10 \times 9}{6} \;=\; 165.
+      \]
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P73.3 (●●● — Counting derangements via Exponential Generating Functions).</strong> A <strong>derangement</strong> of \(\{1, 2, \dots, n\}\) is a permutation with no fixed points (\(\pi(i) \neq i\) for all \(i\)). Let \(D_n\) be the number of derangements of \(n\) elements (with \(D_0 = 1\)).</p>
+    <ol>
+      <li>Every permutation of \(\{1, \dots, n\}\) is uniquely formed by choosing \(k \in \{0, \dots, n\}\) fixed points in \(\binom{n}{k}\) ways and deranging the remaining \(n - k\) elements in \(D_{n-k}\) ways, so \(n! = \sum_{k=0}^n \binom{n}{k} D_{n-k}\). Divide both sides by \(n!\) and multiply by \(x^n\) to prove that the Exponential Generating Function \(\widehat{D}(x) = \sum_{n=0}^\infty D_n \frac{x^n}{n!}\) satisfies
+        \[
+          \widehat{D}(x) \;=\; \frac{e^{-x}}{1 - x}.
+        \]
+      </li>
+      <li>Extract \([x^n]\,\widehat{D}(x)\) by convolving \(e^{-x} = \sum_{k=0}^\infty \frac{(-1)^k}{k!} x^k\) with \(\frac{1}{1 - x} = \sum_{j=0}^\infty x^j\) (recall Fig P73.1, rule 4!) to derive the exact formula for \(D_n\), and compute \(D_1, D_2, D_3, D_4, D_5\).</li>
+    </ol>
+    <details>
+      <summary>Hint</summary>
+      <p>By Rule 4 of the Clothesline Dictionary (Fig P73.1), dividing any power series \(\sum c_k x^k\) by \(1 - x\) produces the prefix sums \(\sum_{k=0}^n c_k\) as the coefficient of \(x^n\)!</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Deriving \(\widehat{D}(x) = \frac{e^{-x}}{1 - x}\).</strong> Dividing \(n! = \sum_{k=0}^n \frac{n!}{k!(n-k)!} D_{n-k}\) by \(n!\) gives</p>
+      \[
+        1 \;=\; \sum_{k=0}^n \frac{1}{k!} \cdot \frac{D_{n-k}}{(n - k)!}.
+      \]
+      <p>Summing both sides against \(x^n\) over \(n \ge 0\), the left-hand side is \(\sum_{n=0}^\infty x^n = \frac{1}{1 - x}\), while the right-hand side is the Cauchy product of \(\sum_{k=0}^\infty \frac{x^k}{k!} = e^x\) and \(\sum_{m=0}^\infty \frac{D_m}{m!} x^m = \widehat{D}(x)\). Thus \(\frac{1}{1 - x} = e^x \widehat{D}(x) \implies \widehat{D}(x) = \frac{e^{-x}}{1 - x}\).</p>
+      <p><strong>2. Coefficient extraction.</strong> Since \(e^{-x} = \sum_{k=0}^\infty \frac{(-1)^k}{k!} x^k\), dividing by \(1 - x\) takes the prefix sum of coefficients up to \(n\):</p>
+      \[
+        \frac{D_n}{n!} \;=\; [x^n]\,\frac{e^{-x}}{1 - x} \;=\; \sum_{k=0}^n \frac{(-1)^k}{k!} \quad\implies\quad D_n \;=\; n! \sum_{k=0}^n \frac{(-1)^k}{k!}.
+      \]
+      <p>Evaluating for \(n = 1..5\): \(D_1 = 0\), \(D_2 = 2(1 - 1 + \frac{1}{2}) = 1\), \(D_3 = 6(\frac{1}{2} - \frac{1}{6}) = 2\), \(D_4 = 4(2) + 1 = 9\), and \(D_5 = 5(9) - 1 = 44\).</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P73.4 (◆ — Pattern-unknown diagnosis).</strong> Prove using generating functions and telescoping infinite products that every nonnegative integer \(n \ge 0\) can be written in <strong>uniquely one way</strong> as a sum of distinct powers of \(2\) (binary representation \(n = \sum_{k \ge 0} b_k 2^k\) with \(b_k \in \{0, 1\}\)), and in <strong>uniquely one way</strong> in base \(3\) (\(n = \sum_{k \ge 0} d_k 3^k\) with \(d_k \in \{0, 1, 2\}\)).</p>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Pattern diagnosis (<a href="p73-generating-functions.html"><span class="pid">P73</span> · Generating functions</a> + <a href="p06-compose-identity.html"><span class="pid">P06</span> · Compose with identity</a> + <a href="p69-telescoping.html"><span class="pid">P69</span> · Telescoping</a>).</strong> Let \(b(n)\) be the number of ways to write \(n\) as a sum of distinct powers of \(2\) (\(2^0, 2^1, 2^2, \dots\)). For each power \(2^k\), we either exclude it (\(x^0 = 1\)) or include it once (\(x^{2^k}\)). Thus the generating function for \(b(n)\) is the infinite product</p>
+      \[
+        B(x) \;=\; \sum_{n=0}^\infty b(n) x^n \;=\; (1 + x)(1 + x^2)(1 + x^4)(1 + x^8)\cdots \;=\; \prod_{k=0}^\infty \bigl(1 + x^{2^k}\bigr).
+      \]
+      <p><strong>2. Telescoping the binary product.</strong> Applying the difference-of-squares identity \(1 + y = \frac{1 - y^2}{1 - y}\) with \(y = x^{2^k}\) (so \(y^2 = x^{2^{k+1}}\)), the first \(K\) factors telescope completely:</p>
+      \[
+        \prod_{k=0}^{K-1} \bigl(1 + x^{2^k}\bigr) \;=\; \frac{1 - x^2}{1 - x} \cdot \frac{1 - x^4}{1 - x^2} \cdot \frac{1 - x^8}{1 - x^4} \cdots \frac{1 - x^{2^K}}{1 - x^{2^{K-1}}} \;=\; \frac{1 - x^{2^K}}{1 - x}.
+      \]
+      <p>As \(K \to \infty\), the term \(x^{2^K}\) has degree \(2^K \to \infty\) and vanishes in \(\mathbb{Q}[[x]]\), leaving</p>
+      \[
+        B(x) \;=\; \frac{1}{1 - x} \;=\; \sum_{n=0}^\infty 1 \cdot x^n \quad\implies\quad b(n) \;=\; 1 \;\;\text{for every } n \ge 0!
+      \]
+      <p><strong>3. Base-\(3\) uniqueness via \(1 + y + y^2 = \frac{1 - y^3}{1 - y}\).</strong> In base \(3\), each power \(3^k\) can be chosen \(d_k \in \{0, 1, 2\}\) times, contributing \(1 + x^{3^k} + x^{2 \cdot 3^k} = \frac{1 - x^{3^{k+1}}}{1 - x^{3^k}}\). Multiplying over \(k \ge 0\) telescopes identically to \(\prod_{k=0}^\infty \frac{1 - x^{3^{k+1}}}{1 - x^{3^k}} = \frac{1}{1 - x} = \sum_{n=0}^\infty 1 \cdot x^n\), proving every \(n \ge 0\) has a unique ternary representation.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Exercise P73.5 (◐ — Exploration: Euler's Pentagonal Number Theorem and fast partition recurrence).</strong> Let \(p(n)\) be the total number of unrestricted partitions of \(n\) (with \(p(0) = 1\)), whose generating function is \(P(x) = \sum_{n=0}^\infty p(n) x^n = \prod_{k=1}^\infty \frac{1}{1 - x^k}\). Euler discovered that the reciprocal product \(\prod_{k=1}^\infty (1 - x^k)\) is astonishingly sparse — all coefficients vanish except at the <strong>generalized pentagonal numbers</strong> \(\omega(m) = \frac{m(3m \mp 1)}{2} \in \{1, 2, 5, 7, 12, 15, 22, 26, \dots\}\):</p>
+    \[
+      \prod_{k=1}^\infty (1 - x^k) \;=\; 1 + \sum_{m=1}^\infty (-1)^m \bigl(x^{m(3m-1)/2} + x^{m(3m+1)/2}\bigr) \;=\; 1 - x - x^2 + x^5 + x^7 - x^{12} - x^{15} + \cdots.
+    \]
+    <p>Multiply this series by \(P(x) = \sum_{n=0}^\infty p(n) x^n\) and extract \([x^n]\) on both sides of \(\bigl(\prod (1 - x^k)\bigr) P(x) = 1\) for \(n \ge 1\) to derive Euler's recurrence for \(p(n)\), and use it to compute \(p(1), p(2), p(3), p(4), p(5), p(6), p(7)\) by hand!</p>
+    <details>
+      <summary>Hint</summary>
+      <p>For \(n \ge 1\), the coefficient of \(x^n\) in \(1\) is \(0\), while on the left it is \(p(n) - p(n-1) - p(n-2) + p(n-5) + p(n-7) - \cdots\) (stopping as soon as the argument \(n - \omega(m)\) becomes negative).</p>
+    </details>
+    <details>
+      <summary>Worked answer</summary>
+      <p><strong>1. Extracting Euler's \(O(\sqrt{n})\)-term recurrence.</strong> Since \(P(x) \cdot \prod_{k=1}^\infty (1 - x^k) = 1\), for every \(n \ge 1\) the coefficient of \(x^n\) in the product is \(0\):</p>
+      \[
+        0 \;=\; [x^n]\Bigl(\bigl(1 - x - x^2 + x^5 + x^7 - x^{12} - \cdots\bigr) \sum_{j=0}^\infty p(j) x^j\Bigr)
+        \;=\; p(n) - p(n-1) - p(n-2) + p(n-5) + p(n-7) - \cdots,
+      \]
+      <p>which rearranges into</p>
+      \[
+        p(n) \;=\; p(n - 1) + p(n - 2) - p(n - 5) - p(n - 7) + p(n - 12) + p(n - 15) - \cdots \qquad (p(0) = 1,\; p(k) = 0 \text{ for } k &lt; 0).
+      \]
+      <p><strong>2. Computing \(p(1)\) through \(p(7)\) by hand.</strong></p>
+      <ul>
+        <li>\(p(1) = p(0) = 1\).</li>
+        <li>\(p(2) = p(1) + p(0) = 1 + 1 = 2\).</li>
+        <li>\(p(3) = p(2) + p(1) = 2 + 1 = 3\).</li>
+        <li>\(p(4) = p(3) + p(2) = 3 + 2 = 5\).</li>
+        <li>\(p(5) = p(4) + p(3) - p(0) = 5 + 3 - 1 = 7\).</li>
+        <li>\(p(6) = p(5) + p(4) - p(1) = 7 + 5 - 1 = 11\).</li>
+        <li>\(p(7) = p(6) + p(5) - p(2) - p(0) = 11 + 7 - 2 - 1 = 15\).</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p72-monovariants.html">← Previous: P72 · Monovariants</a> ·
+    <a href="p74-strengthen-the-claim.html">Next: P74 · Strengthen the claim →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>
