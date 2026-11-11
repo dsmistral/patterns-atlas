@@ -1,0 +1,104 @@
+{
+ "lab": "p38-v1b-pagetext",
+ "date": "2026-11-11",
+ "gates": [
+  {
+   "name": "B1 kicker",
+   "pass": true,
+   "note": "kicker line byte-exact"
+  },
+  {
+   "name": "B2 title",
+   "pass": true,
+   "note": "title and h1 exact"
+  },
+  {
+   "name": "B3 href multiset",
+   "pass": true,
+   "note": "15 anchors, multiset exact (p10 added by graft G1), no self-link, P40 plain text only"
+  },
+  {
+   "name": "B4 SRI",
+   "pass": true,
+   "note": "MathJax pinned"
+  },
+  {
+   "name": "B5 delimiters",
+   "pass": true,
+   "note": "inline \\( 368 vs \\) 368; display \\[ 6 vs \\] 6; $ 0 (graft pass: 322->368 inline, 4->6 display)"
+  },
+  {
+   "name": "B6 tag balance",
+   "pass": true,
+   "note": "section 8/8, aside 4/4, div 1/1, figure 3/3, details 9/9, summary 9/9, svg 3/3, table 0/0; p 49/49 (graft pass: 46->49); h2 8; h3 6; figcaption 3"
+  },
+  {
+   "name": "B7 pattern box",
+   "pass": true,
+   "note": "one box, one in-words restatement, one exhibit box inside"
+  },
+  {
+   "name": "B8 class census",
+   "pass": true,
+   "note": "kicker 1, tagline 1, onramp 3, ex 5, moons 1, atlas-home 1, fig-tight 3, pattern-box 1, words 1; warn aside 1; onramps 'New word' 3"
+  },
+  {
+   "name": "B9 figures",
+   "pass": true,
+   "note": "three figures, citations 3/3/2"
+  },
+  {
+   "name": "B10 encounter name-free",
+   "pass": true,
+   "note": "section 2 slice 10258 bytes with zero 'arc' occurrences"
+  },
+  {
+   "name": "B11 printed numbers all present",
+   "pass": true,
+   "note": "216 x10, 1296 x7, 25.043 x5, 1.164 x3, 138.079 x3, 146 x12, 29.13 x4, 151.37 x2, 35/12 x1, 8.75 x2, 2.958 x1, 1.4142 x1"
+  },
+  {
+   "name": "B12 legend + wall",
+   "pass": true,
+   "note": "8b+7 x7; failure list x3; wall x2; 'never rises above' x1"
+  },
+  {
+   "name": "B13 door-quotes",
+   "pass": true,
+   "note": "door quotes byte-verbatim"
+  },
+  {
+   "name": "B14 lineage",
+   "pass": true,
+   "note": "Gauss (1801 x1, Ramanujan (1918 x1, Vinogradov (1937 x1, Vaughan x1"
+  },
+  {
+   "name": "B15 exercises",
+   "pass": true,
+   "note": "5 exercises, 4 hints + 5 worked, one moon legend"
+  }
+ ],
+ "poisons": [
+  {
+   "name": "BP1 wrong ordinal rejected by B1",
+   "caught": true,
+   "note": ""
+  },
+  {
+   "name": "BP2 flipped wall statement rejected by B12",
+   "caught": true,
+   "note": ""
+  },
+  {
+   "name": "BP3 door-quote byte-drift rejected by B13",
+   "caught": true,
+   "note": ""
+  }
+ ],
+ "notes": [
+  "post-graft run: B3 (p10 anchor), B5 (368/6), B6 (p 49) expectations updated for the owner-approved grafts G1/G2/G4/G5; all other gates untouched",
+  "page md5 at read time recorded separately by bash (8316781367eeca752b5f48d1d92cdb95); this verifier reads the same bytes",
+  "poisons are tamper-then-recheck: each corrupts one byte-level feature and requires the corresponding gate to flip to fail"
+ ],
+ "summary": "15/15 gates, 3/3 poisons"
+}

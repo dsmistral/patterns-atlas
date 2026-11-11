@@ -1,0 +1,21 @@
+{
+  "lab": "p38-lab-g-grafts.js",
+  "run": "2026-11-11, inlined into sandbox main (eval unsupported; canonical code = lab file, executed via new Function)",
+  "gates": {
+    "G4.L2.energy": "PASS", "G4.L4.exact.count": "PASS", "G4.L4.energy": "PASS",
+    "G4.sup.quiet": "PASS", "G4.hybrid.bound.holds": "PASS", "G4.hybrid.printed": "PASS",
+    "G5.S12.zero": "PASS", "G5.S14.value": "PASS", "G5.S8.form": "PASS",
+    "G5.sigma2.7.zero": "PASS", "G5.sigma2.3.positive": "PASS", "G5.squares.mod8": "PASS",
+    "G1.differencing.identity": "PASS", "G1.wall.inequality": "PASS", "G1.weyl.bound.shape": "PASS",
+    "G2.J.k2.s3": "PASS", "G2.J.k2.s4": "PASS", "G2.J.k3.s4": "PASS"
+  },
+  "values": {
+    "G4.hybrid.value": 89.55,
+    "G5.sigma2.3": 1,
+    "G1.weyl.C.max": 1.294,
+    "G2.k2s3": [0.7813, 0.7854], "G2.k2s4": [0.6167, 0.6169], "G2.k3s4": [0.7092, 0.7121]
+  },
+  "poison": { "P1": false, "P2": false, "P3": false, "P4": false, "P5": false },
+  "poisonAllCaught": true,
+  "summary": "ALL GATES GREEN, ALL POISONS CAUGHT (18 gates + 5 poisons)"
+}

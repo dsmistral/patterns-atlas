@@ -1,0 +1,79 @@
+{
+ "lab": "p38-style-audit",
+ "date": "2026-11-11",
+ "page_bytes": 51849,
+ "gates": [
+  {
+   "name": "S1 recall bridge",
+   "pass": true,
+   "note": "P15 + P27 + P28 recalled by link; quotes verbatim"
+  },
+  {
+   "name": "S2 tension",
+   "pass": true,
+   "note": "tension named"
+  },
+  {
+   "name": "S3 artifact before name",
+   "pass": true,
+   "note": "census leads section 2; name first boxed in section 3"
+  },
+  {
+   "name": "S4 pattern box + words",
+   "pass": true,
+   "note": "boxed statement + words restatement"
+  },
+  {
+   "name": "S5 citable boxes",
+   "pass": true,
+   "note": "two citable labels, one each"
+  },
+  {
+   "name": "S6 analogy with honest caveats",
+   "pass": true,
+   "note": "analogies carry their price"
+  },
+  {
+   "name": "S7 discovery commentary",
+   "pass": true,
+   "note": "discovery route present in section 3"
+  },
+  {
+   "name": "S8 concrete parameters",
+   "pass": true,
+   "note": "parameters anchored to printed numbers"
+  },
+  {
+   "name": "S9 mitigation price default",
+   "pass": true,
+   "note": "door triple present, one each"
+  },
+  {
+   "name": "S10 honest scope",
+   "pass": true,
+   "note": "scope box names the finite core"
+  },
+  {
+   "name": "S11 forward pointer",
+   "pass": true,
+   "note": "footer Next names P40 plain text; P39 linked"
+  },
+  {
+   "name": "S12 restraint",
+   "pass": true,
+   "note": "no lists; exactly one box div"
+  },
+  {
+   "name": "S13 prose texture",
+   "pass": true,
+   "note": "em-dashes 136, 'this page' 14"
+  }
+ ],
+ "notes": [
+  "post-graft run (owner-approved G1/G2/G4/G5 merged from the external draft): page md5 8316781367eeca752b5f48d1d92cdb95, 51,849 B; all 13 move-expectations unchanged and green — the grafts were authored in-fingerprint",
+  "MOVE 7 DEFECT FOUND AND REPAIRED (prior session): discovery paragraph inserted at section 3's end; see receipts",
+  "lineage web pass (prior session): all five dates confirmed, zero page edits needed",
+  "S13's ellipsis expectation differs from P63's (… === 0) because P38 carries a verbatim P15 door-quote that itself contains an ellipsis"
+ ],
+ "summary": "13/13 moves"
+}

@@ -19,9 +19,9 @@ async function main() {
     const hrefs = (text.match(/href="[^"]*"/g) || []).map((h) => h.slice(6, -1));
     const mc = {};
     for (const h of hrefs) mc[h] = (mc[h] || 0) + 1;
-    const want = { "index.html": 2, "assets/style.css": 1, "p02-small-cases.html": 1, "p15-squeeze.html": 3, "p24-waves.html": 1, "p27-complex-for-integers.html": 3, "p28-conformal-mapping.html": 2, "p39-optimized-sieve.html": 1 };
-    const hrefOK = hrefs.length === 14 && Object.keys(mc).length === Object.keys(want).length && Object.keys(want).every((k) => mc[k] === want[k]);
-    chk("B3 href multiset", hrefOK && cnt(text, "p38-major-minor-arcs.html") === 0 && cnt(text, 'href="p40') === 0, hrefs.length + " anchors, multiset exact, no self-link, P40 plain text only");
+    const want = { "index.html": 2, "assets/style.css": 1, "p02-small-cases.html": 1, "p10-force-a-collision.html": 1, "p15-squeeze.html": 3, "p24-waves.html": 1, "p27-complex-for-integers.html": 3, "p28-conformal-mapping.html": 2, "p39-optimized-sieve.html": 1 };
+    const hrefOK = hrefs.length === 15 && Object.keys(mc).length === Object.keys(want).length && Object.keys(want).every((k) => mc[k] === want[k]);
+    chk("B3 href multiset", hrefOK && cnt(text, "p38-major-minor-arcs.html") === 0 && cnt(text, 'href="p40') === 0, hrefs.length + " anchors, multiset exact (p10 added by graft G1), no self-link, P40 plain text only");
 
     // B4 SRI
     chk("B4 SRI", cnt(text, 'integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII="') === 1 && cnt(text, 'crossorigin="anonymous"') === 1 && cnt(text, "mathjax@3.2.2/es5/tex-svg.js") === 1, "MathJax pinned, hash full-length and matching the owner's correct value");
@@ -29,7 +29,7 @@ async function main() {
     // B5 delimiters and money
     const money = cnt(text, "$");
     const lp = cnt(text, "\\("), rp = cnt(text, "\\)"), lb = cnt(text, "\\["), rb = cnt(text, "\\]");
-    chk("B5 delimiters", money === 0 && lp === 322 && rp === 322 && lb === 4 && rb === 4, "inline \\( " + lp + " vs \\) " + rp + "; display \\[ " + lb + " vs \\] " + rb + "; $ " + money);
+    chk("B5 delimiters", money === 0 && lp === 368 && rp === 368 && lb === 6 && rb === 6, "inline \\( " + lp + " vs \\) " + rp + "; display \\[ " + lb + " vs \\] " + rb + "; $ " + money + " (graft pass: 322->368 inline, 4->6 display)");
 
     // B6 tag balance
     const tagPairs = [["section", 8], ["aside", 4], ["div", 1], ["figure", 3], ["details", 9], ["summary", 9], ["svg", 3], ["table", 0]];
@@ -43,7 +43,7 @@ async function main() {
     }
     const pO = rcnt(text, /<p[\s>]/g), pC = cnt(text, "</p>");
     const h2 = rcnt(text, /<h2>/g), h3 = rcnt(text, /<h3>/g), fc = rcnt(text, /<figcaption>/g);
-    chk("B6 tag balance", tagOK && pO === 46 && pC === 46 && h2 === 8 && h3 === 6 && fc === 3, tagNotes.join(", ") + "; p " + pO + "/" + pC + "; h2 " + h2 + "; h3 " + h3 + "; figcaption " + fc);
+    chk("B6 tag balance", tagOK && pO === 49 && pC === 49 && h2 === 8 && h3 === 6 && fc === 3, tagNotes.join(", ") + "; p " + pO + "/" + pC + " (graft pass: 46->49); h2 " + h2 + "; h3 " + h3 + "; figcaption " + fc);
 
     // B7 pattern box
     chk("B7 pattern box", cnt(text, '<div class="pattern-box" id="box-p38">') === 1 && cnt(text, '<p class="words">') === 1 && cnt(text, "Pattern P38 — Major and minor arcs.") === 1 && cnt(text, "Box P38.A") === 1, "one box, one in-words restatement, one exhibit box inside");
@@ -105,7 +105,7 @@ async function main() {
 
   const out = { lab: "p38-v1b-pagetext", date: "2026-11-10", gates: results, poisons,
     notes: ["pagetext consistency: the page's own bytes are the input; every structural expectation (kicker, href multiset, tag balance, class census, printed numbers, legend, door-quotes, lineage, exercises) checked against the page actually read this session",
-      "page md5 at read time recorded separately by bash (518f4dc69af9762f57378494cb1b7144); this verifier reads the same bytes",
+      "page md5 at read time recorded separately by bash (8316781367eeca752b5f48d1d92cdb95, post-graft); this verifier reads the same bytes",
       "B9 expects 3/3/2 citations per the E7 house ruling (>=2 each, P39/P50 precedent), not the earlier 4/4/2 draft expectation",
       "poisons are tamper-then-recheck: each corrupts one byte-level feature and requires the corresponding gate to flip to fail"],
     summary: results.filter((g) => g.pass).length + "/" + results.length + " gates, " + poisons.filter((p) => p.caught).length + "/" + poisons.length + " poisons" };
