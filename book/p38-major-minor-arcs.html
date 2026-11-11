@@ -1,538 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>P38 · Major and minor arcs · The Patterns Atlas</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <style>
-/* The Patterns Atlas — shared stylesheet (repo-vendored). Formatting charter S10 (owner directive 2026-10-28): max-width 46rem, no dark mode toggle, system font fallback */
-:root { --ink:#1a1a1a; --soft:#5a5a5a; --line:#d8d4cc; --paper:#fdfcf8; --accent:#0f5c57; --warn:#8a4b08; }
-* { box-sizing: border-box; }
-body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); margin: 0; line-height: 1.6; }
-main, body > section, body > header, body > nav, body > footer, body > aside { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
-.kicker { font-family: system-ui, sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: 2rem; }
-.kicker a { color: var(--accent); text-decoration: none; }
-h1 { font-size: 2rem; margin: .2rem 0 .4rem; line-height: 1.15; }
-h2 { font-size: 1.35rem; margin-top: 2.2rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-h3 { font-size: 1.1rem; margin-top: 1.6rem; color: var(--ink); }
-.tagline { color: var(--soft); font-style: italic; margin-top: 0; }
-nav.toc ul { list-style: none; padding: 0; columns: 2; font-family: system-ui, sans-serif; font-size: .95rem; }
-nav.toc a { color: var(--accent); text-decoration: none; }
-table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0; }
-th { text-align: left; font-family: system-ui, sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--line); padding: .5rem .5rem; }
-td, th { border-bottom: 1px solid var(--line); padding: .45rem .5rem .45rem 0; vertical-align: top; }
-td:first-child { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--soft); white-space: nowrap; }
-.st { font-family: system-ui, sans-serif; font-size: .75rem; }
-.st.published { color: #1c6b2f; }
-.st.reviewed { color: var(--accent); }
-.st.drafting { color: var(--warn); }
-.st.planned { color: var(--soft); }
-footer { color: var(--soft); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 3rem; }
-/* pattern-page blocks */
-.pattern-box { border: 2px solid var(--accent); padding: .8rem 1.1rem; margin: 1.2rem 0; background: #f2f7f6; }
-.pattern-box .words { color: var(--soft); }
-.onramp, .aside { border-left: 4px solid var(--line); background: #f6f4ef; padding: .6rem 1rem; margin: 1.2rem 0; font-size: .95rem; }
-.onramp::before { content: "New word"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--soft); font-weight: bold; margin-bottom: .2rem; }
-.aside.warn::before { content: "Scope note"; display: block; font-family: system-ui, sans-serif; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--warn); font-weight: bold; margin-bottom: .2rem; }
-figure { margin: 1.2rem 0; }
-figure pre { background: #2b2b2b; color: #e8e8e8; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; border-radius: 4px; }
-figcaption { font-size: .85rem; color: var(--soft); margin-top: .45rem; }
-.graphfooter { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--soft); border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: .6rem; }
-.pid { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--accent); font-weight: 600; }
-.eq { text-align: center; margin: 1.1rem 0; }
-mjx-container[display="true"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .15rem 0; }
-figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; background: #fff; border: 1px solid var(--line); }
-figure.fig-tight { margin: 1.2rem auto; max-width: 38rem; }
-details { background: #f6f4ef; border: 1px solid var(--line); padding: .5rem .9rem; margin: .5rem 0; border-radius: 3px; }
-summary { font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 600; color: var(--accent); cursor: pointer; }
-details[open] summary { margin-bottom: .5rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
-  </style>
-  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxJM2C4DqII=" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P38 · Major and minor arcs · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
-  <p class="kicker"><a href="index.html">The Patterns Atlas</a> · P38 · the fourth move of tier 4</p>
-  <h1>Major and minor arcs</h1>
-  <p class="tagline">When an integral around the frequency circle counts additive solutions, carve out the narrow rational spikes that carry the structured signal and bound the wide irrational sea as cancelling noise.</p>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P38 · the twelfth move of tier 4</p>
+<h1>Major and minor arcs</h1>
+<p class="tagline">How many ways can three dice make ten? The census is a table anyone can build; the explanation is a circle. Put the count on a circle — one full turn, the pieces spinning as they go — and the count becomes an average, the average becomes a landscape with one tall spike, and the question of where a count's mass lives becomes a question of where the circle is loud. Split the loud from the quiet, integrate the first honestly, bound the second crudely, and counting becomes analysis with walls. The circle, it turns out, is where additive questions agree to be read.</p>
 </header>
 
-<aside class="onramp">
-  <strong>Exponential sums \(S(\alpha)\), orthogonality on \(\mathbb{R}/\mathbb{Z}\), and the major/minor split \(\mathfrak{M} \sqcup \mathfrak{m}\).</strong>
-  Using the shorthand \(e(\theta) = e^{2\pi i\theta}\), the unit circle \(\alpha \in [0, 1)\) satisfies the wave-orthogonality filter \(\int_0^1 e(k\alpha)\,d\alpha = 1\) if \(k = 0\) and \(0\) if \(k \in \mathbb{Z}\setminus\{0\}\). Given a finite set of integers \(A \subset [0, X]\), its <em>exponential sum</em> \(S(\alpha) = \sum_{a \in A} e(a\alpha)\) turns the additive equation \(a_1 + \cdots + a_s = N\) into the circle integral \(\int_0^1 S(\alpha)^s e(-N\alpha)\,d\alpha\). The <em>major arcs</em> \(\mathfrak{M}\) are narrow neighborhoods around fractions \(a/q\) with small denominator \(q \le Q\) where the phases \(e(a\alpha)\) align in arithmetic progressions; the <em>minor arcs</em> \(\mathfrak{m} = [0,1) \setminus \mathfrak{M}\) are the remaining frequencies where phases scatter and cancel.
-</aside>
+<aside class="onramp"><strong>New word: the counting sum.</strong> Fix a set of pieces — say the die faces \(1\) through \(6\) — and wrap them into one function of the angle \(\theta\): \[ F(\theta) \;=\; e^{i\theta} + e^{2i\theta} + \cdots + e^{6i\theta}. \] Each piece is a wave of one full turn per unit of its face value (<a href="p24-waves.html">P24</a> drew these waves; here they stand on a circle). The machine reads back counts by averaging: the number of ordered \(s\)-tuples of pieces summing to \(n\) is exactly the average of \(F(\theta)^{s}\,e^{-in\theta}\) over one full turn — the target total \(n\) is tuned to cancel every spin except the one that lands on it. This is the finite cousin of the shelf series <a href="p27-complex-for-integers.html">P27</a> read at its breaks: same object, wrapped around a circle instead of unrolled along a line.</aside>
+<aside class="onramp"><strong>New word: major arc — where the sum is loud.</strong> The counting sum has a height at every angle, and the heights are wildly uneven: near the angle \(0\) (and the full turn \(2\pi\)) every piece points the same way and \(F\) stands at its maximum \(6\); a third of a turn away it is exactly zero. A <em>major arc</em> is a stretched neighborhood of a loud angle — an angle where the sum piles up. In general the loud angles are the rational fractions of a turn \(\frac{a}{q}\) with small denominator \(q\): the pieces fall back into step there, and the smaller the denominator, the louder and wider the pileup. The denominators are where the arithmetic hides — this page's central example needs only \(q=1\), and the general case is the same story told once per denominator.</aside>
+<aside class="onramp"><strong>New word: minor arc — where the sum is quiet.</strong> Everything else: the rest of the circle, where the pieces point every which way and the sum stays small. The move's discipline, inherited from <a href="p15-squeeze.html">P15</a>, is that the minor arcs are never integrated — they are <em>bounded</em>. One wall per quiet stretch: the largest height there, times the stretch's length. A wall you can evaluate is a wall you can spend; the counting read lives or dies by how fast those walls shrink.</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p><a href="p24-waves.html"><span class="pid">P24</span></a> taught us how to build a complicated signal out of simple harmonics and extract individual dial settings by orthogonality (as on the electric-organ square wave \(\sin x + \frac{1}{3}\sin 3x + \frac{1}{5}\sin 5x + \cdots\)). <a href="p27-complex-for-integers.html"><span class="pid">P27</span></a> applied contour and Fourier integrals to turn discrete counting problems into continuous wave integrals, and <a href="p15-squeeze.html"><span class="pid">P15</span></a> showed us how to trap an intractable quantity between computable upper and lower walls.</p>
-  <p>Here is the obstacle that stops naive Fourier inversion cold on nonlinear number theory problems like Waring's problem (\(N = m_1^k + \cdots + m_s^k\)) or Goldbach's ternary prime problem (\(N = p_1 + p_2 + p_3\)). Writing the solution count as \(\int_0^1 S(\alpha)^s e(-N\alpha)\,d\alpha\) is a one-line identity — <em>evaluating</em> that integral is another matter entirely! Unlike a smooth function whose Fourier modes decay at high frequency, the exponential sum \(S(\alpha) = \sum_{m \le M} e(m^2\alpha)\) of squares or primes erupts into violent, needle-sharp spikes near every rational fraction \(\alpha \approx a/q\) with small denominator \(q\), because \(m^2 \bmod q\) repeats periodically! You cannot expand \(S(\alpha)^s\) around \(\alpha = 0\) alone, and you cannot bound \(|S(\alpha)|\) uniformly everywhere. How do you evaluate an integral whose integrand is a forest of arithmetic needles rising out of a choppy sea?</p>
+<h2>1 · Before we begin</h2>
+<p>Three pages built this one. <a href="p15-squeeze.html">P15</a> built the walls: two computable bounds that trap an unknowable quantity, and the license to call a thing known when the walls close. <a href="p27-complex-for-integers.html">P27</a> taught the local read: a counting question, carried off the real line, is answered at the break — the nearest singularity sets the radius, and the break's shape sets the growth. <a href="p28-conformal-mapping.html">P28</a> bent the plane so the breaks sit where they are cheapest to read. This page is the one those three were aiming at, and the published pages say so in their own voices. P28's footer hands over the commission: <em>up the tier — major and minor arcs (P38, planned): where the circle this page kept bending becomes the place counts live, and the arcs divide where a count's mass concentrates. This page's readers already know how to rearrange the arcs; the counting is the new gear.</em> And <a href="p27-complex-for-integers.html">P27</a>'s door out named this page among its next gear: reading <em>many</em> breaks at once, arcs of them, major and minor (P38, planned). <a href="p15-squeeze.html">P15</a> pointed here too, from its own door list: <em>The frontier where bounds stop being scaffolding and become load-bearing: split the problem into main roads that carry the weight exactly and side roads that need only bounds … the honest home of every wall that never met its partner.</em></p>
+<p>Here is the tension this page resolves. P27's read was local: one break, one radius, one growth law — because a shelf series has a single nearest break. Counting questions are not so polite. The object on the circle is a <em>trigonometric polynomial</em>, and its loud angles come in crowds — one crowd per small denominator — with the answer's mass smeared across all of them at once. No single break owns the count. The move is to stop looking for one and to split the circle instead: arcs where the sum is loud get the full local treatment, one break-read each; everything between gets a wall. The count comes out as a main term — arithmetic, from the loud angles — plus an error, from the walls. The whole game is making the error honest.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: counting \(30 = m_1^2 + m_2^2 + m_3^2 + m_4^2\) from six rational needles</h2>
-  <p>Take the first six squares \(\{0^2, 1^2, 2^2, 3^2, 4^2, 5^2\} = \{0, 1, 4, 9, 16, 25\}\) and form their six-wave sum on the frequency circle \(\alpha \in [0, 1)\):</p>
-  <p class="eq">\[f(\alpha) = \sum_{m=0}^5 e^{2\pi i m^2 \alpha} = 1 + e^{2\pi i\alpha} + e^{8\pi i\alpha} + e^{18\pi i\alpha} + e^{32\pi i\alpha} + e^{50\pi i\alpha}.\]</p>
-  <p>When we raise \(f(\alpha)\) to the fourth power, every product of four terms adds their exponents: \(e^{2\pi i(m_1^2 + m_2^2 + m_3^2 + m_4^2)\alpha}\). Multiplying by \(e^{-2\pi i(30)\alpha}\) and integrating around \(\alpha \in [0,1)\) kills every quadruple except those summing to \(30\):</p>
-  <p class="eq">\[R_4(30) = \int_0^1 f(\alpha)^4\,e^{-2\pi i(30)\alpha}\,d\alpha = 48,\]</p>
-  <p>corresponding to the \(4! = 24\) permutations of \(25 + 4 + 1 + 0 = 30\) plus the \(4! = 24\) permutations of \(16 + 9 + 4 + 1 = 30\). Now inspect the fourth-power intensity \(|f(\alpha)|^4\) at specific frequencies around the circle:</p>
+<h2>2 · The encounter</h2>
+<p>Three ordinary dice. How many ordered triples make a total of \(n\)? Brute bookkeeping answers it: run the \(6^{3} = 216\) triples and tally. The tally, from \(n=3\) to \(n=18\):</p>
+<p>\(1,\; 3,\; 6,\; 10,\; 15,\; 21,\; 25,\; 27,\; 27,\; 25,\; 21,\; 15,\; 10,\; 6,\; 3,\; 1\) — sixteen values, summing to \(216\), peaking at \(27\) for the totals \(10\) and \(11\). Any child can produce this table by patience. The question this page cares about is different: <em>why</em> is the peak where it is, why do the tails fall the way they fall, and what would you do if the table had a trillion entries and brute patience was not on the menu?</p>
+<p>The counting sum of the on-ramp answers by averaging. With \(F(\theta) = e^{i\theta} + e^{2i\theta} + \cdots + e^{6i\theta}\), the claim is:</p>
+<p>\[ N(n) \;=\; \frac{1}{2\pi}\int_{0}^{2\pi} F(\theta)^{3}\, e^{-in\theta}\, d\theta. \]</p>
+<p>Check it the honest way first — on a grid, where the average is a plain sum of \(216\) sample values and the integral claim becomes arithmetic. Machine-run: the \(216\)-point average reproduces <em>all sixteen</em> census values to the integer, from \(1\) at \(n=3\) through the double peak \(27, 27\) and back down to \(1\) at \(n=18\). Nothing was approximated; the average <em>is</em> the count. (Why a grid can be exact is Exhibit C — and the exactness threshold turns out to be \(16\), not \(216\); hold that thought.)</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Frequency \(\alpha\)</th>
-        <th>Residue Pattern of \(m^2 \bmod q\) (\(m=0..5\))</th>
-        <th>Wave Sum \(f(\alpha)\)</th>
-        <th>Amplitude \(|f(\alpha)|\)</th>
-        <th>Fourth Power \(|f(\alpha)|^4\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(\alpha = 0/1\) (Major)</td>
-        <td>All \(6\) residues \(\equiv 0 \pmod 1\)</td>
-        <td>\(6\)</td>
-        <td>\(6.0000\)</td>
-        <td>\(\mathbf{1296.00}\)</td>
-      </tr>
-      <tr>
-        <td>\(\alpha = 1/4,\, 3/4\) (Major)</td>
-        <td>\(0, 1, 0, 1, 0, 1 \pmod 4\) (even \(\to 1\), odd \(\to \pm i\))</td>
-        <td>\(3 \pm 3i\)</td>
-        <td>\(3\sqrt{2} \approx 4.2426\)</td>
-        <td>\(\mathbf{324.00}\)</td>
-      </tr>
-      <tr>
-        <td>\(\alpha = 1/3,\, 2/3\) (Major)</td>
-        <td>\(0, 1, 1, 0, 1, 1 \pmod 3\) (two \(0\)'s, four \(1\)'s)</td>
-        <td>\(\pm 2\sqrt{3}\,i\)</td>
-        <td>\(2\sqrt{3} \approx 3.4641\)</td>
-        <td>\(\mathbf{144.00}\)</td>
-      </tr>
-      <tr>
-        <td>\(\alpha = 1/2\) (Major)</td>
-        <td>\(0, 1, 0, 1, 0, 1 \pmod 2\) (three \(+1\)'s, three \(-1\)'s)</td>
-        <td>\(0\) (destructive!)</td>
-        <td>\(0.0000\)</td>
-        <td>\(\mathbf{0.00}\)</td>
-      </tr>
-      <tr>
-        <td>\(\alpha = 1/\sqrt{2}\) (Minor)</td>
-        <td>Incommensurable irrational phases</td>
-        <td>\(-0.278 - 1.068i\)</td>
-        <td>\(1.1037\)</td>
-        <td>\(\mathbf{1.48}\) (\(\approx 10^{-3}\) of peak!)</td>
-      </tr>
-    </tbody>
-  </table>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="Fig P38.1 — the height of the counting sum F of theta across one full turn, for six die faces. One tall spike of height 6 sits at the angle zero and repeats at the full turn. The curve falls to exactly zero at every third of a turn, rises to local bumps of height about 2 between them, and equals about 1.41 at the quarter turn. The two shaded bands within one twelfth of a turn of the spike are the loud stretches; the quiet rest is the quiet circle.">
+<text x="320" y="16" font-size="14" text-anchor="middle">the counting sum's height, one full turn: loud near zero, quiet elsewhere</text>
+<rect x="70" y="80" width="43.3" height="180" fill="#eef3f7"/>
+<rect x="546.7" y="80" width="43.3" height="180" fill="#eef3f7"/>
+<line x1="70" y1="260" x2="590" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="70" y1="80" x2="70" y2="260" stroke="#d8d4cc" stroke-width="1"/>
+<text x="58" y="84" font-size="12" text-anchor="end">6</text>
+<text x="58" y="170" font-size="12" text-anchor="end">3</text>
+<text x="58" y="264" font-size="12" text-anchor="end">0</text>
+<polyline fill="none" stroke="#0f5c57" stroke-width="2" points="70,80 73.3,80.4 76.7,81.7 80,83.8 83.3,86.7 86.7,90.5 90,95 93.3,100.2 96.7,106.1 100,112.6 103.3,119.8 106.7,127.4 110,135.6 113.3,144.1 116.7,153 120,162.1 123.3,171.4 126.7,180.9 130,190.4 133.3,199.9 136.7,209.2 140,218.5 143.3,227.5 146.7,236.2 150,244.6 153.3,252.5 156.7,260 160,253 163.3,246.6 166.7,240.7 170,235.5 173.3,230.8 176.7,226.9 180,223.6 183.3,221 186.7,219 190,217.7 193.3,217 196.7,217 200,217.6 203.3,218.7 206.7,220.4 210,222.5 213.3,225.1 216.7,228.1 220,231.5 223.3,235.1 226.7,239 230,243.1 233.3,247.2 236.7,251.5 240,255.8 243.3,260 246.7,255.9 250,251.9 253.3,248.1 256.7,244.6 260,241.3 263.3,238.4 266.7,235.8 270,233.6 273.3,231.8 276.7,230.4 280,229.5 283.3,229 286.7,228.9 290,229.3 293.3,230.1 296.7,231.4 300,233 303.3,235 306.7,237.3 310,240 313.3,242.9 316.7,246 320,249.3 323.3,252.8 326.7,256.4 330,260 333.3,256.4 336.7,252.8 340,249.3 343.3,246 346.7,242.9 350,240 353.3,237.3 356.7,235 360,233 363.3,231.4 366.7,230.1 370,229.3 373.3,228.9 376.7,229 380,229.5 383.3,230.4 386.7,231.8 390,233.6 393.3,235.8 396.7,238.4 400,241.3 403.3,244.6 406.7,248.1 410,251.9 413.3,255.9 416.7,260 420,255.8 423.3,251.5 426.7,247.2 430,243.1 433.3,239 436.7,235.1 440,231.5 443.3,228.1 446.7,225.1 450,222.5 453.3,220.4 456.7,218.7 460,217.6 463.3,217 466.7,217 470,217.7 473.3,219 476.7,221 480,223.6 483.3,226.9 486.7,230.8 490,235.5 493.3,240.7 496.7,246.6 500,253 503.3,260 506.7,252.5 510,244.6 513.3,236.2 516.7,227.5 520,218.5 523.3,209.2 526.7,199.9 530,190.4 533.3,180.9 536.7,171.4 540,162.1 543.3,153 546.7,144.1 550,135.6 553.3,127.4 556.7,119.8 560,112.6 563.3,106.1 566.7,100.2 570,95 573.3,90.5 576.7,86.7 580,83.8 583.3,81.7 586.7,80.4 590,80"/>
+<line x1="156.7" y1="256" x2="156.7" y2="264" stroke="#5a5a5a" stroke-width="1"/>
+<line x1="243.3" y1="256" x2="243.3" y2="264" stroke="#5a5a5a" stroke-width="1"/>
+<line x1="330" y1="256" x2="330" y2="264" stroke="#5a5a5a" stroke-width="1"/>
+<line x1="416.7" y1="256" x2="416.7" y2="264" stroke="#5a5a5a" stroke-width="1"/>
+<line x1="503.3" y1="256" x2="503.3" y2="264" stroke="#5a5a5a" stroke-width="1"/>
+<text x="70" y="280" font-size="12" text-anchor="middle">0</text>
+<text x="330" y="280" font-size="12" text-anchor="middle">half turn</text>
+<text x="590" y="280" font-size="12" text-anchor="middle">full turn</text>
+<text x="156.7" y="296" font-size="11" text-anchor="middle">exactly zero at every third of a turn</text>
+<text x="91" y="72" font-size="11" text-anchor="middle">loud</text>
+<text x="568" y="72" font-size="11" text-anchor="middle">loud</text>
+<text x="330" y="310" font-size="12" text-anchor="middle">shaded bands: the loud stretches, one twelfth of a turn wide — the rest is quiet</text>
+</svg>
+<figcaption>Fig P38.1 — the counting sum \(F(\theta)\) for six faces, across one full turn. Height \(6\) at the angle \(0\), exactly \(0\) at every third of a turn, about \(1.41\) at the quarter turn. The two shaded bands — within one twelfth of a turn of the spike — are where the height still exceeds \(3.86\); the quiet remainder never rises above \(1/\sin(\pi/12)\), the height at the bands' edge.</figcaption>
+</figure>
 
-  <p>Look at the contrast between the rational peaks and the irrational sea in <strong>Fig P38.1</strong>. At \(\alpha = 0, \frac{1}{4}, \frac{1}{3}, \frac{2}{3}, \frac{3}{4}\), modular arithmetic locks the six unit vectors into a repeating pattern so they reinforce constructively (\(|f|^4 = 1296, 324, 144\)). At \(\alpha = 1/\sqrt{2}\), the phases scatter around the unit circle and cancel down to \(|f|^4 = 1.48\). If we carve out narrow <strong>major arcs \(\mathfrak{M}\)</strong> of half-width \(\delta = 0.02\) around the fractions with denominator \(q \le 4\) — covering just <strong>\(24\%\) of the circle</strong> — the integral over \(\mathfrak{M}\) already yields \(\mathbf{45.72}\) out of \(\mathbf{48.00}\) (\(95.2\%\) of the exact answer!), while the remaining \(76\%\) of the circle (the <strong>minor arcs \(\mathfrak{m}\)</strong>) contributes only \(+2.28\). As the cutoff \(M \to \infty\), the major arcs shrink to \(0\%\) of the circle's length while carrying \(100\%\) of the asymptotic main term!</p>
+<p>Read the landscape. The spike at \(\theta = 0\) is where all six waves agree; its neighborhood — the shaded band, one twelfth of a turn on each side — is where the sum still exceeds \(1/\sin(\pi/12) = 3.8637\), the largest height anywhere in the quiet remainder (attained exactly at the band's edge, and the bound \(1/\sin(\delta/2)\) at distance \(\delta\) from the spike is the wall this page spends). Between loud angles the sum dies completely — exactly zero at every third of a turn — and its leftover bumps never exceed \(2\). When this landscape is raised to the third power (three dice), the spike's neighborhood towers over everything else: \(6^{3} = 216\) at the spike against at most \(2^{3} = 8\)... but the count at \(n=10\) is only \(27\), so the loud stretch cannot simply be everything — the cancellation \(e^{-in\theta}\) is doing delicate work inside it. Integrate the loud stretch honestly and the spike's contribution to the peak comes to \(25.043\) against the true \(27\): the loud stretch carries \(93\%\) of the answer, the quiet stretch the rest. Fig P38.2 lays the two ledges side by side.</p>
 
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 215" role="img" aria-label="Fig P38.1: Left: the unit frequency circle partitioned into narrow green Major Arcs M around a/q (q <= 4) and wide Minor Arcs m. Right: intensity profile |f(alpha)|^4 showing towering spikes over 0, 1/4, 1/3, 2/3, 3/4 and flat minor-arc noise.">
-      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="Fig P38.2 — the three-dice census as sixteen bars from total 3 to total 18, rising from 1 to a double peak of 27 at totals 10 and 11 and falling back to 1. A smooth curve traces the loud-stretch-only estimate: close to the bars in the middle, where it reaches about 25 against the true 27, but drifting above the bars at the extremes, where it reads about 1.16 against the true 1.">
+<text x="320" y="16" font-size="14" text-anchor="middle">three dice: the true census (bars) against the loud-stretch-only read (curve)</text>
+<line x1="60" y1="260" x2="600" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="70" y="254" width="25" height="6" fill="#0f5c57"/>
+<rect x="103" y="242" width="25" height="18" fill="#0f5c57"/>
+<rect x="136" y="224" width="25" height="36" fill="#0f5c57"/>
+<rect x="169" y="200" width="25" height="60" fill="#0f5c57"/>
+<rect x="202" y="170" width="25" height="90" fill="#0f5c57"/>
+<rect x="235" y="134" width="25" height="126" fill="#0f5c57"/>
+<rect x="268" y="110" width="25" height="150" fill="#0f5c57"/>
+<rect x="301" y="98" width="25" height="162" fill="#0f5c57"/>
+<rect x="334" y="98" width="25" height="162" fill="#0f5c57"/>
+<rect x="367" y="110" width="25" height="150" fill="#0f5c57"/>
+<rect x="400" y="134" width="25" height="126" fill="#0f5c57"/>
+<rect x="433" y="170" width="25" height="90" fill="#0f5c57"/>
+<rect x="466" y="200" width="25" height="60" fill="#0f5c57"/>
+<rect x="499" y="224" width="25" height="36" fill="#0f5c57"/>
+<rect x="532" y="242" width="25" height="18" fill="#0f5c57"/>
+<rect x="565" y="254" width="25" height="6" fill="#0f5c57"/>
+<polyline fill="none" stroke="#d62728" stroke-width="2" stroke-dasharray="5,3" points="82.5,253 115.5,235.4 148.5,212.5 181.5,186.6 214.5,160.3 247.5,136.8 280.5,119.2 313.5,109.7 346.5,109.7 379.5,119.2 412.5,136.8 445.5,160.3 478.5,186.6 511.5,212.5 544.5,235.4 577.5,253"/>
+<text x="82.5" y="278" font-size="11" text-anchor="middle">3</text>
+<text x="313.5" y="278" font-size="11" text-anchor="middle">10</text>
+<text x="346.5" y="278" font-size="11" text-anchor="middle">11</text>
+<text x="577.5" y="278" font-size="11" text-anchor="middle">18</text>
+<text x="313.5" y="92" font-size="11" text-anchor="middle">27 true, 25.04 from the loud stretch alone</text>
+<text x="82.5" y="248" font-size="11" text-anchor="start">1.16 vs 1</text>
+<text x="320" y="308" font-size="12" text-anchor="middle">the loud stretch carries the shape; the quiet stretch trims the tails — and sometimes overshoots them</text>
+</svg>
+<figcaption>Fig P38.2 — the census (bars) against the loud-stretch-only integral (dashed). At the peak the loud stretch reaches \(25.04\) of the true \(27\); at the extreme \(n=3\) it overshoots, reading \(1.16\) against the true \(1\). The quiet stretch is a corrector, not a leftover.</figcaption>
+</figure>
 
-      <!-- Left panel: The Circle Method Partition M sqcup m on R/Z -->
-      <text x="140" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A · Frequency Circle  α ∈ ℝ/ℤ = 𝔐 ⊔ 𝔪</text>
-      <!-- Base minor-arc circle -->
-      <circle cx="140" cy="112" r="64" fill="none" stroke="#d8d4cc" stroke-width="8"/>
-      <!-- Highlighted Major Arc patches around 0 (top), 1/4 (right), 1/3 (120 deg), 1/2 (bottom), 2/3 (240 deg), 3/4 (left) -->
-      <!-- 0/1 at top (140, 48) -->
-      <path d="M 126,49.5 A 64,64 0 0,1 154,49.5" fill="none" stroke="#0f5c57" stroke-width="10"/>
-      <!-- 1/4 at right (204, 112) -->
-      <path d="M 202.5,98 A 64,64 0 0,1 202.5,126" fill="none" stroke="#0f5c57" stroke-width="10"/>
-      <!-- 3/4 at left (76, 112) -->
-      <path d="M 77.5,126 A 64,64 0 0,1 77.5,98" fill="none" stroke="#0f5c57" stroke-width="10"/>
-      <!-- 1/3 at angle +30 deg below horizontal: (140 + 55.4, 112 + 32) = (195.4, 144) -->
-      <circle cx="195.4" cy="144" r="6" fill="#0f5c57"/>
-      <!-- 2/3 at (84.6, 144) -->
-      <circle cx="84.6" cy="144" r="6" fill="#0f5c57"/>
-      <!-- 1/2 at bottom (140, 176) -->
-      <circle cx="140" cy="176" r="5" fill="#8a4b08"/>
-
-      <text x="140" y="36" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">0/1 (|f|⁴=1296)</text>
-      <text x="214" y="115" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57">1/4 (324)</text>
-      <text x="66" y="115" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="end">3/4 (324)</text>
-      <text x="206" y="156" font-family="Georgia, serif" font-size="10" fill="#0f5c57">1/3 (144)</text>
-      <text x="74" y="156" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="end">2/3 (144)</text>
-      <text x="140" y="194" font-family="Georgia, serif" font-size="10" fill="#8a4b08" text-anchor="middle">1/2 (parity zero)</text>
-      <text x="140" y="110" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Green = Major 𝔐</text>
-      <text x="140" y="124" font-family="system-ui, sans-serif" font-size="9.5" fill="#8a94a3" text-anchor="middle">Grey = Minor 𝔪</text>
-
-      <!-- Divider -->
-      <line x1="285" y1="18" x2="285" y2="198" stroke="#d8d4cc" stroke-dasharray="4,4"/>
-
-      <!-- Right panel: Unrolled spectrum |f(alpha)|^4 on [0, 1] -->
-      <text x="442" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">B · Resonance Spikes vs. Minor-Arc Floor</text>
-      <!-- Axes: alpha in [0, 1] -> x in [315, 575] (width 260) -->
-      <line x1="315" y1="168" x2="575" y2="168" stroke="#8a94a3" stroke-width="1.2"/>
-      <line x1="315" y1="35" x2="315" y2="172" stroke="#8a94a3" stroke-width="1.2"/>
-
-      <!-- Shaded Major Arc windows at x = 315 (0), 380 (1/4), 401.7 (1/3), 488.3 (2/3), 510 (3/4), 575 (1) -->
-      <rect x="315" y="38" width="10" height="130" fill="#e1f0ee"/>
-      <rect x="374" y="110" width="12" height="58" fill="#e1f0ee"/>
-      <rect x="396" y="135" width="12" height="33" fill="#e1f0ee"/>
-      <rect x="482" y="135" width="12" height="33" fill="#e1f0ee"/>
-      <rect x="504" y="110" width="12" height="58" fill="#e1f0ee"/>
-      <rect x="565" y="38" width="10" height="130" fill="#e1f0ee"/>
-
-      <!-- Spikes curve -->
-      <path d="M 315,40 L 323,164 L 345,166 L 372,165 L 380,115 L 388,165 L 395,165 L 401.7,140 L 408,165 L 445,168 L 482,165 L 488.3,140 L 495,165 L 502,165 L 510,115 L 518,165 L 545,166 L 567,164 L 575,40" fill="none" stroke="#0f5c57" stroke-width="2"/>
-
-      <!-- Minor arc ceiling line -->
-      <line x1="325" y1="158" x2="565" y2="158" stroke="#8a4b08" stroke-width="1.3" stroke-dasharray="4,3"/>
-      <text x="445" y="153" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Minor-arc supremum ceiling  sup_𝔪 |f(α)|</text>
-
-      <text x="315" y="182" font-family="Georgia, serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
-      <text x="380" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">1/4</text>
-      <text x="402" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">1/3</text>
-      <text x="445" y="182" font-family="Georgia, serif" font-size="9.5" fill="#8a4b08" text-anchor="middle">1/2</text>
-      <text x="488" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">2/3</text>
-      <text x="510" y="182" font-family="Georgia, serif" font-size="9.5" fill="#0f5c57" text-anchor="middle">3/4</text>
-      <text x="575" y="182" font-family="Georgia, serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
-      <text x="445" y="198" font-family="system-ui, sans-serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Major arcs (24% of length) carry 95.2% of the integral R₄(30) = 48</text>
-    </svg>
-    <figcaption><strong>Fig P38.1.</strong> <strong>(A)</strong> The Hardy–Littlewood circle partition splits \(\alpha \in \mathbb{R}/\mathbb{Z}\) into narrow major arcs \(\mathfrak{M}\) around low-denominator fractions \(a/q\) and the complementary minor arcs \(\mathfrak{m}\). <strong>(B)</strong> On \(\mathfrak{M}\), modular periodicity produces towering resonance peaks; on \(\mathfrak{m}\), phase cancellation keeps \(|f(\alpha)|^4\) trapped beneath a tiny ceiling.</figcaption>
-  </figure>
+<p>The encounter's lesson, before any naming: the count is an average on a circle; the average's mass is concentrated near the loud angle; and "near" is a measurable stretch of the circle, not a metaphor. Everything this page adds is the discipline for doing this when the table has a trillion entries and the loud angles come in crowds.</p>
 </section>
 
 <section id="pattern">
-  <h2>3 · Name the move</h2>
-  <p>G. H. Hardy, J. E. Littlewood, and I. M. Vinogradov turned this split into a universal machine for additive number theory. Whenever we integrate an exponential sum \(S(\alpha)^s e(-N\alpha)\) over \(\alpha \in [0, 1)\), we choose a denominator cutoff \(Q\) and a width \(\delta = Q / (N \text{ or } M^k)\) so that the intervals \(\mathfrak{M}(a, q) = \left[\frac{a}{q} - \delta,\, \frac{a}{q} + \delta\right]\) around coprime fractions \(1 \le a \le q \le Q\), \(\gcd(a,q) = 1\), are pairwise disjoint.</p>
-
-  <aside class="onramp">
-    <strong>Local Gauss sums \(S(a,q)\), the singular series \(\mathfrak{S}(N)\), and the singular integral \(\mathfrak{J}(N)\).</strong>
-    Near a rational point \(\alpha = \frac{a}{q} + \beta\) (with \(|\beta| \le \delta\) tiny), sorting the summation index \(m = qk + r\) by its remainder \(r \bmod q\) (<a href="b01-remainders.html"><span class="pid">B01</span></a>) factors the exponential sum \(S\bigl(\frac{a}{q} + \beta\bigr) \approx \frac{S(a,q)}{q} V(\beta)\) into a <em>local arithmetic factor</em> \(S(a,q) = \sum_{r=1}^q e(a r^k / q)\) (measuring congruence obstructions modulo \(q\)) times a <em>smooth archimedean integral</em> \(V(\beta) = \int_0^M e(\beta x^k)\,dx\) (measuring real density). Summing the \(s\)-th powers of the local factors over all \(q \ge 1\) builds the <em>singular series</em> \(\mathfrak{S}(N) = \sum_{q=1}^\infty \sum_{(a,q)=1} \left(\frac{S(a,q)}{q}\right)^s e(-Na/q)\), while integrating \(V(\beta)^s e(-N\beta)\,d\beta\) builds the <em>singular integral</em> \(\mathfrak{J}(N)\).
-  </aside>
-
-  <div class="pattern-box" id="box-p38">
-    <p><strong>Pattern P38 — Major and minor arcs.</strong> To evaluate or bound the number of solutions \(R(N) = \int_0^1 S(\alpha)^s e(-N\alpha)\,d\alpha\) to an additive problem, partition the unit circle \([0,1) = \mathfrak{M} \sqcup \mathfrak{m}\) into <strong>major arcs</strong> \(\mathfrak{M} = \bigsqcup_{q \le Q} \bigsqcup_{(a,q)=1} \mathfrak{M}(a,q)\) (narrow neighborhoods of low-denominator rationals) and <strong>minor arcs</strong> \(\mathfrak{m} = [0,1) \setminus \mathfrak{M}\):</p>
-    <p class="eq">\[R(N) = \underbrace{\int_{\mathfrak{M}} S(\alpha)^s e(-N\alpha)\,d\alpha}_{\text{Structured main term } \mathfrak{S}(N)\,\mathfrak{J}(N)} \;+\; \underbrace{\int_{\mathfrak{m}} S(\alpha)^s e(-N\alpha)\,d\alpha}_{\text{Pseudorandom error bounded by } \bigl(\sup_{\mathfrak{m}}|S|\bigr)^{s-2}\int_0^1 |S|^2}.\]</p>
-    <p class="words"><strong>Or, in words:</strong> Do not treat all frequencies on the circle equally. Isolate the rational resonances \(\alpha \approx a/q\) where modular arithmetic creates constructive spikes and integrate them to get the main term; bound the rest of the circle by combining a supremum bound with an \(L^2\) energy identity.</p>
-  </div>
-
-  <div class="pattern-box" id="box-p38a">
-    <p><strong>Box P38.A — The three obligations of a circle-method proof.</strong></p>
-    <ol>
-      <li><strong>Disjoint Farey / Dirichlet Calibration (<span class="pid">P10</span>):</strong> Choose denominator threshold \(Q\) and arc half-width \(\delta\) so that distinct major arcs \(\mathfrak{M}(a,q)\) and \(\mathfrak{M}(a',q')\) do not overlap (\(\left|\frac{a}{q} - \frac{a'}{q'}\right| \ge \frac{1}{qq'} &gt; 2\delta\), requiring \(2Q^2 \delta &lt; 1\)), while Dirichlet's pigeonhole approximation guarantees every \(\alpha \in \mathfrak{m}\) lies near a fraction with denominator \(q &gt; Q\).</li>
-      <li><strong>Major-Arc Local-to-Global Factorization:</strong> On each major arc \(\alpha = \frac{a}{q} + \beta\), factor \(S(\alpha) = \frac{S(a,q)}{q}V(\beta) + O(q + q|\beta|X)\) into its mod-\(q\) Gauss sum and real integral, and check that the singular series \(\mathfrak{S}(N) = \prod_p \sigma_p(N)\) is strictly positive (no local mod-\(p\) congruence obstruction).</li>
-      <li><strong>Minor-Arc Hybrid Squeeze (Supremum \(\times\) Parseval \(L^2\), <span class="pid">P15</span> + <span class="pid">P24</span>):</strong> Never bound \(\int_{\mathfrak{m}} |S(\alpha)|^s\,d\alpha\) by \(\sup_{\mathfrak{m}} |S(\alpha)|^s\) alone! Pull out \(s - 2\) (or \(s - 2r\)) powers via the supremum on \(\mathfrak{m}\) and spend the remaining \(2\) (or \(2r\)) powers on a full-circle Parseval energy integral:
-        <p class="eq">\[\left|\int_{\mathfrak{m}} S(\alpha)^s e(-N\alpha)\,d\alpha\right| \;\le\; \left(\sup_{\alpha \in \mathfrak{m}} |S(\alpha)|\right)^{s-2} \int_0^1 |S(\alpha)|^2\,d\alpha.\]</p>
-      </li>
-    </ol>
-  </div>
-
-  <div class="pattern-box" id="box-p38b">
-    <table>
-      <thead>
-        <tr>
-          <th>Key</th>
-          <th>Signature</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Claim type</strong></td>
-          <td>An asymptotic count \(R(N) \sim \mathfrak{S}(N)\mathfrak{J}(N) + o(\text{main})\) for representations of a large integer \(N\) as a sum of \(s\) elements from a structured set \(A\) (squares, \(k\)-th powers, primes), or \(k\)-AP counts in dense sets.</td>
-        </tr>
-        <tr>
-          <td><strong>Problem shape</strong></td>
-          <td>An additive condition \(a_1 + \cdots + a_s = N\) whose multiplicative constraints (primality or \(k\)-th powers) become spiky exponential sums in Fourier space.</td>
-        </tr>
-        <tr>
-          <td><strong>Tools at hand</strong></td>
-          <td>Dirichlet's pigeonhole theorem (<span class="pid">P10</span>), Weyl differencing / van der Corput bounds on \(\sup_{\mathfrak{m}}|S|\), and Parseval/Hua mean-value theorems \(\int_0^1 |S|^{2r}\,d\alpha\) (<span class="pid">P24</span>).</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>Three-key diagnosis.</strong> Reach for <span class="pid">P38</span> whenever Fourier inversion turns an additive counting problem into a circle integral with sharp spikes at rational frequencies.</p>
-  </div>
-
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P38.2: Anatomy of a single Major Arc alpha = a/q + beta: factoring S(a/q + beta) into the arithmetic Gauss sum S(a,q)/q (local congruence phase) times the smooth archimedean envelope V(beta).">
-      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
-      <text x="300" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Local-to-Global Factorization Inside a Single Major Arc  α = a/q + β   (|β| ≤ δ)</text>
-
-      <!-- Left box: Full Sum S(a/q + beta) -->
-      <rect x="24" y="46" width="164" height="104" fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6" rx="4"/>
-      <text x="106" y="70" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S(a/q + β)</text>
-      <text x="106" y="94" font-family="Georgia, serif" font-size="10.5" fill="#5a5a5a" text-anchor="middle">∑_{m ≤ M} e(mᵏ a/q) e(mᵏ β)</text>
-      <text x="106" y="120" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Split m = q j + r  (B01)</text>
-      <text x="106" y="136" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5a5a" text-anchor="middle">Fast mod-q × Slow real β</text>
-
-      <text x="206" y="102" font-family="Georgia, serif" font-size="16" font-weight="bold" fill="#0f5c57" text-anchor="middle">≈</text>
-
-      <!-- Middle box: Local Arithmetic Factor S(a,q)/q -->
-      <rect x="224" y="46" width="168" height="104" fill="#f2f7f6" stroke="#0f5c57" stroke-width="1.8" rx="4"/>
-      <text x="308" y="68" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Arithmetic Factor (mod q)</text>
-      <text x="308" y="92" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S(a, q) / q</text>
-      <text x="308" y="114" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">S(a,q) = ∑_{r=1}^q e(a rᵏ / q)</text>
-      <text x="308" y="136" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Sums over q to Singular Series 𝔖(N)</text>
-
-      <text x="406" y="102" font-family="Georgia, serif" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">×</text>
-
-      <!-- Right box: Archimedean Envelope V(beta) -->
-      <rect x="422" y="46" width="154" height="104" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.8" rx="4"/>
-      <text x="499" y="68" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Archimedean Factor (ℝ)</text>
-      <text x="499" y="92" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V(β) = ∫₀^M e(β xᵏ) dx</text>
-      <text x="499" y="114" font-family="Georgia, serif" font-size="10" fill="#5a5a5a" text-anchor="middle">Smooth real-density wave</text>
-      <text x="499" y="136" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Integrates over β to 𝔍(N)</text>
-    </svg>
-    <figcaption><strong>Fig P38.2.</strong> Inside each major arc \(\alpha = \frac{a}{q} + \beta\), the fast oscillation \(e(a m^k/q)\) depends only on the remainder \(r = m \bmod q\) (<span class="pid">B01</span>), while the slow oscillation \(e(\beta m^k)\) varies smoothly across blocks of length \(q\). Factoring the two scales separates the mod-\(p\) singular series \(\mathfrak{S}(N)\) from the real volume integral \(\mathfrak{J}(N)\).</figcaption>
-  </figure>
+<h2>3 · The pattern</h2>
+<div class="pattern-box" id="box-p38">
+<p><strong>Pattern P38 — Major and minor arcs.</strong> When a counting question is carried to the circle as a coefficient — \(N(n)\), the number of \(s\)-tuples of pieces summing to \(n\), read off as the average of \(F(\theta)^{s} e^{-in\theta}\) — split the circle at the loud angles: the rational fractions \(\frac{a}{q}\) of a turn with small denominator \(q\), where the pieces fall back into step. Around each loud angle take a <em>major arc</em>, wide enough to hold the pileup; integrate there with the full local machinery — each major arc is P27's break-read run once, and the collection of local reads assembles into a main term whose arithmetic is the denominators'. On the remaining <em>minor arcs</em>, integrate nothing: bound the sum by its largest height times the arc's length — P15's wall, one per quiet stretch. The count emerges as \[ N(n) \;=\; \text{main term (from the major arcs)} \;+\; \text{error (from the minor arcs)}, \] and the method's whole content is the bookkeeping that makes the error smaller than the resolution demanded. What the major arcs see: growth, shape, the peak's location. What only the minor arcs see: the corrections — and, sometimes, that the true count is zero where the main term is not.</p>
+<p class="words"><strong>Or, in words:</strong> put the count on a circle; find where the circle is loud; read those stretches exactly and wall off the rest. The loud stretches are arithmetic — denominators, remainders, local obstructions; the quiet stretches are analysis — heights and lengths, walls and squeezes. The count is the sum of the two ledgers.</p>
+<p>Three obligations, and the pattern fails without any one of them:</p>
+<p><strong>Box P38.A — the three obligations.</strong> <em>First, locate the loud angles.</em> The rationals \(\frac{a}{q}\) with small \(q\); for the dice, just \(q=1\) — the angle \(0\). Miss one and its contribution lands in the walls, where it is invisible. <em>Second, integrate the major arcs honestly.</em> Each major arc gets a local model of \(F\) near its loud angle — for the dice, \(F(\theta) \approx 6\, e^{3.5 i\theta}\) with the cubic giving a smooth peak — and the local reads must be assembled, not just the biggest one taken. <em>Third, bound the minor arcs.</em> A wall per stretch: \(\bigl|F(\theta)\bigr| \le 1/\sin(\delta/2)\) at distance \(\delta\) from the nearest loud angle, times the stretch's length. The wall must actually be small enough — and knowing whether it is, is knowing whether the method applies at all.</p>
+<p><strong>Diagnosis.</strong> <em>Claim type:</em> a count, usually asymptotic — the growth law with an honest error term, or an exact small-case census used as a detector. <em>Problem shape:</em> additive — a total built from independent pieces, where each piece contributes a wave. <em>Tools at hand:</em> P27's local read at a break, P15's trapping walls, P10's bookkeeping for the small cases that keep everyone honest.</p>
+<p>How you could have found this move: start from the exactness you already trust. The grid average reproduces the census because the sample points are just far enough apart that no two totals alias — so an exact read demands a grid finer than the totals' spread, and a trillion-entry table cannot afford one. The escape is to stop demanding exactness where the sum is quiet: the heights \(\bigl|F(\theta)\bigr|\) concentrate wherever the pieces fall back into step, and that concentration is visible in the two-dice spike landscape long before any notation arrives. Split there, integrate the loud stretches with the local machinery you already own, and wall the quiet stretches with P15's bound — the method is the only honest division of labor between what you can compute and what you can only bound.</p>
+</div>
 </section>
+
 <section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
-
-  <h3>Exemplar 1 · Weyl differencing: squaring a quadratic sum to linearize its phase</h3>
-  <p>How do we prove that the quadratic sum \(S(\alpha) = \sum_{m=1}^M e(\alpha m^2)\) is small on the minor arcs \(\mathfrak{m}\)? Because the exponent \(\alpha m^2\) is quadratic in \(m\), \(S(\alpha)\) is not a geometric series. Hermann Weyl discovered in 1916 that multiplying \(S(\alpha)\) by its complex conjugate \(\overline{S(\alpha)}\) and changing variables to the step difference \(h = m_1 - m_2\) (<a href="b11-discrete-derivative.html"><span class="pid">B11</span></a>) lowers the degree of the phase from \(2\) to \(1\):</p>
-  <p class="eq">\[|S(\alpha)|^2 = \sum_{m_1=1}^M \sum_{m_2=1}^M e\bigl(\alpha(m_1^2 - m_2^2)\bigr) = \sum_{h=-(M-1)}^{M-1} e(\alpha h^2) \sum_{m \in I_h} e(2\alpha h\,m),\]</p>
-  <p>where \(I_h = [1, M] \cap [1-h, M-h]\) is an interval of length at most \(M\). Look at the inner sum over \(m\): the \(m^2\) term has canceled completely, leaving a pure <strong>geometric progression</strong> with common ratio \(e(2\alpha h)\)! Summing the geometric series (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) and squeezing (<a href="p15-squeeze.html"><span class="pid">P15</span></a>) by \(|\sin(\pi\theta)| \ge 2\|\theta\|_{\mathbb{Z}}\) gives</p>
-  <p class="eq">\[|S(\alpha)|^2 \;\le\; M + \sum_{h=1}^{M-1} 2\min\!\left(M,\; \frac{1}{2\|2\alpha h\|_{\mathbb{Z}}}\right).\]</p>
-  <p>By Dirichlet's pigeonhole theorem (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>), any \(\alpha \in [0,1)\) lies within \(\frac{1}{qQ}\) of a reduced fraction \(\frac{a}{q}\) with \(q \le Q\); on the minor arcs \(\mathfrak{m}\), we know \(q &gt; Q\) (or \(|\alpha - a/q| &gt; \delta\)), so as \(h\) runs through blocks of length \(q\), the fractional parts \(\{2\alpha h\}\) spread evenly across the \(q\) pigeonholes of width \(1/q\), yielding Weyl's bound</p>
-  <p class="eq">\[|S(\alpha)| \;\ll\; M^{1+\varepsilon}\!\left(\frac{1}{q} + \frac{1}{M} + \frac{q}{M^2}\right)^{1/2}.\]</p>
-  <p>Choosing \(Q = M\) guarantees \(M \le q \le M\) on the boundary of \(\mathfrak{m}\), saving a power \(M^{-1/2 + \varepsilon}\) across the entire minor-arc sea!</p>
-
-  <h3>Exemplar 2 · Quadratic Gauss sums (\(|S(a,q)| = \sqrt{q}\)) and the singular series \(\mathfrak{S}(N)\)</h3>
-  <p>Now step onto a major arc \(\alpha = \frac{a}{q} + \beta\) around a fraction with odd denominator \(q\) and \(\gcd(a,q) = 1\). By <strong>Fig P38.2</strong>, the size of the rational spike is controlled by the normalized Gauss sum \(\frac{S(a,q)}{q}\), where \(S(a,q) = \sum_{r=1}^q e(a r^2 / q)\). Apply the exact same squaring trick as in Exemplar 1, this time modulo \(q\) (<a href="b02-congruence-classes.html"><span class="pid">B02</span></a>), setting \(r_1 \equiv r_2 + h \pmod q\):</p>
-  <p class="eq">\[|S(a,q)|^2 = \sum_{r_1=1}^q \sum_{r_2=1}^q e\!\left(\frac{a(r_1^2 - r_2^2)}{q}\right) = \sum_{h=1}^q e\!\left(\frac{ah^2}{q}\right) \sum_{r_2=1}^q e\!\left(\frac{2ah\,r_2}{q}\right).\]</p>
-  <p>Because \(q\) is odd and \(\gcd(a,q) = 1\), we have \(\gcd(2a, q) = 1\). Therefore, by character orthogonality on \(\mathbb{Z}/q\mathbb{Z}\) (<a href="p36-character-counting.html"><span class="pid">P36</span></a>), the inner sum \(\sum_{r_2=1}^q e(2ah r_2 / q)\) vanishes for every \(h \not\equiv 0 \pmod q\), and equals \(q\) when \(h \equiv 0 \pmod q\)! Consequently:</p>
-  <p class="eq">\[|S(a,q)|^2 = 1 \cdot q = q \quad\Longrightarrow\quad \bigl|S(a,q)\bigr| = \sqrt{q}, \qquad \left|\frac{S(a,q)}{q}\right| = \frac{1}{\sqrt{q}}.\]</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Odd Modulus \(q\)</th>
-        <th>Residues \(r^2 \bmod q\) (\(r = 0..q-1\))</th>
-        <th>Exact Gauss Sum \(S(1, q)\)</th>
-        <th>Magnitude \(|S(1,q)| = \sqrt{q}\)</th>
-        <th>Normalized Spike \(|S(1,q)/q|^4\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(q = 3\) (\(\equiv 3 \bmod 4\))</td>
-        <td>\(0, 1, 1\)</td>
-        <td>\(1 + 2e(1/3) = +i\sqrt{3}\)</td>
-        <td>\(\sqrt{3} \approx 1.732051\)</td>
-        <td>\(1 / 9 \approx 0.1111\)</td>
-      </tr>
-      <tr>
-        <td>\(q = 5\) (\(\equiv 1 \bmod 4\))</td>
-        <td>\(0, 1, 4, 4, 1\)</td>
-        <td>\(1 + 2e(1/5) + 2e(4/5) = +\sqrt{5}\)</td>
-        <td>\(\sqrt{5} \approx 2.236068\)</td>
-        <td>\(1 / 25 = 0.0400\)</td>
-      </tr>
-      <tr>
-        <td>\(q = 7\) (\(\equiv 3 \bmod 4\))</td>
-        <td>\(0, 1, 4, 2, 2, 4, 1\)</td>
-        <td>\(+i\sqrt{7}\)</td>
-        <td>\(\sqrt{7} \approx 2.645751\)</td>
-        <td>\(1 / 49 \approx 0.0204\)</td>
-      </tr>
-      <tr>
-        <td>\(q = 9\) (\(\equiv 1 \bmod 4\))</td>
-        <td>\(0, 1, 4, 0, 7, 7, 0, 4, 1\)</td>
-        <td>\(+3\)</td>
-        <td>\(\sqrt{9} = 3.000000\)</td>
-        <td>\(1 / 81 \approx 0.0123\)</td>
-      </tr>
-      <tr>
-        <td>\(q = 11\) (\(\equiv 3 \bmod 4\))</td>
-        <td>\(0, 1, 4, 9, 5, 3, 3, 5, 9, 4, 1\)</td>
-        <td>\(+i\sqrt{11}\)</td>
-        <td>\(\sqrt{11} \approx 3.316625\)</td>
-        <td>\(1 / 121 \approx 0.0083\)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Summing the \(s\)-th powers \(\left(\frac{S(a,q)}{q}\right)^s e(-Na/q)\) over all \(q \ge 1\) and \(\gcd(a,q) = 1\), the \(q\)-th term is bounded by \(\phi(q)\,q^{-s/2} \le q^{1 - s/2}\), which converges absolutely whenever \(s \ge 5\). Even better, by the Chinese Remainder Theorem (<a href="b04-bezout.html"><span class="pid">B04</span></a>, <a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>), \(\mathfrak{S}(N) = \prod_p \sigma_p(N)\) factors into an Euler product of local \(p\)-adic solution densities! If \(N\) violates a congruence condition modulo \(p^r\) (such as \(N \equiv 7 \pmod 8\) for \(s = 3\) squares), the local factor \(\sigma_2(N) = 0\) kills the main term automatically.</p>
-
-  <h3>Exemplar 3 · Vinogradov's three-primes theorem (\(N = p_1 + p_2 + p_3\)) and the \(L^\infty \times L^2\) minor-arc squeeze</h3>
-  <p>To count representations of a large odd integer \(N\) as a sum of three primes \(N = p_1 + p_2 + p_3\), I. M. Vinogradov formed the prime exponential sum weighted by \(\ln p\):</p>
-  <p class="eq">\[S_P(\alpha) = \sum_{p \le N} (\ln p)\,e(p\alpha), \qquad R_3(N) = \int_0^1 S_P(\alpha)^3 e(-N\alpha)\,d\alpha.\]</p>
-  <p>On the major arcs \(\mathfrak{M}\) (around \(a/q\) with \(q \le (\ln N)^A\)), primes distribute evenly among the \(\phi(q)\) coprime residue classes, so \(S_P(\frac{a}{q}+\beta) \approx \frac{\mu(q)}{\phi(q)}\int_2^N e(\beta x)\,dx\), producing the major-arc main term</p>
-  <p class="eq">\[\int_{\mathfrak{M}} S_P(\alpha)^3 e(-N\alpha)\,d\alpha = \frac{1}{2}\mathfrak{S}_3(N)\,N^2 + o(N^2), \qquad \mathfrak{S}_3(N) = \prod_{p \mid N}\left(1 - \frac{1}{(p-1)^2}\right)\prod_{p \nmid N}\left(1 + \frac{1}{(p-1)^3}\right) &gt; 1.\]</p>
-  <p>How do we prove that the minor-arc integral \(\int_{\mathfrak{m}} S_P(\alpha)^3 e(-N\alpha)\,d\alpha\) is \(o(N^2)\)? Apply Obligation 3 of Box P38.A: pull out <em>one</em> power of \(|S_P(\alpha)|\) via the minor-arc supremum, and evaluate the remaining <em>two</em> powers over the whole circle by Parseval's identity (<a href="p24-waves.html"><span class="pid">P24</span></a>):</p>
-  <p class="eq">\[\left|\int_{\mathfrak{m}} S_P(\alpha)^3 e(-N\alpha)\,d\alpha\right| \;\le\; \left(\sup_{\alpha \in \mathfrak{m}} |S_P(\alpha)|\right) \int_0^1 |S_P(\alpha)|^2\,d\alpha = \left(\sup_{\alpha \in \mathfrak{m}} |S_P(\alpha)|\right) \sum_{p \le N} (\ln p)^2.\]</p>
-  <p>Look at the exponent miracle: by the Prime Number Theorem, \(\sum_{p \le N} (\ln p)^2 \sim N\ln N\) has size only \(O(N\ln N)\), not \(N^2\)! Therefore, to beat the main term \(\sim c N^2\), we only need \(\sup_{\alpha \in \mathfrak{m}} |S_P(\alpha)| \ll N / (\ln N)^2\) — a tiny logarithmic saving over the trivial bound \(N\)! Vinogradov achieved \(\sup_{\mathfrak{m}} |S_P(\alpha)| \ll N(\ln N)^{-A}\) for every \(A &gt; 0\), proving that every sufficiently large odd number is the sum of three primes.</p>
+<h2>4 · Three exemplars</h2>
+<h3>Exemplar 1 · The peak, priced two ways</h3>
+<p>Three dice, the total \(n=10\), the count \(27\) — machine-census, \(216\) triples. The loud stretch (\(\bigl|\theta\bigr| \le \pi/6\), one twelfth of a turn on each side of the spike), integrated with the trapezoid rule at \(200{,}000\) steps, contributes \(25.043\). The quiet stretch therefore contributes \(27 - 25.043 = 1.957\) — about \(7.25\%\) of the answer. The Gaussian read (each die has variance \(35/12 \approx 2.9167\); three dice, variance \(8.75\), standard deviation \(2.958\)) puts the peak at \(216/\sqrt{2\pi \cdot 8.75} \approx 29.13\): right shape, \(8\%\) high at the top — the Gaussian is the loud stretch's local model pushed past its license. All three numbers — \(27\), \(25.043\), \(29.13\) — are one machine run; the census is exact by enumeration, the loud-stretch integral by the trapezoid rule whose error at this resolution is below the printed digit, and the Gaussian by its formula.</p>
+<p>Now the tails, where the ledger turns honest. At \(n=3\) the true count is \(1\) — the single triple \((1,1,1)\) — but the loud stretch alone integrates to \(1.164\): it <em>overshoots</em>. The quiet stretch's contribution is \(-0.164\), not a positive bonus. The split into major and minor is a ledger of signed corrections, not a partition into parts; the quiet stretch exists to cancel the loud stretch's spillover, and at the edges of the range that is its whole job. A reader who expects the minor arcs to always "add the missing bit" has the bookkeeping backwards — Exercise 4 referees exactly this error.</p>
+<h3>Exemplar 2 · Two variables, the quiet stretch stops being quiet</h3>
+<p>Two dice. The census, totals \(2\) through \(12\): \(1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1\) — the triangle law \(N(n) = 6 - \bigl|n - 7\bigr|\), exact by enumeration and exact again by the \(36\)-point grid average. Now price it the P38 way: integrate only the loud stretch. The result undershoots <em>everywhere</em>: at the peak it reads \(4.67\) against the true \(6\) — a \(22\%\) shortfall — and at the extremes \(1.57\) against \(1\), \(2.45\) against \(2\). With only two factors, \(F(\theta)^{2}\), the quiet stretch carries a fifth of the answer, and no wall around it is small: the largest quiet height \(3.8637\) squared is \(14.9\), against a main term of order \(6\). The method's engine — walls shrinking below the main term — has not started yet. This is the two-variable disease in miniature, and it is why the method's great theorems all live at large \(s\): the quiet stretch submits only when there are enough factors to squash it. Exhibit B shows the same disease at full scale, where it becomes a famous open problem.</p>
+<h3>Exemplar 3 · Four variables, the wall begins to submit</h3>
+<p>Four dice. The census, totals \(4\) through \(24\): \(1, 4, 10, 20, 35, 56, 80, 104, 125, 140, 146, 140, 125, 104, 80, 56, 35, 20, 10, 4, 1\) — \(1296\) triples... quadruples, peaking at \(146\) for the total \(14\). The loud stretch alone integrates to \(138.079\): the quiet share is \(7.921\), about \(5.43\%\) — down from \(7.25\%\) at three dice. One more factor and the quiet stretch lost a quarter of its relative weight. The Gaussian read puts the peak at \(1296/\sqrt{2\pi \cdot 35/3} \approx 151.37\), again high by the familiar overshoot. The trend is the method's promise: each added factor multiplies the main term by \(\sim M\) but the quiet wall by only \(\sim 1\) — the walls shrink relative to the signal, and at large \(s\) they vanish below any demanded resolution. The count's mass concentrates where the circle is loud, and the concentration is measurable, monotone, and the entire engine of everything that follows.</p>
 </section>
 
-<section id="fails">
-  <h2>5 · When the trick breaks</h2>
-  <p>The circle method is exact as an integral identity, but three famous barriers govern where major-and-minor arc estimates break down:</p>
+<section id="exhibits">
+<h2>5 · Three exhibits</h2>
+<h3>Exhibit A · The wall the loud angles cannot see</h3>
+<p>Which whole numbers are a sum of three squares? Census to \(40\), by exhaustive search over \(0 \le a \le b \le c\): every \(n\) works except \(7,\; 15,\; 23,\; 28,\; 31,\; 39\). The circle method's plain read — one loud angle at \(q=1\), walls elsewhere — is blind to every one of these failures: its main term is positive at each. The obstruction is <em>local</em>. Squares are only \(0, 1, 4\) modulo \(8\), and three of them sum to \(0,1,2,3,4,5,6\) — never \(7\). So no \(n \equiv 7 \pmod 8\) works: that is \(7, 15, 23, 31, 39\). And when all three squares are even, divide by \(4\) and descend: \(28 = 4 \cdot 7\) inherits \(7\)'s failure. The full legend — \(n\) is a sum of three squares exactly when \(n\) is not of the form \(4^{a}(8b+7)\) — is the product of these local facts, one per small denominator, and the census to \(100\) confirms it: the failures are exactly \(7, 15, 23, 28, 31, 39, 47, 55, 60, 63, 71, 79, 87, 92, 95\), every one of the form \(4^{a}(8b+7)\), machine-checked.</p>
 
-  <div class="aside">
-    <p><strong>Exhibit A — The binary square-root barrier (\(s = 2\) Goldbach and twin primes: why \(L^2\) energy is too big!).</strong> Why did Exemplar 3 succeed for \(s = 3\) primes (\(N = p_1 + p_2 + p_3\)) but fail for \(s = 2\) primes (\(N = p_1 + p_2\), binary Goldbach)? For \(s = 2\), the expected main term is of size \(\sim \mathfrak{S}_2(N)\frac{N}{(\ln N)^2} \ll N\). Yet on the minor arcs, the best possible cancellation for a sum of \(\sim N/\ln N\) primes is square-root cancellation \(|S_P(\alpha)| \sim \sqrt{N\ln N}\), and by Parseval's identity (<a href="p24-waves.html"><span class="pid">P24</span></a>) the \(L^2\) integral over the circle is</p>
-    <p class="eq">\[\int_0^1 |S_P(\alpha)|^2\,d\alpha = \sum_{p \le N} (\ln p)^2 \sim N\ln N \;\gg\; N\,!\]</p>
-    <p>When \(s = 2\), you have zero spare powers of \(S_P(\alpha)\) to pull out in front of the \(L^2\) integral, and the triangle inequality \(\int_{\mathfrak{m}} |S_P(\alpha)|^2\,d\alpha \sim N\ln N\) is strictly <strong>larger</strong> than the main term \(N\)!</p>
-    <p><em>Mitigation:</em> Switch from the circle method to sieve methods (<a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a>, proving Chen's theorem \(N = p + P_2\)) or average over a family of targets \(N\) (showing almost all even numbers are sums of two primes).</p>
-    <p><em>Price:</em> Replacing exact two-prime equality with almost-primes or statistical density.</p>
-    <p><em>Default:</em> Always check the Parseval \(L^2\) energy \(\int_0^1 |S|^2\) against the expected main term before launching <span class="pid">P38</span>; you need \(s \ge 3\) (or \(s &gt; 2k\) for \(k\)-th powers) for \(L^\infty \times L^2\) to win.</p>
-  </div>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" role="img" aria-label="Fig P38.3 — the numbers 0 through 40 laid out in a grid of seven columns, six rows, with the fifteen... with the six failures of the three-squares question highlighted: 7, 15, 23, 28, 31 and 39, each of the form 4 to the a times a number that is 7 modulo 8.">
+<text x="260" y="24" font-size="14" text-anchor="middle">three squares: the failures to 40, all of the form 4^a(8b+7)</text>
+<rect x="60" y="50" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="88" y="84" font-size="15" text-anchor="middle">0</text>
+<rect x="116" y="50" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="144" y="84" font-size="15" text-anchor="middle">1</text>
+<rect x="172" y="50" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="200" y="84" font-size="15" text-anchor="middle">2</text>
+<rect x="228" y="50" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="256" y="84" font-size="15" text-anchor="middle">3</text>
+<rect x="284" y="50" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="312" y="84" font-size="15" text-anchor="middle">4</text>
+<rect x="340" y="50" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="368" y="84" font-size="15" text-anchor="middle">5</text>
+<rect x="396" y="50" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="424" y="84" font-size="15" text-anchor="middle">6</text>
+<rect x="60" y="106" width="56" height="56" fill="#f9ebe0" stroke="#8a4b08"/><text x="88" y="140" font-size="15" text-anchor="middle" font-weight="bold">7</text>
+<rect x="116" y="106" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="144" y="140" font-size="15" text-anchor="middle">8</text>
+<rect x="172" y="106" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="200" y="140" font-size="15" text-anchor="middle">9</text>
+<rect x="228" y="106" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="256" y="140" font-size="15" text-anchor="middle">10</text>
+<rect x="284" y="106" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="312" y="140" font-size="15" text-anchor="middle">11</text>
+<rect x="340" y="106" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="368" y="140" font-size="15" text-anchor="middle">12</text>
+<rect x="396" y="106" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="424" y="140" font-size="15" text-anchor="middle">13</text>
+<rect x="60" y="162" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="88" y="196" font-size="15" text-anchor="middle">14</text>
+<rect x="116" y="162" width="56" height="56" fill="#f9ebe0" stroke="#8a4b08"/><text x="144" y="196" font-size="15" text-anchor="middle" font-weight="bold">15</text>
+<rect x="172" y="162" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="200" y="196" font-size="15" text-anchor="middle">16</text>
+<rect x="228" y="162" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="256" y="196" font-size="15" text-anchor="middle">17</text>
+<rect x="284" y="162" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="312" y="196" font-size="15" text-anchor="middle">18</text>
+<rect x="340" y="162" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="368" y="196" font-size="15" text-anchor="middle">19</text>
+<rect x="396" y="162" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="424" y="196" font-size="15" text-anchor="middle">20</text>
+<rect x="60" y="218" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="88" y="252" font-size="15" text-anchor="middle">21</text>
+<rect x="116" y="218" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="144" y="252" font-size="15" text-anchor="middle">22</text>
+<rect x="172" y="218" width="56" height="56" fill="#f9ebe0" stroke="#8a4b08"/><text x="200" y="252" font-size="15" text-anchor="middle" font-weight="bold">23</text>
+<rect x="228" y="218" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="256" y="252" font-size="15" text-anchor="middle">24</text>
+<rect x="284" y="218" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="312" y="252" font-size="15" text-anchor="middle">25</text>
+<rect x="340" y="218" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="368" y="252" font-size="15" text-anchor="middle">26</text>
+<rect x="396" y="218" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="424" y="252" font-size="15" text-anchor="middle">27</text>
+<rect x="60" y="274" width="56" height="56" fill="#f9ebe0" stroke="#8a4b08"/><text x="88" y="308" font-size="15" text-anchor="middle" font-weight="bold">28</text>
+<rect x="116" y="274" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="144" y="308" font-size="15" text-anchor="middle">29</text>
+<rect x="172" y="274" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="200" y="308" font-size="15" text-anchor="middle">30</text>
+<rect x="228" y="274" width="56" height="56" fill="#f9ebe0" stroke="#8a4b08"/><text x="256" y="308" font-size="15" text-anchor="middle" font-weight="bold">31</text>
+<rect x="284" y="274" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="312" y="308" font-size="15" text-anchor="middle">32</text>
+<rect x="340" y="274" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="368" y="308" font-size="15" text-anchor="middle">33</text>
+<rect x="396" y="274" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="424" y="308" font-size="15" text-anchor="middle">34</text>
+<rect x="60" y="330" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="88" y="364" font-size="15" text-anchor="middle">35</text>
+<rect x="116" y="330" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="144" y="364" font-size="15" text-anchor="middle">36</text>
+<rect x="172" y="330" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="200" y="364" font-size="15" text-anchor="middle">37</text>
+<rect x="228" y="330" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="256" y="364" font-size="15" text-anchor="middle">38</text>
+<rect x="284" y="330" width="56" height="56" fill="#f9ebe0" stroke="#8a4b08"/><text x="312" y="364" font-size="15" text-anchor="middle" font-weight="bold">39</text>
+<rect x="340" y="330" width="56" height="56" fill="none" stroke="#d8d4cc"/><text x="368" y="364" font-size="15" text-anchor="middle">40</text>
+<text x="260" y="408" font-size="12" text-anchor="middle">highlighted: 7, 15, 23, 28, 31, 39 — the mod-8 wall and its descendants</text>
+</svg>
+<figcaption>Fig P38.3 — the three-squares census to \(40\). The six failures are exactly the \(4^{a}(8b+7)\) numbers: five caught by the mod-\(8\) wall, one (\(28 = 4\cdot 7\)) by the descent. The plain circle method's main term is positive at every cell; only the local reads at the small denominators see the wall.</figcaption>
+</figure>
 
-  <figure class="fig-tight">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 185" role="img" aria-label="Fig P38.3: Comparison of Ternary Goldbach (s=3, where Main Term ~ N^2 easily beats Minor L^infty x L^2 ~ N^2 / (ln N)^A) versus Binary Goldbach (s=2, where Parseval L^2 ~ N ln N swamps Main Term ~ N).">
-      <rect x="0" y="0" width="600" height="185" fill="#ffffff"/>
-
-      <!-- Left panel: Ternary Goldbach s = 3 (Circle Method Wins!) -->
-      <text x="150" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0f5c57" text-anchor="middle">A · Ternary Problem (s = 3 Primes:  Main ≫ Minor)</text>
-      <rect x="35" y="38" width="230" height="118" fill="#f9f8f4" stroke="#8a94a3" stroke-width="1.2"/>
-      <!-- Main term bar (height 88) -->
-      <rect x="68" y="54" width="64" height="86" fill="#0f5c57"/>
-      <text x="100" y="48" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Main ~ c N²</text>
-      <text x="100" y="102" font-family="system-ui, sans-serif" font-size="9.5" fill="#ffffff" text-anchor="middle">Major 𝔐</text>
-
-      <!-- Minor bound bar (height 26) -->
-      <rect x="168" y="114" width="64" height="26" fill="#d9ece9" stroke="#0f5c57" stroke-width="1.5"/>
-      <text x="200" y="106" font-family="Georgia, serif" font-size="10" fill="#0f5c57" text-anchor="middle">sup|S| · ∫|S|²</text>
-      <text x="200" y="131" font-family="Georgia, serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">≪ N²/(ln N)ᴬ</text>
-      <text x="150" y="172" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#0f5c57" text-anchor="middle">1 spare factor of |S| crushes Parseval L²!</text>
-
-      <!-- Divider -->
-      <line x1="300" y1="18" x2="300" y2="178" stroke="#d8d4cc" stroke-dasharray="4,4"/>
-
-      <!-- Right panel: Binary Goldbach s = 2 (Parseval Wall!) -->
-      <text x="450" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#8a4b08" text-anchor="middle">B · Binary Problem (s = 2 Primes:  L² Energy Barrier!)</text>
-      <rect x="335" y="38" width="230" height="118" fill="#fdf6f0" stroke="#8a4b08" stroke-width="1.2"/>
-      <!-- Main term bar (height 42) -->
-      <rect x="368" y="98" width="64" height="42" fill="#0f5c57"/>
-      <text x="400" y="90" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#0f5c57" text-anchor="middle">Main ~ c N</text>
-
-      <!-- Minor L^2 bar (height 88 - TALLER than main term!) -->
-      <rect x="468" y="52" width="64" height="88" fill="#f7e6d4" stroke="#8a4b08" stroke-width="2"/>
-      <text x="500" y="46" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">∫|S|² ~ N ln N</text>
-      <text x="500" y="98" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8a4b08" text-anchor="middle">Swamps Main!</text>
-      <text x="450" y="172" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8a4b08" text-anchor="middle">0 spare factors: triangle inequality loses to L² noise</text>
-    </svg>
-    <figcaption><strong>Fig P38.3.</strong> Why the circle method requires at least three summands (or \(s &gt; 2k\) for \(k\)-th powers): <strong>(A)</strong> at \(s = 3\), factoring out \(\sup_{\mathfrak{m}}|S|\) in front of the Parseval integral \(\int_0^1 |S|^2 \sim N\ln N\) beats the \(N^2\) main term; <strong>(B)</strong> at \(s = 2\), the Parseval integral \(\int |S|^2 \sim N\ln N\) already exceeds the \(O(N)\) main term, so bounding \(|\int_{\mathfrak{m}} S^2 e(-N\alpha)| \le \int_{\mathfrak{m}} |S|^2\) cannot prove positivity.</figcaption>
-  </figure>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Overlapping major arcs when the cutoff \(Q\) is chosen too large (\(2Q^2 \delta \ge 1\)).</strong> To make the minor-arc supremum \(\sup_{\mathfrak{m}} |S(\alpha)|\) as small as possible, it is tempting to push the major-arc denominator cutoff \(Q\) as high as \(M\). But if \(Q^2 \delta \ge 1\), the intervals \(\mathfrak{M}(a, q)\) and \(\mathfrak{M}(a', q')\) around distinct fractions overlap (\(\left|\frac{a}{q} - \frac{a'}{q'}\right| = \frac{1}{qq'} \le 2\delta\)), double-counting the spikes!</p>
-    <p><em>Mitigation:</em> Enforce the Farey disjointness lock \(2Q^2\delta &lt; 1\) (typically \(Q = M^\theta\) with \(\theta &lt; 1\)), or use the <strong>Kloosterman refinement</strong> (exact Farey dissection where each arc ends precisely at the mediant \(\frac{a+a'}{q+q'}\), harnessing cancellation in the sum over \(a \bmod q\)).</p>
-    <p><em>Price:</em> Tracking incomplete Kloosterman sums along variable-width Farey intervals.</p>
-    <p><em>Default:</em> Always check \(2Q^2\delta &lt; 1\) in Obligation 1 before summing over \((a,q) = 1\).</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Vanishing singular series \(\mathfrak{S}(N) = 0\) due to hidden local congruence obstructions.</strong> Even when the minor-arc error is tiny (\(o(M^{s-k})\)) and the real integral \(\mathfrak{J}(N) &gt; 0\) is positive, the coefficient \(\mathfrak{S}(N) = \prod_p \sigma_p(N)\) can vanish identically if a single prime power \(p^r\) blocks the equation modulo \(p^r\) (for instance, sums of \(4\)th powers modulo \(16\), where \(x^4 \equiv 0 \text{ or } 1 \pmod{16}\), requiring \(s \ge 16\) fourth powers locally at \(p = 2\) even though \(s = 5\) suffices globally at all other primes!).</p>
-    <p><em>Mitigation:</em> Localize at every prime \(p\) (<a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>) and verify Hensel's lemma lifting \(\sigma_p(N) &gt; 0\) for all \(p\), paying special attention to \(p = 2\) and primes dividing the exponent \(k\).</p>
-    <p><em>Price:</em> Checking finite congruence tables modulo small prime powers.</p>
-    <p><em>Default:</em> Never declare \(R(N) \to \infty\) until you have proved \(\sigma_p(N) &gt; 0\) for every prime \(p\).</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this chapter.</strong> In Waring's problem for \(k\)-th powers, elementary Weyl differencing + Hua's lemma proves the asymptotic formula for \(s \ge 2^k + 1\) variables (\(s \ge 5\) for squares, \(s \ge 9\) for cubes). Reaching \(s = 4\) squares requires the Kloosterman circle refinement (or Jacobi's modular theta identity), and reaching \(G(k) \sim k\ln k\) for large \(k\) requires Vinogradov's mean-value theorem (proved in full generality via Bourgain–Demeter–Guth \(\ell^2\) decoupling, <a href="p42-dyadic-decomposition.html"><span class="pid">P42</span></a>).</p>
-  </aside>
+<p>This is the singular series in miniature: the main term from the major arcs must be <em>multiplied through by local factors</em> — one per small denominator, each factor the density of solutions modulo \(q\) — before it can be believed. The major arcs see the size of the count; the denominators see its possibility. A count that is zero for local reasons has positive main term and zero truth, and only the local factors know.</p>
+<p>The wall, spoken in the singular series' own accent. The denominator-\(q\) local factor is a Gauss sum: \(S(a,q) = \sum_{r=0}^{q-1} e^{2\pi i a r^2/q}\), one term per remainder. Machine-run at the small denominators: \(S(1,2) = 0\) exactly — its two terms cancel; \(S(1,4) = 2(1+i)\); and for odd \(a\), \(S(a,8) = 4\,e^{2\pi i a/8}\), because the squares mod \(8\) are \(0,1,4,1,0,1,4,1\) and the two 0s and two 4s wipe each other out, leaving the four odd residues. Assemble the \(q = 1, 2, 4, 8\) contributions at \(N = 7\) — each \(\bigl(S(a,q)/q\bigr)^{3}\) weighted by \(e^{-2\pi i \cdot 7a/q}\): \(+1\) from \(q=1\), nothing from \(q=2\), then \(-\tfrac{1}{2}\) from \(q=4\) and \(-\tfrac{1}{2}\) from \(q=8\). The two-adic local factor is exactly zero: the mod-8 wall of this exhibit, heard the way the major arcs hear it. The census, the wall, and the singular series say the same thing in three dialects, and the machine run confirms all three.</p>
+<p>The main term has a second ledger, silent while the pieces are dice. The local factors price <em>possibility</em>; the <em>singular integral</em> prices size — the same split integrated near one loud angle with the arithmetic stripped out. For \(k\)-th powers it too has a closed form, due to Hardy and Littlewood: \[ \mathfrak{J}_s(N) \;=\; \frac{\Gamma\bigl(1 + \tfrac{1}{k}\bigr)^{s}}{\Gamma\bigl(\tfrac{s}{k}\bigr)}\, N^{\frac{s}{k}-1}, \] machine-checked by quadrature to within one percent at \((k,s) = (2,3), (2,4), (3,4)\). On this page's dice the role is played by the Gaussian read of Exemplar 1 — the smooth peak whose height the quiet stretch corrects. The full main term is the product of the two ledgers: the singular series says <em>whether</em>, the singular integral says <em>how many</em>.</p>
+<h3>Exhibit B · Where the method stops: two primes</h3>
+<p>Is every even number beyond \(2\) a sum of two primes? This is binary Goldbach, and it is open — not because nobody has tried the circle method, but because the method's engine demonstrably does not start at two variables. Exemplar 2 showed the disease in dice: with \(s=2\), the quiet stretch carries a fifth of the answer and no wall around it is small. For two primes the same wall stands, and three centuries of effort have not pushed it. What the method <em>does</em> prove, by exactly the machinery this page built — enough variables that the walls submit, local factors assembled denominator by denominator — is Vinogradov's theorem (1937): every sufficiently large odd number is a sum of three primes. The three-variable version submits; the two-variable version does not. The boundary is not mathematical cosmetics: it is the wall between \(F(\theta)^{3}\) and \(F(\theta)^{2}\), the same wall the dice already showed.</p>
+<aside class="aside warn"><p><strong>Scope note.</strong> This page's machinery is the finite, dice-sized core of the method: exact grid averages, one loud angle, walls measured by \(1/\sin(\delta/2)\). The full method for genuine counting problems — primes, Waring's problem, partitions — runs the same skeleton but needs: major arcs at every small denominator \(q\) (not just \(q=1\)), local models with the denominator's arithmetic inside, and minor-arc walls that beat the main term, which at the frontier takes estimates this page does not build. What transfers honestly: the splitting discipline, the three obligations, and the reason the number of variables is load-bearing. What does not: any claim that the walls here are already small enough — at \(s=2\) they are not, and the page says so where it matters.</p></aside>
+<h3>Exhibit C · Why the grid can be exact, and how small it may be</h3>
+<p>The \(216\)-point average reproduced every census value to the integer — and the threshold is sharper than it looks. The counts' support runs from \(3\) to \(18\): sixteen values. A \(K\)-point grid average collides two support values exactly when they differ by a multiple of \(K\), so the average is exact for all sixteen totals precisely when \(K \ge 16\). Machine-run: \(K = 16, 17, \ldots\) all exact; \(K = 15\) fails at \(n = 18\), reading \(2\) — the true \(1\) at \(18\) plus the true \(1\) at \(3\), wrapped around the circle onto the same sample; \(K = 14\) fails at \(n=18\) reading \(4\) — \(1\) plus the \(3\) at \(n=4\). The failure mode is not numerical noise; it is two honest counts landing on the same address. Small-case tests are detectors, not proofs — the exactness here is a theorem about trigonometric polynomials (the sampled average of \(F^{3}e^{-in\theta}\) is a finite sum of shifted coefficients), and the shift-and-collide mechanism is the whole content. The same mechanism at scale is why the circle method's integrals can be traded for finite sums when the pieces are finite — the computer-checked backbone under the analysis.</p>
 </section>
 
-<section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When \(s = 2\) (binary problems like twin primes or \(N = p_1 + p_2\)) hits the Parseval \(L^2\) barrier of Exhibit A:</strong> Switch from the frequency circle to <a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a>, which replaces exact prime indicators with a non-negative quadratic divisor form \(\bigl(\sum_{d \mid n} \lambda_d\bigr)^2\).</li>
-    <li><strong>When you need to test whether individual local factors \(\sigma_p(N)\) of the singular series vanish or survive:</strong> Use <a href="p30-localize-at-prime.html"><span class="pid">P30</span> · Localize at a prime</a> (Hensel's lemma and \(p\)-adic valuations).</li>
-    <li><strong>When you want to separate structured low-complexity signals from pseudorandom noise in a combinatorial set without periodic group structure:</strong> Compare <span class="pid">P38</span> with its dynamical twin <a href="p58-ergodic-correspondence.html"><span class="pid">P58</span> · Ergodic correspondence</a> (and the Green–Tao transference principle).</li>
-  </ul>
+<section id="doors">
+<h2>6 · The doors this opens</h2>
+<p><strong>Mitigation.</strong> When the quiet stretch will not submit, add variables. Each factor multiplies the main term by the pieces' scale while the walls grow by a single height — the quiet share falls, monotone, as Exemplar 3 measured (\(7.25\%\) at three dice, \(5.43\%\) at four). Vinogradov's three-primes theorem is this mitigation executed at the frontier: not a cleverer wall, just enough factors that the old wall is finally small enough. <strong>Price.</strong> The major arcs' local reads must be assembled honestly — one per small denominator — and their product, the singular series, is genuine arithmetic: Exhibit A's mod-\(8\) wall is a local factor equal to zero, and a main term multiplied by zero is zero. The method prices possibility locally and size globally; skip the local census and the main term lies. <strong>Default.</strong> When the variables are too few (the \(s=2\) disease) or a local factor vanishes, fall back to what never lies: exact enumeration of small cases (<a href="p02-small-cases.html">P02</a>), the census as detector, and the honest label "open" where the walls have not fallen — the label Exhibit B earns and keeps.</p>
+<p>One floor deeper: the cleverer wall. The wall this page builds — height \(1/\sin(\delta/2)\) times the stretch's length — is the method's crudest minor-arc instrument, and the frontier replaces it with <em>differencing</em>. Weyl (1916) noticed that squaring the sum and reindexing by the step difference \(h = m_1 - m_2\) — B11's discrete derivative, applied to the phase — cancels the leading term: \[ \bigl|S(\alpha)\bigr|^{2} \;=\; \sum_{h} e^{2\pi i \alpha h^{2}} \sum_{m} e^{4\pi i \alpha h m}, \] a geometric progression in \(m\) — P69's ledger — inside a sum whose phase is only linear in \(h\). Machine-run: the identity holds to \(10^{-12}\) at \(M = 6\) and \(M = 12\), and the derived wall \(\bigl|S(\alpha)\bigr|^{2} \le M + \sum_{h=1}^{M-1} 2\min\!\bigl(M, \tfrac{1}{2\|2\alpha h\|}\bigr)\) holds at every sample angle tested. Iterating the trick and pigeonholing the angles (<a href="p10-force-a-collision.html">P10</a>) yields Weyl's bound \(\bigl|S(\alpha)\bigr| \ll M^{1+\varepsilon}\bigl(\tfrac{1}{q} + \tfrac{1}{M} + \tfrac{q}{M^{2}}\bigr)^{1/2}\) on the minor arcs — the quiet sea beaten down by a power of \(M\) (our sweep to \(M = 24\) never saw the implied constant exceed \(1.3\); a detector, not a proof). The dice never need it; Vinogradov's three primes cannot live without it. The door is named, its machinery owed.</p>
+<p>The doors themselves. The <a href="p39-optimized-sieve.html">optimized sieve (P39)</a> is the sibling splitter: it too divides a count by where its mass can live — sifted residues versus the rest — and its "small sieve versus large sieve" wall-discipline is this page's quiet-stretch bookkeeping wearing number-theory clothes; readers of both will recognize the same ledger. And down P27's original door list, the next gear after this one is <em>tropicalize (P40, planned)</em>: trading the smooth for the piecewise-linear, where the breaks are not obstacles to read around but the whole structure — the circle method's loud/quiet split taken to the limit where only the breaks remain. Nothing on that page is assumed here; the door is named, its machinery owed.</p>
 </section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Ramanujan and Hardy's 1918 partition asymptotic to Littlewood's Waring machine and Vinogradov's trigonometric sums.</strong> In 1918 G. H. Hardy and Srinivasa Ramanujan (<em>Proceedings of the London Mathematical Society</em> 17, 75–115) invented the circle method to compute the number of integer partitions \(p(n)\) by integrating its generating function along a circle \(|z| = r &lt; 1\) and isolating the Farey-arc singularities at roots of unity \(e^{2\pi i a/q}\). Between 1920 and 1925, Hardy and J. E. Littlewood (<em>Acta Mathematica</em> 44, "Some problems of 'Partitio Numerorum'") reshaped the method for Waring's problem and conditional prime-sum asymptotics, naming the <em>major arcs</em> (German <em>große Bögen</em>) and <em>minor arcs</em> (<em>kleine Bögen</em>). In 1928–1937 Ivan Matveyevich Vinogradov replaced infinite power series inside the unit disk with finite trigonometric sums \(\sum_{n \le X} e(f(n)\alpha)\) on \(\mathbb{R}/\mathbb{Z}\) and proved his unconditional minor-arc estimates for primes, settling the ternary Goldbach conjecture for all sufficiently large odd integers (completed for all odd \(N \ge 7\) by Harald Helfgott in 2013).</p>
-  </aside>
+<h2>7 · Lineage</h2>
+<p>Five dates, one line each, none load-bearing. Gauss (1801, in the <em>Disquisitiones</em>) proved the three-squares legend of Exhibit A — the local obstruction read off before the circle existed to read it on. Hardy and Ramanujan (1918) built the circle method to count partitions, the subject's birth. Hardy and Littlewood (1920s) generalized it into a system — the major/minor vocabulary is theirs — and staked Waring's problem on it. Vinogradov (1937) tamed the minor arcs deeply enough for three primes, the method's first frontier theorem. Vaughan's <em>The Hardy–Littlewood Method</em> (2nd edition, 1997) is the modern treatment this page's scope note gestures toward. The pattern — split where the mass is, read exactly there, wall off the rest — is older than all of it: every estimating accountant has lived it.</p>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
-
-  <h3>Exercise 1 ●○○ — Parseval's \(L^2\) energy identity on the six-square sum \(f(\alpha)\)</h3>
-  <p>Return to the six-square exponential sum \(f(\alpha) = \sum_{m=0}^5 e(m^2\alpha) = 1 + e(\alpha) + e(4\alpha) + e(9\alpha) + e(16\alpha) + e(25\alpha)\) from Section 2.<br>
-  (a) Compute the full-circle \(L^2\) energy integral \(\int_0^1 |f(\alpha)|^2\,d\alpha\) and the \(L^4\) energy integral \(\int_0^1 |f(\alpha)|^4\,d\alpha\) exactly by counting solutions to \(m_1^2 = m_2^2\) and \(m_1^2 + m_2^2 = m_3^2 + m_4^2\) with \(m_j \in \{0, 1, 2, 3, 4, 5\}\).<br>
-  (b) Using your exact value of \(\int_0^1 |f(\alpha)|^2\,d\alpha\) and the minor-arc supremum \(\sup_{\alpha \in \mathfrak{m}} |f(\alpha)|^2 = 5.0\) on a minor-arc set \(\mathfrak{m}\), state the upper bound on \(\int_{\mathfrak{m}} |f(\alpha)|^4\,d\alpha\) given by Obligation 3 of Box P38.A.</p>
-  <details><summary>Hint</summary><p>In (a), expanding \(|f(\alpha)|^2 = f(\alpha)\overline{f(\alpha)}\) and integrating picks out pairs \(m_1^2 = m_2^2\) (\(6\) diagonal pairs). Expanding \(|f(\alpha)|^4 = |f(\alpha)^2|^2\) counts ordered quadruples \((m_1, m_2, m_3, m_4) \in \{0..5\}^4\) with \(m_1^2 + m_2^2 = m_3^2 + m_4^2\); remember the Pythgorean triple \(3^2 + 4^2 = 5^2 + 0^2 = 25\)!</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Exact \(L^2\) and \(L^4\) integrals by orthogonality (<span class="pid">P24</span>):</strong> Since the six squares \(0, 1, 4, 9, 16, 25\) are distinct, \(m_1^2 = m_2^2\) holds only for the \(6\) diagonal pairs \(m_1 = m_2\), so</p>
-    <p class="eq">\[\int_0^1 |f(\alpha)|^2\,d\alpha = 6.\]</p>
-    <p>For \(\int_0^1 |f(\alpha)|^4\,d\alpha\), we count quadruples with \(m_1^2 + m_2^2 = m_3^2 + m_4^2\):</p>
-    <ul>
-      <li>The \(6\) diagonal sums \(2m^2\) (\(0, 2, 8, 18, 32, 50\)) each have \(1^2 = 1\) representation (contributing \(6 \times 1 = 6\)).</li>
-      <li>The \(\binom{6}{2} - 2 = 13\) off-diagonal sums \(m_1^2 + m_2^2 \ne 25\) (\(m_1 \ne m_2\)) each have \(2\) ordered pairs \((m_1, m_2)\) and \((m_2, m_1)\), so \(2^2 = 4\) quadruples (contributing \(13 \times 4 = 52\)).</li>
-      <li>The special sum \(25 = 5^2 + 0^2 = 0^2 + 5^2 = 3^2 + 4^2 = 4^2 + 3^2\) has \(4\) ordered pairs, contributing \(4^2 = 16\) quadruples!</li>
-    </ul>
-    <p>Summing gives \(\int_0^1 |f(\alpha)|^4\,d\alpha = 6 + 52 + 16 = 74\).</p>
-    <p><strong>(b) Hybrid \(L^\infty \times L^2\) bound:</strong> By Obligation 3 of Box P38.A,</p>
-    <p class="eq">\[\int_{\mathfrak{m}} |f(\alpha)|^4\,d\alpha \;\le\; \left(\sup_{\alpha \in \mathfrak{m}} |f(\alpha)|^2\right) \int_0^1 |f(\alpha)|^2\,d\alpha = 5.0 \times 6 = 30.\]</p>
-  </details>
-
-  <h3>Exercise 2 ●●○ — Evaluating the Even-Modulus Gauss Sum \(S(a, 2^r)\) and the \(\bmod\;8\) Obstruction for Three Squares</h3>
-  <p>Let \(S(a, q) = \sum_{r=0}^{q-1} e(ar^2/q)\) be the quadratic Gauss sum.<br>
-  (a) Compute \(S(1, 2)\), \(S(1, 4)\), and \(S(a, 8)\) for all odd \(a \in \{1, 3, 5, 7\}\). Why does \(S(1, 2) = 0\), while \(|S(1, 4)| = 2 = \sqrt{2\cdot 4}\) and \(|S(a, 8)| = 2\sqrt{2} = \sqrt{2\cdot 8}\)?<br>
-  (b) For \(s = 3\) squares, evaluate the \(q = 8\) local contribution \(\sum_{a \in \{1,3,5,7\}} \left(\frac{S(a,8)}{8}\right)^3 e(-Na/8)\) when \(N \equiv 7 \pmod 8\), and verify that combining \(q = 1, 2, 4, 8\) gives zero \(2\)-adic density \(\sigma_2(N) = 0\) whenever \(N \equiv 7 \pmod 8\).</p>
-  <details><summary>Hint</summary><p>Modulo \(8\), the squares of \(r = 0, 1, \dots, 7\) are \(0, 1, 4, 1, 0, 1, 4, 1\) (two \(0\)'s, two \(4\)'s, and four \(1\)'s!). Since \(e(a\cdot 0/8) + e(a\cdot 4/8) = 1 + e(a/2) = 1 - 1 = 0\) for odd \(a\), only the four odd residues \(r^2 \equiv 1 \pmod 8\) survive in \(S(a, 8)\)!</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Gauss sums at \(q = 2, 4, 8\):</strong></p>
-    <ul>
-      <li>For \(q = 2\): \(S(1, 2) = e(0/2) + e(1/2) = 1 + (-1) = 0\) (because \((r+1)^2 \equiv r^2 + 1 \pmod 2\) shifts every term by \(-1\)).</li>
-      <li>For \(q = 4\): \(r^2 \bmod 4 = 0, 1, 0, 1\), so \(S(1, 4) = 2(1 + i)\), with \(|S(1, 4)| = 2\sqrt{2} = \sqrt{2q}\).</li>
-      <li>For \(q = 8\) and odd \(a\): \(r^2 \bmod 8 = 0, 1, 4, 1, 0, 1, 4, 1\). The two \(0\)'s give \(2e(0) = 2\), and the two \(4\)'s give \(2e(4a/8) = 2(-1) = -2\), which cancel! Only the four odd squares \(r^2 \equiv 1 \pmod 8\) remain:
-        <p class="eq">\[S(a, 8) = 4\,e(a/8), \qquad |S(a, 8)| = 4 = \sqrt{2\cdot 8}.\]</p>
-      </li>
-    </ul>
-    <p><strong>(b) Vanishing modulo \(8\) for \(N \equiv 7 \pmod 8\):</strong> Since \(S(a, 8)/8 = \frac{1}{2}e(a/8)\), its cube is \(\left(\frac{S(a,8)}{8}\right)^3 = \frac{1}{8}e(3a/8)\). When \(N \equiv 7 \equiv -1 \pmod 8\), we have \(e((3 - N)a/8) = e(4a/8) = e(a/2) = -1\) for every odd \(a \in \{1, 3, 5, 7\}\)! Summing over the \(4\) odd residues gives</p>
-    <p class="eq">\[\sum_{a \in \{1,3,5,7\}} \left(\frac{S(a,8)}{8}\right)^3 e(-7a/8) = \frac{1}{8}\bigl((-1) + (-1) + (-1) + (-1)\bigr) = -\frac{1}{2}.\]</p>
-    <p>Meanwhile, at \(q = 1\) the term is \(+1\), at \(q = 2\) it is \(0\) (since \(S(1,2)=0\)), and at \(q = 4\) (\(\pm 1 \bmod 4\)) we have \(\frac{1}{8}\bigl((1+i)^3(-i) + (1-i)^3(i)\bigr) = \frac{1}{8}\bigl(2(-1+i)(-i) + 2(-1-i)(i)\bigr) = -\frac{1}{2}\). Summing \(q = 1, 2, 4, 8\) gives</p>
-    <p class="eq">\[\sigma_2(7) = 1 + 0 - \frac{1}{2} - \frac{1}{2} = 0,\]</p>
-    <p>reflecting the elementary congruence obstruction that \(m_1^2 + m_2^2 + m_3^2 \in \{0,1,4\} + \{0,1,4\} + \{0,1,4\} \not\equiv 7 \pmod 8\).</p>
-  </details>
-
-  <h3>Exercise 3 ●●● — Computing the Singular Integral \(\mathfrak{J}_s(N)\) via Euler's Beta and Gamma Functions</h3>
-  <p>On the major arc around \(\alpha = 0\) for \(k\)-th powers up to \(M = N^{1/k}\), the smooth archimedean approximation is \(V(\beta) = \int_0^{N^{1/k}} e(\beta x^k)\,dx = \frac{1}{k}\int_0^N u^{\frac{1}{k}-1} e(\beta u)\,du\) (under \(u = x^k\)).<br>
-  (a) By Fourier inversion (<a href="p24-waves.html"><span class="pid">P24</span></a>), show that the singular integral \(\mathfrak{J}_s(N) = \int_{-\infty}^{\infty} V(\beta)^s e(-N\beta)\,d\beta\) equals the \((s-1)\)-fold convolution volume</p>
-  <p class="eq">\[\mathfrak{J}_s(N) = \frac{1}{k^s}\idotsint_{\substack{u_1, \dots, u_{s-1} &gt; 0 \\ u_1 + \cdots + u_{s-1} &lt; N}} (u_1 u_2 \cdots u_{s-1})^{\frac{1}{k}-1}\bigl(N - u_1 - \cdots - u_{s-1}\bigr)^{\frac{1}{k}-1} du_1\cdots du_{s-1}.\]</p>
-  <p>(b) Rescale \(u_j = N v_j\) (<a href="p56-rescale-asymptotic.html"><span class="pid">P56</span></a>) and use Euler's Dirichlet simplex integral \(\idotsint_{v_j &gt; 0, \sum v_j &lt; 1} v_1^{a-1}\cdots v_{s-1}^{a-1}(1-\sum v_j)^{a-1}\,dv = \frac{\Gamma(a)^s}{\Gamma(sa)}\) (with \(a = \frac{1}{k}\)) to prove Hardy and Littlewood's singular integral formula:</p>
-  <p class="eq">\[\mathfrak{J}_s(N) = \frac{\Gamma(1 + 1/k)^s}{\Gamma(s/k)}\,N^{\frac{s}{k} - 1}.\]</p>
-  <details><summary>Hint</summary><p>In (b), substituting \(u_j = N v_j\) pulls out \(N^{(1/k - 1)s}\) from the integrand and \(N^{s-1}\) from the differentials \(du_1 \cdots du_{s-1}\), giving total power \(N^{s/k - 1}\). Then use \(\frac{1}{k}\Gamma(1/k) = \Gamma(1 + 1/k)\).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Convolution representation:</strong> Since \(V(\beta) = \int_0^\infty \frac{1}{k}u^{\frac{1}{k}-1}\mathbf{1}_{(0,N]}(u) e(\beta u)\,du\) is the Fourier transform of the density \(\rho(u) = \frac{1}{k}u^{\frac{1}{k}-1}\) on \((0, N]\), the inverse Fourier transform \(\int_{-\infty}^{\infty} V(\beta)^s e(-N\beta)\,d\beta\) evaluates the \(s\)-fold convolution \((\rho * \cdots * \rho)(N)\), which is the exact integral over the simplex \(u_1 + \cdots + u_s = N\), \(u_j &gt; 0\).</p>
-    <p><strong>(b) Rescaling and Gamma evaluation:</strong> Setting \(u_j = N v_j\) for \(j = 1, \dots, s-1\) factors out \(N^{s(1/k - 1) + (s - 1)} = N^{\frac{s}{k} - 1}\), leaving</p>
-    <p class="eq">\[\mathfrak{J}_s(N) = \frac{N^{\frac{s}{k}-1}}{k^s}\idotsint_{\substack{v_j &gt; 0 \\ \sum v_j &lt; 1}} (v_1\cdots v_{s-1})^{\frac{1}{k}-1}\Bigl(1 - \sum_{j=1}^{s-1} v_j\Bigr)^{\frac{1}{k}-1} dv_1\cdots dv_{s-1} = \frac{N^{\frac{s}{k}-1}}{k^s}\frac{\Gamma(1/k)^s}{\Gamma(s/k)}.\]</p>
-    <p>Applying the functional equation \(\frac{1}{k}\Gamma(1/k) = \Gamma(1 + 1/k)\) across all \(s\) factors in the numerator yields \(\mathfrak{J}_s(N) = \frac{\Gamma(1 + 1/k)^s}{\Gamma(s/k)}\,N^{\frac{s}{k}-1}\).</p>
-  </details>
-
-  <h3>Exercise 4 ◆ — Pattern-unknown diagnosis: circle method, sieve, or elementary modular obstruction?</h3>
-  <p>Diagnose the right tool for each additive problem below:</p>
-  <ol>
-    <li>You want an asymptotic formula as \(N \to \infty\) for the number of ways to write \(N = m_1^3 + m_2^3 + \cdots + m_9^3\) as a sum of \(s = 9\) non-negative cubes.</li>
-    <li>You want to prove that \(N = 8{,}000{,}007\) cannot be written as a sum of three integer squares \(m_1^2 + m_2^2 + m_3^2\).</li>
-    <li>You want to prove that there are infinitely many primes \(p\) such that \(p + 2\) has at most two prime factors (\(P_2\)).</li>
-  </ol>
-  <details><summary>Worked answer</summary>
-    <ol>
-      <li><strong>Genuine <span class="pid">P38</span> (Major and minor arcs for Waring's problem):</strong> Here \(k = 3\) and \(s = 9 = 2^3 + 1 &gt; 2k\); Weyl differencing (twice, lowering degree \(3 \to 2 \to 1\)) combined with Hua's \(L^8\) mean-value bound crushes the minor arcs, while the singular series and singular integral (Exercise 3) give the exact asymptotic main term \(\frac{\Gamma(4/3)^9}{\Gamma(3)}\mathfrak{S}(N)N^2\).</li>
-      <li><strong>Elementary local obstruction suffices (<a href="b02-congruence-classes.html"><span class="pid">B02</span></a> / <a href="p12-obstruction.html"><span class="pid">P12</span></a> / <a href="p30-localize-at-prime.html"><span class="pid">P30</span></a>):</strong> Since \(8{,}000{,}007 = 8 \times 1{,}000{,}000 + 7 \equiv 7 \pmod 8\), and squares modulo \(8\) belong to \(\{0, 1, 4\}\), no three squares can sum to \(7 \pmod 8\). No circle integral is needed to rule out a locally obstructed target.</li>
-      <li><strong>Fails the binary \(L^2\) barrier (Exhibit A) — use <a href="p39-optimized-sieve.html"><span class="pid">P39</span> · The optimized sieve</a> instead:</strong> Twin primes (\(p' - p = 2\)) is a binary (\(s = 2\)) prime problem where the Parseval \(L^2\) energy \(\sim N\ln N\) exceeds the \(O(N/(\ln N)^2)\) main term by three powers of \(\ln N\). Chen's theorem (\(p + 2 = P_2\)) is proved via optimized linear/quadratic sieves (<span class="pid">P39</span>).</li>
-    </ol>
-  </details>
-
-  <h3>Exercise 5 ◐ — Exploration: Roth's theorem on 3-term arithmetic progressions via Fourier major and minor modes</h3>
-  <p>Show how Klaus Roth (1953) transferred <span class="pid">P38</span> from infinite number theory to finite combinatorics on \(\mathbb{Z}/M\mathbb{Z}\) (compare <a href="p58-ergodic-correspondence.html"><span class="pid">P58</span></a>, Exemplar 3). Let \(A \subset \{1, \dots, M\}\) (for odd \(M\)) have density \(\delta = |A|/M &gt; 0\), and define its discrete Fourier transform \(\widehat{A}(r) = \sum_{a \in A} e(ar/M)\) for \(r \in \mathbb{Z}/M\mathbb{Z}\).<br>
-  (a) Verify by orthogonality that the number of \(3\)-term arithmetic progressions \((a, a+d, a+2d) \in A^3\) (meaning \(a_1 + a_3 = 2a_2\)) equals</p>
-  <p class="eq">\[T_3(A) = \frac{1}{M}\sum_{r=0}^{M-1} \widehat{A}(r)^2\,\widehat{A}(-2r) = \underbrace{\frac{|A|^3}{M}}_{\text{Major mode } r=0} \;+\; \underbrace{\frac{1}{M}\sum_{r=1}^{M-1} \widehat{A}(r)^2\,\widehat{A}(-2r)}_{\text{Minor modes } r \ne 0}.\]</p>
-  <p>(b) Apply the hybrid \(L^\infty \times L^2\) bound (Obligation 3 of Box P38.A) to the minor modes \(r \ne 0\) using Parseval's identity \(\frac{1}{M}\sum_{r=0}^{M-1} |\widehat{A}(r)|^2 = |A| = \delta M\). Show that if \(\sup_{r \ne 0} |\widehat{A}(r)| \le \frac{1}{2}\delta^2 M\), then \(T_3(A) \ge \frac{1}{2}\delta^3 M^2\) (forcing non-trivial 3-APs when \(\delta^3 M^2 &gt; 2\delta M\)); and explain what happens in the opposite case when a single minor mode \(r_0 \ne 0\) is large (\(|\widehat{A}(r_0)| &gt; \frac{1}{2}\delta^2 M\)).</p>
-  <details><summary>Hint</summary><p>In (b), bound \(\frac{1}{M}\sum_{r \ne 0} |\widehat{A}(r)|^2 |\widehat{A}(-2r)| \le \bigl(\sup_{r \ne 0}|\widehat{A}(-2r)|\bigr)\frac{1}{M}\sum_{r} |\widehat{A}(r)|^2\) (since \(M\) is odd, \(-2r \ne 0 \bmod M\) for \(r \ne 0\)).</p></details>
-  <details><summary>Worked answer</summary>
-    <p><strong>(a) Major mode \(r = 0\) vs. Minor modes \(r \ne 0\):</strong> Since \(\frac{1}{M}\sum_{r=0}^{M-1} e(r(a_1 + a_3 - 2a_2)/M) = \mathbf{1}_{a_1 + a_3 \equiv 2a_2}\), expanding \(\widehat{A}(r)^2\widehat{A}(-2r)\) counts solutions to \(a_1 + a_3 \equiv 2a_2 \pmod M\). At the major mode \(r = 0\), \(\widehat{A}(0) = |A| = \delta M\), giving the random prediction \(\frac{|A|^3}{M} = \delta^3 M^2\).</p>
-    <p><strong>(b) The dichotomy between pseudorandomness and density increment:</strong> Because \(M\) is odd, \(r \ne 0 \implies -2r \not\equiv 0 \pmod M\). Applying Obligation 3 of Box P38.A gives</p>
-    <p class="eq">\[\left|\frac{1}{M}\sum_{r=1}^{M-1} \widehat{A}(r)^2\,\widehat{A}(-2r)\right| \;\le\; \left(\max_{s \ne 0} |\widehat{A}(s)|\right)\frac{1}{M}\sum_{r=0}^{M-1} |\widehat{A}(r)|^2 = \left(\max_{s \ne 0} |\widehat{A}(s)|\right)\delta M.\]</p>
-    <p>If \(\max_{s \ne 0} |\widehat{A}(s)| \le \frac{1}{2}\delta^2 M\) (minor modes are small / \(A\) is pseudorandom), then the minor sum is at most \(\frac{1}{2}\delta^3 M^2\), so \(T_3(A) \ge \delta^3 M^2 - \frac{1}{2}\delta^3 M^2 = \frac{1}{2}\delta^3 M^2\). Conversely, if some mode \(r_0 \ne 0\) has \(|\widehat{A}(r_0)| &gt; \frac{1}{2}\delta^2 M\) (a major-arc resonance!), then \(A\) correlates with the wave \(e(r_0 x / M)\); partitioning \(\mathbb{Z}/M\mathbb{Z}\) into sub-progressions where \(e(r_0 x / M)\) is nearly constant increases the density of \(A\) from \(\delta\) to \(\delta + c\delta^2\), which can happen at most \(O(1/\delta)\) times before \(\delta\) exceeds \(1\)!</p>
-  </details>
+<h2>8 · Exercises</h2>
+<p class="moons">●○○ ●●○ ●●● ◆ ◐ — five exercises, from the bridge by hand to the descent.</p>
+<p class="ex"><strong>Exercise 1 · The bridge, by hand</strong> ●○○<br>
+(a) Two dice, the counting sum \(F(\theta) = e^{i\theta} + \cdots + e^{6i\theta}\): evaluate \(\bigl|F(\theta)\bigr|\) at \(\theta = 0\), at a third of a turn, and at a quarter of a turn, and check the three answers against Fig P38.1's landscape. (b) Write the \(36\)-point grid average that claims to produce the two-dice census, and verify all eleven values \(1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1\) by direct enumeration of the \(36\) ordered pairs. (c) The triangle law says \(N(n) = 6 - \bigl|n-7\bigr|\): confirm it on all eleven totals. (d) The energy ledger: show \(\int_0^1 \bigl|F(\theta)\bigr|^{2}\,\frac{d\theta}{2\pi} = 6\) and \(\int_0^1 \bigl|F(\theta)\bigr|^{4}\,\frac{d\theta}{2\pi} = \sum_n N(n)^2 = 146\) — orthogonality for the first, ordered pairs of totals for the second — and use the quiet stretch's largest height (\(\bigl|F\bigr|^2 \le 14.93\) there) to bound the quiet stretch's fourth-power share.</p>
+<details><summary>Hint</summary><p>(a) At the spike all six waves agree; at a third of a turn they are six equally spaced points on the unit circle; at a quarter, use \(\bigl|F(\pi/2)\bigr| = \bigl|\sin(3\pi/2)\bigr|/\sin(\pi/4)\). (b) The average is \(\frac{1}{36}\sum_{j=0}^{35} F(2\pi j/36)^{2} e^{-2\pi i n j/36}\) — but for verifying, enumerate the pairs. (c) Read the census off the law, or the law off the census. (d) \(\bigl|F\bigr|^2 = F\overline{F}\): integrating kills every pair except \(m_1 = m_2\) — six of them. For the fourth power, count ordered pairs of totals \((n, n')\), or square the census and add.</p></details>
+<details><summary>Worked</summary><p>(a) \(\bigl|F(0)\bigr| = 6\) (all waves agree); at a third of a turn the six waves are the six sixth-roots of unity, summing to exactly \(0\); at a quarter of a turn, \(\bigl|\sin(3\pi/2)/\sin(\pi/4)\bigr| = 1/(\sqrt{2}/2) = \sqrt{2} \approx 1.4142\) — the landscape's quarter-turn height, as drawn. (b) Direct enumeration: totals \(2\) through \(12\) give \(1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1\), and the machine-run \(36\)-point average returns each to the integer — the average is the count. (c) At \(n=7\): \(6 - 0 = 6\) ✓; at \(n=3\): \(6-4 = 2\) ✓; at \(n=12\): \(6-5 = 1\) ✓; the law and the census agree at every total. (d) \(\int_0^1 \bigl|F\bigr|^{2}\,\frac{d\theta}{2\pi} = 6\): the six diagonal pairs \(m_1 = m_2\). For the fourth power, \(\sum_n N(n)^2 = 1 + 4 + 9 + 16 + 25 + 36 + 25 + 16 + 9 + 4 + 1 = 146\) — machine-run, and the trapezoid read at \(720\) steps agrees to \(10^{-6}\). The quiet bound: \(14.93 \times 6 \approx 89.6\) of fourth-power energy allowed to the quiet stretch, against a true total of \(146\) — honest but loose, the two-variable disease of Exemplar 2 already visible in the energy ledger.</p></details>
+<p class="ex"><strong>Exercise 2 · The exactness threshold</strong> ●●○<br>
+Three dice, \(s = 3\), \(M = 6\): the census support is \(3 \le n \le 18\). (a) Show the \(15\)-point grid average reads \(N(18) = 2\), and explain the \(2\) as two honest counts colliding. (b) Show the \(16\)-point average is exact at all sixteen totals. (c) State the general rule: for \(s\)-tuples from \(\{1, \ldots, M\}\), which \(K\) make the grid average exact for every total, and why does the answer involve the support's width and not the polynomial's degree?</p>
+<details><summary>Hint</summary><p>(a) On a \(15\)-point grid, angles differing by a full turn are the same sample: \(e^{-2\pi i \cdot 18 j/15} = e^{-2\pi i \cdot 3 j/15}\). (b) Collision needs two support values differing by a multiple of \(K\). (c) The support has \(sM - s + 1\) values... count them.</p></details>
+<details><summary>Worked</summary><p>(a) Machine-run: the \(15\)-point average at \(n=18\) is \(2.000\). The samples cannot tell \(n=18\) from \(n=3\) (\(18 - 3 = 15\), one full wrap), so the average returns \(N(3) + N(18) = 1 + 1 = 2\) — two honest counts, one address. (b) \(K = 16\): two support values collide only if they differ by \(16\) — but the support \(3..18\) has width \(15\), so no collision exists; the machine-run is exact at all sixteen totals (and so is every \(K > 16\)). (c) The grid average is exact for every total exactly when no two support values differ by a multiple of \(K\) — for a contiguous support of width \(w = sM - s + 1\) (here \(18 - 3 + 1 = 16\)), that is \(K \ge w\). The polynomial's degree (\(sM = 18\)) overstates the need: what collides is counts, not monomials, and the top of the support is what forces the width.</p></details>
+<p class="ex"><strong>Exercise 3 · Four dice, the trend confirmed</strong> ●●●<br>
+(a) Enumerate the four-dice census (totals \(4\) through \(24\)) and verify the peak: \(146\) at \(n = 14\), out of \(1296\) quadruples. (b) The loud stretch (\(\bigl|\theta\bigr| \le \pi/6\)) integrates to \(138.079\) at the peak: compute the quiet share and compare with the three-dice share (\(1.957\) of \(27\)). (c) The Gaussian read puts the four-dice peak at \(1296/\sqrt{2\pi \cdot 35/3}\): evaluate, compare with \(146\), and reconcile the direction of the error with Exemplar 1's \(29.13\) against \(27\).</p>
+<details><summary>Hint</summary><p>(a) \(6^{4} = 1296\) quadruples; symmetry halves the work. (b) Shares: \(7.921/146\) against \(1.957/27\). (c) Both Gaussian peaks sit high; ask what the Gaussian model leaves out.</p></details>
+<details><summary>Worked</summary><p>(a) Machine enumeration: \(1, 4, 10, 20, 35, 56, 80, 104, 125, 140, 146, 140, 125, 104, 80, 56, 35, 20, 10, 4, 1\), summing to \(1296\) ✓, peak \(146\) at \(n=14\) ✓. (b) Quiet share \(146 - 138.079 = 7.921\), which is \(5.43\%\), against \(1.957/27 = 7.25\%\) at three dice: the quiet stretch lost a quarter of its relative weight for one added factor. (c) \(1296/\sqrt{2\pi \cdot 35/3} \approx 151.37\): high by \(3.7\%\), the same direction as Exemplar 1's \(29.13\) versus \(27\) (\(7.9\%\)) — and smaller. The Gaussian is the loud stretch's local model; it cannot see the quiet stretch's corrections, which here subtract. More factors, smaller relative correction: the same trend as (b), seen through the local model's overshoot.</p></details>
+<p class="ex"><strong>Exercise 4 · Referee the ledger</strong> ◆<br>
+A student, having read Exemplar 1, writes: "The loud stretch contributes \(25.043\) and the truth is \(27\), so the quiet stretch contributes exactly \(1.957\) — and since contributions are positive, the quiet stretch always helps." Referee the claim: state precisely what is right, what is wrong, and exhibit the machine number that convicts the error.</p>
+<details><summary>Worked</summary><p>Right: the identity — the count \(\bigl(27\bigr)\) is exactly the loud integral plus the quiet integral, so at \(n = 10\) the quiet share is indeed \(1.957\). Wrong: "contributions are positive" and "always helps." The split is a ledger of signed corrections, not a partition: at \(n = 3\) the loud stretch integrates to \(1.164\) against the true count \(1\) — the quiet share is \(-0.164\), negative. The loud stretch's local model spills past the true count at the edges of the support, and the quiet stretch's job there is cancellation, not addition. The convicting number is \(1.164 > 1\): one machine run, already in the page. The student has also quietly assumed the shares are constant in \(n\); they are not — \(7.25\%\) at the peak, negative at the tails — and the method's error terms exist precisely because the shares must be bounded, not trusted.</p></details>
+<p class="ex"><strong>Exercise 5 · The descent, chased</strong> ◐<br>
+Extend the three-squares census to \(100\) (machine enumeration over \(0 \le a \le b \le c\)). (a) List the failures and verify each is of the form \(4^{a}(8b+7)\). (b) Take one failure divisible by \(4\) — \(28\) or \(60\) or \(92\) — and chase the descent: why does \(n = 4m\) fail exactly when \(m\) does? (c) Explore honestly: the census says \(47\) fails and \(46\) succeeds — what does the mod-\(8\) wall say about \(46\), and can you find its three squares by hand?</p>
+<details><summary>Hint</summary><p>(a) There are fifteen failures to \(100\); check each against \(4^{a}(8b+7)\) by peeling factors of \(4\). (b) If \(n = 4m = x^{2}+y^{2}+z^{2}\), what does mod \(4\) force about \(x, y, z\)? (c) \(46 \equiv 6 \pmod 8\) — the wall is silent; try \(36 + 9 + 1\).</p></details>
+<details><summary>Worked</summary><p>(a) Machine census: the failures to \(100\) are \(7, 15, 23, 28, 31, 39, 47, 55, 60, 63, 71, 79, 87, 92, 95\) — fifteen, and peeling factors of \(4\) from each leaves a number \(\equiv 7 \pmod 8\) in every case, machine-checked. (b) If \(4m = x^{2}+y^{2}+z^{2}\), then mod \(4\) each square is \(0\) or \(1\), and three of them sum to \(0\) mod \(4\) only as \(0+0+0\) — so \(x, y, z\) are all even, and \(m = (x/2)^{2} + (y/2)^{2} + (z/2)^{2}\): a representation of \(4m\) is exactly a representation of \(m\), so they fail together. That is the descent: \(28 = 4\cdot 7\) fails because \(7\) does; \(92 = 4 \cdot 23\) because \(23\) does. (c) The wall is a one-way obstruction: \(46 \equiv 6 \pmod 8\) is not of the forbidden form, and the census confirms it succeeds — \(46 = 36 + 9 + 1 = 6^{2} + 3^{2} + 1^{2}\). The legend's full content is the converse (every non-\(4^{a}(8b+7)\) number succeeds), which the census to \(100\) detects and Gauss proved; this page's machinery explains the obstruction, and honestly leaves the converse's proof to the lineage shelf.</p></details>
 </section>
 
 <footer>
-  <p><em>The Patterns Atlas</em> — P38 · Major and minor arcs. <a href="index.html">Return to the index</a> · Previous: <a href="p37-ito-calculus.html">P37 · Itô calculus (differentiating randomness)</a> · Next: <a href="p39-optimized-sieve.html">P39 · The optimized sieve →</a></p>
+<p><strong>Next:</strong> down P27's door list — tropicalize (P40, planned): trading the smooth for the piecewise-linear, where the breaks stop being obstacles to read around and become the whole structure. This page's readers have just practiced splitting a circle by where its mass lives; the tropical move splits by where the breaks are, and lets the pieces between go flat.</p>
+<p class="atlas-home"><a href="index.html">The patterns atlas</a> · <a href="p28-conformal-mapping.html">P28 · Conformal mapping</a></p>
 </footer>
 
 </body>
