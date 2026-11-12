@@ -1,844 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P40 · Tropicalize — Patterns of Math</title>
-<style>
-  :root {
-    --bg: #faf8f5;
-    --fg: #1a1a1a;
-    --muted: #5a5550;
-    --accent: #8b2635;
-    --accent-soft: #f3e6e8;
-    --rule: #d8d2c7;
-    --box-bg: #f2eee6;
-    --warn-bg: #f9ebe0;
-    --warn-border: #b85d19;
-    --onramp-bg: #eef3f7;
-    --onramp-border: #3a6073;
-    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.65;
-  }
-  main {
-    max-width: 44rem;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 5rem;
-  }
-  header.chapter-header {
-    border-bottom: 2px solid var(--fg);
-    padding-bottom: 1.25rem;
-    margin-bottom: 2rem;
-  }
-  .tier-label {
-    font-family: var(--sans);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    margin: 0 0 0.4rem;
-  }
-  h1 {
-    font-size: 2.1rem;
-    line-height: 1.2;
-    margin: 0 0 0.5rem;
-    font-weight: 700;
-  }
-  .lede {
-    font-size: 1.15rem;
-    color: var(--muted);
-    margin: 0.4rem 0 0.8rem;
-    font-style: italic;
-  }
-  .prereqs {
-    font-family: var(--sans);
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin: 0.5rem 0 0;
-  }
-  .prereqs a, a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  h2 {
-    font-size: 1.45rem;
-    margin: 2.5rem 0 0.8rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid var(--rule);
-  }
-  h3 {
-    font-size: 1.15rem;
-    margin: 1.6rem 0 0.5rem;
-  }
-  p { margin: 0 0 1rem; }
-  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
-  li { margin-bottom: 0.4rem; }
-  .pid {
-    font-family: var(--mono);
-    font-size: 0.88em;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .onramp {
-    background: var(--onramp-bg);
-    border-left: 4px solid var(--onramp-border);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .onramp p:last-child { margin-bottom: 0; }
-  .pattern-box {
-    background: var(--box-bg);
-    border: 1.5px solid var(--fg);
-    padding: 1.1rem 1.3rem;
-    margin: 1.4rem 0;
-  }
-  .pattern-box h3 {
-    margin-top: 0;
-    font-family: var(--sans);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--accent);
-  }
-  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
-    margin-bottom: 0;
-  }
-  .aside {
-    background: var(--box-bg);
-    border-left: 4px solid var(--accent);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .aside.warn {
-    background: var(--warn-bg);
-    border-left-color: var(--warn-border);
-  }
-  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.25rem 0;
-    font-size: 0.92rem;
-  }
-  th, td {
-    border: 1px solid var(--rule);
-    padding: 0.5rem 0.65rem;
-    text-align: left;
-    vertical-align: top;
-  }
-  th {
-    background: var(--box-bg);
-    font-family: var(--sans);
-    font-size: 0.84rem;
-    font-weight: 600;
-  }
-  figure {
-    margin: 1.6rem 0;
-    padding: 0.9rem;
-    background: #fff;
-    border: 1px solid var(--rule);
-    text-align: center;
-  }
-  figcaption {
-    font-size: 0.86rem;
-    color: var(--muted);
-    margin-top: 0.6rem;
-    text-align: left;
-  }
-  .exercise {
-    border: 1px solid var(--rule);
-    background: #fff;
-    padding: 1rem 1.2rem;
-    margin: 1.2rem 0;
-  }
-  details {
-    margin-top: 0.6rem;
-    padding-top: 0.5rem;
-    border-top: 1px dashed var(--rule);
-    font-size: 0.94rem;
-  }
-  summary {
-    cursor: pointer;
-    font-family: var(--sans);
-    font-weight: 600;
-    color: var(--accent);
-  }
-  footer {
-    margin-top: 3.5rem;
-    padding-top: 1.2rem;
-    border-top: 2px solid var(--fg);
-    font-family: var(--sans);
-    font-size: 0.9rem;
-  }
-</style>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['\\(', '\\)']],
-      displayMath: [['\\[', '\\]']]
-    }
-  };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P40 · Tropicalize · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-<main>
-<header class="chapter-header">
-  <p class="tier-label">Tier 4 · Specialized Moves</p>
-  <h1><span class="pid">P40</span> · Tropicalize</h1>
-  <p class="lede">Pass a polynomial or exponential system through a high-base logarithm so multiplication becomes addition, addition becomes maximum, and curved algebraic varieties skeletonize into balanced piecewise-linear polyhedra.</p>
-  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p16-isomorphism.html">P16 · Same problem, different clothes</a>, <a href="p17-duality.html">P17 · Flip to the dual</a>, <a href="p30-localize-at-prime.html">P30 · Localize at a prime</a></p>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P40 · the eleventh move of tier 4</p>
+<h1>Tropicalize</h1>
+<p class="tagline">Some families of problems are ruled not by the sizes of their terms but by the gaps between them — by which term wins, and by how many powers of the parameter separate the winner from the rest. The move: throw away the numbers and keep only the orders of magnitude. Addition becomes minimum, multiplication becomes addition, and a curve melts into a piecewise-linear skeleton that still knows where the roots are, where the edges go, and which paths are shortest. The arithmetic of winners is cruder than the arithmetic it replaces — and it is exactly as fine as the questions that were about winning all along.</p>
 </header>
 
-<aside class="onramp">
-  <p><strong>On-ramp 1 — The tropical semiring (max-plus and min-plus arithmetic).</strong> In ordinary arithmetic on positive numbers, the logarithm \(\log_t(x \cdot y) = \log_t x + \log_t y\) turns multiplication into addition. What does \(\log_t(x + y)\) do when the base \(t\) grows huge (\(t \to \infty\))? Write \(x = t^a\) and \(y = t^b\) with \(a \ge b\): then</p>
-  \[
-    \log_t\bigl(t^a + t^b\bigr) \;=\; \log_t\Bigl(t^a \bigl(1 + t^{b-a}\bigr)\Bigr) \;=\; a + \frac{\ln(1 + t^{b-a})}{\ln t} \;\xrightarrow{t \to \infty}\; a \;=\; \max(a, b).
-  \]
-  <p>The <strong>max-plus tropical semiring</strong> \((\mathbb{R} \cup \{-\infty\}, \oplus, \odot)\) replaces classical addition and multiplication with</p>
-  \[
-    a \oplus b \;:=\; \max(a, b), \qquad a \odot b \;:=\; a + b,
-  \]
-  <p>where \(-\infty\) is the additive identity (\(\max(a, -\infty) = a\)) and \(0\) is the multiplicative identity (\(a + 0 = a\)). Replacing \(\max\) by \(\min\) (via \(x = t^{-a}\) as \(t \to \infty\) or \(p\)-adic valuations) gives the isomorphic <strong>min-plus tropical semiring</strong> \((\mathbb{R} \cup \{+\infty\}, \min, +)\).</p>
-</aside>
-
-<aside class="onramp">
-  <p><strong>On-ramp 2 — Tropical polynomials and the corner locus.</strong> A classical polynomial \(f(x) = \sum_{i=0}^d c_i x^i\) becomes, under \(x = t^X\) and \(c_i \sim t^{a_i}\), a <strong>tropical polynomial</strong></p>
-  \[
-    \operatorname{Trop}(f)(X) \;:=\; \bigoplus_{i=0}^d \bigl(a_i \odot X^{\odot i}\bigr) \;=\; \max_{0 \le i \le d} \bigl(a_i + i X\bigr),
-  \]
-  <p>which is the upper envelope of finitely many straight lines \(Y = a_i + i X\) — a convex, piecewise-linear function! In tropical arithmetic there is no subtraction, so what is a "root" of \(\operatorname{Trop}(f)\)? In the classical polynomial \(f(t^X) = \sum_{i=0}^d \pm t^{a_i + i X} = 0\), if one term \(t^{a_k + k X}\) has a strictly larger exponent than every other term, it dominates as \(t \to \infty\) and cannot be cancelled to zero. Cancellation to zero can happen <em>only</em> where at least two linear pieces tie for the maximum! The set of points \(\mathbf{X} \in \mathbb{R}^n\) where \(\max_{\mathbf{i}} (a_{\mathbf{i}} + \mathbf{i} \cdot \mathbf{X})\) is achieved by <em>at least two</em> monomials is the <strong>corner locus</strong> (or <strong>tropical hypersurface</strong>) \(\mathcal{T}(f)\).</p>
-</aside>
-
-<aside class="onramp">
-  <p><strong>On-ramp 3 — Newton polytopes and Legendre-dual subdivisions.</strong> For a multivariate polynomial \(f(x, y) = \sum_{(i,j) \in \mathcal{A}} c_{i,j} x^i y^j\), the <strong>Newton polygon</strong> \(\operatorname{Newt}(f) = \operatorname{conv}(\mathcal{A}) \subset \mathbb{R}^2\) is the convex hull of the exponent pairs \((i,j)\) that appear in \(f\). Lifting each lattice point \((i,j)\) to height \(a_{i,j}\) in \(\mathbb{R}^3\) and projecting the upper facets of the 3D convex hull back to \(\mathbb{R}^2\) partitions \(\operatorname{Newt}(f)\) into smaller polygons called its <strong>regular subdivision</strong>. Each vertex of the tropical curve \(\mathcal{T}(f)\) corresponds to a 2D cell (triangle/polygon) of this subdivision, and each ray or edge of \(\mathcal{T}(f)\) is perpendicular to an edge of the subdivision!</p>
-</aside>
+<aside class="onramp"><strong>New word: order of magnitude, made into arithmetic.</strong> Fix a small positive parameter <em>t</em> — think \(t = 0.01\), and smaller. A quantity built from <em>t</em> behaves, as <em>t</em> shrinks, like a power \(c \cdot t^{a}\): the <em>order of magnitude</em> is the exponent <em>a</em>, and the constant <em>c</em> is noise by comparison — \(t^{2}\) and \(7t^{2}\) are the same order, and both dwarf \(t^{3}\) when <em>t</em> is small. The map that sends each quantity to its order — written \(\nu(q) = a\) when \(q\) behaves like \(t^{a}\) — turns sums into minimums (the smallest exponent wins, since small <em>t</em> makes small exponents big) and products into sums (exponents add). An order that no term attains — a quantity vanishing faster than every power we track, or a term that is simply absent — is written \(\infty\): it never wins.</aside>
+<aside class="onramp"><strong>New word: the winners-only arithmetic.</strong> Keep the real numbers, but change the rules: declare \(a \oplus b = \min(a, b)\) and \(a \odot b = a + b\). This is a working arithmetic — addition is associative and commutative, \(\infty\) plays zero (\(a \oplus \infty = a\)), \(0\) plays one (\(a \odot 1 = a\)), and \(\odot\) distributes over \(\oplus\), because \(\min(a + c,\, b + c) = \min(a,b) + c\). Polynomials survive the translation intact: \(\oplus\) takes the place of \(+\) between terms and \(\odot\) the place of multiplication inside them, so \(x^{2} - tx + t^{4}\) — read by orders, with subtraction dropped because only the winning term matters — becomes the piecewise-linear function \(\min(2x,\; 1 + x,\; 4)\). Everything this page does runs on that one translation.</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p>Three earlier patterns in the Atlas converge inside tropicalization:</p>
-  <ul>
-    <li>In <a href="p16-isomorphism.html"><span class="pid">P16</span> · Same problem, different clothes</a>, we saw how an isomorphism translates a hard structure into an easier one — whether turning Number Scrabble into Tic-Tac-Toe via the \(3 \times 3\) magic square, or using \(\ln : (0, \infty) \to \mathbb{R}\) to turn multiplication \(x \cdot y\) into addition \(\ln x + \ln y\). Classical logarithms, however, stall on addition \(\ln(x + y)\). Tropicalization completes the dictionary by sending \(\log_t \to \infty\), turning addition into \(\max\).</li>
-    <li>In <a href="p17-duality.html"><span class="pid">P17</span> · Flip to the dual</a>, we saw Legendre–Fenchel duality exchange a convex curve with the family of its supporting tangent lines \(X \mapsto \max_i (a_i + i X)\). In tropical geometry, the corner locus of \(\max_i (a_i + i X)\) is literally the Legendre dual of the lifted Newton polygon!</li>
-    <li>In <a href="p30-localize-at-prime.html"><span class="pid">P30</span> · Localize at a prime</a>, we used the \(p\)-adic valuation \(\nu_p(n)\), which satisfies \(\nu_p(a \cdot b) = \nu_p(a) + \nu_p(b)\) and the ultrametric inequality \(\nu_p(a + b) \ge \min(\nu_p(a), \nu_p(b))\) — with strict equality whenever \(\nu_p(a) \neq \nu_p(b)\). Negating the valuation (\(X = -\nu_p(x)\)) produces the exact max-plus tropical laws without even taking a limit.</li>
-  </ul>
+<h2>1 · Before we begin</h2>
+<p>Two pages built this one. <a href="p27-complex-for-integers.html">P27</a> taught us to stop treating a variable as a bookmark and ask where the object breaks — and its boxed statement is the spine this page bends into a new shape:</p>
+<blockquote><p><strong>Pattern P27 — Complex analysis for integer problems.</strong> When a question about integers — the growth of a family of counts, the exact weight of an infinite sum, the law hiding in a table — is filed as a function \(A(z) = \sum a_n z^n\), stop treating \(z\) as a bookmark. Let \(z\) roam the plane and ask the three analytic questions: <em>where</em> does the object break (the singularities), <em>which</em> break is nearest the origin (its distance is the radius, its reciprocal the shelves' growth rate), and <em>what shape</em> does the object have near that break (a pole prices a pure geometric; a branch point prices a geometric times a power of \(n\); a wall of breaks prices nothing — the read stops). Then read the integer answer off the break: the growth law from the location, the correction from the shape, the mysterious constants — the \(1/\sqrt{\pi}\), the \(\pi^2/6\) — from the local form of the wreckage. Factoring is the act that reveals the structure: factoring a denominator to find its zeros, factoring an entire function over its zeros, factoring the integers into primes to build the function at all.</p></blockquote>
+<p>And <a href="p16-isomorphism.html">P16</a> taught us that a problem may be the same problem in different clothes, and that a dictionary which carries the relations the question runs on licenses letting the solved sibling answer. Its boxed statement, byte for byte:</p>
+<blockquote><div>
+<p><strong>Shape of the claim.</strong> "I have solved this before — haven't I?" The problem arrives in unfamiliar dress: cards instead of cells, discs instead of digits, a scrambling machine instead of two stretches. But its question has the shape of a solved one. The claim to check is strong: the two problems share not a look but their entire structure, so that the solved sibling's answers are answers here.</p>
+<p><strong>The move.</strong> Do not solve. Build a <em>dictionary</em>: pair each object of the problem with its twin in the solved sibling. Check the three promises — the pairing is one-for-one; the relations the question runs on are carried by it; the reverse pairing carries them too. If all three clear, translate the question over, let the sibling answer, and translate the answer home. If any promise jams, stop: §5 is the gallery of what each broken promise costs.</p>
+<p><strong>When to reach for it.</strong> When a problem resembles a solved one but its dress resists — the sums will not scan, the tangle will not decouple, the rule will not compress. When a solved sibling's verdict, strategy, or formula would settle the question outright. When re-deriving would repeat work a dictionary could carry. And in the negative direction: when no dictionary exists, that failure is itself a finding — <a href="p12-obstruction.html">P12</a>'s obstruction, hunted by this move.</p>
+</div></blockquote>
+<p>The tension this page resolves: P27's machinery reads answers off breaks, but the breaks themselves — the factoring, the continuation, the local forms — can cost more than the answer is worth, and some families of equations refuse every exact factorization we own while their <em>answers</em> sit in plain sight, frozen into exponents. The question is whether the orders of magnitude alone — the winners-only arithmetic of the onramps — form a world complete enough to solve problems in. The claim of this page is that they do: the collapsed world is a bona fide geometry, its curves are honest piecewise-linear objects, and its answers transfer back.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: the log-paper limit of a quadratic</h2>
-  <p>Consider the one-parameter family of classical quadratic equations indexed by a large positive parameter \(t &gt; 1\):</p>
-  \[
-    P_t(x) \;=\; t^0 x^2 \,-\, t^3 x \,+\, t^4 \;=\; x^2 - t^3 x + t^4 \;=\; 0.
-  \]
-  <p>By the quadratic formula, the two exact classical roots are</p>
-  \[
-    x_{\pm}(t) \;=\; \frac{t^3 \pm \sqrt{t^6 - 4 t^4}}{2} \;=\; \frac{t^3 \bigl(1 \pm \sqrt{1 - 4 t^{-2}}\bigr)}{2}.
-  \]
-  <p>Let us evaluate the base-\(t\) logarithms \(X_-(t) = \log_t x_-(t)\) and \(X_+(t) = \log_t x_+(t)\) as \(t\) grows from \(10\) to \(1000\):</p>
+<h2>2 · The encounter — a quadratic that freezes</h2>
+<p>Take the family of quadratic equations</p>
+<p>\[ x^{2} \;-\; t\,x \;+\; t^{4} \;=\; 0, \]</p>
+<p>where <em>t</em> is a small positive number, and solve it — honestly, numerically, at a sequence of shrinking values. At \(t = 0.01\) the quadratic formula gives roots \(9.999 \times 10^{-3}\) and \(1.000 \times 10^{-6}\). At \(t = 0.001\) it gives \(1.000 \times 10^{-3}\) and \(1.000 \times 10^{-9}\). At \(t = 0.0001\), \(1.000 \times 10^{-4}\) and \(1.000 \times 10^{-12}\). The census, with the exponents read off:</p>
+<table class="digit-table">
+<thead><tr><th>\(t\)</th><th>larger root</th><th>smaller root</th><th>larger root's exponent</th><th>smaller root's exponent</th></tr></thead>
+<tbody>
+<tr><td>\(10^{-2}\)</td><td>\(9.999 \times 10^{-3}\)</td><td>\(1.000 \times 10^{-6}\)</td><td>1.0000</td><td>3.0000</td></tr>
+<tr><td>\(10^{-3}\)</td><td>\(1.000 \times 10^{-3}\)</td><td>\(1.000 \times 10^{-9}\)</td><td>1.0000</td><td>3.0000</td></tr>
+<tr><td>\(10^{-4}\)</td><td>\(1.000 \times 10^{-4}\)</td><td>\(1.000 \times 10^{-12}\)</td><td>1.0000</td><td>3.0000</td></tr>
+<tr><td>\(10^{-5}\)</td><td>\(1.000 \times 10^{-5}\)</td><td>\(1.000 \times 10^{-15}\)</td><td>1.0000</td><td>3.0000</td></tr>
+</tbody>
+</table>
+<p>Every number in the table moves — and the two right-hand columns do not move at all. The larger root is \(t\) times a nudge (\(1 - t^{2}\) to leading order, by the quadratic formula), the smaller root is \(t^{3}\) times the reciprocal nudge; as \(t\) shrinks the nudges die and the roots freeze onto pure powers. The exponents are not approximately stable; they are stable to four decimal places at every scale we ran, and the stability is not an accident of this family's kindness — it is what the coefficients were saying all along. Look at the coefficients' own exponents: the \(x^{2}\) term carries none (exponent 0 in \(t\)), the \(x\)-term carries exponent 1, the constant carries exponent 4.</p>
+<p>Now do the childish thing, which turns out to be the whole move: plot the three points \((0, 4)\), \((1, 1)\), \((2, 0)\) — degree against coefficient exponent — and rest a weight on the point-cloud from below. The weight settles on a bent line: a steep segment from \((0,4)\) down to \((1,1)\), then a shallow one from \((1,1)\) down to \((2,0)\). The two segments have slopes \(-3\) and \(-1\) — and the roots froze at exponents 3 and 1. Each root's exponent is the negative of a segment's slope: the steep segment prices the small root, the shallow one prices the large root, and the bend sits at the \(x\)-term's own point \((1,1)\), which is why that coefficient is a player here. The census table, the two frozen columns, is a theorem about this bent line wearing a numerical costume (Fig P40.1).</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Base parameter \(t\)</th>
-        <th>Smaller root \(x_-(t)\)</th>
-        <th>Valuation \(\log_t x_-(t)\)</th>
-        <th>Larger root \(x_+(t)\)</th>
-        <th>Valuation \(\log_t x_+(t)\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(t = 10\)</td>
-        <td>\(10.102051\)</td>
-        <td>\(1.00440958\)</td>
-        <td>\(989.897949\)</td>
-        <td>\(2.99559042\)</td>
-      </tr>
-      <tr>
-        <td>\(t = 100\)</td>
-        <td>\(100.010002\)</td>
-        <td>\(1.00002172\)</td>
-        <td>\(999899.989998\)</td>
-        <td>\(2.99997828\)</td>
-      </tr>
-      <tr>
-        <td>\(t = 1000\)</td>
-        <td>\(1000.001000\)</td>
-        <td>\(1.00000014\)</td>
-        <td>\(999998999.999\)</td>
-        <td>\(2.99999986\)</td>
-      </tr>
-      <tr>
-        <td><strong>Limit \(t \to \infty\)</strong></td>
-        <td>\(x_-(t) \sim t^1\)</td>
-        <td><strong>\(X_- = 1\)</strong></td>
-        <td>\(x_+(t) \sim t^3\)</td>
-        <td><strong>\(X_+ = 3\)</strong></td>
-      </tr>
-    </tbody>
-  </table>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="Fig P40.1 — the lower hull of the showcase: the three exponent points with a bent line resting on them from below, steep segment of slope minus three, shallow segment of slope minus one">
+<text x="320" y="16" font-size="14" text-anchor="middle">the showcase: plot the points, rest the weight, read the slopes</text>
+<line x1="60" y1="40" x2="60" y2="280" stroke="#99c1f1" stroke-width="2"/>
+<line x1="40" y1="280" x2="610" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+<text x="60" y="300" font-size="13" text-anchor="middle">0</text>
+<text x="330" y="300" font-size="13" text-anchor="middle">1</text>
+<text x="600" y="300" font-size="13" text-anchor="middle">2</text>
+<text x="48" y="284" font-size="13" text-anchor="end">0</text>
+<text x="48" y="232" font-size="13" text-anchor="end">1</text>
+<text x="48" y="180" font-size="13" text-anchor="end">2</text>
+<text x="48" y="128" font-size="13" text-anchor="end">3</text>
+<text x="48" y="76" font-size="13" text-anchor="end">4</text>
+<polyline fill="none" stroke="#e2634f" stroke-width="2.5" points="60,72 330,228 600,280"/>
+<circle cx="60" cy="72" r="6" fill="#3a6073" stroke="#1a1a1a"/>
+<circle cx="330" cy="228" r="6" fill="#3a6073" stroke="#1a1a1a"/>
+<circle cx="600" cy="280" r="6" fill="#3a6073" stroke="#1a1a1a"/>
+<text x="76" y="68" font-size="13" text-anchor="start">(0, 4) — the constant t⁴</text>
+<text x="330" y="214" font-size="13" text-anchor="middle">(1, 1) — the x-term −t</text>
+<text x="592" y="266" font-size="13" text-anchor="end">(2, 0) — the leading 1</text>
+<text x="195" y="142" font-size="13" text-anchor="middle">slope −3</text>
+<text x="465" y="246" font-size="13" text-anchor="middle">slope −1</text>
+<text x="320" y="316" font-size="12" text-anchor="middle">each root's exponent is the negative of a segment's slope: orders 3 and 1</text>
+</svg>
+<figcaption><strong>Fig P40.1</strong> — The lower hull of the showcase \(x^{2} - tx + t^{4}\). The weight rests on all three exponent points; the bend at \((1,1)\) is why the \(x\)-term is a player, and the slopes \(-3\) and \(-1\), read backwards, are the frozen exponents of the census table.</figcaption>
+</figure>
+<p>Two honest notes before we name anything. First, the freeze is a detector, not a proof: four scales of numerical agreement would catch a wrong exponent instantly, but the <em>reason</em> the exponents freeze — and when they are allowed not to — is the business of the pages after this one. Second, the family next door misbehaves instructively: \(x^{2} - t^{3}x + t^{4} = 0\), the same equation with the \(x\)-term's exponent moved from 1 to 3, has roots \(\pm\, i\,t^{2}\) times a nudge — both roots freeze to the <em>same</em> exponent 2, and the naive guess "one root at the \(x\)-term's exponent 3" is not merely off by a little, it is not a root at any scale: substituting \(x = t^{3/2}\) leaves the equation holding a full un-canceled \(t^{3}\). The point \((1,3)\) sat <em>above</em> the weight's resting line, and coefficients above the line are shadows, not players. What law separates the players from the shadows — and what, exactly, is the world in which the bent line, not the quadratic, is the honest object? That is the move this page names (Fig P40.2).</p>
 
-  <p>Why do the logarithmic roots freeze onto the exact integers \(X = 1\) and \(X = 3\)? Substitute \(x = t^X\) into the three monomials of \(P_t(x)\):</p>
-  \[
-    \text{Term } i=2:\; t^{2X + 0}, \qquad \text{Term } i=1:\; -t^{X + 3}, \qquad \text{Term } i=0:\; t^{0\cdot X + 4}.
-  \]
-  <p>On a base-\(t\) logarithmic scale as \(t \to \infty\), the dominant exponent of \(P_t(t^X)\) is governed by the tropical polynomial</p>
-  \[
-    \operatorname{Trop}(P)(X) \;=\; (0 \odot X^{\odot 2}) \oplus (3 \odot X) \oplus 4 \;=\; \max\bigl(2X,\; X + 3,\; 4\bigr).
-  \]
-  <p>Follow the three linear pieces as \(X\) sweeps from \(-\infty\) to \(+\infty\):</p>
-  <ul>
-    <li>For \(X &lt; 1\): \(4 &gt; X + 3 &gt; 2X\), so the constant term \(t^4\) is strictly larger than the other two terms by a factor of \(t^{1-X} \to \infty\). No root can exist here!</li>
-    <li><strong>At \(X = 1\) (First Corner Root):</strong> The constant exponent \(4\) and the linear exponent \(X + 3 = 4\) tie for the maximum (\(4 = 4 &gt; 2\)), allowing \(-t^{X+3} + t^4 = 0\) to cancel at \(x \sim t^1\).</li>
-    <li>For \(1 &lt; X &lt; 3\): \(X + 3\) strictly dominates both \(4\) and \(2X\). Again, no root can exist.</li>
-    <li><strong>At \(X = 3\) (Second Corner Root):</strong> The linear exponent \(X + 3 = 6\) and the quadratic exponent \(2X = 6\) tie for the maximum (\(6 = 6 &gt; 4\)), allowing \(x^2 - t^3 x = 0\) to cancel at \(x \sim t^3\).</li>
-  </ul>
-  <p>Without ever computing a square root, piecewise-linear tie-breaking found the exact asymptotic exponents \(X = 1\) and \(X = 3\)!</p>
+<figure class="fig-tight">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="Fig P40.2 — the collision family: the x-term's exponent point floats one unit above the weight's resting line, a shadow rather than a player">
+<text x="320" y="16" font-size="14" text-anchor="middle">the collision family: one coefficient floats above the resting line</text>
+<line x1="60" y1="40" x2="60" y2="280" stroke="#99c1f1" stroke-width="2"/>
+<line x1="40" y1="280" x2="610" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+<text x="60" y="300" font-size="13" text-anchor="middle">0</text>
+<text x="330" y="300" font-size="13" text-anchor="middle">1</text>
+<text x="600" y="300" font-size="13" text-anchor="middle">2</text>
+<text x="48" y="284" font-size="13" text-anchor="end">0</text>
+<text x="48" y="232" font-size="13" text-anchor="end">1</text>
+<text x="48" y="180" font-size="13" text-anchor="end">2</text>
+<text x="48" y="128" font-size="13" text-anchor="end">3</text>
+<text x="48" y="76" font-size="13" text-anchor="end">4</text>
+<line x1="60" y1="72" x2="600" y2="280" stroke="#3a6073" stroke-width="2" stroke-dasharray="6 4"/>
+<circle cx="60" cy="72" r="6" fill="#3a6073" stroke="#1a1a1a"/>
+<circle cx="600" cy="280" r="6" fill="#3a6073" stroke="#1a1a1a"/>
+<circle cx="330" cy="124" r="6" fill="#e2634f" stroke="#1a1a1a"/>
+<line x1="330" y1="124" x2="330" y2="176" stroke="#99c1f1" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="76" y="68" font-size="13" text-anchor="start">(0, 4)</text>
+<text x="592" y="266" font-size="13" text-anchor="end">(2, 0)</text>
+<text x="344" y="120" font-size="13" text-anchor="start">(1, 3) — the x-term −t³</text>
+<text x="344" y="142" font-size="13" text-anchor="start">floats 1 above the resting line: a shadow, not a player</text>
+<text x="320" y="316" font-size="12" text-anchor="middle">the weight rests only on (0, 4) and (2, 0): one segment, slope −2, roots of order 2 and 2</text>
+</svg>
+<figcaption><strong>Fig P40.2</strong> — The collision family \(x^{2} - t^{3}x + t^{4}\). Its \(x\)-term's point \((1,3)\) sits one exponent-unit above the line from \((0,4)\) to \((2,0)\); coefficients above the resting line are shadows, and the hull stays a single segment of slope \(-2\). Exercise 4's point \((2,4)\) is the same picture one degree up.</figcaption>
+</figure>
 </section>
 
-<section id="pattern">
-  <h2>3 · Name the move</h2>
-
-  <div class="pattern-box" id="box-p40">
-    <h3>Box P40 · The Tropicalize Move</h3>
-    <p>When faced with a polynomial system, algebraic curve, intersection count, or exponential dynamic program whose asymptotic exponents, valuations, or combinatorial degree invariants are obscured by nonlinear algebra, pass to the <strong>tropical limit</strong> (\(X_k = \log_t |x_k|\) as \(t \to \infty\), or \(X_k = -\nu(x_k)\) for a non-Archimedean valuation \(\nu\)):</p>
-    \[
-      \sum_{\mathbf{i} \in \mathcal{A}} c_{\mathbf{i}}(t)\, \mathbf{x}^{\mathbf{i}} \;=\; 0
-      \quad\xrightarrow{\;\text{Tropicalize}\;}\quad
-      \operatorname{Trop}(f)(\mathbf{X}) \;:=\; \max_{\mathbf{i} \in \mathcal{A}} \bigl(a_{\mathbf{i}} + \mathbf{i} \cdot \mathbf{X}\bigr)
-      \;\text{ achieves its maximum at least twice,}
-    \]
-    <p>where \(a_{\mathbf{i}} = \lim_{t \to \infty} \log_t |c_{\mathbf{i}}(t)|\). Smooth algebraic varieties collapse onto balanced, piecewise-linear polyhedral complexes \(\mathcal{T}(f) \subset \mathbb{R}^n\) whose vertices, edge lengths, and intersection multiplicities are read directly from the Legendre-dual subdivision of the Newton polytope \(\operatorname{Newt}(f) = \operatorname{conv}(\mathcal{A})\).</p>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 225" width="100%" role="img" aria-label="Tropical polynomial max(2X, X+3, 4) with corner roots X=1 and X=3 alongside its Legendre-dual lifted Newton polygon">
-      <rect x="0" y="0" width="600" height="225" fill="#ffffff"/>
-      <!-- Left panel: Tropical polynomial Y = max(2X, X+3, 4) -->
-      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Tropical Polynomial: Y = max(2X, X+3, 4)</text>
-      <line x1="35" y1="185" x2="275" y2="185" stroke="#1a1a1a" stroke-width="1.2"/>
-      <line x1="65" y1="195" x2="65" y2="25" stroke="#1a1a1a" stroke-width="1.2"/>
-      <!-- Scale: X in [-0.5, 4.0]: x_px = 65 + 48*X; Y in [0, 8]: y_px = 185 - 19*Y -->
-      <!-- Piece 1: Y = 4 for X in [-0.5, 1] -> y_px = 185 - 76 = 109, x from 41 to 113 -->
-      <line x1="41" y1="109" x2="113" y2="109" stroke="#8b2635" stroke-width="3"/>
-      <!-- Piece 2: Y = X+3 for X in [1, 3] -> (1,4)=(113,109) to (3,6)=(209,71) -->
-      <line x1="113" y1="109" x2="209" y2="71" stroke="#8b2635" stroke-width="3"/>
-      <!-- Piece 3: Y = 2X for X in [3, 4] -> (3,6)=(209,71) to (4,8)=(257,33) -->
-      <line x1="209" y1="71" x2="257" y2="33" stroke="#8b2635" stroke-width="3"/>
-      <!-- Dashed inactive extensions -->
-      <line x1="113" y1="109" x2="240" y2="109" stroke="#5a5550" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="41" y1="137" x2="113" y2="109" stroke="#5a5550" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="65" y1="185" x2="209" y2="71" stroke="#5a5550" stroke-width="1" stroke-dasharray="3,3"/>
-      <!-- Corner vertices and vertical drop lines to X=1 and X=3 -->
-      <line x1="113" y1="109" x2="113" y2="185" stroke="#3a6073" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <line x1="209" y1="71" x2="209" y2="185" stroke="#3a6073" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <circle cx="113" cy="109" r="4.5" fill="#8b2635"/>
-      <circle cx="209" cy="71" r="4.5" fill="#8b2635"/>
-      <circle cx="113" cy="185" r="4" fill="#3a6073"/>
-      <circle cx="209" cy="185" r="4" fill="#3a6073"/>
-      <text x="72" y="102" font-family="system-ui, sans-serif" font-size="10" fill="#8b2635">slope 0 (4)</text>
-      <text x="150" y="82" font-family="system-ui, sans-serif" font-size="10" fill="#8b2635">slope 1 (X+3)</text>
-      <text x="218" y="46" font-family="system-ui, sans-serif" font-size="10" fill="#8b2635">slope 2 (2X)</text>
-      <text x="113" y="202" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">X = 1</text>
-      <text x="209" y="202" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">X = 3</text>
-
-      <!-- Right panel: Lifted Newton Polygon {(0,4), (1,3), (2,0)} -->
-      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Legendre Dual: Lifted Newton Polygon (i, a_i)</text>
-      <line x1="335" y1="185" x2="565" y2="185" stroke="#1a1a1a" stroke-width="1.2"/>
-      <line x1="355" y1="195" x2="355" y2="30" stroke="#1a1a1a" stroke-width="1.2"/>
-      <!-- i = 0 at x=355, i = 1 at x=445, i = 2 at x=535; height a_i: a=4 at y=55, a=3 at y=87.5, a=0 at y=185 -->
-      <polygon points="355,185 355,55 445,87.5 535,185" fill="#f3e6e8" stroke="none"/>
-      <line x1="355" y1="55" x2="445" y2="87.5" stroke="#8b2635" stroke-width="3"/>
-      <line x1="445" y1="87.5" x2="535" y2="185" stroke="#3a6073" stroke-width="3"/>
-      <circle cx="355" cy="55" r="4.5" fill="#1a1a1a"/>
-      <circle cx="445" cy="87.5" r="4.5" fill="#1a1a1a"/>
-      <circle cx="535" cy="185" r="4.5" fill="#1a1a1a"/>
-      <text x="363" y="50" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a">(0, 4)</text>
-      <text x="453" y="83" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a">(1, 3)</text>
-      <text x="535" y="173" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(2, 0)</text>
-      <text x="405" y="64" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">slope = −1 ⇒ X = 1</text>
-      <text x="505" y="128" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">slope = −3 ⇒ X = 3</text>
-      <text x="355" y="202" font-family="system-ui, sans-serif" font-size="10" fill="#5a5550" text-anchor="middle">i = 0</text>
-      <text x="445" y="202" font-family="system-ui, sans-serif" font-size="10" fill="#5a5550" text-anchor="middle">i = 1</text>
-      <text x="535" y="202" font-family="system-ui, sans-serif" font-size="10" fill="#5a5550" text-anchor="middle">i = 2</text>
-    </svg>
-    <figcaption><strong>Fig P40.1.</strong> Legendre duality between a 1D tropical polynomial and its lifted Newton polygon. <em>Left:</em> \(\operatorname{Trop}(P)(X) = \max(2X, X+3, 4)\) bends at \(X = 1\) and \(X = 3\). <em>Right:</em> Plotting the exponent-height pairs \((i, a_i) \in \{(0,4), (1,3), (2,0)\}\), the upper hull has two facets of slopes \(-1\) and \(-3\) and horizontal lengths \(1\) and \(1\), giving the exact roots \(X = 1, 3\) with multiplicity \(1\) each.</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p40a">
-    <h3>Box P40.A · The Four Verification Obligations of Tropicalization</h3>
-    <ol>
-      <li><strong>Valuation &amp; Semiring Convention:</strong> State explicitly whether you are working in the max-plus semiring \((\mathbb{R} \cup \{-\infty\}, \max, +)\) via \(X = \log_t |x|\) (\(t \to \infty\)) or \(X = -\nu(x)\), or in the min-plus semiring \((\mathbb{R} \cup \{+\infty\}, \min, +)\) via \(X = +\nu(x)\). Record the tropical coefficient \(a_{\mathbf{i}}\) of each monomial \(\mathbf{x}^{\mathbf{i}}\).</li>
-      <li><strong>Newton Polytope &amp; Dual Regular Subdivision:</strong> Form the exponent support \(\mathcal{A} = \{\mathbf{i} : c_{\mathbf{i}} \neq 0\} \subset \mathbb{Z}^n\) and its convex hull \(\operatorname{Newt}(f) = \operatorname{conv}(\mathcal{A})\). Project the upper facets of \(\operatorname{conv}\{(\mathbf{i}, a_{\mathbf{i}})\}\) (for \(\max\)) or lower facets (for \(\min\)) to obtain the regular subdivision \(\Delta_a\) of \(\operatorname{Newt}(f)\).</li>
-      <li><strong>Corner Locus &amp; Integer Lattice Multiplicities:</strong> Each edge/facet \(e\) of the tropical hypersurface \(\mathcal{T}(f)\) is dual (orthogonal) to an edge \(e^* = \overline{\mathbf{i}\,\mathbf{j}}\) of \(\Delta_a\), and carries the integer <strong>lattice multiplicity</strong> \(w_e = \gcd(i_1 - j_1, \dots, i_n - j_n) = |\mathbb{Z}^n \cap e^*| - 1\).</li>
-      <li><strong>Zero-Tension Balancing &amp; Transversality Check:</strong> At every vertex \(V\) of \(\mathcal{T}(f)\), verify the <strong>zero-tension balancing condition</strong> \(\sum_{e \ni V} w_e \mathbf{v}_e = \mathbf{0}\), where \(\mathbf{v}_e \in \mathbb{Z}^n\) is the primitive integer direction vector of edge \(e\) pointing away from \(V\). Before lifting tropical intersections back to classical solutions (Kapranov's or Mikhalkin's correspondence theorem), confirm that no cancellation of leading coefficients occurs and that intersections are transverse.</li>
-    </ol>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 240" width="100%" role="img" aria-label="Smooth tropical conic in R^2 with 4 three-valent balanced vertices and its dual Newton triangle subdivision into 4 unit triangles">
-      <rect x="0" y="0" width="600" height="240" fill="#ffffff"/>
-      <!-- Left panel: Tropical Conic in R^2 -->
-      <text x="165" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Smooth Tropical Conic T(C) in R² (Balanced 3-Valent Graph)</text>
-      <!-- Axes -->
-      <line x1="30" y1="190" x2="290" y2="190" stroke="#d8d2c7" stroke-width="1"/>
-      <line x1="75" y1="220" x2="75" y2="30" stroke="#d8d2c7" stroke-width="1"/>
-      <!-- Coordinates: (X,Y) -> (75 + 32*X, 190 - 32*Y) -->
-      <!-- V1=(0,0)->(75,190), V2=(1,1)->(107,158), V3=(4,1)->(203,158), V4=(1,4)->(107,62) -->
-      <!-- Bounded edges -->
-      <line x1="75" y1="190" x2="107" y2="158" stroke="#8b2635" stroke-width="3"/>
-      <line x1="107" y1="158" x2="203" y2="158" stroke="#8b2635" stroke-width="3"/>
-      <line x1="107" y1="158" x2="107" y2="62" stroke="#8b2635" stroke-width="3"/>
-      <!-- 6 Infinite rays (2 West, 2 South, 2 Diagonal (1,1)) -->
-      <!-- From V1=(75,190): West (-1,0) to (35,190), South (0,-1) to (75,222) -->
-      <line x1="75" y1="190" x2="35" y2="190" stroke="#3a6073" stroke-width="2.5"/>
-      <line x1="75" y1="190" x2="75" y2="222" stroke="#3a6073" stroke-width="2.5"/>
-      <!-- From V3=(203,158): South (0,-1) to (203,222), Diagonal (1,1) to (255,106) -->
-      <line x1="203" y1="158" x2="203" y2="222" stroke="#3a6073" stroke-width="2.5"/>
-      <line x1="203" y1="158" x2="255" y2="106" stroke="#3a6073" stroke-width="2.5"/>
-      <!-- From V4=(107,62): West (-1,0) to (35,62), Diagonal (1,1) to (145,24) -->
-      <line x1="107" y1="62" x2="35" y2="62" stroke="#3a6073" stroke-width="2.5"/>
-      <line x1="107" y1="62" x2="145" y2="24" stroke="#3a6073" stroke-width="2.5"/>
-      <!-- Vertices -->
-      <circle cx="75" cy="190" r="4.5" fill="#1a1a1a"/>
-      <circle cx="107" cy="158" r="4.5" fill="#1a1a1a"/>
-      <circle cx="203" cy="158" r="4.5" fill="#1a1a1a"/>
-      <circle cx="107" cy="62" r="4.5" fill="#1a1a1a"/>
-      <text x="56" y="182" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">V₁(0,0)</text>
-      <text x="114" y="149" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">V₂(1,1)</text>
-      <text x="208" y="172" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">V₃(4,1)</text>
-      <text x="114" y="66" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a">V₄(1,4)</text>
-
-      <!-- Right panel: Dual Newton Triangle Subdivision -->
-      <text x="455" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Dual Newton Subdivision Δ_a of Conv{(0,0),(2,0),(0,2)}</text>
-      <!-- Grid points (i,j) for i+j <= 2: (0,0)->(365,190), (1,0)->(445,190), (2,0)->(525,190), (0,1)->(365,110), (1,1)->(445,110), (0,2)->(365,30) -->
-      <polygon points="365,190 525,190 365,30" fill="#f2eee6" stroke="#1a1a1a" stroke-width="2"/>
-      <!-- Interior subdivision edges (dual to the 3 bounded edges of T(C)) -->
-      <line x1="445" y1="190" x2="365" y2="110" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="445" y1="190" x2="445" y2="110" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="365" y1="110" x2="445" y2="110" stroke="#8b2635" stroke-width="2.5"/>
-      <!-- Lattice points -->
-      <circle cx="365" cy="190" r="4" fill="#1a1a1a"/>
-      <circle cx="445" cy="190" r="4" fill="#1a1a1a"/>
-      <circle cx="525" cy="190" r="4" fill="#1a1a1a"/>
-      <circle cx="365" cy="110" r="4" fill="#1a1a1a"/>
-      <circle cx="445" cy="110" r="4" fill="#1a1a1a"/>
-      <circle cx="365" cy="30" r="4" fill="#1a1a1a"/>
-      <!-- Triangle labels V1*, V2*, V3*, V4* -->
-      <text x="392" y="168" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">V₁*</text>
-      <text x="418" y="138" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">V₂*</text>
-      <text x="472" y="168" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">V₃*</text>
-      <text x="392" y="88" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">V₄*</text>
-      <!-- Coordinate labels -->
-      <text x="365" y="208" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550" text-anchor="middle">(0,0):4</text>
-      <text x="445" y="208" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550" text-anchor="middle">(1,0):4</text>
-      <text x="525" y="208" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550" text-anchor="middle">(2,0):0</text>
-      <text x="336" y="114" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550">(0,1):4</text>
-      <text x="453" y="110" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550">(1,1):3</text>
-      <text x="336" y="34" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550">(0,2):0</text>
-    </svg>
-    <figcaption><strong>Fig P40.2.</strong> Duality between a planar tropical curve and the regular subdivision of its Newton polygon (Exemplar 1). <em>Left:</em> The tropical conic \(\mathcal{T}(C)\) has four 3-valent vertices \(V_1, V_2, V_3, V_4\), three bounded edges (crimson), and six infinite rays (slate blue). <em>Right:</em> Each vertex \(V_k\) is dual to one of the four unit triangles \(V_k^*\) in the subdivision of the degree-2 Newton triangle, and each edge of \(\mathcal{T}(C)\) is perpendicular to the shared edge in \(\Delta_a\).</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p40b">
-    <h3>Box P40.B · Three-Key Recognition Diagnosis</h3>
-    <ul>
-      <li><strong>Claim type:</strong> You need the asymptotic exponents (Puiseux valuations) of solutions to a polynomial system as a parameter \(t \to \infty\) or \(t \to 0\), an intersection count / genus / curve count in enumerative algebraic geometry, or the exact optimum of an exponential-sum / dynamic-programming recursion.</li>
-      <li><strong>Problem shape:</strong> Expressions built from positive (or non-Archimedean valued) variables using sums and products \(\sum c_{\mathbf{i}} \mathbf{x}^{\mathbf{i}}\), where taking a logarithm turns every monomial into an affine linear functional \(a_{\mathbf{i}} + \mathbf{i} \cdot \mathbf{X}\).</li>
-      <li><strong>Tools at hand:</strong> Piecewise-linear convex analysis (<a href="p17-duality.html"><span class="pid">P17</span></a>), Newton polygons and mixed volumes, determinant multiplicities \(|\det(\mathbf{u}, \mathbf{v})|\), and tropical matrix multiplication \((\min, +)\) or \((\max, +)\).</li>
-    </ul>
-  </div>
+<section id="name">
+<h2>3 · Name the move</h2>
+<p>The encounter's bent line is not a trick for quadratics; it is a world. Give it its name.</p>
+<div class="pattern-box" id="box-p40">
+<p><strong>Pattern P40 — Tropicalize.</strong> When a family of problems depends on a parameter \(t\) and what decides each question is <em>which term wins</em> as \(t\) shrinks — not by how much — replace every quantity by its order of magnitude: addition becomes minimum, multiplication becomes addition. A polynomial collapses to the lower hull of its coefficient-exponent points, a piecewise-linear function whose slopes and corners carry the answers: the hull's segment slopes, read with a minus sign, are the orders of magnitude of the roots, and the corners — where the winning term changes — are the roots' tropical locations. The collapsed object is cruder than the original, and deliberately so: it cannot see constants, and it cannot see units. What it sees, it sees exactly — and its answers lift back to the original family whenever the lifting hypotheses hold. The skeleton is a certificate about the family, never a replacement for it.</p>
+</div>
+<p>In words: stop computing with the numbers and keep only the powers of \(t\). Under the winners-only arithmetic — \(\oplus\) is \(\min\), \(\odot\) is \(+\) — the equation \(x^{2} - tx + t^{4} = 0\) becomes the function \(\min(2x,\, 1 + x,\, 4)\), a bent line whose corners at \(x = 1\) and \(x = 3\) are precisely the exponents the numerical census froze onto. The correspondence is not a coincidence of this example: it is the same fact seen from two sides, the bent line being the lower hull of the points \((0,4)\), \((1,1)\), \((2,0)\), and the hull's slopes \(-3\) and \(-1\) reading backwards as the roots' orders 3 and 1. The word for the whole maneuver — geometry melted into combinatorics, answers surviving the melt — is <em>tropical</em>, a name borrowed in honor of the Brazilian mathematicians who worked its arithmetic out; the lineage section tells that story honestly.</p>
+<p><strong>The three-key diagnosis.</strong> <em>Claim type:</em> the claims this move settles are claims about orders of magnitude — a growth law, a degeneration's shape, a count's leading behavior at scale — never exact values; if the question asks "how much", the move answers "on which scale, like which power". <em>Problem shape:</em> the data is a sum of terms that compete by size under a parameter — a polynomial in one or several variables, a system of them, a network of path-weights — with a scale at which one term dominates each region of the question. <em>Tools at hand:</em> the winners-only arithmetic of the onramps, the lower hull of the exponent points (the pencil-and-paper engine — plot the points, rest the weight, read the slopes), and a lifting theorem quoted with its hypotheses, never assumed. All three keys are checked before the move is reached for: an exact-value question tropicalized is a question answered with the wrong precision, and a term competition with no dominating scale is a hull with no hull.</p>
 </section>
+
 <section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
-
-  <h3>Exemplar 1 (Algebraic Geometry &amp; Balancing) · The smooth tropical conic, its Newton subdivision, and why zero-tension balancing holds</h3>
-  <p><strong>Problem.</strong> Consider the bivariate tropical quadratic polynomial in the max-plus semiring:</p>
-  \[
-    \operatorname{Trop}(C)(X, Y) \;=\; \max\bigl(2X,\; X + Y + 3,\; 2Y,\; X + 4,\; Y + 4,\; 4\bigr).
-  \]
-  <ol>
-    <li>Find all vertices of the tropical curve \(\mathcal{T}(C) \subset \mathbb{R}^2\) (points where at least three linear pieces tie for the maximum) and match each vertex to its dual triangle in the regular subdivision of the Newton triangle \(\operatorname{Newt}(C) = \operatorname{conv}\{(0,0), (2,0), (0,2)\}\).</li>
-    <li>Find the direction vector and weight of every bounded edge and infinite ray of \(\mathcal{T}(C)\), and verify the <strong>zero-tension balancing condition</strong> \(\sum_{e \ni V} w_e \mathbf{v}_e = \mathbf{0}\) at every vertex.</li>
-  </ol>
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Exponent heights and the four dual triangles).</strong> The six monomials \((i,j)\) with \(i + j \le 2\) have tropical coefficients (heights)</p>
-  \[
-    a_{0,0} = 4, \quad a_{1,0} = 4, \quad a_{0,1} = 4, \quad a_{1,1} = 3, \quad a_{2,0} = 0, \quad a_{0,2} = 0.
-  \]
-  <p>Because the three interior/midpoint heights \(a_{1,0} = 4\), \(a_{0,1} = 4\), \(a_{1,1} = 3\) sit well above the average of the corners \(a_{2,0} = 0\) and \(a_{0,2} = 0\), the upper convex hull of \(\{(i, j, a_{i,j})\}\) subdivides the \(2 \times 2\) Newton triangle into four unit lattice triangles \(V_1^*, V_2^*, V_3^*, V_4^*\) (shown in Fig P40.2, right). Setting the three linear pieces of each triangle equal gives the four vertices of \(\mathcal{T}(C)\):</p>
-  <ul>
-    <li><strong>Vertex \(V_1\) (dual to \(V_1^* = \{(0,0), (1,0), (0,1)\}\)):</strong> Setting \(4 = X + 4 = Y + 4\) gives \((X, Y) = (0, 0)\) with common value \(4\). Checking the other three terms at \((0,0)\) gives \(X+Y+3 = 3 &lt; 4\) and \(2X = 2Y = 0 &lt; 4\), so the tie is strictly maximal!</li>
-    <li><strong>Vertex \(V_2\) (dual to \(V_2^* = \{(1,0), (0,1), (1,1)\}\)):</strong> Setting \(X + 4 = Y + 4 = X + Y + 3\) gives \((X, Y) = (1, 1)\) with value \(5\) (exceeding \(a_{0,0} = 4\) and \(2X = 2Y = 2\)).</li>
-    <li><strong>Vertex \(V_3\) (dual to \(V_3^* = \{(1,0), (1,1), (2,0)\}\)):</strong> Setting \(X + 4 = X + Y + 3 = 2X\) gives \(X = 4\) and \(Y = 1\) with value \(8\) (exceeding \(4, 5, 2\)).</li>
-    <li><strong>Vertex \(V_4\) (dual to \(V_4^* = \{(0,1), (1,1), (0,2)\}\)):</strong> By symmetry, setting \(Y + 4 = X + Y + 3 = 2Y\) gives \((X, Y) = (1, 4)\) with value \(8\).</li>
-  </ul>
-
-  <p><strong>Step 2 (Edges, rays, and zero-tension balancing).</strong> Why does every vertex of a tropical curve satisfy \(\sum_{e \ni V} w_e \mathbf{v}_e = \mathbf{0}\)? Along an edge \(e\) leaving vertex \(V\), two monomials \((i_1, j_1)\) and \((i_2, j_2)\) of the active Newton triangle remain tied while the third drops below them:</p>
-  \[
-    a_{i_1, j_1} + i_1 X + j_1 Y \;=\; a_{i_2, j_2} + i_2 X + j_2 Y \quad\Longleftrightarrow\quad (i_2 - i_1)\,\Delta X + (j_2 - j_1)\,\Delta Y \;=\; 0.
-  \]
-  <p>Thus the weighted outgoing direction vector \(w_e \mathbf{v}_e\) is obtained by rotating the Newton polygon edge vector \(\mathbf{e}^* = (i_2 - i_1, j_2 - j_1)\) by \(90^\circ\): specifically, \(w_e \mathbf{v}_e = \bigl(-(j_2 - j_1),\, i_2 - i_1\bigr)\). Because the three edges of any closed triangle \(V^*\) sum to zero around its boundary (\(\sum_{k=1}^3 \mathbf{e}_k^* = \mathbf{0}\)), rotating by \(90^\circ\) proves that the outgoing rays at \(V\) automatically sum to \(\mathbf{0}\)! Checking each vertex of \(\mathcal{T}(C)\) explicitly (all edges have lattice length \(w_e = 1\)):</p>
-  <ul>
-    <li>At \(V_1 = (0,0)\): two infinite rays \((-1, 0)\) and \((0, -1)\) plus the bounded edge to \(V_2\) along \((1, 1)\) sum to \((-1,0) + (0,-1) + (1,1) = (0,0)\).</li>
-    <li>At \(V_2 = (1,1)\): three bounded edges to \(V_1, V_3, V_4\) in directions \((-1,-1)\), \((1,0)\), and \((0,1)\) sum to \((-1,-1) + (1,0) + (0,1) = (0,0)\).</li>
-    <li>At \(V_3 = (4,1)\): bounded edge \((-1,0)\) to \(V_2\) plus infinite rays \((0,-1)\) and \((1,1)\) sum to \((-1,0) + (0,-1) + (1,1) = (0,0)\).</li>
-    <li>At \(V_4 = (1,4)\): bounded edge \((0,-1)\) to \(V_2\) plus infinite rays \((-1,0)\) and \((1,1)\) sum to \((0,-1) + (-1,0) + (1,1) = (0,0)\).</li>
-  </ul>
-
-  <h3>Exemplar 2 (Enumerative Geometry) · Tropical Bézout's theorem and determinant intersection multiplicities</h3>
-  <p><strong>Problem.</strong> Intersect the smooth tropical conic \(\mathcal{T}(C)\) of Exemplar 1 (degree \(2\)) with the tropical line</p>
-  \[
-    \operatorname{Trop}(L)(X, Y) \;=\; \max\bigl(X + 1,\; Y + 2.5,\; 3\bigr) \qquad (\text{degree } 1).
-  \]
-  <p>Find all intersection points \(P \in \mathcal{T}(C) \cap \mathcal{T}(L)\), compute the local tropical intersection multiplicity \(\operatorname{mult}_P(\mathcal{T}(C) \cap \mathcal{T}(L)) = w_e w_{e'} |\det(\mathbf{u}_e, \mathbf{v}_{e'})|\) at each point, and verify that the total intersection count equals \(\deg(C) \cdot \deg(L) = 2\).</p>
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Skeleton of the tropical line \(\mathcal{T}(L)\)).</strong> Setting the three linear pieces of \(\operatorname{Trop}(L)\) equal gives \(X + 1 = Y + 2.5 = 3\), so \(\mathcal{T}(L)\) has its unique vertex at \(W = (2, 0.5)\) and three weight-\(1\) rays leaving \(W\):</p>
-  <ul>
-    <li>West ray \(R_W\): direction \(\mathbf{v}_W = (-1, 0)\), equation \(Y = 0.5\) for \(X \le 2\).</li>
-    <li>South ray \(R_S\): direction \(\mathbf{v}_S = (0, -1)\), equation \(X = 2\) for \(Y \le 0.5\).</li>
-    <li>Diagonal ray \(R_D\): direction \(\mathbf{v}_D = (1, 1)\), equation \(Y - 0.5 = X - 2 \iff Y = X - 1.5\) for \(X \ge 2\).</li>
-  </ul>
-
-  <p><strong>Step 2 (Locating the transverse intersections and determinant multiplicities).</strong> Inspecting the segments of \(\mathcal{T}(C)\) from Exemplar 1 against the three rays of \(\mathcal{T}(L)\) (shown in Fig P40.3, left):</p>
-  <ul>
-    <li><strong>Intersection \(P_1 = (0.5, 0.5)\):</strong> The West ray \(R_W\) (\(Y = 0.5, X \le 2\), direction \(\mathbf{v}_W = (-1, 0)\)) crosses the bounded diagonal segment \(\overline{V_1 V_2}\) of \(\mathcal{T}(C)\) (\(Y = X\) for \(0 \le X \le 1\), direction \(\mathbf{u}_{12} = (1, 1)\)) at \(P_1 = (0.5, 0.5)\). Its tropical intersection multiplicity is the lattice parallelogram area
-      \[
-        \operatorname{mult}_{P_1}\bigl(\mathcal{T}(C) \cap \mathcal{T}(L)\bigr) \;=\; 1 \cdot 1 \cdot \left|\det\!\begin{pmatrix} 1 &amp; -1 \\ 1 &amp; 0 \end{pmatrix}\right| \;=\; |0 - (-1)| \;=\; 1.
-      \]
-    </li>
-    <li><strong>Intersection \(P_2 = (2.5, 1.0)\):</strong> The Diagonal ray \(R_D\) (\(Y = X - 1.5, X \ge 2\), direction \(\mathbf{v}_D = (1, 1)\)) crosses the horizontal bounded segment \(\overline{V_2 V_3}\) of \(\mathcal{T}(C)\) (\(Y = 1\) for \(1 \le X \le 4\), direction \(\mathbf{u}_{23} = (1, 0)\)) at \(Y = 1 \implies X = 2.5\), so \(P_2 = (2.5, 1.0)\). Its tropical intersection multiplicity is
-      \[
-        \operatorname{mult}_{P_2}\bigl(\mathcal{T}(C) \cap \mathcal{T}(L)\bigr) \;=\; 1 \cdot 1 \cdot \left|\det\!\begin{pmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\right| \;=\; |1 - 0| \;=\; 1.
-      \]
-    </li>
-    <li>The South ray \(R_S\) (\(X = 2, Y \le 0.5\)) travels vertically downward in the open region between \(X = 0\) and \(X = 4\) where \(\mathcal{T}(C)\) has no edges below \(Y = 1\).</li>
-  </ul>
-  <p>Summing over all intersections gives \(\sum_P \operatorname{mult}_P(\mathcal{T}(C) \cap \mathcal{T}(L)) = 1 + 1 = 2 = \deg(C)\deg(L)\), confirming Tropical Bézout's Theorem!</p>
-
-  <h3>Exemplar 3 (Combinatorial Optimization) · All-pairs shortest paths via min-plus tropical matrix multiplication</h3>
-  <p><strong>Problem.</strong> Consider a 3-node directed communication network with direct link latencies given by the min-plus matrix (\(W_{ii} = 0\), \(W_{ij} = +\infty\) if no direct link exists):</p>
-  \[
-    W \;=\;
-    \begin{pmatrix}
-      0 &amp; 7 &amp; 12 \\
-      +\infty &amp; 0 &amp; 3 \\
-      2 &amp; +\infty &amp; 0
-    \end{pmatrix}.
-  \]
-  <p>In the <strong>min-plus tropical semiring</strong> \((\mathbb{R} \cup \{+\infty\}, \oplus, \odot)\) where \(a \oplus b = \min(a, b)\) and \(a \odot b = a + b\), compute the tropical matrix square \(W^{\odot 2} = W \odot W\) and cube \(W^{\odot 3}\), and interpret the stabilized matrix \(W^* = W^{\odot 2}\).</p>
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Why tropical matrix multiplication computes shortest paths).</strong> Translating the classical matrix product \((A B)_{ij} = \sum_{k=1}^n A_{ik} B_{kj}\) into the min-plus semiring yields</p>
-  \[
-    (A \odot B)_{ij} \;=\; \bigoplus_{k=1}^n \bigl(A_{ik} \odot B_{kj}\bigr) \;=\; \min_{1 \le k \le n} \bigl(A_{ik} + B_{kj}\bigr).
-  \]
-  <p>Because \(W_{ii} = 0\), the entry \((W^{\odot m})_{ij}\) is the minimum total weight of any directed walk from node \(i\) to node \(j\) using at most \(m\) edges!</p>
-
-  <p><strong>Step 2 (Explicit calculation of \(W^{\odot 2}\) and stabilization at \(m = n - 1 = 2\)).</strong> Computing each entry \((W^{\odot 2})_{ij} = \min_{k \in \{1,2,3\}} (W_{ik} + W_{kj})\):</p>
-  <ul>
-    <li>\((W^{\odot 2})_{13} = \min(0 + 12,\; 7 + 3,\; 12 + 0) = \min(12, 10, 12) = 10\) (the 2-hop path \(1 \to 2 \to 3\) of cost \(7 + 3 = 10\) beats the direct edge \(1 \to 3\) of cost \(12\)).</li>
-    <li>\((W^{\odot 2})_{21} = \min(+\infty + 0,\; 0 + \infty,\; 3 + 2) = 5\) (via \(2 \to 3 \to 1\)).</li>
-    <li>\((W^{\odot 2})_{32} = \min(2 + 7,\; +\infty + 0,\; 0 + \infty) = 9\) (via \(3 \to 1 \to 2\)).</li>
-  </ul>
-  <p>Collecting all nine entries gives</p>
-  \[
-    W^{\odot 2} \;=\;
-    \begin{pmatrix}
-      0 &amp; 7 &amp; 10 \\
-      5 &amp; 0 &amp; 3 \\
-      2 &amp; 9 &amp; 0
-    \end{pmatrix}
-    \;=\; W^{\odot 3} \;=\; W^*.
-  \]
-  <p>Because every simple path in a 3-node graph with nonnegative cycle weights uses at most \(n - 1 = 2\) edges, the tropical Kleene star \(W^* = I_{\text{trop}} \oplus W \oplus W^{\odot 2} \oplus \cdots\) stabilizes at \(W^{\odot 2}\), solving the all-pairs shortest path problem by pure linear algebra over \((\min, +)\).</p>
+<h2>4 · Worked exemplars</h2>
+<p class="pid">Moves used: <strong>P40</strong> throughout — the winners-only arithmetic of the onramps, the lower hull of §3 · <a href="p16-isomorphism.html">P16</a> carrying the dictionary between matrix products and walk costs, checked promise by promise before it is trusted.</p>
+<p><strong>Exhibit A — the showcase, factored.</strong> Return to \(x^{2} - tx + t^{4}\) with everything the last two sections built. The tropicalization is \(\min(2x,\, 1 + x,\, 4)\); its corners sit at \(x = 1\) and \(x = 3\), and the hull behind it has segments of slopes \(-3\) and \(-1\). The correspondence theorem of §3 — machine-checked on five families, including two cubics and two degenerates, by two independent routes (exact integer hull arithmetic against floating-point root work) — reads the roots off the hull: the shallow segment prices the large root at \(t^{1}\), the steep segment prices the small root at \(t^{3}\). The factorization follows: the tropical polynomial factors as \((x \oplus 1) \odot (x \oplus 3)\), and the factorization is <em>visible</em> in the bent line — each corner is a factor's constant, each segment's run between corners is the next factor's reach. The cousin from §2 shows what the eyes must not do: its \(x\)-term's point \((1,3)\) floats above the hull, contributes no corner, and prices no root — a shadow. The hull is the arbiter of who counts, and it does the arbitrating exactly, by geometry.</p>
+<p><strong>Exhibit B — shortest paths are a tropical matrix product.</strong> Here the melt runs in the other direction: a classical combinatorial problem turns out to <em>be</em> tropical algebra wearing its everyday clothes — the dictionary move of <a href="p16-isomorphism.html">P16</a>, with the winners-only arithmetic playing the solved sibling. Take a directed graph on five nodes with integer edge costs, and file its costs in a matrix \(W\): entry \([i][j]\) is the cost of the edge \(i \to j\), or \(\infty\) if there is none, with diagonal 0. Now multiply matrices the tropical way — \((A \odot B)[i][j]\) is the minimum over \(k\) of \(A[i][k] + B[k][j]\). What is one product? A choice of intermediate node \(k\): the entry is the cheapest two-edge journey from \(i\) to \(j\). Products of three factors are cheapest three-edge journeys, and the tropical closure — the product of enough copies of \(W\) — is the cheapest journey of any length: the all-pairs shortest-path table. We ran it on a fixed five-node, eight-edge graph, two independent ways: the classical Floyd–Warshall sweep, and the iterated tropical product. All twenty-five cells agreed, exactly — including the hand-traced cheapest route \(0 \to 1 \to 3 \to 4\), cost \(3 + 5 + 1 = 9\), which the closure's \([0][4]\) entry carries without ever being told the route. The algebraic laws survive the melt too: the tropical product is associative, exactly, on every cell we checked, and it distributes over the tropical sum — because \(\min(a + c,\, b + c) = \min(a,b) + c\), the one line the whole arithmetic rests on. The price is paid in kind: the tropical product cannot count <em>how many</em> cheap journeys there are — it collapses ties, keeps no multiplicity of routes, and answers only "how cheap", never "how many". (Counting walks instead of pricing them is the classical matrix product over the ordinary arithmetic — the two products are the same shape of computation in two arithmetics, and which one answers your question is the three-key diagnosis of §3, key one.)</p>
+<p>Both exhibits run the same move in opposite directions, and that is the point. Exhibit A melted an algebra problem down to its geometry and read the roots off the skeleton; Exhibit B found a combinatorial problem already living in the melted world, and let the skeleton's algebra — associativity, distributivity, the closure — do the work. The pattern is one move, not two: find the scale at which the question is decided, and work there.</p>
 </section>
 
 <section id="fails">
-  <h2>5 · When the trick breaks</h2>
+<h2>5 · When the trick breaks</h2>
+<p>The skeleton is a leading-order object, and every one of its blindnesses is a leading-order statement pushed too far. Three failures, each run rather than asserted.</p>
+<p><strong>The constants are invisible — at leading order.</strong> The families \(x^{2} - 7tx + t^{4}\) and \(x^{2} - tx + t^{4}\) have the same exponent points, hence the same hull, hence the same tropical roots \(\{1, 3\}\) — and their classical roots genuinely differ, by a factor of 7 on the large root and 7 on the small one's denominator. Any question whose answer lives in the constants — "which multiple of \(t\)" — is out of the skeleton's reach by construction. The honest refinement our measurements caught: the constants are not invisible to everything, only to the leading order. The two families' roots are \(7t(1 - t^{2}/49)\) and \(t(1 - t^{2})\) — the nudges differ, and a secant valuation (the difference of log-moduli across two scales, the estimator our verification labs use) feels that difference at order \(t^{2}\): a gap of \(4 \times 10^{-5}\) where a single-scale reading shows \(0.42\). The skeleton answers "on which scale"; the constants whisper back only two octaves down.</p>
+<p><strong>Ties split at second order.</strong> When three exponent points are collinear — \((0,2)\), \((1,1)\), \((2,0)\), as in \((x - t)(x - t - t^{2}) = x^{2} - (2t + t^{2})x + (t^{2} + t^{3})\) — the hull has one segment, one slope, and predicts a <em>double</em> tropical root. The classical roots are exactly \(t\) and \(t + t^{2}\): distinct, real, and separated by \(t^{2}\), a gap the skeleton cannot represent. Tropical multiplicity is a statement about leading orders; whether a double tropical root is a genuine double root, or two roots that will split one order down, is decided by the constants — the very thing the skeleton threw away. Reading multiplicity off the hull without this caveat sells a leading-order accident as a theorem.</p>
+<p><strong>No small parameter, no guarantee.</strong> The whole apparatus runs on \(t\) being small, and "small" is not a formality. At \(t = 0.9\), the showcase family's roots both have modulus exactly \(t^{2}\) — valuations \(\{2, 2\}\), nowhere near the tropical prediction \(\{1, 3\}\); the freeze sets in gradually, not by decree: our census reads \(\{2,2\}\) at \(t = 0.5\), \(\{1.004, 2.996\}\) at \(t = 0.1\), \(\{1, 3\}\) at \(t = 0.01\). And the collision family of §2 keeps its own lesson: its classical roots \(\pm\, i\,t^{2}\) differ by a unit the skeleton cannot see, so tropical multiplicity 2 is all it will ever say. Numerics pay the same tax from the other side — near a degenerate family, root-finders lose digits in proportion to the splitting, which is the skeleton's blindness visited on the machine.</p>
+<p><strong>One polynomial is a family; a system is a treaty.</strong> Nothing above prepares the reader for pairs, and pairs misbehave in a new way. Run the simplest pair: \(f_{1} = x + y + 1\) and \(f_{2} = x + y + 2\) over \(\mathbb{C}^{2}\) — two parallel lines with no common zero (subtracting the equations gives \(0 = 1\)). Tropicalize each term-by-term and both become the same tropical line \(\min(X, Y, 0) = 0\): the constants' values, 1 and 2, wear the same exponent 0, so the hull cannot tell them apart — and the two tropicalizations coincide along an entire line where the classical curves never meet. Cancellation between equations destroys the naive tropicalization of the pair, exactly as invisible constants destroy it for one polynomial — the same blind spot, one dimension up. The honest handling is elimination before tropicalization — ideal arithmetic, the work of a later page (<a href="p32-ideal-arithmetic.html">P32</a>); this page's contract covers one polynomial at a time.</p>
 
-  <div class="aside">
-    <p><strong>Exhibit A — Leading-coefficient cancellation destroys the naive tropicalization when polynomials are not in general position.</strong> Consider the two linear equations \(f_1(x, y) = x + y + 1 = 0\) and \(f_2(x, y) = x + y + 2 = 0\). In \(\mathbb{C}^2\), these are parallel lines with <em>zero</em> intersection points! Yet both tropicalize to the exact same tropical line \(\max(X, Y, 0)\). Worse still, if we change \(f_2\) to \(x + y + (1 + t^{-3}) = 0\), subtracting \(f_1\) from \(f_2\) cancels \(x + y + 1\) completely and leaves \(t^{-3} = 0\).</p>
-    <p><em>Mitigation:</em> Replace a single polynomial pair by a <strong>tropical basis</strong> of the ideal \(I = \langle f_1, f_2 \rangle\) (<a href="p32-ideal-arithmetic.html"><span class="pid">P32</span></a>) — i.e., perform elimination to expose hidden cancellations before tropicalizing — or perturb coefficients generically when computing topological intersection invariants.</p>
-    <p><em>Price:</em> Computing Gröbner bases over valued fields to detect cancellation.</p>
-    <p><em>Default:</em> Check Obligation 4 in Box P40.A: tropical intersection equals classical intersection of individual hypersurfaces only when they meet <em>transversely</em> (or via stable intersection).</p>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Transverse Tropical Bezout intersection of Conic and Line vs Double-Weight Ray Intersection">
-      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
-      <!-- Left panel: Transverse Bezout intersection from Exemplar 2 -->
-      <text x="160" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Transverse Intersection: T(C) ∩ T(L) = {P₁, P₂} (Mult 1 + 1 = 2)</text>
-      <!-- Conic bounded edges near V1(0,0), V2(1,1), V3(4,1), V4(1,4): scale (X,Y) -> (65 + 42*X, 165 - 32*Y) -->
-      <!-- V1=(65,165), V2=(107,133), V3=(233,133), V4=(107,37) -->
-      <line x1="65" y1="165" x2="107" y2="133" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="107" y1="133" x2="233" y2="133" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="107" y1="133" x2="107" y2="45" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="65" y1="165" x2="30" y2="165" stroke="#8b2635" stroke-width="2"/>
-      <line x1="65" y1="165" x2="65" y2="192" stroke="#8b2635" stroke-width="2"/>
-      <!-- Line T(L) with vertex W=(2, 0.5) -> (149, 149) -->
-      <!-- West ray to (30, 149), South ray to (149, 192), Diagonal ray (slope 1) through (2.5, 1)->(170, 133) to (4, 2.5)->(233, 85) -->
-      <line x1="149" y1="149" x2="30" y2="149" stroke="#3a6073" stroke-width="2.5" stroke-dasharray="5,3"/>
-      <line x1="149" y1="149" x2="149" y2="192" stroke="#3a6073" stroke-width="2.5" stroke-dasharray="5,3"/>
-      <line x1="149" y1="149" x2="233" y2="85" stroke="#3a6073" stroke-width="2.5" stroke-dasharray="5,3"/>
-      <!-- Intersection points P1=(0.5, 0.5)->(86, 149) and P2=(2.5, 1.0)->(170, 133) -->
-      <circle cx="86" cy="149" r="5" fill="#b85d19"/>
-      <circle cx="170" cy="133" r="5" fill="#b85d19"/>
-      <circle cx="149" cy="149" r="3.5" fill="#3a6073"/>
-      <text x="86" y="138" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">P₁(0.5,0.5) [|det|=1]</text>
-      <text x="175" y="122" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">P₂(2.5,1) [|det|=1]</text>
-      <text x="168" y="159" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073">W(2,0.5)</text>
-
-      <!-- Right panel: Lattice Multiplicity w_e = 2 on Degenerate Conic max(2X, 2Y, 0) -->
-      <text x="455" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Why Lattice Weights Matter: w_e = gcd(2,0) = 2</text>
-      <line x1="430" y1="125" x2="345" y2="125" stroke="#8b2635" stroke-width="4.5"/>
-      <line x1="430" y1="125" x2="430" y2="190" stroke="#8b2635" stroke-width="4.5"/>
-      <line x1="430" y1="125" x2="505" y2="50" stroke="#8b2635" stroke-width="4.5"/>
-      <!-- Intersecting line L -->
-      <line x1="475" y1="150" x2="355" y2="150" stroke="#3a6073" stroke-width="2.5" stroke-dasharray="5,3"/>
-      <line x1="475" y1="150" x2="475" y2="190" stroke="#3a6073" stroke-width="2.5" stroke-dasharray="5,3"/>
-      <line x1="475" y1="150" x2="540" y2="85" stroke="#3a6073" stroke-width="2.5" stroke-dasharray="5,3"/>
-      <circle cx="430" cy="150" r="5.5" fill="#b85d19"/>
-      <text x="430" y="168" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Single crossing P with w_e = 2 ⇒ mult = 2!</text>
-      <text x="385" y="115" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635">w = 2</text>
-      <text x="485" y="65" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635">w = 2</text>
-    </svg>
-    <figcaption><strong>Fig P40.3.</strong> Tropical Bézout's theorem in action. <em>Left:</em> The smooth tropical conic \(\mathcal{T}(C)\) (solid crimson) and tropical line \(\mathcal{T}(L)\) (dashed slate) from Exemplar 2 meet at two points \(P_1 = (0.5, 0.5)\) and \(P_2 = (2.5, 1)\), each with determinant multiplicity \(1\), totaling \(2\). <em>Right:</em> For the pure-square conic \(\max(2X, 2Y, 0)\), the Newton triangle has boundary lattice length \(2\) on every side, so each ray carries weight \(w_e = 2\); a generic tropical line crosses it only once, with multiplicity \(w_e \cdot 1 \cdot |\det| = 2\).</figcaption>
-  </figure>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Forgetting lattice edge weights \(w_e = \gcd(\Delta i, \Delta j)\) undercounts intersections and violates balancing.</strong> Consider \(\operatorname{Trop}(f)(X, Y) = \max(2X, 2Y, 0)\) (shown in Fig P40.3, right). Geometrically, its corner locus has the exact same three rays \((-1,0), (0,-1), (1,1)\) as a tropical line! If you forget that the Newton polygon edges connect \((0,0), (2,0), (0,2)\) with lattice length \(w_e = \gcd(2,0) = 2\), a tropical line will appear to intersect this conic in only \(1\) point instead of \(2\).</p>
-    <p><em>Mitigation:</em> Always compute \(w_e = \gcd(i_2 - i_1, j_2 - j_1)\) from the dual Newton subdivision (Obligation 3 of Box P40.A).</p>
-    <p><em>Price:</em> Tracking integer weights alongside the polyhedral skeleton.</p>
-    <p><em>Default:</em> Never draw a tropical curve without labeling any edge weight \(w_e &gt; 1\).</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Tropical addition is idempotent (\(a \oplus a = a\)), so additive inverses do not exist.</strong> In the max-plus semiring, the equation \(5 \oplus X = 3\), i.e., \(\max(5, X) = 3\), has <em>no solution</em> \(X \in \mathbb{R} \cup \{-\infty\}\). Consequently, tropical matrices do not have additive inverses, and standard Gaussian elimination by row subtraction is impossible.</p>
-    <p><em>Mitigation:</em> Replace \((I - A)^{-1}\) by the positive Kleene star series \(A^* = I \oplus A \oplus A^{\odot 2} \oplus \cdots \oplus A^{\odot(n-1)}\) (when cycle weights are nonnegative in min-plus), or use tropical Cramer's rule / Hungarian bipartite matching for tropical linear systems.</p>
-    <p><em>Price:</em> Checking the no-negative-cycle condition before iterating \(A^*\).</p>
-    <p><em>Default:</em> Solve tropical linear recurrences via shortest-path / dynamic-programming operators rather than subtraction.</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this chapter.</strong> For a single hypersurface \(V(f) \subset (\mathbb{C}^*)^n\) over an algebraically closed non-Archimedean field \(K\) (such as the field of Puiseux series \(\mathbb{C}\{\!\{t\}\!\}\)), <strong>Kapranov's Theorem (2000)</strong> guarantees that the valuation image \(\operatorname{val}(V(f))\) coincides <em>set-theoretically and with multiplicities</em> with the corner locus \(\mathcal{T}(f)\). For higher-codimension varieties \(V(I)\) defined by multiple equations \(f_1 = \cdots = f_r = 0\), \(\operatorname{val}(V(I)) = \bigcap_{f \in I} \mathcal{T}(f)\) requires intersecting over a finite <em>tropical basis</em> of the ideal \(I\), and lifting tropical curves to count algebraic curves of genus \(g\) requires <strong>Mikhalkin's Correspondence Theorem (2005)</strong>.</p>
-  </aside>
+<p><strong>Honest scope.</strong> This page tropicalizes one-variable polynomials in one small parameter, with the correspondence verified case by case rather than proved in general. Beyond the desk, honestly named and owed: the general lifting theorem (the skeleton's answers transfer to the original family under hypotheses this page states but does not prove — <a href="p27-complex-for-integers.html">P27</a>'s obligation three, echoed); the multi-variable theory, where the hull becomes a fan and the corners become a polytopal complex; the max-plus convention (identical theory with \(\max\) for \(\min\), standard in the scheduling literature, and wrong — not merely different — for the small-\(t\) questions of this page, as our poison runs confirm); and the precision tax near degeneracy, which bounds what double-precision arithmetic can certify. Constants, ties, and non-asymptotic scales are the three standing blind spots — each machine-demonstrated above, each a question the skeleton answers with silence.</p>
 </section>
 
 <section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When your smooth energy landscape has multiple basins and you want the exact critical saddle height separating them (rather than taking the zero-temperature tropical limit):</strong> Step forward to the next chapter in Tier 4, <a href="p41-mountain-pass.html"><span class="pid">P41</span> · The mountain pass</a>.</li>
-    <li><strong>When you want to pass back and forth between a convex energy function and its slope profile in the smooth regime:</strong> Compare tropical Newton duality directly with Legendre–Fenchel duality in <a href="p17-duality.html"><span class="pid">P17</span> · Flip to the dual</a>.</li>
-    <li><strong>When leading-term cancellation forces you to eliminate variables before tropicalizing a system of equations:</strong> Pair <span class="pid">P40</span> with <a href="p32-ideal-arithmetic.html"><span class="pid">P32</span> · Ideal arithmetic</a>.</li>
-  </ul>
+<h2>6 · What to try next</h2>
+<p>When the tropical read comes back silent — a hull with one segment and a question that needed two, constants that matter, a split the multiplicity swallows — the mitigation is always the same in kind: descend one order. Carry the next correction alongside the skeleton: keep the nudges (\(t\) times \(1 - t^{2}\), not just \(t\)), or equivalently work one order down the Puiseux expansion, where the ties split and the constants speak. The price is real: the second-order world is no longer piecewise linear — the melt re-freezes into algebra, and the cheapness that made the skeleton attractive is gone. The default we recommend: tropicalize first, read what the skeleton gives, and pay for the descent only in the regions where the skeleton is silent — the tie points, the shadow coefficients, the constants that a comparison actually turns on. Most of a problem usually lives on the skeleton; the price is paid locally, not globally.</p>
+<p>Two published pages continue this story from here. <a href="p56-asymptotic-rescaling.html">P56</a> makes the scale itself the object — zooming out until a family's spaces become their own limiting shapes, the geometric cousin of the exponent-freeze we watched numerically in §2. And <a href="p54-stable-compactification.html">P54</a> degenerates families on purpose — adding the boundary the family was missing and counting there — which is the same trade this page made: give up the generic case, keep the degenerate skeleton, and read the original question off it. Two more doors sit adjacent. When the question is a system and cancellation has eaten the naive read, §5's treaty failure is the door to <a href="p32-ideal-arithmetic.html">P32</a> — eliminate first, tropicalize second. And when the convex energy itself is the object, <a href="p17-duality.html">P17</a> holds the smooth-side twin of the hull's slope-reading: the Legendre–Fenchel duality that the tropical Newton polygon degenerates from.</p>
 </section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Newton's Puiseux polygons to Imre Simon's tropical semiring and Mikhalkin's curve counts (1676 – 2005).</strong></p>
-    <ul>
-      <li><strong>Isaac Newton (1676) &amp; Victor Puiseux (1850):</strong> In his <em>epistola posterior</em> to Oldenburg, Newton introduced the "Newton ruler" — plotting exponent pairs \((i, j)\) of a polynomial \(f(x, y) = 0\) and laying a straightedge against the lower convex hull to read off the leading fractional exponent \(y \sim c x^\alpha\) of an algebraic branch. Puiseux proved in 1850 that every algebraic curve admits fractional power-series expansions classified by these slopes.</li>
-      <li><strong>George Bergman (1971) &amp; Robert Bieri–John Groves (1984):</strong> Studying the logarithmic image \(\operatorname{Log}_t(V) = \{(\log_t |x_1|, \dots, \log_t |x_n|)\}\) of an algebraic variety \(V \subset (\mathbb{C}^*)^n\) (the <em>amoeba</em> of Gelfand, Kapranov, and Zelevinsky, 1994), Bergman proved that as \(t \to \infty\) the amoeba shrinks onto a piecewise-linear polyhedral spine determined by non-Archimedean valuations.</li>
-      <li><strong>Imre Simon (1978–1988):</strong> Why is this geometry called "tropical"? The Hungarian-born Brazilian mathematician and computer scientist Imre Simon at the University of São Paulo pioneered the min-plus semiring \((\mathbb{N} \cup \{+\infty\}, \min, +)\) to solve decidability problems in finite automata. French mathematicians (beginning with Dominique Perrin and Jean-Éric Pin) coined the name <em>tropical semiring</em> in honor of Simon's work in Brazil.</li>
-      <li><strong>Victor Maslov (1987) &amp; Oleg Viro (1983):</strong> Simultaneously, the physicist Victor Maslov observed that sending Planck's constant \(\hbar \to 0\) via \(S \mapsto \hbar \ln(e^{S_1/\hbar} + e^{S_2/\hbar}) \to \max(S_1, S_2)\) ("Maslov dequantization") turns the linear Schrödinger equation into the piecewise-linear Hamilton–Jacobi equation, while Oleg Viro used dual subdivisions of Newton polytopes ("patchworking") to construct real algebraic curves with prescribed topology (Hilbert's 16th problem).</li>
-      <li><strong>Mikhail Kapranov (2000), Grigory Mikhalkin (2005) &amp; Diane Maclagan–Bernd Sturmfels (2015):</strong> Kapranov proved the fundamental correspondence identifying non-Archimedean hypersurfaces with tropical corner loci; Mikhalkin proved that Gromov–Witten invariants of the projective plane can be computed by counting weighted planar tropical curves; and Maclagan and Sturmfels unified the algebraic foundations via initial ideals and Gröbner complexes.</li>
-    </ul>
-  </aside>
+<h2>7 · Lineage interlude</h2>
+<p>The thread runs long. Newton introduced the fractional-exponent series in 1676 — the polygon that bears part of his name appears in his letters on algebraic equations — and Victor Puiseux rediscovered and systematized the construction in 1850; the Newton–Puiseux theorem, that every branch of an algebraic curve is described by such a series, is the classical ancestor of everything this page does. George Bergman took the logarithmic limit-sets of algebraic varieties seriously as mathematical objects in 1971, in the paper that modern readers recognize as the first general tropicalization. Robert Bieri and John Groves carried the construction to full generality in 1984, proving that the set of characters induced by a valuation is a polyhedron — the one-variable hull of this page is its simplest shadow — and the amoeba picture that made the geometry visible to a wide audience names the 1994 book of Gelfand, Kapranov, and Zelevinsky. In the same decade, Victor Maslov and his collaborators in Moscow founded idempotent analysis — the \(\hbar \to 0\) "dequantization" that melts the linear Schrödinger equation into a piecewise-linear Hamilton–Jacobi one — the same melt this page runs on polynomials, arrived at from physics. Oleg Viro invented patchworking in 1979–81, gluing real algebraic curves from combinatorial data — the first place the piecewise-linear skeleton did visible geometric work. The name <em>tropical</em> honors Imre Simon, the Hungarian-born Brazilian mathematician and computer scientist who founded the subject's arithmetic — so named because he lived and worked in Brazil. Around 2000, Kapranov's recognition theorem connected the tropical variety of a polynomial to the valuations of its classical variety — the precise statement of the corner–root correspondence this page verifies case by case — and in 2005 Grigory Mikhalkin's correspondence theorem turned the skeleton into a counting machine for enumerative geometry. The standard modern reference is the 2015 book of Diane Maclagan and Bernd Sturmfels, where a reader who has followed this page can watch every machinery keyword — valuations, semirings, polyhedral complexes — land on mathematics they have already met in miniature.</p>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
-
-  <div class="exercise">
-    <p><strong>Exercise P40.1 (●○○ — Finding tropical roots and multiplicities from a lifted Newton polygon).</strong> Consider the family of classical cubic equations for large \(t &gt; 1\):</p>
-    \[
-      P_t(x) \;=\; x^3 \,-\, t^4 x^2 \,+\, t^5 x \,-\, t^6 \;=\; 0,
-    \]
-    <p>whose max-plus tropical polynomial is \(\operatorname{Trop}(P)(X) = \max\bigl(3X + 0,\; 2X + 4,\; X + 5,\; 6\bigr)\).</p>
-    <ol>
-      <li>Plot the four exponent-height pairs \((i, a_i) \in \{(0, 6), (1, 5), (2, 4), (3, 0)\}\) and find the facets (line segments) of the upper convex hull.</li>
-      <li>Read off the tropical roots \(X\) from the negative slopes of those upper-hull facets, and determine the multiplicity of each tropical root from the horizontal lattice length \(\Delta i\) of its facet. Verify that the multiplicities sum to \(\deg(P) = 3\).</li>
-      <li>Factor \(P_t(x)\) or check the classical roots as \(t \to \infty\) to explain why two classical roots share the same asymptotic valuation.</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Notice that the first three lifted points \((0, 6), (1, 5), (2, 4)\) are collinear with slope \(\frac{4 - 6}{2 - 0} = -1\)! A collinear segment of horizontal span \(\Delta i = 2\) gives a tropical root of multiplicity \(2\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Upper convex hull of the lifted Newton polygon.</strong> Evaluating the slopes between consecutive points \((0, 6), (1, 5), (2, 4), (3, 0)\):</p>
-      <ul>
-        <li>From \(i = 0\) to \(i = 1\): slope \(= 5 - 6 = -1\).</li>
-        <li>From \(i = 1\) to \(i = 2\): slope \(= 4 - 5 = -1\) (collinear with the first segment!).</li>
-        <li>From \(i = 2\) to \(i = 3\): slope \(= 0 - 4 = -4\).</li>
-      </ul>
-      <p>Thus the upper convex hull has exactly <strong>two facets</strong>: Facet 1 connecting \((0, 6)\) to \((2, 4)\) (passing through \((1, 5)\)) with slope \(-1\) and horizontal length \(\Delta i_1 = 2 - 0 = 2\); and Facet 2 connecting \((2, 4)\) to \((3, 0)\) with slope \(-4\) and horizontal length \(\Delta i_2 = 3 - 2 = 1\).</p>
-      <p><strong>2. Tropical roots and multiplicities.</strong></p>
-      <ul>
-        <li>Facet 1 has slope \(-1 \implies\) tropical root <strong>\(X_1 = 1\)</strong> with multiplicity <strong>\(\Delta i_1 = 2\)</strong> (at \(X = 1\), the three pieces \(6 = X + 5 = 2X + 4 = 6\) all tie for the maximum!).</li>
-        <li>Facet 2 has slope \(-4 \implies\) tropical root <strong>\(X_2 = 4\)</strong> with multiplicity <strong>\(\Delta i_2 = 1\)</strong> (at \(X = 4\), \(2X + 4 = 3X = 12 &gt; 9, 6\)).</li>
-      </ul>
-      <p>The sum of multiplicities is \(2 + 1 = 3 = \deg(P)\).</p>
-      <p><strong>3. Classical verification.</strong> Setting \(x = t^1 u\) in \(P_t(x) = 0\) gives \(t^3 u^3 - t^6 u^2 + t^6 u - t^6 = 0 \implies -t^6(u^2 - u + 1) + O(t^3) = 0\), which has two complex roots \(u \to e^{\pm i\pi/3}\) both of modulus \(|u| = 1\), so two classical roots satisfy \(|x| \sim t^1\) (\(\log_t |x| \to 1\)). Setting \(x = t^4 v\) gives \(t^{12}(v^3 - v^2) + O(t^9) = 0 \implies v \to 1\), giving the third root \(x \sim t^4\) (\(\log_t |x| \to 4\)).</p>
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P40.2 (●●○ — Why lattice edge weights are essential for zero-tension balancing).</strong> Consider the bivariate tropical polynomial</p>
-    \[
-      \operatorname{Trop}(f)(X, Y) \;=\; \max\bigl(2X + 0,\; Y + 3,\; 4\bigr).
-    \]
-    <ol>
-      <li>Find the unique vertex \(V = (X_0, Y_0) \in \mathbb{R}^2\) where all three linear pieces tie, and write down the equations and primitive integer outgoing direction vectors \(\mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3\) of the three rays leaving \(V\).</li>
-      <li>Show that the unweighted sum \(\mathbf{v}_1 + \mathbf{v}_2 + \mathbf{v}_3\) is <em>not</em> zero! Then compute the integer lattice weights \(w_e = \gcd(\Delta i, \Delta j)\) from the three edges of the Newton triangle \(\operatorname{conv}\{(0,0), (2,0), (0,1)\}\) and verify that \(\sum_{k=1}^3 w_k \mathbf{v}_k = (0, 0)\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Set \(2X = Y + 3 = 4\) to find \(V = (2, 1)\). For the ray where \(2X = 4 \ge Y + 3\), the dual Newton edge connects \((0,0)\) and \((2,0)\), which has lattice length \(\gcd(2 - 0, 0 - 0) = 2\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Vertex and primitive outgoing ray directions.</strong> Setting \(2X = Y + 3 = 4\) gives \(V = (2, 1)\). The three rays leaving \(V = (2, 1)\) correspond to pairwise ties that beat the third term:</p>
-      <ul>
-        <li><strong>Ray \(e_1\) (\(2X = 4 \ge Y + 3\)):</strong> Here \(X = 2\) and \(Y \le 1\), pointing straight down with primitive integer vector \(\mathbf{v}_1 = (0, -1)\).</li>
-        <li><strong>Ray \(e_2\) (\(Y + 3 = 4 \ge 2X\)):</strong> Here \(Y = 1\) and \(X \le 2\), pointing straight left with primitive integer vector \(\mathbf{v}_2 = (-1, 0)\).</li>
-        <li><strong>Ray \(e_3\) (\(2X = Y + 3 \ge 4\)):</strong> Here \(Y - 1 = 2(X - 2)\) for \(X \ge 2\), pointing along the primitive integer vector \(\mathbf{v}_3 = (1, 2)\).</li>
-      </ul>
-      <p><strong>2. Lattice weights and zero-tension balancing.</strong> Without weights, \(\mathbf{v}_1 + \mathbf{v}_2 + \mathbf{v}_3 = (0, -1) + (-1, 0) + (1, 2) = (0, 1) \neq (0, 0)\)!</p>
-      <p>Now inspect the three boundary edges of the Newton triangle \(\operatorname{conv}\{(0,0), (2,0), (0,1)\}\):</p>
-      <ul>
-        <li>Dual to \(e_1\) (\(2X = 4\)) is the segment from \((0,0)\) to \((2,0)\), with lattice weight \(w_1 = \gcd(2 - 0, 0 - 0) = 2\).</li>
-        <li>Dual to \(e_2\) (\(Y + 3 = 4\)) is the segment from \((0,0)\) to \((0,1)\), with lattice weight \(w_2 = \gcd(0 - 0, 1 - 0) = 1\).</li>
-        <li>Dual to \(e_3\) (\(2X = Y + 3\)) is the segment from \((2,0)\) to \((0,1)\), with lattice weight \(w_3 = \gcd(-2, 1) = 1\).</li>
-      </ul>
-      <p>Forming the weighted tension sum at \(V = (2, 1)\) yields</p>
-      \[
-        w_1 \mathbf{v}_1 + w_2 \mathbf{v}_2 + w_3 \mathbf{v}_3 \;=\; 2(0, -1) + 1(-1, 0) + 1(1, 2) \;=\; (0, -2) + (-1, 0) + (1, 2) \;=\; (0, 0).
-      \]
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P40.3 (●●● — The tropical determinant, optimal assignment, and tropical singularity).</strong> For an \(n \times n\) matrix \(A = (A_{ij})\) over the max-plus semiring, the <strong>tropical determinant</strong> (or tropical permanent) drops alternating signs and replaces \((+, \times)\) with \((\max, +)\):</p>
-    \[
-      \det\nolimits_{\text{trop}}(A) \;:=\; \bigoplus_{\sigma \in S_n} \bigl(A_{1, \sigma(1)} \odot \cdots \odot A_{n, \sigma(n)}\bigr) \;=\; \max_{\sigma \in S_n} \sum_{i=1}^n A_{i, \sigma(i)}.
-    \]
-    <p>A matrix \(A\) is called <strong>tropically singular</strong> if the maximum in \(\det_{\text{trop}}(A)\) is achieved by <em>at least two</em> distinct permutations \(\sigma \in S_n\).</p>
-    <ol>
-      <li>Compute \(\det_{\text{trop}}(A)\) for \(A = \begin{pmatrix} 8 &amp; 4 &amp; 1 \\ 5 &amp; 9 &amp; 3 \\ 2 &amp; 6 &amp; 7 \end{pmatrix}\) by evaluating all \(3! = 6\) permutations, and determine whether \(A\) is tropically singular or non-singular. What is the leading asymptotic power of \(t\) in the classical determinant \(\det\bigl(t^{A_{ij}}\bigr)\) as \(t \to \infty\)?</li>
-      <li>Show that \(B = \begin{pmatrix} 5 &amp; 5 &amp; 1 \\ 6 &amp; 6 &amp; 2 \\ 1 &amp; 1 &amp; 4 \end{pmatrix}\) is tropically singular, and explain how this reflects the classical singularity of \(\det\bigl(t^{B_{ij}}\bigr) = 0\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Sum the entries along each of the 6 permutation diagonals. For \(B\), compare the identity permutation \((1)(2)(3)\) against the transposition \((1\,2)(3)\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Evaluating \(\det_{\text{trop}}(A)\) across all 6 permutations.</strong></p>
-      <ul>
-        <li>\(\sigma = (1, 2, 3)\): \(A_{11} + A_{22} + A_{33} = 8 + 9 + 7 = 24\).</li>
-        <li>\(\sigma = (1, 3, 2)\): \(A_{11} + A_{23} + A_{32} = 8 + 3 + 6 = 17\).</li>
-        <li>\(\sigma = (2, 1, 3)\): \(A_{12} + A_{21} + A_{33} = 4 + 5 + 7 = 16\).</li>
-        <li>\(\sigma = (2, 3, 1)\): \(A_{12} + A_{23} + A_{31} = 4 + 3 + 2 = 9\).</li>
-        <li>\(\sigma = (3, 1, 2)\): \(A_{13} + A_{21} + A_{32} = 1 + 5 + 6 = 12\).</li>
-        <li>\(\sigma = (3, 2, 1)\): \(A_{13} + A_{22} + A_{31} = 1 + 9 + 2 = 12\).</li>
-      </ul>
-      <p>Thus \(\det_{\text{trop}}(A) = 24\), achieved <em>uniquely</em> by the identity permutation \(\sigma = (1, 2, 3)\). Hence \(A\) is <strong>tropically non-singular</strong>, and in the classical determinant \(\det(t^{A_{ij}}) = t^{24} - t^{17} - t^{16} + \cdots \sim t^{24}\), the leading term \(t^{24}\) cannot be cancelled!</p>
-      <p><strong>2. Tropical singularity of \(B\).</strong> For \(B\), the identity permutation \(\sigma_1 = (1, 2, 3)\) gives \(B_{11} + B_{22} + B_{33} = 5 + 6 + 4 = 15\), while the transposition \(\sigma_2 = (2, 1, 3)\) also gives \(B_{12} + B_{21} + B_{33} = 5 + 6 + 4 = 15\) (all other permutations give \(\le 8\)). Because the maximum \(15\) is achieved twice, \(B\) is <strong>tropically singular</strong> — matching the fact that columns 1 and 2 of \(t^{B_{ij}}\) are identical, so \(\det(t^{B_{ij}}) = t^{15} - t^{15} = 0\) cancels!Notice also that finding \(\det_{\text{trop}}(A)\) is the classical <strong>linear assignment problem</strong> (maximum-weight bipartite matching).</p>
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P40.4 (◆ — Pattern-unknown diagnosis).</strong> Consider the nonlinear system of two equations in two positive / complex variables \((x, y)\) depending on a large parameter \(t \to \infty\):</p>
-    \[
-      \begin{cases}
-        x y^2 \,-\, t^3 x \,+\, t^4 \;=\; 0, \\[4pt]
-        x^2 y \,-\, t^3 y \,+\, t^4 \;=\; 0.
-      \end{cases}
-    \]
-    <p>Without solving a degree-4 elimination polynomial by radicals, determine the exact number of solutions \((x(t), y(t)) \in (\mathbb{C}^*)^2\) (counted with multiplicity) and find the asymptotic scaling \(x(t) \sim t^X,\; y(t) \sim t^Y\) of every solution as \(t \to \infty\).</p>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Pattern diagnosis and tropicalization (<a href="p40-tropicalize.html"><span class="pid">P40</span> · Tropicalize</a>).</strong> Both equations are sums of monomials with powers of \(t\) as coefficients. Substituting \(x = t^X\) and \(y = t^Y\) as \(t \to \infty\) converts the system into the intersection of two tropical curves \(\mathcal{T}(f_1) \cap \mathcal{T}(f_2)\) in \(\mathbb{R}^2\):</p>
-      \[
-        \operatorname{Trop}(f_1)(X, Y) \;=\; \max\bigl(X + 2Y,\; X + 3,\; 4\bigr),
-        \qquad
-        \operatorname{Trop}(f_2)(X, Y) \;=\; \max\bigl(2X + Y,\; Y + 3,\; 4\bigr).
-      \]
-      <p><strong>2. Skeletons of \(\mathcal{T}(f_1)\) and \(\mathcal{T}(f_2)\).</strong></p>
-      <ul>
-        <li>For \(\mathcal{T}(f_1)\), all three terms tie when \(X + 2Y = X + 3 = 4 \implies V_1 = (1,\; 1.5)\). The three rays leaving \(V_1 = (1, 1.5)\) are:
-          <ul>
-            <li>Ray \(A_1\) (\(X + 3 = 4 \ge X + 2Y\)): \(X = 1,\; Y \le 1.5\), primitive direction \(\mathbf{u}_1 = (0, -1)\), weight \(w = 1\).</li>
-            <li>Ray \(B_1\) (\(X + 2Y = X + 3 \ge 4\)): \(Y = 1.5,\; X \ge 1\), primitive direction \(\mathbf{u}_2 = (1, 0)\), weight \(w = 2\) (since the Newton edge from \((1,2)\) to \((1,0)\) has \(\gcd(0, 2) = 2\)!).</li>
-            <li>Ray \(C_1\) (\(X + 2Y = 4 \ge X + 3\)): \(X + 2Y = 4\) for \(Y \ge 1.5\) (\(X \le 1\)), primitive direction \(\mathbf{u}_3 = (-2, 1)\), weight \(w = 1\). Check balancing at \(V_1\): \(1(0,-1) + 2(1,0) + 1(-2,1) = (0,0)\).</li>
-          </ul>
-        </li>
-        <li>By \(X \leftrightarrow Y\) symmetry, \(\mathcal{T}(f_2)\) has its vertex at \(V_2 = (1.5,\; 1)\) and three rays:
-          <ul>
-            <li>Ray \(A_2\): \(Y = 1,\; X \le 1.5\), direction \(\mathbf{v}_1 = (-1, 0)\), weight \(1\).</li>
-            <li>Ray \(B_2\): \(X = 1.5,\; Y \ge 1\), direction \(\mathbf{v}_2 = (0, 1)\), weight \(2\).</li>
-            <li>Ray \(C_2\): \(2X + Y = 4\) for \(X \ge 1.5\) (\(Y \le 1\)), direction \(\mathbf{v}_3 = (1, -2)\), weight \(1\).</li>
-          </ul>
-        </li>
-      </ul>
-      <p><strong>3. Intersections and determinant multiplicities.</strong> Where do the rays of \(\mathcal{T}(f_1)\) and \(\mathcal{T}(f_2)\) cross?</p>
-      <ul>
-        <li><strong>Crossing 1 at \(P_1 = (1, 1)\):</strong> Ray \(A_1\) (\(X = 1, Y \le 1.5\), direction \((0,-1)\), weight \(1\)) crosses Ray \(A_2\) (\(Y = 1, X \le 1.5\), direction \((-1,0)\), weight \(1\)) at \(P_1 = (1, 1)\) with multiplicity \(1 \cdot 1 \cdot |\det\begin{pmatrix} 0 &amp; -1 \\ -1 &amp; 0 \end{pmatrix}| = 1\). Thus <strong>\(1\) classical solution</strong> scales as \(x \sim t^1,\; y \sim t^1\).</li>
-        <li><strong>Crossing 2 at \(P_2 = (1.5, 1.5)\):</strong> Ray \(B_1\) (\(Y = 1.5, X \ge 1\), direction \((1,0)\), weight \(2\)) crosses Ray \(B_2\) (\(X = 1.5, Y \ge 1\), direction \((0,1)\), weight \(2\)) at \(P_2 = (1.5, 1.5)\) with multiplicity \(2 \cdot 2 \cdot |\det\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}| = 4\)! Thus <strong>\(4\) classical solutions</strong> scale as \(x \sim t^{3/2},\; y \sim t^{3/2}\) (specifically \(y^2 \approx t^3 \implies y \approx \pm t^{3/2}\) and \(x^2 \approx t^3 \implies x \approx \pm t^{3/2}\), giving all 4 sign combinations \((+t^{3/2}, +t^{3/2}), (+t^{3/2}, -t^{3/2}), (-t^{3/2}, +t^{3/2}), (-t^{3/2}, -t^{3/2})\)!).</li>
-      </ul>
-      <p>In total there are \(1 + 4 = 5\) solutions in \((\mathbb{C}^*)^2\) — matching Bernstein's mixed volume \(MV(\operatorname{Newt}(f_1), \operatorname{Newt}(f_2)) = 5\).</p>
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P40.5 (◐ — Exploration: Mikhalkin's Tropical Curve Counting and Gromov–Witten invariants).</strong> A classical question in enumerative geometry asks: how many rational curves (genus \(g = 0\)) of degree \(d\) in \(\mathbb{CP}^2\) pass through \(3d - 1\) general points? For \(d = 1\) (lines through \(2\) points) the answer is \(N_1 = 1\); for \(d = 2\) (conics through \(5\) points) \(N_2 = 1\); for \(d = 3\) (nodal cubics through \(8\) points) \(N_3 = 12\). In 2005, Grigory Mikhalkin proved that \(N_d\) equals the number of balanced planar tropical curves \(\Gamma\) of degree \(d\) passing through \(3d - 1\) general points in \(\mathbb{R}^2\), provided each tropical curve \(\Gamma\) is counted with its <strong>Mikhalkin multiplicity</strong>:</p>
-    \[
-      \operatorname{mult}(\Gamma) \;=\; \prod_{V \in \operatorname{Vert}(\Gamma)} \operatorname{mult}(V), \qquad \text{where } \operatorname{mult}(V) \;=\; \bigl|\det(w_{e_1} \mathbf{v}_{e_1},\; w_{e_2} \mathbf{v}_{e_2})\bigr| \;=\; 2 \cdot \operatorname{Area}(V^*).
-    \]
-    <p>Verify that for our smooth tropical conic \(\mathcal{T}(C)\) in Exemplar 1 (Fig P40.2), every dual triangle \(V_1^*, V_2^*, V_3^*, V_4^*\) has Euclidean area \(\frac{1}{2}\), and compute the Mikhalkin multiplicity \(\operatorname{mult}(\mathcal{T}(C))\). When can a 3-valent tropical vertex have \(\operatorname{mult}(V) &gt; 1\)?</p>
-    <details>
-      <summary>Hint</summary>
-      <p>Use \(2 \cdot \operatorname{Area}(V_k^*) = 2 \cdot \frac{1}{2} = 1\) for each of the four unit lattice triangles in Fig P40.2. For \(\operatorname{mult}(V) &gt; 1\), inspect the triangle in Exercise P40.2 with vertices \((0,0), (2,0), (0,1)\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Mikhalkin multiplicity of the smooth tropical conic.</strong> In Fig P40.2 (right), the \(2 \times 2\) Newton triangle of total Euclidean area \(\frac{1}{2} \cdot 2 \cdot 2 = 2\) is subdivided into \(4\) unit lattice triangles \(V_1^*, V_2^*, V_3^*, V_4^*\), each of area \(\frac{1}{2}\). Thus at every vertex \(V_k\) (\(k = 1, 2, 3, 4\)),</p>
-      \[
-        \operatorname{mult}(V_k) \;=\; 2 \cdot \operatorname{Area}(V_k^*) \;=\; 2 \cdot \frac{1}{2} \;=\; 1
-        \quad\Longrightarrow\quad
-        \operatorname{mult}\bigl(\mathcal{T}(C)\bigr) \;=\; 1 \cdot 1 \cdot 1 \cdot 1 \;=\; 1.
-      \]
-      <p>Since a unique tropical conic passes through \(3(2) - 1 = 5\) generic points in \(\mathbb{R}^2\) and has Mikhalkin multiplicity \(1\), Mikhalkin's theorem immediately gives \(N_2 = 1\)!</p>
-      <p><strong>2. When \(\operatorname{mult}(V) &gt; 1\).</strong> Whenever a 3-valent vertex \(V\) is dual to a lattice triangle \(V^*\) of Euclidean area \(A &gt; \frac{1}{2}\) (by Pick's theorem, any lattice triangle containing interior lattice points or boundary edges with \(w_e = \gcd(\Delta i, \Delta j) &gt; 1\)), it contributes \(\operatorname{mult}(V) = 2A &gt; 1\) classical curves! For example, the vertex \(V = (2, 1)\) in Exercise P40.2 is dual to \(\operatorname{conv}\{(0,0), (2,0), (0,1)\}\) of area \(1\), so \(\operatorname{mult}(V) = |\det\bigl((0,-2), (-1,0)\bigr)| = 2 = 2 \cdot \operatorname{Area}(V^*)\), corresponding to \(2\) classical branches differing by a sign choice \(\pm\).</p>
-    </details>
-  </div>
+<h2>8 · Exercises</h2>
+<p class="ex"><strong>Exercise 1</strong> ●○○ — A hull of your own. Take the family \(x^{2} - t^{2}x + t^{6} = 0\). (a) Plot the three coefficient-exponent points and find the lower hull. (b) State the tropical roots and the predicted classical root orders. (c) Check the prediction numerically at \(t = 0.01\) and \(t = 0.001\).</p>
+<details><summary>Hint</summary><p>The points are \((0,6)\), \((1,2)\), \((2,0)\); rest the weight and read the two segment slopes.</p></details>
+<details><summary>Worked answer</summary><p>(a) The lower hull runs from \((0,6)\) to \((1,2)\) to \((2,0)\): both coefficient points are players, and the segment slopes are \(-4\) and \(-2\). (b) The tropical roots are the negated slopes: orders \(2\) and \(4\) — the large classical root freezes at \(t^{2}\), the small one at \(t^{4}\). (c) The machine census agrees at both scales: the secant valuations (log-modulus differences across the two scales) read \(1.99996\) and \(4.00004\) — the tiny offsets are the nudges, \(t^{2}(1 - t^{2})\) and \(t^{4}(1 + t^{2})\), exactly as the theory of Exercise 3 predicts.</p></details>
+<p class="ex"><strong>Exercise 2</strong> ●●○ — A tropical matrix product, by hand. Take the three-node directed graph with edge costs \(0 \to 1\) : 2, \(0 \to 2\) : 5, \(1 \to 2\) : 1, \(2 \to 0\) : 3, diagonal zeros, \(\infty\) for missing edges. (a) Compute the tropical product \(W \odot W\) entry by entry. (b) Which entries changed from \(W\), and which cheapest two-edge journeys do the changes correspond to? (c) Compute \(W \odot W \odot W\) and explain why the table stops changing.</p>
+<details><summary>Hint</summary><p>Entry \([i][j]\) of the product is \(\min_k\) of \(W[i][k] + W[k][j]\) — three candidates per entry, four of them usually \(\infty\). For (c): what would a fourth factor add?</p></details>
+<details><summary>Worked answer</summary><p>(a) Row by row: \([0][\cdot] = (0, 2, 3)\) — the 3 is the journey \(0 \to 1 \to 2\), cost \(2 + 1\), beating the direct edge's 5; \([1][\cdot] = (4, 0, 1)\) — the 4 is \(1 \to 2 \to 0\), cost \(1 + 3\); \([2][\cdot] = (3, 5, 0)\) — the 5 is \(2 \to 0 \to 1\), cost \(3 + 2\). (b) Three entries dropped below their direct edges: \([0][2]\) (5 → 3), \([1][0]\) (\(\infty\) → 4), \([2][1]\) (\(\infty\) → 5); each is a cheapest two-edge journey, and the machine check confirms all nine cells. (c) The third product changes nothing: every cheapest journey in this graph uses at most two edges (any longer route repeats a node, and the repeated cycle has positive cost, so excising it cannot raise the price). The closure has stabilized — the all-pairs shortest-path table is \(W \odot W\), and the machine confirms the third product equals it cell for cell.</p></details>
+<p class="ex"><strong>Exercise 3</strong> ●●● — The corner–root theorem for quadratics, proved and made exact. Let \(2k < m\) and consider \(x^{2} - t^{k}x + t^{m} = 0\). (a) Show the hull has two segments with slopes \(-k\) and \(-(m-k)\). (b) Solve exactly: the roots are \(t^{k}\,\frac{1 + \sqrt{1 - 4t^{m-2k}}}{2}\) and \(t^{m-k}\,\frac{1 - \sqrt{1 - 4t^{m-2k}}}{2 t^{m-2k}}\), and deduce the valuations \(k\) and \(m-k\). (c) The nudges are not decoration: verify numerically, for the four families \((k,m) = (1,4), (2,6), (3,7), (2,5)\), that the secant valuations equal the negated slopes <em>plus the exact nudge correction</em> — the difference of \(\log_{10}\) of the closed-form nudge factors across \(t = 0.01\) and \(t = 0.001\) — to within \(10^{-9}\).</p>
+<details><summary>Hint</summary><p>(a) Which points can the weight rest on when \(2k < m\)? (b) Quadratic formula; factor \(t^{k}\) out of the square root. (c) The point-valuation \(\log|t^{k} \cdot nudge| / \log t\) wobbles by the nudge's own size; the secant across two scales wobbles by the difference of the nudges' logs — compute that difference from the closed form and compare.</p></details>
+<details><summary>Worked answer</summary><p>(a) The points are \((0, m)\), \((1, k)\), \((2, 0)\). The line from \((0,m)\) to \((2,0)\) has height \(m/2\) at \(x = 1\); since \(k < m/2\), the point \((1,k)\) lies <em>below</em> it, so the hull bends there: slopes \(-k\) and \(-(m-k)\), both segments present. (b) The discriminant is \(t^{2k} - 4t^{m} = t^{2k}(1 - 4t^{m-2k})\) with \(m - 2k > 0\), so the square root is \(\pm\, t^{k}\sqrt{1 - 4t^{m-2k}}\), and the displayed closed forms follow; since the nudge factors tend to 1 and \(1/t^{m-2k}\)-scaled 1 respectively, the valuations tend to \(k\) and \(m - k\) — and the machine check confirms the secant valuations match the negated slopes plus the exact nudge correction to \(10^{-9}\) on all four families (largest residual \(2.1 \times 10^{-11}\), floating-point noise on an exact identity). (c) is the same computation read as a verification: the corrections are \(-4.3 \times 10^{-5}\) for the \(g = m - 2k = 2\) families and \(-3.97 \times 10^{-3}\) for the \(g = 1\) families — the O(\(t\)) versus O(\(t^{2}\)) distinction of §5, visible in the numbers.</p></details>
+<p class="ex"><strong>Exercise 4</strong> ◆ — The silent coefficient. The family \(x^{3} - t^{4}x^{2} + t^{9} = 0\) has coefficient-exponent points \((0,9)\), \((2,4)\), \((3,0)\). Without hints: state its tropical roots, describe how its classical roots actually behave, and name the pattern whose diagnosis decides the case — explaining why the naive reading ("roots live at the coefficients' exponents") fails here, and which check from this page catches the failure before any root is computed.</p>
+<details><summary>Worked answer</summary><p>The point \((2,4)\) is a shadow: the line from \((0,9)\) to \((3,0)\) has height 3 at \(x = 2\), and \(4 > 3\), so the hull is the single segment of slope \(-3\) — a triple tropical root \(\{3, 3, 3\}\), and no root at order 4 despite the \(x^{2}\)-term wearing that exponent. Classically the picture is stranger than "three equal roots": the machine census shows the three roots' moduli all freezing to order \(t^{3}\) (secant valuations \(2.999\), \(3.001\), \(3.001\)), but they are not equal — one real root near \(-t^{3}\) and a complex pair near \(t^{3} e^{\pm i\pi/3}\), separated by angles the skeleton cannot see, a unit-level structure invisible to the hull exactly as §5's collision family is. The pattern that decides the case is this page's own: <strong>P40</strong>, key three of its diagnosis — the lower hull is the arbiter of which coefficients are players, and the pre-computation check that catches the naive reading is the hull test itself: plot the points, rest the weight, and observe that \((2,4)\) never touches the resting line. The naive reading fails because it treats every coefficient as a player; the hull test is precisely the check that demotes shadows before any arithmetic is spent on them.</p></details>
+<p class="ex"><strong>Exercise 5</strong> ◐ — The two tropical worlds. This page works with \(\min\)-plus as \(t \to 0\); the \(\max\)-plus world — same arithmetic with \(\max\) for \(\min\) — governs \(t \to \infty\), where the natural read is a root's <em>degree</em> in \(t\). Explore the swap: (a) verify numerically that at \(t = 100\) and \(t = 1000\) the showcase \(x^{2} - tx + t^{4}\) has both root moduli of degree 2, while the collision family \(x^{2} - t^{3}x + t^{4}\) splits into degrees 1 and 3; (b) explain the swap through the substitution \(t \mapsto 1/t\) (which family's exponent points does the showcase's large-\(t\) problem become?); (c) explore the intermediate scales — at what \(t\) does each family's reading flip, and do the two flip at the same place? Report what you find, including anything that surprised you.</p>
+<details><summary>Hint</summary><p>For (b), apply the \(t \mapsto 1/t\) dictionary to the exponent points \((0, m)\), \((1, k)\), \((2, 0)\) and see which family re-emerges. For (c), the discriminant's sign is the flip's mechanism — when does \(t^{2k} - 4t^{m}\) change sign?</p></details>
+<details><summary>Worked answer (one honest exploration path)</summary><p>(a) The machine census confirms the swap exactly: at both \(t = 100\) and \(t = 1000\), the showcase's roots have degree 2 and 2 (its large-\(t\) discriminant \(t^{2} - 4t^{4}\) is negative — a complex pair whose modulus is exactly \(t^{2}\)), while the collision family reads degrees 1 and 3 (discriminant \(t^{6} - 4t^{4} > 0\), two real roots). The family that min-plus degenerates into a double root is precisely the family max-plus reads cleanly, and conversely. (b) Under \(t \mapsto 1/t\), a term \(c\,t^{e}\) of degree \(e\) becomes a small-\(t\) term of order \(e\) — no change — but the polynomial's roots invert, and the collision family's exponent points \((0,4)\), \((1,3)\), \((2,0)\) are exactly the showcase's \((0,4)\), \((1,1)\), \((2,0)\) with the \(x\)-coefficient's exponent reflected: the showcase's large-\(t\) problem <em>is</em> the collision family's small-\(t\) problem, which is why their readings swap — the machine check confirms the min-plus valuations of the collision family (\(\{2,2\}\)) equal the max-plus degrees of the showcase. (c) The flip happens where the discriminant vanishes: \(t^{2k} = 4t^{m}\), i.e. \(t = 4^{1/(2k - m)}\) — for the showcase at \(t = 1/2\), for the collision family at \(t = 2\); the two flips are the same point seen from the two sides of the dictionary, mirroring (b). An honest explorer notices the asymmetry this page's min-plus convention hid: the "same" polynomial is degenerate in one world and clean in the other, and which world you live in is decided by which direction your parameter runs — the three-key diagnosis, key two, applied to the parameter itself.</p></details>
 </section>
 
 <footer>
-  <nav>
-    <a href="index.html">← Atlas index</a> ·
-    <a href="p39-optimized-sieve.html">← Previous: P39 · The optimized sieve</a> ·
-    <a href="p41-mountain-pass.html">Next: P41 · The mountain pass →</a>
-  </nav>
+<p><strong>Next:</strong> <a href="p41-mountain-pass.html">P41 · The mountain pass</a>: between a valley and a tall peak there is a lowest crossing — and the crossing, not the peak, is where the theorem lives.</p>
+<p class="atlas-home"><a href="index.html">The patterns atlas</a> · <a href="p27-complex-for-integers.html">P27 · Complex analysis for integer problems</a></p>
 </footer>
-</main>
 </body>
 </html>
