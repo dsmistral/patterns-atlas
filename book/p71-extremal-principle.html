@@ -1,707 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P71 · The extremal principle — Patterns of Math</title>
-<style>
-  :root {
-    --bg: #faf8f5;
-    --fg: #1a1a1a;
-    --muted: #5a5550;
-    --accent: #8b2635;
-    --accent-soft: #f3e6e8;
-    --rule: #d8d2c7;
-    --box-bg: #f2eee6;
-    --warn-bg: #f9ebe0;
-    --warn-border: #b85d19;
-    --onramp-bg: #eef3f7;
-    --onramp-border: #3a6073;
-    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.65;
-  }
-  main {
-    max-width: 44rem;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 5rem;
-  }
-  header.chapter-header {
-    border-bottom: 2px solid var(--fg);
-    padding-bottom: 1.25rem;
-    margin-bottom: 2rem;
-  }
-  .tier-label {
-    font-family: var(--sans);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    margin: 0 0 0.4rem;
-  }
-  h1 {
-    font-size: 2.1rem;
-    line-height: 1.2;
-    margin: 0 0 0.5rem;
-    font-weight: 700;
-  }
-  .lede {
-    font-size: 1.15rem;
-    color: var(--muted);
-    margin: 0.4rem 0 0.8rem;
-    font-style: italic;
-  }
-  .prereqs {
-    font-family: var(--sans);
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin: 0.5rem 0 0;
-  }
-  .prereqs a, a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  h2 {
-    font-size: 1.45rem;
-    margin: 2.5rem 0 0.8rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid var(--rule);
-  }
-  h3 {
-    font-size: 1.15rem;
-    margin: 1.6rem 0 0.5rem;
-  }
-  p { margin: 0 0 1rem; }
-  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
-  li { margin-bottom: 0.4rem; }
-  .pid {
-    font-family: var(--mono);
-    font-size: 0.88em;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .onramp {
-    background: var(--onramp-bg);
-    border-left: 4px solid var(--onramp-border);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .onramp p:last-child { margin-bottom: 0; }
-  .pattern-box {
-    background: var(--box-bg);
-    border: 1.5px solid var(--fg);
-    padding: 1.1rem 1.3rem;
-    margin: 1.4rem 0;
-  }
-  .pattern-box h3 {
-    margin-top: 0;
-    font-family: var(--sans);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--accent);
-  }
-  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
-    margin-bottom: 0;
-  }
-  .aside {
-    background: var(--box-bg);
-    border-left: 4px solid var(--accent);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .aside.warn {
-    background: var(--warn-bg);
-    border-left-color: var(--warn-border);
-  }
-  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.25rem 0;
-    font-size: 0.92rem;
-  }
-  th, td {
-    border: 1px solid var(--rule);
-    padding: 0.5rem 0.65rem;
-    text-align: left;
-    vertical-align: top;
-  }
-  th {
-    background: var(--box-bg);
-    font-family: var(--sans);
-    font-size: 0.84rem;
-    font-weight: 600;
-  }
-  figure {
-    margin: 1.6rem 0;
-    padding: 0.9rem;
-    background: #fff;
-    border: 1px solid var(--rule);
-    text-align: center;
-  }
-  figcaption {
-    font-size: 0.86rem;
-    color: var(--muted);
-    margin-top: 0.6rem;
-    text-align: left;
-  }
-  .exercise {
-    border: 1px solid var(--rule);
-    background: #fff;
-    padding: 1rem 1.2rem;
-    margin: 1.2rem 0;
-  }
-  details {
-    margin-top: 0.6rem;
-    padding-top: 0.5rem;
-    border-top: 1px dashed var(--rule);
-    font-size: 0.94rem;
-  }
-  summary {
-    cursor: pointer;
-    font-family: var(--sans);
-    font-weight: 600;
-    color: var(--accent);
-  }
-  footer {
-    margin-top: 3.5rem;
-    padding-top: 1.2rem;
-    border-top: 2px solid var(--fg);
-    font-family: var(--sans);
-    font-size: 0.9rem;
-  }
-</style>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['\\(', '\\)']],
-      displayMath: [['\\[', '\\]']]
-    }
-  };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P71 · The extremal principle · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-<main>
-<header class="chapter-header">
-  <p class="tier-label">Tier 2 · Canon Foundations</p>
-  <h1><span class="pid">P71</span> · The extremal principle</h1>
-  <p class="lede">When an arbitrary object in a collection offers no leverage, pick the one that minimizes or maximizes a numeric measure — because at the boundary of what is possible, one direction of change is completely forbidden.</p>
-  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p03-special-cases.html">P03 · Stress-test with special cases</a>, <a href="p13-descent.html">P13 · Infinite descent</a></p>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P71 · the thirteenth move of tier 2</p>
+<h1>The extremal principle</h1>
+<p class="tagline">Among any finite family of objects, one is largest and one is smallest — and the extreme member usually knows something its ordinary siblings do not. Pick the farthest pair, the longest path, the highest point, the shortest segment: the choice costs one sentence, and it hands you a fact for free — nothing about the extreme case is average, and every direction away from it is pinned. This page is <a href="p03-special-cases.html">P03</a>'s promise called in: P03 used the extremes to <em>break</em> claims; here the same choice <em>builds</em> them.</p>
 </header>
 
-<aside class="onramp">
-  <p><strong>On-ramp 1 — Why the extreme element is special.</strong> Every non-empty <strong>finite</strong> set of real numbers has a smallest element and a largest element, and every non-empty set of nonnegative integers \(\mathbb{Z}_{\ge 0}\) has a smallest element (the <em>Well-Ordering Principle</em>). If you pick an ordinary element \(x\) in the middle of a set \(\mathcal{S}\), modifying \(x\) slightly can move its score \(f(x)\) either up or down. But if you pick the <strong>minimizer</strong> \(x^* \in \arg\min_{x \in \mathcal{S}} f(x)\), <em>no element of \(\mathcal{S}\) can score lower than \(f(x^*)\)</em>! Any local operation that would shrink \(f(x^*)\) is therefore impossible — immediately handing you a structural theorem or a contradiction.</p>
-</aside>
-
-<aside class="onramp">
-  <p><strong>On-ramp 2 — Extremal principle vs. WLOG (<span class="pid">P68</span>) vs. Infinite descent (<span class="pid">P13</span>).</strong> How do these three relatives differ?</p>
-  <ul>
-    <li>In <a href="p68-wlog.html"><span class="pid">P68</span> · Without loss of generality</a>, all elements in a symmetry orbit have the <em>same</em> status, and you pick one by relabeling.</li>
-    <li>In <strong><span class="pid">P71</span> · The extremal principle</strong>, elements have <em>different</em> scores \(f(x)\), and you deliberately pick the champion \(x^*\) with the smallest or largest score to constructively build a solution or prove a property of \(x^*\).</li>
-    <li>In <a href="p13-descent.html"><span class="pid">P13</span> · Infinite descent</a>, you apply the extremal principle to the hypothetical set of <em>counterexamples</em> (picking the smallest counterexample and constructing a smaller one to prove the set of counterexamples is empty).</li>
-  </ul>
-</aside>
+<aside class="onramp"><strong>New word: ordinary line.</strong> Given a finite set of points, an <em>ordinary line</em> is a line that passes through exactly two of them — no more. Most lines through a pair of points pick up strays; an ordinary line is a pair standing alone. <strong>New word: diameter pair.</strong> In a finite set of points, a <em>diameter pair</em> is two points of the set whose distance apart is the largest the set offers. There may be ties; pick any one pair and call it the diameter pair. <strong>New word: tournament.</strong> A <em>tournament</em> on \(n\) players is a complete schedule in which every pair plays and every game has a winner — for each pair, exactly one of the two directions "beats" holds. It is the mathematical object behind "round-robin, no draws". <strong>New word: attained.</strong> A maximum is <em>attained</em> if some object actually achieves it — not merely approached. Among the reals strictly between 0 and 1 there is no largest number; the values climb towards 1 forever without touching it. The extremal principle is only licensed where the maximum is attained, and checking attainment is part of the move.</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p>In <a href="p03-special-cases.html"><span class="pid">P03</span> · Stress-test with special cases</a>, we learned to push a configuration to its boundary — making lines concurrent or lengths extreme — to see what survives. And in <a href="p13-descent.html"><span class="pid">P13</span> · Infinite descent</a>, Fermat proved that no integer right triangle has square area by showing that a hypothetical smallest solution would spawn a strictly smaller one.</p>
-  <p>What if you want to prove that a special object <em>does</em> exist inside a complicated geometric, graph-theoretic, or algebraic system? Trying to follow a step-by-step construction from a random starting point often wanders in circles. <strong>The extremal principle (<span class="pid">P71</span>)</strong> bypasses the search: it jumps directly to the configuration of minimum distance, maximum path length, or minimum perimeter, and proves that this extreme configuration must already be the object you are looking for.</p>
+<h2>1 · Before we begin</h2>
+<p>P03 taught the adversarial case menu: boundary, degenerate, symmetric, dangerous, extreme. Its box said it outright:</p>
+<blockquote><p><strong>Pattern P03 — Stress-test with special cases.</strong> Before believing a conjecture (yours or someone else's), or before spending effort proving it, deliberately attack it with the cases most likely to break it: the boundary cases, the degenerate configurations, the symmetric ones, the dangerous values, and the extremes. Treat every kill as information: read the wreckage, repair precisely, and re-state the claim with what you learned.</p>
+<p>Or, in words: don't ask the claim its friendly questions. Ask it the ones it hopes you won't — the smallest, the strangest, the most extreme — and if it breaks, the broken piece tells you what the honest version needed all along.</p></blockquote>
+<p>And P03 pointed forward, in its own doors section: <em>you want extremes to build, not break</em> — the extremal principle is the constructive sibling: choose the largest or smallest object and it often knows something the average ones do not. Here is the tension this page resolves. P03's extremes were interrogations: pick the extreme case and watch the claim die. But half of mathematics uses the same choice as a <em>foundation</em>: pick the extreme object, observe that the extremality itself constrains it — the largest thing cannot have anything larger nearby — and read a proof off the constraint. The move from interrogation to construction is this page's whole content.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: Sylvester's 50-year puzzle and Kelly's minimum altitude</h2>
-  <p>In 1893, James Joseph Sylvester posed a deceptively simple problem in the <em>Educational Times</em>:</p>
-  <blockquote>
-    <p><strong>Sylvester–Gallai Theorem.</strong> Given any finite set \(\mathcal{P}\) of \(n \ge 3\) points in the Euclidean plane, not all lying on a single straight line, prove that there exists at least one <strong>ordinary line</strong> — a line passing through <em>exactly two</em> points of \(\mathcal{P}\).</p>
-  </blockquote>
-  <p>Why did this puzzle stump mathematicians for forty years (until Tibor Gallai's complicated proof in 1933)? If you pick two points \(A, B \in \mathcal{P}\) at random and draw the line \(\ell = AB\), a third point \(C \in \mathcal{P}\) might happen to lie on \(\ell\). If you switch to \(AC\), that line is the same line! If you switch to a point \(D \notin \ell\) and draw \(AD\), a fifth point \(E\) might sit on \(AD\). Tracking lines one by one gives you no way to prevent a third point from photobombing every line you try.</p>
-  <p>In 1948, L. M. Kelly solved Sylvester's problem in a single paragraph using <strong>the extremal principle</strong>:</p>
-  <ol>
-    <li><strong>Define the candidate set \(\mathcal{S}\) and the objective \(h\):</strong> Let \(\mathcal{L}\) be the finite set of all connecting lines through at least two points of \(\mathcal{P}\). Since the points of \(\mathcal{P}\) are not all collinear, for every line \(\ell \in \mathcal{L}\) there is at least one point \(P \in \mathcal{P}\) not lying on \(\ell\). Consider the finite set of all point–line pairs
-      \[
-        \mathcal{S} \;=\; \bigl\{(P, \ell) \in \mathcal{P} \times \mathcal{L} \;:\; P \notin \ell\bigr\},
-      \]
-      and measure each pair by the positive perpendicular distance (altitude) \(h(P, \ell) &gt; 0\) from \(P\) to \(\ell\).</li>
-    <li><strong>Pick the global minimum:</strong> Because \(\mathcal{S}\) is finite and non-empty, there exists a pair \((P^*, \ell^*) \in \mathcal{S}\) that achieves the <strong>absolute minimum altitude</strong>:
-      \[
-        h(P^*, \ell^*) \;=\; \min_{(P, \ell) \in \mathcal{S}} h(P, \ell) \;&gt;\; 0.
-      \]
-    </li>
-    <li><strong>Why \(\ell^*\) must be an ordinary line:</strong> Suppose for contradiction that \(\ell^*\) contained <em>three</em> (or more) points \(A, B, C \in \mathcal{P}\). Let \(Q\) be the foot of the perpendicular from \(P^*\) to \(\ell^*\). By the Pigeonhole Principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>), at least two of the three points \(A, B, C\) lie on the same closed half-ray of \(\ell^*\) starting at \(Q\) — say \(B\) and \(C\), with \(B\) between \(Q\) and \(C\) (possibly \(B = Q\)). Now draw the connecting line \(\ell' = P^* C \in \mathcal{L}\) and drop the perpendicular from \(B\) to \(\ell'\) (Fig P71.1). Because \(\triangle B R C\) is a right triangle with hypotenuse \(BC\) inside \(\triangle P^* Q C\), the altitude from \(B\) to \(\ell' = P^* C\) satisfies
-      \[
-        h(B, P^* C) \;=\; h(P^*, \ell^*) \cdot \frac{|BC|}{|P^* C|} \;&lt;\; h(P^*, \ell^*),
-      \]
-      since the leg \(|QC| \ge |BC|\) is strictly shorter than the hypotenuse \(|P^* C| = \sqrt{h(P^*, \ell^*)^2 + |QC|^2}\)!</li>
-  </ol>
-
-  <p>To watch Kelly's drop in action, check the concrete \(4\)-point set \(\mathcal{P} = \{A(0,0),\, B(2,0),\, C(5,0),\, P(2,3)\}\), where \(A, B, C\) are collinear on the \(x\)-axis \(\ell = \{y = 0\}\):</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Connecting line \(\ell \in \mathcal{L}\)</th>
-        <th>Points of \(\mathcal{P}\) on \(\ell\)</th>
-        <th>Off-line point \(X \notin \ell\)</th>
-        <th>Perpendicular altitude \(h(X, \ell)\)</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>\(\ell_1 : y = 0\) (3-point line!)</td>
-        <td>\(\{A, B, C\}\) (3 points)</td>
-        <td>\(P(2, 3)\) (foot \(Q = B\))</td>
-        <td>\(h(P, \ell_1) = 3.000000\)</td>
-        <td>Not minimal!</td>
-      </tr>
-      <tr>
-        <td>\(\ell_2 : x + y - 5 = 0\) (\(PC\))</td>
-        <td>\(\{P, C\}\) (ordinary, 2 pts)</td>
-        <td>\(B(2, 0)\)</td>
-        <td>\(h(B, PC) = \frac{3}{\sqrt{2}} \approx 2.121320\)</td>
-        <td>Kelly drop from \(\ell_1\)!</td>
-      </tr>
-      <tr>
-        <td>\(\ell_3 : 3x - 2y = 0\) (\(PA\))</td>
-        <td>\(\{P, A\}\) (ordinary, 2 pts)</td>
-        <td>\(B(2, 0)\)</td>
-        <td><strong>\(h(B, PA) = \frac{6}{\sqrt{13}} \approx 1.664101\)</strong></td>
-        <td><strong>Global minimum \(\implies\) ordinary!</strong></td>
-      </tr>
-      <tr>
-        <td>\(\ell_4 : x = 2\) (\(PB\))</td>
-        <td>\(\{P, B\}\) (ordinary, 2 pts)</td>
-        <td>\(A(0, 0)\)</td>
-        <td>\(h(A, PB) = 2.000000\)</td>
-        <td>Ordinary line</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>On the \(3\)-point line \(\ell_1 = ABC\), the altitude from \(P(2,3)\) is \(3\). Switching to the line \(PC\) and dropping the altitude from the middle point \(B(2,0)\) shrinks the altitude to \(3/\sqrt{2} \approx 2.1213 &lt; 3\), and the global minimum altitude \(6/\sqrt{13} \approx 1.6641\) occurs on the ordinary line \(PA\).</p>
+<h2>2 · Meet the problem: Sylvester's fifty-year question</h2>
+<p>Take these seven points (grid coordinates, easy to draw):</p>
+<figure>
+<pre>A(0,0)  B(1,0)  C(2,0)
+D(0,1)  E(1,1)  F(2,1)
+G(0,3)</pre>
+<figcaption>The encounter's seven points. Three collinear triples are visible at a glance; the question is what survives among the rest.</figcaption>
+</figure>
+<p>Every pair of points determines a line: \(\binom{7}{2} = 21\) pairs to check. Three of the lines are crowded — \(A, B, C\) on the line \(y = 0\); \(D, E, F\) on \(y = 1\); \(A, D, G\) on \(x = 0\) — and the remaining pairs stand alone: exactly <strong>12 ordinary lines</strong>, and you can find each one by hand in a few minutes of slope-checking. So far the drawing suggests a comfortable hunch: <em>surely every finite set of points has an ordinary line</em> — with seven points and only three collinear triples, ordinary lines are everywhere.</p>
+<p>Now push the hunch. Crowd the points more cleverly — the projective-plane configurations of the kind P70's ledger loves — and ordinary lines get scarce; by 1893 the question was live enough that <strong>Sylvester</strong> posed it plainly: must every finite, non-collinear set of points in the plane determine an ordinary line? The hunch says yes, and for fifty years nobody could prove it. The average line tells you nothing: a line through four points and a line through two look alike from the outside. What finally worked was an <em>extreme</em> choice — and the proof (Exemplar A) is a model of this page's move: among all (point, line) pairs at positive distance, pick the one where the distance is <em>smallest</em>, and squeeze the geometry until the extremality contradicts itself unless the line is ordinary.</p>
+<p>Notice what the extremal choice bought. No census of configurations, no case split over "how the points lie" — one selection rule, one contradiction. The rest of this page names the move and runs it in three different neighborhoods.</p>
 </section>
 
-<section id="pattern">
-  <h2>3 · Name the move</h2>
-
-  <div class="pattern-box" id="box-p71">
-    <h3>Box P71 · The Extremal Principle Move</h3>
-    <p>Given a non-empty collection of configurations \(\mathcal{S}\), choose a real- or integer-valued measurement \(f : \mathcal{S} \to \mathbb{R}\) tailored to the problem and select an <strong>extremal configuration</strong></p>
-    \[
-      x^* \;\in\; \arg\min_{x \in \mathcal{S}} f(x) \qquad\text{or}\qquad x^* \;\in\; \arg\max_{x \in \mathcal{S}} f(x).
-    \]
-    <p>Show that if \(x^*\) failed the target property, a local surgical modification \(x^* \mapsto x' \in \mathcal{S}\) would yield \(f(x') &lt; f(x^*)\) (for a minimizer) or \(f(x') &gt; f(x^*)\) (for a maximizer). Since \(x^*\) is already extreme, no such modification can exist, so \(x^*\) must satisfy the target property.</p>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 220" width="100%" role="img" aria-label="Kelly's extremal proof of the Sylvester-Gallai theorem showing how 3 points A, B, C on line l* produce a strictly smaller altitude h(B, P*C) < h(P*, l*)">
-      <rect x="0" y="0" width="600" height="220" fill="#ffffff"/>
-      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Kelly's Extremal Altitude Drop: Why a 3-Point Line Cannot Minimize h(P, ℓ)</text>
-      <!-- Horizontal line l* at y = 175 -->
-      <line x1="40" y1="175" x2="560" y2="175" stroke="#1a1a1a" stroke-width="2"/>
-      <text x="545" y="166" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a">ℓ*</text>
-      <!-- Points on l*: A=(100, 175), Q=(210, 175) [foot], B=(310, 175), C=(470, 175); and P*=(210, 45) -->
-      <!-- Vertical altitude P*Q -->
-      <line x1="210" y1="45" x2="210" y2="175" stroke="#8b2635" stroke-width="2.5"/>
-      <!-- Right angle marker at Q=(210, 175) -->
-      <polyline points="210,163 222,163 222,175" fill="none" stroke="#8b2635" stroke-width="1.2"/>
-      <!-- Line l' = P*C from (210, 45) to (470, 175) (vector (260, 130) -> slope 1/2!) -->
-      <line x1="170" y1="25" x2="510" y2="195" stroke="#3a6073" stroke-width="2.2"/>
-      <text x="495" y="148" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073">ℓ' = P*C</text>
-      <!-- Foot of perpendicular R from B=(310, 175) to line P*C:
-           Line P*C: (x - 470) + 2*(y - 175) = 0 => x + 2y - 820 = 0.
-           From B=(310, 175), vector to C is (160, 0). Projection onto normal (1, 2):
-           t = (310 + 350 - 820) / 5 = -160 / 5 = -32 => R = (310 + 32, 175 + 64)? Wait:
-           Let's check: P*=(210, 45), C=(470, 175). Vector P*->C is (260, 130) = 130*(2, 1).
-           Normal is (-1, 2): -210 + 90 = -120, -470 + 350 = -120. So -x + 2y + 120 = 0 (or x - 2y = 120).
-           At B=(310, 175): x - 2y = 310 - 350 = -40 != 120.
-           Move from B along (-1, 2) by t: (310 - t) - 2*(175 + 2t) = -40 - 5t = 120 => t = -32,
-           so R = (310 - (-32), 175 + 2*(-32)) = (342, 111)!
-           Check R=(342, 111) on P*C: 342 - 2(111) = 342 - 222 = 120! And BR = (32, -64) is perp to (2, 1)! -->
-      <line x1="310" y1="175" x2="342" y2="111" stroke="#b85d19" stroke-width="2.5" stroke-dasharray="4,2"/>
-      <!-- Shaded right triangle B R C -->
-      <polygon points="310,175 342,111 470,175" fill="#f9ebe0" fill-opacity="0.6" stroke="none"/>
-      <circle cx="100" cy="175" r="4.5" fill="#1a1a1a"/>
-      <circle cx="210" cy="175" r="3.5" fill="#8b2635"/>
-      <circle cx="310" cy="175" r="4.5" fill="#1a1a1a"/>
-      <circle cx="470" cy="175" r="4.5" fill="#1a1a1a"/>
-      <circle cx="210" cy="45" r="5" fill="#8b2635"/>
-      <circle cx="342" cy="111" r="3.5" fill="#b85d19"/>
-      <text x="100" y="193" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A</text>
-      <text x="210" y="193" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635" text-anchor="middle">Q (foot)</text>
-      <text x="310" y="193" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B</text>
-      <text x="470" y="193" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C</text>
-      <text x="210" y="34" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">P*</text>
-      <text x="352" y="106" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19">R</text>
-      <text x="162" y="115" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">h(P*, ℓ*)</text>
-      <text x="282" y="138" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">h(B, P*C) &lt; h(P*, ℓ*)</text>
-      <text x="300" y="212" font-family="system-ui, sans-serif" font-size="9.5" fill="#5a5550" text-anchor="middle">By similar right triangles △BRC ∼ △P*QC:  h(B, P*C) / h(P*, ℓ*) = |BC| / |P*C| ≤ |QC| / |P*C| &lt; 1</text>
-    </svg>
-    <figcaption><strong>Fig P71.1.</strong> Kelly's extremal proof of the Sylvester–Gallai Theorem. Choose the point–line pair \((P^*, \ell^*)\) with minimum positive altitude \(h(P^*, \ell^*)\). If \(\ell^*\) contained three points \(A, B, C\) of \(\mathcal{P}\), at least two (\(B\) and \(C\)) would lie on the same side of the perpendicular foot \(Q\). Then the altitude \(|BR| = h(B, P^* C)\) from the middle point \(B\) to the connecting line \(\ell' = P^* C\) is strictly shorter than \(|P^* Q| = h(P^*, \ell^*)\), contradicting minimality!</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p71a">
-    <h3>Box P71.A · The Four Verification Obligations of the Extremal Principle</h3>
-    <ol>
-      <li><strong>Non-Emptiness of \(\mathcal{S}\):</strong> Verify that the set of candidate configurations \(\mathcal{S}\) contains at least one valid element before selecting \(\arg\min\) or \(\arg\max\).</li>
-      <li><strong>Existence of the Extremum (Finiteness, Well-Ordering, or Compactness):</strong> State explicitly <em>why</em> the minimum or maximum is attained:
-        <ul>
-          <li>\(\mathcal{S}\) is <strong>finite</strong> (any finite non-empty set of real numbers attains both its minimum and maximum);</li>
-          <li>\(f(\mathcal{S}) \subseteq \mathbb{Z}_{\ge 0}\) is <strong>well-ordered</strong> (any non-empty subset of \(\mathbb{Z}_{\ge 0}\) attains its minimum); or</li>
-          <li>\(\mathcal{S} \subset \mathbb{R}^d\) is <strong>compact</strong> (closed and bounded) and \(f\) is continuous.</li>
-        </ul>
-      </li>
-      <li><strong>Tie-Breaking Awareness:</strong> Do not assume the minimizer \(x^*\) is unique unless you prove it; if multiple elements tie for \(f_{\min}\), either show your perturbation works on <em>any</em> minimizer or break ties with a secondary functional \(g(x)\).</li>
-      <li><strong>Strict Perturbation Inequality:</strong> Construct a legal neighbor \(x' \in \mathcal{S}\) from \(x^*\) and prove a <strong>strict</strong> inequality \(f(x') &lt; f(x^*)\) (for a minimum) or \(f(x') &gt; f(x^*)\) (for a maximum).</li>
-    </ol>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 195" width="100%" role="img" aria-label="Left: Discrete Maximum Principle on a connected graph where a vertex v* achieving the maximum forces all its neighbors to equal M. Right: Uncrossing two segments R1-B1 and R2-B2 to strictly decrease total Euclidean length">
-      <rect x="0" y="0" width="600" height="195" fill="#ffffff"/>
-      <!-- Left panel: Discrete Maximum Principle -->
-      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Discrete Maximum Principle on a Graph</text>
-      <rect x="20" y="28" width="270" height="152" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
-      <!-- Central vertex v* at (155, 100) with 4 neighbors -->
-      <line x1="155" y1="100" x2="75" y2="65" stroke="#8b2635" stroke-width="2.2"/>
-      <line x1="155" y1="100" x2="235" y2="65" stroke="#8b2635" stroke-width="2.2"/>
-      <line x1="155" y1="100" x2="75" y2="140" stroke="#8b2635" stroke-width="2.2"/>
-      <line x1="155" y1="100" x2="235" y2="140" stroke="#8b2635" stroke-width="2.2"/>
-      <circle cx="155" cy="100" r="18" fill="#f3e6e8" stroke="#8b2635" stroke-width="2.5"/>
-      <circle cx="75" cy="65" r="15" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <circle cx="235" cy="65" r="15" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <circle cx="75" cy="140" r="15" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <circle cx="235" cy="140" r="15" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <text x="155" y="104" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">v* (M)</text>
-      <text x="75" y="69" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">= M</text>
-      <text x="235" y="69" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">= M</text>
-      <text x="75" y="144" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">= M</text>
-      <text x="235" y="144" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">= M</text>
-      <text x="155" y="170" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">u(v*) = avg(neighbors) &amp; u(w) ≤ M  ⟹  all u(w) = M!</text>
-
-      <!-- Right panel: Uncrossing segments by minimizing total length -->
-      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Minimum-Length Matching Cannot Cross</text>
-      <rect x="315" y="28" width="265" height="152" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
-      <!-- Crossing diagonals (dashed orange) vs uncrossed sides (solid crimson) -->
-      <line x1="355" y1="135" x2="535" y2="55" stroke="#b85d19" stroke-width="2" stroke-dasharray="4,3"/>
-      <line x1="355" y1="55" x2="535" y2="135" stroke="#b85d19" stroke-width="2" stroke-dasharray="4,3"/>
-      <line x1="355" y1="135" x2="535" y2="135" stroke="#8b2635" stroke-width="2.8"/>
-      <line x1="355" y1="55" x2="535" y2="55" stroke="#8b2635" stroke-width="2.8"/>
-      <circle cx="355" cy="135" r="5" fill="#8b2635"/>
-      <circle cx="355" cy="55" r="5" fill="#8b2635"/>
-      <circle cx="535" cy="55" r="5" fill="#3a6073"/>
-      <circle cx="535" cy="135" r="5" fill="#3a6073"/>
-      <text x="338" y="139" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635">R₁</text>
-      <text x="338" y="59" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635">R₂</text>
-      <text x="543" y="59" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">B₁</text>
-      <text x="543" y="139" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073">B₂</text>
-      <text x="445" y="99" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">X</text>
-      <text x="447" y="170" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">|R₁B₂| + |R₂B₁| &lt; (|R₁X|+|XB₂|) + (|R₂X|+|XB₁|) = |R₁B₁| + |R₂B₂|</text>
-    </svg>
-    <figcaption><strong>Fig P71.2.</strong> Two classic extremal arguments. <em>Left (Exemplar 2):</em> If a function \(u\) on a connected graph satisfies the averaging property \(u(v) = \frac{1}{\deg(v)}\sum_{w \sim v} u(w)\), picking a vertex \(v^*\) with maximum value \(M = \max u\) forces every neighbor \(w \sim v^*\) to also have \(u(w) = M\). <em>Right (Exemplar 3):</em> Among all \(n!\) matchings between \(n\) red points and \(n\) blue points in general position, the matching of <em>minimum total Euclidean length</em> has zero crossings because uncrossing any intersection \(X\) strictly decreases total length by the triangle inequality.</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p71b">
-    <h3>Box P71.B · Three-Key Recognition Diagnosis</h3>
-    <ul>
-      <li><strong>Claim type:</strong> Existence of a global structure (a non-crossing matching, a Hamiltonian path in a tournament, an ordinary line, a convex hull vertex) or constancy/impossibility of a state satisfying a local balance rule.</li>
-      <li><strong>Problem shape:</strong> A finite (or compact) space of configurations where local greedy steps can cycle or stall, but every local defect (a crossing, a 3rd collinear point, an unvisited vertex) allows a surgery that strictly improves a global scalar functional \(f\).</li>
-      <li><strong>Tools at hand:</strong> Triangle inequality (\(|AB| &lt; |AX| + |XB|\)), longest path / largest component in a finite graph, convex hull extreme points, and the Discrete Maximum Principle (an average equals the maximum iff every term equals the maximum).</li>
-    </ul>
-  </div>
+<section id="name">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p71">
+<h3>Pattern P71 — The extremal principle</h3>
+<p><strong>Pattern P71 — The extremal principle.</strong> When a claim resists direct construction and its objects come in a finite family (or a family where a maximum is provably attained): (1) choose the <em>extreme</em> object — the largest, smallest, longest, or closest, under a measure you state out loud; (2) extract the <strong>free constraint</strong>: extremality forbids anything of the same kind from beating the chosen object in the relevant direction, and that prohibition is a fact you can use without proving anything new; (3) derive the claim from the constraint, or derive a contradiction from supposing the claim fails — the extreme object then sits in the gap. The measure and the attainment are the two licenses: state the measure, prove the maximum is attained, and only then spend the constraint.</p>
+<p>Or, in words: take the biggest one — it has nowhere to hide. An extreme object is surrounded by a fence the whole family built for it: nothing beyond it in the measure's direction, and that fence is a hypothesis you got for free. Proofs by the extremal principle do not work harder than other proofs; they work at the one spot where the fence does the work.</p>
+<p>The three-key diagnosis. The claim type: an <em>existence</em> claim — some object with a property must exist — or a structural claim that follows from one. The problem shape: the objects form a family you can measure, the direct construction flounders because ordinary members carry no information, and yet the property you want is "visible at the top" — the extreme member either has the property or forces a contradiction. The tools at hand: P03's instinct for which measure to try (try the measure that appears in the claim), P02's small cases (to see what the extreme looks like concretely before generalizing), and P10's pigeonhole (the frequent partner — extremality sets up the boxes, pigeonhole fills one).</p>
+</div>
 </section>
+
 <section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
-
-  <h3>Exemplar 1 (Graph Theory &amp; Tournaments) · Rédei's theorem: why every finite tournament has a Hamiltonian path</h3>
-  <p><strong>Problem.</strong> In a round-robin tournament among \(n\) players, every pair of distinct players plays exactly one match, which always ends in a win for one player and a loss for the other (no ties). Prove that the \(n\) players can always be listed in an order \(v_1, v_2, \dots, v_n\) such that \(v_1\) beat \(v_2\), \(v_2\) beat \(v_3\), \(\dots\), and \(v_{n-1}\) beat \(v_n\) (a directed <strong>Hamiltonian path</strong>).</p>
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Pick a directed path of maximum length).</strong> Represent the tournament as a directed complete graph \(T = (V, E)\) with \(|V| = n\), where \(u \to w\) means \(u\) beat \(w\). Let \(\mathcal{S}\) be the set of all simple directed paths \(v_1 \to v_2 \to \cdots \to v_k\) in \(T\) (visiting no vertex twice). Since \(T\) is finite (\(|\mathcal{S}| \le \sum_{k=1}^n \frac{n!}{(n-k)!} &lt; \infty\)) and non-empty (any single vertex has length \(1\)), choose a path</p>
-  \[
-    P^* \;=\; \bigl(v_1 \to v_2 \to \cdots \to v_k\bigr) \;\in\; \arg\max_{P \in \mathcal{S}} \operatorname{length}(P)
-  \]
-  <p>of <strong>maximum possible number of vertices \(k\)</strong>.</p>
-
-  <p><strong>Step 2 (Show that any left-out vertex \(w\) could be spliced into \(P^*\)).</strong> Suppose for contradiction that \(k &lt; n\), so there is some vertex \(w \in V \setminus \{v_1, \dots, v_k\}\) not on \(P^*\) (Fig P71.3, left). Inspect the arrows between \(w\) and the vertices of \(P^*\):</p>
-  <ul>
-    <li><strong>At the head \(v_1\):</strong> Could \(w \to v_1\)? If so, prepending \(w\) would give the simple directed path \(w \to v_1 \to v_2 \to \cdots \to v_k\) of length \(k + 1 &gt; k\), contradicting the maximality of \(P^*\)! Hence we are forced to have <strong>\(v_1 \to w\)</strong>.</li>
-    <li><strong>At the tail \(v_k\):</strong> Could \(v_k \to w\)? If so, appending \(w\) would give the path \(v_1 \to \cdots \to v_k \to w\) of length \(k + 1 &gt; k\), again contradicting maximality! Hence we are forced to have <strong>\(w \to v_k\)</strong>.</li>
-    <li><strong>The intermediate sign switch:</strong> Follow the orientations between \(v_i\) and \(w\) as \(i\) runs from \(1\) to \(k\): at \(i = 1\) the arrow points <em>down</em> to \(w\) (\(v_1 \to w\)), whereas at \(i = k\) the arrow points <em>up</em> from \(w\) (\(w \to v_k\)). Therefore, there must be a first index \(1 \le i \le k - 1\) where the direction switches from \(v_i \to w\) to \(w \to v_{i+1}\)!</li>
-  </ul>
-  <p>Splicing \(w\) between \(v_i\) and \(v_{i+1}\) produces the valid simple directed path</p>
-  \[
-    v_1 \to \cdots \to v_i \to w \to v_{i+1} \to \cdots \to v_k
-  \]
-  <p>of length \(k + 1 &gt; k\) — contradicting the maximality of \(P^*\)! Thus no vertex can be left out, so \(k = n\).</p>
-
-  <h3>Exemplar 2 (Discrete PDEs &amp; Potential Theory) · The Discrete Maximum Principle for harmonic functions</h3>
-  <p><strong>Problem.</strong> Let \(G = (V, E)\) be a finite connected graph. Suppose a function \(u : V \to \mathbb{R}\) satisfies the <strong>mean-value (harmonic) property</strong> at every vertex \(v \in V\): the value \(u(v)\) equals the arithmetic mean of the values at its neighbors,</p>
-  \[
-    u(v) \;=\; \frac{1}{\deg(v)} \sum_{w \sim v} u(w) \qquad (\forall v \in V).
-  \]
-  <p>Prove that \(u\) must be constant across the entire graph \(G\).</p>
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Select a vertex achieving the global maximum).</strong> Because \(V\) is finite and non-empty, \(u\) attains its maximum value \(M = \max_{v \in V} u(v)\) at some vertex \(v^* \in V\), so \(u(v^*) = M\) and \(u(w) \le M\) for every \(w \in V\).</p>
-
-  <p><strong>Step 2 (Compare the average at \(v^*\) with the upper bound \(M\)).</strong> Subtracting the mean-value identity at \(v^*\) from \(M = u(v^*)\) gives</p>
-  \[
-    0 \;=\; M - u(v^*) \;=\; \frac{1}{\deg(v^*)} \sum_{w \sim v^*} \bigl(M - u(w)\bigr).
-  \]
-  <p>Because \(u(w) \le M\) for every vertex, each summand \(M - u(w) \ge 0\) is nonnegative! A sum of nonnegative numbers equals \(0\) if and only if <em>every</em> summand equals \(0\) (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>). Therefore,</p>
-  \[
-    u(w) \;=\; M \qquad \text{for every neighbor } w \sim v^* \quad (\text{Fig P71.2, left}).
-  \]
-  <p>Now every neighbor \(w\) of \(v^*\) also achieves the global maximum \(M\), so by the exact same argument all of <em>their</em> neighbors must equal \(M\). Since \(G\) is connected, repeating this step along paths from \(v^*\) proves \(u(v) = M\) for all \(v \in V\).</p>
-
-  <h3>Exemplar 3 (Combinatorial Geometry) · Non-crossing red–blue matching via minimum total Euclidean length</h3>
-  <p><strong>Problem.</strong> Given \(n\) Red points \(R_1, \dots, R_n\) and \(n\) Blue points \(B_1, \dots, B_n\) in the plane such that no \(3\) of the \(2n\) points are collinear, prove that there exists a bijection \(\pi : \{R_1, \dots, R_n\} \to \{B_1, \dots, B_n\}\) such that the \(n\) straight line segments \(\overline{R_i \pi(R_i)}\) are pairwise disjoint (no two segments cross).</p>
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Pick the matching of minimum total Euclidean length).</strong> Let \(\mathcal{S}\) be the set of all \(n!\) bijections \(\pi : \{R_1, \dots, R_n\} \to \{B_1, \dots, B_n\}\), and define the total length functional</p>
-  \[
-    L(\pi) \;:=\; \sum_{i=1}^n \bigl|R_i\,\pi(R_i)\bigr|.
-  \]
-  <p>Since \(|\mathcal{S}| = n!\) is finite, there exists a matching \(\pi^* \in \arg\min_{\pi \in \mathcal{S}} L(\pi)\) that achieves the <strong>minimum possible total Euclidean length</strong>.</p>
-
-  <p><strong>Step 2 (Prove that any crossing strictly decreases \(L(\pi^*)\)).</strong> Suppose for contradiction that two segments of \(\pi^*\) — say \(\overline{R_1 B_1}\) and \(\overline{R_2 B_2}\) — intersect at a point \(X\) (Fig P71.2, right). Because no \(3\) of the \(2n\) points are collinear, \(X\) lies strictly in the interior of both segments, and the triangles \(\triangle R_1 X B_2\) and \(\triangle R_2 X B_1\) are non-degenerate. By the strict triangle inequality in \(\triangle R_1 X B_2\) and \(\triangle R_2 X B_1\):</p>
-  \[
-    |R_1 B_2| \;&lt;\; |R_1 X| + |X B_2| \qquad\text{and}\qquad |R_2 B_1| \;&lt;\; |R_2 X| + |X B_1|.
-  \]
-  <p>Adding these two strict inequalities and grouping \(|R_1 X| + |X B_1| = |R_1 B_1|\) and \(|R_2 X| + |X B_2| = |R_2 B_2|\) yields</p>
-  \[
-    |R_1 B_2| + |R_2 B_1| \;&lt;\; |R_1 B_1| + |R_2 B_2|.
-  \]
-  <p>Thus if we define \(\pi'\) by swapping the partners of \(R_1\) and \(R_2\) (\(\pi'(R_1) = B_2,\; \pi'(R_2) = B_1\)) and leaving all other \(n - 2\) segments untouched, we obtain \(L(\pi') &lt; L(\pi^*)\) — contradicting the minimality of \(L(\pi^*)\)!</p>
+<h2>4 · Worked exemplars</h2>
+<p><strong>Exemplar A — Kelly's proof of Sylvester's theorem (combinatorial geometry).</strong> The claim: every finite set of points in the plane, not all on one line, determines an ordinary line. Choose among all pairs (point \(P\), line \(\ell\)) with \(P\) in the set, \(\ell\) determined by the set, \(P\) not on \(\ell\), one where the distance \(h(P, \ell)\) is <em>minimal</em> — the family is finite, so the minimum is attained (the license, checked in one sentence). Say \(\ell\) contains the set-points \(A, B, C, \ldots\). If \(\ell\) is not ordinary, at least three of them sit on \(\ell\); drop the perpendicular from \(P\) to \(\ell\), meeting at \(Q\), and among the (at least three) set-points on \(\ell\), two — call them \(A\) and \(B\) — must lie on the <em>same side</em> of \(Q\) along \(\ell\) (pigeonhole, <span class="pid">P10</span>: three points, two sides). Name them so that \(A\) is the one nearer \(Q\): \(A\) sits between \(Q\) and \(B\). Now consider the pair (point \(A\), line \(PB\)). The triangle \(PAB\) has base \(|AB|\) lying on \(\ell\) and height \(|PQ| = h(P, \ell)\), so its area is \(\tfrac{1}{2}|AB| \cdot |PQ|\); computing the same area with \(PA\) as the base gives \(\tfrac{1}{2}|PA| \cdot d(A, PB)\), where \(d(A, PB)\) is the distance from \(A\) to the line \(PB\). Equate and cancel: \(d(A, PB) = \tfrac{|AB|}{|PB|} \cdot |PQ|\). And the fence closes: \(|AB| < |PB|\) — because \(|AB| = |BQ| - |AQ| < |BQ|\), a leg of the right triangle \(PQB\), while \(|PB|\) is its hypotenuse. So \(d(A, PB) < |PQ| = h(P, \ell)\): a (point, line) pair strictly closer than the minimizer — contradiction. The only escape is that \(\ell\) never held three points: it is ordinary. The fence did the work, and the numerics check out on the encounter's seven points, where the minimum-distance pair is \(E\) against the ordinary line \(CG\), at distance \(1/\sqrt{13} \approx 0.2774\). <span class="pid">Moves used: P71 (the minimal pair), P10 (two of three on one side), P03 (the fence-check at the tie).</span></p>
+<p><strong>Exemplar B — Rédei's theorem: every tournament has a full directed path (graphs).</strong> A tournament on \(n\) players — every pair plays, one winner each. Claim: the players can be lined up \(v_1, v_2, \ldots, v_n\) so that each beats the next: \(v_1 \to v_2 \to \cdots \to v_n\). Choose among all directed paths (line-ups where each beats the next) one of <em>maximum length</em> — the family is finite, so a longest one exists. Suppose some player \(u\) is not on it. Then \(u\) beats \(v_1\) — otherwise \(v_1 \to u\) would extend the path at the front. And \(v_n\) beats \(u\) — otherwise the path extends at the back. So somewhere along the line-up the arrows relative to \(u\) flip: there is an \(i\) with \(v_i \to u\) and \(u \to v_{i+1}\). Splice: \(v_1 \to \cdots \to v_i \to u \to v_{i+1} \to \cdots \to v_n\) — a path of length \(n\) through all the players, contradicting maximality. No player is missing; the longest path was already full. The fence did everything: the two "otherwise the path extends" facts are the free constraint, and the flip is pigeonhole in motion. The claim holds for every tournament: all \(2^{\binom{4}{2}} = 64\) tournaments on four players and all \(2^{\binom{5}{2}} = 1024\) on five carry a full directed path (Exercise 2 works one by hand). <span class="pid">Moves used: P71 (longest path), P03 (the flip census at the splice).</span></p>
+<p><strong>Exemplar C — the discrete maximum principle (potential theory, discrete).</strong> Let \(u\) be a function on the integer grid \(\mathbb{Z}^2\) taking <em>integer</em> values, <em>bounded</em> (all values between two fixed integers), and <em>harmonic</em> at every point: each value is the average of its four neighbors, \(\[u(i, j) = \tfrac{u(i{+}1, j) + u(i{-}1, j) + u(i, j{+}1) + u(i, j{-}1)}{4}.\]\) Claim: \(u\) is constant. Choose a point where \(u\) is <em>maximal</em> — legitimate, because a bounded set of integers is finite, so the maximum is attained (the license; note how the integer hypothesis is doing real work — the real-valued function \(u(i, j) = i\) is bounded on no line and the claim dies with it, as §5 shows). At the maximum point \(p\), all four neighbors are \(\le u(p)\), yet their average is \(u(p)\): four numbers, each at most \(M\), averaging exactly \(M\) — all four must equal \(M\). So the maximality spreads to the neighbors, then to theirs: the whole grid is one value. The fence — "nothing nearby is bigger" — plus an averaging identity is the entire proof. On a finite grid with boundary values fixed, the same argument shows the maximum of the interior values is controlled by the boundary — the fact that makes the discrete Laplacian numerically stable, and the small-grid version is the stability fact every finite-difference computation relies on. <span class="pid">Moves used: P71 (the maximum point), P03 (attainment via discreteness), P08 (the averaging argument treats all four neighbors identically).</span></p>
 </section>
 
 <section id="fails">
-  <h2>5 · When the trick breaks</h2>
-
-  <div class="aside">
-    <p><strong>Exhibit A — Perron's Paradox &amp; the Non-Existence Trap: assuming an extremum exists when the set is infinite or open.</strong> In 1914, Oskar Perron illustrated the danger of skipping Obligation 2 with a famous mock proof: <em>"Let \(N\) be the largest positive integer. If \(N &gt; 1\), then \(N^2 &gt; N\), contradicting that \(N\) is the largest positive integer; therefore \(N = 1\)!"</em> Every step after the first sentence is logically valid — the sole error is assuming that \(\max \mathbb{Z}_{\ge 1}\) exists! Similarly, Kelly's minimum-altitude proof of Sylvester–Gallai fails on countably infinite point sets \(\mathcal{P} \subset \mathbb{R}^2\) because \(\inf_{(P, \ell)} h(P, \ell) = 0\) need not be attained.</p>
-    <p><em>Mitigation:</em> Always verify finiteness, well-ordering in \(\mathbb{Z}_{\ge 0}\), or compactness + continuity before writing "Let \(x^*\) be the minimum/maximum" (Obligation 2 of Box P71.A).</p>
-    <p><em>Price:</em> One sentence checking that \(|\mathcal{S}| &lt; \infty\) or \(f(\mathcal{S}) \subseteq \mathbb{Z}_{\ge 0}\).</p>
-    <p><em>Default:</em> On infinite sets of reals, replace \(\min\) by \(\inf\) and work with \(\varepsilon\)-approximate minimizers (Ekeland's variational principle) unless compactness is proved.</p>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Left: Rédei's longest path tournament insertion showing v1->w and w->vk forcing an index i where vi->w->v_{i+1}. Right: Why minimizing the number of crossings fails when uncrossing two segments creates two new crossings with a third segment">
-      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
-      <!-- Left panel: Tournament Hamiltonian Path Insertion (Exemplar 1) -->
-      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Exemplar 1: Splicing w into Longest Path P*</text>
-      <!-- Path vertices v1, v2, v_i, v_{i+1}, v_k at y = 145; external vertex w at (155, 50) -->
-      <circle cx="40" cy="145" r="13" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <circle cx="115" cy="145" r="13" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <circle cx="195" cy="145" r="13" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <circle cx="270" cy="145" r="13" fill="#eef3f7" stroke="#3a6073" stroke-width="1.8"/>
-      <circle cx="155" cy="52" r="14" fill="#f3e6e8" stroke="#8b2635" stroke-width="2.2"/>
-      <!-- Horizontal path arrows -->
-      <line x1="53" y1="145" x2="102" y2="145" stroke="#3a6073" stroke-width="2"/>
-      <line x1="128" y1="145" x2="182" y2="145" stroke="#3a6073" stroke-width="2" stroke-dasharray="3,3"/>
-      <line x1="208" y1="145" x2="257" y2="145" stroke="#3a6073" stroke-width="2"/>
-      <!-- Arrows between path and w -->
-      <line x1="48" y1="134" x2="143" y2="61" stroke="#5a5550" stroke-width="1.5"/>
-      <line x1="167" y1="61" x2="262" y2="134" stroke="#5a5550" stroke-width="1.5"/>
-      <!-- Highlighted splice v_i -> w -> v_{i+1} -->
-      <line x1="120" y1="133" x2="149" y2="65" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="161" y1="65" x2="190" y2="133" stroke="#8b2635" stroke-width="2.5"/>
-      <text x="40" y="149" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₁</text>
-      <text x="115" y="149" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">vᵢ</text>
-      <text x="195" y="149" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">vᵢ₊₁</text>
-      <text x="270" y="149" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">vₖ</text>
-      <text x="155" y="56" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">w</text>
-      <text x="78" y="88" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550">v₁→w</text>
-      <text x="232" y="88" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550">w→vₖ</text>
-      <text x="155" y="114" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">vᵢ → w → vᵢ₊₁</text>
-      <text x="155" y="188" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Switch from (v→w) to (w→v) forces a splice of length k+1!</text>
-
-      <!-- Right panel: Exhibit B — Why "minimum number of crossings" fails as an objective -->
-      <text x="455" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Exhibit B: Wrong Objective (Crossing Count vs Length)</text>
-      <rect x="315" y="28" width="270" height="145" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.2"/>
-      <!-- Crossing segments R1-B1 and R2-B2 (1 crossing), plus horizontal segment R3-B3 passing through top & bottom! -->
-      <!-- Wait: if R1=(345,145), B2=(445,40), R2=(455,40), B1=(555,145):
-           Wait: let R1=(350, 95), B1=(550, 95) and R2=(450, 40), B2=(450, 150) cross at (450, 95).
-           Uncrossing gives R1(350,95)--B2(450,150) and R2(450,40)--B1(550,95).
-           A third segment R3(360, 145)--B3(540, 45) could cross BOTH new segments while missing the original cross! -->
-      <line x1="350" y1="95" x2="550" y2="95" stroke="#5a5550" stroke-width="1.8" stroke-dasharray="4,2"/>
-      <line x1="450" y1="42" x2="450" y2="148" stroke="#5a5550" stroke-width="1.8" stroke-dasharray="4,2"/>
-      <line x1="350" y1="95" x2="450" y2="148" stroke="#8b2635" stroke-width="2.2"/>
-      <line x1="450" y1="42" x2="550" y2="95" stroke="#8b2635" stroke-width="2.2"/>
-      <!-- Third segment R3--B3 crossing BOTH crimson segments -->
-      <line x1="380" y1="148" x2="520" y2="42" stroke="#3a6073" stroke-width="2.2"/>
-      <text x="450" y="166" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">Uncrossing 1 pair can create 2 new crossings with R₃B₃!</text>
-      <text x="450" y="188" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Fix: Minimize total Euclidean length ∑|RᵢBᵢ|, NOT crossing count!</text>
-    </svg>
-    <figcaption><strong>Fig P71.3.</strong> <em>Left (Exemplar 1):</em> In a maximal directed tournament path \(P^* = (v_1 \to \cdots \to v_k)\), any external vertex \(w\) must satisfy \(v_1 \to w\) and \(w \to v_k\), forcing a transition \(v_i \to w \to v_{i+1}\) that splices \(w\) into \(P^*\). <em>Right (Exhibit B):</em> In the red–blue matching problem (Exemplar 3), if you choose "number of crossings" as your objective \(f(\pi)\), uncrossing one pair can create <em>two</em> new crossings with a third segment \(R_3 B_3\); choosing total Euclidean length \(\sum |R_i \pi(R_i)|\) guarantees a strict decrease at every uncrossing!</figcaption>
-  </figure>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Picking a naive objective \(f(x)\) that does not strictly improve under local surgery.</strong> In Exemplar 3 (finding a crossing-free matching between \(n\) Red and \(n\) Blue points), the most tempting objective to minimize is \(C(\pi) =\) <em>the number of crossings in \(\pi\)</em>. Yet when you uncross two segments \(R_1 B_1\) and \(R_2 B_2\) into \(R_1 B_2\) and \(R_2 B_1\), other segments passing through the quadrilateral \(R_1 B_1 R_2 B_2\) can cross the new segments <em>more</em> times than they crossed the old ones (Fig P71.3, right), so \(C(\pi')\) can increase!</p>
-    <p><em>Mitigation:</em> Replace combinatorial defect counts \(C(\pi)\) by a smooth geometric energy or metric functional — such as total Euclidean length \(\sum |R_i \pi(R_i)|\) — that depends <em>only</em> on the two modified segments and ignores bystander segments.</p>
-    <p><em>Price:</em> Using the triangle inequality instead of pure combinatorics.</p>
-    <p><em>Default:</em> Ensure your local surgery \(x^* \mapsto x'\) changes \(f\) via a local identity \(f(x') - f(x^*) &lt; 0\) that is independent of the rest of the configuration.</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Boundary immobilization: when the extremizer sits on a hard boundary where your perturbation is illegal.</strong> Suppose you want to prove that at a minimum \(x^*\) of a smooth function \(f : [a, b] \to \mathbb{R}\), the derivative \(f'(x^*) = 0\). If \(x^* = a\) sits on the left endpoint of the interval, moving left (\(x' = x^* - \delta\)) leaves the allowed domain \([a, b]\), so \(f'(a)\) can be strictly positive!</p>
-    <p><em>Mitigation:</em> Check that your perturbed element \(x'\) actually belongs to the allowed set \(\mathcal{S}\) (Obligation 4 of Box P71.A).</p>
-    <p><em>Price:</em> Ruling out boundary minimizers via asymptotic or sign conditions.</p>
-    <p><em>Default:</em> Always verify \(x' \in \mathcal{S}\) before writing \(f(x') &lt; f(x^*)\).</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this chapter.</strong> On finite sets and well-ordered subsets of \(\mathbb{Z}_{\ge 0}\), the extremal principle is completely elementary and unconditional. In infinite-dimensional spaces (such as spaces of curves or PDE solutions where closed bounded balls are no longer compact), the extremal principle evolves into the <strong>Direct Method in the Calculus of Variations</strong> (using weak compactness and lower semicontinuity) and <strong>Mountain Pass / Minimax Theory</strong> (<a href="p41-mountain-pass.html"><span class="pid">P41</span></a>).</p>
-  </aside>
+<h2>5 · When the trick breaks</h2>
+<p><strong>The maximum may not be attained.</strong> On the open interval \((0, 1)\), the values of \(x\) climb towards 1 and never arrive; the "largest element" does not exist, and any argument starting "take the largest \(x\)" is decoration on a vacancy. The discrete maximum principle's fine print is the same trap: over the <em>unbounded</em> grid \(\mathbb{Z}^2\), the function \(u(i, j) = i\) is harmonic at every point — \(\tfrac{(i+1) + (i-1) + i + i}{4} = i\) exactly — and spectacularly non-constant. The failure is precisely the failure of attainment: the values have no maximum to stand on. The license is not a formality; it is the proof's foundation, and on infinite families it is where the work goes.</p>
+<p><strong>The extreme may be the wrong extreme.</strong> Extremality fences the object in one direction only. Take the diameter pair of a point set — the two farthest-apart points — and the seductive claim "every other point sees the pair at an angle of at least \(90^\circ\)". Run it: \(a = (-1, 0)\), \(b = (1, 0)\), \(c = (0, 1.1)\). The pair \((a, b)\) is a genuine diameter pair (\(|ab| = 2\), while \(|ac| = |bc| = \sqrt{2.21} \approx 1.487\)), yet the angle at \(c\) has cosine \(\tfrac{(-1)(1) + (-1.1)(-1.1)}{2.21} = \tfrac{0.21}{2.21} > 0\) — strictly less than \(90^\circ\). The diameter fence points along the segment, not around it; the claim needed a different extreme (the closest pair to a line, in Kelly's proof) and no amount of pushing repairs the wrong choice. When an extremal argument stalls, the first audit is the measure: is the fence built along the direction the claim needs?</p>
+<p><strong>Ties, and the honesty of "the".</strong> "The largest element" presumes uniqueness that families rarely offer. An equilateral triangle has three longest sides; a regular tournament (Exemplar B's five-player table, where every player wins exactly two games) has many longest paths. The move survives ties — "pick any one and call it the diameter pair" — but the argument must be checked to use only what every maximizer shares, not what the particular pick happens to have. The one-line audit: rerun the proof's steps against a different maximizer; if any step cites an accident of the choice, the proof is not yet done.</p>
+<p><strong>Greedy is not extremal.</strong> Iterating a locally extreme choice (take the shortest segment, then the next shortest, …) is a different — and much weaker — move than optimizing over the whole object at once. The non-crossing matching theorem is proved by minimizing the <em>total</em> length over all perfect matchings at once; the greedy shortest-first version can paint itself into a crossing. The scope of this page is the one-shot extreme over the whole family; iterated extremes belong to a different pattern (P72's monovariants are the honest bridge).</p>
+<p class="words">Honest scope: the extremal principle converts existence of an attained maximum into a free one-directional constraint. It gives no information about non-extreme objects, it gives nothing in the direction the measure does not point, and on infinite families the attainment license is the whole proof. When the extreme exists but the fence points the wrong way, the repair is a new measure — chosen, as P03 taught, to aim at the claim's actual load-bearing direction.</p>
 </section>
 
 <section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When you want to run the local improvement step \(x \mapsto x'\) repeatedly as a dynamical process and prove that the process must terminate in finitely many steps:</strong> Step forward to the next chapter, <a href="p72-monovariants.html"><span class="pid">P72</span> · Monovariants</a>.</li>
-    <li><strong>When your extremal set \(\mathcal{S}\) is the set of hypothetical counterexamples in \(\mathbb{Z}_{\ge 1}\) and you want to prove \(\mathcal{S} = \emptyset\):</strong> Pair <span class="pid">P71</span> with <a href="p13-descent.html"><span class="pid">P13</span> · Infinite descent</a>.</li>
-    <li><strong>When you need a saddle critical point between two local minima rather than a global minimum:</strong> Escalate to Tier 4's <a href="p41-mountain-pass.html"><span class="pid">P41</span> · The mountain pass</a>.</li>
-  </ul>
+<h2>6 · What to try next</h2>
+<p>The extremal principle is the static member of a family of "one special object" moves, and its siblings are one door away. When the extreme object can be <em>modified</em> — moved, flipped, grown — and the modification must not decrease the measure, the argument becomes dynamic: that is <a href="p72-monovariants.html">P72 · Monovariants</a>, the constructive engine behind the descent arguments, and the natural next page. When the extremal choice is over <em>pairs</em> and the fence is a counting statement, the partner is <a href="p10-pigeonhole.html">P10 · Pigeonhole</a> — Kelly's proof used them braided, and the Hesse exercise below needs <a href="p70-double-counting.html">P70 · Double counting</a> on top. When the family is infinite and attainment is the obstacle, the repair is usually a compactness or discreteness hypothesis imported from the claim's own statement — reread the claim's fine print before inventing machinery. The default: before any existence claim, spend one minute choosing the measure and checking attainment; the minute is the cheapest in mathematics.</p>
 </section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Fermat's <em>minimum</em> and Gauss's minimum-modulus proof to Hilbert, Kelly, and Lovász (1629 – 1966).</strong></p>
-    <ul>
-      <li><strong>Pierre de Fermat (1629–1640) &amp; Johann Bernoulli (1696):</strong> Fermat introduced both halves of extremal reasoning: his analytical <em>Method of Maxima and Minima</em> (observing that at an extremum \(x^*\), a first-order perturbation \(x^* + e\) leaves \(f(x^*)\) stationary) and his number-theoretic <em>Infinite Descent</em> (picking the smallest hypothetical solution in \(\mathbb{Z}_{\ge 1}\)).</li>
-      <li><strong>Carl Friedrich Gauss (1799) &amp; Jean-Robert Argand (1806):</strong> To prove the Fundamental Theorem of Algebra (that every non-constant complex polynomial \(P(z)\) has a root \(P(z^*) = 0\)), Argand and Cauchy chose a point \(z^* \in \arg\min_{z \in \mathbb{C}} |P(z)|\) minimizing the modulus \(|P(z)|\). If \(P(z^*) \neq 0\), moving a tiny step in the direction opposing the lowest non-zero Taylor term \(c_k (z - z^*)^k\) strictly decreases \(|P(z)|\) — contradicting minimality!</li>
-      <li><strong>David Hilbert (1900) &amp; Oskar Perron (1914):</strong> In proving Dirichlet's Principle for harmonic functions, Hilbert showed how to guarantee that an infimum is actually attained, while Perron formulated his famous paradox ("Let \(N\) be the largest positive integer...") to warn mathematicians that the local perturbation step is useless until existence of the extremum is proved.</li>
-      <li><strong>László Rédei (1934), L. M. Kelly (1948) &amp; László Lovász (1966):</strong> In twentieth-century combinatorics, Rédei's longest-path tournament proof, Kelly's minimum-altitude proof of Sylvester–Gallai, and Lovász's maximum-cut graph partitioning established the extremal principle as a foundational olympiad and research weapon (codified in Arthur Engel's 1998 <em>Problem-Solving Strategies</em>).</li>
-    </ul>
-  </aside>
+<h2>7 · Lineage interlude</h2>
+<p>The move is as old as maxima and minima, but its combinatorial adulthood is recent. James Joseph Sylvester posed the ordinary-line question in 1893, in the pages of the <em>Educational Times</em>, and it resisted proof for half a century: Eberhard Melchior proved the projective dual in 1941, Paul Erdős restated the conjecture in 1943, Tibor Gallai proved it soon after — his proof is dated 1944 — and Leroy Kelly's minimum-distance argument, the one Exemplar A runs, became the classic proof; de Bruijn and Erdős's 1948 paper on incidence geometry brought the whole circle of ideas to a wide audience. (Kelly himself later suggested, in 1986, that Sylvester may have been prodded by the Hesse configuration — Exercise 5's nine points and twelve lines — whose inflection points over \(\mathbb{C}\) are exactly the ordinary-line theorem's failure.) László Rédei proved the tournament path theorem in 1934; the maximum-principle tradition in analysis runs from the classical elliptic theory through the discrete formulations codified by Protter and Weinberger in 1967. And the deepest modern descendant is the Erdős–Szekeres theorem of 1935 — any sequence of \((r-1)(s-1) + 1\) distinct numbers carries an increasing run of \(r\) or a decreasing run of \(s\) — whose proof is this page's fence, applied to a cleverly labeled census, and whose exercise version is Exercise 3 below.</p>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
+<h2>8 · Exercises</h2>
 
-  <div class="exercise">
-    <p><strong>Exercise P71.1 (●○○ — The water-balloon nearest-neighbor puzzle).</strong> Suppose \(N \ge 2\) people stand on a flat plane so that all \(\binom{N}{2}\) pairwise distances between them are distinct. At a signal, every person throws a water balloon at their single nearest neighbor.</p>
-    <ol>
-      <li>Use the extremal principle to prove in two sentences that at least two people throw their water balloons at <em>each other</em>.</li>
-      <li>Suppose two people \(P\) and \(Q\) both throw their water balloons at the same person \(C\). Prove that in \(\triangle PCQ\), the side \(|PQ|\) is strictly the longest side, deduce that \(\angle PCQ &gt; 60^\circ\), and conclude that at most \(5\) people can hit any single person \(C\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>For Part 1, pick the pair \(\{A, B\}\) achieving the minimum distance across all \(\binom{N}{2}\) pairs. For Part 2, since \(C\) is \(P\)'s nearest neighbor, \(|PC| &lt; |PQ|\), and since \(C\) is \(Q\)'s nearest neighbor, \(|QC| &lt; |PQ|\); in any triangle, the largest angle lies opposite the longest side.</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Mutual nearest-neighbor pair via minimum distance.</strong> Because the set of \(\binom{N}{2}\) pairs of distinct people is finite and non-empty, there exists a pair \(\{A, B\}\) achieving the absolute minimum distance \(d(A, B) = \min_{X \neq Y} d(X, Y)\). Since \(d(A, B)\) is smaller than every other distance in the entire plane, \(B\) is \(A\)'s nearest neighbor and \(A\) is \(B\)'s nearest neighbor, so \(A\) and \(B\) throw at each other.</p>
-      <p><strong>2. Maximum in-degree bound of \(5\).</strong> Since \(P\) throws at \(C\) rather than \(Q\), \(|PC| &lt; |PQ|\); since \(Q\) throws at \(C\) rather than \(P\), \(|QC| &lt; |PQ|\). Thus in \(\triangle PCQ\), side \(PQ\) is strictly longer than both \(PC\) and \(QC\), so the angle opposite \(PQ\) is strictly the largest angle of \(\triangle PCQ\): \(\angle PCQ &gt; \angle CPQ\) and \(\angle PCQ &gt; \angle CQP\). Since the three angles sum to \(180^\circ\), \(3\angle PCQ &gt; 180^\circ \implies \angle PCQ &gt; 60^\circ\). Because all rays from \(C\) to its attackers have pairwise angles strictly greater than \(60^\circ\) around a \(360^\circ\) circle, fewer than \(360^\circ / 60^\circ = 6\) people — hence at most \(5\) — can hit \(C\).</p>
-    </details>
-  </div>
+<h3>Exercise 1 ●○○</h3>
+<p>In any triangle, the longest side faces the largest angle. Verify the claim on the \(3\text{-}4\text{-}5\) right triangle and on an equilateral triangle (what happens to "the" longest side, and does the claim survive the tie?). Then prove it: suppose \(a \ge b \ge c\) are the sides opposite angles \(A, B, C\); from the law of sines, \(\tfrac{a}{\sin A} = \tfrac{b}{\sin B}\), and \(\sin\) is increasing on \([0^\circ, 90^\circ]\) — say where the obtuse case needs its own sentence.</p>
+<details><summary>Hint</summary><p>In the \(3\text{-}4\text{-}5\) triangle the angles are approximately \(36.87^\circ\), \(53.13^\circ\), \(90^\circ\) — check the order matches the side order. For the proof: an obtuse angle is automatically the largest, so you may assume all angles are acute, where \(\sin\) is strictly increasing.</p></details>
+<details><summary>Worked answer</summary><p>The \(3\text{-}4\text{-}5\) triangle: sides \(3 < 4 < 5\), opposite angles \(\arcsin\tfrac{3}{5} \approx 36.87^\circ < \arcsin\tfrac{4}{5} \approx 53.13^\circ < 90^\circ\) — the order agrees. The equilateral triangle: all sides tie, all angles equal \(60^\circ\); "the longest side" is not unique, but the claim (longest side faces a largest angle) survives — every longest side faces a largest angle. Proof: if some angle \(A\) is obtuse or right, it is the unique largest angle, and its opposite side \(a\) is the longest (the side opposite the largest angle in any triangle is the longest, by the law of cosines: \(a^2 = b^2 + c^2 - 2bc\cos A \ge b^2 + c^2 - bc \ge \max(b^2, c^2)\), with equality forcing \(b = c = a\)). Otherwise all angles are acute and \(\sin\) is strictly increasing on \([0^\circ, 90^\circ]\); from \(\tfrac{a}{\sin A} = \tfrac{b}{\sin B} = \tfrac{c}{\sin C}\), larger side ⟺ larger angle, both directions. The tie audit of §5: in the acute case the correspondence is an if-and-only-if, so ties on sides match ties on angles — the proof uses only what every maximizer shares.</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P71.2 (●●○ — Maurer's "King Chicken" theorem in tournaments).</strong> In a finite round-robin tournament \(T = (V, E)\) with no ties, a player \(v^* \in V\) is called a <strong>king</strong> if for every other player \(w \in V\), either \(v^*\) beat \(w\) directly (\(v^* \to w\)) or there is some player \(u \in V\) such that \(v^*\) beat \(u\) and \(u\) beat \(w\) (\(v^* \to u \to w\)).</p>
-    <p>Choose a player \(v^* \in \arg\max_{v \in V} \operatorname{outdeg}(v)\) with the <strong>maximum number of wins</strong> in the tournament. Prove that \(v^*\) is a king!</p>
-    <details>
-      <summary>Hint</summary>
-      <p>Suppose for contradiction that some player \(w\) is neither beaten directly by \(v^*\) nor beaten in \(2\) steps from \(v^*\). Then \(w \to v^*\), and for every player \(u\) in the win-set \(W(v^*) = \{u : v^* \to u\}\), what must the arrow between \(u\) and \(w\) be? Compare \(\operatorname{outdeg}(w)\) with \(\operatorname{outdeg}(v^*)\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Pick a player of maximum out-degree.</strong> Since \(V\) is finite, choose \(v^* \in \arg\max_{v \in V} \operatorname{outdeg}(v)\), and let \(k = \operatorname{outdeg}(v^*)\) be the number of players beaten directly by \(v^*\). Let \(W(v^*) = \{u_1, u_2, \dots, u_k\}\) be the set of those \(k\) players.</p>
-      <p><strong>2. Show that any player unreached in \(\le 2\) steps would have \(\ge k + 1\) wins.</strong> Suppose for contradiction that \(v^*\) is not a king, so there is some player \(w \neq v^*\) reached in neither \(1\) nor \(2\) steps from \(v^*\):</p>
-      <ul>
-        <li>Because \(v^*\) did not beat \(w\) in \(1\) step, \(w\) must have beaten \(v^*\): <strong>\(w \to v^*\)</strong>.</li>
-        <li>Because \(v^*\) did not beat \(w\) in \(2\) steps via any \(u_i \in W(v^*)\) (where \(v^* \to u_i\)), none of \(u_1, \dots, u_k\) could have beaten \(w\); hence \(w\) must have beaten <em>every</em> \(u_i\): <strong>\(w \to u_i\) for all \(i = 1, \dots, k\)</strong>!</li>
-      </ul>
-      <p>Thus \(w\) beat all \(k\) players in \(W(v^*)\) <em>plus</em> \(v^*\) itself, giving \(\operatorname{outdeg}(w) \ge k + 1 &gt; k = \operatorname{outdeg}(v^*)\) — contradicting that \(v^*\) had the maximum number of wins! Therefore \(v^*\) is a king.</p>
-    </details>
-  </div>
+<h3>Exercise 2 ●●○</h3>
+<p>Five players round-robin, results: 1 beats 2 and 3; 2 beats 3 and 4; 3 beats 4 and 5; 4 beats 1 and 5; 5 beats 1 and 2. (Every player wins exactly two — a <em>regular</em> tournament.) (a) Find a full directed path through all five players by hand. (b) Every one of the \(2^{10} = 1024\) tournaments on five labeled players has such a path; explain in the language of Exemplar B why the extremal proof gives <em>every</em> tournament at once, and where the proof uses that the number of players is finite.</p>
+<details><summary>Hint</summary><p>For (a): who beats whom among {4, 1, 2, 3, 5}, in that order? Check each consecutive pair. For (b): the longest-path fence — "otherwise the path extends" — never mentions which tournament you are in.</p></details>
+<details><summary>Worked answer</summary><p>(a) \(4 \to 1 \to 2 \to 3 \to 5\): 4 beats 1 ✓, 1 beats 2 ✓, 2 beats 3 ✓, 3 beats 5 ✓ — a full directed path. (b) The proof in Exemplar B never inspects the win–loss table beyond the pair at hand: "if \(v_1\) beats \(u\), prepend" and "if \(u\) beats \(v_n\), append" are valid in any tournament, and the flip-splice is forced by scanning the fixed line-up. So one argument covers all \(2^{\binom{n}{2}}\) tournaments simultaneously — that is what the extremal fence buys: the constraint is structural, not statistical. Finiteness is used exactly once: a longest path exists because there are finitely many line-ups of \(n\) players. On an infinite tournament the claim survives but needs a different argument (a choice function or compactness), because "longest" may not be attained — the §5 license again.</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P71.3 (●●● — Lovász's max-cut degree-splitting theorem).</strong> Let \(G = (V, E)\) be a finite simple graph in which every vertex has degree at most \(3\) (\(\deg_G(v) \le 3\) for all \(v \in V\)). Prove that the vertex set \(V\) can be partitioned into two disjoint sets \(V = A \sqcup B\) such that in the induced subgraphs \(G[A]\) and \(G[B]\), every vertex has degree at most \(1\) (i.e., both \(G[A]\) and \(G[B]\) consist exclusively of isolated vertices and disjoint edges!).</p>
-    <details>
-      <summary>Hint</summary>
-      <p>Among all \(2^{|V|}\) partitions \(V = A \sqcup B\), pick a partition \((A^*, B^*)\) that <strong>maximizes the number of crossing edges</strong> \(e(A^*, B^*)\) between \(A^*\) and \(B^*\). What happens to \(e(A^*, B^*)\) if some vertex \(v \in A^*\) has \(\ge 2\) neighbors inside \(A^*\) and you move \(v\) across to \(B^*\)?</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Choose a Max-Cut partition.</strong> There are \(2^{|V|} &lt; \infty\) partitions \(V = A \sqcup B\). For each partition, let \(e(A, B)\) be the number of edges of \(G\) with one endpoint in \(A\) and one endpoint in \(B\). Because the set of partitions is finite, choose a partition \((A^*, B^*)\) that <strong>maximizes</strong> \(e(A, B)\).</p>
-      <p><strong>2. Local vertex-flip perturbation.</strong> Suppose for contradiction that some vertex \(v\) — say \(v \in A^*\) (by <a href="p68-wlog.html"><span class="pid">P68</span> · WLOG</a>) — has at least \(2\) neighbors inside \(A^*\): \(\deg_{A^*}(v) \ge 2\). Since \(\deg_G(v) \le 3\), the number of neighbors of \(v\) in \(B^*\) satisfies</p>
-      \[
-        \deg_{B^*}(v) \;=\; \deg_G(v) \,-\, \deg_{A^*}(v) \;\le\; 3 - 2 \;=\; 1.
-      \]
-      <p>Now form a new partition \((A', B') = (A^* \setminus \{v\},\; B^* \cup \{v\})\) by moving \(v\) from \(A^*\) to \(B^*\). Moving \(v\) turns its \(\deg_{A^*}(v) \ge 2\) internal edges into crossing edges and turns its \(\deg_{B^*}(v) \le 1\) crossing edges into internal edges, while leaving all other edges unchanged:</p>
-      \[
-        e(A', B') \;=\; e(A^*, B^*) + \deg_{A^*}(v) - \deg_{B^*}(v) \;\ge\; e(A^*, B^*) + 2 - 1 \;=\; e(A^*, B^*) + 1 \;&gt;\; e(A^*, B^*),
-      \]
-      <p>contradicting the maximality of \(e(A^*, B^*)\)! Thus every vertex in \(A^*\) has at most \(1\) neighbor in \(A^*\), and every vertex in \(B^*\) has at most \(1\) neighbor in \(B^*\).</p>
-    </details>
-  </div>
+<h3>Exercise 3 ●●●</h3>
+<p>Any sequence of \(17\) distinct real numbers contains an increasing subsequence of length \(5\) or a decreasing subsequence of length \(5\). (a) Show \(16\) does not suffice: verify that \(4, 3, 2, 1,\; 8, 7, 6, 5,\; 12, 11, 10, 9,\; 16, 15, 14, 13\) has no monotone run of length \(5\). (b) Prove the \(17\) claim: label each term with the pair (length of the longest increasing run ending there, longest decreasing run ending there) and show the \(16\) labels are distinct — then pigeonhole (<span class="pid">P10</span>) finishes. (c) A computer sweep confirms the claim on \(1000\) random permutations of \(\{1, \ldots, 17\}\); explain why that census is a detector, not a proof, and what the proof in (b) delivers that the census cannot.</p>
+<details><summary>Hint</summary><p>For (a): an increasing run picks at most one term from each decreasing block of four — and there are four blocks. For (b): if two terms carried the same pair \((r, s)\) and the earlier one is smaller, which run grows?</p></details>
+<details><summary>Worked answer</summary><p>(a) Each of the four blocks is decreasing, so a decreasing run takes at most \(4\) (one whole block); an increasing run takes at most one term per block, and there are \(4\) blocks — at most \(4\). A direct run-by-run enumeration confirms it. (b) Suppose terms \(x_i\) (earlier) and \(x_j\) (later) carry the same label \((r, s)\). If \(x_i < x_j\), an increasing run of length \(r\) ends at \(x_i\), and appending \(x_j\) makes length \(r + 1\) end at \(x_j\) — contradicting the label; if \(x_i > x_j\), the decreasing run grows the same way. Either way the labels differ. So the \(17\) terms have \(17\) distinct labels \((r, s)\) with \(1 \le r, s \le 4\) — only \(16\) pairs exist, pigeonhole contradiction. (c) The census is a detector: \(1000\) confirmations raise confidence and can kill a wrong constant, but they touch none of the structure. The proof delivers the exact boundary (\(16\) vs \(17\)), the reason (label injectivity + pigeonhole), and the general law — \((r-1)(s-1) + 1\) terms force a run of \(r\) up or \(s\) down — which no census states.</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P71.4 (◆ — Pattern-unknown diagnosis).</strong> Suppose every point \((i, j)\) of the infinite two-dimensional integer lattice \(\mathbb{Z}^2\) is assigned a <strong>positive integer</strong> \(u(i, j) \in \mathbb{Z}_{\ge 1}\) such that at every lattice point \((i, j) \in \mathbb{Z}^2\), the value \(u(i, j)\) equals the arithmetic mean of its four cardinal neighbors:</p>
-    \[
-      u(i, j) \;=\; \frac{u(i+1, j) + u(i-1, j) + u(i, j+1) + u(i, j-1)}{4}.
-    \]
-    <p>Prove that \(u(i, j)\) is constant across the entire infinite grid \(\mathbb{Z}^2\). (Also explain why the conclusion fails if "positive integer" is replaced by "real number"!)</p>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Pattern diagnosis (<a href="p71-extremal-principle.html"><span class="pid">P71</span> · The extremal principle</a> via Well-Ordering of \(\mathbb{Z}_{\ge 1}\)).</strong> Even though the domain \(\mathbb{Z}^2\) is infinite (so a real-valued function on \(\mathbb{Z}^2\) need not attain a minimum or maximum), the set of values \(u(\mathbb{Z}^2) \subseteq \mathbb{Z}_{\ge 1}\) is a non-empty subset of the positive integers! By the <strong>Well-Ordering Principle</strong> (Obligation 2 of Box P71.A), \(u(\mathbb{Z}^2)\) attains its global minimum</p>
-      \[
-        m \;=\; \min_{(i, j) \in \mathbb{Z}^2} u(i, j) \;\in\; \mathbb{Z}_{\ge 1}
-      \]
-      <p>at some lattice point \((i_0, j_0) \in \mathbb{Z}^2\).</p>
-      <p><strong>2. Propagation of the minimum \(m\).</strong> Rewriting the harmonic averaging equation at \((i_0, j_0)\) where \(u(i_0, j_0) = m\) gives</p>
-      \[
-        \bigl[u(i_0+1, j_0) - m\bigr] + \bigl[u(i_0-1, j_0) - m\bigr] + \bigl[u(i_0, j_0+1) - m\bigr] + \bigl[u(i_0, j_0-1) - m\bigr] \;=\; 0.
-      \]
-      <p>Because \(m\) is the global minimum, every bracketed difference is nonnegative (\(\ge 0\)). A sum of four nonnegative numbers is \(0\) if and only if all four are \(0\), so all four neighbors of \((i_0, j_0)\) also have value \(m\). Repeating this step along lattice paths from \((i_0, j_0)\) proves \(u(i, j) = m\) for every \((i, j) \in \mathbb{Z}^2\). (If real numbers or arbitrary integers in \(\mathbb{Z}\) were allowed, the linear function \(u(i, j) = i\) satisfies \(\frac{(i+1) + (i-1) + i + i}{4} = i\) everywhere without being constant, because \(\mathbb{Z}\) has no minimum!)</p>
-    </details>
-  </div>
+<h3>Exercise 4 ◆</h3>
+<p>A student argues: "Under \(a + b = 10\) with \(a, b > 0\), the quantity \(a^2 + b^2\) is largest at the most symmetric point \(a = b = 5\), where it equals \(50\) — by symmetry." Diagnose the argument: which pattern's warning does it violate, what is the true maximum (and where), and what does the symmetric point actually optimize? Then state the general lesson as a rule about when symmetry arguments locate maxima and when they locate something else.</p>
+<details><summary>Worked answer</summary><p>The claim dies by computation: \(a^2 + b^2 = a^2 + (10 - a)^2 = 2a^2 - 20a + 100 = 2(a - 5)^2 + 50\). The symmetric point \(a = 5\) is the <em>minimum</em> (\(50\)); the maximum on \(0 < a < 10\) is approached at the boundary and, over positive integers, attained at \(a = 1, b = 9\) (or swapped): \(1 + 81 = 82\). The violated warning is Box P03.A's item 3 via P03's own register: the symmetric case is where hidden assumptions <em>surface</em> — it is a stress-test, not a certificate; symmetry shows a point is <em>critical</em> (the derivative vanishes, or the value is pinned by the symmetry), and a critical point may be a minimum. The general lesson: symmetry arguments locate candidates — points fixed by the symmetry — and the extremal direction must be checked separately (here, the sum of squares is convex, so symmetry pins the bottom, and the maximum lives at the fence: the boundary, or the integer extremes). §5's "wrong extreme" in miniature: the fence points outward, and the student read it as pointing inward.</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P71.5 (◐ — Exploration: Why Sylvester–Gallai fails over \(\mathbb{C}\) — the 9-point Hesse configuration).</strong> In Section 2, Kelly's extremal proof used the Euclidean distance \(h(P, \ell) &gt; 0\) to prove that every non-collinear finite point set in \(\mathbb{R}^2\) has an ordinary line (a line with exactly \(2\) points). What happens in the complex plane \(\mathbb{C}^2\) (or complex projective plane \(\mathbb{CP}^2\))? Consider the \(9\) points in \(\mathbb{CP}^2\) (with \(\omega = e^{2\pi i / 3}\) a primitive cube root of unity):</p>
-    \[
-      \begin{aligned}
-        &amp;[0 : 1 : -1], \quad [0 : 1 : -\omega], \quad [0 : 1 : -\omega^2], \\
-        &amp;[1 : 0 : -1], \quad [1 : 0 : -\omega], \quad [1 : 0 : -\omega^2], \\
-        &amp;[1 : -1 : 0], \quad [1 : -\omega : 0], \quad [1 : -\omega^2 : 0].
-      \end{aligned}
-    \]
-    <p>Verify that these \(9\) points are the inflection points of the cubic curve \(x^3 + y^3 + z^3 = 0\), that every line through any \(2\) of these \(9\) points contains a \(3\)-rd point of the set (forming \(12\) lines of \(3\) points each, with \(0\) ordinary lines!), and explain which step of Kelly's extremal proof breaks down over \(\mathbb{C}\).</p>
-    <details>
-      <summary>Hint</summary>
-      <p>Count pairs of points: there are \(\binom{9}{2} = 36\) pairs, and each of the \(12\) lines of \(3\) points covers \(\binom{3}{2} = 3\) pairs (\(12 \times 3 = 36\), double counting <span class="pid">P70</span>!). In Kelly's proof, look at the step where Pigeonhole places two of \(A, B, C\) on the same side of \(Q\) along the real line \(\ell^*\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Verification of the Hesse configuration \((9_4, 12_3)\).</strong> Each of the \(9\) points satisfies \(x^3 + y^3 + z^3 = 0 + 1 + (-\omega^k)^3 = 1 - 1 = 0\). There are \(12\) lines containing \(3\) points each: the \(3\) coordinate lines \(x = 0, y = 0, z = 0\) (each containing \(3\) points), plus the \(9\) lines \(x + \omega^a y + \omega^b z = 0\) for \(a, b \in \{0, 1, 2\}\) (each containing \([0 : 1 : -\omega^{a-b}]\), \([1 : 0 : -\omega^{-b}]\), and \([1 : -\omega^{-a} : 0]\)). By <a href="p70-double-counting.html"><span class="pid">P70</span> · Double counting</a>, these \(12\) three-point lines account for \(12 \times \binom{3}{2} = 36 = \binom{9}{2}\) point pairs — exhausting all pairs of points, so <em>no ordinary line exists</em>!</p>
-      <p><strong>2. Where Kelly's extremal proof breaks over \(\mathbb{C}\).</strong> Even if you equip \(\mathbb{C}^2\) or \(\mathbb{CP}^2\) with a Hermitian/Fubini–Study distance and pick the minimum-distance pair \((P^*, \ell^*)\), a complex projective line \(\ell^* \cong \mathbb{CP}^1 \cong S^2\) is a \(2\)-dimensional sphere (or complex plane \(\mathbb{C}\)), <em>not</em> an ordered \(1\)-dimensional real line! On a real line, three points \(A, B, C\) have a linear order so two lie on the same side of the foot \(Q\) with \(|BC| \le |QC| &lt; |P^* C|\). On a complex line \(\mathbb{C}\), the three cube roots of unity \(1, \omega, \omega^2\) form an equilateral triangle around \(Q = 0\), so none lies "between" \(Q\) and another point!</p>
-    </details>
-  </div>
+<h3>Exercise 5 ◐</h3>
+<p>Over the complex plane, Sylvester's ordinary-line theorem fails. Consider the nine points of \(\mathbb{CP}^2\) (with \(\omega = e^{2\pi i/3}\) a primitive cube root of unity): \([0{:}1{:}-1], [0{:}1{:}-\omega], [0{:}1{:}-\omega^2]\); \([1{:}0{:}-1], [1{:}0{:}-\omega], [1{:}0{:}-\omega^2]\); \([1{:}-1{:}0], [1{:}-\omega{:}0], [1{:}-\omega^2{:}0]\). (i) Verify each point satisfies \(x^3 + y^3 + z^3 = 0\) (the inflection points of the cubic \(x^3 + y^3 + z^3 = 0\)). (ii) Verify that every line through two of the nine contains a third — there are \(12\) such lines, each with exactly \(3\) points, so \(12 \times \binom{3}{2} = 36 = \binom{9}{2}\): <em>zero ordinary lines</em> (<span class="pid">P70</span>'s ledger, audited). (iii) Explain which step of Kelly's proof breaks over \(\mathbb{C}\): with a complex distance picked, the three points on the extremal line need not have a "same side of \(Q\)" — the cube roots \(1, \omega, \omega^2\) form an equilateral triangle around any natural origin, and "side of a point on a line" is a <em>real-line</em> concept the complex line does not honor. This configuration (\(9_4, 12_3\)) is the Hesse configuration, and it is why the theorem's statement begins "in the plane" — the real plane.</p>
+<details><summary>Hint</summary><p>For (ii): the \(3\) coordinate lines \(x = 0, y = 0, z = 0\) each carry three of the points; the other \(9\) lines have equations \(x + \omega^a y + \omega^b z = 0\) for \(a, b \in \{0, 1, 2\}\). For (iii): reread the pigeonhole step of Exemplar A — it needs an <em>order</em> on the line.</p></details>
+<details><summary>Worked answer</summary><p>(i) For \([0{:}1{:}-\omega^k]\): \(0 + 1 + (-\omega^k)^3 = 1 - \omega^{3k} = 1 - 1 = 0\); the other two families are the same computation with the zero in a different slot. (ii) A direct check: the \(9\) lines \(x + \omega^a y + \omega^b z = 0\) each contain \([0{:}1{:}-\omega^{a-b}]\), \([1{:}0{:}-\omega^{-b}]\), and \([1{:}-\omega^{-a}{:}0]\) — three points each — and together with the \(3\) coordinate lines they cover all \(\binom{9}{2} = 36\) pairs exactly once each (each line accounts for \(\binom{3}{2} = 3\) pairs, \(12 \times 3 = 36\)). No pair determines a line with only two points: zero ordinary lines. (iii) Kelly's proof, after choosing the minimal-distance pair \((P, \ell)\), needs three set-points on \(\ell\) to have two on the same side of the foot \(Q\) — "side" is an order notion on a <em>real</em> line, delivered by P10's two-box pigeonhole. A complex line is a copy of \(\mathbb{C}\), a plane: its points have no linear order, the pigeonhole has no boxes, and the fence collapses. The extremal choice survives the passage to \(\mathbb{C}\); the free constraint does not — a precise instance of §5's scope note that the constraint is one-directional and lives where the measure lives.</p></details>
 </section>
 
 <footer>
-  <nav>
-    <a href="index.html">← Atlas index</a> ·
-    <a href="p70-double-counting.html">← Previous: P70 · Double counting</a> ·
-    <a href="p72-monovariants.html">Next: P72 · Monovariants →</a>
-  </nav>
+<p><a href="index.html">Return to the index</a> · Next move: <a href="p72-monovariants.html">P72 · Monovariants</a></p>
 </footer>
-</main>
 </body>
 </html>
