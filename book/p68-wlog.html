@@ -1,730 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P68 · Without loss of generality — Patterns of Math</title>
-<style>
-  :root {
-    --bg: #faf8f5;
-    --fg: #1a1a1a;
-    --muted: #5a5550;
-    --accent: #8b2635;
-    --accent-soft: #f3e6e8;
-    --rule: #d8d2c7;
-    --box-bg: #f2eee6;
-    --warn-bg: #f9ebe0;
-    --warn-border: #b85d19;
-    --onramp-bg: #eef3f7;
-    --onramp-border: #3a6073;
-    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.65;
-  }
-  main {
-    max-width: 44rem;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 5rem;
-  }
-  header.chapter-header {
-    border-bottom: 2px solid var(--fg);
-    padding-bottom: 1.25rem;
-    margin-bottom: 2rem;
-  }
-  .tier-label {
-    font-family: var(--sans);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    margin: 0 0 0.4rem;
-  }
-  h1 {
-    font-size: 2.1rem;
-    line-height: 1.2;
-    margin: 0 0 0.5rem;
-    font-weight: 700;
-  }
-  .lede {
-    font-size: 1.15rem;
-    color: var(--muted);
-    margin: 0.4rem 0 0.8rem;
-    font-style: italic;
-  }
-  .prereqs {
-    font-family: var(--sans);
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin: 0.5rem 0 0;
-  }
-  .prereqs a, a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  h2 {
-    font-size: 1.45rem;
-    margin: 2.5rem 0 0.8rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid var(--rule);
-  }
-  h3 {
-    font-size: 1.15rem;
-    margin: 1.6rem 0 0.5rem;
-  }
-  p { margin: 0 0 1rem; }
-  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
-  li { margin-bottom: 0.4rem; }
-  .pid {
-    font-family: var(--mono);
-    font-size: 0.88em;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .onramp {
-    background: var(--onramp-bg);
-    border-left: 4px solid var(--onramp-border);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .onramp p:last-child { margin-bottom: 0; }
-  .pattern-box {
-    background: var(--box-bg);
-    border: 1.5px solid var(--fg);
-    padding: 1.1rem 1.3rem;
-    margin: 1.4rem 0;
-  }
-  .pattern-box h3 {
-    margin-top: 0;
-    font-family: var(--sans);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--accent);
-  }
-  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
-    margin-bottom: 0;
-  }
-  .aside {
-    background: var(--box-bg);
-    border-left: 4px solid var(--accent);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .aside.warn {
-    background: var(--warn-bg);
-    border-left-color: var(--warn-border);
-  }
-  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.25rem 0;
-    font-size: 0.92rem;
-  }
-  th, td {
-    border: 1px solid var(--rule);
-    padding: 0.5rem 0.65rem;
-    text-align: left;
-    vertical-align: top;
-  }
-  th {
-    background: var(--box-bg);
-    font-family: var(--sans);
-    font-size: 0.84rem;
-    font-weight: 600;
-  }
-  figure {
-    margin: 1.6rem 0;
-    padding: 0.9rem;
-    background: #fff;
-    border: 1px solid var(--rule);
-    text-align: center;
-  }
-  figcaption {
-    font-size: 0.86rem;
-    color: var(--muted);
-    margin-top: 0.6rem;
-    text-align: left;
-  }
-  .exercise {
-    border: 1px solid var(--rule);
-    background: #fff;
-    padding: 1rem 1.2rem;
-    margin: 1.2rem 0;
-  }
-  details {
-    margin-top: 0.6rem;
-    padding-top: 0.5rem;
-    border-top: 1px dashed var(--rule);
-    font-size: 0.94rem;
-  }
-  summary {
-    cursor: pointer;
-    font-family: var(--sans);
-    font-weight: 600;
-    color: var(--accent);
-  }
-  footer {
-    margin-top: 3.5rem;
-    padding-top: 1.2rem;
-    border-top: 2px solid var(--fg);
-    font-family: var(--sans);
-    font-size: 0.9rem;
-  }
-</style>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['\\(', '\\)']],
-      displayMath: [['\\[', '\\]']]
-    }
-  };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P68 · Without loss of generality · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-<main>
-<header class="chapter-header">
-  <p class="tier-label">Tier 2 · Canon Foundations</p>
-  <h1><span class="pid">P68</span> · Without loss of generality</h1>
-  <p class="lede">Exploit the symmetry group of a problem to sort variables, normalize scales, or pin down coordinates — collapsing \(n!\) identical branches of casework into a single canonical chamber.</p>
-  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p08-symmetry.html">P08 · Divide by symmetry</a>, <a href="p05-canonical-form.html">P05 · Put it in canonical form</a></p>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P68 · the eleventh move of tier 2</p>
+<h1>Without loss of generality</h1>
+<p class="tagline">Some claims come in families of cases that are clones of one another: reorder the variables and the claim says exactly the same thing. Walking every case by hand is P25's machine grinding through copies. The move: name the symmetry, prove the claim is invariant under it, pick one representative case, and prove <em>that</em> — once. The two words <em>without loss of generality</em> are the receipt for the whole transaction, and they are a debt, not a discount: the invariance is a lemma to prove, the case map is a check to run, and a symmetry of the hypotheses that is not a symmetry of the conclusion buys nothing at all. This page is <a href="p08-symmetry.html">P08</a>'s promise called in — the proof-side phrase P08 explicitly set aside.</p>
 </header>
 
-<aside class="onramp">
-  <p><strong>On-ramp 1 — What "Without loss of generality" (WLOG) actually means.</strong> When a proof says <em>"Without loss of generality, assume \(a \ge b \ge c\)"</em>, it is not ignoring the other five orderings of \((a, b, c)\); it is making a formal promise: <strong>any other valid input can be transformed into one satisfying \(a \ge b \ge c\) by a symmetry that leaves both the hypothesis and the conclusion unchanged.</strong> Once the claim is proved in the sorted region \(a \ge b \ge c\), applying the inverse relabeling immediately proves it everywhere else.</p>
-</aside>
-
-<aside class="onramp">
-  <p><strong>On-ramp 2 — Full permutation symmetry (\(S_n\)) vs. cyclic symmetry (\(C_n\)) vs. homogeneity.</strong> Three distinct symmetry families power \(95\%\) of WLOG moves:</p>
-  <ul>
-    <li><strong>Full permutation symmetry (\(S_n\)):</strong> Swapping <em>any</em> two variables leaves the problem unchanged (e.g., \(a + b + c\) or \(abc\)). Since any tuple can be sorted, you may assume \(a_1 \ge a_2 \ge \cdots \ge a_n\).</li>
-    <li><strong>Cyclic symmetry (\(C_n\)):</strong> Rotating the variables in a circle \((a, b, c) \mapsto (b, c, a) \mapsto (c, a, b)\) preserves the problem, but swapping two adjacent variables \((a, b, c) \mapsto (b, a, c)\) changes it (e.g., \(a^2 b + b^2 c + c^2 a\)). Here you have only \(3\) rotations, not \(6\) permutations: you may assume \(a = \max(a, b, c)\), which leaves <em>two</em> cases (\(a \ge b \ge c\) and \(a \ge c \ge b\)).</li>
-    <li><strong>Scaling homogeneity (\(\mathbb{R}_{&gt;0}\)):</strong> If multiplying all variables by \(\lambda &gt; 0\) scales both sides of an inequality by the same factor \(\lambda^d\), you may normalize \(a + b + c = 1\) (or \(abc = 1\)).</li>
-  </ul>
-</aside>
+<aside class="onramp"><strong>New word: invariant.</strong> A quantity or a claim is <em>invariant</em> under a move if the move changes nothing that matters: apply the move and the claim's truth value — and usually its whole form — is untouched. The claim "for positive \(a, b, c\), \(\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \geq \frac{3}{2}\)" is invariant under any reordering of \(a, b, c\): every term is a variable divided by the sum of the other two, and the sum does not care which name it wears. <strong>New word: representative.</strong> A <em>representative</em> is one case chosen to stand for a whole family of cases that the invariance has declared interchangeable. P08 picked representatives to <em>count</em> orbits; here we pick one to <em>prove</em> the claim for its entire orbit. <strong>New word: wlog.</strong> "<em>Without loss of generality</em>", abbreviated wlog, is the licensed declaration that a representative's proof covers its whole family. It is not a slogan to say — it is a three-part obligation to discharge: name the moves, check the invariance, map every case to its representative. Skip any part and the words are decoration on a gap.</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p>In <a href="p08-symmetry.html"><span class="pid">P08</span> · Divide by symmetry</a>, we used the three-fold symmetry of an equilateral triangle to prove Viviani's theorem (\(h_a + h_b + h_c = H\)) by summing three symmetric areas at once. And in <a href="p05-canonical-form.html"><span class="pid">P05</span> · Put it in canonical form</a>, we saw how choosing one standard representative per equivalence class lets us compare objects at a glance.</p>
-  <p>Now combine those two ideas with the casework we encountered in <a href="p67-contrapositive.html"><span class="pid">P67</span> · Prove the contrapositive</a>. In Exemplar 1 of <span class="pid">P67</span>, negating "\(3 \mid a\) and \(3 \mid b\)" gave "\(3 \nmid a\) or \(3 \nmid b\)". Notice that the subcase "\(3 \nmid a\) and \(3 \mid b\)" is identical to "\(3 \mid a\) and \(3 \nmid b\)" if we simply swap the labels \(a \leftrightarrow b\)! Whenever a symmetry group \(G\) acts on a problem without altering its hypotheses or conclusion, <strong>Without loss of generality (<span class="pid">P68</span>)</strong> chooses a single canonical slice (a <em>fundamental domain</em>) that intersects every symmetry orbit, dividing your casework by \(|G|\).</p>
+<h2>1 · Before we begin</h2>
+<blockquote><p><strong>From <a href="p08-symmetry.html">P08 · Divide by symmetry</a>:</strong> "Pattern P08 — Divide by symmetry. When the problem's objects come in symmetry-tied families and the question treats every member of a family identically: (1) name the moves that leave the <em>question</em> unchanged — those are the symmetries; (2) pick one <strong>representative</strong> per family and do the work on it, once; (3) cash out by the ledger — multiply the representative's answer by the family size, or divide the brute-force total by it. The family of clones one object generates under the symmetries is its <strong>orbit</strong>."</p>
+<p>Or, in words: twins do twin work. When a rotation, a swap, or a flip hands you identical copies of the same case, do the case once and bill the copies — but keep honest books. The ledger — exactly how many copies a family holds — is the mathematical heart of the move, and it is a fact to prove, not a habit to assume. A division by a number you did not prove is a guess wearing a fraction bar.</p></blockquote>
+<p>P08 counted. Its exemplars picked one triangle, one seating, one coloring, and multiplied by the ledger — because the question ("<em>how many?</em>") treats every member of an orbit identically, so the members' answers are equal and summable. But P08 stopped at the counting door and wrote down what it saw inside. Its scope aside said it outright: the <em>proof-side</em> phrase for "one representative, argued honestly for its whole orbit" — <em>without loss of generality</em> — is important enough to be its own pattern. This page is that pattern.</p>
+<p>The tension is in the word <em>loss</em>. A wlog declaration claims that restricting to a representative case loses nothing — that every other case is the representative wearing different names. Sometimes that is exactly true, and the proof is half as long as the census. Sometimes it is false in a way that looks true: the claim is invariant under <em>cyclic</em> shuffles but not under <em>all</em> shuffles, or invariant under scaling but only when the scale is positive, or the "symmetry" moves one hypothesis while quietly breaking the conclusion. The move's discipline is to earn the words every time — and §5 collects the ways unearned wlogs collapse.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: Schur's inequality and the six-way sign maze</h2>
-  <p>Let \(a, b, c \ge 0\) be any three nonnegative real numbers. Prove <strong>Schur's Inequality</strong> (for degree \(r = 1\)):</p>
-  \[
-    S(a, b, c) \;:=\; a(a - b)(a - c) \,+\, b(b - a)(b - c) \,+\, c(c - a)(c - b) \;\ge\; 0.
-  \]
-  <p>Try evaluating the three summands on the numbers \(\{1, 3, 5\}\) across all \(3! = 6\) possible assignments of \((a, b, c)\):</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Ordering of \((a, b, c)\)</th>
-        <th>First term \(a(a-b)(a-c)\)</th>
-        <th>Second term \(b(b-a)(b-c)\)</th>
-        <th>Third term \(c(c-a)(c-b)\)</th>
-        <th>Total sum \(S(a,b,c)\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>\((5, 3, 1)\) [\(a \ge b \ge c\)]</strong></td>
-        <td>\(5(2)(4) = +40\)</td>
-        <td>\(3(-2)(2) = -12\)</td>
-        <td>\(1(-4)(-2) = +8\)</td>
-        <td><strong>\(+36\)</strong></td>
-      </tr>
-      <tr>
-        <td>\((5, 1, 3)\) [\(a \ge c \ge b\)]</td>
-        <td>\(5(4)(2) = +40\)</td>
-        <td>\(1(-4)(-2) = +8\)</td>
-        <td>\(3(-2)(2) = -12\)</td>
-        <td>\(+36\)</td>
-      </tr>
-      <tr>
-        <td>\((3, 5, 1)\) [\(b \ge a \ge c\)]</td>
-        <td>\(3(-2)(2) = -12\)</td>
-        <td>\(5(2)(4) = +40\)</td>
-        <td>\(1(-2)(-4) = +8\)</td>
-        <td>\(+36\)</td>
-      </tr>
-      <tr>
-        <td>\((3, 1, 5)\) [\(c \ge a \ge b\)]</td>
-        <td>\(3(2)(-2) = -12\)</td>
-        <td>\(1(-2)(-4) = +8\)</td>
-        <td>\(5(2)(4) = +40\)</td>
-        <td>\(+36\)</td>
-      </tr>
-      <tr>
-        <td>\((1, 5, 3)\) [\(b \ge c \ge a\)]</td>
-        <td>\(1(-4)(-2) = +8\)</td>
-        <td>\(5(4)(2) = +40\)</td>
-        <td>\(3(2)(-2) = -12\)</td>
-        <td>\(+36\)</td>
-      </tr>
-      <tr>
-        <td>\((1, 3, 5)\) [\(c \ge b \ge a\)]</td>
-        <td>\(1(-2)(-4) = +8\)</td>
-        <td>\(3(2)(-2) = -12\)</td>
-        <td>\(5(4)(2) = +40\)</td>
-        <td>\(+36\)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Look at the table: in every row, the <em>middle</em> number produces the negative term (\(-12\)), while the largest and smallest numbers produce positive terms (\(+40\) and \(+8\)). If we do not fix which variable is largest, middle, and smallest, we cannot know which of the three terms is negative!</p>
-  <p>Now observe that permuting the three labels \((a, b, c)\) simply permutes the three summands of \(S(a, b, c)\) without changing their sum or the condition \(a, b, c \ge 0\). Therefore:</p>
-  \[
-    \textbf{Without loss of generality, assume } a \ge b \ge c \ge 0.
-  \]
-  <p>Once \(a \ge b \ge c \ge 0\) is locked in, every difference has a known sign: \(a - b \ge 0\), \(a - c \ge b - c \ge 0\). Factoring \(a - b\) out of the first two terms (where \(b - a = -(a - b)\)) gives:</p>
-  \[
-    \begin{aligned}
-      S(a, b, c) &\;=\; (a - b)\Bigl[a(a - c) \,-\, b(b - c)\Bigr] \,+\, c(a - c)(b - c) \\
-      &\;\ge\; (a - b)\Bigl[b(a - c) \,-\, b(b - c)\Bigr] \,+\, c(a - c)(b - c) \\
-      &\;=\; b(a - b)^2 \,+\, c(a - c)(b - c) \;\ge\; 0,
-    \end{aligned}
-  \]
-  <p>since \(b, c, (a-b)^2, (a-c), (b-c)\) are all nonnegative! One line of algebra in the sorted chamber \(a \ge b \ge c\) settles all six orderings at once.</p>
+<h2>2 · Meet the problem: six cases that are one case</h2>
+<p>Here is a claim with real teeth. For positive reals \(a, b, c\), Schur's inequality of degree one:</p>
+<p>\[S \;=\; a(a-b)(a-c) \;+\; b(b-c)(b-a) \;+\; c(c-a)(c-b) \;\geq\; 0.\]</p>
+<p>Try it forward and you are handling three terms whose signs depend on the <em>ordering</em> of \(a, b, c\). With \(a \geq b\): the first term is nonnegative, the second is nonpositive, the third is nonnegative — but which dominates? The brute-force answer is a census: fix the multiset \(\{1, 3, 5\}\) and run all six orderings.</p>
+<table class="digit-table">
+<caption>The census, all six orderings of \(\{1, 3, 5\}\). Read the last column: it never moves. Six cases, one value — the expression does not care about the ordering at all.</caption>
+<tr><th>\((a,b,c)\)</th><th>\(a(a-b)(a-c)\)</th><th>\(b(b-c)(b-a)\)</th><th>\(c(c-a)(c-b)\)</th><th>\(S\)</th></tr>
+<tr><td>\((1,3,5)\)</td><td>\(1 \cdot (-2)(-4) = 8\)</td><td>\(3 \cdot (-2)(2) = -12\)</td><td>\(5 \cdot 4 \cdot 2 = 40\)</td><td>\(36\)</td></tr>
+<tr><td>\((1,5,3)\)</td><td>\(1 \cdot (-4)(-2) = 8\)</td><td>\(5 \cdot 2 \cdot 4 = 40\)</td><td>\(3 \cdot 2 \cdot (-2) = -12\)</td><td>\(36\)</td></tr>
+<tr><td>\((3,1,5)\)</td><td>\(3 \cdot 2 \cdot (-2) = -12\)</td><td>\(1 \cdot (-4)(-2) = 8\)</td><td>\(5 \cdot 2 \cdot 4 = 40\)</td><td>\(36\)</td></tr>
+<tr><td>\((3,5,1)\)</td><td>\(3 \cdot (-2)(2) = -12\)</td><td>\(5 \cdot 4 \cdot 2 = 40\)</td><td>\(1 \cdot (-2)(-4) = 8\)</td><td>\(36\)</td></tr>
+<tr><td>\((5,1,3)\)</td><td>\(5 \cdot 4 \cdot 2 = 40\)</td><td>\(1 \cdot (-2)(-4) = 8\)</td><td>\(3 \cdot 2 \cdot (-2) = -12\)</td><td>\(36\)</td></tr>
+<tr><td>\((5,3,1)\)</td><td>\(5 \cdot 2 \cdot 4 = 40\)</td><td>\(3 \cdot 2 \cdot (-2) = -12\)</td><td>\(1 \cdot (-4)(-2) = 8\)</td><td>\(36\)</td></tr>
+</table>
+<p>Six cases, one value: \(S = 36\) every time. The census has discovered that \(S\) is a <em>symmetric</em> expression — every reordering of the variables permutes the three terms among themselves, so the sum is invariant under the whole of \(S_{3}\). That is the census doing P08's job: measuring the orbit and finding it is one orbit, six deep.</p>
+<p>Now the proof-side move. Since every ordering is a clone of every other, <em>without loss of generality</em>, take \(a \geq b \geq c\). In that one ordering the signs are fixed — \(a - b \geq 0\), \(a - c \geq 0\), \(b - c \geq 0\), so the first and third terms of \(S\) are nonnegative and only the middle term, \(b(b-c)(b-a)\), is nonpositive. Pair it against the first term:</p>
+<p>\[S \;=\; (a-b)\bigl[\,a(a-c) - b(b-c)\,\bigr] \;+\; c(a-c)(b-c),\]</p>
+<p>and the bracket factors in turn:</p>
+<p>\[a(a-c) - b(b-c) \;=\; (a^{2} - ac) - (b^{2} - bc) \;=\; (a-b)(a + b - c).\]</p>
+<p>So</p>
+<p>\[S \;=\; (a-b)^{2}\,(a + b - c) \;+\; c\,(a-c)(b-c).\]</p>
+<p>Read it: both terms are products of nonnegative factors — \((a-b)^{2} \geq 0\), \(a + b - c \geq a \geq 0\), \(c &gt; 0\), \(a - c \geq 0\), \(b - c \geq 0\). So \(S \geq 0\), proved. Check it against the census's number: \((5, 3, 1)\) gives \((5-3)^{2}(5+3-1) + 1 \cdot 4 \cdot 2 = 4 \cdot 7 + 8 = 36\) — the census's value, exactly, from the representative case.</p>
+<p>Stop and notice what the wlog declaration bought, and what it cost. Bought: one case instead of six — and not six copies of the argument, either; the six forward "arguments" would each have to re-derive sign bookkeeping that the representative does once. Cost: two lemmas that the census already paid — \(S\) is invariant under reordering (the six equal values), and every ordering maps to the representative \(a \geq b \geq c\) by one of those reorderings (trivially: reorder). When the census is this cheap, the wlog is nearly free; the next sections show the price when it is not.</p>
 </section>
 
-<section id="pattern">
-  <h2>3 · Name the move</h2>
-
-  <div class="pattern-box" id="box-p68">
-    <h3>Box P68 · The Without Loss of Generality Move</h3>
-    <p>Suppose a mathematical statement \(\forall x \in X,\; P(x)\) is invariant under the action of a symmetry group \(G\) on the state space \(X\) — meaning that for every \(g \in G\) and \(x \in X\),</p>
-    \[
-      x \in X \iff g \cdot x \in X \qquad\text{and}\qquad P(x) \iff P(g \cdot x).
-    \]
-    <p>Choose a <strong>fundamental domain</strong> (canonical slice) \(F \subseteq X\) that intersects every \(G\)-orbit (so \(\bigcup_{g \in G} g \cdot F = X\)). Declare <em>"Without loss of generality, let \(x \in F\)"</em> — such as sorting \(a_1 \ge a_2 \ge \cdots \ge a_n\) under \(S_n\), normalizing \(a + b + c = 1\) under \(\mathbb{R}_{&gt;0}\) scaling, or placing a geometric figure at the origin under Euclidean isometries — and prove \(P(x)\) inside \(F\).</p>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 220" width="100%" role="img" aria-label="The 6 Weyl chambers of S_3 on the simplex a+b+c=1 showing the single canonical WLOG chamber a >= b >= c and the 3 reflection lines a=b, b=c, c=a">
-      <rect x="0" y="0" width="600" height="220" fill="#ffffff"/>
-      <!-- Left panel: Simplex a + b + c = 1 partitioned into 6 S_3 chambers -->
-      <text x="165" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Full S₃ Symmetry: 6 Chambers → 1 WLOG Slice</text>
-      <!-- Equilateral triangle vertices: A(top)=(165, 32), B(bottom-left)=(65, 192), C(bottom-right)=(265, 192), centroid M=(165, 138.7) -->
-      <!-- Midpoints of sides: AB_mid=(115, 112), BC_mid=(165, 192), AC_mid=(215, 112) -->
-      <!-- Highlight canonical chamber a >= b >= c: triangle A(165,32) - AB_mid(115,112) - M(165,138.7) -->
-      <polygon points="65,192 265,192 165,32" fill="#f2eee6" stroke="#1a1a1a" stroke-width="2"/>
-      <polygon points="165,32 115,112 165,138.7" fill="#f3e6e8" stroke="#8b2635" stroke-width="2.5"/>
-      <!-- 3 reflection mirrors a=b, b=c, c=a -->
-      <line x1="165" y1="32" x2="165" y2="192" stroke="#3a6073" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <line x1="65" y1="192" x2="215" y2="112" stroke="#3a6073" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <line x1="265" y1="192" x2="115" y2="112" stroke="#3a6073" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <!-- Labels of the 6 chambers -->
-      <text x="143" y="98" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">a≥b≥c</text>
-      <text x="143" y="110" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#8b2635" text-anchor="middle">(WLOG)</text>
-      <text x="188" y="98" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">a≥c≥b</text>
-      <text x="115" y="148" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">b≥a≥c</text>
-      <text x="215" y="148" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">c≥a≥b</text>
-      <text x="136" y="178" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">b≥c≥a</text>
-      <text x="194" y="178" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">c≥b≥a</text>
-      <text x="165" y="26" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">a = 1</text>
-      <text x="48" y="198" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a">b = 1</text>
-      <text x="272" y="198" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a">c = 1</text>
-
-      <!-- Right panel: Cyclic C_3 Symmetry (only 3 rotations: must keep BOTH a>=b>=c and a>=c>=b) -->
-      <text x="455" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Cyclic C₃ Symmetry: 3 Rotations → 2 Chambers!</text>
-      <polygon points="355,192 555,192 455,32" fill="#f2eee6" stroke="#1a1a1a" stroke-width="2"/>
-      <!-- Top kite: union of a>=b>=c and a>=c>=b (where a = max(a,b,c)) -->
-      <polygon points="455,32 405,112 455,138.7" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
-      <polygon points="455,32 455,138.7 505,112" fill="#eef3f7" stroke="#3a6073" stroke-width="2"/>
-      <line x1="455" y1="32" x2="455" y2="192" stroke="#5a5550" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="355" y1="192" x2="505" y2="112" stroke="#1a1a1a" stroke-width="1.5"/>
-      <line x1="555" y1="192" x2="405" y2="112" stroke="#1a1a1a" stroke-width="1.5"/>
-      <text x="432" y="98" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">a≥b≥c</text>
-      <text x="478" y="98" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">a≥c≥b</text>
-      <text x="455" y="122" font-family="system-ui, sans-serif" font-size="8.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WLOG: a = max(a,b,c)</text>
-      <text x="455" y="208" font-family="system-ui, sans-serif" font-size="9.5" fill="#b85d19" text-anchor="middle">Reflections across dashed lines are NOT in C₃!</text>
-    </svg>
-    <figcaption><strong>Fig P68.1.</strong> Fundamental domains on the simplex \(a + b + c = 1\). <em>Left:</em> When a problem is invariant under all \(|S_3| = 6\) permutations (reflections and rotations), the single shaded chamber \(a \ge b \ge c\) tiles the entire triangle. <em>Right:</em> When a problem is invariant only under the \(|C_3| = 3\) cyclic rotations \((a,b,c) \mapsto (b,c,a)\), you may assume \(a = \max(a,b,c)\) (the top kite), which still contains <em>two</em> distinct chambers: \(a \ge b \ge c\) (crimson) and \(a \ge c \ge b\) (slate blue).</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p68a">
-    <h3>Box P68.A · The Four Verification Obligations of a Valid WLOG</h3>
-    <ol>
-      <li><strong>Name the Symmetry Group \(G\) Explicitly:</strong> State what transformation maps a general input into your assumed form — full permutation \(S_n\), cyclic shift \(C_n\), sign/color swap \(\mathbb{Z}_2\), positive scaling \(\mathbb{R}_{&gt;0}\), or Euclidean rigid motion \(E(n)\).</li>
-      <li><strong>Check Simultaneous Invariance of Hypotheses &amp; Goal:</strong> Verify that applying \(g \in G\) preserves <em>both</em> the allowed domain and the truth value of the conclusion. Never assume full \(S_n\) ordering \(a \ge b \ge c\) on a merely cyclic expression like \(a^2 b + b^2 c + c^2 a\).</li>
-      <li><strong>Verify Orbit Coverage (\(G \cdot F = X\)):</strong> Confirm that <em>every</em> valid input can be brought into \(F\) by some \(g \in G\). For example, scaling \(a + b + c = 1\) requires \(a + b + c &gt; 0\) (you must check \(a = b = c = 0\) separately if \(0\) is allowed!).</li>
-      <li><strong>Never Spend the Same Symmetry Twice (Budget Audit):</strong> Once you use \(S_n\) to sort \(a_1 \le a_2 \le \cdots \le a_n\) in a problem with paired variables \((a_i, b_i)\), the indices \(1, \dots, n\) are locked; you <em>cannot</em> also assume \(b_1 \le b_2 \le \cdots \le b_n\)!</li>
-    </ol>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 195" width="100%" role="img" aria-label="Three standard WLOG normalizations: sorting on a number line, scaling onto the unit simplex, and pinning a triangle to the origin and x-axis">
-      <rect x="0" y="0" width="600" height="195" fill="#ffffff"/>
-      <!-- Panel 1: Sorting WLOG -->
-      <rect x="15" y="20" width="175" height="155" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
-      <text x="102" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">1. Permutation (Sₙ)</text>
-      <line x1="30" y1="95" x2="175" y2="95" stroke="#1a1a1a" stroke-width="1.5"/>
-      <circle cx="50" cy="95" r="4" fill="#8b2635"/>
-      <circle cx="100" cy="95" r="4" fill="#8b2635"/>
-      <circle cx="155" cy="95" r="4" fill="#8b2635"/>
-      <text x="50" y="83" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">c</text>
-      <text x="100" y="83" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">b</text>
-      <text x="155" y="83" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">a</text>
-      <text x="102" y="130" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">WLOG: c ≤ b ≤ a</text>
-      <text x="102" y="150" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Fixes signs of all (a − b)</text>
-
-      <!-- Panel 2: Scaling WLOG -->
-      <rect x="212" y="20" width="175" height="155" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.2"/>
-      <text x="300" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2. Homogeneity (ℝ₊)</text>
-      <line x1="235" y1="120" x2="365" y2="60" stroke="#5a5550" stroke-width="1.2" stroke-dasharray="3,3"/>
-      <line x1="255" y1="60" x2="335" y2="120" stroke="#3a6073" stroke-width="2.5"/>
-      <circle cx="295" cy="90" r="4.5" fill="#8b2635"/>
-      <text x="300" y="138" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">WLOG: a + b + c = 1</text>
-      <text x="300" y="154" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">(or abc = 1, R = 1)</text>
-
-      <!-- Panel 3: Euclidean Frame WLOG -->
-      <rect x="410" y="20" width="175" height="155" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
-      <text x="497" y="40" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">3. Euclidean Isometry E(2)</text>
-      <line x1="430" y1="115" x2="565" y2="115" stroke="#1a1a1a" stroke-width="1.2"/>
-      <line x1="445" y1="125" x2="445" y2="55" stroke="#1a1a1a" stroke-width="1.2"/>
-      <polygon points="445,115 535,115 495,65" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
-      <circle cx="445" cy="115" r="3.5" fill="#1a1a1a"/>
-      <circle cx="535" cy="115" r="3.5" fill="#1a1a1a"/>
-      <circle cx="495" cy="65" r="3.5" fill="#1a1a1a"/>
-      <text x="445" y="130" font-family="system-ui, sans-serif" font-size="8.5" fill="#1a1a1a" text-anchor="middle">A(0,0)</text>
-      <text x="535" y="130" font-family="system-ui, sans-serif" font-size="8.5" fill="#1a1a1a" text-anchor="middle">B(c,0)</text>
-      <text x="500" y="59" font-family="system-ui, sans-serif" font-size="8.5" fill="#1a1a1a" text-anchor="middle">C(x,y)</text>
-      <text x="497" y="152" font-family="system-ui, sans-serif" font-size="8.5" fill="#5a5550" text-anchor="middle">Kills 3 of 6 coordinates!</text>
-    </svg>
-    <figcaption><strong>Fig P68.2.</strong> Three workhorse WLOG reductions. (1) Under permutation symmetry \(S_n\), sort the variables on the real line so every difference \(a - b\) has a fixed sign. (2) Under scaling homogeneity \((a,b,c) \mapsto (\lambda a, \lambda b, \lambda c)\), intersect each ray from the origin with the plane \(a + b + c = 1\) (or hyperboloid \(abc = 1\)). (3) Under planar rigid motions \(E(2)\), translate \(A\) to \((0,0)\) and rotate \(AB\) onto the positive \(x\)-axis, eliminating \(3\) degrees of freedom before writing a single equation.</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p68b">
-    <h3>Box P68.B · Three-Key Recognition Diagnosis</h3>
-    <ul>
-      <li><strong>Claim type:</strong> An universal inequality, divisibility theorem, combinatorial existence proof, or geometric identity whose statement treats several variables, colors, or directions interchangeably.</li>
-      <li><strong>Problem shape:</strong> Absolute values \(|a - b|\), \(\max(a, b, c)\), products of differences \((a - b)(a - c)\), homogeneous fractions \(\frac{a}{b+c}\), or unpinned geometric figures floating in \(\mathbb{R}^d\).</li>
-      <li><strong>Tools at hand:</strong> Sorting permutations \(S_n\), cyclic shifts \(C_n\), scaling substitutions \(x_i \mapsto \lambda x_i\), and coordinate frame alignment.</li>
-    </ul>
-  </div>
+<section id="name-the-move">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p68">
+<h3>Pattern P68 — Without loss of generality. When a claim is invariant under a group of moves on its variables — reorderings, swaps, sign flips, scalings, rigid motions — do not prove every case: (1) name the moves under which the <em>whole claim</em> (hypotheses and conclusion together) is invariant; (2) check that every case reaches a representative case by those moves; (3) prove the representative, once, and declare wlog. The declaration is a receipt for two discharged obligations, not a permission slip to skip them.</h3>
+<p>When the claim's cases are clones — related by moves that preserve the claim's truth value and its proof burden — the census of P25 is grinding through copies, and P08's ledger already told you the copies bill identically. Do not force the census. Instead: <strong>(1) Name the invariance.</strong> Write the move precisely — "swap any two of \(a, b, c\)", "scale all three by \(t &gt; 0\)", "translate and rotate the figure" — and check it against the <em>whole</em> claim: every hypothesis and the conclusion. A move that preserves the hypotheses but twists the conclusion is not a symmetry of the claim; a move that preserves the conclusion but needs a hypothesis the other cases lack is not a symmetry either. <strong>(2) Map the cases.</strong> Show every case reaches the representative by the named moves — for orderings this is immediate (any ordering <em>is</em> a permutation), for scalings it needs positivity, for geometries it needs the rigid motions. If some case cannot be carried there, the wlog is false and the case must be walked. <strong>(3) Prove once, declare honestly.</strong> Prove the representative and write "without loss of generality" — the words are the receipt that (1) and (2) were discharged. Where the invariance is only partial (a subgroup, a positivity constraint), say so in the same breath.</p>
+<p><em>In words: interchangeable cases deserve one argument.</em> The move is P08's ledger turned from counting to proving: instead of billing each clone its answer, bill the whole orbit one proof. The price moved, not vanished — P08 paid it as "how many clones?", this page pays it as "is the claim truly indifferent to the swap?" — and the second question is where the traps live, because indifference is a property of the <em>whole</em> claim and the traps are always in the part you stopped checking.</p>
+</div>
+<p>The two-word declaration sits inside a two-by-two of honesty:</p>
+<table class="digit-table">
+<caption>When the words are a receipt and when they are a leak.</caption>
+<tr><th></th><th>claim fully invariant under the named moves</th><th>invariance partial or absent</th></tr>
+<tr><td><strong>every case reaches the representative</strong></td><td>wlog earns its keep — one proof, whole orbit (Schur, §2)</td><td>the reachable cases are covered; the rest must be walked or the claim narrowed — say so explicitly</td></tr>
+<tr><td><strong>some case does not reach it</strong></td><td>the case map was wrong — redo it before declaring anything</td><td>wlog is false; the words are decoration on a gap (§5's failures)</td></tr>
+</table>
+<p>The three-key diagnosis, in this page's own terms: <em>the claim type</em> — a statement about variables whose roles the claim does not distinguish, or a geometry whose question survives rigid motions. <em>the problem shape</em> — a brute-force census whose rows are visibly copies of one another, or a forward argument that keeps re-deriving the same sign bookkeeping per ordering. <em>the tools at hand</em> — P08's orbit picture for the invariance, P02's small cases to expose the clone structure, and P25's machine as the honest fallback when the case map fails.</p>
 </section>
+
 <section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
-
-  <h3>Exemplar 1 (Combinatorics &amp; Graph Theory) · Three stacked WLOGs in the Party Problem (\(R(3,3) = 6\))</h3>
-  <p><strong>Problem.</strong> At a gathering of \(6\) people, every pair of people is either mutual acquaintances (connected by a <strong>Red</strong> edge) or mutual strangers (connected by a <strong>Blue</strong> edge). Prove that there is either a triangle of \(3\) mutual acquaintances (all Red) or a triangle of \(3\) mutual strangers (all Blue) — without inspecting all \(2^{\binom{6}{2}} = 2^{15} = 32{,}768\) possible edge colorings of \(K_6\).</p>
-
-  <p><strong>Solution.</strong></p>
-  <p>We apply three independent WLOG reductions in sequence, each spending a different symmetry of the problem:</p>
-  <ol>
-    <li><strong>WLOG 1 — Vertex-transitivity of \(K_6\) (spending \(S_6 / S_5\)):</strong> Because all \(6\) vertices play identical roles, fix attention on vertex \(v_1\). Vertex \(v_1\) has \(5\) incident edges connecting it to \(\{v_2, v_3, v_4, v_5, v_6\}\), each colored Red or Blue. By the Pigeonhole Principle (<a href="p10-pigeonhole.html"><span class="pid">P10</span></a>), at least \(\lceil 5/2 \rceil = 3\) of these \(5\) edges share the same color.</li>
-    <li><strong>WLOG 2 — Color-swap involution \(\text{Red} \leftrightarrow \text{Blue}\) (spending \(\mathbb{Z}_2\)):</strong> Because the target statement ("there exists an all-Red triangle <em>or</em> an all-Blue triangle") is invariant under swapping Red and Blue everywhere, <strong>without loss of generality assume that \(v_1\) has at least \(3\) Red edges.</strong></li>
-    <li><strong>WLOG 3 — Relabeling the \(5\) neighbors of \(v_1\) (spending \(S_5\)):</strong> Because the labels \(v_2, v_3, v_4, v_5, v_6\) are interchangeable, <strong>without loss of generality relabel them so that the edges \(v_1 v_2,\; v_1 v_3,\; v_1 v_4\) are all Red.</strong></li>
-  </ol>
-  <p>Now our entire \(32{,}768\)-case search has collapsed to the single triangle of three vertices \(\{v_2, v_3, v_4\}\):</p>
-  <ul>
-    <li>If <em>any</em> of the three edges \(v_2 v_3\), \(v_3 v_4\), or \(v_2 v_4\) is <strong>Red</strong> (say \(v_2 v_3\) is Red), then \(\{v_1, v_2, v_3\}\) is an all-Red triangle!</li>
-    <li>If <em>none</em> of the three edges \(v_2 v_3, v_3 v_4, v_2 v_4\) is Red, then all three are <strong>Blue</strong>, so \(\{v_2, v_3, v_4\}\) itself is an all-Blue triangle!</li>
-  </ul>
-
-  <h3>Exemplar 2 (Inequalities &amp; Homogeneity) · Scaling \(a + b + c = 1\) in Nesbitt's inequality</h3>
-  <p><strong>Problem.</strong> For all positive real numbers \(a, b, c &gt; 0\), prove <strong>Nesbitt's Inequality</strong>:</p>
-  \[
-    \frac{a}{b + c} + \frac{b}{c + a} + \frac{c}{a + b} \;\ge\; \frac{3}{2}.
-  \]
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Verify degree-\(0\) scaling homogeneity).</strong> For any \(\lambda &gt; 0\), replacing \((a, b, c)\) by \((\lambda a, \lambda b, \lambda c)\) multiplies both the numerator and denominator of each fraction by \(\lambda\):</p>
-  \[
-    \frac{\lambda a}{\lambda b + \lambda c} \;=\; \frac{a}{b + c}.
-  \]
-  <p>Since \(a, b, c &gt; 0\), their sum \(S = a + b + c\) is strictly positive. Choosing the scaling factor \(\lambda = \frac{1}{a+b+c} &gt; 0\), we may declare:</p>
-  \[
-    \textbf{Without loss of generality, assume } a + b + c = 1 \quad (a, b, c \in (0, 1)).
-  \]
-
-  <p><strong>Step 2 (Decouple the denominators).</strong> Under the normalization \(a + b + c = 1\), each two-variable denominator \(b + c = 1 - a\) depends on a <em>single</em> variable! Thus the left-hand side becomes</p>
-  \[
-    \frac{a}{1 - a} + \frac{b}{1 - b} + \frac{c}{1 - c} \;=\; \sum_{\text{cyc}} \left(\frac{1}{1 - a} - 1\right).
-  \]
-  <p>By Cauchy–Schwarz (or Jensen's / tangent-line inequality on \(g(x) = \frac{x}{1-x}\) at \(x = \frac{1}{3}\), where \(g(\frac{1}{3}) = \frac{1}{2}\) and \(g'(\frac{1}{3}) = \frac{9}{4}\)), for every \(x \in (0, 1)\) we have</p>
-  \[
-    \frac{x}{1 - x} - \left[\frac{1}{2} + \frac{9}{4}\left(x - \frac{1}{3}\right)\right] \;=\; \frac{(3x - 1)^2}{4(1 - x)} \;\ge\; 0.
-  \]
-  <p>Summing the inequality \(\frac{x}{1-x} \ge \frac{1}{2} + \frac{9}{4}(x - \frac{1}{3})\) over \(x \in \{a, b, c\}\) and using \(a + b + c = 1\) gives</p>
-  \[
-    \frac{a}{1 - a} + \frac{b}{1 - b} + \frac{c}{1 - c} \;\ge\; \frac{3}{2} + \frac{9}{4}\bigl(a + b + c - 1\bigr) \;=\; \frac{3}{2}.
-  \]
-
-  <h3>Exemplar 3 (Coordinate Geometry &amp; Euclidean Isometries) · Pinning the midpoint to the origin in Apollonius's theorem</h3>
-  <p><strong>Problem.</strong> In any triangle \(\triangle ABC\) in the Euclidean plane, let \(M\) be the midpoint of side \(BC\). Prove <strong>Apollonius's Median Identity</strong>:</p>
-  \[
-    AB^2 + AC^2 \;=\; 2\,AM^2 + \frac{1}{2}\,BC^2.
-  \]
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Spend Euclidean rigid motion symmetry \(E(2)\)).</strong> A general triangle in \(\mathbb{R}^2\) has \(6\) coordinates \((x_A, y_A, x_B, y_B, x_C, y_C)\). However, lengths and midpoints are invariant under every Euclidean translation and rotation in \(E(2)\). Therefore, <strong>without loss of generality, translate the plane so the midpoint \(M\) sits at the origin \((0, 0)\), and rotate the plane so side \(BC\) lies along the \(x\)-axis!</strong></p>
-
-  <p><strong>Step 2 (Read off the 1-line coordinate calculation).</strong> Since \(M = (0, 0)\) is the midpoint of \(BC\) on the \(x\)-axis, the vertices \(B\) and \(C\) have coordinates \(B = (-d, 0)\) and \(C = (d, 0)\) where \(d = \frac{1}{2} BC\), and vertex \(A\) has coordinates \(A = (x, y)\) with \(AM^2 = x^2 + y^2\). Expanding \(AB^2 + AC^2\) gives</p>
-  \[
-    \begin{aligned}
-      AB^2 + AC^2 &\;=\; \bigl[(x + d)^2 + y^2\bigr] \,+\, \bigl[(x - d)^2 + y^2\bigr] \\
-      &\;=\; 2(x^2 + y^2) + 2d^2 \;=\; 2\,AM^2 + \frac{1}{2}\,BC^2,
-    \end{aligned}
-  \]
-  <p>where the cross terms \(+2xd\) and \(-2xd\) cancel automatically because \(M\) was pinned to \((0, 0)\).</p>
+<h2>4 · Worked exemplars</h2>
+<p class="pid">Moves used: <strong>P68</strong> throughout — P08's orbit ledger, <a href="p10-pigeonhole.html">P10</a>'s forced collision, P02's small cases, and the homogeneity check of §5 run as a gate.</p>
+<p><strong>Exemplar A — Schur, finished by one representative.</strong> Return to §2's census with everything §3 built. The claim: \(S = a(a-b)(a-c) + b(b-c)(b-a) + c(c-a)(c-b) \geq 0\) for positive \(a, b, c\). The forward road re-runs the sign bookkeeping per ordering — six times, or \(3! \cdot k\) times as the census grows. The wlog: \(S\) is symmetric (each reordering permutes the three summands — check one swap: \(a \leftrightarrow b\) exchanges the first two terms and maps the third to itself with \(c-a, c-b \to c-b, c-a\), unchanged as a product), so every ordering reaches \(a \geq b \geq c\) by a reordering — obligation (2) is free. Obligation (3) is §2's factorization:</p>
+<p>\[S \;=\; (a-b)^{2}(a + b - c) \;+\; c(a-c)(b-c) \;\geq\; 0,\]</p>
+<p>both summands nonnegative in the representative ordering. Collect: Schur holds for all positive \(a, b, c\). Notice the proof never mentioned the other five orderings — the invariance carried them. And notice what the representative ordering bought concretely: fixed signs, which is what let the pairing \((a-b)\) factor out at all. Under any other announced ordering the same factorization works with the names rotated — that "with the names rotated" is the invariance, spoken aloud.</p>
+<p><strong>Exemplar B — the party of six, three wlogs deep.</strong> The claim, from combinatorics: at any gathering of six people, some three are mutual acquaintances or some three are mutual strangers. Model: color each pair of six vertices red (acquainted) or blue (strangers); claim: a monochromatic triangle exists. Brute force: \(2^{15} = 32768\) colorings of the fifteen pairs — a census, and a big one. The wlogs: <em>(i)</em> the claim is invariant under swapping the two colors everywhere — "acquainted" and "strangers" enter the statement identically — so wlog, person 1 has at least three <em>red</em> edges or at least three <em>blue</em> edges; this is where <a href="p10-pigeonhole.html">P10</a> forces the split, since person 1 has five edges and \(5 = 2 + 3\). <em>(ii)</em> By the color swap again, wlog it is three red edges — to persons \(A, B, C\). Now the case work is two cases, not thousands: if any pair among \(A, B, C\) is red, that pair with person 1 is a red triangle; if none is, \(A, B, C\) are three mutual strangers — a blue triangle. Either way the claim holds. Two wlogs — the color swap, applied twice — collapsed \(32768\) cases to two, and each wlog was a genuine invariance: the statement's "or" treats the colors identically, so the swap maps colorings to colorings and truths to truths. The census of \(2^{15}\) colorings is machine-checkable and confirms it: every coloring of \(K_{6}\)'s fifteen edges holds a monochromatic triangle, no exceptions.</p>
+<p><strong>Exemplar C — Nesbitt, scaled to one size.</strong> The claim: for positive \(a, b, c\), \(\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \geq \frac{3}{2}\). The forward road: three fractions with different denominators and no common scale — stony. The wlog that unlocks it is a <em>scaling</em>: the claim is homogeneous of degree zero — replace \((a,b,c)\) by \((ta, tb, tc)\) and each fraction is unchanged (\(ta/t(b+c) = a/(b+c)\)), so the claim is invariant under all positive scalings. Every triple with \(a + b + c = s &gt; 0\) reaches the representative \(a + b + c = 1\) by scaling with \(t = 1/s\) — obligation (2) discharged, positivity of \(s\) doing the work. In the representative, \(b + c = 1 - a\), so the claim reads \(\sum \frac{a}{1-a} \geq \frac{3}{2}\) with \(a, b, c &gt; 0\), \(a + b + c = 1\). Now each term is a one-variable function: \(\frac{x}{1-x}\) is convex on \((0,1)\), and its tangent line at \(x = \frac{1}{3}\) — the symmetric point — sits below it everywhere:</p>
+<p>\[\frac{x}{1-x} \;=\; \frac{1}{2} + \frac{9}{4}\Bigl(x - \frac{1}{3}\Bigr) + \frac{(3x-1)^{2}}{4(1-x)} \;\geq\; \frac{1}{2} + \frac{9}{4}\Bigl(x - \frac{1}{3}\Bigr),\]</p>
+<p>the last term being a square over a positive denominator. Summing the three tangent inequalities: \(\sum \frac{a}{1-a} \geq \frac{3}{2} + \frac{9}{4}\bigl((a+b+c) - 1\bigr) = \frac{3}{2}\) — the correction term dying exactly because the scaling wlog normalized the sum to \(1\). Collect: Nesbitt holds, and equality holds precisely at \(a = b = c\), where every square \((3x-1)^{2}\) vanishes. The wlog did not prove the claim — the tangent line did — but it made the claim one-dimensional: without the normalization there is no single point to hang a tangent on.</p>
+<p><strong>Exemplar D — Apollonius, pinned to the origin.</strong> The claim, from geometry: the sum of the squares on two sides of a triangle equals twice the square on the median to the third side plus half the square on that third side — \(AB^{2} + AC^{2} = 2\,AM^{2} + \tfrac{1}{2}\,BC^{2}\), with \(M\) the midpoint of \(BC\). The forward road: a generic triangle in a generic position carries six coordinates of bookkeeping. The wlog is the <em>rigid-motion</em> invariance: every distance in the claim is preserved by translations and rotations, so the claim is invariant under placing the figure anywhere. Every triangle reaches the representative with \(M\) at the origin and \(BC\) on the axis: \(B = (-d, 0)\), \(C = (d, 0)\), \(A = (x, y)\) — obligation (2) is Euclid's own superposition move. In the representative the computation is three lines: \(AB^{2} = (x+d)^{2} + y^{2}\), \(AC^{2} = (x-d)^{2} + y^{2}\), and adding gives \(2x^{2} + 2y^{2} + 2d^{2} = 2\,AM^{2} + 2d^{2}\), while \(BC^{2} = 4d^{2}\) — so \(AB^{2} + AC^{2} = 2\,AM^{2} + \tfrac{1}{2}\,BC^{2}\), collected. The wlog bought coordinate poverty: six coordinates became two, because the claim's invariance meant the other four were describing <em>where the figure sits</em>, not <em>what the figure is</em>.</p>
 </section>
 
 <section id="fails">
-  <h2>5 · When the trick breaks</h2>
-
-  <div class="aside">
-    <p><strong>Exhibit A — The Cyclic vs. Full Symmetry Trap: assuming \(a \ge b \ge c\) on an expression that is only cyclically symmetric.</strong> Suppose you want to study the polynomial</p>
-    \[
-      f(a, b, c) \;=\; \bigl(a^2 b + b^2 c + c^2 a\bigr) \,-\, \bigl(a b^2 + b c^2 + c a^2\bigr) \;=\; (a - b)(b - c)(a - c).
-    \]
-    <p>Notice that \(f(a, b, c)\) is invariant under cyclic rotations \((a, b, c) \mapsto (b, c, a) \mapsto (c, a, b)\). If you carelessly write <em>"By symmetry, WLOG assume \(a \ge b \ge c\)"</em>, then \((a-b)(b-c)(a-c) \ge 0\) and you falsely "prove" that \(f(a, b, c) \ge 0\) for all \(a, b, c\)! In reality, on the reversed triple \((a, b, c) = (1, 2, 3)\), \(f(1, 2, 3) = (-1)(-1)(-2) = -2 &lt; 0\).</p>
-    <p><em>Mitigation:</em> For a cyclically symmetric expression in \(3\) variables, you may only assume \(a = \max(a, b, c)\) (or \(a = \min(a, b, c)\)), and you <strong>must check both subcases</strong>: Case 1 (\(a \ge b \ge c\)) and Case 2 (\(a \ge c \ge b\)).</p>
-    <p><em>Price:</em> Two cases instead of one whenever reflections swap the sign or value of the expression.</p>
-    <p><em>Default:</em> Always test whether swapping just <em>two</em> variables \(a \leftrightarrow b\) preserves the expression before writing \(a \ge b \ge c\) (Obligation 2 of Box P68.A).</p>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 210" width="100%" role="img" aria-label="Left: Cyclic C_3 orbits of (3,2,1) giving f=+2 vs (1,2,3) giving f=-2. Right: Paired arrays (a_i, b_i) showing why sorting a_1 <= a_2 <= a_3 locks the indices of b_i">
-      <rect x="0" y="0" width="600" height="210" fill="#ffffff"/>
-      <!-- Left panel: Exhibit A — Two disjoint C_3 cyclic orbits -->
-      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Exhibit A: C₃ Has TWO Orbits on {1, 2, 3}</text>
-      <!-- Orbit 1 (Clockwise / a >= b >= c): (3,2,1), (2,1,3), (1,3,2) -> f = +2 -->
-      <rect x="20" y="32" width="125" height="145" rx="5" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
-      <text x="82" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Orbit 1 (a ≥ b ≥ c)</text>
-      <text x="82" y="75" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">(3, 2, 1) → f = +2</text>
-      <text x="82" y="100" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">(2, 1, 3) → f = +2</text>
-      <text x="82" y="125" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">(1, 3, 2) → f = +2</text>
-      <text x="82" y="158" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">Even permutations</text>
-
-      <!-- Orbit 2 (Counter-clockwise / a >= c >= b): (3,1,2), (1,2,3), (2,3,1) -> f = -2 -->
-      <rect x="160" y="32" width="125" height="145" rx="5" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.5"/>
-      <text x="222" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">Orbit 2 (a ≥ c ≥ b)</text>
-      <text x="222" y="75" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">(3, 1, 2) → f = −2</text>
-      <text x="222" y="100" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">(1, 2, 3) → f = −2</text>
-      <text x="222" y="125" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">(2, 3, 1) → f = −2</text>
-      <text x="222" y="158" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#b85d19" text-anchor="middle">Odd permutations!</text>
-      <text x="152" y="196" font-family="system-ui, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Cyclic shift cannot cross from Orbit 1 to Orbit 2</text>
-
-      <!-- Right panel: Exhibit B — Double-spending symmetry on paired arrays (a_i, b_i) -->
-      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Exhibit B: Paired Columns Lock Together!</text>
-      <rect x="320" y="32" width="260" height="145" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
-      <text x="450" y="54" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Sum = a₁b₁ + a₂b₂ + a₃b₃ (Columns are paired)</text>
-      <text x="385" y="82" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">Sort a: a₁ ≤ a₂ ≤ a₃</text>
-      <text x="515" y="82" font-family="system-ui, sans-serif" font-size="9.5" fill="#8b2635" text-anchor="middle">Partners b_σ(i) follow!</text>
-      <line x1="340" y1="95" x2="560" y2="95" stroke="#d8d2c7" stroke-width="1"/>
-      <text x="450" y="118" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Once σ sorts (a₁, a₂, a₃), the order of</text>
-      <text x="450" y="135" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">(b₁, b₂, b₃) is already determined!</text>
-      <text x="450" y="160" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">Illegal: "WLOG a₁≤a₂≤a₃ AND b₁≤b₂≤b₃"</text>
-      <text x="450" y="196" font-family="system-ui, sans-serif" font-size="9" fill="#5a5550" text-anchor="middle">One Sₙ group action can sort only ONE of the two arrays</text>
-    </svg>
-    <figcaption><strong>Fig P68.3.</strong> The two classic WLOG fallacies. <em>Left (Exhibit A):</em> Under cyclic rotation \(C_3\), the \(6\) permutations of \(\{1, 2, 3\}\) split into two separate orbits of size \(3\); checking only \(a \ge b \ge c\) misses Orbit 2 completely. <em>Right (Exhibit B):</em> In expressions like \(\sum_{i=1}^n a_i b_i\) or \(\triangle ABC\) with side lengths \((a, b, c)\) and opposite point distances \((x, y, z)\), permuting indices to sort \(a_1 \le a_2 \le a_3\) drags the paired \(b_i\) along — you cannot independently sort \(b_1 \le b_2 \le b_3\).</figcaption>
-  </figure>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Double-spending the same symmetry budget on coupled variables.</strong> Suppose you want to study the dot product \(a_1 b_1 + a_2 b_2 + a_3 b_3\). Relabeling the index \(i \in \{1, 2, 3\}\) permutes the pairs \((a_i, b_i)\) together. Once you spend that \(S_3\) symmetry to sort \(a_1 \le a_2 \le a_3\), the sequence \((b_1, b_2, b_3)\) is locked in whatever order those partners happened to have! Assuming <em>both</em> \(a_1 \le a_2 \le a_3\) and \(b_1 \le b_2 \le b_3\) is illegal (in fact, the Rearrangement Inequality states that \(\sum a_i b_i\) is maximized only when \(b_i\) happens to be sorted in the same order as \(a_i\)).</p>
-    <p><em>Mitigation:</em> Count the symmetry group \(G\) of the coupled system: if \(G = S_n\) acts diagonally on \((a_i, b_i)\) (not as \(S_n \times S_n\) independently), you can sort only one array.</p>
-    <p><em>Price:</em> Using the Rearrangement Inequality or Abel summation (<a href="p69-telescoping.html"><span class="pid">P69</span></a>) to handle the second array.</p>
-    <p><em>Default:</em> Track which variables are coupled by shared indices before applying a second WLOG (Obligation 4 of Box P68.A).</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Dividing by zero or flipping inequality signs during a scaling WLOG.</strong> If a problem allows real numbers \(a, b, c \in \mathbb{R}\) with \(a + b + c\) possibly zero or negative, normalizing \(a + b + c = 1\) fails in two ways: when \(a + b + c = 0\) no rescaling can make the sum \(1\), and when \(a + b + c &lt; 0\) multiplying an odd-degree inequality by \(\lambda = \frac{1}{a+b+c} &lt; 0\) reverses the inequality sign!</p>
-    <p><em>Mitigation:</em> Restrict scaling WLOGs to positive quantities (\(\lambda &gt; 0\)), or split into \(\sum a_i &gt; 0\) (\(\implies +1\)), \(\sum a_i = 0\), and \(\sum a_i &lt; 0\) (\(\implies -1\)).</p>
-    <p><em>Price:</em> Checking the boundary hyperplanes \(\sum a_i = 0\) separately (<a href="p03-special-cases.html"><span class="pid">P03</span></a>).</p>
-    <p><em>Default:</em> Verify \(\lambda &gt; 0\) before every homogeneity normalization (Obligation 3 of Box P68.A).</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this chapter.</strong> Every valid WLOG step is a quotient map \(X \to X / G\) by a group action. When the group \(G\) is finite (like \(S_n\) or \(C_n\)), a WLOG assumption simply picks one chamber out of \(|G|\) chambers. When \(G\) is a continuous Lie group (like \(\mathbb{R}_{&gt;0}\) scaling, \(E(n)\) rigid motions, or \(\operatorname{SL}_2(\mathbb{R})\) Möbius transformations), WLOG picks a lower-dimensional cross-section (a <em>slice</em> or <em>gauge fixing</em>), reducing the number of continuous variables in the problem.</p>
-  </aside>
+<h2>5 · When the trick breaks</h2>
+<p><strong>Cyclic is not symmetric — the half-symmetry trap.</strong> The most seductive failure: a claim invariant under <em>cyclic</em> shuffles \((a,b,c) \to (b,c,a)\) but not under all shuffles, wearing a wlog meant for the full symmetric group. Take \(f(a,b,c) = (a-b)(b-c)(a-c)\). Cyclically shifted: \((b-c)(c-a)(b-a) = (b-c) \cdot (-(a-c)) \cdot (-(a-b)) = f\) — invariant. Swapped \(a \leftrightarrow b\): \((b-a)(a-c)(b-c) = -f\) — the sign <em>flips</em>. So \(f(1,2,3) = (-1)(-1)(-2) = -2\), but \(f(2,1,3) = (1)(-2)(-1) = 2\): the orbit under full \(S_{3}\) splits into two three-element orbits with opposite signs, and "wlog \(a \geq b\)" — which requires swapping — crosses between them, proving one orbit's sign and billing the other. Any claim whose sign or shape distinguishes even permutations from odd ones (alternating expressions, oriented areas, determinants) lives in this trap. The audit question: <em>name the exact group you are using, and check the claim under each of its generators</em> — a cyclic check is three checks, not one, and the swap is the one that breaks.</p>
+<p><strong>Double-spending a symmetry on paired data.</strong> The rearrangement setting: two lists \(a_{1} \leq \cdots \leq a_{n}\) and \(b_{1} \leq \cdots \leq b_{n}\), and claims about the pairing \(\sum a_{i} b_{i}\). The trap: "wlog both lists are sorted" — sorting each list <em>independently</em> applies two different permutations, one to each list, and the pairing between them is <em>data</em>, not symmetry. The claim's invariance (if any) is under one permutation applied to <em>both</em> lists simultaneously, which preserves the pairing and cannot sort both lists at once unless they were already comonotone. Unearned, the double sort silently replaces the given pairing by a different one — often the extremal one, which is the <em>theorem</em> (P71's territory), not the assumption. The repair: sort one list by a genuine relabeling symmetry if the claim has one, and let the other list fall where the data puts it — or prove the rearrangement inequality itself, which is exactly the statement that the sorted pairing is extremal.</p>
+<p><strong>The scaling trap: zero, signs, and the gate.</strong> Exemplar C's scaling wlog divided by \(s = a + b + c\) — legitimate because positivity was a hypothesis, so \(s &gt; 0\). Drop the hypothesis and the same move divides by zero on the triple \((0, 0, 0)\) and by a negative on \((-1, -2, -3)\), where \(t = 1/s &lt; 0\) <em>reverses</em> every inequality the representative proof runs. The general gate: a scaling, normalization, or substitution inside a wlog must be checked for (i) <em>definedness</em> — the divisor is nonzero on the whole case family; (ii) <em>monotonicity</em> — the map preserves the direction of every inequality used; (iii) <em>surjectivity onto the representative</em> — every case genuinely reaches it. Fail any of the three and the wlog proves the claim for a subset while the words claim it for all. Sign-flipping is the classic (ii): \(x \mapsto -x\) is a symmetry of \(|x|\) but reverses order, so "wlog \(x \geq y\)" survives a negation of both variables only if the claim is indifferent to the reversal — which is precisely what was being assumed.</p>
+<p><strong>Honest scope.</strong> This page covers wlog as P08's proof-side shadow: an invariance named, a case map checked, a representative proved once. It does not cover the machinery that <em>constructs</em> canonical representatives for infinite symmetry groups — group actions with continuous families, quotient spaces, gauge choices and their ghosts — beyond noting in §7 where that machinery lives. And it does not license the lazy wlog: every declaration on this page carries its two obligations on its face, and §5's failures are all obligations skipped in a specific, nameable way. When no honest invariance exists, the census — P25's machine, P02's small cases — is not a defeat; it is the move that does not need to apologize.</p>
 </section>
 
 <section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>Once you have sorted \(a_1 \le a_2 \le \cdots \le a_n\) via <span class="pid">P68</span> and want to collapse sums of consecutive differences \(\sum (a_{k+1} - a_k)\):</strong> Step forward to <a href="p69-telescoping.html"><span class="pid">P69</span> · Telescoping</a>.</li>
-    <li><strong>When your symmetry group allows you to pick not just an ordering, but the single <em>minimum</em> or <em>maximum</em> configuration across a whole set of states:</strong> Connect <span class="pid">P68</span> to <a href="p71-extremal-principle.html"><span class="pid">P71</span> · The extremal principle</a>.</li>
-    <li><strong>To see the full multi-pattern synthesis of \(R(3,3) = 6\) combining <span class="pid">P08</span>, <span class="pid">P10</span>, and <span class="pid">P68</span>:</strong> Visit <a href="m04-ramsey-3-3.html"><span class="pid">M04</span> · Six people at a party</a>.</li>
-  </ul>
+<h2>6 · What to try next</h2>
+<p><strong>Escalation ladder.</strong> If the cases are not clones — no invariance, no representative — the census is honest work: <a href="p25-machine-cases.html">P25</a> runs the machine, <a href="p02-small-cases.html">P02</a> keeps it small. If the invariance is partial — a subgroup, a sign constraint — narrow the claim to the reachable cases and walk the rest explicitly, or find the second symmetry that finishes the map (Exemplar B's color swap used twice). If the representative proof needs a quantity extremal, <a href="p71-extremal-principle.html">P71</a> is the natural next door: the sorted pairing of §5's second failure is its home ground.</p>
+<p><strong>Doors this page opens.</strong> <a href="p69-telescoping.html">P69 · Telescoping sums</a> — the tangent-line identity of Exemplar C is a telescoping sum in disguise, and the next page makes the disguise official. <a href="p71-extremal-principle.html">P71 · The extremal principle</a> — "wlog take the largest" is the move's most common instance, and it deserves its own pattern. And on the far side of tier 2, <a href="m04-ramsey-3-3.html">M04</a> — Exemplar B's party of six, grown up: Ramsey theory, where the wlog-and-pigeonhole stack of this page becomes the standard opening.</p>
 </section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Euclid's superposition to Klein's Erlangen program and modern gauge fixing (c. 300 BCE – 1954).</strong></p>
-    <ul>
-      <li><strong>Euclid (c. 300 BCE):</strong> In Book I, Proposition 4 of the <em>Elements</em> (SAS triangle congruence), Euclid moved one triangle by a rigid motion so its vertex and side coincided with the second triangle — the earliest implicit Euclidean-isometry WLOG argument in geometry.</li>
-      <li><strong>Joseph-Louis Lagrange (1770) &amp; Augustin-Louis Cauchy (1815):</strong> Studying how polynomials in \(n\) variables behave when their roots are permuted by \(S_n\), Lagrange and Cauchy quantified the exact ratio between full symmetric polynomials (1 orbit) and partially symmetric polynomials (such as alternating polynomials with 2 orbits under \(A_n \subset S_n\)).</li>
-      <li><strong>Felix Klein (1872) &amp; Hermann Weyl (1925):</strong> In his <em>Erlangen Program</em>, Klein defined a geometry as the study of properties invariant under a transformation group \(G\). To compute in any geometry, one uses \(G\) to place the figure into a canonical reference frame. Half a century later, Weyl introduced <strong>Weyl chambers</strong> — the exact geometric generalization of the sorted cone \(a_1 \ge a_2 \ge \cdots \ge a_n\) for any reflection group.</li>
-      <li><strong>Chen Ning Yang &amp; Robert Mills (1954) &amp; Ludvig Faddeev–Victor Popov (1967):</strong> In electrodynamics and Yang–Mills gauge theory, physical fields have an infinite-dimensional symmetry group at every point of spacetime. Choosing a canonical condition like the Lorenz gauge \(\partial_\mu A^\mu = 0\) or Coulomb gauge \(\nabla \cdot \mathbf{A} = 0\) ("gauge fixing") is literally a continuous WLOG choice picking one representative per gauge orbit.</li>
-    </ul>
-  </aside>
+<h2>7 · Lineage interlude</h2>
+<p>The move is as old as proof itself, because it is proof's own economy. Euclid's fourth Common Notion — "things that coincide with one another are equal to one another" — is the license, and Proposition I.4 (side-angle-side) is the first recorded wlog: to prove two triangles congruent, Euclid <em>superposes</em> one on the other, moving the figure without changing what matters about it — a rigid motion declared without loss of generality, circa 300 BC. The algebraic form arrived with the study of equations whose roots are interchangeable: Joseph-Louis Lagrange's 1770 <em>Réflexions sur la résolution algébrique des équations</em> analyzed expressions by how they behave under permuting the roots, and Augustin-Louis Cauchy's 1815 memoir on permutation groups made the invariance itself the object of study — the moment "which shuffles leave the claim alone?" became mathematics. Felix Klein's Erlangen program of 1872 generalized the move to all of geometry: a geometry <em>is</em> a space together with its group of invariances, so every geometric wlog is a choice of representative in that group's terms. Hermann Weyl's 1925–26 work on the representation theory of Lie groups built the canonical-representative machinery — Weyl chambers — that §5's honest scope pointed at: the systematic answer to "which case may stand for the orbit" when the orbit is infinite. And the modern physics chapters are the same move under pressure: gauge symmetries are invariances so abundant that choosing a representative ("fixing the gauge") becomes its own subtle art — Yang and Mills's 1954 theory made the invariance the law, and Faddeev and Popov's 1967 prescription handled the double-counting that over-abundant symmetry inflicts on the census — P08's ledger, audited by physicists.</p>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
-
-  <div class="exercise">
-    <p><strong>Exercise P68.1 (●○○ — Dissolving absolute values in one line).</strong> Prove that for any three real numbers \(a, b, c \in \mathbb{R}\),</p>
-    \[
-      |a - b| + |b - c| + |c - a| \;=\; 2\bigl(\max(a, b, c) \,-\, \min(a, b, c)\bigr).
-    \]
-    <ol>
-      <li>Explain why both sides of the identity are invariant under all \(3! = 6\) permutations of \((a, b, c)\).</li>
-      <li>Apply a WLOG ordering to remove all three absolute value bars simultaneously and verify the identity.</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Since \(|x - y| = |y - x|\), permuting \(a, b, c\) merely permutes the three terms on the left and leaves \(\max(a,b,c)\) and \(\min(a,b,c)\) unchanged. Assume WLOG \(a \ge b \ge c\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Permutation invariance.</strong> Because \(|u - v| = |v - u|\), any permutation of \((a, b, c)\) simply permutes the three summands \(\{|a-b|, |b-c|, |c-a|\}\) without changing their sum, and \(\max(a,b,c)\) and \(\min(a,b,c)\) depend only on the unordered set \(\{a, b, c\}\).</p>
-      <p><strong>2. One-line proof in the canonical chamber.</strong> Without loss of generality, relabel the three numbers so that \(a \ge b \ge c\). Then \(\max(a,b,c) = a\), \(\min(a,b,c) = c\), and \(a - b \ge 0,\; b - c \ge 0,\; a - c \ge 0\), so</p>
-      \[
-        |a - b| + |b - c| + |c - a| \;=\; (a - b) + (b - c) + (a - c) \;=\; 2a - 2c \;=\; 2\bigl(\max(a,b,c) - \min(a,b,c)\bigr).
-      \]
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P68.2 (●●○ — Respecting cyclic symmetry \(C_3\) vs. full symmetry \(S_3\)).</strong> Let \(a, b, c &gt; 0\) be positive real numbers. Consider the inequality</p>
-    \[
-      \frac{a^2}{b} + \frac{b^2}{c} + \frac{c^2}{a} \;\ge\; a + b + c.
-    \]
-    <ol>
-      <li>Check whether the left-hand side is invariant under swapping \(a \leftrightarrow b\) (try \(a = 1, b = 2, c = 4\)). What is the true symmetry group of this inequality, and what WLOG assumption is valid?</li>
-      <li>Prove the inequality cleanly in both cyclic orbits — either by using \(a = \max(a, b, c)\) across the two cases \(a \ge b \ge c\) and \(a \ge c \ge b\), or by completing the square on each fraction \(\frac{x^2}{y} - 2x + y = \frac{(x - y)^2}{y} \ge 0\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>At \((1, 2, 4)\), \(\frac{1}{2} + \frac{4}{4} + \frac{16}{1} = 17.5\), whereas at \((2, 1, 4)\), \(\frac{4}{1} + \frac{1}{4} + \frac{16}{2} = 12.25 \neq 17.5\)! So the symmetry group is \(C_3\), not \(S_3\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Symmetry audit.</strong> At \((a, b, c) = (1, 2, 4)\), the left-hand side is \(\frac{1}{2} + \frac{4}{4} + \frac{16}{1} = 17.5\); swapping \(a \leftrightarrow b\) to \((2, 1, 4)\) gives \(\frac{4}{1} + \frac{1}{4} + \frac{16}{2} = 12.25 \neq 17.5\). Thus the expression is invariant only under the cyclic group \(C_3\) (\((a,b,c) \mapsto (b,c,a)\)), so we may assume <strong>WLOG \(a = \max(a, b, c)\)</strong>, which leaves two cases: \(a \ge b \ge c\) and \(a \ge c \ge b\).</p>
-      <p><strong>2. Proof across both orbits.</strong> Subtracting \(a + b + c\) and writing \(a + b + c = (2a - b) + (2b - c) + (2c - a)\) gives the exact cyclic sum-of-squares identity (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>):</p>
-      \[
-        \left(\frac{a^2}{b} + \frac{b^2}{c} + \frac{c^2}{a}\right) - (a + b + c) \;=\; \frac{(a - b)^2}{b} + \frac{(b - c)^2}{c} + \frac{(c - a)^2}{a} \;\ge\; 0,
-      \]
-      <p>which holds in both cyclic orbits! Alternatively, using WLOG \(a = \max(a, b, c)\), one can verify directly that the difference between the two cyclic orbits is \(\frac{(a-b)(b-c)(a-c)}{abc}\): when \(a \ge c \ge b\), this difference is \(\le 0\), and even in that smaller orbit we have \(\frac{a^2}{b} + \frac{b^2}{c} + \frac{c^2}{a} - (a + b + c) = \frac{(a-c)^2}{c} + \frac{(a-b)(c-b)(a+c)}{bc} \ge 0\).</p>
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P68.3 (●●● — Scaling WLOG \(abc = 1\) in IMO 1995 Problem 2).</strong> Prove that for any positive real numbers \(a, b, c &gt; 0\),</p>
-    \[
-      \frac{(abc)^{4/3}}{a^3(b + c)} + \frac{(abc)^{4/3}}{b^3(c + a)} + \frac{(abc)^{4/3}}{c^3(a + b)} \;\ge\; \frac{3}{2}.
-    \]
-    <ol>
-      <li>Verify that the left-hand side is homogeneous of degree \(0\) under \((a, b, c) \mapsto (\lambda a, \lambda b, \lambda c)\) for \(\lambda &gt; 0\), and apply a scaling WLOG to set \(abc = 1\).</li>
-      <li>Substitute \(a = 1/x,\; b = 1/y,\; c = 1/z\) (so \(xyz = 1\)) to simplify the left-hand side into \(\frac{x^2}{y+z} + \frac{y^2}{z+x} + \frac{z^2}{x+y}\), and finish the proof using Cauchy–Schwarz and AM–GM.</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>With \(abc = 1\) and \(a = 1/x, b = 1/y, c = 1/z\), notice that \(\frac{1}{a^3(b+c)} = \frac{x^3}{\frac{1}{y} + \frac{1}{z}} = \frac{x^3 y z}{y + z} = \frac{x^2 (xyz)}{y + z} = \frac{x^2}{y + z}\)!</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Homogeneity check and \(abc = 1\) normalization.</strong> Under \((a, b, c) \mapsto (\lambda a, \lambda b, \lambda c)\), the numerator \((abc)^{4/3}\) scales by \((\lambda^3)^{4/3} = \lambda^4\) and the denominator \(a^3(b+c)\) scales by \(\lambda^3 \cdot \lambda = \lambda^4\). Since the inequality is degree-\(0\) homogeneous, choosing \(\lambda = (abc)^{-1/3} &gt; 0\) allows us to assume <strong>without loss of generality that \(abc = 1\)</strong>, reducing the target to</p>
-      \[
-        \frac{1}{a^3(b + c)} + \frac{1}{b^3(c + a)} + \frac{1}{c^3(a + b)} \;\ge\; \frac{3}{2}.
-      \]
-      <p><strong>2. Reciprocal substitution and Cauchy–Schwarz.</strong> Set \(x = 1/a,\; y = 1/b,\; z = 1/c\); then \(x, y, z &gt; 0\) and \(xyz = 1\). Each summand transforms cleanly:</p>
-      \[
-        \frac{1}{a^3(b + c)} \;=\; \frac{x^3}{\frac{1}{y} + \frac{1}{z}} \;=\; \frac{x^3 y z}{y + z} \;=\; \frac{x^2 (xyz)}{y + z} \;=\; \frac{x^2}{y + z}.
-      \]
-      <p>By Cauchy–Schwarz in Engel form (Titu's lemma) followed by AM–GM with \(xyz = 1\):</p>
-      \[
-        \frac{x^2}{y + z} + \frac{y^2}{z + x} + \frac{z^2}{x + y} \;\ge\; \frac{(x + y + z)^2}{2(x + y + z)} \;=\; \frac{x + y + z}{2} \;\ge\; \frac{3\,(xyz)^{1/3}}{2} \;=\; \frac{3}{2}.
-      \]
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P68.4 (◆ — Pattern-unknown diagnosis).</strong> Find all ordered triples of positive integers \((a, b, c) \in \mathbb{Z}_{\ge 1}^3\) such that</p>
-    \[
-      \frac{1}{a} + \frac{1}{b} + \frac{1}{c} \;=\; 1.
-    \]
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Pattern diagnosis (<a href="p68-wlog.html"><span class="pid">P68</span> · Without loss of generality</a> + <a href="p15-squeeze.html"><span class="pid">P15</span> · Squeeze it</a>).</strong> An equation in \(3\) unbounded positive integers appears to have infinitely many candidates, because if \(a\) is small, \(b\) and \(c\) could be huge. However, both the domain \((a, b, c) \in \mathbb{Z}_{\ge 1}^3\) and the equation \(\frac{1}{a} + \frac{1}{b} + \frac{1}{c} = 1\) are invariant under all \(3! = 6\) permutations in \(S_3\). Therefore, <strong>without loss of generality, sort the denominators so that \(1 \le a \le b \le c\)</strong>, and reconstruct all permutations at the end.</p>
-      <p><strong>2. Bounding the smallest denominator \(a\).</strong> Since \(a \le b \le c\), we have \(\frac{1}{a} \ge \frac{1}{b} \ge \frac{1}{c}\), so</p>
-      \[
-        1 \;=\; \frac{1}{a} + \frac{1}{b} + \frac{1}{c} \;\le\; \frac{1}{a} + \frac{1}{a} + \frac{1}{a} \;=\; \frac{3}{a} \quad\implies\quad a \le 3.
-      \]
-      <p>Since \(\frac{1}{a} &lt; 1\), we also have \(a \ge 2\). Thus \(a \in \{2, 3\}\) has only two possibilities!</p>
-      <ul>
-        <li><strong>Case 1 (\(a = 2\)):</strong> Then \(\frac{1}{b} + \frac{1}{c} = 1 - \frac{1}{2} = \frac{1}{2}\). Since \(b \le c\), \(\frac{1}{2} = \frac{1}{b} + \frac{1}{c} \le \frac{2}{b} \implies b \le 4\), and \(\frac{1}{b} &lt; \frac{1}{2} \implies b \ge 3\).
-          <ul>
-            <li>\(b = 3 \implies \frac{1}{c} = \frac{1}{2} - \frac{1}{3} = \frac{1}{6} \implies (a,b,c) = (2, 3, 6)\).</li>
-            <li>\(b = 4 \implies \frac{1}{c} = \frac{1}{2} - \frac{1}{4} = \frac{1}{4} \implies (a,b,c) = (2, 4, 4)\).</li>
-          </ul>
-        </li>
-        <li><strong>Case 2 (\(a = 3\)):</strong> Then \(\frac{1}{b} + \frac{1}{c} = \frac{2}{3} \le \frac{2}{b} \implies b \le 3\). Since \(b \ge a = 3\), this forces \(b = 3\) and \(c = 3\), giving \((a,b,c) = (3, 3, 3)\).</li>
-      </ul>
-      <p><strong>3. Unfolding the \(S_3\) orbits to recover all ordered solutions.</strong></p>
-      <ul>
-        <li>The sorted triple \((2, 3, 6)\) has \(3\) distinct entries, generating \(3! = 6\) ordered triples: \((2,3,6), (2,6,3), (3,2,6), (3,6,2), (6,2,3), (6,3,2)\).</li>
-        <li>The sorted triple \((2, 4, 4)\) has \(2\) equal entries, generating \(\frac{3!}{2!} = 3\) ordered triples: \((2,4,4), (4,2,4), (4,4,2)\).</li>
-        <li>The sorted triple \((3, 3, 3)\) has all \(3\) entries equal, generating \(1\) ordered triple: \((3,3,3)\).</li>
-      </ul>
-      <p>In total, there are \(6 + 3 + 1 = 10\) ordered solutions.</p>
-    </details>
-  </div>
-
-  <div class="exercise">
-    <p><strong>Exercise P68.5 (◐ — Exploration: Three-point WLOG via Möbius transformations and the cross-ratio).</strong> On the Riemann sphere \(\widehat{\mathbb{C}} = \mathbb{C} \cup \{\infty\}\), the group \(\operatorname{PSL}_2(\mathbb{C})\) of <strong>Möbius transformations</strong></p>
-    \[
-      T(z) \;=\; \frac{\alpha z + \beta}{\gamma z + \delta} \qquad (\alpha\delta - \beta\gamma = 1)
-    \]
-    <p>preserves circles, lines, and angles (<a href="p28-conformal-mapping.html"><span class="pid">P28</span></a>). Notice that \((\alpha, \beta, \gamma, \delta)\) has \(4\) complex parameters minus \(1\) overall scaling, leaving \(3\) complex degrees of freedom.</p>
-    <ol>
-      <li>Given any three distinct points \(z_1, z_2, z_3 \in \mathbb{C}\), verify that the explicit Möbius transformation
-        \[
-          T(z) \;=\; \frac{(z - z_1)(z_2 - z_3)}{(z - z_3)(z_2 - z_1)}
-        \]
-        maps \(z_1 \mapsto 0\), \(z_2 \mapsto 1\), and \(z_3 \mapsto \infty\). Why does this allow any theorem in Möbius geometry involving \(4\) points \((z_1, z_2, z_3, z_4)\) to assume <strong>without loss of generality that \((z_1, z_2, z_3) = (0, 1, \infty)\)</strong>?</li>
-      <li>When \((z_1, z_2, z_3) = (0, 1, \infty)\), the fourth point \(z_4\) lands at \(w = T(z_4)\) (the <strong>cross-ratio</strong> \([z_4, z_1; z_2, z_3]\)). Since the real axis \(\mathbb{R} \cup \{\infty\}\) is the unique circle/line through \(0, 1, \infty\), deduce a 1-line criterion for when four points \(z_1, z_2, z_3, z_4 \in \mathbb{C}\) lie on a common circle or line!</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Plug \(z = z_1\), \(z = z_2\), and \(z = z_3\) directly into \(T(z)\). For Part 2, because \(T\) maps circles/lines to circles/lines and sends \(z_1, z_2, z_3\) to \(0, 1, \infty \in \mathbb{R} \cup \{\infty\}\), the circle through \(z_1, z_2, z_3\) maps to the real axis!</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Three-point transitivity of \(\operatorname{PSL}_2(\mathbb{C})\).</strong> Substituting \(z = z_1\) makes the numerator \((z_1 - z_1)(z_2 - z_3) = 0\), so \(T(z_1) = 0\). Substituting \(z = z_2\) makes the numerator and denominator equal to \((z_2 - z_1)(z_2 - z_3) \neq 0\), so \(T(z_2) = 1\). Substituting \(z = z_3\) makes the denominator \(0\) while the numerator is \((z_3 - z_1)(z_2 - z_3) \neq 0\), so \(T(z_3) = \infty\). Because \(\operatorname{PSL}_2(\mathbb{C})\) acts simply transitively on triples of distinct points, any Möbius-invariant question about \((z_1, z_2, z_3, z_4)\) can assume WLOG that \((z_1, z_2, z_3) = (0, 1, \infty)\) and \(z_4 = w\).</p>
-      <p><strong>2. Concyclicity via the real cross-ratio.</strong> Under \(T\), the unique circle or line passing through \(z_1, z_2, z_3\) maps to the unique circle or line through \(0, 1, \infty\), which is the extended real axis \(\mathbb{R} \cup \{\infty\}\). Therefore, \(z_4\) lies on the same circle or line as \(z_1, z_2, z_3\) if and only if \(T(z_4)\) lies on the real axis:</p>
-      \[
-        z_1, z_2, z_3, z_4 \text{ are concyclic or collinear} \quad\Longleftrightarrow\quad \frac{(z_4 - z_1)(z_2 - z_3)}{(z_4 - z_3)(z_2 - z_1)} \;\in\; \mathbb{R} \cup \{\infty\}.
-      \]
-    </details>
-  </div>
+<h2>8 · Exercises</h2>
+<p class="ex"><strong>Exercise 1</strong> ●○○ — The distance identity. Claim: for real numbers \(a, b, c\), \(|a-b| + |b-c| + |c-a| = 2(\max - \min)\). (a) Prove it by wlog: state the invariance, name the representative ordering, and run the computation. (b) Check the census on \((3, 1, 4)\) and \((2, 5, 2)\) against your formula. (c) The audit: why does reordering the three numbers not change the left side? Point at the exact reason — what does \(|x - y|\) not care about?</p>
+<details><summary>Hint</summary><p>In the representative \(a \geq b \geq c\): \(|a-b| = a-b\), \(|b-c| = b-c\), \(|c-a| = a-c\). Sum and collect.</p></details>
+<details><summary>Worked answer</summary><p>(a) The claim is invariant under any reordering: the left side is a sum of pairwise distances, and a distance does not care which endpoint has the bigger name; the right side is symmetric outright. Wlog \(a \geq b \geq c\): then \(|a-b| + |b-c| + |c-a| = (a-b) + (b-c) + (a-c) = 2a - 2c = 2(\max - \min)\). (b) \((3,1,4)\): \(|2| + |{-3}| + |{-1}| = 2 + 3 + 1 = 6\), and \(2(4-1) = 6\). \((2,5,2)\): \(3 + 3 + 0 = 6\), and \(2(5-2) = 6\). (c) Each term \(|x-y|\) is invariant under \(x \leftrightarrow y\) individually, and the sum runs over all three pairs, so a relabeling permutes the terms — the sum is symmetric under all of \(S_{3}\), the strongest possible invariance, which is why the wlog here is completely free: the case map is the identity on truths.</p></details>
+<p class="ex"><strong>Exercise 2</strong> ●●○ — The cyclic trap, met head-on. Claim: for positive \(a, b, c\), \(\frac{a^{2}}{b} + \frac{b^{2}}{c} + \frac{c^{2}}{a} \geq a + b + c\). (a) Decide: is the claim invariant under all reorderings, under cyclic shuffles only, or under neither? Check \(f(a,b,c) = \frac{a^{2}}{b} + \frac{b^{2}}{c} + \frac{c^{2}}{a}\) against the swap \(a \leftrightarrow b\) numerically at \((1, 2, 4)\). (b) Prove the claim <em>without</em> any wlog, by proving the identity \(\frac{a^{2}}{b} + \frac{b^{2}}{c} + \frac{c^{2}}{a} - (a + b + c) = \frac{(a-b)^{2}}{b} + \frac{(b-c)^{2}}{c} + \frac{(c-a)^{2}}{a}\). (c) The confession: a classmate writes "wlog \(a \geq b \geq c\)" and proves the claim in that ordering. Diagnose precisely what their proof establishes and what it does not — which sentences did they prove, and for which cases?</p>
+<details><summary>Hint</summary><p>For (b): multiply out the right side term by term — \(\frac{(a-b)^{2}}{b} = \frac{a^{2}}{b} - 2a + b\), and the pieces telescope across the sum. For (a): \((1,2,4)\) vs \((2,1,4)\).</p></details>
+<details><summary>Worked answer</summary><p>(a) Cyclic shuffles only, and the numeric check shows it: \(f(1,2,4) = \frac{1}{2} + \frac{4}{4} + \frac{16}{1} = 17.5\), while \(f(2,1,4) = \frac{4}{1} + \frac{1}{4} + \frac{16}{2} = 12.25\). A swap changed the value — the claim is not symmetric, and "wlog \(a \geq b\)" is unavailable. (b) Multiplying out: \(\frac{(a-b)^{2}}{b} = \frac{a^{2}}{b} - 2a + b\); \(\frac{(b-c)^{2}}{c} = \frac{b^{2}}{c} - 2b + c\); \(\frac{(c-a)^{2}}{a} = \frac{c^{2}}{a} - 2c + a\). The sum: \(\frac{a^{2}}{b} + \frac{b^{2}}{c} + \frac{c^{2}}{a} - (a + b + c)\) — the linear terms collect to exactly \(-(a+b+c)\). Each squared term is nonnegative (positive variables, squares), so the difference is \(\geq 0\): the claim holds, no ordering assumed. (c) The classmate's proof establishes the claim for the cases where \(a \geq b \geq c\) <em>and their cyclic shuffles</em> — if their argument used only cyclic-invariant steps, it covers half of each orbit; if it used the swap anywhere, it covers only the ordered sixth of the case space. Either way the remaining cases are unproved: at \((2,1,4)\) the claim happens to hold (12.25 ≥ 7), but nothing in the classmate's argument shows it. This is §5's first failure mode with the diagnosis attached: the proof is honest for its orbit and silent about the rest.</p></details>
+<p class="ex"><strong>Exercise 3</strong> ●●● — The substitution ladder. Claim (IMO 1995, Problem 2): for positive reals \(a, b, c\) with \(abc = 1\), \(\frac{1}{a^{3}(b+c)} + \frac{1}{b^{3}(c+a)} + \frac{1}{c^{3}(a+b)} \geq \frac{3}{2}\). (a) Show the substitution \(x = \frac{1}{a}\), \(y = \frac{1}{b}\), \(z = \frac{1}{c}\) turns the constraint into \(xyz = 1\) and each term into \(\frac{x^{2}}{y+z}\) — carefully: \(\frac{1}{a^{3}(b+c)} = \frac{x^{3}}{\frac{1}{y} + \frac{1}{z}} = \frac{x^{3}yz}{y+z}\), and \(x^{3}yz = x^{2}(xyz) = x^{2}\). (b) Prove \(\sum \frac{x^{2}}{y+z} \geq \frac{(x+y+z)^{2}}{2(x+y+z)} = \frac{x+y+z}{2}\) — this is Cauchy's inequality in the form \(\sum \frac{u_{i}^{2}}{v_{i}} \geq \frac{(\sum u_{i})^{2}}{\sum v_{i}}\) with \(v_{i} &gt; 0\); verify the Cauchy step directly by cross-multiplying. (c) Finish by AM–GM: \(xyz = 1\) forces \(x + y + z \geq 3\), so the sum is \(\geq \frac{3}{2}\), equality iff \(x = y = z = 1\), i.e. \(a = b = c = 1\). (d) The audit: where in this proof did a wlog or normalization operate, and what discharged its obligations? (The substitution is a <em>change of variables</em>, not a wlog — say what the difference is, and why the proof needed no case map.)</p>
+<details><summary>Hint</summary><p>For (b): expand \(\sum \frac{x^{2}}{y+z} \cdot 2(x+y+z) - (x+y+z)^{2}\) and collect into \(\sum \frac{(x(y+z) - y(y+z)\cdots)^{2}}{\cdot}\) — or verify the equivalent form \(\sum_{sym} \frac{(x-y)^{2}}{(x+z)(y+z)} \geq 0\). Keep the algebra honest; the machine census in the receipt confirms the final inequality at \((1,2,\frac{1}{2})\) and \((3,1,\frac{1}{3})\).</p></details>
+<details><summary>Worked answer</summary><p>(a) With \(a = \frac{1}{x}\) etc.: \(abc = \frac{1}{xyz} = 1 \iff xyz = 1\), and \(\frac{1}{a^{3}(b+c)} = \frac{x^{3}}{(1/y) + (1/z)} = \frac{x^{3} yz}{y + z} = \frac{x^{2}(xyz)}{y+z} = \frac{x^{2}}{y+z}\). (b) The Cauchy step: for positive \(v_{i}\), \(\sum \frac{u_{i}^{2}}{v_{i}} \geq \frac{(\sum u_{i})^{2}}{\sum v_{i}}\); here \(u_{i} = x, y, z\) and \(v_{i} = y+z, z+x, x+y\), giving \(\sum \frac{x^{2}}{y+z} \geq \frac{(x+y+z)^{2}}{2(x+y+z)} = \frac{x+y+z}{2}\). The direct check is Lagrange's identity: \(\bigl(\sum \frac{u_{i}^{2}}{v_{i}}\bigr)\bigl(\sum v_{i}\bigr) - \bigl(\sum u_{i}\bigr)^{2} = \sum_{i<j} \frac{(u_{i}v_{j} - u_{j}v_{i})^{2}}{v_{i}v_{j}} \geq 0\) — every term a square over a positive product. Here that reads \(\bigl(\sum \frac{x^{2}}{y+z}\bigr) \cdot 2(x+y+z) - (x+y+z)^{2} = \sum_{i<j} \frac{(u_{i}v_{j} - u_{j}v_{i})^{2}}{v_{i}v_{j}}\) with \(u = (x,y,z)\), \(v = (y+z, z+x, x+y)\) — nonnegative termwise, and the machine receipt confirms the identity numerically at sampled positive triples. (c) AM–GM on \(x, y, z\): \(x + y + z \geq 3\sqrt[3]{xyz} = 3\), so \(\frac{x+y+z}{2} \geq \frac{3}{2}\), with equality iff \(x = y = z = 1\). (d) No wlog operates anywhere — and that is the point of the ladder. The substitution \(x = 1/a\) is a <em>bijective change of variables</em>: it maps the whole case space one-to-one onto itself (positives with \(abc=1\) to positives with \(xyz=1\)), so every case is proved simultaneously and there is nothing to map to a representative. A wlog proves one case and bills the orbit by invariance; a change of variables re-expresses <em>all</em> cases at once. The confusion between them is benign when the map is a bijection — and fatal when it is not (§5's scaling trap is a change of variables that failed surjectivity).</p></details>
+<p class="ex"><strong>Exercise 4</strong> ◆ — Three broken wlogs, diagnosed cold. Each "proof" below declares a without-loss-of-generality; each declaration is unearned. Diagnose: which obligation failed — invariance, case map, or the gate of §5's third failure — and what the honest repair is. <em>(i)</em> "Claim: \((a-b)(b-c)(a-c) \geq 0\) whenever \(a, b, c\) are distinct reals with \(a + b + c = 6\). Wlog \(a \geq b \geq c\) (reordering), and then all three factors are nonnegative." <em>(ii)</em> "Claim: for the data \((a_1, b_1), \ldots, (a_n, b_n)\), \(\sum a_{i}b_{i}\) is maximized when both lists are sorted increasingly. Wlog both lists are sorted — relabel each list independently." <em>(iii)</em> "Claim: \(a^{2} + b^{2} \geq 2ab\) for all reals. Wlog divide by \(b\) and set \(t = a/b\); then \(t^{2} + 1 \geq 2t\), i.e. \((t-1)^{2} \geq 0\). Done."</p>
+<details><summary>Hint</summary><p>No hint — the diagnosis is the exercise. For each: name the obligation skipped, exhibit the case that breaks the wlog, and state the repair in §3's three-part language.</p></details>
+<details><summary>Worked answer</summary><p><em>(i)</em> Invariance failure — §5's first trap. The expression is cyclic-invariant but alternating under swaps: \(f(2,1,3) = -f(1,2,3)\). The representative ordering \(a \geq b \geq c\) indeed gives all three factors nonnegative — but reaching it from an unordered case requires swaps, which flip the sign: the "proof" establishes \(f \geq 0\) on one orbit while silently billing the other. And the orbit check exposes something worse: the <em>claim itself is false</em>. Take \((a,b,c) = (2,3,1)\): \(a + b + c = 6\), the entries are distinct, and \(f = (2-3)(3-1)(2-1) = -2 &lt; 0\). The wlog hid a live counterexample by proving only the ordered orbit. The repair: the honest statement is that \(f\)'s sign is the sign of the permutation carrying \((a,b,c)\) to sorted order — a true and pretty fact, provable by the orbit analysis of §5 — not the blanket nonnegativity claimed. <em>(ii)</em> Case-map failure — §5's second trap. Relabeling each list independently applies two unrelated permutations; the pairing \((a_i, b_i)\) is data the "symmetry" destroys. The claim as stated is about the given pairing; sorting both lists proves the value for a <em>different</em> pairing. The repair: either prove the rearrangement inequality (the sorted pairing is extremal — P71's move), or restate the claim with the pairing quantified and prove it pairing-by-pairing. <em>(iii)</em> The gate of §5's third failure — definedness. Dividing by \(b\) is illegal at \(b = 0\), and the case \(b = 0\) is exactly the case where the claim reads \(a^{2} \geq 0\) — true, but outside the wlog's jurisdiction. The repair: handle \(b = 0\) in one line first, then divide — or avoid the division: \(a^{2} + b^{2} - 2ab = (a-b)^{2} \geq 0\) needs no cases at all, which is the deeper lesson: the best wlog is sometimes the one you talk yourself out of.</p></details>
+<p class="ex"><strong>Exercise 5</strong> ◐ — When the census beats the wlog. This page's Schur proof used the wlog because the representative factorization \((a-b)^{2}(a+b-c) + c(a-c)(b-c)\) is a genuine landing. Schur generalizes: for \(r \geq 0\), \(\sum a^{r}(a-b)(a-c) \geq 0\). (a) Run the r = 2 case by wlog: assume \(a \geq b \geq c\), pair the middle term as in §2, and show \(S_{2} = \sum a^{2}(a-b)(a-c) = (a-b)\bigl[a^{2}(a-c) - b^{2}(b-c)\bigr] + c^{2}(a-c)(b-c)\), with the bracket factoring as \((a-b)\bigl(a^{2} + ab + b^{2} - c(a+b)\bigr)\). Verify numerically at \((5,3,1)\): the census value is \(25 \cdot 2 \cdot 4 + 9 \cdot 2 \cdot (-2) + 1 \cdot (-4)(-2) = 200 - 36 + 8 = 172\), and the factored form gives \((2)^{2}(25 + 15 + 9 - 8) + 1 \cdot 4 \cdot 2 = 4 \cdot 41 + 8 = 172\). (b) The boundary question: the r = 2 factorization landed because \(a^{2} + ab + b^{2} - c(a+b) = a(a-c) + b(b-c) + ab \geq 0\) in the representative. Does the same pairing trick close <em>every</em> \(r\)? Test \(r = 3\) at \((5,3,1)\) and report what the bracket \(a^{3}(a-c) - b^{3}(b-c)\) factors into, and whether the pieces stay nonnegative. (c) Explore outward: find (or invent) a claim where the census of cases is <em>cheaper and more honest</em> than the wlog — where the invariance holds but the representative proof is harder than walking all cases. State the feature that decides which to reach for. (d) The boundary sentence: what does the wlog deliver that the census cannot, and what does the census deliver that the wlog cannot? Say which you would reach for on a fresh claim, and why.</p>
+<details><summary>Hint</summary><p>For (b): \(a^{3}(a-c) - b^{3}(b-c) = (a^{4} - b^{4}) - c(a^{3} - b^{3})\), and both differences factor by \(a - b\). For (c): think of claims with two variables where the two cases are one line each.</p></details>
+<details><summary>Worked answer</summary><p>(a) The pairing: \(S_{2} = a^{2}(a-b)(a-c) + b^{2}(b-c)(b-a) + c^{2}(c-a)(c-b) = (a-b)\bigl[a^{2}(a-c) - b^{2}(b-c)\bigr] + c^{2}(a-c)(b-c)\), and the bracket factors: \(a^{2}(a-c) - b^{2}(b-c) = (a^{3} - b^{3}) - c(a^{2} - b^{2}) = (a-b)\bigl[a^{2} + ab + b^{2} - c(a+b)\bigr]\). So \(S_{2} = (a-b)^{2}\bigl[a^{2} + ab + b^{2} - c(a+b)\bigr] + c^{2}(a-c)(b-c)\), and in the representative ordering the bracket is \(a(a-c) + b(b-c) + ab \geq 0\) — every piece nonnegative. Numerics at \((5,3,1)\): census \(25 \cdot 2 \cdot 4 + 9 \cdot 2 \cdot (-2) + 1 \cdot (-4)(-2) = 200 - 36 + 8 = 172\); factored \((2)^{2} \cdot 41 + 1 \cdot 4 \cdot 2 = 164 + 8 = 172\). Collected. (b) \(r = 3\) at \((5,3,1)\): census \(S_{3} = 125 \cdot 2 \cdot 4 + 27 \cdot 2 \cdot (-2) + 1 \cdot (-4)(-2) = 1000 - 108 + 8 = 900\). The bracket: \(a^{3}(a-c) - b^{3}(b-c) = (a^{4} - b^{4}) - c(a^{3} - b^{3}) = (a-b)\bigl[(a+b)(a^{2}+b^{2}) - c(a^{2}+ab+b^{2})\bigr]\), which at \((5,3,1)\) reads \(2 \cdot (8 \cdot 34 - 49) = 2 \cdot 223 = 446\), and \(S_{3} = 2 \cdot 446 + 8 = 900\) — census met. The inner piece stays nonnegative in the representative: \((a+b)(a^{2}+b^{2}) - c(a^{2}+ab+b^{2}) = a\bigl[a(a-c) + b(b-c)\bigr] + b\bigl[a^{2} + b(b-c)\bigr] \geq 0\) whenever \(a \geq b \geq c \geq 0\). And the general pattern: for every \(r \geq 0\), \(x^{r}(x-c)\) is increasing in \(x\) on \(x \geq c\) (for \(r \geq 1\) its derivative is positive there; for \(0 \leq r &lt; 1\) monotonicity still holds on the positive cone), so the bracket never goes negative and the wlog closes Schur at every degree. (c) The standard example: the claim \(|a-b| + |b-c| + |c-a| = 2(\max - \min)\) of Exercise 1 — provable by wlog in one line, but its six-case census is six one-line computations with no shared machinery, and for a reader meeting absolute values for the first time the census <em>teaches more</em> (it shows <em>why</em> the invariance holds by exhibiting it). The deciding feature: when the representative proof's machinery is reusable (Schur: the factorization idea scales to every degree), the wlog is the investment; when each case is trivial and the invariance is the entire content, the census is the proof. (d) The wlog delivers scale — one argument covering an orbit that may be enormous (Exemplar B's 32768 to two) — and it delivers <em>structure</em>: the named invariance is itself a mathematical fact worth having. The census delivers honesty by construction — no obligation can be skipped because every case is visibly walked — and it delivers the invariance as an <em>observation</em> rather than a lemma. On a fresh claim: census the small cases first (P02), <em>look</em> at whether the rows are copies; if they are, name the invariance and take the wlog — the census was the receipt, and the wlog is the refund.</p></details>
 </section>
 
 <footer>
-  <nav>
-    <a href="index.html">← Atlas index</a> ·
-    <a href="p67-contrapositive.html">← Previous: P67 · Prove the contrapositive</a> ·
-    <a href="p69-telescoping.html">Next: P69 · Telescoping →</a>
-  </nav>
+<p><a href="index.html">Return to the index</a> · Next move: <a href="p69-telescoping.html">P69 · Telescoping sums</a></p>
 </footer>
-</main>
 </body>
 </html>
