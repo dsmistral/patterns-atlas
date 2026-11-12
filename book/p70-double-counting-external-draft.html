@@ -783,3 +783,26 @@
       <p><strong>1. 1D Sperner parity double-count.</strong> Let \(\mathcal{I}\) be the set of pairs \((v, I_j)\) where \(v\) is an endpoint of subsegment \(I_j\) and \(\text{color}(v) = 1\):</p>
       <ul>
         <li><strong>By subsegments \(I_j\):</strong> A \(\{1, 1\}\)-segment contributes \(2\) to \(|\mathcal{I}|\), a bichromatic \(\{1, 2\}\)-segment contributes \(1\), and a \(\{2, 2\}\)-segment contributes \(0\). Thus \(|\mathcal{I}| \equiv \#\{\text{bichromatic } \{1,2\}\text{-segments}\} \pmod 2\).</li>
+        <li><strong>By vertices \(v\):</strong> Every interior vertex \(v_1, \dots, v_{m-1}\) of color \(1\) belongs to \(2\) adjacent segments (contributing \(2 \equiv 0 \pmod 2\)), the right endpoint \(v_m\) has color \(2\) (contributing \(0\)), and the left endpoint \(v_0\) has color \(1\) and belongs to \(1\) segment (contributing \(1\)). Thus \(|\mathcal{I}| \equiv 1 \pmod 2\).</li>
+      </ul>
+      <p>Equating the two parities proves that the number of \(\{1, 2\}\)-segments is odd (and hence \(\ge 1\)).</p>
+      <p><strong>2. 2D Door-Room double-count.</strong> Let \(\mathcal{I}\) be the set of incidences \((t, e)\) where \(t\) is a triangle room and \(e\) is a \(\{1, 2\}\)-door on the boundary of \(t\):</p>
+      <ul>
+        <li><strong>By triangle rooms \(t\):</strong> A panchromatic \(\{1, 2, 3\}\)-triangle has <em>exactly \(1\)</em> \(\{1, 2\}\)-door; a \(\{1, 1, 2\}\)- or \(\{1, 2, 2\}\)-triangle has <em>\(2\)</em> \(\{1, 2\}\)-doors; and all other triangles have \(0\). Thus \(|\mathcal{I}| \equiv \#\{\text{panchromatic } \{1,2,3\}\text{-triangles}\} \pmod 2\).</li>
+        <li><strong>By \(\{1, 2\}\)-doors \(e\):</strong> Every <em>interior</em> \(\{1, 2\}\)-door belongs to \(2\) triangles (contributing \(2 \equiv 0 \pmod 2\)), while every <em>boundary</em> \(\{1, 2\}\)-door belongs to \(1\) triangle (contributing \(1\)). Thus \(|\mathcal{I}| \equiv \#\{\text{boundary } \{1,2\}\text{-doors}\} \pmod 2\).</li>
+      </ul>
+      <p>By Part 1, the bottom boundary side of the large triangle (between vertex \(1\) and vertex \(2\)) has an odd number of \(\{1, 2\}\)-doors, so the number of panchromatic \(\{1, 2, 3\}\)-triangles inside is odd — and therefore at least \(1\)!</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="index.html">← Atlas index</a> ·
+    <a href="p69-telescoping.html">← Previous: P69 · Telescoping</a> ·
+    <a href="p71-extremal-principle.html">Next: P71 · The extremal principle →</a>
+  </nav>
+</footer>
+</main>
+</body>
+</html>
