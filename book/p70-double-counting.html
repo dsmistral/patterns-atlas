@@ -1,808 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P70 · Double counting — Patterns of Math</title>
-<style>
-  :root {
-    --bg: #faf8f5;
-    --fg: #1a1a1a;
-    --muted: #5a5550;
-    --accent: #8b2635;
-    --accent-soft: #f3e6e8;
-    --rule: #d8d2c7;
-    --box-bg: #f2eee6;
-    --warn-bg: #f9ebe0;
-    --warn-border: #b85d19;
-    --onramp-bg: #eef3f7;
-    --onramp-border: #3a6073;
-    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.65;
-  }
-  main {
-    max-width: 44rem;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 5rem;
-  }
-  header.chapter-header {
-    border-bottom: 2px solid var(--fg);
-    padding-bottom: 1.25rem;
-    margin-bottom: 2rem;
-  }
-  .tier-label {
-    font-family: var(--sans);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    margin: 0 0 0.4rem;
-  }
-  h1 {
-    font-size: 2.1rem;
-    line-height: 1.2;
-    margin: 0 0 0.5rem;
-    font-weight: 700;
-  }
-  .lede {
-    font-size: 1.15rem;
-    color: var(--muted);
-    margin: 0.4rem 0 0.8rem;
-    font-style: italic;
-  }
-  .prereqs {
-    font-family: var(--sans);
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin: 0.5rem 0 0;
-  }
-  .prereqs a, a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  h2 {
-    font-size: 1.45rem;
-    margin: 2.5rem 0 0.8rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid var(--rule);
-  }
-  h3 {
-    font-size: 1.15rem;
-    margin: 1.6rem 0 0.5rem;
-  }
-  p { margin: 0 0 1rem; }
-  ul, ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
-  li { margin-bottom: 0.4rem; }
-  .pid {
-    font-family: var(--mono);
-    font-size: 0.88em;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .onramp {
-    background: var(--onramp-bg);
-    border-left: 4px solid var(--onramp-border);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .onramp p:last-child { margin-bottom: 0; }
-  .pattern-box {
-    background: var(--box-bg);
-    border: 1.5px solid var(--fg);
-    padding: 1.1rem 1.3rem;
-    margin: 1.4rem 0;
-  }
-  .pattern-box h3 {
-    margin-top: 0;
-    font-family: var(--sans);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--accent);
-  }
-  .pattern-box p:last-child, .pattern-box ul:last-child, .pattern-box ol:last-child {
-    margin-bottom: 0;
-  }
-  .aside {
-    background: var(--box-bg);
-    border-left: 4px solid var(--accent);
-    padding: 0.9rem 1.1rem;
-    margin: 1.25rem 0;
-    font-size: 0.95rem;
-  }
-  .aside.warn {
-    background: var(--warn-bg);
-    border-left-color: var(--warn-border);
-  }
-  .aside p:last-child, .aside ul:last-child { margin-bottom: 0; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.25rem 0;
-    font-size: 0.92rem;
-  }
-  th, td {
-    border: 1px solid var(--rule);
-    padding: 0.5rem 0.65rem;
-    text-align: left;
-    vertical-align: top;
-  }
-  th {
-    background: var(--box-bg);
-    font-family: var(--sans);
-    font-size: 0.84rem;
-    font-weight: 600;
-  }
-  figure {
-    margin: 1.6rem 0;
-    padding: 0.9rem;
-    background: #fff;
-    border: 1px solid var(--rule);
-    text-align: center;
-  }
-  figcaption {
-    font-size: 0.86rem;
-    color: var(--muted);
-    margin-top: 0.6rem;
-    text-align: left;
-  }
-  .exercise {
-    border: 1px solid var(--rule);
-    background: #fff;
-    padding: 1rem 1.2rem;
-    margin: 1.2rem 0;
-  }
-  details {
-    margin-top: 0.6rem;
-    padding-top: 0.5rem;
-    border-top: 1px dashed var(--rule);
-    font-size: 0.94rem;
-  }
-  summary {
-    cursor: pointer;
-    font-family: var(--sans);
-    font-weight: 600;
-    color: var(--accent);
-  }
-  footer {
-    margin-top: 3.5rem;
-    padding-top: 1.2rem;
-    border-top: 2px solid var(--fg);
-    font-family: var(--sans);
-    font-size: 0.9rem;
-  }
-</style>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['\\(', '\\)']],
-      displayMath: [['\\[', '\\]']]
-    }
-  };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P70 · Double counting · The Patterns Atlas</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII=" crossorigin="anonymous"></script>
 </head>
 <body>
-<main>
-<header class="chapter-header">
-  <p class="tier-label">Tier 2 · Canon Foundations</p>
-  <h1><span class="pid">P70</span> · Double counting</h1>
-  <p class="lede">Count the same set of incidences in two different ways — once by rows and once by columns — so two seemingly unrelated sums are forced to equal the same corner total.</p>
-  <p class="prereqs"><strong>Prerequisites:</strong> <a href="p02-small-cases.html">P02 · Experiment with small cases</a>, <a href="p10-pigeonhole.html">P10 · Force a collision</a></p>
+<header>
+<p class="kicker"><a href="index.html">The Patterns Atlas</a> · P70 · the thirteenth move of tier 2</p>
+<h1>Double counting</h1>
+<p class="tagline">Count the same set of things twice — once along one axis, once along another — and the two answers must agree, because they are two names for one number. Forced agreement sounds humble; used deliberately, it is one of combinatorics' sharpest tools: identities fall out, impossibilities surface, and estimates appear from a table you already owned. This page is <a href="p02-small-cases.html">P02</a>'s table-reading turned on its side: P02 read the rows; here we read the rows <em>and</em> the columns, and insist they tell the same story.</p>
 </header>
 
-<aside class="onramp">
-  <p><strong>On-ramp 1 — The row-sum / column-sum ledger identity.</strong> Imagine a rectangular spreadsheet with \(m\) rows and \(n\) columns filled with numbers \(M_{i,j}\). Whether you add each row first and then sum the row totals, or add each column first and then sum the column totals, you are adding the exact same \(m \times n\) cells:</p>
-  \[
-    \sum_{i=1}^m \left(\sum_{j=1}^n M_{i,j}\right) \;=\; \sum_{j=1}^n \left(\sum_{i=1}^m M_{i,j}\right).
-  \]
-  <p>When every cell \(M_{i,j} \in \{0, 1\}\) records whether row object \(a_i \in A\) and column object \(b_j \in B\) interact, this matrix is called an <strong>incidence matrix</strong>, and equating the row totals to the column totals is the method of <strong>double counting</strong> (also called <em>Fubini's principle for finite sets</em>).</p>
-</aside>
-
-<aside class="onramp">
-  <p><strong>On-ramp 2 — Incidence pairs \((a, b) \in \mathcal{I}\).</strong> Often a problem gives you only <em>one</em> set of objects (say, vertices of a graph or subsets of \(\{1, \dots, n\}\)) and a messy sum. To double-count, you ask: <strong>what is a single "checkmark" \((a, b)\) that this sum is counting?</strong> Once you name the pair \((a, b)\) — such as <em>(vertex \(v\), edge \(e\) touching \(v\))</em> or <em>(committee \(S\), chairperson \(x \in S\))</em> — grouping the pairs by their first coordinate gives one formula, and grouping them by their second coordinate gives a second formula!</p>
-</aside>
+<aside class="onramp"><strong>New word: incidence.</strong> An <em>incidence</em> is a membership pair — a point lying on a line, a guest taking part in a handshake, a chairperson serving on a committee. Every double count is about a set of incidences, seen from two sides. <strong>New word: ledger.</strong> A <em>ledger</em> (or incidence table) is a table whose rows and columns are two families of objects, with a \(1\) in cell \((r, c)\) exactly when row-object \(r\) and column-object \(c\) are incident. The row sums and the column sums are two readings of one number: the count of \(1\)s. <strong>New word: cherry.</strong> A <em>cherry</em> is a two-edge path — a middle object joined to two ends. Counting cherries by their middles and by their end-pairs is the workhorse of extremal graph theory (Exemplar C runs one). <strong>New word: parity argument.</strong> A <em>parity argument</em> keeps only the remainder of a count modulo \(2\). Contributions from the interior come in pairs and vanish; what survives is exactly the boundary — a double count with the fat trimmed away (Exercise 5 runs one).</aside>
 
 <section id="bridge">
-  <h2>1 · Before we begin</h2>
-  <p>In <a href="p02-small-cases.html"><span class="pid">P02</span> · Experiment with small cases</a>, we explored small configurations to uncover hidden numerical patterns, and in <a href="p12-obstruction.html"><span class="pid">P12</span> · Name the obstruction</a>, we saw how Euler solved the Seven Bridges of Königsberg by focusing on vertex degrees (how many bridges touch each landmass).</p>
-  <p>Whenever a local rule relates two types of objects — vertices and edges, divisors and multiples, committees and members, or triangles and boundary segments — <strong>Double counting (<span class="pid">P70</span>)</strong> builds the incidence ledger between them. Summing by rows gives one perspective; summing by columns gives another; equating them turns local degree rules into global conservation laws.</p>
+<h2>1 · Before we begin</h2>
+<p>P02 handed you the discovery engine — compute the small cases honestly and read the table. Its box said it outright:</p>
+<blockquote><p><strong>Pattern P02 — Experiment with small cases.</strong> When a problem carries a whole-number size parameter \(n\) (or an object that comes in sizes 1, 2, 3, …), compute the smallest instances by hand, completely and honestly; read the table — its differences first — before guessing; state every guess as a conjecture and test it against fresh cases before believing it.</p>
+<p>Or, in words: don't stare at the tenth floor. Build the first three floors by hand and watch how each floor is added — the building's rule is in the adding.</p></blockquote>
+<p>And you have already used the move this page names, once, without a license. On P02, Moser's circle problem killed the doubling conjecture with the count <strong>31</strong> — and the repair formula counted chord crossings by noticing that every <em>four</em> points determine exactly one crossing. That "every four" is a double count in disguise: crossings were tallied by their four-point causes, and the tally had to agree with the crossings drawn. Here is the tension this page resolves. A table looks like a list — one row after another, read left to right. But a table is a rectangle: the same grand total is visible along the rows and along the columns, and the two readings cannot disagree, because both are the count of the \(1\)s. One reading describes; two readings that must agree <em>prove</em>. The move from reading to proving is this page's whole content.</p>
 </section>
 
 <section id="encounter">
-  <h2>2 · Meet the problem: the nine dinner guests and the vertex–edge ledger</h2>
-  <p>Nine guests attend a dinner party. At the end of the evening, each guest reports that they shook hands with <strong>exactly \(3\)</strong> other guests. Could every guest's report be accurate?</p>
-  <p>If you try to test this by drawing \(9\) dots on a page and connecting them with lines so that every dot touches \(3\) lines, you will repeatedly get \(8\) dots to have \(3\) lines while the \(9\)-th dot is stuck with \(2\) or \(4\). Why is \(9\) guests with \(3\) handshakes each impossible, no matter how cleverly the handshakes are arranged?</p>
-  <p>Instead of searching through graphs, let us build a ledger whose <strong>rows are the guests (vertices \(v \in V\))</strong> and whose <strong>columns are the handshakes (edges \(e \in E\))</strong>. Put a \(1\) in row \(v\), column \(e\) whenever guest \(v\) participated in handshake \(e\), and \(0\) otherwise. To see how the ledger works, inspect the complete table for the \(4\)-vertex, \(5\)-edge "diamond graph" with edges \(e_1 = \{v_1, v_2\}\), \(e_2 = \{v_1, v_3\}\), \(e_3 = \{v_2, v_3\}\), \(e_4 = \{v_2, v_4\}\), \(e_5 = \{v_3, v_4\}\):</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Vertex \(\backslash\) Edge</th>
-        <th>\(e_1 = \{v_1,v_2\}\)</th>
-        <th>\(e_2 = \{v_1,v_3\}\)</th>
-        <th>\(e_3 = \{v_2,v_3\}\)</th>
-        <th>\(e_4 = \{v_2,v_4\}\)</th>
-        <th>\(e_5 = \{v_3,v_4\}\)</th>
-        <th>Row sum \(\deg(v_i)\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>\(v_1\)</strong></td>
-        <td>\(1\)</td>
-        <td>\(1\)</td>
-        <td>\(0\)</td>
-        <td>\(0\)</td>
-        <td>\(0\)</td>
-        <td><strong>\(2\)</strong></td>
-      </tr>
-      <tr>
-        <td><strong>\(v_2\)</strong></td>
-        <td>\(1\)</td>
-        <td>\(0\)</td>
-        <td>\(1\)</td>
-        <td>\(1\)</td>
-        <td>\(0\)</td>
-        <td><strong>\(3\)</strong></td>
-      </tr>
-      <tr>
-        <td><strong>\(v_3\)</strong></td>
-        <td>\(0\)</td>
-        <td>\(1\)</td>
-        <td>\(1\)</td>
-        <td>\(0\)</td>
-        <td>\(1\)</td>
-        <td><strong>\(3\)</strong></td>
-      </tr>
-      <tr>
-        <td><strong>\(v_4\)</strong></td>
-        <td>\(0\)</td>
-        <td>\(0\)</td>
-        <td>\(0\)</td>
-        <td>\(1\)</td>
-        <td>\(1\)</td>
-        <td><strong>\(2\)</strong></td>
-      </tr>
-      <tr>
-        <td><strong>Column sum</strong></td>
-        <td><strong>\(2\)</strong></td>
-        <td><strong>\(2\)</strong></td>
-        <td><strong>\(2\)</strong></td>
-        <td><strong>\(2\)</strong></td>
-        <td><strong>\(2\)</strong></td>
-        <td><strong>Corner Total \(= 10\)</strong></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Count the total number of \(1\)s in this table in two ways:</p>
-  <ul>
-    <li><strong>By rows (vertices):</strong> Row \(v\) contains \(\deg(v)\) ones (the number of handshakes guest \(v\) made). Summing across all rows gives \(\sum_{v \in V} \deg(v)\) (here \(2 + 3 + 3 + 2 = 10\)).</li>
-    <li><strong>By columns (edges):</strong> Every handshake \(e = \{u, w\}\) involves <em>exactly \(2\) guests</em>, so every column sum is \(2\)! Summing across all \(|E|\) columns gives \(2|E|\) (here \(5 \times 2 = 10\)).</li>
-  </ul>
-  <p>Equating the row total and the column total proves Euler's <strong>Handshaking Lemma</strong> (1736):</p>
-  \[
-    \sum_{v \in V} \deg(v) \;=\; 2|E|.
-  \]
-  <p>Now return to our \(9\) dinner guests: if each of the \(9\) guests had \(\deg(v) = 3\), the sum of the row totals would be \(9 \times 3 = 27\). But the sum of the column totals is \(2|E|\), which is always an <strong>even</strong> integer! Since \(27\) is odd, no such party can ever exist.</p>
+<h2>2 · Meet the problem: the impossible dinner party</h2>
+<p>Nine guests attend a dinner party. At the end of the evening, each guest reports: <em>I shook exactly three hands.</em> Could every report be accurate?</p>
+<p>Try to draw it and you will keep failing — eight guests manage three handshakes each, and the ninth is stuck at two or four. But drawing is searching, and searching has no verdict. The ledger has. Make a table: rows are the nine guests, columns are the handshakes that took place, and cell \((v, e)\) holds a \(1\) when guest \(v\) took part in handshake \(e\). Now read the rectangle two ways.</p>
+<p>By <em>columns</em>: every handshake involves exactly two guests, so every column holds exactly two \(1\)s. Whatever the number of handshakes, the total number of \(1\)s is twice it — an <strong>even</strong> number, no matter what.</p>
+<p>By <em>rows</em>: each of the nine guests took part in three handshakes, so each row holds three \(1\)s, and the total is \(9 \times 3 = 27\) — an <strong>odd</strong> number.</p>
+<p>The same \(1\)s, counted twice, gave 27 and an even number. Both readings are airtight; only the setup can be wrong. No arrangement of handshakes exists — not unlikely, not hard to find: <strong>impossible</strong>, and the proof is two sentences. A toy ledger shows the mechanics working when the numbers cooperate — four guests \(A, B, C, D\), handshakes \(AB, BC, CD\):</p>
+<figure>
+<pre>        AB  BC  CD   row sum
+   A     1   0   0      1
+   B     1   1   0      2
+   C     0   1   1      2
+   D     0   0   1      1
+column sum    2   2   2     total: 6 = 2 × 3 handshakes</pre>
+<figcaption>The ledger for a possible party. Every column sums to 2, so the grand total is even — and here the row sums (1, 2, 2, 1) deliver it. The nine-guest party fails because its row sums force the total to be 27.</figcaption>
+</figure>
+<p>Notice what the ledger bought. No case split over "how the handshakes might be arranged", no cleverness — one rectangle, two readings, and the forced agreement (here, forced <em>disagreement</em>) settled everything. The same ledger, read honestly, produces identities among binomial coefficients (Exemplar A), estimates in number theory (Exemplar B), and bounds in graph theory (Exemplar C). The rest of this page names the move and runs it in three neighborhoods.</p>
 </section>
 
-<section id="pattern">
-  <h2>3 · Name the move</h2>
-
-  <div class="pattern-box" id="box-p70">
-    <h3>Box P70 · The Double Counting Move</h3>
-    <p>To prove a combinatorial identity \(\sum_{a \in A} r(a) = \sum_{b \in B} c(b)\) or bound the size of a structure, define a finite <strong>incidence set</strong> of pairs</p>
-    \[
-      \mathcal{I} \;\subseteq\; A \times B
-    \]
-    <p>such that for each \(a \in A\) there are \(r(a) = |\{b \in B : (a, b) \in \mathcal{I}\}|\) incident columns, and for each \(b \in B\) there are \(c(b) = |\{a \in A : (a, b) \in \mathcal{I}\}|\) incident rows. Counting \(|\mathcal{I}|\) first grouped by \(A\) and then grouped by \(B\) forces</p>
-    \[
-      \sum_{a \in A} r(a) \;=\; |\mathcal{I}| \;=\; \sum_{b \in B} c(b).
-    \]
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="Diamond graph on 4 vertices and 5 edges alongside its 4x5 incidence ledger showing row sums 2+3+3+2=10 and column sums 2+2+2+2+2=10">
-      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
-      <!-- Left panel: Diamond graph K_4 \ {v1 v4} -->
-      <text x="135" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Diamond Graph (4 Vertices, 5 Edges)</text>
-      <!-- Vertices: v1=(135, 42), v2=(65, 112), v3=(205, 112), v4=(135, 182) -->
-      <line x1="135" y1="42" x2="65" y2="112" stroke="#3a6073" stroke-width="2.5"/>
-      <line x1="135" y1="42" x2="205" y2="112" stroke="#3a6073" stroke-width="2.5"/>
-      <line x1="65" y1="112" x2="205" y2="112" stroke="#3a6073" stroke-width="2.5"/>
-      <line x1="65" y1="112" x2="135" y2="182" stroke="#3a6073" stroke-width="2.5"/>
-      <line x1="205" y1="112" x2="135" y2="182" stroke="#3a6073" stroke-width="2.5"/>
-      <circle cx="135" cy="42" r="14" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
-      <circle cx="65" cy="112" r="14" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
-      <circle cx="205" cy="112" r="14" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
-      <circle cx="135" cy="182" r="14" fill="#f3e6e8" stroke="#8b2635" stroke-width="2"/>
-      <text x="135" y="46" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">v₁ (2)</text>
-      <text x="65" y="116" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">v₂ (3)</text>
-      <text x="205" y="116" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">v₃ (3)</text>
-      <text x="135" y="186" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">v₄ (2)</text>
-      <text x="90" y="72" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073">e₁</text>
-      <text x="180" y="72" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073">e₂</text>
-      <text x="135" y="105" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073" text-anchor="middle">e₃</text>
-      <text x="90" y="156" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073">e₄</text>
-      <text x="180" y="156" font-family="system-ui, sans-serif" font-size="9.5" fill="#3a6073">e₅</text>
-
-      <!-- Right panel: Incidence Matrix Visual -->
-      <text x="435" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Row Sums vs. Column Sums Meet at Corner</text>
-      <rect x="295" y="32" width="280" height="160" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
-      <!-- Header labels -->
-      <text x="355" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">e₁</text>
-      <text x="390" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">e₂</text>
-      <text x="425" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">e₃</text>
-      <text x="460" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">e₄</text>
-      <text x="495" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">e₅</text>
-      <text x="542" y="50" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">Row Σ</text>
-      <!-- Rows v1..v4 -->
-      <text x="318" y="75" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">v₁</text>
-      <text x="355" y="75" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="390" y="75" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="542" y="75" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">2</text>
-
-      <text x="318" y="102" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">v₂</text>
-      <text x="355" y="102" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="425" y="102" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="460" y="102" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="542" y="102" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">3</text>
-
-      <text x="318" y="129" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">v₃</text>
-      <text x="390" y="129" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="425" y="129" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="495" y="129" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="542" y="129" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">3</text>
-
-      <text x="318" y="156" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">v₄</text>
-      <text x="460" y="156" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="495" y="156" font-family="system-ui, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">●</text>
-      <text x="542" y="156" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">2</text>
-
-      <line x1="305" y1="166" x2="565" y2="166" stroke="#1a1a1a" stroke-width="1.2"/>
-      <text x="318" y="182" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">Col Σ</text>
-      <text x="355" y="182" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="390" y="182" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="425" y="182" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="460" y="182" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="495" y="182" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <rect x="520" y="169" width="44" height="19" rx="3" fill="#f9ebe0" stroke="#b85d19" stroke-width="1.5"/>
-      <text x="542" y="183" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">10</text>
-    </svg>
-    <figcaption><strong>Fig P70.1.</strong> The vertex–edge incidence ledger of the diamond graph. Each dot \(\bullet\) represents an incidence \((v_i, e_j)\) where vertex \(v_i\) is an endpoint of edge \(e_j\). Adding horizontally by vertices gives \(2 + 3 + 3 + 2 = 10\); adding vertically by edges gives \(2 + 2 + 2 + 2 + 2 = 10\).</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p70a">
-    <h3>Box P70.A · The Four Verification Obligations of Double Counting</h3>
-    <ol>
-      <li><strong>Specify the Row Set \(A\), Column Set \(B\), and Incidence Condition \(\mathcal{I}\):</strong> State clearly what constitutes an ordered pair \((a, b) \in \mathcal{I}\) (for example, "\(a\) is a \(k\)-element subset of \(\{1,\dots,n\}\) and \(b \in a\) is a chosen member").</li>
-      <li><strong>Evaluate the Row Counts \(r(a)\) and Column Counts \(c(b)\):</strong> For a fixed \(a \in A\), count how many \(b \in B\) satisfy \((a, b) \in \mathcal{I}\); for a fixed \(b \in B\), count how many \(a \in A\) satisfy \((a, b) \in \mathcal{I}\).</li>
-      <li><strong>Audit Boundary Cases &amp; Multiplicities:</strong> Check whether boundary elements (such as exterior edges of a polygon triangulation) or degenerate elements (such as self-loops in a graph) have a different column count or multiplicity than interior elements.</li>
-      <li><strong>Equate Totals (or Chain Row/Column Inequalities):</strong> Set \(\sum_{a \in A} r(a) = \sum_{b \in B} c(b)\) to prove an exact identity, or use \(|A| \cdot \min_a r(a) \le |\mathcal{I}| \le |B| \cdot \max_b c(b)\) to bound \(|A| / |B|\).</li>
-    </ol>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 205" width="100%" role="img" aria-label="Bipartite incidence graph for the committee-with-chair identity k * C(n,k) = n * C(n-1, k-1) shown for n=4, k=2">
-      <rect x="0" y="0" width="600" height="205" fill="#ffffff"/>
-      <text x="300" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Bipartite Incidence View of k·C(n, k) = n·C(n−1, k−1) for n = 4, k = 2</text>
-      <!-- Left column: A = 6 committees of size 2 from {1,2,3,4}, each with degree k = 2 -->
-      <text x="115" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#8b2635" text-anchor="middle">Set A: C(4,2) = 6 Committees (deg = 2)</text>
-      <!-- 6 boxes at y = 48, 72, 96, 120, 144, 168 -->
-      <rect x="65" y="48" width="100" height="19" rx="3" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.2"/>
-      <rect x="65" y="72" width="100" height="19" rx="3" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.2"/>
-      <rect x="65" y="96" width="100" height="19" rx="3" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.2"/>
-      <rect x="65" y="120" width="100" height="19" rx="3" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.2"/>
-      <rect x="65" y="144" width="100" height="19" rx="3" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.2"/>
-      <rect x="65" y="168" width="100" height="19" rx="3" fill="#f3e6e8" stroke="#8b2635" stroke-width="1.2"/>
-      <text x="115" y="61" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{1, 2} (2 chairs)</text>
-      <text x="115" y="85" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{1, 3} (2 chairs)</text>
-      <text x="115" y="109" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{1, 4} (2 chairs)</text>
-      <text x="115" y="133" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{2, 3} (2 chairs)</text>
-      <text x="115" y="157" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{2, 4} (2 chairs)</text>
-      <text x="115" y="181" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">{3, 4} (2 chairs)</text>
-
-      <!-- Right column: B = 4 people {1, 2, 3, 4} as Chair, each in C(3,1) = 3 committees -->
-      <text x="475" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#3a6073" text-anchor="middle">Set B: n = 4 Chairs (deg = C(3,1) = 3)</text>
-      <rect x="420" y="55" width="110" height="24" rx="3" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
-      <rect x="420" y="89" width="110" height="24" rx="3" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
-      <rect x="420" y="123" width="110" height="24" rx="3" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
-      <rect x="420" y="157" width="110" height="24" rx="3" fill="#eef3f7" stroke="#3a6073" stroke-width="1.5"/>
-      <text x="475" y="71" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Chair 1 (3 teams)</text>
-      <text x="475" y="105" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Chair 2 (3 teams)</text>
-      <text x="475" y="139" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Chair 3 (3 teams)</text>
-      <text x="475" y="173" font-family="system-ui, sans-serif" font-size="9.5" fill="#1a1a1a" text-anchor="middle">Chair 4 (3 teams)</text>
-
-      <!-- 12 incidence lines in the middle -->
-      <line x1="165" y1="57" x2="420" y2="67" stroke="#8b2635" stroke-width="1.3"/>
-      <line x1="165" y1="57" x2="420" y2="101" stroke="#3a6073" stroke-width="1.3"/>
-      <line x1="165" y1="81" x2="420" y2="67" stroke="#8b2635" stroke-width="1.3"/>
-      <line x1="165" y1="81" x2="420" y2="135" stroke="#3a6073" stroke-width="1.3"/>
-      <line x1="165" y1="105" x2="420" y2="67" stroke="#8b2635" stroke-width="1.3"/>
-      <line x1="165" y1="105" x2="420" y2="169" stroke="#3a6073" stroke-width="1.3"/>
-      <line x1="165" y1="129" x2="420" y2="101" stroke="#8b2635" stroke-width="1.3"/>
-      <line x1="165" y1="129" x2="420" y2="135" stroke="#3a6073" stroke-width="1.3"/>
-      <line x1="165" y1="153" x2="420" y2="101" stroke="#8b2635" stroke-width="1.3"/>
-      <line x1="165" y1="153" x2="420" y2="169" stroke="#3a6073" stroke-width="1.3"/>
-      <line x1="165" y1="177" x2="420" y2="135" stroke="#8b2635" stroke-width="1.3"/>
-      <line x1="165" y1="177" x2="420" y2="169" stroke="#3a6073" stroke-width="1.3"/>
-      <text x="292" y="198" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#b85d19" text-anchor="middle">|ℐ| = 6 × 2 = 12 edges = 4 × 3</text>
-    </svg>
-    <figcaption><strong>Fig P70.2.</strong> Bipartite incidence graph for the committee-with-chair identity \(k\binom{n}{k} = n\binom{n-1}{k-1}\) at \(n = 4, k = 2\). Each edge in the middle represents a pointed pair \((S, x)\) where \(S \subseteq \{1,2,3,4\}\) has size \(2\) and \(x \in S\). Grouping by the \(6\) committees \(S\) on the left gives \(6 \times 2 = 12\) edges; grouping by the \(4\) chairs \(x\) on the right gives \(4 \times \binom{3}{1} = 12\) edges.</figcaption>
-  </figure>
-
-  <div class="pattern-box" id="box-p70b">
-    <h3>Box P70.B · Three-Key Recognition Diagnosis</h3>
-    <ul>
-      <li><strong>Claim type:</strong> An identity equating two sums (or a sum and a closed form), a parity obstruction ("the number of odd-degree vertices/doors is even"), or an extremal bound on edges, subsets, or geometric incidences.</li>
-      <li><strong>Problem shape:</strong> Two distinct families of objects (vertices &amp; edges, subsets &amp; elements, integers &amp; divisors, points &amp; lines, triangles &amp; edges) linked by a binary relation "belongs to / touches / divides".</li>
-      <li><strong>Tools at hand:</strong> \(0\text{–}1\) incidence matrices, bipartite graphs, Cauchy–Schwarz on row sums (\(\sum r(a)^2 \ge |\mathcal{I}|^2 / |A|\)), and summation order interchange \(\sum_i \sum_j = \sum_j \sum_i\).</li>
-    </ul>
-  </div>
+<section id="name">
+<h2>3 · Name the move</h2>
+<div class="pattern-box" id="box-p70">
+<h3>Pattern P70 — Double counting</h3>
+<p><strong>Pattern P70 — Double counting.</strong> When a problem's objects can be organized as incidences between two families \(A\) and \(B\): (1) <em>name the incidence set</em> \(I \subseteq A \times B\) out loud — say exactly what one member of \(I\) is, before counting anything; (2) count \(|I|\) <em>by rows</em> (for each \(a \in A\), how many \(b\) are incident to it — total \(\sum_{a} r(a)\)) and <em>by columns</em> (for each \(b \in B\), how many \(a\) are incident to it — total \(\sum_{b} c(b)\)); (3) <em>equate</em>: \(\sum_{a} r(a) = \sum_{b} c(b) = |I|\). The identity is exact — no approximation entered anywhere — and its power is asymmetry: one side of the ledger is often smooth, known, or bounded while the other is jagged, wanted, or free, and the equation hands you the hard side at the price of the easy one.</p>
+<p>Or, in words: count the crowd by the doors and by the seats — the answers must match, because both are the crowd. If they do not match, you miscounted, or the party was never possible; either way, the ledger has told you something no single reading could.</p>
+<p>The three-key diagnosis. The claim type: an <em>identity</em> between two sums, a <em>parity</em> statement (the count mod 2 is all you need), or an <em>upper bound</em> dressed as a count. The problem shape: the objects come in pairs across two families, one side of the ledger is regular and the other ragged — each handshake touches exactly two guests, but guests touch wildly different numbers of handshakes. The tools at hand: P02's small cases (run the ledger on a toy instance before trusting it), P10's pigeonhole (a parity double count is pigeonhole modulo 2 — the pairs vanish and the boundary survives), and P66's proof habits (the equating step is a proof skeleton: define \(I\), count both ways, conclude).</p>
+</div>
 </section>
+
 <section id="exemplars">
-  <h2>4 · Worked exemplars</h2>
-
-  <h3>Exemplar 1 (Combinatorics) · The committee-with-chair identity and weighted subset sums</h3>
-  <p><strong>Problem.</strong> For any integers \(1 \le k \le n\), prove without expanding factorials or taking derivatives that</p>
-  \[
-    k \binom{n}{k} \;=\; n \binom{n - 1}{k - 1}, \qquad\text{and deduce that}\qquad \sum_{k=1}^n k \binom{n}{k} \;=\; n\,2^{n-1}.
-  \]
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Define the incidence set of pointed committees).</strong> Let \(A\) be the set of all \(k\)-element subsets (committees) \(S \subseteq \{1, 2, \dots, n\}\), let \(B = \{1, 2, \dots, n\}\) be the set of people, and define the incidence set</p>
-  \[
-    \mathcal{I} \;=\; \bigl\{(S, x) \in A \times B \;:\; |S| = k \text{ and } x \in S\bigr\},
-  \]
-  <p>where \((S, x) \in \mathcal{I}\) represents a \(k\)-person committee \(S\) together with a designated chairperson \(x \in S\) (illustrated for \(n = 4, k = 2\) in Fig P70.2).</p>
-
-  <p><strong>Step 2 (Count \(|\mathcal{I}|\) by rows \(A\) and by columns \(B\)).</strong></p>
-  <ul>
-    <li><strong>Grouped by committees \(S \in A\):</strong> There are \(|A| = \binom{n}{k}\) committees of size \(k\). For each committee \(S\), any of its \(k\) members can be chosen as chairperson, so \(r(S) = k\). Thus \(|\mathcal{I}| = k\binom{n}{k}\).</li>
-    <li><strong>Grouped by chairpersons \(x \in B\):</strong> There are \(|B| = n\) choices for the chairperson \(x\). Once \(x\) is chosen, the remaining \(k - 1\) members of \(S \setminus \{x\}\) can be chosen from the remaining \(n - 1\) people in \(c(x) = \binom{n-1}{k-1}\) ways. Thus \(|\mathcal{I}| = n\binom{n-1}{k-1}\).</li>
-  </ul>
-  <p>Equating the two counts proves \(k\binom{n}{k} = n\binom{n-1}{k-1}\). Summing over all \(k = 1, \dots, n\) (or counting pointed committees \((S, x)\) of <em>any</em> size directly: each of the \(n\) chairs \(x\) can be joined by any subset of the remaining \(n - 1\) people in \(2^{n-1}\) ways) yields</p>
-  \[
-    \sum_{k=1}^n k \binom{n}{k} \;=\; \sum_{k=1}^n n \binom{n - 1}{k - 1} \;=\; n \sum_{j=0}^{n-1} \binom{n - 1}{j} \;=\; n\,2^{n-1}.
-  \]
-
-  <h3>Exemplar 2 (Number Theory) · Turning the erratic divisor count \(\tau(m)\) into the smooth harmonic staircase \(\lfloor N/d \rfloor\)</h3>
-  <p><strong>Problem.</strong> Let \(\tau(m)\) denote the number of positive divisors of \(m\). Prove that for every positive integer \(N\),</p>
-  \[
-    \sum_{m=1}^N \tau(m) \;=\; \sum_{d=1}^N \left\lfloor \frac{N}{d} \right\rfloor,
-  \]
-  <p>and deduce that the average number of divisors of an integer in \(\{1, \dots, N\}\) satisfies \(\frac{1}{N} \sum_{m=1}^N \tau(m) = \ln N + O(1)\).</p>
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Build the divisibility incidence matrix).</strong> Individual values of \(\tau(m)\) jump erratically — primes have \(\tau(p) = 2\), while highly composite numbers have many divisors. To tame \(\sum_{m=1}^N \tau(m)\), form the \(N \times N\) incidence table \(\mathcal{I} = \{(d, m) \in \{1, \dots, N\}^2 : d \mid m\}\), placing a \(1\) in row \(d\), column \(m\) whenever \(d\) divides \(m\) (shown for \(N = 6\) in Fig P70.3, left).</p>
-
-  <p><strong>Step 2 (Compare column sums against row sums).</strong></p>
-  <ul>
-    <li><strong>By columns \(m \in \{1, \dots, N\}\):</strong> Column \(m\) has a \(1\) at every divisor \(d \mid m\), so its column sum is \(c(m) = \tau(m)\), and the sum of all columns is \(\sum_{m=1}^N \tau(m)\).</li>
-    <li><strong>By rows \(d \in \{1, \dots, N\}\):</strong> Row \(d\) has a \(1\) at every multiple of \(d\) up to \(N\), namely \(m \in \{d, 2d, 3d, \dots, \lfloor N/d \rfloor d\}\). Thus row \(d\) contains <em>exactly</em> \(r(d) = \lfloor N / d \rfloor\) ones!</li>
-  </ul>
-  <p>Equating the column total and the row total gives the exact identity \(\sum_{m=1}^N \tau(m) = \sum_{d=1}^N \lfloor N / d \rfloor\). Since \(\frac{N}{d} - 1 &lt; \lfloor \frac{N}{d} \rfloor \le \frac{N}{d}\), each floor term differs from \(\frac{N}{d}\) by less than \(1\), so</p>
-  \[
-    \frac{1}{N} \sum_{m=1}^N \tau(m) \;=\; \frac{1}{N} \sum_{d=1}^N \left(\frac{N}{d} + O(1)\right) \;=\; \sum_{d=1}^N \frac{1}{d} + O(1) \;=\; \ln N + O(1).
-  \]
-
-  <h3>Exemplar 3 (Extremal Graph Theory) · Cherry double-counting in \(C_4\)-free graphs (Kővári–Sós–Turán)</h3>
-  <p><strong>Problem.</strong> Suppose a simple graph \(G = (V, E)\) on \(n\) vertices contains no \(4\)-cycle \(C_4\). Prove that the number of edges \(|E|\) satisfies</p>
-  \[
-    \sum_{v \in V} \binom{\deg(v)}{2} \;\le\; \binom{n}{2}, \qquad\text{and consequently}\qquad |E| \;\le\; \frac{n}{4}\bigl(1 + \sqrt{4n - 3}\bigr) \;=\; O\bigl(n^{3/2}\bigr).
-  \]
-
-  <p><strong>Solution.</strong></p>
-  <p><strong>Step 1 (Double-count cherries).</strong> A <strong>cherry</strong> is a \(2\)-edge path \((v;\, \{u, w\})\) consisting of a center vertex \(v \in V\) and an unordered pair of distinct vertices \(\{u, w\} \in \binom{V}{2}\) that are both adjacent to \(v\). Let \(\mathcal{I}\) be the set of all cherries in \(G\):</p>
-  <ul>
-    <li><strong>Grouped by the center vertex \(v \in V\):</strong> Vertex \(v\) has \(\deg(v)\) neighbors, and any unordered pair of neighbors of \(v\) forms a cherry centered at \(v\). Thus \(r(v) = \binom{\deg(v)}{2}\), giving \(|\mathcal{I}| = \sum_{v \in V} \binom{\deg(v)}{2}\).</li>
-    <li><strong>Grouped by the endpoint pair \(\{u, w\} \in \binom{V}{2}\):</strong> If a pair \(\{u, w\}\) had two distinct common neighbors \(v_1 \neq v_2\), then \(u - v_1 - w - v_2 - u\) would form a \(4\)-cycle \(C_4\)! Because \(G\) is \(C_4\)-free, every pair \(\{u, w\}\) has <strong>at most \(1\)</strong> common neighbor (\(c(\{u, w\}) \le 1\)).</li>
-  </ul>
-  <p>Summing over all \(\binom{n}{2}\) pairs \(\{u, w\}\) yields the fundamental cherry inequality:</p>
-  \[
-    \sum_{v \in V} \frac{\deg(v)\bigl(\deg(v) - 1\bigr)}{2} \;=\; |\mathcal{I}| \;=\; \sum_{\{u, w\} \in \binom{V}{2}} c(\{u, w\}) \;\le\; \binom{n}{2} \;=\; \frac{n(n - 1)}{2}.
-  \]
-
-  <p><strong>Step 2 (Apply Cauchy–Schwarz to relate \(\sum \deg(v)^2\) to \(2|E|\)).</strong> By the Handshaking Lemma, \(\sum_{v \in V} \deg(v) = 2|E|\). By Cauchy–Schwarz (<a href="p15-squeeze.html"><span class="pid">P15</span></a>), \(\sum_{v \in V} \deg(v)^2 \ge \frac{(2|E|)^2}{n} = \frac{4|E|^2}{n}\). Substituting this into \(\sum_{v \in V} \deg(v)(\deg(v) - 1) \le n(n - 1)\) gives the quadratic inequality</p>
-  \[
-    \frac{4|E|^2}{n} - 2|E| \;\le\; n(n - 1) \quad\Longleftrightarrow\quad 4|E|^2 - 2n|E| - n^2(n - 1) \;\le\; 0,
-  \]
-  <p>whose positive root (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>) gives \(|E| \le \frac{n}{4}\bigl(1 + \sqrt{4n - 3}\bigr)\).</p>
+<h2>4 · Worked exemplars</h2>
+<p><strong>Exemplar A — the committee with a chair (combinatorics).</strong> The claim: for integers \(1 \le k \le n\), \(k\binom{n}{k} = n\binom{n-1}{k-1}\), and summing over \(k\), \(\sum_{k=1}^{n} k\binom{n}{k} = n\,2^{n-1}\). Name the incidence set: \(I\) is the set of pairs \((S, x)\) where \(S\) is a \(k\)-person committee from \(n\) people and \(x \in S\) is its chair — a "pointed committee". Count by committees: \(\binom{n}{k}\) committees, each with \(k\) choices of chair, so \(|I| = k\binom{n}{k}\). Count by chairs: \(n\) choices for \(x\), then \(\binom{n-1}{k-1}\) ways to fill the remaining \(k-1\) seats from the other \(n-1\) people, so \(|I| = n\binom{n-1}{k-1}\). Equate: the identity, no factorials expanded. The sum identity comes free — count pointed committees of <em>any</em> size: by chairs, \(n\) people each joined by any subset of the other \(n-1\), giving \(n\,2^{n-1}\); by committees, \(\sum_k k\binom{n}{k}\). The ledger's asymmetry did the work: "committee-side" was the question, "chair-side" was the answer. Check the toy: \(n = 4, k = 2\) gives \(2 \times 6 = 12 = 4 \times 3\) — both readings agree by hand. <span class="pid">Moves used: P70 (the pointed-committee ledger), P02 (the \(n = 4\) toy check).</span></p>
+<p><strong>Exemplar B — the divisor ledger (number theory).</strong> Let \(\tau(m)\) be the number of divisors of \(m\) — an erratic function: \(\tau(p) = 2\) at primes, \(\tau(12) = 6\). The claim: for every \(N \ge 1\), \(\sum_{m=1}^{N} \tau(m) = \sum_{d=1}^{N} \left\lfloor N/d \right\rfloor\), and the average of \(\tau\) over \(1, \ldots, N\) is \(\ln N + O(1)\). Name the incidence set: \(I = \{(d, m) : 1 \le d, m \le N,\ d \text{ divides } m\}\). By columns (fixed \(m\)): the \(1\)s sit at the divisors of \(m\), so column \(m\) sums to \(\tau(m)\). By rows (fixed \(d\)): the \(1\)s sit at the multiples \(d, 2d, 3d, \ldots\) up to \(N\), and there are exactly \(\lfloor N/d \rfloor\) of them. Equate: the identity. Here is the \(N = 6\) ledger, drawn:</p>
+<figure>
+<pre>          m=1  m=2  m=3  m=4  m=5  m=6   row sum ⌊6/d⌋
+   d=1     ●    ●    ●    ●    ●    ●        6
+   d=2     ●    ●         ●         ●        3
+   d=3     ●         ●              ●        2
+   d=4     ●              ●                  1
+   d=5     ●                   ●            1
+   d=6     ●                        ●       1
+column sum  1    2    2    3    2    4      total: 14 = 14</pre>
+<figcaption>The divisibility ledger at \(N = 6\). Columns read \(\tau(1), \ldots, \tau(6) = 1, 2, 2, 3, 2, 4\); rows read \(\lfloor 6/d \rfloor = 6, 3, 2, 1, 1, 1\). Both totals are 14 — and the row reading is a smooth staircase where the column reading jumps.</figcaption>
+</figure>
+<p>The jagged side became smooth: \(\lfloor N/d \rfloor\) is within \(1\) of \(N/d\), so \(\sum_{d} \lfloor N/d \rfloor = N \sum_{d} \tfrac{1}{d} + O(N) = N \ln N + O(N)\), and dividing by \(N\): the average number of divisors up to \(N\) grows like \(\ln N\). Nothing about individual \(\tau(m)\) was ever understood — the ledger went around it. <span class="pid">Moves used: P70 (the divisibility ledger), P02 (the \(N = 6\) toy), P15 (the squeeze that turns \(\lfloor N/d\rfloor\) into \(N/d + O(1)\)).</span></p>
+<p><strong>Exemplar C — cherries and the \(C_4\) cap (extremal graph theory).</strong> A bipartite graph has its vertices split into a left part (say \(m\) vertices) and a right part (\(n\) vertices), every edge joining left to right. Call it \(C_4\)-free if it contains no four-cycle — equivalently, no two left vertices share <em>two</em> common right neighbors. The claim: a \(C_4\)-free bipartite graph with \(m = n\) vertices on each side has at most \(\tfrac{n}{2}(1 + \sqrt{4n - 3})\) edges — about \(n^{3/2}\), far less than the \(n^2\) a dense bipartite graph could carry. Name the incidence set: \(I\) is the set of cherries — triples \((u, r, v)\) with \(u, v\) distinct left vertices, \(r\) a right vertex joined to both. Count by middles: right vertex \(r\) of degree \(d_r\) carries \(\binom{d_r}{2}\) cherries, so \(|I| = \sum_{r} \binom{d_r}{2}\). Count by ends: each <em>pair</em> of left vertices carries at most one cherry — two cherries on the same pair would be two common neighbors, a four-cycle. So \(|I| \le \binom{m}{2}\): the \(C_4\)-free hypothesis is a fence (<span class="pid">P71</span> in disguise — the forbidden configuration caps the ledger). Now the squeeze: since \(x(x-1)\) is convex, \(\sum_r \binom{d_r}{2} \ge n \binom{e/n}{2}\), where \(e\) is the number of edges and \(e/n\) the average right-side degree. Chain it: \(n \cdot \tfrac{(e/n)(e/n - 1)}{2} \le \tfrac{m(m-1)}{2}\); with \(m = n\), solve the quadratic for \(e\): \(e \le \tfrac{n}{2}(1 + \sqrt{4n-3})\). The extremal-graph theorem was proved by a counting identity plus one convexity line — no structure of the graph was ever inspected. <span class="pid">Moves used: P70 (the cherry ledger), P71 (the C4-free fence: one cherry per pair), P15 (convexity squeezes the sum below \(n\) times its average).</span></p>
 </section>
 
 <section id="fails">
-  <h2>5 · When the trick breaks</h2>
-
-  <div class="aside">
-    <p><strong>Exhibit A — Treating boundary elements and interior elements as if they had the same column count.</strong> Suppose a convex \(k\)-gon is partitioned into \(T\) triangles by non-intersecting diagonals, creating \(E_{\text{int}}\) interior edges and \(E_{\text{bd}} = k\) boundary edges around the perimeter (Fig P70.3, right). If you double-count the pairs <em>(triangle \(t\), edge \(e\) of \(t\))</em> and carelessly write \(3T = 2E\), your formula fails! Why? Because an <em>interior</em> edge belongs to \(2\) triangles, whereas a <em>boundary</em> edge belongs to only \(1\) triangle.</p>
-    <p><em>Mitigation:</em> Split the column set \(B\) into interior columns \(B_{\text{int}}\) and boundary columns \(B_{\text{bd}}\): \(3T = 2E_{\text{int}} + 1 \cdot E_{\text{bd}}\).</p>
-    <p><em>Price:</em> Tracking boundary terms explicitly (which often reveals the key topological invariant!).</p>
-    <p><em>Default:</em> Always check Obligation 3 of Box P70.A on boundary edges/vertices before equating totals.</p>
-  </div>
-
-  <figure>
-    <svg viewBox="0 0 600 215" width="100%" role="img" aria-label="Left: 6x6 divisibility matrix showing erratic column sums tau(m) vs staircase row sums floor(6/d) totaling 14. Right: Triangulated hexagon/polygon showing interior edges counted twice and boundary edges counted once">
-      <rect x="0" y="0" width="600" height="215" fill="#ffffff"/>
-      <!-- Left panel: 6x6 Divisibility Ledger (Exemplar 2) -->
-      <text x="155" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Divisor Ledger (N=6): ∑ τ(m) = ∑ ⌊6/d⌋ = 14</text>
-      <rect x="20" y="28" width="270" height="168" rx="5" fill="#f2eee6" stroke="#1a1a1a" stroke-width="1.2"/>
-      <!-- Header m = 1..6 -->
-      <text x="72" y="44" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">m=1</text>
-      <text x="102" y="44" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="132" y="44" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">3</text>
-      <text x="162" y="44" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">4</text>
-      <text x="192" y="44" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">5</text>
-      <text x="222" y="44" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">6</text>
-      <text x="262" y="44" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">⌊6/d⌋</text>
-      <!-- Rows d = 1..6 at y = 62, 81, 100, 119, 138, 157 -->
-      <!-- d=1: all 6 -->
-      <text x="40" y="62" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">d=1</text>
-      <text x="72" y="62" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="102" y="62" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="132" y="62" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="162" y="62" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="192" y="62" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="222" y="62" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="262" y="62" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">6</text>
-      <!-- d=2: m=2,4,6 -->
-      <text x="40" y="81" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">d=2</text>
-      <text x="102" y="81" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="162" y="81" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="222" y="81" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="262" y="81" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">3</text>
-      <!-- d=3: m=3,6 -->
-      <text x="40" y="100" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">d=3</text>
-      <text x="132" y="100" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="222" y="100" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="262" y="100" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">2</text>
-      <!-- d=4: m=4 -->
-      <text x="40" y="119" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">d=4</text>
-      <text x="162" y="119" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="262" y="119" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">1</text>
-      <!-- d=5: m=5 -->
-      <text x="40" y="138" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">d=5</text>
-      <text x="192" y="138" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="262" y="138" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">1</text>
-      <!-- d=6: m=6 -->
-      <text x="40" y="157" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#8b2635" text-anchor="middle">d=6</text>
-      <text x="222" y="157" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">●</text>
-      <text x="262" y="157" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">1</text>
-      <!-- Column sums tau(m) -->
-      <line x1="28" y1="167" x2="282" y2="167" stroke="#1a1a1a" stroke-width="1"/>
-      <text x="40" y="183" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#3a6073" text-anchor="middle">τ(m)</text>
-      <text x="72" y="183" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">1</text>
-      <text x="102" y="183" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="132" y="183" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="162" y="183" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">3</text>
-      <text x="192" y="183" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">2</text>
-      <text x="222" y="183" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#3a6073" text-anchor="middle">4</text>
-      <text x="262" y="183" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#b85d19" text-anchor="middle">14</text>
-
-      <!-- Right panel: Boundary vs Interior Edge Double-Count (Exhibit A) -->
-      <text x="450" y="18" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Exhibit A: Interior (2×) vs. Boundary (1×) Edges</text>
-      <!-- Pentagon with 1 interior vertex -> T = 5 triangles or triangulated pentagon with 2 diagonals (T = 3 triangles, E_int = 2, E_bd = 5) -->
-      <!-- Let's draw a triangulated hexagon with 3 interior diagonals (T = 4 triangles, E_int = 3, E_bd = 6) -->
-      <polygon points="450,35 530,70 530,140 450,175 370,140 370,70" fill="#eef3f7" stroke="#3a6073" stroke-width="2.5"/>
-      <!-- 3 interior diagonals forming 4 triangles: (370,70)-(530,70), (370,70)-(530,140), (370,70)-(450,175) -->
-      <line x1="370" y1="70" x2="530" y2="70" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="370" y1="70" x2="530" y2="140" stroke="#8b2635" stroke-width="2.5"/>
-      <line x1="370" y1="70" x2="450" y2="175" stroke="#8b2635" stroke-width="2.5"/>
-      <text x="450" y="58" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T₁ (3 sides)</text>
-      <text x="475" y="96" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T₂ (3)</text>
-      <text x="455" y="132" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T₃ (3)</text>
-      <text x="402" y="135" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T₄ (3)</text>
-      <text x="450" y="196" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#8b2635" text-anchor="middle">3T = 12 = 2·E_int (2×3) + 1·E_bd (1×6)</text>
-    </svg>
-    <figcaption><strong>Fig P70.3.</strong> <em>Left (Exemplar 2):</em> In the \(6 \times 6\) divisibility matrix \(M_{d,m} = \mathbf{1}_{d \mid m}\), the erratic divisor counts \(\tau(m) = (1, 2, 2, 3, 2, 4)\) along the bottom equal the smooth floor staircase \(\lfloor 6/d \rfloor = (6, 3, 2, 1, 1, 1)\) along the right, both summing to \(14\). <em>Right (Exhibit A):</em> In a triangulated hexagon (\(T = 4\) triangles), each crimson interior diagonal belongs to \(2\) triangles while each slate boundary edge belongs to \(1\) triangle, giving \(3T = 2E_{\text{int}} + E_{\text{bd}} = 2(3) + 6 = 12\).</figcaption>
-  </figure>
-
-  <div class="aside">
-    <p><strong>Exhibit B — Confusing ordered pairs \((u, w)\) with unordered pairs \(\{u, w\}\) creates a factor-of-\(2\) discrepancy.</strong> In the Handshaking Lemma, if you define \(\mathcal{I}\) as ordered pairs of adjacent vertices \((u, w)\) with \(u \sim w\), then each edge \(\{u, w\}\) contributes \(2\) ordered pairs \((u, w)\) and \((w, u)\). If you forget whether your second coordinate is an ordered pair or an unordered \(2\)-element subset, your equation will be off by a factor of \(2\).</p>
-    <p><em>Mitigation:</em> Always test your incidence identity on a tiny graph or set first (<a href="p02-small-cases.html"><span class="pid">P02</span></a>), such as a single edge \(K_2\) (\(n = 2, |E| = 1\)) or a triangle \(K_3\) (\(n = 3, |E| = 3\)).</p>
-    <p><em>Price:</em> Ten seconds to plug in \(n = 2\) or \(n = 3\).</p>
-    <p><em>Default:</em> Write \(\{u, w\} \in \binom{V}{2}\) for unordered pairs and \((u, w) \in V \times V\) for ordered pairs.</p>
-  </div>
-
-  <div class="aside">
-    <p><strong>Exhibit C — Swapping summation order in an infinite matrix without absolute convergence (Fubini failure).</strong> Consider the infinite matrix \(M_{i,j}\) (\(i, j \ge 1\)) with \(M_{i,i} = +1\) on the main diagonal, \(M_{i, i+1} = -1\) on the superdiagonal, and \(0\) everywhere else. Every row sum is \(+1 + (-1) = 0\), so \(\sum_{i=1}^\infty \bigl(\sum_{j=1}^\infty M_{i,j}\bigr) = 0\). Yet column \(1\) sums to \(+1\) and every column \(j \ge 2\) sums to \(-1 + 1 = 0\), so \(\sum_{j=1}^\infty \bigl(\sum_{i=1}^\infty M_{i,j}\bigr) = +1 \neq 0\)!</p>
-    <p><em>Mitigation:</em> For infinite double sums or integrals, verify either that all entries are <strong>nonnegative</strong> (\(M_{i,j} \ge 0\), Tonelli's Theorem) or that the sum of absolute values converges (\(\sum_{i,j} |M_{i,j}| &lt; \infty\), Fubini's Theorem).</p>
-    <p><em>Price:</em> Checking absolute convergence before swapping infinite sums.</p>
-    <p><em>Default:</em> Keep combinatorial double counting on finite sets \(A, B\) (or truncate up to \(N\) before taking limits, as in Exemplar 2).</p>
-  </div>
-
-  <aside class="aside warn">
-    <p><strong>Honest scope of this chapter.</strong> On finite sets, double counting is an unconditional algebraic identity. In measure theory and analysis, its continuous twin is the <strong>Fubini–Tonelli Theorem</strong> (\(\int_X \int_Y f(x,y)\,dy\,dx = \int_Y \int_X f(x,y)\,dx\,dy\)), and in differential geometry and topology, boundary-vs.-interior double counting (Exhibit A) becomes <strong>Stokes' Theorem</strong> \(\int_{\Omega} d\omega = \int_{\partial \Omega} \omega\), where interior facet contributions cancel in opposite-orientation pairs and only the boundary survives.</p>
-  </aside>
+<h2>5 · When the trick breaks</h2>
+<p><strong>The two routes must count the same set — boundary is not interior.</strong> Triangulate a convex \(k\)-gon: \(T\) triangles, some edges interior (each bordering two triangles), some on the boundary (each bordering one). Count pairs (triangle, side-of-triangle): by triangles, \(3T\); by edges, \(2E_{\text{int}} + k\) — and the careless \(3T = 2E\) is simply false. The ledger never lies, but a column that secretly comes in two kinds must be split before equating: \(3T = 2E_{\text{int}} + k\). The repair is the move itself, applied more carefully — and the split often hands you the invariant you were after (this identity, with \(T = 2I + k - 2\) from Exercise 2, is the door to Euler's formula).</p>
+<p><strong>Exact means exact: the floor is not decoration.</strong> The divisor identity is \(\sum \tau(m) = \sum \lfloor N/d \rfloor\), not \(\sum \tau(m) = \sum N/d\): at \(N = 6\) the true total is \(14\), while \(\sum_{d=1}^{6} 6/d = 6 + 3 + 2 + 1.5 + 1.2 + 1 = 14.7\). Replacing the floor by its round neighbor trades an identity for an estimate — sometimes the right trade (<span class="pid">P15</span>'s squeeze made Exemplar B's average work), but it forfeits everything the exactness was buying, parity uses above all. Before rounding a ledger, ask which downstream step consumes the exact equality.</p>
+<p><strong>Infinite ledgers can disagree with themselves.</strong> Double counting, as stated, is a finite-family theorem: finitely many \(1\)s have one total. Push to infinite arrays and the two readings can diverge. Let \(a_{ij} = 1\) if \(j = i\), \(a_{ij} = -1\) if \(j = i - 1\), and \(0\) otherwise. Each row has finitely many nonzero entries and sums to \(1\) (row \(1\)) or \(0\) (every other row): total by rows, \(1\). Each column also has finitely many nonzero entries and sums to \(0\): total by columns, \(0\). Both iterated sums converge; they disagree. (No finite truncation of the array shows it — truncate to \(N \times N\) and both readings equal the sum of all entries, \(1\); the disagreement lives at infinity, where no "last column" repairs the balance.) The license for swapping the order of summation — nonnegativity, or absolute convergence, the content of the Fubini–Tonelli theorems — is the infinite-ledger repair, and it is a hypothesis, not a courtesy.</p>
+<p><strong>An identity is not an evaluation.</strong> \(\sum_{m \le N} \tau(m) = \sum_{d \le N} \lfloor N/d \rfloor\) names one number twice; it does not say what the number is. Extracting the asymptotics took a squeeze; extracting the sharp constant \((2\gamma - 1)N\) in the error term took Dirichlet's hyperbola method, which splits the ledger along the diagonal \(d = \sqrt{N}\) and treats the two halves differently. The ledger converts structure into an equation; solving the equation is another move, and the ledger will not do it for you.</p>
+<p class="words">Honest scope: double counting converts a two-family incidence structure into one exact equation, \(\sum_a r(a) = \sum_b c(b)\). It requires both routes to count the same set, it is a finite-family theorem unless a convergence license is re-earned, and it equates without evaluating — the hard side is bought at the price of understanding the easy side. When the ledger stalls, the audit order is: is the incidence set named? are the columns honest (no hidden boundary)? and is exactness actually needed?</p>
 </section>
 
 <section id="next">
-  <h2>6 · What to try next</h2>
-  <ul>
-    <li><strong>When double counting gives you an average row/column sum and you want to focus on the single largest or smallest element in the configuration:</strong> Step forward to the next chapter, <a href="p71-extremal-principle.html"><span class="pid">P71</span> · The extremal principle</a>.</li>
-    <li><strong>When columns overlap and you need alternating signs \(\sum (-1)^{|J|-1}\) to count elements in at least one column:</strong> Connect <span class="pid">P70</span> to <a href="p76-inclusion-exclusion.html"><span class="pid">P76</span> · Inclusion-exclusion</a>.</li>
-    <li><strong>To see boundary-vs.-interior double counting prove Pick's formula \(A = I + \frac{B}{2} - 1\) for lattice polygons:</strong> Visit the synthesis chapter <a href="m03-picks-theorem.html"><span class="pid">M03</span> · Pick's theorem</a>.</li>
-  </ul>
+<h2>6 · What to try next</h2>
+<p>The ledger's nearest sibling is <a href="p76-inclusion-exclusion.html">P76 · Inclusion–exclusion</a>, which counts unions and intersections of sets — the same two-families bookkeeping with subtraction added, and the natural next tool for "how many in at least one" questions. The parity variant braids with <a href="p10-pigeonhole.html">P10 · Pigeonhole</a>: Exercise 5's door argument is the pigeonhole principle run modulo 2, and any existence claim that survives only as "an odd number of them" is that braid. The extremal braiding appeared in Exemplar C: when a forbidden configuration caps how many incidences a column may carry, the ledger plus the fence (<a href="p71-extremal-principle.html">P71</a>) bounds whole families of graphs — modern extremal combinatorics is largely this duet. And the difference-side of the divisor staircase is <a href="p69-telescoping.html">P69 · Telescoping</a> territory: summing \(\lfloor N/d \rfloor\) by hyperbola is a differencing argument in ledger clothing. The default: whenever two families meet, spend one minute writing down the ledger's two readings — the minute pays for itself in identities, and occasionally in impossibilities.</p>
 </section>
+
 <section id="lineage">
-  <h2>7 · Lineage interlude</h2>
-  <aside class="aside">
-    <p><strong>From Euler's degree sum and Cauchy's double series to Fubini, Sperner, and extremal incidence geometry (1736 – 1954).</strong></p>
-    <ul>
-      <li><strong>Leonhard Euler (1736):</strong> In his paper on the Seven Bridges of Königsberg, Euler observed that because each bridge connects two landmasses, the sum of bridge incidences across all landmasses is twice the number of bridges — the birth of both graph theory and double counting.</li>
-      <li><strong>Augustin-Louis Cauchy (1821) &amp; Peter Gustav Lejeune Dirichlet (1849):</strong> Cauchy formalized row-vs.-column summation for double arrays \(\sum_i \sum_j a_{i,j}\) (alongside his famous counterexample showing that conditionally convergent infinite arrays can change value when transposed). In 1849, Dirichlet introduced his <strong>hyperbola method</strong>, refining the divisor incidence matrix \(\sum_{m \le N} \tau(m) = \sum_{d \le N} \lfloor N/d \rfloor\) by splitting the region \(d k \le N\) along the diagonal \(d = \sqrt{N}\) to obtain \(\sum_{m \le N} \tau(m) = N \ln N + (2\gamma - 1)N + O(\sqrt{N})\).</li>
-      <li><strong>Guido Fubini (1907) &amp; Leonida Tonelli (1909):</strong> Extending double counting from finite grids to Lebesgue measure spaces, Fubini and Tonelli established the exact hypotheses (nonnegativity or absolute integrability) under which iterated integrals \(\int_X \int_Y f(x,y)\,dy\,dx\) and \(\int_Y \int_X f(x,y)\,dx\,dy\) coincide.</li>
-      <li><strong>Emanuel Sperner (1928) &amp; Tamás Kővári, Vera T. Sós, Pál Turán (1954):</strong> Sperner used parity double counting across simplex facets to give an elementary combinatorial proof of Brouwer's fixed-point theorem, and Kővári, Sós, and Turán used cherry double counting to bound the maximum number of edges in bipartite-subgraph-free graphs, launching modern extremal incidence geometry.</li>
-    </ul>
-  </aside>
+<h2>7 · Lineage interlude</h2>
+<p>The move is older than its name. Leonhard Euler's 1736 paper on the Königsberg bridges — the document that laid the foundations of graph theory — counted crossings the ledger's way: each bridge contributes to the crossing-count of two landmasses at once, so the landmass totals must sum to twice the number of bridges, and Euler even stated the parity corollary this page's encounter runs: the number of landmasses touching an odd number of bridges is necessarily even. Peter Gustav Lejeune Dirichlet introduced the hyperbola method in 1849, splitting the divisor ledger along the diagonal \(d = \sqrt{N}\) to turn Exemplar B's identity into the sharp estimate \(D(x) = x\ln x + (2\gamma - 1)x + O(\sqrt{x})\) — and the question of shrinking that error term, the Dirichlet divisor problem, is open to this day. Guido Fubini (1907) and Leonida Tonelli (1909) proved the theorems that license swapping the order of integration — absolute integrability for Fubini, nonnegativity for Tonelli — the infinite ledger's repair. Emanuel Sperner's 1928 lemma used parity double counting across simplex faces to prove a result equivalent to Brouwer's fixed-point theorem (Exercise 5 runs its two-dimensional case), and in 1954 Kővári, Sós, and Turán turned cherry counting into the founding bound of extremal graph theory — Exemplar C's argument, at full power. The name "double counting" is vernacular; the technique itself is one of the few moves that is simultaneously elementary, ubiquitous, and still producing new mathematics.</p>
 </section>
 
 <section id="exercises">
-  <h2>8 · Exercises</h2>
+<h2>8 · Exercises</h2>
 
-  <div class="exercise">
-    <p><strong>Exercise P70.1 (●○○ — Odd-degree parity and regular bipartite graphs).</strong></p>
-    <ol>
-      <li>In any finite simple graph \(G = (V, E)\), partition the vertices into \(V_{\text{even}} = \{v \in V : \deg(v) \text{ is even}\}\) and \(V_{\text{odd}} = \{v \in V : \deg(v) \text{ is odd}\}\). Use the Handshaking Lemma \(\sum_{v \in V} \deg(v) = 2|E|\) to prove that \(|V_{\text{odd}}|\) is always an even integer.</li>
-      <li>Suppose \(G = (L \sqcup R, E)\) is a bipartite graph in which every edge has one endpoint in \(L\) and one endpoint in \(R\). If every vertex in \(L\) and every vertex in \(R\) has the same degree \(d \ge 1\), prove by double counting \(|E|\) that \(|L| = |R|\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>For Part 1, look at \(\sum_{v \in V_{\text{odd}}} \deg(v) = 2|E| - \sum_{v \in V_{\text{even}}} \deg(v)\) modulo \(2\). For Part 2, count the edges \(E\) first from the \(L\)-endpoints and then from the \(R\)-endpoints.</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Even number of odd-degree vertices.</strong> Splitting the Handshaking Lemma across \(V_{\text{even}}\) and \(V_{\text{odd}}\) gives</p>
-      \[
-        \sum_{v \in V_{\text{odd}}} \deg(v) \;=\; 2|E| \,-\, \sum_{v \in V_{\text{even}}} \deg(v).
-      \]
-      <p>Every term on the right-hand side is even, so the sum on the left must be even. Since each summand \(\deg(v)\) for \(v \in V_{\text{odd}}\) is odd (\(\equiv 1 \pmod 2\)), we have \(|V_{\text{odd}}| \equiv \sum_{v \in V_{\text{odd}}} 1 \equiv \sum_{v \in V_{\text{odd}}} \deg(v) \equiv 0 \pmod 2\), so \(|V_{\text{odd}}|\) is even.</p>
-      <p><strong>2. Equal parts in a \(d\)-regular bipartite graph.</strong> Because every edge \(e \in E\) has \(1\) endpoint in \(L\) and \(1\) endpoint in \(R\), counting incidences between \(L\) and \(E\) gives \(|E| = \sum_{u \in L} \deg(u) = d\,|L|\), while counting incidences between \(R\) and \(E\) gives \(|E| = \sum_{w \in R} \deg(w) = d\,|R|\). Equating the two gives \(d\,|L| = d\,|R|\), and dividing by \(d \ge 1\) yields \(|L| = |R|\).</p>
-    </details>
-  </div>
+<h3>Exercise 1 ●○○</h3>
+<p>(a) In any finite graph, prove that the number of vertices of <em>odd</em> degree is even. (b) A bipartite graph has left part \(L\) and right part \(R\), and every vertex — left or right — has degree exactly \(d \ge 1\). Prove \(|L| = |R|\). (c) Nine guests each shake exactly three hands: use (a) to say in one sentence why the party is impossible.</p>
+<details><summary>Hint</summary><p>Count incidences (vertex, edge) two ways. For (a): the even-degree vertices contribute an even amount, so the odd-degree vertices must too. For (b): both readings of the edge count are \(d\) times a part size.</p></details>
+<details><summary>Worked answer</summary><p>(a) \(\sum_{v} \deg(v) = 2|E|\) — the incidence ledger of the dinner party, in general form. Split: \(\sum_{\text{odd}} \deg(v) = 2|E| - \sum_{\text{even}} \deg(v)\), and the right side is even; a sum of odd terms is odd or even according as their <em>number</em> is, so the number of odd-degree vertices is even. (b) Count edges by left endpoints: \(|E| = \sum_{u \in L} \deg(u) = d\,|L|\); by right endpoints: \(|E| = d\,|R|\). So \(d\,|L| = d\,|R|\), and \(d \ge 1\) lets you cancel: \(|L| = |R|\). (c) The party would have nine odd-degree vertices — odd in number, violating (a). (Equivalently: \(9 \times 3 = 27\) incidences cannot equal \(2|E|\).)</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P70.2 (●●○ — Invariant triangle and edge counts in polygon triangulations).</strong> Let \(P\) be a polygon with \(B\) boundary vertices (and \(B\) boundary edges), and let \(I\) interior points be chosen inside \(P\). Suppose \(P\) is partitioned into \(T\) triangles whose vertices are precisely the \(B + I\) points (with no point lying in the interior of any triangle or edge), creating \(E_{\text{int}}\) interior edges.</p>
-    <ol>
-      <li>Double-count the sum of all \(3T\) interior angles of the \(T\) triangles — first grouped by the \(T\) triangles, and second grouped around the \(I\) interior vertices and \(B\) boundary vertices — to prove that \(T = 2I + B - 2\).</li>
-      <li>Double-count the pairs <em>(triangle \(t\), edge \(e\) of \(t\))</em>, distinguishing interior edges from boundary edges, to prove that \(E_{\text{int}} = 3I + B - 3\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>Each triangle has angle sum \(\pi\). Around each of the \(I\) interior vertices, the angles form a full circle \(2\pi\); at the \(B\) boundary vertices, the angles sum to the interior angle sum of a \(B\)-gon, which is \((B - 2)\pi\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Angle double-counting for \(T\).</strong> Let \(\Sigma_\theta\) be the sum of all \(3T\) corner angles across all \(T\) triangles:</p>
-      <ul>
-        <li><strong>Grouped by triangles:</strong> Each of the \(T\) triangles has angle sum \(\pi\), so \(\Sigma_\theta = \pi T\).</li>
-        <li><strong>Grouped by vertices:</strong> The angles meeting at each of the \(I\) interior vertices sweep out a full \(2\pi\) circle (contributing \(2\pi I\)), while the angles meeting at the \(B\) boundary vertices partition the interior angles of the \(B\)-gon (contributing \((B - 2)\pi\)).</li>
-      </ul>
-      <p>Equating the two expressions and dividing by \(\pi\) gives</p>
-      \[
-        \pi T \;=\; 2\pi I + (B - 2)\pi \quad\implies\quad T \;=\; 2I + B - 2.
-      \]
-      <p><strong>2. Edge–triangle double-counting for \(E_{\text{int}}\).</strong> Let \(\mathcal{I}\) be the set of pairs \((t, e)\) where \(e\) is one of the \(3\) sides of triangle \(t\):</p>
-      <ul>
-        <li><strong>Grouped by triangles:</strong> Each of the \(T\) triangles has \(3\) sides, so \(|\mathcal{I}| = 3T\).</li>
-        <li><strong>Grouped by edges:</strong> Each of the \(E_{\text{int}}\) interior edges borders \(2\) triangles, while each of the \(B\) boundary edges borders \(1\) triangle, so \(|\mathcal{I}| = 2E_{\text{int}} + B\).</li>
-      </ul>
-      <p>Equating \(2E_{\text{int}} + B = 3T = 3(2I + B - 2) = 6I + 3B - 6\) gives \(2E_{\text{int}} = 6I + 2B - 6 \implies E_{\text{int}} = 3I + B - 3\).</p>
-    </details>
-  </div>
+<h3>Exercise 2 ●●○</h3>
+<p>A polygon with \(B\) boundary vertices (and \(B\) boundary edges) contains \(I\) interior points. It is partitioned into \(T\) triangles whose vertices are exactly the \(B + I\) points, with no point lying in the interior of a triangle or an edge. (a) Count the triangles' angles two ways — by triangles, and around the vertices — to prove \(T = 2I + B - 2\). (b) Count (triangle, side) pairs, splitting interior from boundary edges, to prove the number of interior edges is \(E_{\text{int}} = 3I + B - 3\). (c) Check both on the simplest case: no interior points, \(B = 3\).</p>
+<details><summary>Hint</summary><p>For (a): each triangle carries \(\pi\); the angles around an interior vertex fill \(2\pi\), and the angles at boundary vertices fill the polygon's interior angles, \((B-2)\pi\) in total. For (b): \(3T = 2E_{\text{int}} + B\) — §5's boundary split.</p></details>
+<details><summary>Worked answer</summary><p>(a) By triangles: the angle total is \(\pi T\). By vertices: each of the \(I\) interior points is surrounded by a full \(2\pi\); the boundary vertices' angles partition the polygon's interior angles, summing to \((B - 2)\pi\). So \(\pi T = 2\pi I + (B-2)\pi\), giving \(T = 2I + B - 2\). (b) By triangles: \(3T\) pairs. By edges: each interior edge borders \(2\) triangles, each boundary edge \(1\), so \(3T = 2E_{\text{int}} + B\). Substitute (a): \(2E_{\text{int}} + B = 3(2I + B - 2) = 6I + 3B - 6\), so \(E_{\text{int}} = 3I + B - 3\). (c) \(I = 0, B = 3\): a single triangle, \(T = 1\) ✓ and \(E_{\text{int}} = 0\) ✓ — the formulas' boundary case, and the ledger's toy check.</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P70.3 (●●● — Gauss's totient theorem and weighted divisor double counting).</strong> Recall Euler's totient function \(\varphi(d) = |\{a \in \{1, \dots, d\} : \gcd(a, d) = 1\}|\).</p>
-    <ol>
-      <li>For a fixed positive integer \(m\), consider the \(m\) fractions \(\frac{1}{m}, \frac{2}{m}, \dots, \frac{m}{m}\). When each fraction \(\frac{k}{m}\) is reduced to lowest terms \(\frac{a}{d}\) (by dividing numerator and denominator by \(\gcd(k, m)\)), its denominator \(d = \frac{m}{\gcd(k, m)}\) is a divisor of \(m\) and \(\gcd(a, d) = 1\). Group the \(m\) fractions by their reduced denominator \(d \mid m\) to prove Gauss's identity:
-        \[
-          \sum_{d \mid m} \varphi(d) \;=\; m.
-        \]
-      </li>
-      <li>Weight row \(d\) of the \(N \times N\) divisibility matrix \(M_{d,m} = \mathbf{1}_{d \mid m}\) from Exemplar 2 by \(\varphi(d)\) and double-count the matrix sum to prove that for every \(N \ge 1\),
-        \[
-          \sum_{d=1}^N \varphi(d) \left\lfloor \frac{N}{d} \right\rfloor \;=\; \frac{N(N + 1)}{2}.
-        \]
-        Verify this identity numerically for \(N = 6\).</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>In Part 2, the \((d, m)\) entry of the weighted matrix is \(\varphi(d)\,\mathbf{1}_{d \mid m}\). Column \(m\) sums to \(\sum_{d \mid m} \varphi(d) = m\), while row \(d\) has \(\lfloor N/d \rfloor\) entries each equal to \(\varphi(d)\).</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Grouping the \(m\) fractions \(\frac{k}{m}\) by reduced denominator \(d \mid m\).</strong> Every fraction \(\frac{k}{m}\) (\(1 \le k \le m\)) reduces uniquely to \(\frac{a}{d}\) where \(d \mid m\), \(1 \le a \le d\), and \(\gcd(a, d) = 1\). Conversely, for every divisor \(d \mid m\) and every \(1 \le a \le d\) with \(\gcd(a, d) = 1\), multiplying top and bottom by \(m/d\) recovers a unique fraction \(\frac{a(m/d)}{m}\) in our list. Since each divisor \(d \mid m\) has \(\varphi(d)\) such numerators \(a\), partitioning the \(m\) fractions by \(d \mid m\) gives \(\sum_{d \mid m} \varphi(d) = m\).</p>
-      <p><strong>2. Double-counting the \(\varphi(d)\)-weighted divisibility table.</strong> Define the \(N \times N\) matrix with entry \(W_{d,m} = \varphi(d)\) if \(d \mid m\) and \(0\) otherwise:</p>
-      <ul>
-        <li><strong>Sum by columns \(m = 1, \dots, N\):</strong> Column \(m\) sums to \(\sum_{d \mid m} \varphi(d) = m\) by Part 1. Summing over \(m = 1, \dots, N\) gives \(\sum_{m=1}^N m = \frac{N(N+1)}{2}\).</li>
-        <li><strong>Sum by rows \(d = 1, \dots, N\):</strong> Row \(d\) has \(\lfloor N / d \rfloor\) nonzero entries, each equal to \(\varphi(d)\), so row \(d\) sums to \(\varphi(d)\lfloor N / d \rfloor\).</li>
-      </ul>
-      <p>Equating the two sums proves \(\sum_{d=1}^N \varphi(d) \lfloor N / d \rfloor = \frac{N(N+1)}{2}\). For \(N = 6\), \(\varphi(1..6) = (1, 1, 2, 2, 4, 2)\) and \(\lfloor 6/d \rfloor = (6, 3, 2, 1, 1, 1)\), giving</p>
-      \[
-        1(6) + 1(3) + 2(2) + 2(1) + 4(1) + 2(1) \;=\; 6 + 3 + 4 + 2 + 4 + 2 \;=\; 21 \;=\; \frac{6 \times 7}{2}.
-      \]
-    </details>
-  </div>
+<h3>Exercise 3 ●●●</h3>
+<p>(a) Prove Gauss's identity: for every \(m \ge 1\), \(\sum_{d \mid m} \varphi(d) = m\), where \(\varphi(d)\) counts the integers in \(1, \ldots, d\) coprime to \(d\). (Route: reduce each fraction \(\tfrac{1}{m}, \tfrac{2}{m}, \ldots, \tfrac{m}{m}\) to lowest terms and sort the results by denominator.) (b) Weight the divisor ledger of Exemplar B: put \(\varphi(d)\) in cell \((d, m)\) when \(d \mid m\), and \(0\) otherwise. Double count the table's total to prove \(\sum_{d=1}^{N} \varphi(d) \lfloor N/d \rfloor = \tfrac{N(N+1)}{2}\). (c) Verify (b) at \(N = 6\).</p>
+<details><summary>Hint</summary><p>For (a): \(\tfrac{k}{m}\) reduces to \(\tfrac{a}{d}\) with \(d = m / \gcd(k, m)\); for each divisor \(d\) of \(m\), exactly \(\varphi(d)\) numerators \(a\) appear. For (b): columns sum to \(\sum_{d \mid m} \varphi(d)\), which (a) evaluates; rows sum to \(\varphi(d) \lfloor N/d \rfloor\).</p></details>
+<details><summary>Worked answer</summary><p>(a) Each \(\tfrac{k}{m}\) reduces uniquely to \(\tfrac{a}{d}\) in lowest terms, and \(d \mid m\) (write \(k = a \cdot \gcd(k,m)\), \(m = d \cdot \gcd(k,m)\)). Conversely each coprime pair \(a \le d\), \(d \mid m\), comes from exactly one \(\tfrac{k}{m}\), namely \(k = a(m/d)\). Sorting the \(m\) fractions by reduced denominator: denominator \(d\) receives \(\varphi(d)\) of them, and all \(m\) are sorted, so \(\sum_{d \mid m} \varphi(d) = m\). (b) The weighted table's total: by columns, column \(m\) sums to \(\sum_{d \mid m} \varphi(d) = m\) by (a), so the total is \(\sum_{m=1}^{N} m = \tfrac{N(N+1)}{2}\). By rows, row \(d\) has \(\varphi(d)\) sitting at each of the \(\lfloor N/d \rfloor\) multiples of \(d\), contributing \(\varphi(d)\lfloor N/d \rfloor\). Equate. (c) \(N = 6\): \(\varphi = 1, 1, 2, 2, 4, 2\) against \(\lfloor 6/d \rfloor = 6, 3, 2, 1, 1, 1\): \(6 + 3 + 4 + 2 + 4 + 2 = 21 = \tfrac{6 \cdot 7}{2}\) ✓.</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P70.4 (◆ — Pattern-unknown diagnosis: IMO 1998 Problem 2).</strong> In a competition, there are \(a\) contestants and \(b\) judges, where \(b \ge 3\) is an odd integer. Each judge rates each contestant as either "pass" or "fail". Suppose \(k\) is a number such that, for any two judges, their ratings agree on at most \(k\) contestants. Prove that</p>
-    \[
-      \frac{k}{a} \;\ge\; \frac{b - 1}{2b}.
-    \]
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. Pattern diagnosis (<a href="p70-double-counting.html"><span class="pid">P70</span> · Double counting</a> + <a href="p04-complete-the-square.html"><span class="pid">P04</span> · Complete the square</a>).</strong> The hypothesis bounds agreements per <em>pair of judges</em> (\(\le k\) contestants), while we want to relate \(k\) to the total number of <em>contestants</em> \(a\). This is a classic row-vs.-column inequality between the set \(A\) of \(a\) contestants and the set \(B = \binom{\text{Judges}}{2}\) of \(\binom{b}{2}\) unordered pairs of judges. Define the incidence set</p>
-      \[
-        \mathcal{I} \;=\; \bigl\{\bigl(C, \{J_1, J_2\}\bigr) \in A \times B \;:\; \text{judges } J_1 \text{ and } J_2 \text{ give contestant } C \text{ the same rating}\bigr\}.
-      \]
-      <p><strong>2. Upper bound by columns (judge pairs).</strong> There are \(|B| = \binom{b}{2} = \frac{b(b-1)}{2}\) pairs of judges, and each pair agrees on at most \(k\) contestants (\(c(\{J_1, J_2\}) \le k\)). Therefore,</p>
-      \[
-        |\mathcal{I}| \;=\; \sum_{\{J_1, J_2\} \in B} c\bigl(\{J_1, J_2\}\bigr) \;\le\; \binom{b}{2} k \;=\; \frac{b(b - 1)}{2}\,k.
-      \]
-      <p><strong>3. Lower bound by rows (contestants).</strong> Fix a contestant \(C \in A\), and suppose \(x\) judges rate \(C\) "pass" while \(b - x\) judges rate \(C\) "fail". Two judges agree on \(C\) if and only if both say "pass" or both say "fail", so the row sum is</p>
-      \[
-        r(C) \;=\; \binom{x}{2} + \binom{b - x}{2} \;=\; \frac{x(x - 1) + (b - x)(b - x - 1)}{2} \;=\; \frac{2x^2 - 2bx + b(b - 1)}{2}.
-      \]
-      <p>Completing the square in \(x\) (<a href="p04-complete-the-square.html"><span class="pid">P04</span></a>) gives \(2x^2 - 2bx = \frac{1}{2}(2x - b)^2 - \frac{b^2}{2}\). Because \(b\) is an <strong>odd</strong> integer and \(x\) is an integer, \(2x - b\) is a nonzero odd integer, so \((2x - b)^2 \ge 1^2 = 1\)! (Equivalently, the closest split is \(x = \frac{b-1}{2}\) and \(b - x = \frac{b+1}{2}\).) Hence for every contestant \(C\),</p>
-      \[
-        r(C) \;\ge\; \frac{\frac{1}{2}(1) - \frac{b^2}{2} + b(b - 1)}{2} \;=\; \frac{b^2 - 2b + 1}{4} \;=\; \frac{(b - 1)^2}{4}.
-      \]
-      <p>Summing over all \(a\) contestants and comparing with the column upper bound gives</p>
-      \[
-        a \cdot \frac{(b - 1)^2}{4} \;\le\; |\mathcal{I}| \;\le\; \frac{b(b - 1)}{2}\,k \quad\implies\quad \frac{k}{a} \;\ge\; \frac{b - 1}{2b}.
-      \]
-    </details>
-  </div>
+<h3>Exercise 4 ◆</h3>
+<p>A student proposes a bipartite messaging network: 50 servers on the left, 50 clients on the right, 500 connections, engineered so that no two servers share two common clients (the network's protocol forbids it — a four-cycle would create a routing ambiguity). Without inspecting the protocol's implementation, decide whether such a network can exist, and if not, give the largest number of connections the protocol permits.</p>
+<details><summary>Worked answer</summary><p>The network is a \(C_4\)-free bipartite graph with \(m = n = 50\), and Exemplar C's cherry ledger applies: \(|I| \le \binom{50}{2} = 1225\) by the end-pair reading, while the middle reading gives \(|I| = \sum_{r} \binom{d_r}{2} \ge 50\,\binom{e/50}{2}\) by convexity. So \(50 \cdot \tfrac{(e/50)(e/50 - 1)}{2} \le 1225\), i.e. \(e(e - 50) \le 50 \cdot 2450 = 122500\). Solving: \(e \le \tfrac{50 + \sqrt{2500 + 490000}}{2} = 25(1 + \sqrt{197}) \approx 25 \times 15.036 \approx 375.9\), so \(e \le 375\). The proposed \(500\) connections are impossible — the protocol's own rule caps the network at \(375\), about \(25\%\) under the proposal, and no implementation audit is needed: the ledger and the forbidden four-cycle suffice.</p></details>
 
-  <div class="exercise">
-    <p><strong>Exercise P70.5 (◐ — Exploration: Sperner's Lemma via the "Door-in-the-Room" parity double count).</strong></p>
-    <ol>
-      <li><strong>1D Sperner Lemma:</strong> Divide a line segment into \(m\) small subsegments \(I_1, \dots, I_m\) by vertices \(v_0, v_1, \dots, v_m\). Color the left endpoint \(v_0\) with color \(1\), the right endpoint \(v_m\) with color \(2\), and every interior vertex \(v_1, \dots, v_{m-1}\) arbitrarily with color \(1\) or \(2\). Call a subsegment \(I_j\) <em>bichromatic</em> if its two endpoints have different colors \(\{1, 2\}\). By double-counting incidences \((v, I_j)\) where vertex \(v\) has color \(1\) and is an endpoint of \(I_j\), prove that the number of bichromatic subsegments is <strong>odd</strong> (and hence at least \(1\)).</li>
-      <li><strong>2D Sperner Lemma (Cohen's Door-Room Proof, 1967):</strong> Now triangulate a large triangle whose vertices are colored \(1, 2, 3\), and color every vertex of the triangulation with \(\{1, 2, 3\}\). Call a small triangle a "room" and any edge colored \(\{1, 2\}\) a "door". How many \(\{1, 2\}\)-doors can a single triangle room have depending on whether its three vertices are colored \(\{1, 2, 3\}\) (panchromatic) or not? Deduce by double-counting <em>(room, door)</em> incidences modulo \(2\) that if the outer boundary has an odd number of \(\{1, 2\}\)-doors, then the triangulation must contain an <strong>odd number</strong> of panchromatic \(\{1, 2, 3\}\)-triangles!</li>
-    </ol>
-    <details>
-      <summary>Hint</summary>
-      <p>In 1D, a \(\{1, 1\}\)-segment has \(2\) endpoints of color \(1\), a \(\{1, 2\}\)-segment has \(1\), and a \(\{2, 2\}\)-segment has \(0\); meanwhile each interior color-\(1\) vertex touches \(2\) segments while the boundary endpoint \(v_0\) touches \(1\). In 2D, a \(\{1, 2, 3\}\)-triangle has \(1\) door (\(\{1,2\}\)), a \(\{1, 1, 2\}\)- or \(\{1, 2, 2\}\)-triangle has \(2\) doors, and all other triangles have \(0\) doors!</p>
-    </details>
-    <details>
-      <summary>Worked answer</summary>
-      <p><strong>1. 1D Sperner parity double-count.</strong> Let \(\mathcal{I}\) be the set of pairs \((v, I_j)\) where \(v\) is an endpoint of subsegment \(I_j\) and \(\text{color}(v) = 1\):</p>
-      <ul>
-        <li><strong>By subsegments \(I_j\):</strong> A \(\{1, 1\}\)-segment contributes \(2\) to \(|\mathcal{I}|\), a bichromatic \(\{1, 2\}\)-segment contributes \(1\), and a \(\{2, 2\}\)-segment contributes \(0\). Thus \(|\mathcal{I}| \equiv \#\{\text{bichromatic } \{1,2\}\text{-segments}\} \pmod 2\).</li>
-        <li><strong>By vertices \(v\):</strong> Every interior vertex \(v_1, \dots, v_{m-1}\) of color \(1\) belongs to \(2\) adjacent segments (contributing \(2 \equiv 0 \pmod 2\)), the right endpoint \(v_m\) has color \(2\) (contributing \(0\)), and the left endpoint \(v_0\) has color \(1\) and belongs to \(1\) segment (contributing \(1\)). Thus \(|\mathcal{I}| \equiv 1 \pmod 2\).</li>
-      </ul>
-      <p>Equating the two parities proves that the number of \(\{1, 2\}\)-segments is odd (and hence \(\ge 1\)).</p>
-      <p><strong>2. 2D Door-Room double-count.</strong> Let \(\mathcal{I}\) be the set of incidences \((t, e)\) where \(t\) is a triangle room and \(e\) is a \(\{1, 2\}\)-door on the boundary of \(t\):</p>
-      <ul>
-        <li><strong>By triangle rooms \(t\):</strong> A panchromatic \(\{1, 2, 3\}\)-triangle has <em>exactly \(1\)</em> \(\{1, 2\}\)-door; a \(\{1, 1, 2\}\)- or \(\{1, 2, 2\}\)-triangle has <em>\(2\)</em> \(\{1, 2\}\)-doors; and all other triangles have \(0\). Thus \(|\mathcal{I}| \equiv \#\{\text{panchromatic } \{1,2,3\}\text{-triangles}\} \pmod 2\).</li>
-        <li><strong>By \(\{1, 2\}\)-doors \(e\):</strong> Every <em>interior</em> \(\{1, 2\}\)-door belongs to \(2\) triangles (contributing \(2 \equiv 0 \pmod 2\)), while every <em>boundary</em> \(\{1, 2\}\)-door belongs to \(1\) triangle (contributing \(1\)). Thus \(|\mathcal{I}| \equiv \#\{\text{boundary } \{1,2\}\text{-doors}\} \pmod 2\).</li>
-      </ul>
-      <p>By Part 1, the bottom boundary side of the large triangle (between vertex \(1\) and vertex \(2\)) has an odd number of \(\{1, 2\}\)-doors, so the number of panchromatic \(\{1, 2, 3\}\)-triangles inside is odd — and therefore at least \(1\)!</p>
-    </details>
-  </div>
+<h3>Exercise 5 ◐</h3>
+<p>(a) One-dimensional Sperner: the points \(v_0, v_1, \ldots, v_m\) are arranged on a segment in order, each colored \(1\) or \(2\), with \(v_0\) colored \(1\) and \(v_m\) colored \(2\). Call subsegment \(I_j = [v_{j-1}, v_j]\) <em>bichromatic</em> if its endpoints differ. Prove the number of bichromatic subsegments is odd — in particular, at least one exists. (b) Two-dimensional doors: a large triangle has its corners colored \(1, 2, 3\); a triangulation's vertices are each colored \(1, 2, 3\) arbitrarily. Call a small triangle <em>panchromatic</em> if its three vertices carry all three colors, and an edge a \(12\)-<em>door</em> if its endpoints are colored \(1\) and \(2\). Prove: if the big triangle's boundary contains an odd number of \(12\)-doors, the triangulation contains an odd number of panchromatic triangles.</p>
+<details><summary>Hint</summary><p>For (a): count pairs (vertex colored \(1\), subsegment it touches) two ways — by subsegments, a \(11\)-segment carries \(2\), a \(12\)-segment carries \(1\), a \(22\)-segment carries \(0\); by vertices, interior color-1 vertices touch \(2\) segments and \(v_0\) touches \(1\). For (b): a panchromatic triangle has exactly \(1\) door; a triangle colored \(\{1,1,2\}\) or \(\{1,2,2\}\) has \(2\); all others have \(0\) — count (triangle, door) incidences mod 2, and note interior doors belong to two triangles.</p></details>
+<details><summary>Worked answer</summary><p>(a) Let \(N\) be the number of pairs \((v, I_j)\) with \(v\) an endpoint of \(I_j\) colored \(1\). By subsegments: a \(11\)-segment contributes \(2\), a \(12\)-segment \(1\), a \(22\)-segment \(0\) — so \(N \equiv (\text{number of } 12\text{-segments}) \pmod 2\). By vertices: an interior color-1 vertex ends two subsegments (\(2 \equiv 0\)), \(v_m\) is colored \(2\), and \(v_0\) is colored \(1\) and ends one segment — so \(N \equiv 1 \pmod 2\). The number of bichromatic subsegments is odd. (b) Let \(N\) be the number of (triangle, \(12\)-door on its boundary) incidences. By triangles: panchromatic contributes \(1\), \(\{1,1,2\}\) or \(\{1,2,2\}\) contributes \(2 \equiv 0\), others \(0\) — so \(N \equiv \#\text{panchromatic} \pmod 2\). By doors: an interior \(12\)-door borders \(2\) triangles (\(\equiv 0\)), a boundary door borders \(1\). So \(\#\text{panchromatic} \equiv \#\text{boundary } 12\text{-doors} \pmod 2\), which is odd by hypothesis (the bottom side, between corners \(1\) and \(2\), is itself such a boundary by part (a) applied to that side's vertices). Odd means at least one: every such triangulation contains a panchromatic triangle — Sperner's lemma in two dimensions, proved entirely by parity bookkeeping.</p></details>
 </section>
 
 <footer>
-  <nav>
-    <a href="index.html">← Atlas index</a> ·
-    <a href="p69-telescoping.html">← Previous: P69 · Telescoping</a> ·
-    <a href="p71-extremal-principle.html">Next: P71 · The extremal principle →</a>
-  </nav>
+<p><a href="index.html">Return to the index</a> · Next move: <a href="p71-extremal-principle.html">P71 · The extremal principle</a></p>
 </footer>
-</main>
 </body>
 </html>
